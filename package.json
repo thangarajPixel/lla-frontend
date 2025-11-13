@@ -1,0 +1,46 @@
+{
+  "name": "nextjs-boilerplate",
+  "version": "1.0.0",
+  "description": "Next.js 16 boilerplate with SWR, Biome, Husky, and Tailwind CSS",
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev",
+    "format": "biome format --write .",
+    "lint": "biome lint .",
+    "lint:fix": "biome lint --write .",
+    "check": "biome check .",
+    "check:fix": "biome check --write .",
+    "prepare": "husky install",
+    "start": "next start",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.2.4",
+    "@tailwindcss/postcss": "^4.1.16",
+    "@tanstack/react-query": "latest",
+    "axios": "latest",
+    "babel-plugin-react-compiler": "^1.0.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.454.0",
+    "next": "^16.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "swr": "latest",
+    "tailwind-merge": "^2.5.5",
+    "tailwindcss": "^4.1.9",
+    "tailwindcss-animate": "^1.0.7",
+    "tw-animate-css": "latest"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/node": "^22",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "autoprefixer": "^10.4.0",
+    "husky": "^9.1.0",
+    "lint-staged": "^15.2.0",
+    "postcss": "^8.5",
+    "typescript": "^5"
+  }
+}
