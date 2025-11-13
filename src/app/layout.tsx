@@ -30,11 +30,11 @@ export default function RootLayout({
   children: React.ReactNode
 }): React.ReactElement {
   return (
-    <html lang="en"  className={`${urbanist.variable}`}>
+    <html lang="en"  className={`${urbanist.variable} ${mulish.variable}`}>
       <body>
         <Providers>
           <Header/>
-          <main>
+          <main className="font-urbanist">
              {children}
           </main>
           <Footer/>
