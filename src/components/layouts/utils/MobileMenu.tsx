@@ -3,8 +3,9 @@
 import { DialogContent, DialogTitle } from "@radix-ui/react-dialog";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { ArrowRight, TopArrowIcon } from "@/helpers/ImageHelper";
+import { XIcon } from "lucide-react";
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { ArrowRight, Logo, LogoBlack, TopArrowIcon } from "@/helpers/ImageHelper";
 import ButtonWidget from "../../widgets/ButtonWidget";
 import ImageWidget from "../../widgets/ImageWidget";
 import LinkWidget from "../../widgets/LinkWidget";
@@ -61,25 +62,35 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
       </SheetTrigger>
       <SheetContent
         side="top"
-        className={`w-full! max-w-full! overflow-y-auto p-0 h-auto max-h-[90vh] transition-all duration-300 ${isSticky
+        className={`w-full! max-w-full! overflow-y-auto p-0 h-auto max-h-[90vh] transition-all duration-300 [&_button.absolute]:hidden ${isSticky
           ? "bg-white text-black border-b border-black/10"
           : "bg-black text-white border-b border-white/10"
           }`}
       >
-        <DialogTitle> </DialogTitle>
-        <DialogContent></DialogContent>
+        <DialogTitle className="hidden" />
+        <DialogContent className="hidden" />
         <div className="flex flex-col h-full">
           <div
             className={`px-6 py-6 border-b ${isSticky ? "border-black/10" : "border-white/10"
               }`}
           >
-            <div className="flex items-center justify-between">
-              <h2
-                className={`text-lg font-semibold ${isSticky ? "text-black" : "text-white"
-                  }`}
-              >
-                Menu
-              </h2>
+            <div className="flex items-center justify-between w-full">
+              <LinkWidget href="/" onClick={() => setIsSheetOpen(false)}>
+                <ImageWidget
+                  src={isSticky ? LogoBlack : Logo}
+                  alt="Logo"
+                  className="w-60 sm:w-40 md:w-48 lg:w-56 xl:w-64 2xl:w-80 3xl:w-[348px] h-auto"
+                />
+              </LinkWidget>
+              <SheetClose asChild>
+                <ButtonWidget
+                  className={`p-2 bg-transparent hover:bg-transparent transition-all duration-300 rounded-lg ${isSticky ? "text-black" : "text-white"
+                    }`}
+                  aria-label="Close menu"
+                >
+                  <XIcon className="w-6 h-6" />
+                </ButtonWidget>
+              </SheetClose>
             </div>
           </div>
 
