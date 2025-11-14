@@ -39,7 +39,7 @@ const MobileMenu = ({ menuItems }: MobileMenuProps) => {
     <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
       <SheetTrigger asChild className="lg:hidden">
         <ButtonWidget
-          className="p-2.5 hover:bg-[#E97451]/10 transition-all duration-300 rounded-lg"
+          className="p-2.5 bg-transparent hover:bg-transparent transition-all duration-300 rounded-lg"
           aria-label="Open menu"
         >
           <div className="flex flex-col gap-1.5 w-6">

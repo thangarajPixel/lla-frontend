@@ -42,10 +42,10 @@ const WebHeader = () => {
   ): item is DropdownMenuType => "items" in item;
 
   return (
-    <header className="w-full bg-black text-white">
+    <header className="w-full bg-transparent text-white absolute top-0 left-0 z-50">
       <nav>
         <ContainerWidget>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between py-3">
             <LinkWidget href="/">
               <ImageWidget
                 src={Logo}
