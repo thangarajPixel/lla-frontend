@@ -2,7 +2,7 @@
 
 import { DialogContent, DialogTitle } from "@radix-ui/react-dialog";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ArrowRight, TopArrowIcon } from "@/helpers/ImageHelper";
 import ButtonWidget from "../../widgets/ButtonWidget";
@@ -29,6 +29,12 @@ const MobileMenu = ({ menuItems }: MobileMenuProps) => {
     setOpenMobileDropdown(openMobileDropdown === menuId ? null : menuId);
   };
 
+  useEffect(() => {
+    if (isSheetOpen) {
+      setOpenMobileDropdown(null);
+    }
+  }, [isSheetOpen]);
+
   return (
     <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
       <SheetTrigger asChild className="lg:hidden">
@@ -44,8 +50,8 @@ const MobileMenu = ({ menuItems }: MobileMenuProps) => {
         </ButtonWidget>
       </SheetTrigger>
       <SheetContent
-        side="right"
-        className="w-full! max-w-full! bg-black text-white border-l border-white/10 overflow-y-auto p-0"
+        side="top"
+        className="w-full! max-w-full! bg-black text-white border-b border-white/10 overflow-y-auto p-0 h-auto max-h-[90vh]"
       >
         <DialogTitle> </DialogTitle>
         <DialogContent></DialogContent>
