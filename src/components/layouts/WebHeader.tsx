@@ -65,12 +65,13 @@ const WebHeader = () => {
 
   return (
     <header
-      className={`w-full z-50 transition-all duration-300 ${isHomePage
-        ? isSticky
-          ? "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
-          : "absolute top-0 left-0 bg-transparent text-white"
-        : "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
-        }`}
+      className={`w-full z-50 transition-all duration-300 ${
+        isHomePage
+          ? isSticky
+            ? "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
+            : "absolute top-0 left-0 bg-transparent text-white"
+          : "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
+      }`}
     >
       <nav>
         <ContainerWidget>
@@ -79,7 +80,7 @@ const WebHeader = () => {
               <ImageWidget
                 src={isHomePage ? (isSticky ? LogoBlack : Logo) : LogoBlack}
                 alt="Logo"
-                className="mt-2 md:mt-0 w-60 sm:w-60 md:w-40 lg:w-48 xl:w-56 2xl:w-64 3xl:w-[348px] h-auto"
+                className="mt-2 md:mt-0 w-60 2xl:w-64 3xl:w-[348px] h-auto"
               />
             </LinkWidget>
 
