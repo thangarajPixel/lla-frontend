@@ -24,4 +24,3 @@ export type DropdownMenuProps = {
 export type ChevronIconProps = {
   isOpen: boolean;
 };
-

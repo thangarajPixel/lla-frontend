@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { TopArrowIcon } from "@/helpers/ImageHelper";
 import ImageWidget from "../../widgets/ImageWidget";
 import LinkWidget from "../../widgets/LinkWidget";
-import type { DropdownMenuProps, ChevronIconProps } from "./types";
+import type { ChevronIconProps, DropdownMenuProps } from "./types";
 
 const ACTIVE_COLOR = "text-[#E97451]";
 const NAV_LINK_CLASS = "transition-colors";
@@ -29,7 +29,11 @@ const DropdownMenu = ({
   const isActive = pathname.startsWith(menu.pathPrefix);
 
   return (
-    <li className="relative" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+    <li
+      className="relative"
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       <div
         className={`flex items-center hover:opacity-80 transition-opacity cursor-pointer ${
           isActive ? ACTIVE_COLOR : ""
@@ -65,4 +69,3 @@ const DropdownMenu = ({
 };
 
 export default DropdownMenu;
-

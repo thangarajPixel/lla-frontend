@@ -6,9 +6,10 @@ import ButtonWidget from "../widgets/ButtonWidget";
 import ContainerWidget from "../widgets/ContainerWidget";
 import ImageWidget from "../widgets/ImageWidget";
 import LinkWidget from "../widgets/LinkWidget";
-import NavLink from "./utils/NavLink";
 import DropdownMenu from "./utils/DropdownMenu";
-import type { MenuItem, DropdownMenu as DropdownMenuType } from "./utils/types";
+import MobileMenu from "./utils/MobileMenu";
+import NavLink from "./utils/NavLink";
+import type { DropdownMenu as DropdownMenuType, MenuItem } from "./utils/types";
 
 const menuItems: (MenuItem | DropdownMenuType)[] = [
   { href: "/about-us", label: "About us" },
@@ -34,11 +35,11 @@ const menuItems: (MenuItem | DropdownMenuType)[] = [
 ];
 
 const WebHeader = () => {
-  
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
-  const isDropdown = (item: MenuItem | DropdownMenuType): item is DropdownMenuType =>
-    "items" in item;
+  const isDropdown = (
+    item: MenuItem | DropdownMenuType,
+  ): item is DropdownMenuType => "items" in item;
 
   return (
     <header className="w-full bg-black text-white">
@@ -52,7 +53,8 @@ const WebHeader = () => {
                 className="3xl:w-[348px] 3xl:h-[69px]"
               />
             </LinkWidget>
-            <ul className="flex items-center gap-8 text-xs 2xl:text-[14px] 3xl:text-[18px]">
+
+            <ul className="hidden lg:flex items-center gap-8 text-xs 2xl:text-[14px] 3xl:text-[18px]">
               {menuItems.map((item) => {
                 if (isDropdown(item)) {
                   const menuId = item.label.toLowerCase();
@@ -83,6 +85,7 @@ const WebHeader = () => {
                 </ButtonWidget>
               </li>
             </ul>
+            <MobileMenu menuItems={menuItems} />
           </div>
         </ContainerWidget>
       </nav>
