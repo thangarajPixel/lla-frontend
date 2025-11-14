@@ -1,5 +1,5 @@
 const TestimonialSection = () => {
-  return <section>TestimonialSection</section>;
+  return <section className="w-full h-screen flex items-center justify-center">TestimonialSection</section>;
 };
 
 export default TestimonialSection;

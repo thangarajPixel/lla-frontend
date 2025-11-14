@@ -1,5 +1,5 @@
 const AboutSection = () => {
-  return <section>AboutSection</section>;
+  return <section className="w-full h-screen flex items-center justify-center">AboutSection</section>;
 };
 
 export default AboutSection;

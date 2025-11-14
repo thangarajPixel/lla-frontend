@@ -1,5 +1,5 @@
 const FacultySection = () => {
-  return <section>FacultySection</section>;
+  return <section className="w-full h-screen flex items-center justify-center">FacultySection</section>;
 };
 
 export default FacultySection;

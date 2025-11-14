@@ -1,5 +1,5 @@
 const GallertSection = () => {
-  return <section>GallertSection</section>;
+  return <section className="w-full h-screen flex items-center justify-center">GallertSection</section>;
 };
 
 export default GallertSection;
