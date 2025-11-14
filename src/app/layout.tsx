@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Mulish, Urbanist } from "next/font/google";
 import WebFooter from "@/components/layouts/WebFooter";
 import WebHeader from "@/components/layouts/WebHeader";
+import SmoothScrollWidget from "@/components/widgets/SmoothScrollWidget";
 import "./globals.css";
 
 const mulish = Mulish({
@@ -27,13 +28,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className="scroll-smooth">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${mulish.variable} ${urbanist.variable} antialiased flex flex-col min-h-screen`}
       >
-        <WebHeader />
-        <main className="flex-1 w-full">{children}</main>
-        <WebFooter />
+        <SmoothScrollWidget>
+          <WebHeader />
+          <main className="flex-1 w-full">{children}</main>
+          <WebFooter />
+        </SmoothScrollWidget>
       </body>
     </html>
   );
