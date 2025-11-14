@@ -19,7 +19,8 @@ const urbanist = Urbanist({
 
 export const metadata: Metadata = {
   title: "Light & Life Academy art and science of photography",
-  description: "The Art and Science of Photography is a comprehensive program that teaches students the art and science of photography. It is a two-year program that is designed to prepare students for a career in photography.",
+  description:
+    "The Art and Science of Photography is a comprehensive program that teaches students the art and science of photography. It is a two-year program that is designed to prepare students for a career in photography.",
 };
 
 export default function RootLayout({

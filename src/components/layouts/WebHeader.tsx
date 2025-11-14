@@ -65,12 +65,13 @@ const WebHeader = () => {
 
   return (
     <header
-      className={`w-full z-50 transition-all duration-300 ${isHomePage
-        ? isSticky
-          ? "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
-          : "absolute top-0 left-0 bg-transparent text-white"
-        : "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
-        }`}
+      className={`w-full z-50 transition-all duration-300 ${
+        isHomePage
+          ? isSticky
+            ? "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
+            : "absolute top-0 left-0 bg-transparent text-white"
+          : "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
+      }`}
     >
       <nav>
         <ContainerWidget>
