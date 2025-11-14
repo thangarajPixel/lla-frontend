@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-boilerplate",
+  "name": "LLA-Frontend",
   "version": "1.0.0",
   "description": "Next.js 16 boilerplate with SWR, Biome, Husky, and Tailwind CSS",
   "scripts": {
