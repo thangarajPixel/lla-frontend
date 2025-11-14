@@ -61,7 +61,7 @@ const DropdownMenu = ({
             <li key={item.href}>
               <LinkWidget
                 href={item.href}
-                className={`block px-4 py-2 ${NAV_LINK_CLASS} ${
+                className={`block px-4 py-2 whitespace-nowrap ${NAV_LINK_CLASS} ${
                   pathname === item.href
                     ? ACTIVE_COLOR
                     : isSticky

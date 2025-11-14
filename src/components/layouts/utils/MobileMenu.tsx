@@ -10,10 +10,10 @@ import ImageWidget from "../../widgets/ImageWidget";
 import LinkWidget from "../../widgets/LinkWidget";
 import type { DropdownMenu as DropdownMenuType, MenuItem } from "./types";
 
-interface MobileMenuProps {
+type MobileMenuProps = {
   menuItems: (MenuItem | DropdownMenuType)[];
   isSticky?: boolean;
-}
+};
 
 const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
   const pathname = usePathname();

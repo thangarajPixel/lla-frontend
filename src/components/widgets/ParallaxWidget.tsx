@@ -8,14 +8,14 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-export interface ParallaxWidgetProps {
+export type ParallaxWidgetProps = {
   children: ReactNode;
   className?: string;
   speed?: number;
   start?: string;
   end?: string;
   scrub?: number;
-}
+};
 
 const ParallaxWidget = ({
   children,

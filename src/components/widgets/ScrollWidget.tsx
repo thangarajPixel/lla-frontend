@@ -8,7 +8,7 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-export interface ScrollWidgetProps {
+export type ScrollWidgetProps = {
   children: ReactNode;
   className?: string;
   animation?:
@@ -27,7 +27,7 @@ export interface ScrollWidgetProps {
   scrub?: boolean;
   once?: boolean;
   markers?: boolean;
-}
+};
 
 const ScrollWidget = ({
   children,
