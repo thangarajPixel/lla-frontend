@@ -24,7 +24,7 @@ const HeroSection = () => {
         className="relative z-10 mix-blend-difference"
       >
         <ScrollWidget>
-          <div className="flex items-center justify-center mt-[120px]">
+          <div className="flex items-center justify-center mt-[150px] sm:mt-[120px]">
             <ContainerWidget>
               <h1 className="font-urbanist font-normal mb-6 text-white text-4xl sm:max-w-[850px] sm:text-[60px] sm:leading-[60px] lg:text-[90px] lg:leading-[90px] 3xl:text-[112px]">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed.
