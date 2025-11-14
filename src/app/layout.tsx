@@ -1,13 +1,18 @@
 export const dynamic = "force-dynamic";
 
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Mulish, Urbanist } from "next/font/google";
 import WebFooter from "@/components/layouts/WebFooter";
 import WebHeader from "@/components/layouts/WebHeader";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const mulish = Mulish({
+  variable: "--font-mulish",
+  subsets: ["latin"],
+});
+
+const urbanist = Urbanist({
+  variable: "--font-urbanist",
   subsets: ["latin"],
 });
 
@@ -24,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} antialiased flex flex-col min-h-screen`}
+        className={`${mulish.variable} ${urbanist.variable} antialiased flex flex-col min-h-screen`}
       >
         <WebHeader />
         <main className="flex-1 w-full">{children}</main>
