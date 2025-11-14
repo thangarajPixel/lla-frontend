@@ -12,9 +12,10 @@ import type { DropdownMenu as DropdownMenuType, MenuItem } from "./types";
 
 interface MobileMenuProps {
   menuItems: (MenuItem | DropdownMenuType)[];
+  isSticky?: boolean;
 }
 
-const MobileMenu = ({ menuItems }: MobileMenuProps) => {
+const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
   const pathname = usePathname();
   const [openMobileDropdown, setOpenMobileDropdown] = useState<string | null>(
     null,
@@ -43,22 +44,48 @@ const MobileMenu = ({ menuItems }: MobileMenuProps) => {
           aria-label="Open menu"
         >
           <div className="flex flex-col gap-1.5 w-6">
-            <span className="block h-0.5 w-full bg-white transition-all duration-300" />
-            <span className="block h-0.5 w-full bg-white transition-all duration-300" />
-            <span className="block h-0.5 w-full bg-white transition-all duration-300" />
+            <span
+              className={`block h-0.5 w-full transition-all duration-300 ${
+                isSticky ? "bg-black" : "bg-white"
+              }`}
+            />
+            <span
+              className={`block h-0.5 w-full transition-all duration-300 ${
+                isSticky ? "bg-black" : "bg-white"
+              }`}
+            />
+            <span
+              className={`block h-0.5 w-full transition-all duration-300 ${
+                isSticky ? "bg-black" : "bg-white"
+              }`}
+            />
           </div>
         </ButtonWidget>
       </SheetTrigger>
       <SheetContent
         side="top"
-        className="w-full! max-w-full! bg-black text-white border-b border-white/10 overflow-y-auto p-0 h-auto max-h-[90vh]"
+        className={`w-full! max-w-full! overflow-y-auto p-0 h-auto max-h-[90vh] transition-all duration-300 ${
+          isSticky
+            ? "bg-white text-black border-b border-black/10"
+            : "bg-black text-white border-b border-white/10"
+        }`}
       >
         <DialogTitle> </DialogTitle>
         <DialogContent></DialogContent>
         <div className="flex flex-col h-full">
-          <div className="px-6 py-6 border-b border-white/10">
+          <div
+            className={`px-6 py-6 border-b ${
+              isSticky ? "border-black/10" : "border-white/10"
+            }`}
+          >
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-white">Menu</h2>
+              <h2
+                className={`text-lg font-semibold ${
+                  isSticky ? "text-black" : "text-white"
+                }`}
+              >
+                Menu
+              </h2>
             </div>
           </div>
 
@@ -71,7 +98,9 @@ const MobileMenu = ({ menuItems }: MobileMenuProps) => {
                 return (
                   <div
                     key={menuId}
-                    className="flex flex-col border-b border-white/10 last:border-0"
+                    className={`flex flex-col border-b last:border-0 ${
+                      isSticky ? "border-black/10" : "border-white/10"
+                    }`}
                   >
                     <button
                       type="button"
@@ -79,7 +108,9 @@ const MobileMenu = ({ menuItems }: MobileMenuProps) => {
                       className={`flex items-center justify-between text-left py-4 transition-all duration-300 ${
                         isActive
                           ? "text-[#E97451]"
-                          : "text-white hover:text-[#E97451]"
+                          : isSticky
+                            ? "text-black hover:text-[#E97451]"
+                            : "text-white hover:text-[#E97451]"
                       }`}
                     >
                       <span className="text-base font-medium">
@@ -89,8 +120,8 @@ const MobileMenu = ({ menuItems }: MobileMenuProps) => {
                         src={TopArrowIcon}
                         alt="Arrow"
                         className={`w-[13px] h-[13px] transition-transform duration-500 ease-out ${
-                          isOpen ? "rotate-180" : "rotate-0"
-                        }`}
+                          isSticky ? "brightness-0" : ""
+                        } ${isOpen ? "rotate-180" : "rotate-0"}`}
                       />
                     </button>
                     <div
@@ -109,7 +140,9 @@ const MobileMenu = ({ menuItems }: MobileMenuProps) => {
                               className={`block py-3 text-sm transition-all duration-300 ${
                                 isSubItemActive
                                   ? "text-[#E97451]"
-                                  : "text-white/80 hover:text-[#E97451]"
+                                  : isSticky
+                                    ? "text-black/80 hover:text-[#E97451]"
+                                    : "text-white/80 hover:text-[#E97451]"
                               }`}
                             >
                               {subItem.label}
@@ -127,10 +160,14 @@ const MobileMenu = ({ menuItems }: MobileMenuProps) => {
                   key={item.href}
                   href={item.href}
                   onClick={() => setIsSheetOpen(false)}
-                  className={`flex items-center py-4 text-base font-medium transition-all duration-300 border-b border-white/10 last:border-0 ${
+                  className={`flex items-center py-4 text-base font-medium transition-all duration-300 border-b last:border-0 ${
+                    isSticky ? "border-black/10" : "border-white/10"
+                  } ${
                     isItemActive
                       ? "text-[#E97451]"
-                      : "text-white hover:text-[#E97451]"
+                      : isSticky
+                        ? "text-black hover:text-[#E97451]"
+                        : "text-white hover:text-[#E97451]"
                   }`}
                 >
                   {item.label}
@@ -139,7 +176,11 @@ const MobileMenu = ({ menuItems }: MobileMenuProps) => {
             })}
           </div>
 
-          <div className="px-6 pt-6 pb-6 border-t border-white/10">
+          <div
+            className={`px-6 pt-6 pb-6 border-t ${
+              isSticky ? "border-black/10" : "border-white/10"
+            }`}
+          >
             <ButtonWidget
               className="orange-button group rounded-[60px] px-6 py-3.5 text-sm w-full justify-center font-semibold transition-all duration-300 hover:scale-[1.02]"
               onClick={() => setIsSheetOpen(false)}

@@ -19,8 +19,10 @@ export type DropdownMenuProps = {
   isOpen: boolean;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
+  isSticky?: boolean;
 };
 
 export type ChevronIconProps = {
   isOpen: boolean;
+  isSticky?: boolean;
 };

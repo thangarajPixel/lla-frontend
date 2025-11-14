@@ -3,7 +3,7 @@ import LinkWidget from "../../widgets/LinkWidget";
 import type { NavLinkProps } from "./types";
 
 const ACTIVE_COLOR = "text-[#E97451]";
-const NAV_LINK_CLASS = "transition-colors";
+const NAV_LINK_CLASS = "";
 
 const NavLink = ({ href, children }: NavLinkProps) => {
   const pathname = usePathname();

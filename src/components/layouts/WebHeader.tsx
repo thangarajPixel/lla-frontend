@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { ArrowRight, Logo } from "@/helpers/ImageHelper";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { ArrowRight, Logo, LogoBlack } from "@/helpers/ImageHelper";
 import ButtonWidget from "../widgets/ButtonWidget";
 import ContainerWidget from "../widgets/ContainerWidget";
 import ImageWidget from "../widgets/ImageWidget";
@@ -35,20 +36,49 @@ const menuItems: (MenuItem | DropdownMenuType)[] = [
 ];
 
 const WebHeader = () => {
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [isSticky, setIsSticky] = useState(false);
+
+  useEffect(() => {
+    if (!isHomePage) {
+      setIsSticky(true);
+      return;
+    }
+
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const viewportHeight = window.innerHeight;
+      setIsSticky(scrollPosition > viewportHeight);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isHomePage]);
 
   const isDropdown = (
     item: MenuItem | DropdownMenuType,
   ): item is DropdownMenuType => "items" in item;
 
   return (
-    <header className="w-full bg-transparent text-white absolute top-0 left-0 z-50">
+    <header
+      className={`w-full z-50 transition-all duration-300 ${
+        isHomePage
+          ? isSticky
+            ? "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
+            : "absolute top-0 left-0 bg-transparent text-white"
+          : "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
+      }`}
+    >
       <nav>
         <ContainerWidget>
           <div className="flex items-center justify-between py-3 pt-2!">
             <LinkWidget href="/">
               <ImageWidget
-                src={Logo}
+                src={isHomePage ? (isSticky ? LogoBlack : Logo) : LogoBlack}
                 alt="Logo"
                 className="w-60 sm:w-60 md:w-40 lg:w-48 xl:w-56 2xl:w-64 3xl:w-[348px] h-auto"
               />
@@ -65,6 +95,7 @@ const WebHeader = () => {
                       isOpen={openDropdown === menuId}
                       onMouseEnter={() => setOpenDropdown(menuId)}
                       onMouseLeave={() => setOpenDropdown(null)}
+                      isSticky={isHomePage ? isSticky : true}
                     />
                   );
                 }
@@ -85,7 +116,10 @@ const WebHeader = () => {
                 </ButtonWidget>
               </li>
             </ul>
-            <MobileMenu menuItems={menuItems} />
+            <MobileMenu
+              menuItems={menuItems}
+              isSticky={isHomePage ? isSticky : true}
+            />
           </div>
         </ContainerWidget>
       </nav>
