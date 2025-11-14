@@ -17,6 +17,10 @@ body {
   --breakpoint-3xl: 1920px;
 }
 
+.font-urbanist {
+  font-family: var(--font-urbanist), sans-serif;
+}
+
 :root {
   --radius: 0.625rem;
   --card: oklch(1 0 0);

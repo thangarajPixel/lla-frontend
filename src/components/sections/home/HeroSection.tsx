@@ -15,13 +15,11 @@ const HeroSection = () => {
         <source src="/dummy.mp4" type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-black/40" />
-      <div className="relative z-10 flex items-center justify-center h-full">
+      <div className=" z-10 flex items-center justify-center mt-[120px]">
         <ContainerWidget>
-          <div className="text-center text-white">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
-              Welcome to Our Institution
-            </h1>
-          </div>
+          <h1 className="font-urbanist font-normal mb-6 text-white mix-blend-difference text-4xl sm:max-w-[850px] sm:text-[60px] sm:leading-[60px] lg:text-[90px] lg:leading-[90px] 3xl:text-[112px]">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed.
+          </h1>
         </ContainerWidget>
       </div>
     </section>

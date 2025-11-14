@@ -45,12 +45,12 @@ const WebHeader = () => {
     <header className="w-full bg-transparent text-white absolute top-0 left-0 z-50">
       <nav>
         <ContainerWidget>
-          <div className="flex items-center justify-between py-3">
+          <div className="flex items-center justify-between py-3 pt-2!">
             <LinkWidget href="/">
               <ImageWidget
                 src={Logo}
                 alt="Logo"
-                className="3xl:w-[348px] 3xl:h-[69px]"
+                className="w-60 sm:w-60 md:w-40 lg:w-48 xl:w-56 2xl:w-64 3xl:w-[348px] h-auto"
               />
             </LinkWidget>
 
