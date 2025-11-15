@@ -7,13 +7,13 @@ const WebFooter = () => {
 
   return (
     <footer
-      className="w-full bg-cover bg-center bg-no-repeat h-[1100px] bg-black"
+      className="w-full bg-cover bg-center bg-no-repeat h-[1300px] bg-black"
       style={{
         backgroundImage: `url(${bgImageUrl})`,
       }}
     >
       <ContainerWidget>
-        <div className="container mx-auto px-4 py-4 text-white">Footer</div>
+        <div className="container mx-auto py-4 text-white">Footer</div>
       </ContainerWidget>
     </footer>
   );
