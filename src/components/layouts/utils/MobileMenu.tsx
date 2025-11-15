@@ -203,7 +203,7 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
             }`}
           >
             <ButtonWidget
-              className="orange-button group rounded-[60px] px-6 py-3.5 text-sm w-full justify-center font-semibold transition-all duration-300 hover:scale-[1.02]"
+              className="orange-button group rounded-[60px] px-6 py-3.5 h-10 text-sm w-full justify-center font-semibold transition-all duration-300"
               onClick={() => setIsSheetOpen(false)}
             >
               Admission Open
