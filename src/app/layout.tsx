@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 
 import type { Metadata } from "next";
 import { Mulish, Urbanist } from "next/font/google";
+import MainContent from "@/components/layouts/utils/MainContent";
 import WebFooter from "@/components/layouts/WebFooter";
 import WebHeader from "@/components/layouts/WebHeader";
 import SmoothScrollWidget from "@/components/widgets/SmoothScrollWidget";
@@ -18,9 +19,9 @@ const urbanist = Urbanist({
 });
 
 export const metadata: Metadata = {
-  title: "Light & Life Academy art and science of photography",
+  title: "Premier College for Professional Photography in India | LLA",
   description:
-    "The Art and Science of Photography is a comprehensive program that teaches students the art and science of photography. It is a two-year program that is designed to prepare students for a career in photography.",
+    "Founded in 2001, Light &amp; Life Academy is India’s first and only custom designed Professional Photography Institute. Admissions Open for 2025-26",
 };
 
 export default function RootLayout({
@@ -35,7 +36,7 @@ export default function RootLayout({
       >
         <SmoothScrollWidget>
           <WebHeader />
-          <main className="flex-1 w-full">{children}</main>
+          <MainContent>{children}</MainContent>
           <WebFooter />
         </SmoothScrollWidget>
       </body>
