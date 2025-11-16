@@ -21,9 +21,9 @@ const CourseSection = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-7 2xl:gap-6">
             <div className="space-y-4 md:space-y-4 lg:space-y-5 xl:space-y-6">
-              <ScrollWidget animation="fadeUp">
+              <ScrollWidget animation="scale" delay={0.1}>
                 <ParallaxWidget
-                  speed={0.3}
+                  speed={0.4}
                   className="relative w-full aspect-4/3 overflow-hidden"
                 >
                   <ImageWidget
@@ -34,9 +34,9 @@ const CourseSection = () => {
                   />
                 </ParallaxWidget>
               </ScrollWidget>
-              <ScrollWidget animation="fadeUp" delay={0.2}>
+              <ScrollWidget animation="slideLeft" delay={0.3}>
                 <ParallaxWidget
-                  speed={-0.2}
+                  speed={-0.25}
                   className="space-y-3 md:space-y-3 lg:space-y-4 md:ml-[-20px] lg:ml-[-35px] xl:ml-[-64px] 3xl:ml-[-78px] md:mt-[-30px] lg:mt-[-45px] xl:mt-[-65px] 3xl:mt-[-79px] relative z-10 w-full md:max-w-[300px] lg:max-w-[340px] xl:max-w-[370px] 2xl:max-w-[370px] 3xl:max-w-[470px]"
                 >
                   <h3 className="text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[32px] 3xl:text-[40px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
@@ -51,9 +51,9 @@ const CourseSection = () => {
               </ScrollWidget>
             </div>
             <div className="space-y-4 md:space-y-4 lg:space-y-5 xl:space-y-6 md:mt-28 lg:mt-26 xl:mt-16 2xl:mt-34 3xl:mt-44">
-              <ScrollWidget animation="fadeUp" delay={0.1}>
+              <ScrollWidget animation="fadeDown" delay={0.2}>
                 <ParallaxWidget
-                  speed={0.3}
+                  speed={0.35}
                   className="relative w-full aspect-4/3 overflow-hidden"
                 >
                   <ImageWidget
@@ -64,9 +64,9 @@ const CourseSection = () => {
                   />
                 </ParallaxWidget>
               </ScrollWidget>
-              <ScrollWidget animation="fadeUp" delay={0.3}>
+              <ScrollWidget animation="slideRight" delay={0.4}>
                 <ParallaxWidget
-                  speed={-0.0001}
+                  speed={-0.15}
                   className="space-y-3 md:space-y-3 lg:space-y-4 md:ml-[-20px] lg:ml-[-35px] xl:ml-[-60px] 3xl:ml-[-73px] md:mt-[-30px] lg:mt-[-45px] xl:mt-[-65px] 3xl:mt-[-79px] relative z-10 w-full md:max-w-[320px] lg:max-w-[290px] xl:max-w-[370px] 2xl:max-w-[400px] 3xl:max-w-[500px]"
                 >
                   <h3 className="text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[32px] 3xl:text-[40px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
