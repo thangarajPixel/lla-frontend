@@ -1,6 +1,8 @@
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
+import ParallaxWidget from "@/components/widgets/ParallaxWidget";
+import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { Dummy1, Dummy2 } from "@/helpers/ImageHelper";
 
 const CourseSection = () => {
@@ -17,46 +19,66 @@ const CourseSection = () => {
               <span className="text-[#E97451] font-bold">adipiscing elit</span>
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-7 2xl:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-7 2xl:gap-6">
             <div className="space-y-4 md:space-y-4 lg:space-y-5 xl:space-y-6">
-              <div className="relative w-full aspect-4/3 overflow-hidden">
-                <ImageWidget
-                  src={Dummy1}
-                  alt="Professional Photography Course"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="space-y-3 md:space-y-3 lg:space-y-4 md:ml-[-20px] lg:ml-[-35px] xl:ml-[-64px] 3xl:ml-[-78px] md:mt-[-30px] lg:mt-[-45px] xl:mt-[-65px] 3xl:mt-[-79px] relative z-10 w-full md:max-w-[300px] lg:max-w-[340px] xl:max-w-[370px] 2xl:max-w-[370px] 3xl:max-w-[470px]">
-                <h3 className="text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[32px] 3xl:text-[40px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
-                  PG Diploma in Professional Photography & Digital Production
-                </h3>
-                <p className="text-xs md:text-xs lg:text-sm xl:text-base 2xl:text-base 3xl:text-[18px] font-normal text-black leading-normal">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna.
-                </p>
-                <OrangeButtonWidget content="Discover Your Frame" />
-              </div>
+              <ScrollWidget animation="fadeUp">
+                <ParallaxWidget
+                  speed={0.3}
+                  className="relative w-full aspect-4/3 overflow-hidden"
+                >
+                  <ImageWidget
+                    src={Dummy1}
+                    alt="Professional Photography Course"
+                    fill
+                    className="object-cover"
+                  />
+                </ParallaxWidget>
+              </ScrollWidget>
+              <ScrollWidget animation="fadeUp" delay={0.2}>
+                <ParallaxWidget
+                  speed={-0.2}
+                  className="space-y-3 md:space-y-3 lg:space-y-4 md:ml-[-20px] lg:ml-[-35px] xl:ml-[-64px] 3xl:ml-[-78px] md:mt-[-30px] lg:mt-[-45px] xl:mt-[-65px] 3xl:mt-[-79px] relative z-10 w-full md:max-w-[300px] lg:max-w-[340px] xl:max-w-[370px] 2xl:max-w-[370px] 3xl:max-w-[470px]"
+                >
+                  <h3 className="text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[32px] 3xl:text-[40px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
+                    PG Diploma in Professional Photography & Digital Production
+                  </h3>
+                  <p className="text-xs md:text-xs lg:text-sm xl:text-base 2xl:text-base 3xl:text-[18px] font-normal text-black leading-normal">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna.
+                  </p>
+                  <OrangeButtonWidget content="Discover Your Frame" />
+                </ParallaxWidget>
+              </ScrollWidget>
             </div>
             <div className="space-y-4 md:space-y-4 lg:space-y-5 xl:space-y-6 md:mt-28 lg:mt-26 xl:mt-16 2xl:mt-34 3xl:mt-44">
-              <div className="relative w-full aspect-4/3 overflow-hidden">
-                <ImageWidget
-                  src={Dummy2}
-                  alt="Documentary & Corporate Filmmaking Course"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="space-y-3 md:space-y-3 lg:space-y-4 md:ml-[-20px] lg:ml-[-35px] xl:ml-[-60px] 3xl:ml-[-73px] md:mt-[-30px] lg:mt-[-45px] xl:mt-[-65px] 3xl:mt-[-79px] relative z-10 w-full md:max-w-[320px] lg:max-w-[290px] xl:max-w-[370px] 2xl:max-w-[400px] 3xl:max-w-[500px]">
-                <h3 className="text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[32px] 3xl:text-[40px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
-                  PG Diploma in Documentary & Corporate Filmmaking
-                </h3>
-                <p className="text-xs md:text-xs lg:text-sm xl:text-base 2xl:text-base 3xl:text-[18px] font-normal text-black leading-normal">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna.
-                </p>
-                <OrangeButtonWidget content="Discover Your Frame" />
-              </div>
+              <ScrollWidget animation="fadeUp" delay={0.1}>
+                <ParallaxWidget
+                  speed={0.3}
+                  className="relative w-full aspect-4/3 overflow-hidden"
+                >
+                  <ImageWidget
+                    src={Dummy2}
+                    alt="Documentary & Corporate Filmmaking Course"
+                    fill
+                    className="object-cover"
+                  />
+                </ParallaxWidget>
+              </ScrollWidget>
+              <ScrollWidget animation="fadeUp" delay={0.3}>
+                <ParallaxWidget
+                  speed={-0.0001}
+                  className="space-y-3 md:space-y-3 lg:space-y-4 md:ml-[-20px] lg:ml-[-35px] xl:ml-[-60px] 3xl:ml-[-73px] md:mt-[-30px] lg:mt-[-45px] xl:mt-[-65px] 3xl:mt-[-79px] relative z-10 w-full md:max-w-[320px] lg:max-w-[290px] xl:max-w-[370px] 2xl:max-w-[400px] 3xl:max-w-[500px]"
+                >
+                  <h3 className="text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[32px] 3xl:text-[40px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
+                    PG Diploma in Documentary & Corporate Filmmaking
+                  </h3>
+                  <p className="text-xs md:text-xs lg:text-sm xl:text-base 2xl:text-base 3xl:text-[18px] font-normal text-black leading-normal">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna.
+                  </p>
+                  <OrangeButtonWidget content="Discover Your Frame" />
+                </ParallaxWidget>
+              </ScrollWidget>
             </div>
           </div>
         </div>
