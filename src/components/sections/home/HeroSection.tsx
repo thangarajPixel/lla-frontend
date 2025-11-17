@@ -69,7 +69,7 @@ const HeroSection = () => {
         className="relative z-10 mix-blend-difference"
       >
         <ScrollWidget>
-          <div className="flex items-center justify-center mt-40 md:mt-[180px] 2xl:mt-[140px] 3xl:mt-[150px]">
+          <div className="flex items-center justify-center mt-40 md:mt-[180px] xl:mt-[150px] 2xl:mt-[140px] 3xl:mt-[150px]">
             <ContainerWidget>
               <h1
                 ref={textRef}

@@ -84,7 +84,7 @@ const WebHeader = () => {
               />
             </LinkWidget>
 
-            <ul className="hidden lg:flex items-center 2xl:gap-[46px] gap-3 text-xs 2xl:text-[14px] 3xl:text-[18px]">
+            <ul className="hidden lg:flex items-center xl:gap-[48px] 2xl:gap-[46px] text-[14px] 2xl:text-[14px] 3xl:text-[18px]">
               {menuItems.map((item) => {
                 if (isDropdown(item)) {
                   const menuId = item.label.toLowerCase();
@@ -106,7 +106,7 @@ const WebHeader = () => {
                 );
               })}
               <li>
-                <ButtonWidget className="orange-button group rounded-[60px] px-5 h-10 text-xs 2xl:text-[14px] 3xl:text-[18px]">
+                <ButtonWidget className="orange-button group rounded-[60px] px-5 h-10 text-[14px] 2xl:text-[14px] 3xl:text-[18px]">
                   Admission Open
                   <ImageWidget
                     src={ArrowRight}
