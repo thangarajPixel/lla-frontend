@@ -16,10 +16,26 @@ import LinkWidget from "../widgets/LinkWidget";
 import OrangeButtonWidget from "../widgets/OrangeButtonWidget";
 
 const SOCIAL_LINKS = [
-  { href: "https://www.facebook.com/lightandlifeacademy", icon: Facebook, alt: "Facebook" },
-  { href: "https://www.twitter.com/lightandlifeacademy", icon: Twitter, alt: "Twitter" },
-  { href: "https://www.instagram.com/lightandlifeacademy", icon: Instagram, alt: "Instagram" },
-  { href: "https://www.linkedin.com/company/lightandlifeacademy", icon: LinkedIn, alt: "LinkedIn" },
+  {
+    href: "https://www.facebook.com/lightandlifeacademy",
+    icon: Facebook,
+    alt: "Facebook",
+  },
+  {
+    href: "https://www.twitter.com/lightandlifeacademy",
+    icon: Twitter,
+    alt: "Twitter",
+  },
+  {
+    href: "https://www.instagram.com/lightandlifeacademy",
+    icon: Instagram,
+    alt: "Instagram",
+  },
+  {
+    href: "https://www.linkedin.com/company/lightandlifeacademy",
+    icon: LinkedIn,
+    alt: "LinkedIn",
+  },
 ];
 
 const QUICK_LINKS = [
@@ -32,7 +48,10 @@ const QUICK_LINKS = [
 ];
 
 const COURSES = [
-  { href: "/", label: "PG Diploma in Professional Photography & Digital Production" },
+  {
+    href: "/",
+    label: "PG Diploma in Professional Photography & Digital Production",
+  },
   { href: "/", label: "PG Diploma in Documentary & Corporate Filmmaking" },
 ];
 
@@ -47,16 +66,33 @@ const ADDRESS_LINES = [
   "Tamil Nadu - 643 003.",
 ];
 
-const linkTextClass = "text-[16px] md:text-[16px] lg:text-[14px] 3xl:text-[18px] font-normal";
-const sectionTitleClass = "text-[18px] md:text-[20px] 3xl:text-[24px] font-normal font-urbanist";
+const linkTextClass =
+  "text-[16px] md:text-[16px] lg:text-[14px] 3xl:text-[18px] font-normal";
+const sectionTitleClass =
+  "text-[18px] md:text-[20px] 3xl:text-[24px] font-normal font-urbanist";
 const dividerClass = "border-b border-white opacity-30 w-full h-px mt-3";
 
-const FooterSection = ({ title, links, className = "" }: { title: string; links: Array<{ href: string; label: string }>; className?: string }) => (
+const FooterSection = ({
+  title,
+  links,
+  className = "",
+}: {
+  title: string;
+  links: Array<{ href: string; label: string }>;
+  className?: string;
+}) => (
   <div className={`flex flex-col items-start justify-start gap-3 ${className}`}>
     <h6 className={sectionTitleClass}>{title}</h6>
-    <ul className={`flex flex-col items-start justify-start gap-2 ${linkTextClass} leading-7`}>
+    <ul
+      className={`flex flex-col items-start justify-start gap-2 ${linkTextClass} leading-7`}
+    >
       {links.map((link, index) => (
-        <li key={index} className={link.label.includes("Diploma") ? "max-w-full md:max-w-[250px]" : ""}>
+        <li
+          key={index}
+          className={
+            link.label.includes("Diploma") ? "max-w-full md:max-w-[250px]" : ""
+          }
+        >
           <LinkWidget
             href={link.href}
             className="hover:text-[#E97451] transition-colors duration-300"
@@ -81,15 +117,20 @@ const WebFooter = () => {
             Let Your Passion Shine Through
           </h6>
           <p className={`${linkTextClass} max-w-full md:max-w-[550px]`}>
-            Step into a world where every click, every frame, and every flashlight is the path to your creative future.
+            Step into a world where every click, every frame, and every
+            flashlight is the path to your creative future.
           </p>
           <OrangeButtonWidget content="Capture Your Path" />
           <div className={dividerClass} />
 
           <div className="flex flex-col md:flex-row gap-8 md:gap-5 py-3 pb-0 w-full">
             <div className="flex flex-col items-start justify-start gap-6 w-full md:w-auto">
-              <ImageWidget src={FooterLogo} alt="Logo" className="w-65 h-auto" />
-              
+              <ImageWidget
+                src={FooterLogo}
+                alt="Logo"
+                className="w-65 h-auto"
+              />
+
               <div className="flex flex-row items-start justify-start gap-6">
                 <div className="flex flex-row gap-2">
                   <ImageWidget
@@ -129,21 +170,49 @@ const WebFooter = () => {
             <div className="block md:hidden">
               <div className={dividerClass} />
               <div className="flex flex-row gap-6 w-full mt-7">
-                <FooterSection title="Quick Links" links={QUICK_LINKS} className="flex-1" />
-                <FooterSection title="Courses" links={COURSES} className="flex-1" />
+                <FooterSection
+                  title="Quick Links"
+                  links={QUICK_LINKS}
+                  className="flex-1"
+                />
+                <FooterSection
+                  title="Courses"
+                  links={COURSES}
+                  className="flex-1"
+                />
               </div>
             </div>
 
-            <FooterSection title="Quick Links" links={QUICK_LINKS} className="hidden md:flex md:min-w-[250px]" />
-            <FooterSection title="Courses" links={COURSES} className="hidden md:flex" />
-            <FooterSection title="Resources" links={RESOURCES} className="w-full md:w-auto" />
+            <FooterSection
+              title="Quick Links"
+              links={QUICK_LINKS}
+              className="hidden md:flex md:min-w-[250px]"
+            />
+            <FooterSection
+              title="Courses"
+              links={COURSES}
+              className="hidden md:flex"
+            />
+            <FooterSection
+              title="Resources"
+              links={RESOURCES}
+              className="w-full md:w-auto"
+            />
           </div>
 
           <div className={dividerClass} />
 
           <div className="flex flex-wrap sm:flex-nowrap items-start sm:items-center justify-center sm:justify-start gap-4 sm:gap-6 md:gap-23 py-3 pb-1 w-full">
-            <ImageWidget src={LlaOutreach} alt="LlaOutreach" className="w-40 md:w-60 h-auto" />
-            <ImageWidget src={IQAC} alt="IQAC" className="w-24 md:w-30 h-auto" />
+            <ImageWidget
+              src={LlaOutreach}
+              alt="LlaOutreach"
+              className="w-40 md:w-60 h-auto"
+            />
+            <ImageWidget
+              src={IQAC}
+              alt="IQAC"
+              className="w-24 md:w-30 h-auto"
+            />
             <div className="w-full sm:hidden flex justify-center">
               <ImageWidget
                 src={LlaOnline}
@@ -162,8 +231,11 @@ const WebFooter = () => {
             <div className={dividerClass} />
           </div>
 
-          <p className={`text-center md:text-left ${linkTextClass} max-w-full md:max-w-[350px]`}>
-            © {new Date().getFullYear()} Light & Life Academy, Premier College for Professional Photography in India. All rights reserved.
+          <p
+            className={`text-center md:text-left ${linkTextClass} max-w-full md:max-w-[350px]`}
+          >
+            © {new Date().getFullYear()} Light & Life Academy, Premier College
+            for Professional Photography in India. All rights reserved.
           </p>
         </div>
       </ContainerWidget>
