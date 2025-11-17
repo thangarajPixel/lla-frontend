@@ -23,3 +23,5 @@ export { default as LlaOutreach } from "@/assets/images/lla-outreach.svg";
 export { default as LogoBlack } from "@/assets/images/logo-black.svg";
 export { default as Logo } from "@/assets/images/logo-white.svg";
 export { default as AboutBg } from "@/assets/dummy/about-hero-dummy.png";
+export { default as Gallery } from "@/assets/dummy/3.png";
+export { default as Gallery2 } from "@/assets/dummy/4.png";
