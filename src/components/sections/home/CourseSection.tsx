@@ -42,7 +42,7 @@ const CourseSection = () => {
                   <h3 className="text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[32px] 3xl:text-[40px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
                     PG Diploma in Professional Photography & Digital Production
                   </h3>
-                  <p className="text-xs md:text-xs lg:text-sm xl:text-base 2xl:text-base 3xl:text-[18px] font-normal text-black leading-normal">
+                  <p className="text-[16px] lg:text-[14px] 3xl:text-[24px] font-normal text-black leading-normal">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                     do eiusmod tempor incididunt ut labore et dolore magna.
                   </p>
@@ -72,7 +72,7 @@ const CourseSection = () => {
                   <h3 className="text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[32px] 3xl:text-[40px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
                     PG Diploma in Documentary & Corporate Filmmaking
                   </h3>
-                  <p className="text-xs md:text-xs lg:text-sm xl:text-base 2xl:text-base 3xl:text-[18px] font-normal text-black leading-normal">
+                  <p className="text-[16px] lg:text-[14px] 3xl:text-[24px] font-normal text-black leading-normal">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                     do eiusmod tempor incididunt ut labore et dolore magna.
                   </p>

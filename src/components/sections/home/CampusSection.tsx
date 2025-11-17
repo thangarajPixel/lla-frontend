@@ -25,7 +25,7 @@ const CampusSection = () => {
                   sit amet, consectetur{" "}
                 </span>
               </p>
-              <p className="text-xs md:text-xs lg:text-sm xl:text-base 2xl:text-base 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[600px]">
+              <p className="text-[16px] lg:text-[14px] 3xl:text-[24px] font-normal text-black leading-normal w-full md:max-w-[600px]">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad minim veniam.
