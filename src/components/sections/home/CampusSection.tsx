@@ -18,14 +18,14 @@ const CampusSection = () => {
               <h3 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
                 Campus
               </h3>
-              <p className="text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] font-normal text-black">
-              Deliberately Designed, 
-                <span className="text-[#E97451] font-normal ml-2">
-                 Endlessly Inspiring
-                </span>
+              <p className="font-area-variable font-semibold text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
+                Deliberately Designed,
+                <span className="text-[#E97451] ml-2">Endlessly Inspiring</span>
               </p>
               <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[600px]">
-              Every space is thoughtfully built to nurture learning. The campus invites reflection, exploration, and creativity at every turn.
+                Every space is thoughtfully built to nurture learning. The
+                campus invites reflection, exploration, and creativity at every
+                turn.
               </p>
               <OrangeButtonWidget content="Experience the View" />
             </div>

@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 
 import type { Metadata } from "next";
 import { Mulish, Urbanist } from "next/font/google";
+import localFont from "next/font/local";
 import MainContent from "@/components/layouts/utils/MainContent";
 import WebFooter from "@/components/layouts/WebFooter";
 import WebHeader from "@/components/layouts/WebHeader";
@@ -18,6 +19,13 @@ const urbanist = Urbanist({
   subsets: ["latin"],
 });
 
+const areaVariable = localFont({
+  src: "../assets/fonts/fonnts.com-Area_Variable_Thin.otf",
+  variable: "--font-area-variable",
+  weight: "100 900",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Premier College for Professional Photography in India | LLA",
   description:
@@ -32,7 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${mulish.variable} ${urbanist.variable} antialiased flex flex-col min-h-screen`}
+        className={`${mulish.variable} ${urbanist.variable} ${areaVariable.variable} antialiased flex flex-col min-h-screen`}
       >
         <SmoothScrollWidget>
           <WebHeader />

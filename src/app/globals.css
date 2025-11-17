@@ -21,6 +21,10 @@ body {
   font-family: var(--font-urbanist), sans-serif;
 }
 
+.font-area-variable {
+  font-family: var(--font-area-variable), sans-serif;
+}
+
 :root {
   --radius: 0.625rem;
   --card: oklch(1 0 0);

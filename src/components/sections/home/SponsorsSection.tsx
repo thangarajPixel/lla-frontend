@@ -32,9 +32,9 @@ const SponsorsSection = () => {
               <h2 className="text-left md:text-center text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist mb-4">
                 Our Sponsors
               </h2>
-              <p className="text-left md:text-center text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] font-normal text-black mb-4">
+              <p className="font-area-variable font-semibold text-left md:text-center text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black mb-4">
                 Lorem ipsum dolor
-                <span className="text-[#E97451] font-bold">
+                <span className="text-[#E97451] ml-2">
                   sit amet, consectetur
                 </span>
               </p>
