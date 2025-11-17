@@ -1,5 +1,7 @@
 export { default as Dummy1 } from "@/assets/dummy/1.png";
 export { default as Dummy2 } from "@/assets/dummy/2.png";
+export { default as Gallery } from "@/assets/dummy/3.png";
+export { default as Gallery2 } from "@/assets/dummy/4.png";
 export { default as SponsorsDummy1 } from "@/assets/dummy/sponsors-dummy-1.png";
 export { default as SponsorsDummy2 } from "@/assets/dummy/sponsors-dummy-2.png";
 export { default as SponsorsDummy3 } from "@/assets/dummy/sponsors-dummy-3.png";
@@ -22,5 +24,3 @@ export { default as LlaOnline } from "@/assets/images/lla-online.svg";
 export { default as LlaOutreach } from "@/assets/images/lla-outreach.svg";
 export { default as LogoBlack } from "@/assets/images/logo-black.svg";
 export { default as Logo } from "@/assets/images/logo-white.svg";
-export { default as Gallery } from "@/assets/dummy/3.png";
-export { default as Gallery2 } from "@/assets/dummy/4.png";
