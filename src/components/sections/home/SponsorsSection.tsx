@@ -26,7 +26,7 @@ const SponsorsSection = () => {
         <div className="space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12 2xl:space-y-14 3xl:space-y-16">
           <div className="space-y-2 md:space-y-3 lg:space-y-4">
             <ParallaxWidget
-              speed={0.3}
+              speed={0.5}
               className="space-y-2 md:space-y-3 lg:space-y-4"
             >
               <h2 className="text-left md:text-center text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist mb-4">
@@ -46,14 +46,14 @@ const SponsorsSection = () => {
             </ParallaxWidget>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-6 gap-3 md:gap-7 2xl:gap-6">
-            {sponsors.map((sponsor) => (
+            {sponsors.map((sponsor, index) => (
               <div
                 key={sponsor.id}
                 className="space-y-4 md:space-y-4 lg:space-y-5 xl:space-y-6"
               >
                 <ScrollWidget animation="scale" delay={0.1}>
                   <ParallaxWidget
-                    speed={0.4}
+                    speed={0.6 + index * 0.1}
                     className="relative w-full h-0 pb-[75%] aspect-4/3 overflow-hidden"
                   >
                     <ImageWidget
