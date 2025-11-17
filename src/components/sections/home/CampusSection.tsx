@@ -19,16 +19,13 @@ const CampusSection = () => {
                 Campus
               </h3>
               <p className="text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] font-normal text-black">
-                Lorem ipsum dolor
-                <span className="text-[#E97451] font-normal">
-                  {" "}
-                  sit amet, consectetur{" "}
+              Deliberately Designed, 
+                <span className="text-[#E97451] font-normal ml-2">
+                 Endlessly Inspiring
                 </span>
               </p>
-              <p className="text-[16px] lg:text-[14px] 3xl:text-[24px] font-normal text-black leading-normal w-full md:max-w-[600px]">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam.
+              <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[600px]">
+              Every space is thoughtfully built to nurture learning. The campus invites reflection, exploration, and creativity at every turn.
               </p>
               <OrangeButtonWidget content="Experience the View" />
             </div>

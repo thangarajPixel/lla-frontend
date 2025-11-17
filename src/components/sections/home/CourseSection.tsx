@@ -42,7 +42,7 @@ const CourseSection = () => {
                   <h3 className="text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[32px] 3xl:text-[40px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
                     PG Diploma in Professional Photography & Digital Production
                   </h3>
-                  <p className="text-[16px] lg:text-[14px] 3xl:text-[24px] font-normal text-black leading-normal">
+                  <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                     do eiusmod tempor incididunt ut labore et dolore magna.
                   </p>
@@ -67,12 +67,12 @@ const CourseSection = () => {
               <ScrollWidget animation="slideRight" delay={0.4}>
                 <ParallaxWidget
                   speed={-0.15}
-                  className="space-y-3 md:space-y-3 lg:space-y-4 md:ml-[-20px] lg:ml-[-35px] xl:ml-[-60px] 3xl:ml-[-73px] md:mt-[-30px] lg:mt-[-45px] xl:mt-[-65px] 3xl:mt-[-79px] relative z-10 w-full md:max-w-[320px] lg:max-w-[290px] xl:max-w-[370px] 2xl:max-w-[400px] 3xl:max-w-[500px]"
+                  className="space-y-3 md:space-y-3 lg:space-y-4 md:ml-[-20px] lg:ml-[-35px] xl:ml-[-60px] 3xl:ml-[-73px] md:mt-[-30px] lg:mt-[-45px] xl:mt-[-65px] 3xl:mt-[-79px] relative z-10 w-full md:max-w-[320px] lg:max-w-[290px] xl:max-w-[370px] 2xl:max-w-[410px] 3xl:max-w-[500px]"
                 >
                   <h3 className="text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[32px] 3xl:text-[40px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
                     PG Diploma in Documentary & Corporate Filmmaking
                   </h3>
-                  <p className="text-[16px] lg:text-[14px] 3xl:text-[24px] font-normal text-black leading-normal">
+                  <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                     do eiusmod tempor incididunt ut labore et dolore magna.
                   </p>

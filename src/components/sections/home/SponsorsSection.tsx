@@ -38,7 +38,7 @@ const SponsorsSection = () => {
                   sit amet, consectetur
                 </span>
               </p>
-              <p className="text-left md:text-center text-base text-[16px] lg:text-[14px] 3xl:text-[24px] font-normal text-black leading-normal sm:mx-auto md:max-w-[400px] lg:max-w-[500px] xl:max-w-[600px] 2xl:max-w-[900px] 3xl:max-w-[1000px]">
+              <p className="text-left md:text-center text-base text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal sm:mx-auto md:max-w-[400px] lg:max-w-[500px] xl:max-w-[600px] 2xl:max-w-[900px] 3xl:max-w-[1000px]">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad minim veniam, quis nostrud exercitation.
