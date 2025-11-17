@@ -15,8 +15,11 @@ const CourseSection = () => {
               Courses
             </h2>
             <p className="text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] font-normal text-black">
-              Lorem ipsum dolor sit amet, consectetur <br />
-              <span className="text-[#E97451] font-bold">adipiscing elit</span>
+            Designed For
+              <span className="text-[#E97451] font-bold ml-2">Immersive Learning</span>
+            </p>
+            <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
+            Here, learning is deliberate and layered, aimed at building strong conceptual foundations.<br/> Where skills are honed, ideas take shape, and observation becomes instinct.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-7 2xl:gap-6">

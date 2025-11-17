@@ -117,7 +117,7 @@ const FooterSection = ({
 const WebFooter = () => {
   return (
     <footer
-      className="w-full bg-cover bg-bottom bg-no-repeat min-h-[1070px] bg-black text-white py-8 md:py-12 lg:py-22"
+      className="relative z-50 w-full bg-cover bg-bottom bg-no-repeat min-h-[1070px] bg-black text-white py-8 md:py-12 lg:py-22"
       style={{ backgroundImage: `url(${FooterBg?.src})` }}
     >
       <ContainerWidget>
