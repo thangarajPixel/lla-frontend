@@ -66,39 +66,55 @@ const WebFooter = () => {
               </div>
               <ul className="flex items-center justify-start gap-4 md:gap-6">
                 <li>
-                  <LinkWidget href="https://www.facebook.com/lightandlifeacademy" target="_blank">
-                  <ImageWidget
-                    src={Facebook}
-                    alt="Facebook"
-                    className="w-6 h-5 md:w-7 md:h-6"
-                  />
+                  <LinkWidget
+                    href="https://www.facebook.com/lightandlifeacademy"
+                    target="_blank"
+                    className="hover:opacity-70 transition-opacity duration-300"
+                  >
+                    <ImageWidget
+                      src={Facebook}
+                      alt="Facebook"
+                      className="w-6 h-5 md:w-7 md:h-6"
+                    />
                   </LinkWidget>
                 </li>
                 <li>
-                  <LinkWidget href="https://www.twitter.com/lightandlifeacademy" target="_blank">
-                  <ImageWidget
-                    src={Twitter}
-                    alt="Twitter"
-                    className="w-6 h-5 md:w-7 md:h-6"
-                  />
+                  <LinkWidget
+                    href="https://www.twitter.com/lightandlifeacademy"
+                    target="_blank"
+                    className="hover:opacity-70 transition-opacity duration-300"
+                  >
+                    <ImageWidget
+                      src={Twitter}
+                      alt="Twitter"
+                      className="w-6 h-5 md:w-7 md:h-6"
+                    />
                   </LinkWidget>
                 </li>
                 <li>
-                  <LinkWidget href="https://www.instagram.com/lightandlifeacademy" target="_blank">
-                  <ImageWidget
-                    src={Instagram}
-                    alt="Instagram"
-                    className="w-6 h-5 md:w-7 md:h-6"
-                  />
+                  <LinkWidget
+                    href="https://www.instagram.com/lightandlifeacademy"
+                    target="_blank"
+                    className="hover:opacity-70 transition-opacity duration-300"
+                  >
+                    <ImageWidget
+                      src={Instagram}
+                      alt="Instagram"
+                      className="w-6 h-5 md:w-7 md:h-6"
+                    />
                   </LinkWidget>
                 </li>
                 <li>
-                  <LinkWidget href="https://www.linkedin.com/company/lightandlifeacademy" target="_blank">
-                  <ImageWidget
-                    src={LinkedIn}
-                    alt="LinkedIn"
-                    className="w-6 h-5 md:w-7 md:h-6"
-                  />
+                  <LinkWidget
+                    href="https://www.linkedin.com/company/lightandlifeacademy"
+                    target="_blank"
+                    className="hover:opacity-70 transition-opacity duration-300"
+                  >
+                    <ImageWidget
+                      src={LinkedIn}
+                      alt="LinkedIn"
+                      className="w-6 h-5 md:w-7 md:h-6"
+                    />
                   </LinkWidget>
                 </li>
               </ul>
@@ -111,22 +127,52 @@ const WebFooter = () => {
                 </h6>
                 <ul className="flex flex-col items-start justify-start gap-2 text-[16px] md:text-[16px] lg:text-[14px] 3xl:text-[18px] font-normal leading-7">
                   <li>
-                    <LinkWidget href="/">Home</LinkWidget>
+                    <LinkWidget
+                      href="/"
+                      className="hover:text-[#E97451] transition-colors duration-300"
+                    >
+                      Home
+                    </LinkWidget>
                   </li>
                   <li>
-                    <LinkWidget href="/">About LLA</LinkWidget>
+                    <LinkWidget
+                      href="/"
+                      className="hover:text-[#E97451] transition-colors duration-300"
+                    >
+                      About LLA
+                    </LinkWidget>
                   </li>
                   <li>
-                    <LinkWidget href="/">Campus</LinkWidget>
+                    <LinkWidget
+                      href="/"
+                      className="hover:text-[#E97451] transition-colors duration-300"
+                    >
+                      Campus
+                    </LinkWidget>
                   </li>
                   <li>
-                    <LinkWidget href="/">Faculty</LinkWidget>
+                    <LinkWidget
+                      href="/"
+                      className="hover:text-[#E97451] transition-colors duration-300"
+                    >
+                      Faculty
+                    </LinkWidget>
                   </li>
                   <li>
-                    <LinkWidget href="/">Gallery</LinkWidget>
+                    <LinkWidget
+                      href="/"
+                      className="hover:text-[#E97451] transition-colors duration-300"
+                    >
+                      Gallery
+                    </LinkWidget>
                   </li>
                   <li>
-                    <LinkWidget href="/">Contact Us</LinkWidget>
+                    <LinkWidget
+                      href="/"
+                      className="hover:text-[#E97451] transition-colors duration-300"
+                    >
+                      Contact Us
+                    </LinkWidget>
                   </li>
                 </ul>
               </div>
@@ -137,12 +183,19 @@ const WebFooter = () => {
                 </h6>
                 <ul className="flex flex-col items-start justify-start gap-2 text-[16px] md:text-[16px] lg:text-[14px] 3xl:text-[18px] font-normal leading-7">
                   <li className="max-w-full md:max-w-[250px]">
-                    <LinkWidget href="/">
-                      PG Diploma in Professional Photography & Digital Production
+                    <LinkWidget
+                      href="/"
+                      className="hover:text-[#E97451] transition-colors duration-300"
+                    >
+                      PG Diploma in Professional Photography & Digital
+                      Production
                     </LinkWidget>
                   </li>
                   <li className="max-w-full md:max-w-[250px]">
-                    <LinkWidget href="/">
+                    <LinkWidget
+                      href="/"
+                      className="hover:text-[#E97451] transition-colors duration-300"
+                    >
                       PG Diploma in Documentary & Corporate Filmmaking
                     </LinkWidget>
                   </li>
@@ -156,22 +209,52 @@ const WebFooter = () => {
               </h6>
               <ul className="flex flex-col items-start justify-start gap-2 text-[16px] md:text-[16px] lg:text-[14px] 3xl:text-[18px] font-normal leading-7">
                 <li>
-                  <LinkWidget href="/">Home</LinkWidget>
+                  <LinkWidget
+                    href="/"
+                    className="hover:text-[#E97451] transition-colors duration-300"
+                  >
+                    Home
+                  </LinkWidget>
                 </li>
                 <li>
-                  <LinkWidget href="/">About LLA</LinkWidget>
+                  <LinkWidget
+                    href="/"
+                    className="hover:text-[#E97451] transition-colors duration-300"
+                  >
+                    About LLA
+                  </LinkWidget>
                 </li>
                 <li>
-                  <LinkWidget href="/">Campus</LinkWidget>
+                  <LinkWidget
+                    href="/"
+                    className="hover:text-[#E97451] transition-colors duration-300"
+                  >
+                    Campus
+                  </LinkWidget>
                 </li>
                 <li>
-                  <LinkWidget href="/">Faculty</LinkWidget>
+                  <LinkWidget
+                    href="/"
+                    className="hover:text-[#E97451] transition-colors duration-300"
+                  >
+                    Faculty
+                  </LinkWidget>
                 </li>
                 <li>
-                  <LinkWidget href="/">Gallery</LinkWidget>
+                  <LinkWidget
+                    href="/"
+                    className="hover:text-[#E97451] transition-colors duration-300"
+                  >
+                    Gallery
+                  </LinkWidget>
                 </li>
                 <li>
-                  <LinkWidget href="/">Contact Us</LinkWidget>
+                  <LinkWidget
+                    href="/"
+                    className="hover:text-[#E97451] transition-colors duration-300"
+                  >
+                    Contact Us
+                  </LinkWidget>
                 </li>
               </ul>
             </div>
@@ -182,12 +265,18 @@ const WebFooter = () => {
               </h6>
               <ul className="flex flex-col items-start justify-start gap-2 text-[16px] md:text-[16px] lg:text-[14px] 3xl:text-[18px] font-normal leading-7">
                 <li className="max-w-full md:max-w-[250px]">
-                  <LinkWidget href="/">
+                  <LinkWidget
+                    href="/"
+                    className="hover:text-[#E97451] transition-colors duration-300"
+                  >
                     PG Diploma in Professional Photography & Digital Production
                   </LinkWidget>
                 </li>
                 <li className="max-w-full md:max-w-[250px]">
-                  <LinkWidget href="/">
+                  <LinkWidget
+                    href="/"
+                    className="hover:text-[#E97451] transition-colors duration-300"
+                  >
                     PG Diploma in Documentary & Corporate Filmmaking
                   </LinkWidget>
                 </li>
@@ -200,10 +289,20 @@ const WebFooter = () => {
               </h6>
               <ul className="flex flex-col items-start justify-start gap-2 text-[16px] md:text-[16px] lg:text-[14px] 3xl:text-[18px] font-normal leading-7">
                 <li>
-                  <LinkWidget href="/">Blog</LinkWidget>
+                  <LinkWidget
+                    href="/"
+                    className="hover:text-[#E97451] transition-colors duration-300"
+                  >
+                    Blog
+                  </LinkWidget>
                 </li>
                 <li>
-                  <LinkWidget href="/">FAQ's</LinkWidget>
+                  <LinkWidget
+                    href="/"
+                    className="hover:text-[#E97451] transition-colors duration-300"
+                  >
+                    FAQ's
+                  </LinkWidget>
                 </li>
               </ul>
             </div>
@@ -216,10 +315,10 @@ const WebFooter = () => {
               alt="LlaOutreach"
               className="w-40 md:w-60 h-auto"
             />
-            <ImageWidget 
-              src={IQAC} 
-              alt="IQAC" 
-              className="w-24 md:w-30 h-auto" 
+            <ImageWidget
+              src={IQAC}
+              alt="IQAC"
+              className="w-24 md:w-30 h-auto"
             />
             <div className="w-full sm:hidden flex justify-center">
               <ImageWidget
@@ -236,8 +335,8 @@ const WebFooter = () => {
           </div>
           <div className="block md:hidden border-b border-white opacity-30 w-full h-px mt-3" />
           <p className="text-center md:text-left text-[16px] md:text-[14px] lg:text-[14px] 3xl:text-[18px] font-normal max-w-full md:max-w-[350px]">
-            © {new Date().getFullYear()} Light & Life Academy, Premier College for Professional
-            Photography in India.All rights reserved.
+            © {new Date().getFullYear()} Light & Life Academy, Premier College
+            for Professional Photography in India.All rights reserved.
           </p>
         </div>
       </ContainerWidget>
