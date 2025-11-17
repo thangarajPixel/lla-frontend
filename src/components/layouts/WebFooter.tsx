@@ -17,21 +17,25 @@ import OrangeButtonWidget from "../widgets/OrangeButtonWidget";
 
 const SOCIAL_LINKS = [
   {
+    id: "facebook",
     href: "https://www.facebook.com/lightandlifeacademy",
     icon: Facebook,
     alt: "Facebook",
   },
   {
+    id: "twitter",
     href: "https://www.twitter.com/lightandlifeacademy",
     icon: Twitter,
     alt: "Twitter",
   },
   {
+    id: "instagram",
     href: "https://www.instagram.com/lightandlifeacademy",
     icon: Instagram,
     alt: "Instagram",
   },
   {
+    id: "linkedin",
     href: "https://www.linkedin.com/company/lightandlifeacademy",
     icon: LinkedIn,
     alt: "LinkedIn",
@@ -39,31 +43,36 @@ const SOCIAL_LINKS = [
 ];
 
 const QUICK_LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/", label: "About LLA" },
-  { href: "/", label: "Campus" },
-  { href: "/", label: "Faculty" },
-  { href: "/", label: "Gallery" },
-  { href: "/", label: "Contact Us" },
+  { id: "home", href: "/", label: "Home" },
+  { id: "about", href: "/", label: "About LLA" },
+  { id: "campus", href: "/", label: "Campus" },
+  { id: "faculty", href: "/", label: "Faculty" },
+  { id: "gallery", href: "/", label: "Gallery" },
+  { id: "contact", href: "/", label: "Contact Us" },
 ];
 
 const COURSES = [
   {
+    id: "photography-diploma",
     href: "/",
     label: "PG Diploma in Professional Photography & Digital Production",
   },
-  { href: "/", label: "PG Diploma in Documentary & Corporate Filmmaking" },
+  {
+    id: "filmmaking-diploma",
+    href: "/",
+    label: "PG Diploma in Documentary & Corporate Filmmaking",
+  },
 ];
 
 const RESOURCES = [
-  { href: "/", label: "Blog" },
-  { href: "/", label: "FAQ's" },
+  { id: "blog", href: "/", label: "Blog" },
+  { id: "faq", href: "/", label: "FAQ's" },
 ];
 
 const ADDRESS_LINES = [
-  "Light & Life Academy,",
-  "Lovedale, Ooty,",
-  "Tamil Nadu - 643 003.",
+  { id: "address-line-1", text: "Light & Life Academy," },
+  { id: "address-line-2", text: "Lovedale, Ooty," },
+  { id: "address-line-3", text: "Tamil Nadu - 643 003." },
 ];
 
 const linkTextClass =
@@ -78,7 +87,7 @@ const FooterSection = ({
   className = "",
 }: {
   title: string;
-  links: Array<{ href: string; label: string }>;
+  links: Array<{ id: string; href: string; label: string }>;
   className?: string;
 }) => (
   <div className={`flex flex-col items-start justify-start gap-3 ${className}`}>
@@ -86,9 +95,9 @@ const FooterSection = ({
     <ul
       className={`flex flex-col items-start justify-start gap-2 ${linkTextClass} leading-7`}
     >
-      {links.map((link, index) => (
+      {links.map((link) => (
         <li
-          key={index}
+          key={link.id}
           className={
             link.label.includes("Diploma") ? "max-w-full md:max-w-[250px]" : ""
           }
@@ -139,9 +148,9 @@ const WebFooter = () => {
                     className="w-6 h-5 md:w-7 md:h-6"
                   />
                   <div>
-                    {ADDRESS_LINES.map((line, index) => (
-                      <p key={index} className={linkTextClass}>
-                        {line}
+                    {ADDRESS_LINES.map((addressLine) => (
+                      <p key={addressLine.id} className={linkTextClass}>
+                        {addressLine.text}
                       </p>
                     ))}
                   </div>
@@ -149,16 +158,16 @@ const WebFooter = () => {
               </div>
 
               <ul className="flex items-center justify-start gap-4 md:gap-6">
-                {SOCIAL_LINKS.map((social, index) => (
-                  <li key={index}>
+                {SOCIAL_LINKS.map((socialLink) => (
+                  <li key={socialLink.id}>
                     <LinkWidget
-                      href={social.href}
+                      href={socialLink.href}
                       target="_blank"
                       className="hover:opacity-70 transition-opacity duration-300"
                     >
                       <ImageWidget
-                        src={social.icon}
-                        alt={social.alt}
+                        src={socialLink.icon}
+                        alt={socialLink.alt}
                         className="w-6 h-5 md:w-7 md:h-6"
                       />
                     </LinkWidget>

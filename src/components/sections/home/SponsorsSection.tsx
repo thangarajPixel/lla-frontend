@@ -12,13 +12,13 @@ import {
 } from "@/helpers/ImageHelper";
 
 const SponsorsSection = () => {
-  const Images = [
-    SponsorsDummy1,
-    SponsorsDummy2,
-    SponsorsDummy3,
-    SponsorsDummy4,
-    SponsorsDummy5,
-    SponsorsDummy6,
+  const sponsors = [
+    { id: "sponsor-1", image: SponsorsDummy1 },
+    { id: "sponsor-2", image: SponsorsDummy2 },
+    { id: "sponsor-3", image: SponsorsDummy3 },
+    { id: "sponsor-4", image: SponsorsDummy4 },
+    { id: "sponsor-5", image: SponsorsDummy5 },
+    { id: "sponsor-6", image: SponsorsDummy6 },
   ];
   return (
     <section className="w-full py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 3xl:py-28 bg-white">
@@ -46,19 +46,19 @@ const SponsorsSection = () => {
             </ParallaxWidget>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-6 gap-3 md:gap-7 2xl:gap-6">
-            {Images.map((src, index) => (
+            {sponsors.map((sponsor) => (
               <div
-                key={index}
+                key={sponsor.id}
                 className="space-y-4 md:space-y-4 lg:space-y-5 xl:space-y-6"
               >
                 <ScrollWidget animation="scale" delay={0.1}>
                   <ParallaxWidget
                     speed={0.4}
-                    className="relative w-full h-0 pb-[75%] aspect-[4/3] overflow-hidden"
+                    className="relative w-full h-0 pb-[75%] aspect-4/3 overflow-hidden"
                   >
                     <ImageWidget
-                      src={src}
-                      alt={`Sponsor ${index + 1}`}
+                      src={sponsor.image}
+                      alt={`Sponsor ${sponsor.id}`}
                       fill
                       className="object-scale-down"
                     />
