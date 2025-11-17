@@ -18,7 +18,7 @@ import OrangeButtonWidget from "../widgets/OrangeButtonWidget";
 const WebFooter = () => {
   return (
     <footer
-      className="w-full bg-cover bg-bottom bg-no-repeat min-h-screen bg-black text-white py-8 md:py-12 lg:py-22"
+      className="w-full bg-cover bg-bottom bg-no-repeat min-h-[1070px] bg-black text-white py-8 md:py-12 lg:py-22"
       style={{
         backgroundImage: `url(${FooterBg?.src})`,
       }}
@@ -28,7 +28,7 @@ const WebFooter = () => {
           <h6 className="text-[32px] md:text-[40px] lg:text-[50px] 3xl:text-[56px] font-normal font-urbanist leading-10">
             Let Your Passion Shine Through
           </h6>
-          <p className="text-[16px] md:text-[16px] lg:text-[14px] 3xl:text-[24px] font-normal max-w-full md:max-w-[550px]">
+          <p className="text-[16px] md:text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal max-w-full md:max-w-[550px]">
             Step into a world where every click, every frame, and every
             flashlight is the path to your creative future.
           </p>
@@ -66,32 +66,40 @@ const WebFooter = () => {
               </div>
               <ul className="flex items-center justify-start gap-4 md:gap-6">
                 <li>
+                  <LinkWidget href="https://www.facebook.com/lightandlifeacademy" target="_blank">
                   <ImageWidget
                     src={Facebook}
                     alt="Facebook"
                     className="w-6 h-5 md:w-7 md:h-6"
                   />
+                  </LinkWidget>
                 </li>
                 <li>
+                  <LinkWidget href="https://www.twitter.com/lightandlifeacademy" target="_blank">
                   <ImageWidget
                     src={Twitter}
                     alt="Twitter"
                     className="w-6 h-5 md:w-7 md:h-6"
                   />
+                  </LinkWidget>
                 </li>
                 <li>
+                  <LinkWidget href="https://www.instagram.com/lightandlifeacademy" target="_blank">
                   <ImageWidget
                     src={Instagram}
                     alt="Instagram"
                     className="w-6 h-5 md:w-7 md:h-6"
                   />
+                  </LinkWidget>
                 </li>
                 <li>
+                  <LinkWidget href="https://www.linkedin.com/company/lightandlifeacademy" target="_blank">
                   <ImageWidget
                     src={LinkedIn}
                     alt="LinkedIn"
                     className="w-6 h-5 md:w-7 md:h-6"
                   />
+                  </LinkWidget>
                 </li>
               </ul>
             </div>
