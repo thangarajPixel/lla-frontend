@@ -1,7 +1,14 @@
 export { default as Dummy1 } from "@/assets/dummy/1.png";
 export { default as Dummy2 } from "@/assets/dummy/2.png";
-export { default as Gallery } from "@/assets/dummy/3.png";
-export { default as Gallery2 } from "@/assets/dummy/4.png";
+export { default as Dummy3 } from "@/assets/dummy/3.png";
+export { default as Dummy4 } from "@/assets/dummy/4.svg";
+export { default as Dummy5 } from "@/assets/dummy/5.svg";
+export { default as Dummy6 } from "@/assets/dummy/6.svg";
+export { default as Dummy7 } from "@/assets/dummy/7.svg";
+export { default as Dummy8 } from "@/assets/dummy/8.svg";
+export { default as Dummy9 } from "@/assets/dummy/9.svg";
+export { default as Dummy10 } from "@/assets/dummy/10.png";
+
 export { default as AboutBg } from "@/assets/dummy/about-hero-dummy.png";
 export { default as SponsorsDummy1 } from "@/assets/dummy/sponsors-dummy-1.png";
 export { default as SponsorsDummy2 } from "@/assets/dummy/sponsors-dummy-2.png";

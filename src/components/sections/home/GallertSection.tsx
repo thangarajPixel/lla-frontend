@@ -3,14 +3,34 @@
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
-import { Gallery } from "@/helpers/ImageHelper";
+import {
+  Dummy3,
+  Dummy4,
+  Dummy5,
+  Dummy6,
+  Dummy7,
+  Dummy8,
+  Dummy9,
+  Dummy10,
+} from "@/helpers/ImageHelper";
 
 const GallertSection = () => {
+  const imageArray = [
+    Dummy3,
+    Dummy4,
+    Dummy5,
+    Dummy6,
+    Dummy7,
+    Dummy8,
+    Dummy9,
+    Dummy10,
+  ];
+
   const galleryImages = Array(8)
     .fill(null)
     .map((_, idx) => ({
       id: `gallery-${idx}`,
-      src: Gallery,
+      src: imageArray[idx],
       firstId: `gallery-${idx}-first`,
       secondId: `gallery-${idx}-second`,
     }));
@@ -38,12 +58,12 @@ const GallertSection = () => {
         <div className="flex flex-col gap-6 mt-[50px]">
           <ParallaxWidget speed={7}>
             <ImageWidget
-              src={Gallery}
+              src={Dummy3}
               alt="Gallery"
               className="w-full max-h-[250px] object-cover mb-6"
             />
             <ImageWidget
-              src={Gallery}
+              src={Dummy4}
               alt="Gallery"
               className="w-full max-h-[250px] object-cover"
             />
@@ -52,12 +72,12 @@ const GallertSection = () => {
         <div className="flex flex-col gap-6 mt-[350px]">
           <ParallaxWidget speed={4}>
             <ImageWidget
-              src={Gallery}
+              src={Dummy5}
               alt="Gallery"
               className="w-full max-h-[250px] object-cover mb-6"
             />
             <ImageWidget
-              src={Gallery}
+              src={Dummy6}
               alt="Gallery"
               className="w-full max-h-[250px] object-cover"
             />
@@ -80,7 +100,7 @@ const GallertSection = () => {
           </div>
           <div className="">
             <ImageWidget
-              src={Gallery}
+              src={Dummy10}
               alt="Gallery"
               className="w-full min-h-[350px] mt-20 max-h-[250px] object-cover"
             />
@@ -89,12 +109,12 @@ const GallertSection = () => {
         <div className="flex flex-col gap-6 mt-[350px]">
           <ParallaxWidget speed={4}>
             <ImageWidget
-              src={Gallery}
+              src={Dummy8}
               alt="Gallery"
               className="w-full max-h-[250px] object-cover mb-6"
             />
             <ImageWidget
-              src={Gallery}
+              src={Dummy9}
               alt="Gallery"
               className="w-full max-h-[250px] object-cover"
             />
@@ -103,12 +123,12 @@ const GallertSection = () => {
         <div className="flex flex-col gap-6 mt-[50px]">
           <ParallaxWidget speed={7}>
             <ImageWidget
-              src={Gallery}
+              src={Dummy7}
               alt="Gallery"
               className="w-full max-h-[250px] object-cover mb-6"
             />
             <ImageWidget
-              src={Gallery}
+              src={Dummy3}
               alt="Gallery"
               className="w-full max-h-[250px] object-cover"
             />
