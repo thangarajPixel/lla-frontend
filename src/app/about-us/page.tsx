@@ -1,14 +1,14 @@
+import { Fragment } from "react/jsx-runtime";
 import AboutHeroSection from "@/components/sections/about-us/AboutHeroSection";
 import FounderSection from "@/components/sections/about-us/FounderSection";
 import TeamSection from "@/components/sections/about-us/TeamSection";
-import { Fragment } from "react/jsx-runtime";
 
 const AboutUsPage = () => {
   return (
-      <Fragment>
-    <AboutHeroSection />
-    <FounderSection />
-    <TeamSection />
+    <Fragment>
+      <AboutHeroSection />
+      <FounderSection />
+      <TeamSection />
     </Fragment>
   );
 };

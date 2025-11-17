@@ -1,15 +1,14 @@
+import { Fragment } from "react/jsx-runtime";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { AboutBg } from "@/helpers/ImageHelper";
-import { Fragment } from "react/jsx-runtime";
 
 const AboutHeroSection = () => {
   return (
     <Fragment>
       <ParallaxWidget speed={-0.8}>
-        <section
-          className="w-full h-auto bg-white py-2">
+        <section className="w-full h-auto bg-white py-2">
           <ScrollWidget>
             <ContainerWidget>
               <div className="flex flex-col items-start justify-start gap-2 md:gap-4">
