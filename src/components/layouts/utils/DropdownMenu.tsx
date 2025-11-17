@@ -53,8 +53,8 @@ const DropdownMenu = ({
         <ul
           className={`${
             isSticky
-              ? "bg-white border border-black/20 rounded-md py-2"
-              : "bg-black border border-white/20 rounded-md py-2"
+              ? "bg-white shadow-lg rounded-md py-2"
+              : "bg-black shadow-lg rounded-md py-2"
           }`}
         >
           {menu.items.map((item) => (
