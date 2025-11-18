@@ -1,5 +1,7 @@
 "use client";
 
+import Autoplay from "embla-carousel-autoplay";
+import useEmblaCarousel from "embla-carousel-react";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
@@ -31,14 +33,39 @@ const GallertSection = () => {
     .map((_, idx) => ({
       id: `gallery-${idx}`,
       src: imageArray[idx],
-      firstId: `gallery-${idx}-first`,
-      secondId: `gallery-${idx}-second`,
     }));
 
-  const duplicatedImages = [
-    ...galleryImages.map((item) => ({ ...item, uniqueId: item.firstId })),
-    ...galleryImages.map((item) => ({ ...item, uniqueId: item.secondId })),
-  ];
+  const [emblaRef1] = useEmblaCarousel(
+    {
+      align: "start",
+      slidesToScroll: 1,
+      loop: false,
+      dragFree: false,
+    },
+    [
+      Autoplay({
+        delay: 2000,
+        stopOnInteraction: false,
+        stopOnMouseEnter: true,
+      }),
+    ],
+  );
+
+  const [emblaRef2] = useEmblaCarousel(
+    {
+      align: "start",
+      slidesToScroll: 1,
+      loop: false,
+      dragFree: false,
+    },
+    [
+      Autoplay({
+        delay: 2000,
+        stopOnInteraction: false,
+        stopOnMouseEnter: true,
+      }),
+    ],
+  );
 
   return (
     <section className="w-full py-8 md:py-12 lg:py-16 xl:py-24 2xl:py-24 3xl:py-38 max-w-[1920px] mx-auto lg:w-[90vw]">
@@ -138,64 +165,48 @@ const GallertSection = () => {
 
       <div className="lg:hidden space-y-4 overflow-hidden">
         <div className="relative overflow-hidden">
-          <div className="flex animate-marquee-left gap-4">
-            {duplicatedImages.map((item) => (
-              <div
-                key={`row1-${item.uniqueId}`}
-                className="relative shrink-0 w-[45vw] aspect-square overflow-hidden"
-              >
-                <ImageWidget
-                  src={item.src}
-                  alt="Gallery"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            ))}
-            {duplicatedImages.map((item) => (
-              <div
-                key={`row1-duplicate-${item.uniqueId}`}
-                className="relative shrink-0 w-[45vw] aspect-square overflow-hidden"
-              >
-                <ImageWidget
-                  src={item.src}
-                  alt="Gallery"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            ))}
+          <div
+            ref={emblaRef1}
+            className="overflow-hidden cursor-grab active:cursor-grabbing"
+          >
+            <div className="flex gap-4 touch-pan-x">
+              {galleryImages.map((item) => (
+                <div
+                  key={`row1-${item.id}`}
+                  className="relative flex-[0_0_45vw] aspect-square overflow-hidden min-w-0"
+                >
+                  <ImageWidget
+                    src={item.src}
+                    alt="Gallery"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
         <div className="relative overflow-hidden">
-          <div className="flex animate-marquee-right gap-4">
-            {duplicatedImages.map((item) => (
-              <div
-                key={`row2-${item.uniqueId}`}
-                className="relative shrink-0 w-[45vw] aspect-square overflow-hidden"
-              >
-                <ImageWidget
-                  src={item.src}
-                  alt="Gallery"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            ))}
-            {duplicatedImages.map((item) => (
-              <div
-                key={`row2-duplicate-${item.uniqueId}`}
-                className="relative shrink-0 w-[45vw] aspect-square overflow-hidden"
-              >
-                <ImageWidget
-                  src={item.src}
-                  alt="Gallery"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            ))}
+          <div
+            ref={emblaRef2}
+            className="overflow-hidden cursor-grab active:cursor-grabbing"
+          >
+            <div className="flex gap-4 touch-pan-x">
+              {galleryImages.map((item) => (
+                <div
+                  key={`row2-${item.id}`}
+                  className="relative flex-[0_0_45vw] aspect-square overflow-hidden min-w-0"
+                >
+                  <ImageWidget
+                    src={item.src}
+                    alt="Gallery"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

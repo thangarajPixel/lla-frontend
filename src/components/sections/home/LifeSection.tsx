@@ -1,3 +1,7 @@
+"use client";
+
+import Autoplay from "embla-carousel-autoplay";
+import useEmblaCarousel from "embla-carousel-react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
@@ -61,6 +65,22 @@ const LifeCard = ({ card }: LifeCardProps) => (
 );
 
 const LifeSection = () => {
+  const [emblaRef] = useEmblaCarousel(
+    {
+      align: "start",
+      slidesToScroll: 1,
+      loop: false,
+      dragFree: false,
+    },
+    [
+      Autoplay({
+        delay: 2000,
+        stopOnInteraction: false,
+        stopOnMouseEnter: true,
+      }),
+    ],
+  );
+
   return (
     <section
       className="w-full min-h-[1000px] md:min-h-[700px] lg:min-h-[900px] xl:min-h-[1000px] 2xl:min-h-[1100px] 3xl:min-h-[1200px] bg-fixed bg-cover bg-left bg-no-repeat relative bg-[#ECECEC] py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 3xl:py-28"
@@ -122,16 +142,21 @@ const LifeSection = () => {
           </div>
 
           {/* Mobile: Horizontal Scroll - Below md breakpoint */}
-          <div className="md:hidden w-full overflow-x-auto scrollbar-hide mt-6 sm:mt-8">
-            <div className="flex gap-3 sm:gap-4">
-              {lifeCardsData.map((card) => (
-                <div
-                  key={card.id}
-                  className="shrink-0 w-[75vw] sm:w-[70vw] max-w-[200px] sm:max-w-[220px]"
-                >
-                  <LifeCard card={card} />
-                </div>
-              ))}
+          <div className="md:hidden w-full mt-6 sm:mt-8 overflow-hidden">
+            <div
+              ref={emblaRef}
+              className="overflow-hidden cursor-grab active:cursor-grabbing"
+            >
+              <div className="flex gap-3 sm:gap-4 touch-pan-x pr-3 sm:pr-4">
+                {lifeCardsData.map((card) => (
+                  <div
+                    key={card.id}
+                    className="flex-[0_0_75vw] sm:flex-[0_0_70vw] max-w-[200px] sm:max-w-[220px] min-w-0"
+                  >
+                    <LifeCard card={card} />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </ContainerWidget>
