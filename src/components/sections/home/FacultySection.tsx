@@ -177,9 +177,9 @@ const FacultySection = () => {
                     <h3 className="font-mulish text-xl md:text-xl lg:text-2xl xl:text-[20px] 2xl:text-[20px] 3xl:text-[24px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight transition-colors duration-500 ease-in-out delay-150">
                       View All Faculty
                     </h3>
-                      <div className="self-start mt-3">
-                        <OrangeButtonWidget content="Know your guides" />
-                      </div>
+                    <div className="self-start mt-3">
+                      <OrangeButtonWidget content="Know your guides" />
+                    </div>
                   </div>
                 </ScrollWidget>
               </div>
