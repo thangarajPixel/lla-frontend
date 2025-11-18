@@ -169,8 +169,14 @@ Reusable React components organized by purpose:
   - **about-us/**: About Us page sections
 - **ui/**: Base UI components built with shadcn/ui and Radix UI
 - **widgets/**: Reusable widget components for common functionality
-  - Button, Container, Image, Link widgets
-  - Parallax, Scroll, and SmoothScroll widgets for animations
+  - **ButtonWidget.tsx**: Custom button component
+  - **ContainerWidget.tsx**: Responsive container wrapper
+  - **ImageWidget.tsx**: Optimized image component
+  - **LinkWidget.tsx**: Navigation link component
+  - **OrangeButtonWidget.tsx**: Styled orange button component
+  - **ParallaxWidget.tsx**: GSAP-based parallax scrolling effects
+  - **ScrollWidget.tsx**: Scroll-triggered animations (fadeIn, fadeUp, fadeDown, slideLeft, slideRight, scale, rotate)
+  - **SmoothScrollWidget.tsx**: Smooth scrolling implementation
 
 ### `/src/helpers`
 Helper modules for common functionality:
@@ -205,8 +211,9 @@ TypeScript type definitions and interfaces for type safety across the applicatio
 
 ### Animation & Effects
 - **Motion**: 12.23.24 (Framer Motion) - Animation library
-- **GSAP**: 3.13.0 - Advanced animation library
+- **GSAP**: 3.13.0 - Advanced animation library with ScrollTrigger plugin
 - **Lenis**: 1.3.15 - Smooth scrolling library
+- **Embla Carousel**: Carousel/slider component with autoplay support
 
 ### Data & State Management
 - **TanStack Query**: 5.90.9 - Data fetching and caching
@@ -227,6 +234,21 @@ TypeScript type definitions and interfaces for type safety across the applicatio
 
 ## 🎨 Key Features Implementation
 
+### Widget Components
+
+#### ParallaxWidget
+- GSAP ScrollTrigger-based parallax effects
+- Configurable speed, start/end points, and scrub options
+- Automatic refresh on window resize for responsive behavior
+- Smooth parallax scrolling for images and content
+
+#### ScrollWidget
+- Multiple animation types: fadeIn, fadeUp, fadeDown, slideLeft, slideRight, scale, rotate
+- Customizable delay, duration, and easing functions
+- Scroll-triggered animations with once or repeat options
+- Configurable start/end trigger points
+- Automatic cleanup and refresh handling
+
 ### Navigation
 - Sticky header that changes appearance on scroll
 - Dropdown menus for Courses and Campus sections
@@ -235,15 +257,30 @@ TypeScript type definitions and interfaces for type safety across the applicatio
 
 ### Animations
 - Smooth scroll implementation using Lenis
-- Parallax effects for visual depth
-- Scroll-triggered animations
+- Parallax effects for visual depth using GSAP ScrollTrigger
+- Scroll-triggered animations with multiple animation types
 - Page transition effects
+- Responsive animation handling (auto-refresh on resize)
+- Embla Carousel for interactive carousels with autoplay
 
 ### Components
 - Reusable widget system for consistent UI patterns
 - Custom button components with ripple effects
 - Responsive image handling
 - Container components for consistent spacing
+- **ParallaxWidget**: Configurable parallax scrolling with speed, start/end points, and scrub options
+- **ScrollWidget**: Multiple animation types (fadeIn, fadeUp, fadeDown, slideLeft, slideRight, scale, rotate) with customizable delays and durations
+- **FacultySection**: Unified data structure for mobile and desktop views with carousel support and static content cards
+
+### Section Implementations
+
+#### FacultySection
+- Single data source for both mobile and desktop views
+- Embla Carousel with autoplay for desktop view
+- Grid layout for mobile view
+- Static "View All Faculty" card with background styling
+- Integrated ParallaxWidget and ScrollWidget for animations
+- Responsive design with different layouts for mobile and desktop
 
 ## 🔧 Configuration
 
