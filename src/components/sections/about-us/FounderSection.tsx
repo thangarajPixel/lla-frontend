@@ -6,12 +6,12 @@ import { FounderDummy1, FounderDummy2 } from "@/helpers/ImageHelper";
 
 const FounderSection = () => {
   return (
-    <section className="w-full bg-[#ECECEC] py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 3xl:py-28">
+    <section className="w-full bg-[#ECECEC] py-8 md:py-12 lg:py-15 xl:py-15 2xl:py-20 3xl:py-24">
       <ContainerWidget>
         <div className="text-center space-y-1 md:space-y-2 lg:space-y-3 xl:space-y-5 2xl:space-y-14 3xl:space-y-16">
           <ScrollWidget delay={0.1}>
             <h3
-              className="font-urbanist font-normal text-black text-center
+              className="font-urbanist font-normal text-black text-left md:text-center lg:text-center
               text-3xl md:text-4xl lg:text-5xl xl:text-6xl 
               2xl:text-7xl 3xl:text-[80px]"
             >
@@ -20,7 +20,7 @@ const FounderSection = () => {
           </ScrollWidget>
           <ScrollWidget delay={0.1}>
             <p
-              className="font-area-variable font-semibold text-black text-center
+              className="font-area-variable font-semibold text-black  text-left md:text-center lg:text-center
               text-base md:text-lg lg:text-xl xl:text-2xl 
               2xl:text-3xl 3xl:text-[40px]
               sm:max-w-[600px] md:max-w-[800px] lg:max-w-[900px] xl:max-w-[550px]
@@ -32,7 +32,7 @@ const FounderSection = () => {
           </ScrollWidget>
         </div>
         <div className="mt-5 md:mt-13 space-y-10 md:space-y-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10 items-center lg:max-w-[900px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-10 items-center lg:max-w-[900px]">
             <ScrollWidget delay={0.2}>
               <div className="space-y-4 lg:max-w-[376px]">
                 <h4 className="font-urbanist text-2xl md:text-3xl font-semibold text-[#E97451]">
@@ -71,7 +71,7 @@ const FounderSection = () => {
               </div>
             </ScrollWidget>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-15 items-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-15 items-center">
             <ScrollWidget delay={0.3}>
               <div className="w-full max-h-[520px] lg:max-h-[600px] lg:flex lg:justify-end ">
                 <ImageWidget
@@ -79,12 +79,12 @@ const FounderSection = () => {
                   alt="Founder"
                   width={500}
                   height={600}
-                  className="w-[290px] h-[380px] object-cover"
+                  className="w-[300px] h-[380px] object-cover"
                 />
               </div>
             </ScrollWidget>
             <ScrollWidget delay={0.2}>
-              <div className="space-y-4 pl-10  lg:max-w-[416px]">
+              <div className="space-y-4  md:pl-5 lg:pl-10  lg:max-w-[416px]">
                 <h4 className="font-urbanist text-2xl md:text-3xl font-semibold text-[#E97451]">
                   Anuradha Iqbal
                 </h4>
