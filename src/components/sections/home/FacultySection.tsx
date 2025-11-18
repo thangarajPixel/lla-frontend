@@ -25,24 +25,55 @@ const FacultySection = () => {
     ],
   );
 
-  const mobileFacultyIds = [
-    "faculty-mobile-0",
-    "faculty-mobile-1",
-    "faculty-mobile-2",
-    "faculty-mobile-3",
-    "faculty-mobile-4",
-    "faculty-mobile-5",
-  ];
-
-  const desktopFacultyData = [
-    { id: "faculty-desktop-0", index: 0 },
-    { id: "faculty-desktop-1", index: 1 },
-    { id: "faculty-desktop-2", index: 2 },
-    { id: "faculty-desktop-3", index: 3 },
-    { id: "faculty-desktop-4", index: 4 },
-    { id: "faculty-desktop-5", index: 5 },
-    { id: "faculty-desktop-6", index: 6 },
-    { id: "faculty-desktop-7", index: 7 },
+  const facultyData = [
+    {
+      id: "faculty-0",
+      name: "Akshay Sharma",
+      description:
+        "Mihir Hardikar is a Food and Beverage photographer based in Mumbai. Mihir has worked with national and international brands such as Domino's Pizza, Cure.Fit, Mother Dairy, Nestle Bangladesh, Haldirams.",
+    },
+    {
+      id: "faculty-1",
+      name: "Akshay Sharma",
+      description:
+        "Mihir Hardikar is a Food and Beverage photographer based in Mumbai. Mihir has worked with national and international brands such as Domino's Pizza, Cure.Fit, Mother Dairy, Nestle Bangladesh, Haldirams.",
+    },
+    {
+      id: "faculty-2",
+      name: "Akshay Sharma",
+      description:
+        "Mihir Hardikar is a Food and Beverage photographer based in Mumbai. Mihir has worked with national and international brands such as Domino's Pizza, Cure.Fit, Mother Dairy, Nestle Bangladesh, Haldirams.",
+    },
+    {
+      id: "faculty-3",
+      name: "Akshay Sharma",
+      description:
+        "Mihir Hardikar is a Food and Beverage photographer based in Mumbai. Mihir has worked with national and international brands such as Domino's Pizza, Cure.Fit, Mother Dairy, Nestle Bangladesh, Haldirams.",
+    },
+    {
+      id: "faculty-4",
+      name: "Akshay Sharma",
+      description:
+        "Mihir Hardikar is a Food and Beverage photographer based in Mumbai. Mihir has worked with national and international brands such as Domino's Pizza, Cure.Fit, Mother Dairy, Nestle Bangladesh, Haldirams.",
+    },
+    {
+      id: "faculty-5",
+      name: "Akshay Sharma",
+      description:
+        "Mihir Hardikar is a Food and Beverage photographer based in Mumbai. Mihir has worked with national and international brands such as Domino's Pizza, Cure.Fit, Mother Dairy, Nestle Bangladesh, Haldirams.",
+    },
+    {
+      id: "faculty-6",
+      name: "Akshay Sharma",
+      description:
+        "Mihir Hardikar is a Food and Beverage photographer based in Mumbai. Mihir has worked with national and international brands such as Domino's Pizza, Cure.Fit, Mother Dairy, Nestle Bangladesh, Haldirams.",
+    },
+    {
+      id: "faculty-7",
+      name: "Akshay Sharma",
+      description:
+        "Mihir Hardikar is a Food and Beverage photographer based in Mumbai. Mihir has worked with national and international brands such as Domino's Pizza, Cure.Fit, Mother Dairy, Nestle Bangladesh, Haldirams.",
+    },
   ];
 
   return (
@@ -71,114 +102,103 @@ const FacultySection = () => {
       </ContainerWidget>
       <div className="pt-8 relative">
         <div className="px-4 sm:px-6 md:hidden">
-          <ScrollWidget animation="fadeUp" delay={0.2}>
-            <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 sm:gap-6">
-              {mobileFacultyIds.map((key, index) => (
-                <ScrollWidget
-                  key={key}
-                  animation="scale"
-                  delay={0.1 + index * 0.1}
-                >
-                  <div className="flex flex-col gap-2 sm:gap-3">
-                    <ParallaxWidget speed={0.3}>
-                      <div className="w-full aspect-square sm:aspect-auto overflow-hidden">
-                        <ImageWidget src={Dummy11} alt="Faculty" />
-                      </div>
-                    </ParallaxWidget>
-                    <h3 className="font-mulish text-lg sm:text-xl font-bold text-black font-urbanist leading-tight">
-                      Akshay Sharma
-                    </h3>
-                    <p className="text-sm sm:text-base font-normal text-black leading-relaxed line-clamp-2 overflow-hidden text-ellipsis">
-                      Mihir Hardikar is a Food and Beverage photographer based
-                      in Mumbai. Mihir has worked with national and
-                      international brands such as Domino's Pizza, Cure.Fit,
-                      Mother Dairy, Nestle Bangladesh, Haldirams.
-                    </p>
-                    <div className="self-start mt-auto">
-                      <OrangeButtonWidget content="Know More" />
-                    </div>
-                  </div>
-                </ScrollWidget>
-              ))}
+          <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 sm:gap-6">
+            {facultyData.slice(0, 6).map((faculty, index) => (
               <ScrollWidget
-                key="mobile-static"
+                key={faculty.id}
                 animation="scale"
-                delay={0.1 + mobileFacultyIds.length * 0.1}
+                delay={0.1 + index * 0.1}
               >
-                <div className="min-h-[200px] flex flex-col justify-between gap-2 sm:gap-3 bg-[#E97451]/10 p-3 sm:p-4">
+                <div className="flex flex-col gap-2 sm:gap-3">
+                  <ParallaxWidget speed={0.3}>
+                    <div className="w-full aspect-square sm:aspect-auto overflow-hidden">
+                      <ImageWidget src={Dummy11} alt="Faculty" />
+                    </div>
+                  </ParallaxWidget>
                   <h3 className="font-mulish text-lg sm:text-xl font-bold text-black font-urbanist leading-tight">
-                    View All Faculty
+                    {faculty.name}
                   </h3>
+                  <p className="text-sm sm:text-base font-normal text-black leading-relaxed line-clamp-2 overflow-hidden text-ellipsis">
+                    {faculty.description}
+                  </p>
                   <div className="self-start mt-auto">
-                    <OrangeButtonWidget content="Know your guides" />
+                    <OrangeButtonWidget content="Know More" />
                   </div>
                 </div>
               </ScrollWidget>
-            </div>
-          </ScrollWidget>
+            ))}
+            <ScrollWidget
+              key="mobile-static"
+              animation="scale"
+              delay={0.1 + Math.min(facultyData.length, 6) * 0.1}
+            >
+              <div className="min-h-[200px] flex flex-col justify-between gap-2 sm:gap-3 bg-[#E97451]/10 p-3 sm:p-4">
+                <h3 className="font-mulish text-lg sm:text-xl font-bold text-black font-urbanist leading-tight">
+                  View All Faculty
+                </h3>
+                <div className="self-start mt-auto">
+                  <OrangeButtonWidget content="Know your guides" />
+                </div>
+              </div>
+            </ScrollWidget>
+          </div>
         </div>
 
         <div className="hidden md:block">
-          <ScrollWidget animation="fadeUp" delay={0.2}>
-            <div className="overflow-hidden" ref={emblaRef}>
-              <div className="flex">
-                {desktopFacultyData.map(({ id, index: i }) => (
-                  <div
-                    key={id}
-                    className={`shrink-0 ${
-                      i % 2 ? "mt-30" : "mt-0"
-                    } w-[calc((100%-3rem)/3)] lg:w-[calc((100%-4.5rem)/4)] xl:w-[calc((100%-6rem)/5)] 2xl:w-[calc((100%-7.5rem)/6)]`}
-                  >
-                    <ScrollWidget animation="scale" delay={0.1 + i * 0.05}>
-                      <div className="group relative flex flex-col gap-3 overflow-hidden transition-all duration-500 ease-in-out delay-75 hover:bg-[#E97451]/20 p-3.5 cursor-pointer">
-                        <ParallaxWidget speed={0.25}>
-                          <div className="transition-transform duration-500 ease-in-out delay-100 group-hover:scale-[1.02]">
-                            <ImageWidget src={Dummy11} alt="Faculty" />
-                          </div>
-                        </ParallaxWidget>
-                        <h3 className="font-mulish text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[20px] 3xl:text-[24px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight transition-colors duration-500 ease-in-out delay-150">
-                          Akshay Sharma
-                        </h3>
-                        <div className="opacity-0 transition-all duration-500 ease-in-out delay-200 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2">
-                          <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
-                            Mihir Hardikar is a Food and Beverage photographer
-                            based in Mumbai. Mihir has worked with national and
-                            international brands such as Domino's Pizza,
-                            Cure.Fit, Mother Dairy, Nestle Bangladesh,
-                            Haldirams.
-                          </p>
-                          <div className="self-start mt-3">
-                            <OrangeButtonWidget content="Know More" />
-                          </div>
-                        </div>
-                      </div>
-                    </ScrollWidget>
-                  </div>
-                ))}
+          <div className="overflow-hidden" ref={emblaRef}>
+            <div className="flex">
+              {facultyData.map((faculty, index) => (
                 <div
+                  key={faculty.id}
                   className={`shrink-0 ${
-                    desktopFacultyData.length % 2 ? "mt-30" : "mt-0"
+                    index % 2 ? "mt-30" : "mt-0"
                   } w-[calc((100%-3rem)/3)] lg:w-[calc((100%-4.5rem)/4)] xl:w-[calc((100%-6rem)/5)] 2xl:w-[calc((100%-7.5rem)/6)]`}
                 >
-                  <ScrollWidget
-                    animation="scale"
-                    delay={0.1 + desktopFacultyData.length * 0.05}
-                  >
-                    <div className="min-h-[230px] group relative flex flex-col justify-between gap-3 overflow-hidden transition-all duration-500 ease-in-out delay-75 bg-[#E97451]/10 hover:bg-[#E97451]/20 p-3.5 cursor-pointer">
+                  <ScrollWidget animation="scale" delay={0.1 + index * 0.05}>
+                    <div className="group relative flex flex-col gap-3 overflow-hidden transition-all duration-500 ease-in-out delay-75 hover:bg-[#E97451]/20 p-3.5 cursor-pointer">
+                      <ParallaxWidget speed={0.25}>
+                        <div className="transition-transform duration-500 ease-in-out delay-100 group-hover:scale-[1.02]">
+                          <ImageWidget src={Dummy11} alt="Faculty" />
+                        </div>
+                      </ParallaxWidget>
                       <h3 className="font-mulish text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[20px] 3xl:text-[24px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight transition-colors duration-500 ease-in-out delay-150">
-                        View All Faculty
+                        {faculty.name}
                       </h3>
                       <div className="opacity-0 transition-all duration-500 ease-in-out delay-200 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2">
+                        <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
+                          {faculty.description}
+                        </p>
                         <div className="self-start mt-3">
-                          <OrangeButtonWidget content="Know your guides" />
+                          <OrangeButtonWidget content="Know More" />
                         </div>
                       </div>
                     </div>
                   </ScrollWidget>
                 </div>
+              ))}
+              <div
+                className={`shrink-0 ${
+                  facultyData.length % 2 ? "mt-30" : "mt-0"
+                } w-[calc((100%-3rem)/3)] lg:w-[calc((100%-4.5rem)/4)] xl:w-[calc((100%-6rem)/5)] 2xl:w-[calc((100%-7.5rem)/6)]`}
+              >
+                <ScrollWidget
+                  animation="scale"
+                  delay={0.1 + facultyData.length * 0.05}
+                >
+                  <div className="min-h-[230px] group relative flex flex-col justify-between gap-3 overflow-hidden transition-all duration-500 ease-in-out delay-75 bg-[#E97451]/10 hover:bg-[#E97451]/20 p-3.5 cursor-pointer">
+                    <h3 className="font-mulish text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[20px] 3xl:text-[24px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight transition-colors duration-500 ease-in-out delay-150">
+                      View All Faculty
+                    </h3>
+                    <div className="opacity-0 transition-all duration-500 ease-in-out delay-200 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2">
+                      <div className="self-start mt-3">
+                        <OrangeButtonWidget content="Know your guides" />
+                      </div>
+                    </div>
+                  </div>
+                </ScrollWidget>
               </div>
             </div>
-          </ScrollWidget>
+          </div>
         </div>
       </div>
     </section>

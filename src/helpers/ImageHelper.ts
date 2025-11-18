@@ -11,6 +11,8 @@ export { default as Dummy10 } from "@/assets/dummy/10.png";
 export { default as Dummy11 } from "@/assets/dummy/11.svg";
 
 export { default as AboutBg } from "@/assets/dummy/about-hero-dummy.png";
+export { default as FounderDummy1 } from "@/assets/dummy/founder-dummy-1.png";
+export { default as FounderDummy2 } from "@/assets/dummy/founder-dummy-2.png";
 export { default as SponsorsDummy1 } from "@/assets/dummy/sponsors-dummy-1.png";
 export { default as SponsorsDummy2 } from "@/assets/dummy/sponsors-dummy-2.png";
 export { default as SponsorsDummy3 } from "@/assets/dummy/sponsors-dummy-3.png";
@@ -33,5 +35,3 @@ export { default as LlaOnline } from "@/assets/images/lla-online.svg";
 export { default as LlaOutreach } from "@/assets/images/lla-outreach.svg";
 export { default as LogoBlack } from "@/assets/images/logo-black.svg";
 export { default as Logo } from "@/assets/images/logo-white.svg";
-export {default as FounderDummy1} from "@/assets/dummy/founder-dummy-1.png";
-export {default as FounderDummy2} from "@/assets/dummy/founder-dummy-2.png";

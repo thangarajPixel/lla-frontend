@@ -1,8 +1,8 @@
 import ContainerWidget from "@/components/widgets/ContainerWidget";
-import ScrollWidget from "@/components/widgets/ScrollWidget";
-import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
-import { FounderDummy1, FounderDummy2 } from "@/helpers/ImageHelper";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
+import ScrollWidget from "@/components/widgets/ScrollWidget";
+import { FounderDummy1, FounderDummy2 } from "@/helpers/ImageHelper";
 
 const FounderSection = () => {
   return (
