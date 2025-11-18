@@ -43,15 +43,13 @@ const FacultySection = () => {
     { id: "faculty-desktop-5", index: 5 },
     { id: "faculty-desktop-6", index: 6 },
     { id: "faculty-desktop-7", index: 7 },
-    { id: "faculty-desktop-8", index: 8 },
-    { id: "faculty-desktop-9", index: 9 },
   ];
 
   return (
     <section className="w-full py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 3xl:py-28 bg-white mx-auto max-w-[1920px]">
       <ContainerWidget>
         <ScrollWidget animation="fadeUp" delay={0.1}>
-          <ParallaxWidget speed={0.2}>
+          <ParallaxWidget speed={-0.2}>
             <div className="flex flex-col justify-start md:justify-center items-start md:items-center text-left md:text-center gap-4">
               <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
                 Faculty
@@ -61,8 +59,8 @@ const FacultySection = () => {
                 <span className="text-[#E97451]">Modern-Day Gurukul</span>
               </p>
               <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
-                Our faculty foster an environment of collaboration and mentorship.
-                The guidance is personal,
+                Our faculty foster an environment of collaboration and
+                mentorship. The guidance is personal,
                 <br className="hidden sm:block" /> conversations are open, and
                 growth happens through shared experience.
               </p>
@@ -91,10 +89,10 @@ const FacultySection = () => {
                       Akshay Sharma
                     </h3>
                     <p className="text-sm sm:text-base font-normal text-black leading-relaxed line-clamp-2 overflow-hidden text-ellipsis">
-                      Mihir Hardikar is a Food and Beverage photographer based in
-                      Mumbai. Mihir has worked with national and international
-                      brands such as Domino's Pizza, Cure.Fit, Mother Dairy, Nestle
-                      Bangladesh, Haldirams.
+                      Mihir Hardikar is a Food and Beverage photographer based
+                      in Mumbai. Mihir has worked with national and
+                      international brands such as Domino's Pizza, Cure.Fit,
+                      Mother Dairy, Nestle Bangladesh, Haldirams.
                     </p>
                     <div className="self-start mt-auto">
                       <OrangeButtonWidget content="Know More" />
@@ -102,6 +100,20 @@ const FacultySection = () => {
                   </div>
                 </ScrollWidget>
               ))}
+              <ScrollWidget
+                key="mobile-static"
+                animation="scale"
+                delay={0.1 + mobileFacultyIds.length * 0.1}
+              >
+                <div className="min-h-[200px] flex flex-col justify-between gap-2 sm:gap-3 bg-[#E97451]/10 p-3 sm:p-4">
+                  <h3 className="font-mulish text-lg sm:text-xl font-bold text-black font-urbanist leading-tight">
+                    View All Faculty
+                  </h3>
+                  <div className="self-start mt-auto">
+                    <OrangeButtonWidget content="Know your guides" />
+                  </div>
+                </div>
+              </ScrollWidget>
             </div>
           </ScrollWidget>
         </div>
@@ -129,10 +141,11 @@ const FacultySection = () => {
                         </h3>
                         <div className="opacity-0 transition-all duration-500 ease-in-out delay-200 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2">
                           <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
-                            Mihir Hardikar is a Food and Beverage photographer based
-                            in Mumbai. Mihir has worked with national and
-                            international brands such as Domino's Pizza, Cure.Fit,
-                            Mother Dairy, Nestle Bangladesh, Haldirams.
+                            Mihir Hardikar is a Food and Beverage photographer
+                            based in Mumbai. Mihir has worked with national and
+                            international brands such as Domino's Pizza,
+                            Cure.Fit, Mother Dairy, Nestle Bangladesh,
+                            Haldirams.
                           </p>
                           <div className="self-start mt-3">
                             <OrangeButtonWidget content="Know More" />
@@ -142,6 +155,27 @@ const FacultySection = () => {
                     </ScrollWidget>
                   </div>
                 ))}
+                <div
+                  className={`shrink-0 ${
+                    desktopFacultyData.length % 2 ? "mt-30" : "mt-0"
+                  } w-[calc((100%-3rem)/3)] lg:w-[calc((100%-4.5rem)/4)] xl:w-[calc((100%-6rem)/5)] 2xl:w-[calc((100%-7.5rem)/6)]`}
+                >
+                  <ScrollWidget
+                    animation="scale"
+                    delay={0.1 + desktopFacultyData.length * 0.05}
+                  >
+                    <div className="min-h-[230px] group relative flex flex-col justify-between gap-3 overflow-hidden transition-all duration-500 ease-in-out delay-75 bg-[#E97451]/10 hover:bg-[#E97451]/20 p-3.5 cursor-pointer">
+                      <h3 className="font-mulish text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[20px] 3xl:text-[24px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight transition-colors duration-500 ease-in-out delay-150">
+                        View All Faculty
+                      </h3>
+                      <div className="opacity-0 transition-all duration-500 ease-in-out delay-200 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2">
+                        <div className="self-start mt-3">
+                          <OrangeButtonWidget content="Know your guides" />
+                        </div>
+                      </div>
+                    </div>
+                  </ScrollWidget>
+                </div>
               </div>
             </div>
           </ScrollWidget>
