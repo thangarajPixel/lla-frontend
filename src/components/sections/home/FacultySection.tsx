@@ -62,18 +62,6 @@ const FacultySection = () => {
       description:
         "Mihir Hardikar is a Food and Beverage photographer based in Mumbai. Mihir has worked with national and international brands such as Domino's Pizza, Cure.Fit, Mother Dairy, Nestle Bangladesh, Haldirams.",
     },
-    {
-      id: "faculty-6",
-      name: "Akshay Sharma",
-      description:
-        "Mihir Hardikar is a Food and Beverage photographer based in Mumbai. Mihir has worked with national and international brands such as Domino's Pizza, Cure.Fit, Mother Dairy, Nestle Bangladesh, Haldirams.",
-    },
-    {
-      id: "faculty-7",
-      name: "Akshay Sharma",
-      description:
-        "Mihir Hardikar is a Food and Beverage photographer based in Mumbai. Mihir has worked with national and international brands such as Domino's Pizza, Cure.Fit, Mother Dairy, Nestle Bangladesh, Haldirams.",
-    },
   ];
 
   return (
