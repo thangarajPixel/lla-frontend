@@ -186,14 +186,12 @@ const FacultySection = () => {
                   delay={0.1 + facultyData.length * 0.05}
                 >
                   <div className="min-h-[230px] group relative flex flex-col justify-between gap-3 overflow-hidden transition-all duration-500 ease-in-out delay-75 bg-[#E97451]/10 hover:bg-[#E97451]/20 p-3.5 cursor-pointer">
-                    <h3 className="font-mulish text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[20px] 3xl:text-[24px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight transition-colors duration-500 ease-in-out delay-150">
+                    <h3 className="font-mulish text-xl md:text-xl lg:text-2xl xl:text-[20px] 2xl:text-[20px] 3xl:text-[24px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight transition-colors duration-500 ease-in-out delay-150">
                       View All Faculty
                     </h3>
-                    <div className="opacity-0 transition-all duration-500 ease-in-out delay-200 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2">
                       <div className="self-start mt-3">
                         <OrangeButtonWidget content="Know your guides" />
                       </div>
-                    </div>
                   </div>
                 </ScrollWidget>
               </div>
