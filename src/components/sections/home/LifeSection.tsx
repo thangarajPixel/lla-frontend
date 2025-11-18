@@ -5,6 +5,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
+import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { Life } from "@/helpers/ImageHelper";
 
 type LifeCardData = {
@@ -111,7 +112,14 @@ const LifeSection = () => {
               </div>
               <div className="flex justify-end items-end mt-8 sm:mt-10 md:mt-12 lg:mt-12 xl:mt-14 2xl:mt-16 3xl:mt-20">
                 <div className="w-full max-w-[200px] sm:max-w-[220px] md:max-w-[220px] lg:max-w-[230px] xl:max-w-[240px] 2xl:max-w-[240px] 3xl:max-w-[280px] hidden md:block">
-                  <LifeCard card={lifeCardsData[0]} />
+                  <ScrollWidget
+                    animation="fadeUp"
+                    delay={0.1}
+                    duration={1}
+                    ease="power3.out"
+                  >
+                    <LifeCard card={lifeCardsData[0]} />
+                  </ScrollWidget>
                 </div>
               </div>
             </div>
@@ -119,22 +127,36 @@ const LifeSection = () => {
             {/* Desktop: Grid Layout */}
             <div className="hidden md:grid md:grid-cols-2 gap-4 md:gap-5 lg:gap-6 xl:gap-6 2xl:gap-7 3xl:gap-8">
               <div className="space-y-4 md:space-y-5 lg:space-y-6 xl:space-y-6 2xl:space-y-7 3xl:space-y-8">
-                {lifeCardsData.slice(0, 2).map((card) => (
+                {lifeCardsData?.slice(0, 2).map((card) => (
                   <div
                     key={card.id}
                     className="w-full max-w-[200px] md:max-w-[220px] lg:max-w-[240px] xl:max-w-[250px] 2xl:max-w-[260px] 3xl:max-w-[280px]"
                   >
-                    <LifeCard card={card} />
+                    <ScrollWidget
+                      animation="fadeUp"
+                      delay={0.1}
+                      duration={1}
+                      ease="power3.out"
+                    >
+                      <LifeCard card={card} />
+                    </ScrollWidget>
                   </div>
                 ))}
               </div>
               <div className="md:mt-10 lg:mt-12 xl:mt-14 2xl:mt-16 3xl:mt-20 space-y-4 md:space-y-5 lg:space-y-6 xl:space-y-6 2xl:space-y-7 3xl:space-y-8">
-                {lifeCardsData.slice(2, 4).map((card) => (
+                {lifeCardsData?.slice(2, 4).map((card) => (
                   <div
                     key={card.id}
                     className="w-full max-w-[200px] md:max-w-[220px] lg:max-w-[240px] xl:max-w-[250px] 2xl:max-w-[260px] 3xl:max-w-[280px]"
                   >
-                    <LifeCard card={card} />
+                    <ScrollWidget
+                      animation="fadeUp"
+                      delay={0.1}
+                      duration={1}
+                      ease="power3.out"
+                    >
+                      <LifeCard card={card} />
+                    </ScrollWidget>
                   </div>
                 ))}
               </div>
