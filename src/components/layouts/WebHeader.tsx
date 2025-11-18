@@ -18,8 +18,14 @@ const menuItems: (MenuItem | DropdownMenuType)[] = [
     label: "Courses",
     pathPrefix: "/courses",
     items: [
-      { href: "/courses/professional-photography", label: "PG Diploma in Professional Photography & Digital Production" },
-      { href: "/courses/documentary-filmmaking", label: "PG Diploma in Documentary & Corporate Filmmaking" },
+      {
+        href: "/courses/professional-photography",
+        label: "PG Diploma in Professional Photography & Digital Production",
+      },
+      {
+        href: "/courses/documentary-filmmaking",
+        label: "PG Diploma in Documentary & Corporate Filmmaking",
+      },
     ],
   },
   {

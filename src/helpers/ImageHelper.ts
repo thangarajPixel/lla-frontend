@@ -8,6 +8,7 @@ export { default as Dummy7 } from "@/assets/dummy/7.svg";
 export { default as Dummy8 } from "@/assets/dummy/8.svg";
 export { default as Dummy9 } from "@/assets/dummy/9.svg";
 export { default as Dummy10 } from "@/assets/dummy/10.png";
+export { default as Dummy11 } from "@/assets/dummy/11.svg";
 
 export { default as AboutBg } from "@/assets/dummy/about-hero-dummy.png";
 export { default as SponsorsDummy1 } from "@/assets/dummy/sponsors-dummy-1.png";

@@ -26,8 +26,8 @@ const AboutHeroSection = () => {
             <ScrollWidget animation="fadeUp" delay={0.3}>
               <p className="text-[12px] lg:text-[14px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[665px]">
                 At about 2 centuries old, Photography is one of the youngest
-                visual communication art forms, and yet, at the end of the
-                90s, there was no reputed institution in India for structured
+                visual communication art forms, and yet, at the end of the 90s,
+                there was no reputed institution in India for structured
                 learning of professional photography.
               </p>
             </ScrollWidget>
@@ -37,8 +37,8 @@ const AboutHeroSection = () => {
                 careers in advertising photography and advertising,
                 respectively, were very aware of this gap when they nurtured
                 many an aspiring photographer at their studio in Mumbai. They
-                decided to take the plunge into photography education and so,
-                in 2001, Light & Life Academy came to be.
+                decided to take the plunge into photography education and so, in
+                2001, Light & Life Academy came to be.
               </p>
             </ScrollWidget>
           </div>
@@ -52,8 +52,8 @@ const AboutHeroSection = () => {
           <div className="flex flex-col items-start justify-start gap-3 md:gap-4">
             <ScrollWidget animation="fadeUp" delay={0.2}>
               <p className="text-[12px] lg:text-[14px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[665px]">
-                The objective was to provide affordable photography education
-                of a high standard. Through ebbs and flows, they have worked
+                The objective was to provide affordable photography education of
+                a high standard. Through ebbs and flows, they have worked
                 tirelessly for the last 2 decades and inspired hundreds to
                 discover and love the magic of photography
               </p>
@@ -64,20 +64,19 @@ const AboutHeroSection = () => {
                 every aspect of the institution carefully designed - the
                 location, the architecture and facilities. From the outset, it
                 has aimed to balance the positives of a contemporary pedagogy
-                with the ethos of a Gurukul. The approach is to ensure that
-                each individual student learns photography at a conceptual
-                level, at their own pace. The academy lays great emphasis in
-                guiding individuals to develop their vision while nurturing
-                their inner vision. This belief is symbolised in the LLA logo.
+                with the ethos of a Gurukul. The approach is to ensure that each
+                individual student learns photography at a conceptual level, at
+                their own pace. The academy lays great emphasis in guiding
+                individuals to develop their vision while nurturing their inner
+                vision. This belief is symbolised in the LLA logo.
               </p>
             </ScrollWidget>
             <ScrollWidget animation="fadeUp" delay={0.4}>
               <p className="text-[12px] lg:text-[14px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[665px]">
                 The Academy was fortunate to get enthusiastic support from
-                industry leaders - Kodak India, Eastman Kodak USA,
-                Calumet-USA, Photoquip-India, ZenTask-India, Gretag
-                Imaging-Switzerland and LMW- Coimbatore at the time of
-                inception.
+                industry leaders - Kodak India, Eastman Kodak USA, Calumet-USA,
+                Photoquip-India, ZenTask-India, Gretag Imaging-Switzerland and
+                LMW- Coimbatore at the time of inception.
               </p>
             </ScrollWidget>
           </div>
