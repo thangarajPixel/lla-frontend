@@ -25,6 +25,10 @@ body {
   font-family: var(--font-area-variable), sans-serif;
 }
 
+.font-mulish {
+  font-family: var(--font-mulish), sans-serif;
+}
+
 :root {
   --radius: 0.625rem;
   --card: oklch(1 0 0);
@@ -169,4 +173,13 @@ body {
 
 .animate-marquee-right {
   animation: marquee-right 15s linear infinite;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
