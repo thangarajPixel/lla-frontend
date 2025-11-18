@@ -18,7 +18,7 @@ const FacultySection = () => {
     },
     [
       Autoplay({
-        delay: 1000,
+        delay: 3000,
         stopOnInteraction: false,
         stopOnMouseEnter: true,
       }),
