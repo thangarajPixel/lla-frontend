@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactNode, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,20 +12,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
-export type DialogZoomInWrapperProps = {
-  trigger: ReactNode;
-  title?: string;
-  description?: string;
-  children: ReactNode;
-  footer?: ReactNode;
-  cancelText?: string;
-  showCancel?: boolean;
-  onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
-  onOpenChange?: (open: boolean) => void;
-  className?: string;
-  contentClassName?: string;
-};
+import type { DialogZoomInWrapperProps } from "./utils/widget";
 
 const DialogZoomInWrapper = ({
   trigger,
