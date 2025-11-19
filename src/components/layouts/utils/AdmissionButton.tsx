@@ -1,12 +1,11 @@
 "use client";
 
-import { X } from "lucide-react";
-import DialogZoomInWrapper from "@/components/widgets/DialogZoomInWrapper";
-import { ArrowRight, Dummy1, Dummy2, Into } from "@/helpers/ImageHelper";
 import { DialogClose } from "@/components/ui/dialog";
+import DialogWidget from "@/components/widgets/DialogWidget";
+import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
+import { ArrowRight, Dummy1, Dummy2, Into } from "@/helpers/ImageHelper";
 import ButtonWidget from "../../widgets/ButtonWidget";
 import ImageWidget from "../../widgets/ImageWidget";
-import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 
 type AdmissionButtonProps = {
   className?: string;
@@ -18,7 +17,7 @@ const AdmissionButton = ({
   iconClassName = "",
 }: AdmissionButtonProps) => {
   return (
-    <DialogZoomInWrapper
+    <DialogWidget
       trigger={
         <ButtonWidget
           className={`orange-button group rounded-[60px] px-5 h-10 text-[14px] 2xl:text-[14px] 3xl:text-[18px] ${className}`}
@@ -51,11 +50,12 @@ const AdmissionButton = ({
               className="w-full h-auto object-cover"
             />
           </div>
-          <h3 className="text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[24px] 3xl:text-[40px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
+          <h3 className="text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[24px] 3xl:text-[25px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
             PG Diploma in Professional Photography & Digital Production
           </h3>
           <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt
           </p>
           <div className="self-start">
             <OrangeButtonWidget content="Apply now" />
@@ -69,18 +69,19 @@ const AdmissionButton = ({
               className="w-full h-auto object-cover"
             />
           </div>
-          <h3 className="text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[24px] 3xl:text-[40px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
+          <h3 className="text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[24px] 3xl:text-[25px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
             PG Diploma in Documentary & Corporate Filmmaking
           </h3>
           <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt
           </p>
           <div className="self-start">
             <OrangeButtonWidget content="Apply now" />
           </div>
         </div>
       </div>
-    </DialogZoomInWrapper>
+    </DialogWidget>
   );
 };
 

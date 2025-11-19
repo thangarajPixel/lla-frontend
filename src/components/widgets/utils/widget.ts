@@ -9,7 +9,7 @@ export type LinkWidgetProps = React.ComponentProps<typeof Link>;
 export type ButtonWidgetProps = React.ComponentProps<typeof RippleButton>;
 export type { ScrollWidgetProps };
 
-export type DialogZoomInWrapperProps = {
+export type DialogWidgetProps = {
   trigger: ReactNode;
   title?: string;
   description?: string;

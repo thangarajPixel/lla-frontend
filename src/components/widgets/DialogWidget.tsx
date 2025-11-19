@@ -12,9 +12,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import type { DialogZoomInWrapperProps } from "./utils/widget";
+import type { DialogWidgetProps } from "./utils/widget";
 
-const DialogZoomInWrapper = ({
+const DialogWidget = ({
   trigger,
   title,
   description,
@@ -28,7 +28,7 @@ const DialogZoomInWrapper = ({
   onOpenChange,
   className = "",
   contentClassName = "",
-}: DialogZoomInWrapperProps) => {
+}: DialogWidgetProps) => {
   const [open, setOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -50,7 +50,7 @@ const DialogZoomInWrapper = ({
     if (open && contentRef.current) {
       const video = contentRef.current.querySelector("video");
       if (video) {
-        video.play().catch(() => { });
+        video.play().catch(() => {});
       }
     } else if (!open && contentRef.current) {
       const video = contentRef.current.querySelector("video");
@@ -88,14 +88,14 @@ const DialogZoomInWrapper = ({
             {footer !== undefined
               ? footer
               : showCancel && (
-                <DialogFooter>
-                  <DialogClose asChild>
-                    <Button variant="outline" type="button">
-                      {cancelText}
-                    </Button>
-                  </DialogClose>
-                </DialogFooter>
-              )}
+                  <DialogFooter>
+                    <DialogClose asChild>
+                      <Button variant="outline" type="button">
+                        {cancelText}
+                      </Button>
+                    </DialogClose>
+                  </DialogFooter>
+                )}
           </div>
         </DialogContent>
       </form>
@@ -103,4 +103,4 @@ const DialogZoomInWrapper = ({
   );
 };
 
-export default DialogZoomInWrapper;
+export default DialogWidget;

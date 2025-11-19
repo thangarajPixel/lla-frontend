@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
-import DialogZoomInWrapper from "@/components/widgets/DialogZoomInWrapper";
+import DialogWidget from "@/components/widgets/DialogWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { Play } from "@/helpers/ImageHelper";
@@ -168,7 +168,7 @@ const StudentSection = () => {
                               {student.role}
                             </p>
                           </div>
-                          <DialogZoomInWrapper
+                          <DialogWidget
                             trigger={
                               <ButtonWidget
                                 className="absolute right-3 bottom-10 w-18 h-18 p-0 bg-transparent hover:bg-transparent border-none shadow-none rounded-full group/play-button hover:scale-110 active:scale-95 transition-all duration-300 ease-out animate-play-pulse"
@@ -201,7 +201,7 @@ const StudentSection = () => {
                                 className="w-full h-full object-contain rounded-lg"
                               />
                             </div>
-                          </DialogZoomInWrapper>
+                          </DialogWidget>
                         </div>
                       </div>
                     </div>
