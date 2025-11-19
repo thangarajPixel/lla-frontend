@@ -139,7 +139,7 @@ const FacultySection = () => {
                 <div
                   key={faculty.id}
                   className={`shrink-0 ${
-                    index % 2 ? "mt-30 hover:-mt-0" : "mt-0"
+                    index % 2 ? "mt-30 hover:mt-0" : "mt-0"
                   } w-[calc((100%-3rem)/3)] lg:w-[calc((100%-4.5rem)/4)] xl:w-[calc((100%-6rem)/5)] 2xl:w-[calc((100%-7.5rem)/6)] transition-all duration-1000 ease-in-out delay-150`}
                 >
                   <ScrollWidget animation="scale" delay={0.1 + index * 0.05}>
