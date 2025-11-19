@@ -22,3 +22,9 @@ export type DialogZoomInWrapperProps = {
   className?: string;
   contentClassName?: string;
 };
+
+export type OrangeButtonWidgetProps = {
+  content: string;
+  className?: string;
+  onClick?: () => void;
+};
