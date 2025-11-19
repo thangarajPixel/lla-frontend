@@ -7,130 +7,106 @@ import { TeamDummy4, TeamGroupDummy } from "@/helpers/ImageHelper";
 
 const TeamSection = () => {
   const facultyData = [
-    {
-      id: "faculty-0",
-      name: "Kavitha Swaminathan",
-      description: "(Manager, Academics)",
-    },
-    {
-      id: "faculty-1",
-      name: "Nithya JB",
-      description: "(Manager Operations)",
-    },
-    {
-      id: "faculty-2",
-      name: "Devaraj",
-      description: "(Manager, Accounts)",
-    },
-    {
-      id: "faculty-3",
-      name: "Rajendran",
-      description: "(Equipment and Store Supervisor)",
-    },
+    { id: "faculty-0", name: "Kavitha Swaminathan", description: "(Manager, Academics)" },
+    { id: "faculty-1", name: "Nithya JB", description: "(Manager Operations)" },
+    { id: "faculty-2", name: "Devaraj", description: "(Manager, Accounts)" },
+    { id: "faculty-3", name: "Rajendran", description: "(Equipment and Store Supervisor)" },
   ];
+
   return (
-    <section className="w-full bg-white py-8 sm:py-10 md:py-12 lg:py-14 xl:py-14 2xl:py-20 3xl:py-24 4xl:py-28">
+    <section className="w-full bg-white py-10 sm:py-12 md:py-16 lg:py-20 xl:py-24 2xl:py-28 3xl:py-32 4xl:py-36">
       <ContainerWidget>
-        <div className="text-center space-y-2 sm:space-y-3 md:space-y-4 lg:space-y-4 xl:space-y-6 2xl:space-y-12 3xl:space-y-16 4xl:space-y-20">
+        {/* ----------- HEADING ----------- */}
+        <div className="text-center space-y-3 sm:space-y-4 md:space-y-6 lg:space-y-8 xl:space-y-10 2xl:space-y-12 3xl:space-y-16 4xl:space-y-20">
           <ScrollWidget delay={0.1}>
-            <h3
-              className="
-                font-urbanist font-normal text-black 
-                text-left sm:text-center
-                text-2xl sm:text-3xl md:text-4xl lg:text-5xl 
-                xl:text-6xl 2xl:text-[70px] 3xl:text-[80px] 4xl:text-[90px]
-              "
-            >
+            <h3 className="
+              font-urbanist font-normal text-black
+              text-left sm:text-center
+              text-2xl sm:text-3xl md:text-4xl lg:text-5xl
+              xl:text-6xl 2xl:text-[70px] 3xl:text-[80px] 4xl:text-[90px]
+            ">
               The Team
             </h3>
           </ScrollWidget>
-          <ScrollWidget delay={0.1}>
-            <p
-              className="
-                font-area-variable font-semibold text-black 
-                text-left sm:text-center
-                text-base sm:text-lg md:text-xl lg:text-2xl 
-                xl:text-3xl 2xl:text-[32px] 3xl:text-[40px] 4xl:text-[45px]
-                sm:max-w-[480px] md:max-w-[650px] lg:max-w-[750px] xl:max-w-[850px]
-                2xl:max-w-[900px] 3xl:max-w-[1000px] 4xl:max-w-[1100px]
-                mx-auto mb-8
-              "
-            >
-              Lorem ipsum
-              <span className="text-[#E97451] ml-2">dolor sit amet,</span>
+
+          <ScrollWidget delay={0.15}>
+            <p className="
+              font-area-variable font-semibold text-black 
+              text-left sm:text-center
+              text-base sm:text-lg md:text-xl lg:text-2xl 
+              xl:text-3xl 2xl:text-[32px] 3xl:text-[40px] 4xl:text-[45px]
+              max-w-[1100px] mx-auto
+            ">
+              Lorem ipsum <span className="text-[#E97451] ml-2">dolor sit amet,</span>
             </p>
           </ScrollWidget>
         </div>
-        <div
-          className="bg-white  px-2
-    py-5 xs:py-5 sm:py-5 md:py-6 lg:py-5 xl:py-5 2xl:py-7 3xl:py-9 4xl:py-11"
-        >
-          <div
-            className="
-      grid 
-      grid-cols-1 
-      xs:grid-cols-1
-      sm:grid-cols-2 
-      md:grid-cols-4
-      lg:grid-cols-4
-      xl:grid-cols-4
-      2xl:grid-cols-4
-      3xl:grid-cols-4
-      4xl:grid-cols-4
-      gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 2xl:gap-10 3xl:gap-12 4xl:gap-14
-    "
-          >
-            {facultyData.slice(0, 4).map((faculty, index) => (
+
+        {/* ----------- FACULTY CARDS ----------- */}
+        <div className="py-4 sm:py-8 md:py-10 lg:py-12 xl:py-12 2xl:py-16 3xl:py-20 4xl:py-24">
+          <div className="
+            grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4
+            gap-4 sm:gap-4 md:gap-4 lg:gap-4 xl:gap-4
+            2xl:gap-5 3xl:gap-6 4xl:gap-7
+          ">
+            {facultyData.map((faculty, index) => (
               <ScrollWidget
                 key={faculty.id}
                 animation="scale"
-                delay={0.1 + index * 0.1}
+                delay={0.1}
               >
-                <div
-                  className="bg-white group hover:bg-[#E97451]/20 cursor-pointer px-2 py-2 
-     h-[300px] xs:h-[300px] sm:h-[300px] md:h-[300px] lg:h-[300px] xl:h-[300px] 
-     2xl:h-[300px] 3xl:h-[392px] 3xl:w-[300px]  
-     flex flex-col gap-2 sm:gap-3 md:gap-4 lg:gap-2 xl:gap-2 2xl:gap-2 3xl:gap-4 4xl:gap-6"
-                >
+                
+                  <div className="
+                      group
+                      bg-white  
+                      hover:bg-[#E97451]/20 cursor-pointer 
+                      transition-colors duration-500 ease-out
+                      px-3 py-3 flex flex-col
+                      h-[300px] sm:h-[330px] md:h-[350px] lg:h-[360px]
+                      xl:h-[340px] 2xl:h-[400px] 3xl:h-[450px] 4xl:h-[500px]
+                    ">
+
+
                   <ParallaxWidget speed={0.3}>
-                    <div className="w-full aspect-square sm:aspect-auto">
+                    <div className="w-full aspect-square overflow-hidden">
                       <ImageWidget
                         src={TeamDummy4}
                         alt="Faculty"
-                        className="object-cover mb-2"
+                        className="object-cover w-full h-full"
                       />
                     </div>
                   </ParallaxWidget>
-                  <h3
-                    className="
-              font-urbanist font-bold text-black leading-tight 
-              text-lg sm:text-[12px] md:text-[14px] lg:text-[16px]
-              xl:text-[18px] 2xl:text-[20px] 3xl:text-[22px] 4xl:text-[24px]
-            "
-                  >
+
+                  <h3 className="
+                    font-urbanist font-bold text-black 
+                    mt-3 leading-tight
+                    text-base sm:text-lg md:text-xl lg:text-[20px]
+                    xl:text-[16px] 2xl:text-[24px] 3xl:text-[26px] 4xl:text-[28px]
+                  ">
                     {faculty.name}
                   </h3>
-                  <p
-                    className="
-              font-mulish text-black font-normal leading-relaxed line-clamp-2
-              text-sm sm:text-[10px] md:text-[10px] lg:text-[12px]
-              xl:text-[14px] 2xl:text-[18px] 3xl:text-[22px] 4xl:text-[24px]
-              overflow-hidden text-ellipsis
-            "
-                  >
+
+                  <p className="
+                    font-mulish text-black
+                    text-xs sm:text-sm md:text-base lg:text-[12px]
+                    xl:text-[12px] 2xl:text-[18px] 3xl:text-[20px] 4xl:text-[22px]
+                  ">
                     {faculty.description}
                   </p>
 
-                  <div className="self-start mt-auto opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <OrangeButtonWidget content="Know More" />
-                  </div>
+                  <div className="self-start mt-auto opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out">
+                <OrangeButtonWidget content="Know More" />
+              </div>
+
+
                 </div>
               </ScrollWidget>
             ))}
           </div>
         </div>
 
-        <div
+        {/* ----------- GROUP TEAM IMAGE ----------- */}
+         <div
           className="bg-[#ECECEC] py-5 sm:py-5 md:py-6 lg:py-5 xl:py-5 2xl:py-7 3xl:py-9 4xl:py-11 
         px-4 sm:px-5 md:px-6 lg:px-5 xl:px-5 2xl:px-7 3xl:px-9 4xl:px-11"
         >
