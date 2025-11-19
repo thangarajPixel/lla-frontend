@@ -65,7 +65,7 @@ const FacultySection = () => {
   ];
 
   return (
-    <section className="w-full py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 3xl:py-28 bg-white mx-auto max-w-[1920px]">
+    <section className="w-full pt-8 md:pt-12 lg:pt-16 xl:pt-20 2xl:pt-24 3xl:pt-28 bg-white mx-auto max-w-[1920px]">
       <ContainerWidget>
         <ScrollWidget animation="fadeUp" delay={0.1}>
           <ParallaxWidget speed={-0.2}>
@@ -139,8 +139,8 @@ const FacultySection = () => {
                 <div
                   key={faculty.id}
                   className={`shrink-0 ${
-                    index % 2 ? "mt-30" : "mt-0"
-                  } w-[calc((100%-3rem)/3)] lg:w-[calc((100%-4.5rem)/4)] xl:w-[calc((100%-6rem)/5)] 2xl:w-[calc((100%-7.5rem)/6)]`}
+                    index % 2 ? "mt-30 hover:-mt-0" : "mt-0"
+                  } w-[calc((100%-3rem)/3)] lg:w-[calc((100%-4.5rem)/4)] xl:w-[calc((100%-6rem)/5)] 2xl:w-[calc((100%-7.5rem)/6)] transition-all duration-1000 ease-in-out delay-150`}
                 >
                   <ScrollWidget animation="scale" delay={0.1 + index * 0.05}>
                     <div className="group relative flex flex-col gap-3 overflow-hidden transition-all duration-500 ease-in-out delay-75 hover:bg-[#E97451]/20 p-3.5 cursor-pointer">
