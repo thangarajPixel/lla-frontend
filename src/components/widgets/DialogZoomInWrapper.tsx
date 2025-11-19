@@ -12,20 +12,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import type { DialogZoomInWrapperProps } from "./utils/widget";
 
-export type DialogZoomInWrapperProps = {
-  trigger: ReactNode;
-  title?: string;
-  description?: string;
-  children: ReactNode;
-  footer?: ReactNode;
-  cancelText?: string;
-  showCancel?: boolean;
-  onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
-  onOpenChange?: (open: boolean) => void;
-  className?: string;
-  contentClassName?: string;
-};
+
 
 const DialogZoomInWrapper = ({
   trigger,
