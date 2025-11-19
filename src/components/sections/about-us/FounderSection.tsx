@@ -95,9 +95,9 @@ const FounderSection = () => {
             xs:mt-10
             sm:mt-12
             md:mt-14
-            space-y-12
-            sm:space-y-14
-            md:space-y-16
+            space-y-10
+            sm:space-y-10
+            md:space-y-12
           "
         >
           <div
