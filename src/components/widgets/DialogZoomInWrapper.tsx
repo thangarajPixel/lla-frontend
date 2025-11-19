@@ -1,6 +1,7 @@
 "use client";
 
-import { Button } from '@/components/ui/button'
+import { type ReactNode, useEffect, useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -9,9 +10,8 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger
-} from '@/components/ui/dialog'
-import { type ReactNode, useEffect, useRef, useState } from 'react'
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 export type DialogZoomInWrapperProps = {
   trigger: ReactNode;
@@ -22,6 +22,7 @@ export type DialogZoomInWrapperProps = {
   cancelText?: string;
   showCancel?: boolean;
   onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
+  onOpenChange?: (open: boolean) => void;
   className?: string;
   contentClassName?: string;
 };
@@ -32,11 +33,12 @@ const DialogZoomInWrapper = ({
   description,
   children,
   footer,
-  cancelText = 'Cancel',
+  cancelText = "Cancel",
   showCancel = true,
   onSubmit,
-  className = '',
-  contentClassName = '',
+  onOpenChange,
+  className = "",
+  contentClassName = "",
 }: DialogZoomInWrapperProps) => {
   const [open, setOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -48,14 +50,21 @@ const DialogZoomInWrapper = ({
     }
   };
 
+  const handleOpenChange = (newOpen: boolean) => {
+    setOpen(newOpen);
+    if (onOpenChange) {
+      onOpenChange(newOpen);
+    }
+  };
+
   useEffect(() => {
     if (open && contentRef.current) {
-      const video = contentRef.current.querySelector('video');
+      const video = contentRef.current.querySelector("video");
       if (video) {
         video.play().catch(() => {});
       }
     } else if (!open && contentRef.current) {
-      const video = contentRef.current.querySelector('video');
+      const video = contentRef.current.querySelector("video");
       if (video) {
         video.pause();
         video.currentTime = 0;
@@ -64,29 +73,34 @@ const DialogZoomInWrapper = ({
   }, [open]);
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <form onSubmit={onSubmit ? handleSubmit : undefined} className={className}>
-        <DialogTrigger asChild>
-          {trigger}
-        </DialogTrigger>
-        <DialogContent className={`data-[state=open]:duration-600 sm:max-w-[425px] ${contentClassName}`}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
+      <form
+        onSubmit={onSubmit ? handleSubmit : undefined}
+        className={className}
+      >
+        <DialogTrigger asChild>{trigger}</DialogTrigger>
+        <DialogContent
+          className={`data-[state=open]:duration-600 sm:max-w-[425px] ${contentClassName}`}
+        >
           <div ref={contentRef}>
             <DialogHeader>
-             <DialogTitle className="hidden">{title}</DialogTitle>
-             <DialogDescription className="hidden">{description}</DialogDescription>
+              <DialogTitle className="hidden">{title}</DialogTitle>
+              <DialogDescription className="hidden">
+                {description}
+              </DialogDescription>
             </DialogHeader>
             {children}
-            {footer !== undefined ? (
-              footer
-            ) : (
-              showCancel && (
-                <DialogFooter>
-                  <DialogClose asChild>
-                    <Button variant='outline' type='button'>{cancelText}</Button>
-                  </DialogClose>
-                </DialogFooter>
-              )
-            )}
+            {footer !== undefined
+              ? footer
+              : showCancel && (
+                  <DialogFooter>
+                    <DialogClose asChild>
+                      <Button variant="outline" type="button">
+                        {cancelText}
+                      </Button>
+                    </DialogClose>
+                  </DialogFooter>
+                )}
           </div>
         </DialogContent>
       </form>
@@ -95,4 +109,3 @@ const DialogZoomInWrapper = ({
 };
 
 export default DialogZoomInWrapper;
-
