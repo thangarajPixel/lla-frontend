@@ -2,6 +2,7 @@ import type Image from "next/image";
 import type Link from "next/link";
 import type { RippleButton } from "@/components/ui/ripple-button";
 import type { ScrollWidgetProps } from "../ScrollWidget";
+import type { ReactNode } from "react";
 
 export type ImageWidgetProps = React.ComponentProps<typeof Image>;
 export type LinkWidgetProps = React.ComponentProps<typeof Link>;
