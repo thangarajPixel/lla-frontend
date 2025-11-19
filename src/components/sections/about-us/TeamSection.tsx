@@ -43,10 +43,11 @@ const TeamSection = () => {
         </div>
 
         {/* ----------- FACULTY CARDS ----------- */}
-        <div className="py-4 sm:py-8 md:py-10 lg:py-12 xl:py-12 2xl:py-16 3xl:py-20 4xl:py-24">
+        <div className="py-8 pb-10 sm sm:py-8 md:py-10 lg:py-12 xl:py-12 2xl:py-16 3xl:py-20 4xl:py-24">
           <div className="
-            grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4
-            gap-4 sm:gap-4 md:gap-4 lg:gap-4 xl:gap-4
+            grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4
+            2xl:grid-cols-4 3xl:grid-cols-4 4xl:grid-cols-4
+            gap-8 sm:gap-4 md:gap-4 lg:gap-4 xl:gap-4
             2xl:gap-5 3xl:gap-6 4xl:gap-7
           ">
             {facultyData.map((faculty, index) => (
@@ -55,14 +56,13 @@ const TeamSection = () => {
                 animation="scale"
                 delay={0.1}
               >
-                
                   <div className="
                       group
                       bg-white  
                       hover:bg-[#E97451]/20 cursor-pointer 
                       transition-colors duration-500 ease-out
                       px-3 py-3 flex flex-col
-                      h-[300px] sm:h-[330px] md:h-[350px] lg:h-[360px]
+                      h-[300px] sm:h-[300px] md:h-[450px] lg:h-[360px]
                       xl:h-[340px] 2xl:h-[400px] 3xl:h-[450px] 4xl:h-[500px]
                     ">
 
