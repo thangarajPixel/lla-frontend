@@ -41,7 +41,7 @@ const AdmissionButton = ({
         </DialogClose>
       }
     >
-      <div className="flex flex-col md:flex-row gap-5 h-[400px] overflow-y-auto md:h-auto">
+      <div className="flex flex-col md:flex-row gap-5 h-[420px] overflow-y-auto md:h-auto">
         <div className="flex-1 flex flex-col gap-3 sm:gap-4">
           <div className="relative w-full overflow-hidden">
             <ImageWidget
