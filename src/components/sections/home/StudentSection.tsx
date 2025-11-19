@@ -109,7 +109,7 @@ const StudentSection = () => {
           </div>
         </ScrollWidget>
       </ContainerWidget>
-      <div className="pt-10 md:pt-20 md:pb-10 pb relative px-4 sm:px-0">
+      <div className="pt-10 md:pt-20 md:pb-5 pb relative px-4 sm:px-0">
         <ScrollWidget animation="fadeDown" delay={0.2}>
           <div className="relative" ref={carouselRef}>
             <div
