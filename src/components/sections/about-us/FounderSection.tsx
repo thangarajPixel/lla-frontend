@@ -10,7 +10,7 @@ const FounderSection = () => {
   return (
     <section
       className="
-       3xl:max-h-[1565px]
+        3xl:max-h-[1665px]
         w-full bg-[#ECECEC]
         py-8
         xs:py-10
@@ -19,8 +19,8 @@ const FounderSection = () => {
         lg:py-20
         xl:py-14
         2xl:py-18
-        3xl:py-12
-        4xl:py-16
+        3xl:py-26
+        4xl:py-30
       "
     >
       <ContainerWidget>
