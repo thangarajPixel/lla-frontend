@@ -84,7 +84,7 @@ const LifeSection = () => {
 
   return (
     <section
-      className="w-full min-h-[1000px] md:min-h-[700px] lg:min-h-[900px] xl:min-h-[1000px] 2xl:min-h-[1100px] 3xl:min-h-[1200px] bg-fixed bg-cover bg-left bg-no-repeat relative bg-[#ECECEC] py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 3xl:py-28"
+      className="w-full min-h-[1100px] md:min-h-[700px] lg:min-h-[900px] xl:min-h-[1000px] 2xl:min-h-[1100px] 3xl:min-h-[1200px] bg-cover  bg-no-repeat bg-position-[bottom_left_-200px] md:bg-center sm:bg-position-center md:bg-fixed relative bg-[#ECECEC] py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 3xl:py-28"
       style={{ backgroundImage: `url(${Life.src})` }}
     >
       <div className="absolute inset-0 bg-linear-to-b from-[#ECECEC] via-transparent to-transparent" />
