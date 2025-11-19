@@ -7,10 +7,18 @@ import { TeamDummy4, TeamGroupDummy } from "@/helpers/ImageHelper";
 
 const TeamSection = () => {
   const facultyData = [
-    { id: "faculty-0", name: "Kavitha Swaminathan", description: "(Manager, Academics)" },
+    {
+      id: "faculty-0",
+      name: "Kavitha Swaminathan",
+      description: "(Manager, Academics)",
+    },
     { id: "faculty-1", name: "Nithya JB", description: "(Manager Operations)" },
     { id: "faculty-2", name: "Devaraj", description: "(Manager, Accounts)" },
-    { id: "faculty-3", name: "Rajendran", description: "(Equipment and Store Supervisor)" },
+    {
+      id: "faculty-3",
+      name: "Rajendran",
+      description: "(Equipment and Store Supervisor)",
+    },
   ];
 
   return (
@@ -19,44 +27,48 @@ const TeamSection = () => {
         {/* ----------- HEADING ----------- */}
         <div className="text-center space-y-3 sm:space-y-4 md:space-y-6 lg:space-y-8 xl:space-y-10 2xl:space-y-12 3xl:space-y-16 4xl:space-y-20">
           <ScrollWidget delay={0.1}>
-            <h3 className="
+            <h3
+              className="
               font-urbanist font-normal text-black
               text-left sm:text-center
               text-2xl sm:text-3xl md:text-4xl lg:text-5xl
               xl:text-6xl 2xl:text-[70px] 3xl:text-[80px] 4xl:text-[90px]
-            ">
+            "
+            >
               The Team
             </h3>
           </ScrollWidget>
 
           <ScrollWidget delay={0.15}>
-            <p className="
+            <p
+              className="
               font-area-variable font-semibold text-black 
               text-left sm:text-center
               text-base sm:text-lg md:text-xl lg:text-2xl 
               xl:text-3xl 2xl:text-[32px] 3xl:text-[40px] 4xl:text-[45px]
               max-w-[1100px] mx-auto
-            ">
-              Lorem ipsum <span className="text-[#E97451] ml-2">dolor sit amet,</span>
+            "
+            >
+              Lorem ipsum{" "}
+              <span className="text-[#E97451] ml-2">dolor sit amet,</span>
             </p>
           </ScrollWidget>
         </div>
 
         {/* ----------- FACULTY CARDS ----------- */}
         <div className="py-8 pb-10 sm sm:py-8 md:py-10 lg:py-12 xl:py-12 2xl:py-16 3xl:py-20 4xl:py-24">
-          <div className="
+          <div
+            className="
             grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4
             2xl:grid-cols-4 3xl:grid-cols-4 4xl:grid-cols-4
             gap-8 sm:gap-4 md:gap-4 lg:gap-4 xl:gap-4
             2xl:gap-5 3xl:gap-6 4xl:gap-7
-          ">
-            {facultyData.map((faculty, index) => (
-              <ScrollWidget
-                key={faculty.id}
-                animation="scale"
-                delay={0.1}
-              >
-                  <div className="
+          "
+          >
+            {facultyData.map((faculty) => (
+              <ScrollWidget key={faculty.id} animation="scale" delay={0.1}>
+                <div
+                  className="
                       group
                       bg-white  
                       hover:bg-[#E97451]/20 cursor-pointer 
@@ -64,9 +76,8 @@ const TeamSection = () => {
                       px-3 py-3 flex flex-col
                       h-[300px] sm:h-[300px] md:h-[450px] lg:h-[360px]
                       xl:h-[340px] 2xl:h-[400px] 3xl:h-[450px] 4xl:h-[500px]
-                    ">
-
-
+                    "
+                >
                   <ParallaxWidget speed={0.3}>
                     <div className="w-full aspect-square overflow-hidden">
                       <ImageWidget
@@ -77,28 +88,30 @@ const TeamSection = () => {
                     </div>
                   </ParallaxWidget>
 
-                  <h3 className="
+                  <h3
+                    className="
                     font-urbanist font-bold text-black 
                     mt-3 leading-tight
                     text-base sm:text-lg md:text-xl lg:text-[20px]
                     xl:text-[16px] 2xl:text-[24px] 3xl:text-[26px] 4xl:text-[28px]
-                  ">
+                  "
+                  >
                     {faculty.name}
                   </h3>
 
-                  <p className="
+                  <p
+                    className="
                     font-mulish text-black
                     text-xs sm:text-sm md:text-base lg:text-[12px]
                     xl:text-[12px] 2xl:text-[18px] 3xl:text-[20px] 4xl:text-[22px]
-                  ">
+                  "
+                  >
                     {faculty.description}
                   </p>
 
                   <div className="self-start mt-auto opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out">
-                <OrangeButtonWidget content="Know More" />
-              </div>
-
-
+                    <OrangeButtonWidget content="Know More" />
+                  </div>
                 </div>
               </ScrollWidget>
             ))}
@@ -106,7 +119,7 @@ const TeamSection = () => {
         </div>
 
         {/* ----------- GROUP TEAM IMAGE ----------- */}
-         <div
+        <div
           className="bg-[#ECECEC] py-5 sm:py-5 md:py-6 lg:py-5 xl:py-5 2xl:py-7 3xl:py-9 4xl:py-11 
         px-4 sm:px-5 md:px-6 lg:px-5 xl:px-5 2xl:px-7 3xl:px-9 4xl:px-11"
         >
