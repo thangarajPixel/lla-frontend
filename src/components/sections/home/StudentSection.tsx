@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import { Play } from "@/helpers/ImageHelper";
+import DialogZoomInWrapper from "@/components/widgets/DialogZoomInWrapper";
 
 const StudentSection = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel(
@@ -57,7 +58,7 @@ const StudentSection = () => {
   const studentData = [
     {
       id: "student-0",
-      name: "Sarah Johnson",
+      name: "Johnson",
       role: "Batch - ‘09 - ‘10",
       videoSrc: "/dummy.mp4",
     },
@@ -116,7 +117,6 @@ const StudentSection = () => {
                     index % 2 ? "md:mt-30" : "mt-0"
                   } w-[calc(100%-2rem)] min-w-[280px] sm:w-[calc((100%-3rem-1rem)/2)] md:w-[calc((100%-4.5rem)/4.5)] lg:w-[calc((100%-4.5rem)/4.5)] xl:w-[calc((100%-4.5rem)/4.5)] 2xl:w-[calc((100%-4.5rem)/4.5)]`}
                 >
-                  {/* biome-ignore lint/a11y/noStaticElementInteractions: Hover-only interaction for video playback, not a clickable element */}
                   <div
                     className="group relative flex flex-col gap-4 overflow-hidden transition-all duration-500 ease-in-out delay-75 p-3 sm:p-4 lg:p-5 aspect-3/4 min-h-[350px] sm:min-h-[400px] bg-[#F6F6F6] hover:bg-[#E97451]/80"
                     onMouseEnter={(e) => {
@@ -155,11 +155,29 @@ const StudentSection = () => {
                           {student.role}
                         </p>
                       </div>
-                      <ImageWidget
-                        src={Play}
-                        alt="Play"
-                        className="absolute right-3 bottom-10 w-18 h-18 text-white group-hover:text-[#E97451] transition-colors duration-500 ease-in-out"
-                      />
+                      <DialogZoomInWrapper
+                        trigger={
+                          <ImageWidget
+                            src={Play}
+                            alt="Play"
+                            className="absolute right-3 bottom-10 w-18 h-18 text-white group-hover:text-[#E97451] transition-colors duration-500 ease-in-out cursor-pointer"
+                          />
+                        }
+                        contentClassName="sm:max-w-[90vw] lg:max-w-[800px] p-0"
+                        showCancel={false}
+                      >
+                        <div className="relative w-full aspect-video bg-black rounded-lg">
+                          <video
+                            src={student.videoSrc}
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            controls
+                            className="w-full h-full object-contain rounded-lg"
+                          />
+                        </div>
+                      </DialogZoomInWrapper>
                     </div>
                   </div>
                 </div>
