@@ -9,10 +9,10 @@ import LifeSection from "@/components/sections/home/LifeSection";
 import SponsorsSection from "@/components/sections/home/SponsorsSection";
 import StudentSection from "@/components/sections/home/StudentSection";
 import TestimonialSection from "@/components/sections/home/TestimonialSection";
+
 // import { getLandingPageData } from "./api/server";
 
 const Home = async () => {
-
   // const response = await getLandingPageData();
 
   return (

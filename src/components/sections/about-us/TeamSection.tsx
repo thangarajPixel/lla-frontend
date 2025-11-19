@@ -1,9 +1,7 @@
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
-import {
-  TeamGroupDummy,
-} from "@/helpers/ImageHelper";
+import { TeamGroupDummy } from "@/helpers/ImageHelper";
 
 const TeamSection = () => {
   return (
@@ -43,8 +41,10 @@ const TeamSection = () => {
         </div>
 
         {/* IMAGE + CONTENT */}
-        <div className="bg-[#ECECEC] py-5 sm:py-5 md:py-6 lg:py-5 xl:py-5 2xl:py-7 3xl:py-9 4xl:py-11 
-        px-4 sm:px-5 md:px-6 lg:px-5 xl:px-5 2xl:px-7 3xl:px-9 4xl:px-11">
+        <div
+          className="bg-[#ECECEC] py-5 sm:py-5 md:py-6 lg:py-5 xl:py-5 2xl:py-7 3xl:py-9 4xl:py-11 
+        px-4 sm:px-5 md:px-6 lg:px-5 xl:px-5 2xl:px-7 3xl:px-9 4xl:px-11"
+        >
           <ScrollWidget delay={0.5} animation="fadeUp">
             <div
               className="
