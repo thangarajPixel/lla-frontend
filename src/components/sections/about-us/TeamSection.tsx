@@ -1,15 +1,40 @@
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
+import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import {
+  TeamDummy4,
   TeamGroupDummy,
 } from "@/helpers/ImageHelper";
 
 const TeamSection = () => {
+
+   const facultyData = [
+    {
+      id: "faculty-0",
+      name: "Akshay Sharma",
+      description:"(Manager, Academics)"
+    },
+    {
+      id: "faculty-1",
+      name: "Akshay Sharma",
+      description:"(Manager Operations)"
+    },
+    {
+      id: "faculty-2",
+      name: "Akshay Sharma",
+      description:"(Manager, Accounts)"
+    },
+    {
+      id: "faculty-3",
+      name: "Rajendran",
+      description:"(Equipment and Store Supervisor)"
+    },
+  ];
   return (
     <section className="w-full bg-white py-8 sm:py-10 md:py-12 lg:py-14 xl:py-14 2xl:py-20 3xl:py-24 4xl:py-28">
       <ContainerWidget>
-        {/* TITLE + SUBTITLE */}
         <div className="text-center space-y-2 sm:space-y-3 md:space-y-4 lg:space-y-4 xl:space-y-6 2xl:space-y-12 3xl:space-y-16 4xl:space-y-20">
           <ScrollWidget delay={0.1}>
             <h3
@@ -23,7 +48,6 @@ const TeamSection = () => {
               The Team
             </h3>
           </ScrollWidget>
-
           <ScrollWidget delay={0.1}>
             <p
               className="
@@ -41,8 +65,68 @@ const TeamSection = () => {
             </p>
           </ScrollWidget>
         </div>
+        <div className="bg-white  px-2
+    py-5 xs:py-5 sm:py-5 md:py-6 lg:py-5 xl:py-5 2xl:py-7 3xl:py-9 4xl:py-11"
+>
+  <div
+    className="
+      grid 
+      grid-cols-1 
+      xs:grid-cols-1
+      sm:grid-cols-2 
+      md:grid-cols-4
+      lg:grid-cols-4
+      xl:grid-cols-4
+      2xl:grid-cols-4
+      3xl:grid-cols-4
+      4xl:grid-cols-4
+      gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 2xl:gap-10 3xl:gap-12 4xl:gap-14
+    "
+  >
+    {facultyData.slice(0, 4).map((faculty, index) => (
+      <ScrollWidget
+        key={faculty.id}
+        animation="scale"
+        delay={0.1 + index * 0.1}
+      >
+        <div className=" 3xl:h-[392px] 3xl:w-[300px]  flex flex-col gap-2 sm:gap-3 md:gap-4 lg:gap-4 xl:gap-5 2xl:gap-6 3xl:gap-7 4xl:gap-8">
+          <ParallaxWidget speed={0.3}>
+            <div className="w-full aspect-square sm:aspect-auto">
+              <ImageWidget src={TeamDummy4} alt="Faculty" className="object-cover"/>
+            </div>
+          </ParallaxWidget>
+          <h3
+            className="
+              font-urbanist font-bold text-black leading-tight 
+              text-lg sm:text-xl md:text-[22px] lg:text-[24px]
+              xl:text-[26px] 2xl:text-[28px] 3xl:text-[32px] 4xl:text-[34px]
+            "
+          >
+            {faculty.name}
+          </h3>
 
-        {/* IMAGE + CONTENT */}
+          {/* DESCRIPTION */}
+          <p
+            className="
+              font-mulish text-black font-normal leading-relaxed line-clamp-2
+              text-sm sm:text-base md:text-[17px] lg:text-[18px]
+              xl:text-[18px] 2xl:text-[20px] 3xl:text-[22px] 4xl:text-[24px]
+              overflow-hidden text-ellipsis
+            "
+          >
+            {faculty.description}
+          </p>
+
+          {/* BUTTON */}
+          {/* <div className="self-start mt-auto">
+            <OrangeButtonWidget content="Know More" />
+          </div> */}
+        </div>
+      </ScrollWidget>
+    ))}
+  </div>
+</div>
+
         <div className="bg-[#ECECEC] py-5 sm:py-5 md:py-6 lg:py-5 xl:py-5 2xl:py-7 3xl:py-9 4xl:py-11 
         px-4 sm:px-5 md:px-6 lg:px-5 xl:px-5 2xl:px-7 3xl:px-9 4xl:px-11">
           <ScrollWidget delay={0.5} animation="fadeUp">
@@ -95,6 +179,7 @@ const TeamSection = () => {
             </div>
           </ScrollWidget>
         </div>
+         
       </ContainerWidget>
     </section>
   );

@@ -36,3 +36,4 @@ export { default as LlaOutreach } from "@/assets/images/lla-outreach.svg";
 export { default as LogoBlack } from "@/assets/images/logo-black.svg";
 export { default as Logo } from "@/assets/images/logo-white.svg";
 export { default as TeamGroupDummy } from "@/assets/dummy/team-group-dummy.png";
+export { default as TeamDummy4 } from "@/assets/dummy/team-dummy-4.png";
