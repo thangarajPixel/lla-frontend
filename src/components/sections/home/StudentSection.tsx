@@ -116,9 +116,7 @@ const StudentSection = () => {
               className="overflow-hidden cursor-grab active:cursor-grabbing"
               ref={emblaRef}
             >
-              <div
-                className={`flex gap-4 sm:gap-6 justify-center`}
-              >
+              <div className={`flex gap-4 sm:gap-6 justify-center`}>
                 {studentData.map((student, index) => (
                   <ScrollWidget
                     key={student.id}
