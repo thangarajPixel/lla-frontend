@@ -9,8 +9,7 @@ import { FounderDummy1, FounderDummy2 } from "@/helpers/ImageHelper";
 const FounderSection = () => {
   return (
     <section
-      className="
-        3xl:max-h-[1665px]
+      className="3xl:max-h-[1665px]
         w-full bg-[#ECECEC]
         py-8
         xs:py-10
