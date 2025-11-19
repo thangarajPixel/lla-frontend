@@ -12,7 +12,7 @@ import { Dummy11 } from "@/helpers/ImageHelper";
 const FacultySection = () => {
   const [emblaRef] = useEmblaCarousel(
     {
-      align: "start",
+      align: "end",
       slidesToScroll: 1,
       loop: false,
     },
@@ -38,6 +38,7 @@ const FacultySection = () => {
       description:
         "Mihir Hardikar is a Food and Beverage photographer based in Mumbai. Mihir has worked with national and international brands such as Domino's Pizza, Cure.Fit, Mother Dairy, Nestle Bangladesh, Haldirams.",
     },
+
     {
       id: "faculty-2",
       name: "Akshay Sharma",
@@ -62,10 +63,16 @@ const FacultySection = () => {
       description:
         "Mihir Hardikar is a Food and Beverage photographer based in Mumbai. Mihir has worked with national and international brands such as Domino's Pizza, Cure.Fit, Mother Dairy, Nestle Bangladesh, Haldirams.",
     },
+    {
+      id: "faculty-6",
+      name: "Akshay Sharma",
+      description:
+        "Mihir Hardikar is a Food and Beverage photographer based in Mumbai. Mihir has worked with national and international brands such as Domino's Pizza, Cure.Fit, Mother Dairy, Nestle Bangladesh, Haldirams.",
+    },
   ];
 
   return (
-    <section className="w-full pt-8 md:pt-12 lg:pt-16 xl:pt-20 2xl:pt-24 3xl:pt-28 bg-white mx-auto max-w-[1920px]">
+    <section className="w-full py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 3xl:py-28 bg-white mx-auto max-w-[1920px]">
       <ContainerWidget>
         <ScrollWidget animation="fadeUp" delay={0.1}>
           <ParallaxWidget speed={-0.2}>
@@ -134,7 +141,9 @@ const FacultySection = () => {
 
         <div className="hidden md:block">
           <div className="overflow-hidden" ref={emblaRef}>
-            <div className="flex">
+            <div
+              className={`flex ${facultyData.length > 6 ? "justify-start" : "justify-end"}`}
+            >
               {facultyData.map((faculty, index) => (
                 <div
                   key={faculty.id}
