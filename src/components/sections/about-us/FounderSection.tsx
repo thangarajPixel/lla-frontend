@@ -157,10 +157,11 @@ const FounderSection = () => {
                     4xl:text-[22px]
                   "
                 >
-                 Iqbal Mohamed is a visual artist and a mentor to many generations of storytellers. 
-                 His dedication to the craft, a deep desire to unravel the meaning of life and humility 
-                 is an inspiration to many. He believes that everyone has the
-                  power to change the world by seeing it differently.
+                  Iqbal Mohamed is a visual artist and a mentor to many
+                  generations of storytellers. His dedication to the craft, a
+                  deep desire to unravel the meaning of life and humility is an
+                  inspiration to many. He believes that everyone has the power
+                  to change the world by seeing it differently.
                 </p>
 
                 <p
@@ -176,13 +177,15 @@ const FounderSection = () => {
                     4xl:text-[22px]
                   "
                 >
-                 After a graduation in history and political science and then an MBA, 
-                 Iqbal decided to follow his passion, photography. His first step was to study
-                  professional photography at the renowned Brooks Institute of Photography, ​California,
-                   USA. He followed it up working with some of the celebrated professional photographers in
-                    Hollywood like Dick Zimmerman, Bill Werts & Jay Silverman. Iqbal then came back to 
-                    India in 1988, amongst 
-                 the first to do so, to make a career in professional photography.
+                  After a graduation in history and political science and then
+                  an MBA, Iqbal decided to follow his passion, photography. His
+                  first step was to study professional photography at the
+                  renowned Brooks Institute of Photography, ​California, USA. He
+                  followed it up working with some of the celebrated
+                  professional photographers in Hollywood like Dick Zimmerman,
+                  Bill Werts & Jay Silverman. Iqbal then came back to India in
+                  1988, amongst the first to do so, to make a career in
+                  professional photography.
                 </p>
 
                 <OrangeButtonWidget content="Know More" />
@@ -300,12 +303,14 @@ const FounderSection = () => {
                     4xl:text-[22px]
                   "
                 >
-                  Anuradha Iqbal, is the co-founder and director of LLA. She holds a postgraduate
-                   degree in Economics from Mumbai University and a Diploma in Advertising & Marketing.
-                    Her career started in the field of Advertising where she was in charge of handling brands
-                     like Godrej, Taj group of Hotels, Amul, Philips, Ciba Geigy, etc. and grew to become the
-                      head of FCB Ulka in Bangalore.
-                   Along the way, Anuradha helped create many memorable and award winning campaigns.
+                  Anuradha Iqbal, is the co-founder and director of LLA. She
+                  holds a postgraduate degree in Economics from Mumbai
+                  University and a Diploma in Advertising & Marketing. Her
+                  career started in the field of Advertising where she was in
+                  charge of handling brands like Godrej, Taj group of Hotels,
+                  Amul, Philips, Ciba Geigy, etc. and grew to become the head of
+                  FCB Ulka in Bangalore. Along the way, Anuradha helped create
+                  many memorable and award winning campaigns.
                 </p>
 
                 <p
@@ -321,9 +326,10 @@ const FounderSection = () => {
                     4xl:text-[22px]
                   "
                 >
-                  Advertising campaigns brought Anuradha and Iqbal Mohamed together.
-                   In due course, she was handling operations, planning and business development for Iqbal
-                   Mohamed Photography and together they reached greater heights.
+                  Advertising campaigns brought Anuradha and Iqbal Mohamed
+                  together. In due course, she was handling operations, planning
+                  and business development for Iqbal Mohamed Photography and
+                  together they reached greater heights.
                 </p>
 
                 <OrangeButtonWidget content="Know More" />
