@@ -4,6 +4,7 @@ import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import DialogZoomInWrapper from "@/components/widgets/DialogZoomInWrapper";
 import ImageWidget from "@/components/widgets/ImageWidget";
@@ -169,11 +170,17 @@ const StudentSection = () => {
                           </div>
                           <DialogZoomInWrapper
                             trigger={
-                              <ImageWidget
-                                src={Play}
-                                alt="Play"
-                                className="absolute right-3 bottom-10 w-18 h-18 text-white group-hover:text-[#E97451] transition-colors duration-500 ease-in-out cursor-pointer"
-                              />
+                              <ButtonWidget
+                                className="absolute right-3 bottom-10 w-18 h-18 p-0 bg-transparent hover:bg-transparent border-none shadow-none rounded-full group/play-button hover:scale-110 active:scale-95 transition-all duration-300 ease-out animate-play-pulse"
+                                aria-label="Play video"
+                              >
+                                <ImageWidget
+                                  src={Play}
+                                  alt=""
+                                  className="w-18 cursor-pointer h-18 text-white group-hover/play-button:text-[#E97451] transition-colors duration-500 ease-in-out"
+                                  aria-hidden="true"
+                                />
+                              </ButtonWidget>
                             }
                             contentClassName="sm:max-w-[90vw] lg:max-w-[800px] p-0"
                             showCancel={false}
