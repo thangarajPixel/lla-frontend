@@ -22,7 +22,7 @@ const FacultySection = () => {
         stopOnInteraction: false,
         stopOnMouseEnter: true,
       }),
-    ]
+    ],
   );
 
   const facultyData = [
