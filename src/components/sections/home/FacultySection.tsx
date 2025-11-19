@@ -22,7 +22,7 @@ const FacultySection = () => {
         stopOnInteraction: false,
         stopOnMouseEnter: true,
       }),
-    ],
+    ]
   );
 
   const facultyData = [
@@ -136,7 +136,9 @@ const FacultySection = () => {
         <div className="hidden md:block">
           <div className="overflow-hidden" ref={emblaRef}>
             <div
-              className={`flex ${facultyData.length >= 6 ? "justify-start" : "justify-end"}`}
+              className={`flex ${
+                facultyData.length >= 6 ? "justify-start" : "justify-end"
+              }`}
             >
               {facultyData.map((faculty, index) => (
                 <div
