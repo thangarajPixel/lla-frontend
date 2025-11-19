@@ -17,6 +17,8 @@ export type DialogZoomInWrapperProps = {
   footer?: ReactNode;
   cancelText?: string;
   showCancel?: boolean;
+  showCloseButton?: boolean;
+  customCloseButton?: ReactNode;
   onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
   onOpenChange?: (open: boolean) => void;
   className?: string;

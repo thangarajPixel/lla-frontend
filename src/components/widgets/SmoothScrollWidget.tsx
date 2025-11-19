@@ -3,13 +3,15 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
 const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
+  const lenisRef = useRef<Lenis | null>(null);
+
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.5,
@@ -22,19 +24,37 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
       infinite: false,
     });
 
+    lenisRef.current = lenis;
     lenis.on("scroll", ScrollTrigger.update);
 
     gsap.ticker.add((time) => {
       lenis.raf(time * 1000);
     });
-
     gsap.ticker.lagSmoothing(0);
 
+    const observer = new MutationObserver(() => {
+      const isScrollLocked =
+        document.body.hasAttribute("data-scroll-locked") ||
+        document.body.style.overflow === "hidden";
+
+      if (isScrollLocked) {
+        lenis.stop();
+      } else {
+        lenis.start();
+      }
+    });
+
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["data-scroll-locked", "style"],
+    });
+
     return () => {
-      lenis.destroy();
+      observer.disconnect();
       gsap.ticker.remove((time) => {
         lenis.raf(time * 1000);
       });
+      lenis.destroy();
     };
   }, []);
 

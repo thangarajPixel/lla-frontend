@@ -2,11 +2,11 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { ArrowRight, Logo, LogoBlack } from "@/helpers/ImageHelper";
-import ButtonWidget from "../widgets/ButtonWidget";
+import { Logo, LogoBlack } from "@/helpers/ImageHelper";
 import ContainerWidget from "../widgets/ContainerWidget";
 import ImageWidget from "../widgets/ImageWidget";
 import LinkWidget from "../widgets/LinkWidget";
+import AdmissionButton from "./utils/AdmissionButton";
 import DropdownMenu from "./utils/DropdownMenu";
 import MobileMenu from "./utils/MobileMenu";
 import NavLink from "./utils/NavLink";
@@ -70,13 +70,12 @@ const WebHeader = () => {
 
   return (
     <header
-      className={`w-full z-50 transition-all duration-300 ${
-        isHomePage
-          ? isSticky
-            ? "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
-            : "absolute top-0 left-0 bg-transparent text-white"
-          : "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
-      }`}
+      className={`w-full z-50 transition-all duration-300 ${isHomePage
+        ? isSticky
+          ? "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
+          : "absolute top-0 left-0 bg-transparent text-white"
+        : "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
+        }`}
     >
       <nav>
         <ContainerWidget>
@@ -111,14 +110,7 @@ const WebHeader = () => {
                 );
               })}
               <li>
-                <ButtonWidget className="orange-button group rounded-[60px] px-5 h-10 text-[14px] 2xl:text-[14px] 3xl:text-[18px]">
-                  Admission Open
-                  <ImageWidget
-                    src={ArrowRight}
-                    alt="Arrow Right"
-                    className="lg:w-[18px] lg:h-[18px] 3xl:w-6 3xl:h-6 transition-transform duration-300 group-hover:translate-x-1"
-                  />
-                </ButtonWidget>
+                <AdmissionButton />
               </li>
             </ul>
             <MobileMenu
