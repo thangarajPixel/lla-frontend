@@ -20,9 +20,9 @@ const StudentSection = () => {
     },
     [
       Autoplay({
-        delay: 1000,
-        stopOnInteraction: true,
-        stopOnMouseEnter: true,
+        delay: 3000,
+        stopOnInteraction: false,
+        stopOnMouseEnter: false,
       }),
     ],
   );
@@ -86,12 +86,6 @@ const StudentSection = () => {
       role: "Batch - ‘09 - ‘10",
       videoSrc: "/dummy.mp4",
     },
-    {
-      id: "student-3",
-      name: "David Kumar",
-      role: "Batch - ‘09 - ‘10",
-      videoSrc: "/dummy.mp4",
-    },
   ];
 
   return (
@@ -123,7 +117,7 @@ const StudentSection = () => {
               ref={emblaRef}
             >
               <div
-                className={`flex gap-4 sm:gap-6 ${studentData.length < 4 ? "md:justify-start" : "md:justify-end"}`}
+                className={`flex gap-4 sm:gap-6 justify-center`}
               >
                 {studentData.map((student, index) => (
                   <ScrollWidget
@@ -134,11 +128,11 @@ const StudentSection = () => {
                     <div
                       className={`shrink-0 ${
                         index % 2 ? "md:mt-30" : "mt-0"
-                      } w-[calc(100%-2rem)] min-w-[280px] sm:w-[calc((100%-3rem-1rem)/2)] md:w-[calc((100%-4.5rem)/4.5)] lg:w-[calc((100%-4.5rem)/4.5)] xl:w-[calc((100%-4.5rem)/4.5)] 2xl:w-[calc((100%-4.5rem)/4.5)]`}
+                      } w-[calc(100%-2rem)] min-w-[320px] sm:w-[calc((100%-3rem-1rem)/2)] md:w-[calc((100%-4.5rem)/3.5)] lg:w-[calc((100%-4.5rem)/3.5)] xl:w-[calc((100%-4.5rem)/3.5)] 2xl:w-[calc((100%-4.5rem)/3.5)]`}
                     >
                       {/* biome-ignore lint/a11y/noStaticElementInteractions: Hover-only interaction for video playback, not a clickable element */}
                       <div
-                        className="group relative flex flex-col gap-4 overflow-hidden transition-all duration-500 ease-in-out delay-75 p-3 sm:p-4 lg:p-5 aspect-3/4 min-h-[350px] sm:min-h-[400px] bg-[#F6F6F6] hover:bg-[#E97451]/80"
+                        className="group relative flex flex-col gap-4 overflow-hidden transition-all duration-500 ease-in-out delay-75 p-3 sm:p-4 lg:p-5 aspect-3/4 min-h-[380px] sm:min-h-[430px] bg-[#F6F6F6] hover:bg-[#E97451]/80"
                         onMouseEnter={(e) => {
                           const video = e.currentTarget.querySelector("video");
                           if (video) {
