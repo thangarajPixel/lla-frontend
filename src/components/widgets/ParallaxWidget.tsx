@@ -29,17 +29,17 @@ const ParallaxWidget = ({
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (!elementRef.current) return;
+    if (!elementRef?.current) return;
 
     const scrollTrigger = ScrollTrigger.create({
-      trigger: elementRef.current,
+      trigger: elementRef?.current,
       start,
       end,
       scrub,
       onUpdate: (self) => {
-        const progress = self.progress;
+        const progress = self?.progress;
         const yPos = (progress - 0.5) * 200 * speed;
-        gsap.set(elementRef.current, {
+        gsap.set(elementRef?.current, {
           y: yPos,
           ease: "power2.out",
         });
@@ -47,7 +47,7 @@ const ParallaxWidget = ({
     });
 
     return () => {
-      if (scrollTrigger) scrollTrigger.kill();
+      if (scrollTrigger) scrollTrigger?.kill();
     };
   }, [speed, start, end, scrub]);
 

@@ -39,7 +39,7 @@ const GallertSection = () => {
     {
       align: "start",
       slidesToScroll: 1,
-      loop: false,
+      loop: true,
       dragFree: false,
     },
     [
@@ -55,7 +55,7 @@ const GallertSection = () => {
     {
       align: "start",
       slidesToScroll: 1,
-      loop: false,
+      loop: true,
       dragFree: false,
     },
     [
@@ -169,7 +169,7 @@ const GallertSection = () => {
             ref={emblaRef1}
             className="overflow-hidden cursor-grab active:cursor-grabbing"
           >
-            <div className="flex gap-4 touch-pan-x">
+            <div className="flex gap-4 touch-pan-x pl-5 pr-5">
               {galleryImages.map((item) => (
                 <div
                   key={`row1-${item.id}`}
@@ -192,7 +192,7 @@ const GallertSection = () => {
             ref={emblaRef2}
             className="overflow-hidden cursor-grab active:cursor-grabbing"
           >
-            <div className="flex gap-4 touch-pan-x">
+            <div className="flex gap-4 touch-pan-x pl-5 pr-5">
               {galleryImages.map((item) => (
                 <div
                   key={`row2-${item.id}`}
