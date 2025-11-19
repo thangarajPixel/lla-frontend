@@ -50,7 +50,7 @@ const DialogWidget = ({
     if (open && contentRef.current) {
       const video = contentRef.current.querySelector("video");
       if (video) {
-        video.play().catch(() => {});
+        video.play().catch(() => { });
       }
     } else if (!open && contentRef.current) {
       const video = contentRef.current.querySelector("video");
@@ -88,14 +88,14 @@ const DialogWidget = ({
             {footer !== undefined
               ? footer
               : showCancel && (
-                  <DialogFooter>
-                    <DialogClose asChild>
-                      <Button variant="outline" type="button">
-                        {cancelText}
-                      </Button>
-                    </DialogClose>
-                  </DialogFooter>
-                )}
+                <DialogFooter>
+                  <DialogClose asChild>
+                    <Button variant="outline" type="button">
+                      {cancelText}
+                    </Button>
+                  </DialogClose>
+                </DialogFooter>
+              )}
           </div>
         </DialogContent>
       </form>

@@ -9,7 +9,8 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import DialogWidget from "@/components/widgets/DialogWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
-import { Play } from "@/helpers/ImageHelper";
+import { Into, Play } from "@/helpers/ImageHelper";
+import { DialogClose } from "@/components/ui/dialog";
 
 const StudentSection = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel(
@@ -125,9 +126,8 @@ const StudentSection = () => {
                     delay={0.1 + index * 0.15}
                   >
                     <div
-                      className={`shrink-0 ${
-                        index % 2 ? "md:mt-30" : "mt-0"
-                      } w-[calc(100%-2rem)] min-w-[320px] sm:w-[calc((100%-3rem-1rem)/2)] md:w-[calc((100%-4.5rem)/3.5)] lg:w-[calc((100%-4.5rem)/3.5)] xl:w-[calc((100%-4.5rem)/3.5)] 2xl:w-[calc((100%-4.5rem)/3.5)]`}
+                      className={`shrink-0 ${index % 2 ? "md:mt-30" : "mt-0"
+                        } w-[calc(100%-2rem)] min-w-[320px] sm:w-[calc((100%-3rem-1rem)/2)] md:w-[calc((100%-4.5rem)/3.5)] lg:w-[calc((100%-4.5rem)/3.5)] xl:w-[calc((100%-4.5rem)/3.5)] 2xl:w-[calc((100%-4.5rem)/3.5)]`}
                     >
                       {/* biome-ignore lint/a11y/noStaticElementInteractions: Hover-only interaction for video playback, not a clickable element */}
                       <div
@@ -135,7 +135,7 @@ const StudentSection = () => {
                         onMouseEnter={(e) => {
                           const video = e.currentTarget.querySelector("video");
                           if (video) {
-                            video.play().catch(() => {});
+                            video.play().catch(() => { });
                           }
                         }}
                         onMouseLeave={(e) => {
@@ -189,6 +189,14 @@ const StudentSection = () => {
                                 stopAllVideos();
                               }
                             }}
+                            showCloseButton={false}
+                            customCloseButton={
+                              <DialogClose asChild>
+                                <div className="cursor-pointer -mt-[30px] -mr-[30px]">
+                                  <ImageWidget src={Into} alt="Into" className="w-[30px] h-[30px]" />
+                                </div>
+                              </DialogClose>
+                            }
                           >
                             <div className="relative w-full aspect-video bg-black rounded-lg">
                               <video
@@ -213,9 +221,8 @@ const StudentSection = () => {
                   type="button"
                   onClick={scrollPrev}
                   disabled={!canScrollPrev}
-                  className={`p-2 rounded-full bg-black/50 hover:bg-black/70 transition-colors ${
-                    !canScrollPrev ? "opacity-50 cursor-not-allowed" : ""
-                  }`}
+                  className={`p-2 rounded-full bg-black/50 hover:bg-black/70 transition-colors ${!canScrollPrev ? "opacity-50 cursor-not-allowed" : ""
+                    }`}
                   aria-label="Previous"
                 >
                   <ChevronLeft className="w-5 h-5 text-white" />
@@ -224,9 +231,8 @@ const StudentSection = () => {
                   type="button"
                   onClick={scrollNext}
                   disabled={!canScrollNext}
-                  className={`p-2 rounded-full bg-black/50 hover:bg-black/70 transition-colors ${
-                    !canScrollNext ? "opacity-50 cursor-not-allowed" : ""
-                  }`}
+                  className={`p-2 rounded-full bg-black/50 hover:bg-black/70 transition-colors ${!canScrollNext ? "opacity-50 cursor-not-allowed" : ""
+                    }`}
                   aria-label="Next"
                 >
                   <ChevronRight className="w-5 h-5 text-white" />
