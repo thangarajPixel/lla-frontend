@@ -38,14 +38,14 @@ const FounderSection = () => {
                 <h4 className="font-urbanist text-2xl md:text-3xl font-semibold text-[#E97451]">
                   Iqbal Mohamed
                 </h4>
-                <p className="text-[12px] lg:text-[13px] 3xl:text-[18px] font-normal font-mulish text-black leading-normal w-full md:max-w-[665px] mb-2">
+                <p className="text-[12px] lg:text-[14px] 3xl:text-[18px] font-normal font-mulish text-black leading-normal w-full md:max-w-[665px] mb-2">
                   Iqbal Mohamed is a visual artist and a mentor to many
                   generations of storytellers. His dedication to the craft, a
                   deep desire to unravel the meaning of life and humility is an
                   inspiration to many. He believes that everyone has the power
                   to change the world by seeing it differently.
                 </p>
-                <p className="text-[12px] lg:text-[13px] 3xl:text-[18px] font-normal font-mulish text-black leading-normal w-full md:max-w-[665px] mb-2">
+                <p className="text-[12px] lg:text-[14px] 3xl:text-[18px] font-normal font-mulish text-black leading-normal w-full md:max-w-[665px] mb-2">
                   After a graduation in history and political science and then
                   an MBA, Iqbal decided to follow his passion, photography. His
                   first step was to study professional photography at the
@@ -73,7 +73,7 @@ const FounderSection = () => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-15 items-center">
             <ScrollWidget delay={0.3}>
-              <div className="w-full max-h-[520px] lg:max-h-[600px] lg:flex lg:justify-end ">
+              <div className="w-full max-h-[520px] lg:max-h-[600px] md:flex md:justify-end lg:flex lg:justify-end  ">
                 <ImageWidget
                   src={FounderDummy2}
                   alt="Founder"
@@ -88,7 +88,7 @@ const FounderSection = () => {
                 <h4 className="font-urbanist text-2xl md:text-3xl font-semibold text-[#E97451]">
                   Anuradha Iqbal
                 </h4>
-                <p className=" font-mulish text-[12px] lg:text-[13px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[665px] mb-2">
+                <p className=" font-mulish text-[12px] lg:text-[14px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[665px] mb-2">
                   Anuradha Iqbal, is the co-founder and director of LLA. She
                   holds a postgraduate degree in Economics from Mumbai
                   University and a Diploma in Advertising & Marketing. Her
@@ -98,7 +98,7 @@ const FounderSection = () => {
                   FCB Ulka in Bangalore. Along the way, Anuradha helped create
                   many memorable and award winning campaigns.
                 </p>
-                <p className=" font-mulish text-[12px] lg:text-[13px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[665px] mb-2">
+                <p className=" font-mulish text-[12px] lg:text-[14px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[665px] mb-2">
                   Advertising campaigns brought Anuradha and Iqbal Mohamed
                   together. In due course, she was handling operations, planning
                   and business development for Iqbal Mohamed Photography and
