@@ -26,7 +26,8 @@ const AboutHeroSection = () => {
               <h3
                 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl 
                 xl:text-7xl 2xl:text-[70px] 3xl:text-[80px] 4xl:text-[95px]
-                font-normal text-black font-urbanist">
+                font-normal text-black font-urbanist"
+              >
                 About
               </h3>
             </ScrollWidget>

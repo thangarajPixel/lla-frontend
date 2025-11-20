@@ -26,7 +26,8 @@ const TeamSection = () => {
       id: "faculty-3",
       name: "Rajendran",
       description: "(Equipment and Store Supervisor)",
-      className: " mt-0 md:mt-15 lg:mt-15 xl:mt-15 2xl:mt-15 3xl:mt-20 4xl:mt-25",
+      className:
+        " mt-0 md:mt-15 lg:mt-15 xl:mt-15 2xl:mt-15 3xl:mt-20 4xl:mt-25",
     },
   ];
 
@@ -118,20 +119,25 @@ const TeamSection = () => {
                   </p>
 
                   <div className="self-start mt-auto opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out">
-                    <OrangeButtonWidget className="h-7 sm:h-8 md:h-9 lg:h-7 xl:h-7 
+                    <OrangeButtonWidget
+                      className="h-7 sm:h-8 md:h-9 lg:h-7 xl:h-7 
                     2xl:h-10 3xl:h-11 4xl:h-12 
                     w-25 sm:w-24 md:w-28 lg:w-20 xl:w-20 
                     2xl:w-32 3xl:w-36 4xl:w-40
                     text-[10px] sm:text-sm md:text-base lg:text-[12px] xl:text-[12px] 2xl:text-[18px] 
-                    3xl:text-[20px] 4xl:text-[22px]" content="Know More" />
+                    3xl:text-[20px] 4xl:text-[22px]"
+                      content="Know More"
+                    />
                   </div>
                 </div>
               </ScrollWidget>
             ))}
           </div>
         </div>
-        <div className="bg-[#ECECEC] py-5 sm:py-5 md:py-6 lg:py-5 xl:py-5 2xl:py-7 3xl:py-9 4xl:py-11 
-        px-4 sm:px-5 md:px-6 lg:px-5 xl:px-5 2xl:px-7 3xl:px-9 4xl:px-11">
+        <div
+          className="bg-[#ECECEC] py-5 sm:py-5 md:py-6 lg:py-5 xl:py-5 2xl:py-7 3xl:py-9 4xl:py-11 
+        px-4 sm:px-5 md:px-6 lg:px-5 xl:px-5 2xl:px-7 3xl:px-9 4xl:px-11"
+        >
           <ScrollWidget delay={0.2} animation="fadeUp">
             <div
               className="
