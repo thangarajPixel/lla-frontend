@@ -76,12 +76,11 @@ const TestimonialSection = () => {
                     sm:py-14    
                     md:py-18     
                     lg:py-20     
-                    xl:py-28    
-                    2xl:py-32   
-                    3xl:py-40  
+                    xl:py-20    
+                    2xl:py-28   
+                    3xl:py-20  
                   "
                 >
-
       <ContainerWidget>
          <ScrollWidget animation="scale" delay={0.1}>
 <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 
@@ -112,7 +111,7 @@ const TestimonialSection = () => {
                 {testimonials.map((testimonial) => (
                   <div
                     key={testimonial.id}
-                    className="shrink-0 w-full bg-white border border-[#E97451] p-3 sm:p-4 md:p-2 lg:p-2 xl:p-4 shadow-sm"
+                    className="shrink-0 w-full bg-white border border-[#E97451] p-2 sm:p-2 md:p-2 lg:p-2 xl:p-4"
                   >
                     <div className="flex flex-col gap-2 h-full w-full text-center"> 
                     <div className="flex items-center justify-center">
@@ -122,7 +121,7 @@ const TestimonialSection = () => {
                           className="object-center"
                         />
                       </div>
-                       <p className=" text-center text-[16px] lg:text-[15px] xl:text-[17px] 3xl:text-[18px] font-normal font-mulish  text-black leading-normal w-full md:max-w-[650px]">
+                       <p className=" text-center text-[16px] lg:text-[15px] xl:text-[17px] 3xl:text-[18px] font-normal font-mulish  text-black leading-normal w-full md:max-w-[750px]">
                         {testimonial.quote}
                       </p>
           
@@ -157,7 +156,6 @@ const TestimonialSection = () => {
               >
                 <ImageWidget src={ArrowLeftBlack} alt="Prev"/>
               </button>
-
               <button
                 type="button"
                 onClick={scrollNext}
