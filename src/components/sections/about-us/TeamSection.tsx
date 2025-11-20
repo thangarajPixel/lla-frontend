@@ -11,20 +11,23 @@ const TeamSection = () => {
       id: "faculty-0",
       name: "Kavitha Swaminathan",
       description: "(Manager, Academics)",
+      className:"mt-5 md:mt-15 lg:mt-15 xl:mt-15 2xl:mt-15 3xl:mt-20 4xl:mt-25" ,
     },
-    { id: "faculty-1", name: "Nithya JB", description: "(Manager Operations)" },
+    { id: "faculty-1", name: "Nithya JB",
+       description: "(Manager Operations)", 
+        className: "mt-35 md:mt-45 lg:mt-45 xl:mt-45 2xl:mt-45 3xl:mt-50 4xl:mt-55",},
     { id: "faculty-2", name: "Devaraj", description: "(Manager, Accounts)" },
     {
       id: "faculty-3",
       name: "Rajendran",
       description: "(Equipment and Store Supervisor)",
+       className: "mt-25",
     },
   ];
 
   return (
     <section className="w-full bg-white py-10 sm:py-12 md:py-16 lg:py-20 xl:py-24 2xl:py-28 3xl:py-32 4xl:py-36">
       <ContainerWidget>
-        {/* ----------- HEADING ----------- */}
         <div className="text-center space-y-3 sm:space-y-4 md:space-y-6 lg:space-y-8 xl:space-y-10 2xl:space-y-12 3xl:space-y-16 4xl:space-y-20">
           <ScrollWidget delay={0.1}>
             <h3
@@ -55,29 +58,29 @@ const TeamSection = () => {
           </ScrollWidget>
         </div>
 
-        {/* ----------- FACULTY CARDS ----------- */}
         <div className="py-8 pb-10 sm sm:py-8 md:py-10 lg:py-12 xl:py-12 2xl:py-16 3xl:py-20 4xl:py-24">
           <div
             className="
             grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4
             2xl:grid-cols-4 3xl:grid-cols-4 4xl:grid-cols-4
-            gap-8 sm:gap-4 md:gap-4 lg:gap-4 xl:gap-4
+            gap-12 sm:gap-4 md:gap-4 lg:gap-4 xl:gap-4
             2xl:gap-5 3xl:gap-6 4xl:gap-7
           "
           >
             {facultyData.map((faculty) => (
               <ScrollWidget key={faculty.id} animation="scale" delay={0.1}>
-                <div
-                  className="
-                      group
-                      bg-white  
-                      hover:bg-[#E97451]/20 cursor-pointer 
-                      transition-colors duration-500 ease-out
-                      px-3 py-3 flex flex-col
-                      h-[300px] sm:h-[300px] md:h-[450px] lg:h-[360px]
-                      xl:h-[340px] 2xl:h-[400px] 3xl:h-[450px] 4xl:h-[500px]
-                    "
-                >
+                <div  className={`
+                            ${faculty.className}
+                            group
+                            bg-white
+                            hover:bg-[#E97451]/20 cursor-pointer
+                            transition-colors duration-500 ease-out
+                            px-3 py-3 flex flex-col
+                            h-[300px] sm:h-[300px] md:h-[450px] lg:h-[300px]
+                            xl:h-[340px] 2xl:h-[400px] 3xl:h-[450px] 4xl:h-[500px]
+                          `}
+                        >
+
                   <ParallaxWidget speed={0.3}>
                     <div className="w-full aspect-square overflow-hidden">
                       <ImageWidget
