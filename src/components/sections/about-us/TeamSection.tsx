@@ -12,21 +12,21 @@ const TeamSection = () => {
       name: "Kavitha Swaminathan",
       description: "(Manager, Academics)",
       className:
-        "mt-5 md:mt-15 lg:mt-15 xl:mt-15 2xl:mt-15 3xl:mt-20 4xl:mt-25",
+        "mt-0 md:mt-15 lg:mt-15 xl:mt-15 2xl:mt-15 3xl:mt-20 4xl:mt-25",
     },
     {
       id: "faculty-1",
       name: "Nithya JB",
       description: "(Manager Operations)",
       className:
-        "mt-35 md:mt-45 lg:mt-45 xl:mt-45 2xl:mt-45 3xl:mt-50 4xl:mt-55",
+        "mt-0 md:mt-45 lg:mt-45 xl:mt-45 2xl:mt-45 3xl:mt-50 4xl:mt-55",
     },
     { id: "faculty-2", name: "Devaraj", description: "(Manager, Accounts)" },
     {
       id: "faculty-3",
       name: "Rajendran",
       description: "(Equipment and Store Supervisor)",
-      className: "mt-25",
+      className: " mt-0 md:mt-15 lg:mt-15 xl:mt-15 2xl:mt-15 3xl:mt-20 4xl:mt-25",
     },
   ];
 
@@ -63,10 +63,10 @@ const TeamSection = () => {
           </ScrollWidget>
         </div>
 
-        <div className="py-8 pb-10 sm sm:py-8 md:py-10 lg:py-12 xl:py-12 2xl:py-16 3xl:py-20 4xl:py-24">
+        <div className="py-8 pb-9 sm sm:py-8 md:py-10 lg:py-12 xl:py-12 2xl:py-16 3xl:py-20 4xl:py-24">
           <div
             className="
-            grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4
+            grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4
             2xl:grid-cols-4 3xl:grid-cols-4 4xl:grid-cols-4
             gap-12 sm:gap-4 md:gap-4 lg:gap-4 xl:gap-4
             2xl:gap-5 3xl:gap-6 4xl:gap-7
@@ -82,11 +82,11 @@ const TeamSection = () => {
                             hover:bg-[#E97451]/20 cursor-pointer
                             transition-colors duration-500 ease-out
                             px-3 py-3 flex flex-col
-                            h-[300px] sm:h-[300px] md:h-[450px] lg:h-[300px]
+                            h-[250px] sm:h-[300px] md:h-[450px] lg:h-[300px]
                             xl:h-[340px] 2xl:h-[400px] 3xl:h-[450px] 4xl:h-[500px]
                           `}
                 >
-                  <ParallaxWidget speed={0.3}>
+                  <ParallaxWidget speed={-0.1}>
                     <div className="w-full aspect-square overflow-hidden">
                       <ImageWidget
                         src={TeamDummy4}
@@ -100,7 +100,7 @@ const TeamSection = () => {
                     className="
                     font-urbanist font-bold text-black 
                     mt-3 leading-tight
-                    text-base sm:text-lg md:text-xl lg:text-[20px]
+                    text-[12px] sm:text-lg md:text-xl lg:text-[20px]
                     xl:text-[16px] 2xl:text-[24px] 3xl:text-[26px] 4xl:text-[28px]
                   "
                   >
@@ -110,7 +110,7 @@ const TeamSection = () => {
                   <p
                     className="
                     font-mulish text-black
-                    text-xs sm:text-sm md:text-base lg:text-[12px]
+                    text-[10px] sm:text-sm md:text-base lg:text-[12px]
                     xl:text-[12px] 2xl:text-[18px] 3xl:text-[20px] 4xl:text-[22px]
                   "
                   >
@@ -125,17 +125,13 @@ const TeamSection = () => {
             ))}
           </div>
         </div>
-
-        {/* ----------- GROUP TEAM IMAGE ----------- */}
-        <div
-          className="bg-[#ECECEC] py-5 sm:py-5 md:py-6 lg:py-5 xl:py-5 2xl:py-7 3xl:py-9 4xl:py-11 
-        px-4 sm:px-5 md:px-6 lg:px-5 xl:px-5 2xl:px-7 3xl:px-9 4xl:px-11"
-        >
+        <div className="bg-[#ECECEC] py-5 sm:py-5 md:py-6 lg:py-5 xl:py-5 2xl:py-7 3xl:py-9 4xl:py-11 
+        px-4 sm:px-5 md:px-6 lg:px-5 xl:px-5 2xl:px-7 3xl:px-9 4xl:px-11">
           <ScrollWidget delay={0.5} animation="fadeUp">
             <div
               className="
                 relative w-full 
-                h-[320px] sm:h-[380px] md:h-[420px] 
+                h-[150px] sm:h-[380px] md:h-[420px] 
                 lg:h-[400px] xl:h-[430px] 2xl:h-[520px] 
                 3xl:h-[600px] 4xl:h-[554.1231px]
               "

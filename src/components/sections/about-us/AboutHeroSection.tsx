@@ -22,20 +22,14 @@ const AboutHeroSection = () => {
       >
         <ContainerWidget>
           <div className="flex flex-col items-start justify-start gap-3 md:gap-4">
-            {/* Heading */}
             <ScrollWidget animation="fadeUp" delay={0.1}>
               <h3
-                className="
-                text-3xl sm:text-4xl md:text-5xl lg:text-6xl 
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl 
                 xl:text-7xl 2xl:text-[70px] 3xl:text-[80px] 4xl:text-[95px]
-                font-normal text-black font-urbanist
-              "
-              >
+                font-normal text-black font-urbanist">
                 About
               </h3>
             </ScrollWidget>
-
-            {/* Sub heading */}
             <ScrollWidget animation="slideLeft" delay={0.2}>
               <p
                 className="
@@ -53,8 +47,6 @@ const AboutHeroSection = () => {
                 </span>
               </p>
             </ScrollWidget>
-
-            {/* Paragraph 1 */}
             <ScrollWidget animation="fadeUp" delay={0.3}>
               <p
                 className="
@@ -72,8 +64,6 @@ const AboutHeroSection = () => {
                 learning of professional photography.
               </p>
             </ScrollWidget>
-
-            {/* Paragraph 2 */}
             <ScrollWidget animation="fadeUp" delay={0.4}>
               <p
                 className="
@@ -93,8 +83,6 @@ const AboutHeroSection = () => {
                 2001, Light & Life Academy came to be.
               </p>
             </ScrollWidget>
-
-            {/* Paragraph 3 */}
             <ScrollWidget animation="fadeUp" delay={0.2}>
               <p
                 className="
@@ -112,8 +100,6 @@ const AboutHeroSection = () => {
                 discover and love the magic of photography.
               </p>
             </ScrollWidget>
-
-            {/* Paragraph 4 */}
             <ScrollWidget animation="fadeUp" delay={0.3}>
               <p
                 className="
@@ -135,12 +121,10 @@ const AboutHeroSection = () => {
           </div>
         </ContainerWidget>
       </section>
-
-      {/* ---------------- SECTION 2 ---------------- */}
       <section
         className="
           z-50 max-w-[2560px] bg-cover bg-bottom bg-no-repeat 
-          min-h-[600px] 
+          min-h-[510px] 
           lg:min-h-[580px]
           xl:min-h-[700px] 
           2xl:min-h-[800px]
