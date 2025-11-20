@@ -41,6 +41,7 @@ const GallertSection = () => {
       slidesToScroll: 1,
       loop: true,
       dragFree: false,
+      direction: "rtl",
     },
     [
       Autoplay({
@@ -57,6 +58,7 @@ const GallertSection = () => {
       slidesToScroll: 1,
       loop: true,
       dragFree: false,
+      direction: "ltr",
     },
     [
       Autoplay({
@@ -168,6 +170,7 @@ const GallertSection = () => {
           <div
             ref={emblaRef1}
             className="overflow-hidden cursor-grab active:cursor-grabbing"
+            dir="rtl"
           >
             <div className="flex gap-4 touch-pan-x pl-5 pr-5">
               {galleryImages.map((item) => (
@@ -191,6 +194,7 @@ const GallertSection = () => {
           <div
             ref={emblaRef2}
             className="overflow-hidden cursor-grab active:cursor-grabbing"
+            dir="ltr"
           >
             <div className="flex gap-4 touch-pan-x pl-5 pr-5">
               {galleryImages.map((item) => (
