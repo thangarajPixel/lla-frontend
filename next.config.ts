@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "g037qgw3-8001.inc1.devtunnels.ms",
+        hostname: process.env.NEXT_APP_S3_URL || ""
       },
     ],
   },
