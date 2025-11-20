@@ -7,6 +7,7 @@ import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { Life } from "@/helpers/ImageHelper";
+import { useRouter } from "next/navigation";
 
 type LifeCardData = {
   id: number;
@@ -81,8 +82,10 @@ const LifeSection = () => {
       }),
     ],
   );
+  const router = useRouter();
 
   return (
+    
     <section
       className="w-full min-h-[1100px] md:min-h-[700px] lg:min-h-[900px] xl:min-h-[1000px] 2xl:min-h-[1100px] 3xl:min-h-[1200px] bg-cover  bg-no-repeat bg-position-[bottom_left_-200px] md:bg-center sm:bg-position-center md:bg-fixed relative bg-[#ECECEC] py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 3xl:py-28"
       style={{ backgroundImage: `url(${Life.src})` }}
@@ -107,7 +110,7 @@ const LifeSection = () => {
                   students learn to create with intention, empathy, and vision.
                 </p>
                 <div className="self-start">
-                  <OrangeButtonWidget content="View More" />
+                  <OrangeButtonWidget content="View More"  onClick={() => router.push("/life-lla")} />
                 </div>
               </div>
               <div className="flex justify-end items-end mt-8 sm:mt-10 md:mt-12 lg:mt-12 xl:mt-14 2xl:mt-16 3xl:mt-20">
