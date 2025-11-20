@@ -45,15 +45,13 @@ const TestimonialSection = () => {
       id: "testimonial-1",
       name: "John Doe",
       role: "Alumni, Batch '15",
-      quote:
-        "LLA transformed my perspective on photography. The mentors here don't just teach techniques—they nurture creativity and help you find your unique voice.",
+      quote:"For me, Light and Life is home. I always have a great time talking with Iqbal Sir, listening to his array of stories and enjoying his brilliant sense of humour.. I believe every student who goes out of LLA becomes an artist. Thank you LLA for bringing artists to this world"
     },
     {
       id: "testimonial-2",
       name: "Sarah Johnson",
       role: "Industry Professional",
-      quote:
-        "The connections I made at LLA have been invaluable. It's more than a school; it's a community that continues to support and inspire long after graduation.",
+      quote:"For me, Light and Life is home. I always have a great time talking with Iqbal Sir, listening to his array of stories and enjoying his brilliant sense of humour.. I believe every student who goes out of LLA becomes an artist. Thank you LLA for bringing artists to this world"
     },
     {
       id: "testimonial-3",
@@ -87,7 +85,8 @@ const TestimonialSection = () => {
 
       <ContainerWidget>
          <ScrollWidget animation="scale" delay={0.1}>
-        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-10 lg:gap-12 xl:gap-14 2xl:gap-16">
+<div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 
+     gap-10 lg:gap-12 xl:gap-14 2xl:gap-16 items-stretch">
          <div className="space-y-3.5 md:space-y-3 lg:space-y-5">
                          <h3 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
                         Testimonials
@@ -98,13 +97,14 @@ const TestimonialSection = () => {
               </p>
 
                           <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[450px]">
-              Over the last twenty-five years, LLA has become more than a
-              photography school—it's a space that has shaped and been shaped by
-              everyone who's walked through it. Here are words from those who've
-              shared this journey with us.
+             Over the last twenty-five years, LLA has become more than a photography school—it’s 
+             a space that has shaped and been shaped by everyone who’s walked through it.
+              Here are words from those who’ve shared this journey with us—friends, mentors,
+               industry voices, and 
+             visitors whose encounters with LLA have left a lasting impression.
             </p>
           </div>
-          <div className="relative">
+         <div className="relative h-full flex flex-col">
             <div
               className="overflow-hidden cursor-grab active:cursor-grabbing"
               ref={emblaRef}
@@ -113,20 +113,17 @@ const TestimonialSection = () => {
                 {testimonials.map((testimonial) => (
                   <div
                     key={testimonial.id}
-                    className="shrink-0 w-full bg-white border border-[#E97451] p-5 sm:p-6 md:p-8 lg:p-10 xl:p-10 shadow-sm"
+                    className="shrink-0 w-full bg-white border border-[#E97451] p-3 sm:p-4 md:p-6 lg:p-6 xl:p-8 shadow-sm"
                   >
-                    <div className="flex flex-col gap-4 h-full text-center">
+                    <div className="flex flex-col gap-2 h-full w-full text-center"> 
                       <Quote
                         className="text-[#E97451] w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 mx-auto"
                       />
+                       <p className=" text-center text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal  text-black leading-normal w-full md:max-w-[650px]">
 
-                      <p
-                        className="text-[15px] sm:text-[16px] md:text-[17px] lg:text-[18px] xl:text-[19px] 2xl:text-[20px] 3xl:text-[22px] font-normal text-black leading-relaxed italic"
-                      >
-                        "{testimonial.quote}"
+                        {testimonial.quote}
                       </p>
-
-                      <div className="mt-auto pt-4">
+          
                         <p
                           className="text-lg sm:text-xl md:text-2xl text-[#E97451] font-semibold font-urbanist"
                         >
@@ -138,14 +135,13 @@ const TestimonialSection = () => {
                         >
                           {testimonial.role}
                         </p>
-                      </div>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="flex gap-4 justify-center mt-6 md:mt-8">
+            <div className="flex gap-2 justify-center mt-3 md:mt-3">
               <button
                 type="button"
                 onClick={scrollPrev}
