@@ -45,7 +45,7 @@ const SponsorsSection = () => {
               </p> */}
             </ParallaxWidget>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-6 gap-3 md:gap-7 2xl:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-6 gap-3 md:gap-7 2xl:gap-6 3xl:gap-8">
             {sponsors.map((sponsor, index) => (
               <div
                 key={sponsor.id}
