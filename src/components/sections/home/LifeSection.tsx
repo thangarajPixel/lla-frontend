@@ -163,24 +163,24 @@ const LifeSection = () => {
             </div>
           </div>
         </ContainerWidget>
-                  {/* Mobile: Horizontal Scroll - Below md breakpoint */}
-                  <div className="md:hidden w-full sm:mt-8 overflow-hidden">
-            <div
-              ref={emblaRef}
-              className="overflow-hidden cursor-grab active:cursor-grabbing"
-            >
-              <div className="flex gap-4 sm:gap-4 touch-pan-x pl-4">
-                {lifeCardsData.map((card) => (
-                  <div
-                    key={card.id}
-      className="flex-[0_0_75vw] sm:flex-[0_0_70vw] max-w-[200px] sm:max-w-[220px] min-w-0"
-                  >
-                    <LifeCard card={card} />
-                  </div>
-                ))}
-              </div>
+        {/* Mobile: Horizontal Scroll - Below md breakpoint */}
+        <div className="md:hidden w-full sm:mt-8 overflow-hidden">
+          <div
+            ref={emblaRef}
+            className="overflow-hidden cursor-grab active:cursor-grabbing"
+          >
+            <div className="flex gap-4 sm:gap-4 touch-pan-x pl-4">
+              {lifeCardsData.map((card) => (
+                <div
+                  key={card.id}
+                  className="flex-[0_0_75vw] sm:flex-[0_0_70vw] max-w-[200px] sm:max-w-[220px] min-w-0"
+                >
+                  <LifeCard card={card} />
+                </div>
+              ))}
             </div>
           </div>
+        </div>
       </div>
     </section>
   );

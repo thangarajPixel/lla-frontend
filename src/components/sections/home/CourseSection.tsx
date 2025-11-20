@@ -21,8 +21,8 @@ const CourseSection = () => {
             <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
               Here, learning is deliberate and layered, aimed at building strong
               conceptual foundations.
-              <br className="hidden sm:block" /> Where skills are honed, ideas take shape, and observation
-              becomes instinct.
+              <br className="hidden sm:block" /> Where skills are honed, ideas
+              take shape, and observation becomes instinct.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-7 2xl:gap-6">
