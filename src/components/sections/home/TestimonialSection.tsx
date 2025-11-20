@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import { ArrowRightBlack, ArrowLeftBlack } from "@/helpers/ImageHelper";
+import ScrollWidget from "@/components/widgets/ScrollWidget";
 
 const TestimonialSection = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -71,36 +72,38 @@ const TestimonialSection = () => {
   ];
 
   return (
-    <section className="w-full bg-[#ECECEC] flex flex-col z-40 relative py-10 md:py-18 lg:py-20 3xl:py-40">
+    <section
+                  className="
+                    w-full bg-[#ECECEC] flex flex-col z-40 relative
+                    py-10       
+                    sm:py-14    
+                    md:py-18     
+                    lg:py-20     
+                    xl:py-28    
+                    2xl:py-32   
+                    3xl:py-40  
+                  "
+                >
+
       <ContainerWidget>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 xl:gap-14 2xl:gap-16">
-          <div className="space-y-2 md:space-y-3 lg:space-y-5 xl:space-y-6 2xl:space-y-8">
-            <h3
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl 3xl:text-[90px] font-normal text-black font-urbanist"
-            >
-              Testimonials
-            </h3>
+         <ScrollWidget animation="scale" delay={0.1}>
+        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-10 lg:gap-12 xl:gap-14 2xl:gap-16">
+         <div className="space-y-3.5 md:space-y-3 lg:space-y-5">
+                         <h3 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
+                        Testimonials
+                      </h3>
+            <p className="font-area-variable font-semibold text-lg md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
+              25 Years,<br className="hidden sm:block" /> 
+                <span className="text-[#E97451]">Countless Connections</span>
+              </p>
 
-            <p
-              className="font-area-variable font-semibold text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl 3xl:text-[45px] text-black"
-            >
-              25 Years,
-              <span className="text-[#E97451] ml-2">
-                Countless
-                <br className="hidden sm:block" /> Connections
-              </span>
-            </p>
-
-            <p
-              className="text-[15px] sm:text-[16px] md:text-[17px] lg:text-[18px] xl:text-[19px] 2xl:text-[20px] 3xl:text-[22px] font-normal text-black leading-normal w-full md:max-w-[600px]"
-            >
+                          <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[450px]">
               Over the last twenty-five years, LLA has become more than a
               photography school—it's a space that has shaped and been shaped by
               everyone who's walked through it. Here are words from those who've
               shared this journey with us.
             </p>
           </div>
-
           <div className="relative">
             <div
               className="overflow-hidden cursor-grab active:cursor-grabbing"
@@ -171,6 +174,7 @@ const TestimonialSection = () => {
             </div>
           </div>
         </div>
+        </ScrollWidget>
       </ContainerWidget>
     </section>
   );
