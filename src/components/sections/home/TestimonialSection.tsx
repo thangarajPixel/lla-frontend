@@ -106,30 +106,30 @@ const TestimonialSection = () => {
                         key={testimonial.id}
                         className="shrink-0 w-full bg-white border border-[#E97451] p-2 sm:p-2 md:p-2 lg:p-2 xl:p-4"
                       >
-                      <div className="flex flex-col gap-2  md:gap-2 lg:gap-3 xl:gap-4 2xl:gap-5 3xl:gap-6 h-full w-full text-center">
-                        <div className="flex items-center justify-center">
-                          <ImageWidget
-                            src={Quote}
-                            alt="Quote"
-                            className="object-center"
-                          />
+                        <div className="flex flex-col gap-2  md:gap-2 lg:gap-3 xl:gap-4 2xl:gap-5 3xl:gap-6 h-full w-full text-center">
+                          <div className="flex items-center justify-center">
+                            <ImageWidget
+                              src={Quote}
+                              alt="Quote"
+                              className="object-center"
+                            />
+                          </div>
+                          <p className=" text-center text-[16px] lg:text-[15px] xl:text-[17px] 3xl:text-[18px] font-normal font-mulish  text-black leading-normal w-full md:max-w-[750px]">
+                            {testimonial.quote}
+                          </p>
+
+                          <p className="text-lg sm:text-xl md:text-2xl lg:text-[24px] text-[#E97451] font-regular font-mulish">
+                            {testimonial.name}
+                          </p>
+
+                          <p className="mb-3 text-sm sm:text-base md:text-[16px] text-black font-regular font-mulish">
+                            {testimonial.role}
+                          </p>
                         </div>
-                        <p className=" text-center text-[16px] lg:text-[15px] xl:text-[17px] 3xl:text-[18px] font-normal font-mulish  text-black leading-normal w-full md:max-w-[750px]">
-                          {testimonial.quote}
-                        </p>
-
-                        <p className="text-lg sm:text-xl md:text-2xl lg:text-[24px] text-[#E97451] font-regular font-mulish">
-                          {testimonial.name}
-                        </p>
-
-                        <p className="mb-3 text-sm sm:text-base md:text-[16px] text-black font-regular font-mulish">
-                          {testimonial.role}
-                        </p>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
               </div>
 
               <div className="flex gap-3 justify-center mt-3 md:mt-5">
@@ -143,7 +143,11 @@ const TestimonialSection = () => {
                       : "cursor-pointer"
                   }`}
                 >
-                  <ImageWidget src={ArrowLeftBlack} alt="Prev" className="w-[35px] h-[35px]"/>
+                  <ImageWidget
+                    src={ArrowLeftBlack}
+                    alt="Prev"
+                    className="w-[35px] h-[35px]"
+                  />
                 </button>
                 <button
                   type="button"
@@ -155,7 +159,11 @@ const TestimonialSection = () => {
                       : "cursor-pointer"
                   }`}
                 >
-                  <ImageWidget src={ArrowRightBlack} alt="Next"  className="w-[35px] h-[35px]"/>
+                  <ImageWidget
+                    src={ArrowRightBlack}
+                    alt="Next"
+                    className="w-[35px] h-[35px]"
+                  />
                 </button>
               </div>
             </div>
