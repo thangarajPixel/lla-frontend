@@ -71,7 +71,7 @@ const TestimonialSection = () => {
   ];
 
   return (
-    <section className="w-full bg-[#ECECEC] flex flex-col z-40 relative py-10 md:py-20 lg:py-28 xl:py-32 2xl:py-36 3xl:py-40">
+    <section className="w-full bg-[#ECECEC] flex flex-col z-40 relative py-10 md:py-18 lg:py-28 xl:py-32 2xl:py-36 3xl:py-40">
       <ContainerWidget>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 xl:gap-14 2xl:gap-16">
 
@@ -117,8 +117,7 @@ const TestimonialSection = () => {
               className="overflow-hidden cursor-grab active:cursor-grabbing"
               ref={emblaRef}
             >
-              <div className="flex">
-
+              <div className="flex w-full">
                 {testimonials.map((testimonial) => (
                   <div
                     key={testimonial.id}
