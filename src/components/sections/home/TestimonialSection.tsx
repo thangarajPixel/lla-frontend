@@ -74,25 +74,15 @@ const TestimonialSection = () => {
     <section className="w-full bg-[#ECECEC] flex flex-col z-40 relative py-10 md:py-18 lg:py-28 xl:py-32 2xl:py-36 3xl:py-40">
       <ContainerWidget>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 xl:gap-14 2xl:gap-16">
-          {/* LEFT SECTION */}
           <div className="space-y-2 md:space-y-3 lg:space-y-5 xl:space-y-6 2xl:space-y-8">
             <h3
-              className="
-              text-3xl sm:text-4xl md:text-5xl lg:text-6xl 
-              xl:text-7xl 2xl:text-8xl 3xl:text-[90px]
-              font-normal text-black font-urbanist
-            "
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl 3xl:text-[90px] font-normal text-black font-urbanist"
             >
               Testimonials
             </h3>
 
             <p
-              className="
-              font-area-variable font-semibold 
-              text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 
-              2xl:text-4xl 3xl:text-[45px] 
-              text-black
-            "
+              className="font-area-variable font-semibold text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl 3xl:text-[45px] text-black"
             >
               25 Years,
               <span className="text-[#E97451] ml-2">
@@ -102,12 +92,7 @@ const TestimonialSection = () => {
             </p>
 
             <p
-              className="
-              text-[15px] sm:text-[16px] md:text-[17px] lg:text-[18px] 
-              xl:text-[19px] 2xl:text-[20px] 3xl:text-[22px]
-              font-normal text-black leading-normal 
-              w-full md:max-w-[600px]
-            "
+              className="text-[15px] sm:text-[16px] md:text-[17px] lg:text-[18px] xl:text-[19px] 2xl:text-[20px] 3xl:text-[22px] font-normal text-black leading-normal w-full md:max-w-[600px]"
             >
               Over the last twenty-five years, LLA has become more than a
               photography school—it's a space that has shaped and been shaped by
@@ -116,7 +101,6 @@ const TestimonialSection = () => {
             </p>
           </div>
 
-          {/* RIGHT SECTION - CAROUSEL */}
           <div className="relative">
             <div
               className="overflow-hidden cursor-grab active:cursor-grabbing"
@@ -126,48 +110,28 @@ const TestimonialSection = () => {
                 {testimonials.map((testimonial) => (
                   <div
                     key={testimonial.id}
-                    className="
-                      shrink-0 w-full bg-white
-                      border border-[#E97451] 
-                      p-5 sm:p-6 md:p-8 lg:p-10 xl:p-10
-                      shadow-sm
-                    "
+                    className="shrink-0 w-full bg-white border border-[#E97451] p-5 sm:p-6 md:p-8 lg:p-10 xl:p-10 shadow-sm"
                   >
                     <div className="flex flex-col gap-4 h-full text-center">
                       <Quote
-                        className="
-                        text-[#E97451] 
-                        w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 
-                        mx-auto
-                      "
+                        className="text-[#E97451] w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 mx-auto"
                       />
 
                       <p
-                        className="
-                        text-[15px] sm:text-[16px] md:text-[17px] 
-                        lg:text-[18px] xl:text-[19px] 2xl:text-[20px] 
-                        3xl:text-[22px]
-                        font-normal text-black leading-relaxed italic
-                      "
+                        className="text-[15px] sm:text-[16px] md:text-[17px] lg:text-[18px] xl:text-[19px] 2xl:text-[20px] 3xl:text-[22px] font-normal text-black leading-relaxed italic"
                       >
                         "{testimonial.quote}"
                       </p>
 
                       <div className="mt-auto pt-4">
                         <p
-                          className="
-                          text-lg sm:text-xl md:text-2xl 
-                          text-[#E97451] font-semibold font-urbanist
-                        "
+                          className="text-lg sm:text-xl md:text-2xl text-[#E97451] font-semibold font-urbanist"
                         >
                           {testimonial.name}
                         </p>
 
                         <p
-                          className="
-                          text-sm sm:text-base md:text-lg 
-                          text-gray-600
-                        "
+                          className="text-sm sm:text-base md:text-lg text-gray-600"
                         >
                           {testimonial.role}
                         </p>
@@ -178,22 +142,16 @@ const TestimonialSection = () => {
               </div>
             </div>
 
-            {/* CONTROLS */}
             <div className="flex gap-4 justify-center mt-6 md:mt-8">
               <button
                 type="button"
                 onClick={scrollPrev}
                 disabled={!canScrollPrev}
-                className={`
-                  p-2 sm:p-3 md:p-4 
-                  hover:bg-[#E97451] hover:rounded-full 
-                  hover:text-white transition-all duration-300
-                  ${
-                    !canScrollPrev
-                      ? "opacity-50 cursor-not-allowed"
-                      : "cursor-pointer"
-                  }
-                `}
+                className={`p-2 sm:p-3 md:p-4 hover:bg-[#E97451] hover:rounded-full hover:text-white transition-all duration-300 ${
+                  !canScrollPrev
+                    ? "opacity-50 cursor-not-allowed"
+                    : "cursor-pointer"
+                }`}
               >
                 <ImageWidget src={ArrowLeftBlack} alt="Prev" />
               </button>
@@ -202,16 +160,11 @@ const TestimonialSection = () => {
                 type="button"
                 onClick={scrollNext}
                 disabled={!canScrollNext}
-                className={`
-                  p-2 sm:p-3 md:p-4
-                  hover:bg-[#E97451] hover:rounded-full 
-                  hover:text-white transition-all duration-300
-                  ${
-                    !canScrollNext
-                      ? "opacity-50 cursor-not-allowed"
-                      : "cursor-pointer"
-                  }
-                `}
+                className={`p-2 sm:p-3 md:p-4 hover:bg-[#E97451] hover:rounded-full hover:text-white transition-all duration-300 ${
+                  !canScrollNext
+                    ? "opacity-50 cursor-not-allowed"
+                    : "cursor-pointer"
+                }`}
               >
                 <ImageWidget src={ArrowRightBlack} alt="Next" />
               </button>
