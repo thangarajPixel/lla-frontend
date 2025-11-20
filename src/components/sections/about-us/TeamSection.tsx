@@ -11,15 +11,13 @@ const TeamSection = () => {
       id: "faculty-0",
       name: "Kavitha Swaminathan",
       description: "(Manager, Academics)",
-      className:
-        "mt-0 md:mt-0 lg:mt-15 xl:mt-15 2xl:mt-15 3xl:mt-20 4xl:mt-25",
+      className: "mt-0 md:mt-0 lg:mt-15 xl:mt-15 2xl:mt-15 3xl:mt-20 4xl:mt-25",
     },
     {
       id: "faculty-1",
       name: "Nithya JB",
       description: "(Manager Operations)",
-      className:
-        "mt-0 md:mt-0 lg:mt-45 xl:mt-45 2xl:mt-45 3xl:mt-50 4xl:mt-55",
+      className: "mt-0 md:mt-0 lg:mt-45 xl:mt-45 2xl:mt-45 3xl:mt-50 4xl:mt-55",
     },
     { id: "faculty-2", name: "Devaraj", description: "(Manager, Accounts)" },
     {
