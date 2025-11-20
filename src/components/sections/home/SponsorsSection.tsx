@@ -53,7 +53,7 @@ const SponsorsSection = () => {
               >
                 <ScrollWidget animation="scale" delay={0.1}>
                   <ParallaxWidget
-                    speed={0.6 + index * 0.1}
+                    speed={0.5 + index * 0.1}
                     className="relative w-full h-0 pb-[75%] aspect-4/3 overflow-hidden"
                   >
                     <ImageWidget
