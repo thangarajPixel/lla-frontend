@@ -98,7 +98,7 @@ const StudentSection = () => {
             <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-normal text-black font-urbanist">
               Student Testimonials
             </h2>
-            <p className="font-area-variable font-semibold text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl 3xl:text-[40px] text-black">
+            <p className="font-area-variable font-semibold text-lg md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl 3xl:text-[40px] text-black">
               Hear from
               <span className="text-[#E97451] pl-2">Our Community</span>
             </p>

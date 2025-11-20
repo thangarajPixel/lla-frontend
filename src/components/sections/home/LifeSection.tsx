@@ -93,11 +93,11 @@ const LifeSection = () => {
         <ContainerWidget>
           <div className="flex flex-col md:flex-row gap-4 sm:gap-5 md:gap-6 lg:gap-6 xl:gap-8 2xl:gap-8 3xl:gap-10">
             <div className="w-full md:w-auto md:min-w-[350px] lg:min-w-[400px] xl:min-w-[450px] 2xl:min-w-[500px] 3xl:min-w-[550px]">
-              <div className="flex flex-col gap-3 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-6 2xl:gap-7 3xl:gap-8">
+              <div className="flex flex-col gap-3.5 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-6 2xl:gap-7 3xl:gap-8">
                 <h3 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
                   Life at LLA
                 </h3>
-                <p className="font-area-variable font-semibold text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
+                <p className="font-area-variable font-semibold text-lg md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
                   Fostering a Holistic <br />
                   <span className="text-[#E97451]">Learning Experience</span>
                 </p>
@@ -162,26 +162,25 @@ const LifeSection = () => {
               </div>
             </div>
           </div>
-
-          {/* Mobile: Horizontal Scroll - Below md breakpoint */}
-          <div className="md:hidden w-full mt-6 sm:mt-8 overflow-hidden">
-            <div
-              ref={emblaRef}
-              className="overflow-hidden cursor-grab active:cursor-grabbing"
-            >
-              <div className="flex gap-3 sm:gap-4 touch-pan-x pr-3 sm:pr-4">
-                {lifeCardsData.map((card) => (
-                  <div
-                    key={card.id}
-                    className="flex-[0_0_75vw] sm:flex-[0_0_70vw] max-w-[200px] sm:max-w-[220px] min-w-0"
-                  >
-                    <LifeCard card={card} />
-                  </div>
-                ))}
-              </div>
+        </ContainerWidget>
+        {/* Mobile: Horizontal Scroll - Below md breakpoint */}
+        <div className="md:hidden w-full sm:mt-8 overflow-hidden">
+          <div
+            ref={emblaRef}
+            className="overflow-hidden cursor-grab active:cursor-grabbing"
+          >
+            <div className="flex gap-4 sm:gap-4 touch-pan-x pl-4">
+              {lifeCardsData.map((card) => (
+                <div
+                  key={card.id}
+                  className="flex-[0_0_75vw] sm:flex-[0_0_70vw] max-w-[200px] sm:max-w-[220px] min-w-0"
+                >
+                  <LifeCard card={card} />
+                </div>
+              ))}
             </div>
           </div>
-        </ContainerWidget>
+        </div>
       </div>
     </section>
   );
