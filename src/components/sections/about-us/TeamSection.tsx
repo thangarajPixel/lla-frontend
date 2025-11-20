@@ -110,7 +110,7 @@ const TeamSection = () => {
                   <p
                     className="
                     font-mulish text-black
-                    text-[10px] sm:text-sm md:text-base lg:text-[12px]
+                    text-[14px] sm:text-[16px] md:text-base lg:text-[12px]
                     xl:text-[12px] 2xl:text-[18px] 3xl:text-[20px] 4xl:text-[22px]
                   "
                   >
