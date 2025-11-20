@@ -73,7 +73,7 @@ const TestimonialSection = () => {
   return (
     <section className="w-full bg-[#ECECEC] flex flex-col z-40 relative py-10 sm:py-14 md:py-18 lg:py-20 xl:py-20 2xl:py-28 3xl:py-20">
       <ContainerWidget>
-        <ScrollWidget animation="scale" delay={0.1}>
+        <ScrollWidget animation="fadeUp" delay={0.1}>
           <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-10 lg:gap-12 xl:gap-14 2xl:gap-16 items-stretch">
             <div className="space-y-3.5 md:space-y-3 lg:space-y-5">
               <h3 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
@@ -95,16 +95,17 @@ const TestimonialSection = () => {
               </p>
             </div>
             <div className="relative h-full flex flex-col">
-              <div
-                className="overflow-hidden cursor-grab active:cursor-grabbing"
-                ref={emblaRef}
-              >
-                <div className="flex w-full">
-                  {testimonials.map((testimonial) => (
-                    <div
-                      key={testimonial.id}
-                      className="shrink-0 w-full bg-white border border-[#E97451] p-2 sm:p-2 md:p-2 lg:p-2 xl:p-4"
-                    >
+              <div className="px-px">
+                <div
+                  className="overflow-hidden cursor-grab active:cursor-grabbing"
+                  ref={emblaRef}
+                >
+                  <div className="flex w-full">
+                    {testimonials.map((testimonial) => (
+                      <div
+                        key={testimonial.id}
+                        className="shrink-0 w-full bg-white border border-[#E97451] p-2 sm:p-2 md:p-2 lg:p-2 xl:p-4"
+                      >
                       <div className="flex flex-col gap-2  md:gap-2 lg:gap-3 xl:gap-4 2xl:gap-5 3xl:gap-6 h-full w-full text-center">
                         <div className="flex items-center justify-center">
                           <ImageWidget
@@ -129,8 +130,9 @@ const TestimonialSection = () => {
                   ))}
                 </div>
               </div>
+              </div>
 
-              <div className="flex gap-4 justify-center mt-3 md:mt-5">
+              <div className="flex gap-3 justify-center mt-3 md:mt-5">
                 <button
                   type="button"
                   onClick={scrollPrev}
@@ -141,7 +143,7 @@ const TestimonialSection = () => {
                       : "cursor-pointer"
                   }`}
                 >
-                  <ImageWidget src={ArrowLeftBlack} alt="Prev" />
+                  <ImageWidget src={ArrowLeftBlack} alt="Prev" className="w-[35px] h-[35px]"/>
                 </button>
                 <button
                   type="button"
@@ -153,7 +155,7 @@ const TestimonialSection = () => {
                       : "cursor-pointer"
                   }`}
                 >
-                  <ImageWidget src={ArrowRightBlack} alt="Next" />
+                  <ImageWidget src={ArrowRightBlack} alt="Next"  className="w-[35px] h-[35px]"/>
                 </button>
               </div>
             </div>

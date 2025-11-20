@@ -5,6 +5,7 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { Dummy1 } from "@/helpers/ImageHelper";
+import ScrollWidget from "@/components/widgets/ScrollWidget";
 
 const aboutData = [
   {
@@ -72,7 +73,7 @@ const AboutSection = () => {
               <OrangeButtonWidget content="Step into the LLA" />
             </div>
           </div>
-
+<ScrollWidget delay={0.1} animation="fadeUp">
           <div className="hidden xl:block  relative">
             <div className="relative">
               <div className="relative top">
@@ -120,6 +121,7 @@ const AboutSection = () => {
               </div>
             </div>
           </div>
+          </ScrollWidget>
         </div>
       </ContainerWidget>
     </section>
