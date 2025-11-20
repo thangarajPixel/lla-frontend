@@ -148,7 +148,7 @@ const TestimonialSection = () => {
                 type="button"
                 onClick={scrollPrev}
                 disabled={!canScrollPrev}
-                className={` transition-all duration-300 ${
+                className={`h-[35px] w-[35px] sm:h-[35px]  md:h-[40px] lg:h-[40px] xl:h-[48px] 2xl:h-[48px] 3xl:h-[48px] sm:w-[35px] md:w-[40px] lg:w-[40px] xl:w-[48px] 2xl:w-[48px] 3xl:w-[48px]  ${
                   !canScrollPrev
                     ? "opacity-50 cursor-not-allowed"
                     : "cursor-pointer"
@@ -160,7 +160,7 @@ const TestimonialSection = () => {
                 type="button"
                 onClick={scrollNext}
                 disabled={!canScrollNext}
-                className={`transition-all duration-300 ${
+                className={ `h-[35px] w-[35px] sm:h-[35px]  md:h-[40px] lg:h-[40px] xl:h-[48px] 2xl:h-[48px] 3xl:h-[48px] sm:w-[35px] md:w-[40px] lg:w-[40px] xl:w-[48px] 2xl:w-[48px] 3xl:w-[48px]  ${
                   !canScrollNext
                     ? "opacity-50 cursor-not-allowed"
                     : "cursor-pointer"
