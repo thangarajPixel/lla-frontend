@@ -71,7 +71,7 @@ const TestimonialSection = () => {
   ];
 
   return (
-    <section className="w-full bg-[#ECECEC] flex flex-col z-40 relative py-10 md:py-18 lg:py-28 xl:py-32 2xl:py-36 3xl:py-40">
+    <section className="w-full bg-[#ECECEC] flex flex-col z-40 relative py-10 md:py-18 lg:py-20 3xl:py-40">
       <ContainerWidget>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 xl:gap-14 2xl:gap-16">
           <div className="space-y-2 md:space-y-3 lg:space-y-5 xl:space-y-6 2xl:space-y-8">
