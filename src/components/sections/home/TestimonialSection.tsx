@@ -113,7 +113,7 @@ const TestimonialSection = () => {
                     key={testimonial.id}
                     className="shrink-0 w-full bg-white border border-[#E97451] p-2 sm:p-2 md:p-2 lg:p-2 xl:p-4"
                   >
-                    <div className="flex flex-col gap-2 h-full w-full text-center"> 
+                    <div className="flex flex-col gap-2  md:gap-2 lg:gap-3 xl:gap-4 2xl:gap-5 3xl:gap-6 h-full w-full text-center"> 
                     <div className="flex items-center justify-center">
                         <ImageWidget
                           src={Quote}
@@ -133,7 +133,7 @@ const TestimonialSection = () => {
                         </p>
 
                         <p
-                          className="text-sm sm:text-base md:text-[16px] text-black font-regular font-mulish"
+                          className="mb-3 text-sm sm:text-base md:text-[16px] text-black font-regular font-mulish"
                         >
                           {testimonial.role}
                         </p>
@@ -148,7 +148,7 @@ const TestimonialSection = () => {
                 type="button"
                 onClick={scrollPrev}
                 disabled={!canScrollPrev}
-                className={` transition-all duration-300 ${
+                className={`h-[35px] w-[35px] sm:h-[35px]  md:h-[40px] lg:h-[40px] xl:h-[48px] 2xl:h-[48px] 3xl:h-[48px] sm:w-[35px] md:w-[40px] lg:w-[40px] xl:w-[48px] 2xl:w-[48px] 3xl:w-[48px]  ${
                   !canScrollPrev
                     ? "opacity-50 cursor-not-allowed"
                     : "cursor-pointer"
@@ -160,7 +160,7 @@ const TestimonialSection = () => {
                 type="button"
                 onClick={scrollNext}
                 disabled={!canScrollNext}
-                className={`transition-all duration-300 ${
+                className={ `h-[35px] w-[35px] sm:h-[35px]  md:h-[40px] lg:h-[40px] xl:h-[48px] 2xl:h-[48px] 3xl:h-[48px] sm:w-[35px] md:w-[40px] lg:w-[40px] xl:w-[48px] 2xl:w-[48px] 3xl:w-[48px]  ${
                   !canScrollNext
                     ? "opacity-50 cursor-not-allowed"
                     : "cursor-pointer"
