@@ -113,7 +113,7 @@ const TestimonialSection = () => {
                     key={testimonial.id}
                     className="shrink-0 w-full bg-white border border-[#E97451] p-2 sm:p-2 md:p-2 lg:p-2 xl:p-4"
                   >
-                    <div className="flex flex-col gap-2 h-full w-full text-center"> 
+                    <div className="flex flex-col gap-2  md:gap-2 lg:gap-3 xl:gap-4 2xl:gap-5 3xl:gap-6 h-full w-full text-center"> 
                     <div className="flex items-center justify-center">
                         <ImageWidget
                           src={Quote}
@@ -133,7 +133,7 @@ const TestimonialSection = () => {
                         </p>
 
                         <p
-                          className="text-sm sm:text-base md:text-[16px] text-black font-regular font-mulish"
+                          className="mb-3 text-sm sm:text-base md:text-[16px] text-black font-regular font-mulish"
                         >
                           {testimonial.role}
                         </p>
