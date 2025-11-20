@@ -1,11 +1,10 @@
 "use client";
 
 import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import { useEffect, useState } from "react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
-import { ArrowRightBlack, ArrowLeftBlack } from "@/helpers/ImageHelper";
+import { ArrowRightBlack, ArrowLeftBlack, Quote } from "@/helpers/ImageHelper";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 
 const TestimonialSection = () => {
@@ -43,13 +42,13 @@ const TestimonialSection = () => {
   const testimonials = [
     {
       id: "testimonial-1",
-      name: "John Doe",
+      name: "Nachiket Pimprikar,",
       role: "Alumni, Batch '15",
       quote:"For me, Light and Life is home. I always have a great time talking with Iqbal Sir, listening to his array of stories and enjoying his brilliant sense of humour.. I believe every student who goes out of LLA becomes an artist. Thank you LLA for bringing artists to this world"
     },
     {
       id: "testimonial-2",
-      name: "Sarah Johnson",
+      name: "Nachiket Pimprikar,",
       role: "Industry Professional",
       quote:"For me, Light and Life is home. I always have a great time talking with Iqbal Sir, listening to his array of stories and enjoying his brilliant sense of humour.. I believe every student who goes out of LLA becomes an artist. Thank you LLA for bringing artists to this world"
     },
@@ -113,25 +112,29 @@ const TestimonialSection = () => {
                 {testimonials.map((testimonial) => (
                   <div
                     key={testimonial.id}
-                    className="shrink-0 w-full bg-white border border-[#E97451] p-3 sm:p-4 md:p-6 lg:p-6 xl:p-8 shadow-sm"
+                    className="shrink-0 w-full bg-white border border-[#E97451] p-3 sm:p-4 md:p-2 lg:p-2 xl:p-4 shadow-sm"
                   >
                     <div className="flex flex-col gap-2 h-full w-full text-center"> 
-                      <Quote
-                        className="text-[#E97451] w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 mx-auto"
-                      />
-                       <p className=" text-center text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal  text-black leading-normal w-full md:max-w-[650px]">
-
+                    <div className="flex items-center justify-center">
+                        <ImageWidget
+                          src={Quote}
+                          alt="Quote"
+                          className="object-center"
+                        />
+                      </div>
+                       <p className=" text-center text-[16px] lg:text-[15px] xl:text-[17px] 3xl:text-[18px] font-normal font-mulish  text-black leading-normal w-full md:max-w-[650px]">
                         {testimonial.quote}
                       </p>
           
                         <p
-                          className="text-lg sm:text-xl md:text-2xl text-[#E97451] font-semibold font-urbanist"
+                          className="text-lg sm:text-xl md:text-2xl lg:text-[24px] 
+                          text-[#E97451] font-regular font-mulish"
                         >
                           {testimonial.name}
                         </p>
 
                         <p
-                          className="text-sm sm:text-base md:text-lg text-gray-600"
+                          className="text-sm sm:text-base md:text-[16px] text-black font-regular font-mulish"
                         >
                           {testimonial.role}
                         </p>
@@ -141,25 +144,25 @@ const TestimonialSection = () => {
               </div>
             </div>
 
-            <div className="flex gap-2 justify-center mt-3 md:mt-3">
+            <div className="flex gap-4 justify-center mt-3 md:mt-5">
               <button
                 type="button"
                 onClick={scrollPrev}
                 disabled={!canScrollPrev}
-                className={`p-2 sm:p-3 md:p-4 hover:bg-[#E97451] hover:rounded-full hover:text-white transition-all duration-300 ${
+                className={` transition-all duration-300 ${
                   !canScrollPrev
                     ? "opacity-50 cursor-not-allowed"
                     : "cursor-pointer"
                 }`}
               >
-                <ImageWidget src={ArrowLeftBlack} alt="Prev" />
+                <ImageWidget src={ArrowLeftBlack} alt="Prev"/>
               </button>
 
               <button
                 type="button"
                 onClick={scrollNext}
                 disabled={!canScrollNext}
-                className={`p-2 sm:p-3 md:p-4 hover:bg-[#E97451] hover:rounded-full hover:text-white transition-all duration-300 ${
+                className={`transition-all duration-300 ${
                   !canScrollNext
                     ? "opacity-50 cursor-not-allowed"
                     : "cursor-pointer"
