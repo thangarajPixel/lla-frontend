@@ -6,7 +6,7 @@ import { Building } from "@/helpers/ImageHelper";
 const CampusSection = () => {
   return (
     <section
-      className="w-full h-screen bg-fixed bg-cover bg-bottom bg-no-repeat sm:py-20 py-10"
+      className="w-full h-screen md:bg-fixed bg-cover bg-right bg-no-repeat sm:py-20 py-10"
       style={{
         backgroundImage: `url(${Building.src})`,
       }}

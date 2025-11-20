@@ -13,6 +13,14 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (!gsap || !ScrollTrigger) return;
+
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+    window.scrollTo(0, 0);
+
     const lenis = new Lenis({
       duration: 1.5,
       easing: (t) => Math.min(1, 1.001 - 2 ** (-10 * t)),
@@ -25,11 +33,22 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
     });
 
     lenisRef.current = lenis;
-    lenis.on("scroll", ScrollTrigger.update);
 
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
+    lenis.on("scroll", () => {
+      if (ScrollTrigger && typeof ScrollTrigger.update === "function") {
+        try {
+          ScrollTrigger.update();
+        } catch (_error) {
+          // Silently handle ScrollTrigger update errors
+        }
+      }
     });
+
+    const raf = (time: number) => {
+      lenis.raf(time * 1000);
+    };
+
+    gsap.ticker.add(raf);
     gsap.ticker.lagSmoothing(0);
 
     const observer = new MutationObserver(() => {
@@ -37,11 +56,8 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
         document.body.hasAttribute("data-scroll-locked") ||
         document.body.style.overflow === "hidden";
 
-      if (isScrollLocked) {
-        lenis.stop();
-      } else {
-        lenis.start();
-      }
+      if (isScrollLocked) lenis.stop();
+      else lenis.start();
     });
 
     observer.observe(document.body, {
@@ -51,9 +67,7 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
 
     return () => {
       observer.disconnect();
-      gsap.ticker.remove((time) => {
-        lenis.raf(time * 1000);
-      });
+      gsap.ticker.remove(raf);
       lenis.destroy();
     };
   }, []);
