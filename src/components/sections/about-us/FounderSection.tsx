@@ -25,8 +25,8 @@ return (
       className="
       text-center
       space-y-1
-      xs:space-y-1
-      sm:space-y-2
+      xs:space-y-2
+      sm:space-y-3
       md:space-y-5
       lg:space-y-6
       xl:space-y-8
@@ -39,7 +39,7 @@ return (
         <h3
           className="
           font-urbanist font-regular text-black
-          text-left xs:text-center
+          text-left xs:text-left md:text-center
           text-[32px]
           xs:text-3xl
           sm:text-4xl
@@ -58,10 +58,10 @@ return (
         <p
           className="
           font-mulish font-regular text-black
-          text-left xs:text-center
+          text-left xs:text-left md:text-center
           text-[24px]
-          xs:text-base
-          sm:text-lg
+          xs:text-[25px]
+          sm:text-[26px]
           md:text-xl
           lg:text-2xl
           xl:text-3xl
@@ -82,7 +82,7 @@ return (
         </p>
       </ScrollWidget>
     </div>
-    <div className="mt-2 xs:mt-6 sm:mt-12 md:mt-14 space-y-10 sm:space-y-10 md:space-y-12 ">
+    <div className="mt-2 xs:mt-4 sm:mt-12 md:mt-14 space-y-10 sm:space-y-10 md:space-y-12 ">
       <div
         className="
         grid grid-cols-1
@@ -165,22 +165,16 @@ return (
                  sm:text-[32px]l">
               Anuradha Iqbal
             </h4>
-          <div
-            className="
-            flex justify-center md:justify-start w-full
-            "
-            >
-              
-            <ImageWidget
-              src={FounderDummy1}
+          <div  className="flex justify-center md:justify-start w-full">
+            <ImageWidget src={FounderDummy1}
               alt="Founder"
               width={500}
               height={600}
               className="
               object-cover
               w-[360px] h-[480px]
-              xs:w-[280px] xs:h-[380px]
-              sm:w-[300px] sm:h-[400px]
+              xs:w-[420px] xs:h-[530px]
+              sm:w-[400px] sm:h-[500px]
               md:w-[340px] md:h-[460px]
               lg:w-[380px] lg:h-[520px]
               xl:w-[400px] xl:h-[500px]
@@ -221,7 +215,7 @@ return (
               className="
               object-cover
                w-[360px] h-[480px]
-              xs:w-[280px] xs:h-[360px]
+              xs:w-[420px] xs:h-[530px]
               sm:w-[300px] sm:h-[380px]
               md:w-[340px] md:h-[440px]
               lg:w-[380px] lg:h-[500px]
