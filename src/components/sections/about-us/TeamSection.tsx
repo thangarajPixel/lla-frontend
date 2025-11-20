@@ -63,10 +63,12 @@ const TeamSection = () => {
         </div>
 
         <div className="py-8 pb-9 sm sm:py-8 md:py-8 lg:py-12 xl:py-12 2xl:py-16 3xl:py-20 4xl:py-15">
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4
+          <div
+            className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4
             2xl:grid-cols-4 3xl:grid-cols-4 4xl:grid-cols-4
             gap-4 sm:gap-4 md:gap-4 lg:gap-4 xl:gap-4
-            2xl:gap-5 3xl:gap-6 4xl:gap-7">
+            2xl:gap-5 3xl:gap-6 4xl:gap-7"
+          >
             {facultyData.map((faculty) => (
               <ScrollWidget key={faculty.id} animation="scale" delay={0.1}>
                 <div

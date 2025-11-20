@@ -77,15 +77,15 @@ const FounderSection = () => {
           lg:max-w-[850px]
           xl:max-w-[600px]
           "
-          >
-          Lorem ipsum
-          <span className="text-[#E97451] ml-2">dolor sit amet,</span>
-        </p>
-      </ScrollWidget>
-    </div>
-    <div className="mt-2 xs:mt-6 sm:mt-12 md:mt-14 space-y-10 sm:space-y-10 md:space-y-12 ">
-      <div
-        className="
+            >
+              Lorem ipsum
+              <span className="text-[#E97451] ml-2">dolor sit amet,</span>
+            </p>
+          </ScrollWidget>
+        </div>
+        <div className="mt-2 xs:mt-6 sm:mt-12 md:mt-14 space-y-10 sm:space-y-10 md:space-y-12 ">
+          <div
+            className="
         grid grid-cols-1
         md:grid-cols-2
         gap-6 md:gap-14 lg:gap-16 xl:gap-18 2xl:gap-20 3xl:gap-24
@@ -147,37 +147,38 @@ const FounderSection = () => {
               3xl:text-[20px]
               4xl:text-[22px]
               "
+                >
+                  After a graduation in history and political science and then
+                  an MBA, Iqbal decided to follow his passion, photography. His
+                  first step was to study professional photography at the
+                  renowned Brooks Institute of Photography, ​California, USA. He
+                  followed it up working with some of the celebrated
+                  professional photographers in Hollywood like Dick Zimmerman,
+                  Bill Werts & Jay Silverman. Iqbal then came back to India in
+                  1988, amongst the first to do so, to make a career in
+                  professional photography.
+                </p>
+                <OrangeButtonWidget content="Know More" />
+              </div>
+            </ScrollWidget>
+            <ScrollWidget delay={0.3} className="order-1 md:order-2">
+              <h4
+                className="mb-3 block md:hidden font-urbanist font-regular text-[#E97451] text-[32px]  xs:text-[32px]
+                 sm:text-[32px]l"
               >
-              After a graduation in history and political science and then
-              an MBA, Iqbal decided to follow his passion, photography. His
-              first step was to study professional photography at the
-              renowned Brooks Institute of Photography, ​California, USA. He
-              followed it up working with some of the celebrated
-              professional photographers in Hollywood like Dick Zimmerman,
-              Bill Werts & Jay Silverman. Iqbal then came back to India in
-              1988, amongst the first to do so, to make a career in
-              professional photography.
-            </p>
-            <OrangeButtonWidget content="Know More" />
-          </div>
-        </ScrollWidget>
-        <ScrollWidget delay={0.3} className="order-1 md:order-2">
-            <h4 className="mb-3 block md:hidden font-urbanist font-regular text-[#E97451] text-[32px]  xs:text-[32px]
-                 sm:text-[32px]l">
-              Anuradha Iqbal
-            </h4>
-          <div
-            className="
+                Anuradha Iqbal
+              </h4>
+              <div
+                className="
             flex justify-center md:justify-start w-full
             "
-            >
-              
-            <ImageWidget
-              src={FounderDummy1}
-              alt="Founder"
-              width={500}
-              height={600}
-              className="
+              >
+                <ImageWidget
+                  src={FounderDummy1}
+                  alt="Founder"
+                  width={500}
+                  height={600}
+                  className="
               object-cover
               w-[360px] h-[480px]
               xs:w-[420px] xs:h-[530px]
