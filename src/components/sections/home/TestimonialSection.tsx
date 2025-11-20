@@ -6,8 +6,12 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { ArrowLeftBlack, ArrowRightBlack, Quote } from "@/helpers/ImageHelper";
+import { parseHeading } from "@/helpers/ConstantHelper";
+import { TestimonialSectionProps } from "./utils/home";
 
-const TestimonialSection = () => {
+const TestimonialSection = ({ data }: TestimonialSectionProps) => {
+  const headingParts = parseHeading(data.Heading);
+  const testimonials = data.Slider || [];
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
     slidesToScroll: 1,
@@ -39,37 +43,6 @@ const TestimonialSection = () => {
   const scrollPrev = () => emblaApi?.scrollPrev();
   const scrollNext = () => emblaApi?.scrollNext();
 
-  const testimonials = [
-    {
-      id: "testimonial-1",
-      name: "Nachiket Pimprikar,",
-      role: "Alumni, Batch '15",
-      quote:
-        "For me, Light and Life is home. I always have a great time talking with Iqbal Sir, listening to his array of stories and enjoying his brilliant sense of humour.. I believe every student who goes out of LLA becomes an artist. Thank you LLA for bringing artists to this world",
-    },
-    {
-      id: "testimonial-2",
-      name: "Nachiket Pimprikar,",
-      role: "Industry Professional",
-      quote:
-        "For me, Light and Life is home. I always have a great time talking with Iqbal Sir, listening to his array of stories and enjoying his brilliant sense of humour.. I believe every student who goes out of LLA becomes an artist. Thank you LLA for bringing artists to this world",
-    },
-    {
-      id: "testimonial-3",
-      name: "Michael Chen",
-      role: "Alumni, Batch '20",
-      quote:
-        "The hands-on approach and real-world projects prepared me for my career in ways I never expected. LLA is truly special.",
-    },
-    {
-      id: "testimonial-4",
-      name: "Emily Rodriguez",
-      role: "Visiting Artist",
-      quote:
-        "I've visited many institutions, but LLA stands out for its commitment to both technical excellence and artistic expression.",
-    },
-  ];
-
   return (
     <section className="w-full bg-[#ECECEC] flex flex-col z-40 relative py-10 sm:py-14 md:py-18 lg:py-20 xl:py-20 2xl:py-28 3xl:py-20">
       <ContainerWidget>
@@ -77,21 +50,21 @@ const TestimonialSection = () => {
           <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-10 lg:gap-12 xl:gap-14 2xl:gap-16 items-stretch">
             <div className="space-y-3.5 md:space-y-3 lg:space-y-5">
               <h3 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
-                Testimonials
+                {data.Title || "Testimonials"}
               </h3>
               <p className="font-area-variable font-semibold text-lg md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
-                25 Years,
-                <br className="hidden sm:block" />
-                <span className="text-[#E97451]">Countless Connections</span>
+                {headingParts[0]}
+                {headingParts[1] && (
+                  <>
+                    <br className="hidden sm:block" />
+                    <span className="text-[#E97451]">{headingParts[1]}</span>
+                  </>
+                )}
               </p>
 
               <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[450px]">
-                Over the last twenty-five years, LLA has become more than a
-                photography school—it’s a space that has shaped and been shaped
-                by everyone who’s walked through it. Here are words from those
-                who’ve shared this journey with us—friends, mentors, industry
-                voices, and visitors whose encounters with LLA have left a
-                lasting impression.
+                {data.Description ||
+                  "Over the last twenty-five years, LLA has become more than a photography school—it's a space that has shaped and been shaped by everyone who's walked through it. Here are words from those who've shared this journey with us—friends, mentors, industry voices, and visitors whose encounters with LLA have left a lasting impression."}
               </p>
             </div>
             <div className="relative h-full flex flex-col">
@@ -115,15 +88,15 @@ const TestimonialSection = () => {
                             />
                           </div>
                           <p className=" text-center text-[16px] lg:text-[15px] xl:text-[17px] 3xl:text-[18px] font-normal font-mulish  text-black leading-normal w-full md:max-w-[750px]">
-                            {testimonial.quote}
+                            {testimonial.Description}
                           </p>
 
                           <p className="text-lg sm:text-xl md:text-2xl lg:text-[24px] text-[#E97451] font-regular font-mulish">
-                            {testimonial.name}
+                            {testimonial.Name}
                           </p>
 
                           <p className="mb-3 text-sm sm:text-base md:text-[16px] text-black font-regular font-mulish">
-                            {testimonial.role}
+                            {testimonial.Batch}
                           </p>
                         </div>
                       </div>
