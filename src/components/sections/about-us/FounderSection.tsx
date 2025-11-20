@@ -23,7 +23,6 @@ const FounderSection = () => {
       "
     >
       <ContainerWidget>
-        {/* ---------------- HEADER ---------------- */}
         <div
           className="
             text-center
@@ -86,12 +85,10 @@ const FounderSection = () => {
             </p>
           </ScrollWidget>
         </div>
-
-        {/* ---------------- FIRST FOUNDER BLOCK ---------------- */}
         <div
           className="
-            mt-8
-            xs:mt-10
+            mt-4
+            xs:mt-8
             sm:mt-12
             md:mt-14
             space-y-10
@@ -221,8 +218,6 @@ const FounderSection = () => {
               </div>
             </ScrollWidget>
           </div>
-
-          {/* ---------------- SECOND FOUNDER BLOCK ---------------- */}
           <div
             className="
               grid grid-cols-1

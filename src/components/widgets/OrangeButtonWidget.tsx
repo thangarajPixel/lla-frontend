@@ -21,7 +21,7 @@ const OrangeButtonWidget = ({
       <ImageWidget
         src={ArrowRight}
         alt="Arrow Right"
-        className="lg:w-[18px] lg:h-[18px] 3xl:w-6 3xl:h-6 transition-transform duration-300 group-hover:translate-x-1"
+        className="w-[15px] h-[15px] lg:w-[18px] lg:h-[18px] 3xl:w-6 3xl:h-6 transition-transform duration-300 group-hover:translate-x-1"
       />
     </ButtonWidget>
   );
