@@ -30,7 +30,7 @@ const FounderSection = () => {
       sm:space-y-3
       md:space-y-5
       lg:space-y-6
-      xl:space-y-8
+      xl:space-y-4
       2xl:space-y-12
       3xl:space-y-14
       4xl:space-y-16
@@ -83,7 +83,7 @@ const FounderSection = () => {
             </p>
           </ScrollWidget>
         </div>
-        <div className="mt-2 xs:mt-6 sm:mt-12 md:mt-14 space-y-10 sm:space-y-10 md:space-y-12 ">
+        <div className="mt-2 xs:mt-6 sm:mt-12 md:mt-10 space-y-10 sm:space-y-10 md:space-y-12 ">
           <div
             className="
         grid grid-cols-1
