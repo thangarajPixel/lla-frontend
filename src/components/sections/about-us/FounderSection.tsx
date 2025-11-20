@@ -98,7 +98,7 @@ return (
             xs:space-y-4
             md:space-y-5
             lg:space-y-6
-            xl:space-y-7
+            xl:space-y-4
             4xl:max-w-[420px]
             "
             >
@@ -240,7 +240,7 @@ return (
             xs:space-y-4
             md:space-y-5
             lg:space-y-6
-            xl:space-y-7
+            xl:space-y-4
             md:pl-5
             lg:pl-10
             4xl:max-w-[420px]

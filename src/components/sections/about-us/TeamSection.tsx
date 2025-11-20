@@ -12,14 +12,14 @@ const TeamSection = () => {
       name: "Kavitha Swaminathan",
       description: "(Manager, Academics)",
       className:
-        "mt-0 md:mt-15 lg:mt-15 xl:mt-15 2xl:mt-15 3xl:mt-20 4xl:mt-25",
+        "mt-0 md:mt-0 lg:mt-15 xl:mt-15 2xl:mt-15 3xl:mt-20 4xl:mt-25",
     },
     {
       id: "faculty-1",
       name: "Nithya JB",
       description: "(Manager Operations)",
       className:
-        "mt-0 md:mt-45 lg:mt-45 xl:mt-45 2xl:mt-45 3xl:mt-50 4xl:mt-55",
+        "mt-0 md:mt-0 lg:mt-45 xl:mt-45 2xl:mt-45 3xl:mt-50 4xl:mt-55",
     },
     { id: "faculty-2", name: "Devaraj", description: "(Manager, Accounts)" },
     {
@@ -27,7 +27,7 @@ const TeamSection = () => {
       name: "Rajendran",
       description: "(Equipment and Store Supervisor)",
       className:
-        " mt-0 md:mt-15 lg:mt-15 xl:mt-15 2xl:mt-15 3xl:mt-20 4xl:mt-25",
+        " mt-0 md:mt-0 lg:mt-15 xl:mt-15 2xl:mt-15 3xl:mt-20 4xl:mt-25",
     },
   ];
 
@@ -122,7 +122,7 @@ const TeamSection = () => {
                     <OrangeButtonWidget
                       className="h-7 sm:h-8 md:h-9 lg:h-7 xl:h-7 
                     2xl:h-10 3xl:h-11 4xl:h-12 
-                    w-25 sm:w-24 md:w-28 lg:w-20 xl:w-20 
+                    w-25 sm:w-24 md:w-28 lg:w-20 xl:w-26 
                     2xl:w-32 3xl:w-36 4xl:w-40
                     text-[10px] sm:text-sm md:text-base lg:text-[12px] xl:text-[12px] 2xl:text-[18px] 
                     3xl:text-[20px] 4xl:text-[22px]"
@@ -142,9 +142,9 @@ const TeamSection = () => {
             <div
               className="
                 relative w-full 
-                h-[150px] sm:h-[380px] md:h-[420px] 
-                lg:h-[400px] xl:h-[430px] 2xl:h-[520px] 
-                3xl:h-[600px] 4xl:h-[554.1231px]
+                h-[150px] sm:h-[380px] md:h-[300px] 
+                lg:h-[300px] xl:h-[430px] 2xl:h-[520px] 
+                3xl:h-[600px] 4xl:h-[430px]
               "
               style={{
                 maxWidth: "1242px",
