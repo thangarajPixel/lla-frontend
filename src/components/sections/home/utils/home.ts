@@ -1,15 +1,15 @@
 export type HeroSectionProps = {
-    data: {
-      __component?: string;
-      id?: number;
-      Title: string;
-      Video: {
-        id: number;
-        name: string;
-        url: string;
-      };
+  data: {
+    __component?: string;
+    id?: number;
+    Title: string;
+    Video: {
+      id: number;
+      name: string;
+      url: string;
     };
   };
+};
 
 export type CourseSectionProps = {
   data: {

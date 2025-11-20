@@ -9,16 +9,16 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'http',
-        hostname: '**',
+        protocol: "http",
+        hostname: "**",
       },
       {
-        protocol: 'http',
-        hostname: '8000',
+        protocol: "http",
+        hostname: "8000",
       },
       {
-        protocol: 'https',
-        hostname: 'g037qgw3-8001.inc1.devtunnels.ms',
+        protocol: "https",
+        hostname: "g037qgw3-8001.inc1.devtunnels.ms",
       },
     ],
   },

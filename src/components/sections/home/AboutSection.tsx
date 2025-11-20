@@ -5,14 +5,14 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
-import { Dummy1 } from "@/helpers/ImageHelper";
 import { getS3Url, parseHeading } from "@/helpers/ConstantHelper";
-import { AboutSectionProps } from "./utils/home";
+import { Dummy1 } from "@/helpers/ImageHelper";
+import type { AboutSectionProps } from "./utils/home";
 
 const AboutSection = ({ data }: AboutSectionProps) => {
   const headingParts = parseHeading(data.Heading);
   const aboutImages = data.Image || [];
-  
+
   const getImageUrl = (index: number) => {
     if (aboutImages[index]) {
       return getS3Url(aboutImages[index].url);
@@ -57,7 +57,9 @@ const AboutSection = ({ data }: AboutSectionProps) => {
                 "In thought, in learning, and in spirit, what began as Iqbal Mohamed's dream to establish India's first professional photography institute has grown into a community that continues to explore, question, and create with purpose."}
             </p>
             <div className="self-start">
-              <OrangeButtonWidget content={data.Btn_txt || "Step into the LLA"} />
+              <OrangeButtonWidget
+                content={data.Btn_txt || "Step into the LLA"}
+              />
             </div>
           </div>
           <ScrollWidget delay={0.1} animation="fadeUp">

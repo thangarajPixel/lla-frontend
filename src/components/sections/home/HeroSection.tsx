@@ -3,9 +3,8 @@
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
-import { HeroSectionProps } from "./utils/home";
 import { getS3Url } from "@/helpers/ConstantHelper";
-
+import type { HeroSectionProps } from "./utils/home";
 
 const HeroSection = ({ data }: HeroSectionProps) => {
   return (
@@ -18,7 +17,10 @@ const HeroSection = ({ data }: HeroSectionProps) => {
           playsInline
           className="w-full h-full object-cover"
         >
-          <source src={getS3Url(data?.Video?.url) || "/dummy.mp4"} type="video/mp4" />
+          <source
+            src={getS3Url(data?.Video?.url) || "/dummy.mp4"}
+            type="video/mp4"
+          />
         </video>
       </ParallaxWidget>
       <div className="absolute inset-0 bg-black/40" />

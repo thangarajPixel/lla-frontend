@@ -5,6 +5,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
+import { getS3Url, parseHeading } from "@/helpers/ConstantHelper";
 import {
   Dummy3,
   Dummy4,
@@ -15,18 +16,26 @@ import {
   Dummy9,
   Dummy10,
 } from "@/helpers/ImageHelper";
-import { getS3Url, parseHeading } from "@/helpers/ConstantHelper";
-import { GallerySectionProps } from "./utils/home";
+import type { GallerySectionProps } from "./utils/home";
 
 const GallertSection = ({ data }: GallerySectionProps) => {
   const headingParts = parseHeading(data.Heading);
   const galleryImages = data.Image || [];
-  
+
   const getImageUrl = (index: number) => {
     if (galleryImages[index]) {
       return getS3Url(galleryImages[index].url);
     }
-    const fallbackImages = [Dummy3, Dummy4, Dummy5, Dummy6, Dummy7, Dummy8, Dummy9, Dummy10];
+    const fallbackImages = [
+      Dummy3,
+      Dummy4,
+      Dummy5,
+      Dummy6,
+      Dummy7,
+      Dummy8,
+      Dummy9,
+      Dummy10,
+    ];
     return fallbackImages[index % fallbackImages.length];
   };
 

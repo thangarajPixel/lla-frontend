@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
-import { ArrowLeftBlack, ArrowRightBlack, Quote } from "@/helpers/ImageHelper";
 import { parseHeading } from "@/helpers/ConstantHelper";
-import { TestimonialSectionProps } from "./utils/home";
+import { ArrowLeftBlack, ArrowRightBlack, Quote } from "@/helpers/ImageHelper";
+import type { TestimonialSectionProps } from "./utils/home";
 
 const TestimonialSection = ({ data }: TestimonialSectionProps) => {
   const headingParts = parseHeading(data.Heading);

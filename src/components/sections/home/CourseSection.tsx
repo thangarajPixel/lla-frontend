@@ -5,14 +5,35 @@ import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url, parseHeading } from "@/helpers/ConstantHelper";
 import { Dummy1, Dummy2 } from "@/helpers/ImageHelper";
-import { CourseSectionProps } from "./utils/home";
+import type { CourseSectionProps } from "./utils/home";
+
+type AnimationType =
+  | "fadeIn"
+  | "fadeUp"
+  | "fadeDown"
+  | "slideLeft"
+  | "slideRight"
+  | "scale"
+  | "rotate";
 
 const CourseSection = ({ data }: CourseSectionProps) => {
   const headingParts = parseHeading(data.Heading);
 
-  const animations = [
-    { image: "scale", content: "slideLeft", delay: { image: 0.1, content: 0.3 } },
-    { image: "fadeDown", content: "slideRight", delay: { image: 0.2, content: 0.4 } },
+  const animations: Array<{
+    image: AnimationType;
+    content: AnimationType;
+    delay: { image: number; content: number };
+  }> = [
+    {
+      image: "scale",
+      content: "slideLeft",
+      delay: { image: 0.1, content: 0.3 },
+    },
+    {
+      image: "fadeDown",
+      content: "slideRight",
+      delay: { image: 0.2, content: 0.4 },
+    },
   ];
 
   const parallaxSpeeds = [
@@ -45,26 +66,41 @@ const CourseSection = ({ data }: CourseSectionProps) => {
               )}
             </p>
             <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[650px]">
-              {data.Description || "Here, learning is deliberate and layered, aimed at building strong conceptual foundations."}
+              {data.Description ||
+                "Here, learning is deliberate and layered, aimed at building strong conceptual foundations."}
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-7 2xl:gap-6">
             {data?.Card?.map((card, index) => (
-              <div key={card.id} className={cardContainerClasses[index] || cardContainerClasses[0]}>
-                <ScrollWidget animation={animations[index]?.image || "scale"} delay={animations[index]?.delay.image || 0.1}>
+              <div
+                key={card.id}
+                className={
+                  cardContainerClasses[index] || cardContainerClasses[0]
+                }
+              >
+                <ScrollWidget
+                  animation={animations[index]?.image || "scale"}
+                  delay={animations[index]?.delay.image || 0.1}
+                >
                   <ParallaxWidget
                     speed={parallaxSpeeds[index]?.image || 0.4}
                     className="relative w-full aspect-4/3 overflow-hidden"
                   >
                     <ImageWidget
-                      src={getS3Url(card?.Image?.[0]?.url) || (index === 0 ? Dummy1 : Dummy2)}
+                      src={
+                        getS3Url(card?.Image?.[0]?.url) ||
+                        (index === 0 ? Dummy1 : Dummy2)
+                      }
                       alt={card?.Title}
                       fill
                       className="object-cover"
                     />
                   </ParallaxWidget>
                 </ScrollWidget>
-                <ScrollWidget animation={animations[index]?.content || "slideLeft"} delay={animations[index]?.delay.content || 0.3}>
+                <ScrollWidget
+                  animation={animations[index]?.content || "slideLeft"}
+                  delay={animations[index]?.delay.content || 0.3}
+                >
                   <ParallaxWidget
                     speed={parallaxSpeeds[index]?.content || -0.25}
                     className={contentClasses[index] || contentClasses[0]}
@@ -75,7 +111,9 @@ const CourseSection = ({ data }: CourseSectionProps) => {
                     <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
                       {card.Description}
                     </p>
-                    <OrangeButtonWidget content={card.Btn_txt || "Discover Your Frame"} />
+                    <OrangeButtonWidget
+                      content={card.Btn_txt || "Discover Your Frame"}
+                    />
                   </ParallaxWidget>
                 </ScrollWidget>
               </div>

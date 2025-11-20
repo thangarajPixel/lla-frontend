@@ -2,6 +2,7 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
+import { getS3Url } from "@/helpers/ConstantHelper";
 import {
   SponsorsDummy1,
   SponsorsDummy2,
@@ -10,26 +11,18 @@ import {
   SponsorsDummy5,
   SponsorsDummy6,
 } from "@/helpers/ImageHelper";
-import { getS3Url } from "@/helpers/ConstantHelper";
-import { SponsorsSectionProps } from "./utils/home";
+import type { SponsorsSectionProps } from "./utils/home";
 
 const SponsorsSection = ({ data }: SponsorsSectionProps) => {
   const sponsors = data.Image || [];
   const fallbackImages = [
-    SponsorsDummy1,
-    SponsorsDummy2,
-    SponsorsDummy3,
-    SponsorsDummy4,
-    SponsorsDummy5,
-    SponsorsDummy6,
+    { id: "sponsor-dummy-1", image: SponsorsDummy1 },
+    { id: "sponsor-dummy-2", image: SponsorsDummy2 },
+    { id: "sponsor-dummy-3", image: SponsorsDummy3 },
+    { id: "sponsor-dummy-4", image: SponsorsDummy4 },
+    { id: "sponsor-dummy-5", image: SponsorsDummy5 },
+    { id: "sponsor-dummy-6", image: SponsorsDummy6 },
   ];
-
-  const getSponsorImage = (index: number) => {
-    if (sponsors[index]) {
-      return getS3Url(sponsors[index].url);
-    }
-    return fallbackImages[index % fallbackImages.length];
-  };
   return (
     <section className="w-full py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 3xl:py-28 bg-white">
       <ContainerWidget>
@@ -66,9 +59,9 @@ const SponsorsSection = ({ data }: SponsorsSectionProps) => {
                     </ScrollWidget>
                   </div>
                 ))
-              : fallbackImages.map((image, index) => (
+              : fallbackImages.map((item, index) => (
                   <div
-                    key={`fallback-${index}`}
+                    key={item.id}
                     className="space-y-4 md:space-y-4 lg:space-y-5 xl:space-y-6"
                   >
                     <ScrollWidget animation="scale" delay={0.1 + index * 0.05}>
@@ -77,7 +70,7 @@ const SponsorsSection = ({ data }: SponsorsSectionProps) => {
                         className="relative w-full h-0 pb-[75%] aspect-4/3 overflow-hidden"
                       >
                         <ImageWidget
-                          src={image}
+                          src={item.image}
                           alt={`Sponsor ${index + 1}`}
                           fill
                           className="object-scale-down"

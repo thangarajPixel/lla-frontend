@@ -3,10 +3,9 @@ import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import { Building } from "@/helpers/ImageHelper";
-import { CampusSectionProps } from "./utils/home";
+import type { CampusSectionProps } from "./utils/home";
 
 const CampusSection = ({ data }: CampusSectionProps) => {
-
   const headingParts = data.Heading?.includes(",")
     ? data.Heading.split(",").map((part) => part.trim())
     : [data.Heading];
@@ -32,9 +31,12 @@ const CampusSection = ({ data }: CampusSectionProps) => {
                 )}
               </p>
               <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[600px]">
-                {data.Description || "Every space is thoughtfully built to nurture learning. The campus invites reflection, exploration, and creativity at every turn."}
+                {data.Description ||
+                  "Every space is thoughtfully built to nurture learning. The campus invites reflection, exploration, and creativity at every turn."}
               </p>
-              <OrangeButtonWidget content={data.Btn_txt || "Experience the View"} />
+              <OrangeButtonWidget
+                content={data.Btn_txt || "Experience the View"}
+              />
             </div>
           </div>
         </ScrollWidget>

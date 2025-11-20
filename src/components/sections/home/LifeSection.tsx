@@ -1,16 +1,14 @@
 "use client";
 
+import Autoplay from "embla-carousel-autoplay";
+import useEmblaCarousel from "embla-carousel-react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url, parseHeading } from "@/helpers/ConstantHelper";
 import { Life } from "@/helpers/ImageHelper";
-import Autoplay from "embla-carousel-autoplay";
-import useEmblaCarousel from "embla-carousel-react";
-import { LifeCardProps, LifeSectionProps } from "./utils/home";
-
-
+import type { LifeCardProps, LifeSectionProps } from "./utils/home";
 
 const LifeCard = ({ card }: LifeCardProps) => (
   <div className="bg-white/30 p-3 sm:p-4 lg:p-4 xl:p-5 3xl:p-6 hover:bg-white transition-all duration-300 cursor-pointer">
@@ -32,11 +30,10 @@ const LifeCard = ({ card }: LifeCardProps) => (
 );
 
 const LifeSection = ({ data }: LifeSectionProps) => {
-
-  console.log(data);
   const headingParts = parseHeading(data.Heading);
   const lifeCardsData = data.Card || [];
-  const lastCard = lifeCardsData.length > 0 ? lifeCardsData[lifeCardsData.length - 1] : null;
+  const lastCard =
+    lifeCardsData.length > 0 ? lifeCardsData[lifeCardsData.length - 1] : null;
   const cardsWithoutLast = lifeCardsData.slice(0, -1);
   const midPoint = Math.ceil(cardsWithoutLast.length / 2);
 

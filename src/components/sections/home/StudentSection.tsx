@@ -10,9 +10,9 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import DialogWidget from "@/components/widgets/DialogWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
-import { Into, Play } from "@/helpers/ImageHelper";
 import { getS3Url, parseHeading } from "@/helpers/ConstantHelper";
-import { StudentSectionProps } from "./utils/home";
+import { Into, Play } from "@/helpers/ImageHelper";
+import type { StudentSectionProps } from "./utils/home";
 
 const StudentSection = ({ data }: StudentSectionProps) => {
   const headingParts = parseHeading(data.Heading);
@@ -103,7 +103,8 @@ const StudentSection = ({ data }: StudentSectionProps) => {
             >
               <div className={`flex gap-4 sm:gap-6 justify-center`}>
                 {studentData.map((student, index) => {
-                  const videoUrl = getS3Url(student.Image?.[0]?.url) || "/dummy.mp4";
+                  const videoUrl =
+                    getS3Url(student.Image?.[0]?.url) || "/dummy.mp4";
                   return (
                     <ScrollWidget
                       key={student.id}
@@ -119,13 +120,15 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                         <div
                           className="group relative flex flex-col gap-4 overflow-hidden transition-all duration-500 ease-in-out delay-75 p-3 sm:p-4 lg:p-5 aspect-3/4 min-h-[380px] sm:min-h-[430px] bg-[#F6F6F6] hover:bg-[#E97451]/80"
                           onMouseEnter={(e) => {
-                            const video = e.currentTarget.querySelector("video");
+                            const video =
+                              e.currentTarget.querySelector("video");
                             if (video) {
                               video.play().catch(() => {});
                             }
                           }}
                           onMouseLeave={(e) => {
-                            const video = e.currentTarget.querySelector("video");
+                            const video =
+                              e.currentTarget.querySelector("video");
                             if (video) {
                               video.pause();
                             }

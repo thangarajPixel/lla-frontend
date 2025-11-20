@@ -9,10 +9,9 @@ import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import { Dummy11 } from "@/helpers/ImageHelper";
-import { FacultySectionProps } from "./utils/home";
+import type { FacultySectionProps } from "./utils/home";
 
 const FacultySection = ({ data }: FacultySectionProps) => {
-
   const [emblaRef] = useEmblaCarousel(
     {
       align: "end",
@@ -33,8 +32,8 @@ const FacultySection = ({ data }: FacultySectionProps) => {
   const headingParts = data.Heading?.includes(" a ")
     ? data.Heading.split(" a ").map((part) => part.trim())
     : data.Heading?.includes(" a")
-    ? data.Heading.split(" a").map((part) => part.trim())
-    : [data.Heading];
+      ? data.Heading.split(" a").map((part) => part.trim())
+      : [data.Heading];
 
   return (
     <section className="w-full py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 3xl:py-28 bg-white mx-auto max-w-[1920px]">
@@ -58,7 +57,9 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                 {data.Description ||
                   "Our faculty foster an environment of collaboration and mentorship. The guidance is personal, conversations are open, and growth happens through shared experience."}
               </p>
-              <OrangeButtonWidget content={data.Btn_txt || "Know Your Guides"} />
+              <OrangeButtonWidget
+                content={data.Btn_txt || "Know Your Guides"}
+              />
             </div>
           </ParallaxWidget>
         </ScrollWidget>
@@ -90,7 +91,9 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                     {faculty.Description}
                   </p>
                   <div className="self-start mt-auto">
-                    <OrangeButtonWidget content={faculty.Btn_txt || "Know More"} />
+                    <OrangeButtonWidget
+                      content={faculty.Btn_txt || "Know More"}
+                    />
                   </div>
                 </div>
               </ScrollWidget>
@@ -104,9 +107,11 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                 <h3 className="font-mulish text-lg sm:text-xl font-bold text-black font-urbanist leading-tight">
                   View All Faculty
                 </h3>
-                    <div className="self-start mt-auto">
-                      <OrangeButtonWidget content={data.Btn_txt || "Know your guides"} />
-                    </div>
+                <div className="self-start mt-auto">
+                  <OrangeButtonWidget
+                    content={data.Btn_txt || "Know your guides"}
+                  />
+                </div>
               </div>
             </ScrollWidget>
           </div>
@@ -146,7 +151,9 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                           {faculty.Description}
                         </p>
                         <div className="self-start mt-3">
-                          <OrangeButtonWidget content={faculty.Btn_txt || "Know More"} />
+                          <OrangeButtonWidget
+                            content={faculty.Btn_txt || "Know More"}
+                          />
                         </div>
                       </div>
                     </div>
@@ -167,7 +174,9 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                       View All Faculty
                     </h3>
                     <div className="self-start mt-3">
-                      <OrangeButtonWidget content={data.Btn_txt || "Know your guides"} />
+                      <OrangeButtonWidget
+                        content={data.Btn_txt || "Know your guides"}
+                      />
                     </div>
                   </div>
                 </ScrollWidget>
