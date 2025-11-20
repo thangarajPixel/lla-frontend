@@ -13,6 +13,17 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
+    if (
+      typeof window !== "undefined" &&
+      "scrollRestoration" in window.history
+    ) {
+      window.history.scrollRestoration = "manual";
+    }
+
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+
     const lenis = new Lenis({
       duration: 1.5,
       easing: (t) => Math.min(1, 1.001 - 2 ** (-10 * t)),
@@ -26,6 +37,8 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
 
     lenisRef.current = lenis;
     lenis.on("scroll", ScrollTrigger.update);
+
+    lenis.scrollTo(0, { immediate: true });
 
     gsap.ticker.add((time) => {
       lenis.raf(time * 1000);
