@@ -71,24 +71,10 @@ const TestimonialSection = () => {
   ];
 
   return (
-    <section
-      className="
-                    w-full bg-[#ECECEC] flex flex-col z-40 relative
-                    py-10       
-                    sm:py-14    
-                    md:py-18     
-                    lg:py-20     
-                    xl:py-20    
-                    2xl:py-28   
-                    3xl:py-20  
-                  "
-    >
+    <section className="w-full bg-[#ECECEC] flex flex-col z-40 relative py-10 sm:py-14 md:py-18 lg:py-20 xl:py-20 2xl:py-28 3xl:py-20">
       <ContainerWidget>
         <ScrollWidget animation="scale" delay={0.1}>
-          <div
-            className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 
-     gap-10 lg:gap-12 xl:gap-14 2xl:gap-16 items-stretch"
-          >
+          <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-10 lg:gap-12 xl:gap-14 2xl:gap-16 items-stretch">
             <div className="space-y-3.5 md:space-y-3 lg:space-y-5">
               <h3 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
                 Testimonials
@@ -131,10 +117,7 @@ const TestimonialSection = () => {
                           {testimonial.quote}
                         </p>
 
-                        <p
-                          className="text-lg sm:text-xl md:text-2xl lg:text-[24px] 
-                          text-[#E97451] font-regular font-mulish"
-                        >
+                        <p className="text-lg sm:text-xl md:text-2xl lg:text-[24px] text-[#E97451] font-regular font-mulish">
                           {testimonial.name}
                         </p>
 
