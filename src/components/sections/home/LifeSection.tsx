@@ -9,7 +9,7 @@ import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url, parseHeading } from "@/helpers/ConstantHelper";
 import { Life } from "@/helpers/ImageHelper";
 import type { LifeCardProps, LifeSectionProps } from "./utils/home";
-import { useRouter } from "next/router";
+
 
 const LifeCard = ({ card }: LifeCardProps) => (
   <div className="bg-white/30 p-3 sm:p-4 lg:p-4 xl:p-5 3xl:p-6 hover:bg-white transition-all duration-300 cursor-pointer">
@@ -53,8 +53,6 @@ const LifeSection = ({ data }: LifeSectionProps) => {
       }),
     ],
   );
-  const router = useRouter();
-
   return (
     
     <section
