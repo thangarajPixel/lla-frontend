@@ -2,11 +2,12 @@ import { Fragment } from "react/jsx-runtime";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { AboutBg } from "@/helpers/ImageHelper";
+import { AboutHeroSectionProps } from "./utils/about-us";
+import { getS3Url } from "@/helpers/ConstantHelper";
 
-const AboutHeroSection = () => {
+const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
   return (
     <Fragment>
-      {/* ---------------- SECTION 1 ---------------- */}
       <section
         className="
           w-full bg-white py-2 
@@ -28,7 +29,7 @@ const AboutHeroSection = () => {
                 xl:text-7xl 2xl:text-[70px] 3xl:text-[80px] 4xl:text-[95px]
                 font-normal text-black font-urbanist"
               >
-                About
+                 {data.Title}
               </h3>
             </ScrollWidget>
             <ScrollWidget animation="slideLeft" delay={0.2}>
@@ -42,9 +43,9 @@ const AboutHeroSection = () => {
                 xl:max-w-[550px] 2xl:max-w-[650px] 3xl:max-w-[700px] 4xl:max-w-[900px]
               "
               >
-                At Light & Life Academy, it is all about passion for
+               {data.Heading}
                 <span className="text-[#E97451] ml-2">
-                  image making through photography.
+                  {data.SubHeading}
                 </span>
               </p>
             </ScrollWidget>
@@ -59,10 +60,8 @@ const AboutHeroSection = () => {
                 3xl:max-w-[900px] 4xl:max-w-[1100px]
               "
               >
-                At about 2 centuries old, Photography is one of the youngest
-                visual communication art forms, and yet, at the end of the 90s,
-                there was no reputed institution in India for structured
-                learning of professional photography.
+                {data.Description[0].children[0].text}
+               
               </p>
             </ScrollWidget>
             <ScrollWidget animation="fadeUp" delay={0.4}>
@@ -76,12 +75,7 @@ const AboutHeroSection = () => {
                 3xl:max-w-[900px] 4xl:max-w-[1100px]
               "
               >
-                Iqbal Mohamed and Anuradha Iqbal - a couple with illustrious
-                careers in advertising photography and advertising,
-                respectively, were very aware of this gap when they nurtured
-                many an aspiring photographer at their studio in Mumbai. They
-                decided to take the plunge into photography education and so, in
-                2001, Light & Life Academy came to be.
+                {data.Description[1].children[0].text}
               </p>
             </ScrollWidget>
             <ScrollWidget animation="fadeUp" delay={0.2}>
@@ -95,10 +89,7 @@ const AboutHeroSection = () => {
                 3xl:max-w-[900px] 4xl:max-w-[1100px]
               "
               >
-                The objective was to provide affordable photography education of
-                a high standard. Through ebbs and flows, they have worked
-                tirelessly for the last 2 decades and inspired hundreds to
-                discover and love the magic of photography.
+                {data.Description[2].children[0].text}
               </p>
             </ScrollWidget>
             <ScrollWidget animation="fadeUp" delay={0.3}>
@@ -112,11 +103,7 @@ const AboutHeroSection = () => {
                 3xl:max-w-[900px] 4xl:max-w-[1100px]
               "
               >
-                LLA has been driven by passion from the very beginning, with
-                every aspect of the institution carefully designed - the
-                location, the architecture and facilities. From the outset, it
-                has aimed to balance the positives of a contemporary pedagogy
-                with the ethos of a Gurukul...
+                 {data.Description[3].children[0].text}
               </p>
             </ScrollWidget>
           </div>
@@ -133,7 +120,8 @@ const AboutHeroSection = () => {
           4xl:min-h-[1204px]
           bg-white text-white
         "
-        style={{ backgroundImage: `url(${AboutBg.src})` }}
+        style={{ backgroundImage:`url(${getS3Url(data?.Image?.url) || AboutBg.src})`  }
+      }
       >
         <ContainerWidget>
           <div className="flex flex-col items-start justify-start gap-3 md:gap-4">
@@ -148,10 +136,7 @@ const AboutHeroSection = () => {
                 3xl:max-w-[900px] 4xl:max-w-[1100px]
               "
               >
-                The Academy was fortunate to get enthusiastic support from
-                industry leaders - Kodak India, Eastman Kodak USA, Calumet-USA,
-                Photoquip-India, ZenTask-India, Gretag Imaging-Switzerland and
-                LMW-Coimbatore at the time of inception.
+                {data.Description[4].children[0].text}
               </p>
             </ScrollWidget>
           </div>

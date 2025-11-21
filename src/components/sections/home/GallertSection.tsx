@@ -5,6 +5,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
+import { getS3Url, parseHeading } from "@/helpers/ConstantHelper";
 import {
   Dummy3,
   Dummy4,
@@ -15,25 +16,28 @@ import {
   Dummy9,
   Dummy10,
 } from "@/helpers/ImageHelper";
+import type { GallerySectionProps } from "./utils/home";
 
-const GallertSection = () => {
-  const imageArray = [
-    Dummy3,
-    Dummy4,
-    Dummy5,
-    Dummy6,
-    Dummy7,
-    Dummy8,
-    Dummy9,
-    Dummy10,
-  ];
+const GallertSection = ({ data }: GallerySectionProps) => {
+  const headingParts = parseHeading(data.Heading);
+  const galleryImages = data.Image || [];
 
-  const galleryImages = Array(8)
-    .fill(null)
-    .map((_, idx) => ({
-      id: `gallery-${idx}`,
-      src: imageArray[idx],
-    }));
+  const getImageUrl = (index: number) => {
+    if (galleryImages[index]) {
+      return getS3Url(galleryImages[index].url);
+    }
+    const fallbackImages = [
+      Dummy3,
+      Dummy4,
+      Dummy5,
+      Dummy6,
+      Dummy7,
+      Dummy8,
+      Dummy9,
+      Dummy10,
+    ];
+    return fallbackImages[index % fallbackImages.length];
+  };
 
   const [emblaRef1] = useEmblaCarousel(
     {
@@ -73,94 +77,124 @@ const GallertSection = () => {
     <section className="w-full py-8 md:py-12 lg:py-16 xl:py-24 2xl:py-24 3xl:py-38 max-w-[1920px] mx-auto lg:w-[90vw]">
       <div className="mb-6 md:hidden text-left pl-5 lg:text-center lg:pl-0">
         <h2 className="text-3xl font-normal text-black font-urbanist mb-2">
-          Gallery
+          {data.Title || "Gallery"}
         </h2>
         <p className="font-area-variable font-semibold text-base text-black">
-          From LLA to <span className="text-[#E97451] ml-2">the world</span>
+          {headingParts[0]}
+          {headingParts[1] && (
+            <span className="text-[#E97451] ml-2">{headingParts[1]}</span>
+          )}
         </p>
         <div className="mt-6 text-left lg:text-center md:hidden">
-          <OrangeButtonWidget content="View More" />
+          <OrangeButtonWidget content={data.Btn_txt || "View More"} />
         </div>
       </div>
 
       <div className="hidden lg:grid grid-cols-5 gap-6">
         <div className="flex flex-col gap-6 mt-[50px]">
           <ParallaxWidget speed={7}>
-            <ImageWidget
-              src={Dummy3}
-              alt="Gallery"
-              className="w-full max-h-[250px] object-cover mb-6"
-            />
-            <ImageWidget
-              src={Dummy4}
-              alt="Gallery"
-              className="w-full max-h-[250px] object-cover"
-            />
+            <div className="relative w-full aspect-4/3 mb-6 overflow-hidden">
+              <ImageWidget
+                src={getImageUrl(0)}
+                alt="Gallery"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="relative w-full aspect-4/3 overflow-hidden">
+              <ImageWidget
+                src={getImageUrl(1)}
+                alt="Gallery"
+                fill
+                className="object-cover"
+              />
+            </div>
           </ParallaxWidget>
         </div>
         <div className="flex flex-col gap-6 mt-[350px]">
           <ParallaxWidget speed={4}>
-            <ImageWidget
-              src={Dummy5}
-              alt="Gallery"
-              className="w-full max-h-[250px] object-cover mb-6"
-            />
-            <ImageWidget
-              src={Dummy6}
-              alt="Gallery"
-              className="w-full max-h-[250px] object-cover"
-            />
+            <div className="relative w-full aspect-4/3 mb-6 overflow-hidden">
+              <ImageWidget
+                src={getImageUrl(2)}
+                alt="Gallery"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="relative w-full aspect-4/3 overflow-hidden">
+              <ImageWidget
+                src={getImageUrl(3)}
+                alt="Gallery"
+                fill
+                className="object-cover"
+              />
+            </div>
           </ParallaxWidget>
         </div>
         <div className="flex flex-col gap-6">
           <div className="flex flex-col justify-end items-center gap-2">
             <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
-              Gallery
+              {data.Title || "Gallery"}
             </h2>
             <p className="font-area-variable font-semibold text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
-              From LLA to
+              {headingParts[0]}
             </p>
-            <p className="font-area-variable font-semibold text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
-              <span className="text-[#E97451] ml-2">the world</span>
-            </p>
+            {headingParts[1] && (
+              <p className="font-area-variable font-semibold text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
+                <span className="text-[#E97451] ml-2">{headingParts[1]}</span>
+              </p>
+            )}
             <div className="mt-6 text-left lg:text-center">
-              <OrangeButtonWidget content="View More" />
+              <OrangeButtonWidget content={data.Btn_txt || "View More"} />
             </div>
           </div>
-          <div className="">
+          <div className="relative w-full aspect-4/3 mt-20 overflow-hidden">
             <ImageWidget
-              src={Dummy10}
+              src={getImageUrl(7)}
               alt="Gallery"
-              className="w-full min-h-[350px] mt-20 max-h-[250px] object-cover"
+              fill
+              className="object-cover"
             />
           </div>
         </div>
         <div className="flex flex-col gap-6 mt-[350px]">
           <ParallaxWidget speed={4}>
-            <ImageWidget
-              src={Dummy8}
-              alt="Gallery"
-              className="w-full max-h-[250px] object-cover mb-6"
-            />
-            <ImageWidget
-              src={Dummy9}
-              alt="Gallery"
-              className="w-full max-h-[250px] object-cover"
-            />
+            <div className="relative w-full aspect-4/3 mb-6 overflow-hidden">
+              <ImageWidget
+                src={getImageUrl(4)}
+                alt="Gallery"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="relative w-full aspect-4/3 overflow-hidden">
+              <ImageWidget
+                src={getImageUrl(5)}
+                alt="Gallery"
+                fill
+                className="object-cover"
+              />
+            </div>
           </ParallaxWidget>
         </div>
         <div className="flex flex-col gap-6 mt-[50px]">
           <ParallaxWidget speed={7}>
-            <ImageWidget
-              src={Dummy7}
-              alt="Gallery"
-              className="w-full max-h-[250px] object-cover mb-6"
-            />
-            <ImageWidget
-              src={Dummy3}
-              alt="Gallery"
-              className="w-full max-h-[250px] object-cover"
-            />
+            <div className="relative w-full aspect-4/3 mb-6 overflow-hidden">
+              <ImageWidget
+                src={getImageUrl(6)}
+                alt="Gallery"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="relative w-full aspect-4/3 overflow-hidden">
+              <ImageWidget
+                src={getImageUrl(0)}
+                alt="Gallery"
+                fill
+                className="object-cover"
+              />
+            </div>
           </ParallaxWidget>
         </div>
       </div>
@@ -173,14 +207,14 @@ const GallertSection = () => {
             dir="rtl"
           >
             <div className="flex gap-4 touch-pan-x pl-5 pr-5">
-              {galleryImages.map((item) => (
+              {galleryImages.map((image) => (
                 <div
-                  key={`row1-${item.id}`}
+                  key={`row1-${image.id}`}
                   className="relative flex-[0_0_45vw] aspect-square overflow-hidden min-w-0"
                 >
                   <ImageWidget
-                    src={item.src}
-                    alt="Gallery"
+                    src={getS3Url(image.url)}
+                    alt={image.name || "Gallery"}
                     fill
                     className="object-cover"
                   />
@@ -197,14 +231,14 @@ const GallertSection = () => {
             dir="ltr"
           >
             <div className="flex gap-4 touch-pan-x pl-5 pr-5">
-              {galleryImages.map((item) => (
+              {galleryImages.map((image) => (
                 <div
-                  key={`row2-${item.id}`}
+                  key={`row2-${image.id}`}
                   className="relative flex-[0_0_45vw] aspect-square overflow-hidden min-w-0"
                 >
                   <ImageWidget
-                    src={item.src}
-                    alt="Gallery"
+                    src={getS3Url(image.url)}
+                    alt={image.name || "Gallery"}
                     fill
                     className="object-cover"
                   />
