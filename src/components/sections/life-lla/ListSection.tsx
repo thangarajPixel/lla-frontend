@@ -26,12 +26,25 @@ const ListSection = () => {
     { id: 11, title: "The 25th Year Begins", Description: "The 25th Year Begins", image: Dummy5 },
     { id: 12, title: "The 25th Year Begins", Description: "The 25th Year Begins", image: Dummy5 },
   ];
+  const LifeCardSkeleton = () => (
+  <div className="px-6 py-6 bg-[#ECECEC] min-w-[320px] animate-pulse rounded">
+    <div className="h-5 bg-gray-300 rounded mb-4"></div>
+    <div className="w-full aspect-4/3 bg-gray-300 rounded mb-4"></div>
+    <div className="h-4 bg-gray-300 rounded"></div>
+  </div>
+);
+
+  const [loading, setLoading] = useState(false);
   const [visibleCount, setVisibleCount] = useState(4);
   const [prevCount, setPrevCount] = useState(0);
 const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const loadMore = () => {
+    setLoading(true);
   setPrevCount(visibleCount); 
-  setVisibleCount(prev => prev + 4);
+ setTimeout(() => {
+    setVisibleCount(prev => prev + 4);
+    setLoading(false);
+  }, 700); //
 };
   useEffect(() => {
    const newCards = cardsRef.current.slice(prevCount, visibleCount);
@@ -86,6 +99,10 @@ const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
             </ScrollWidget>
             </div>
           ))}
+          {loading &&
+    [...Array(4)].map((_, i) => (
+      <LifeCardSkeleton key={`skeleton-${i}`} />
+    ))}
         </div>
         {visibleCount < listItems.length && (
           <ScrollWidget  animation="fadeUp" delay={0.1}>
