@@ -9,6 +9,7 @@ import { ArrowDown, Dummy5 } from "@/helpers/ImageHelper";
 import LifeCard from "./ui/life-card";
 import gsap from "gsap";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
+import { Skeleton } from "@/components/ui/skeleton";
 
 
 const ListSection = () => {
@@ -26,23 +27,21 @@ const ListSection = () => {
     { id: 11, title: "The 25th Year Begins", Description: "The 25th Year Begins", image: Dummy5 },
     { id: 12, title: "The 25th Year Begins", Description: "The 25th Year Begins", image: Dummy5 },
   ];
-  const LifeCardSkeleton = () => (
-  <div className="px-6 py-6 bg-[#ECECEC] min-w-[320px] animate-pulse rounded">
-    <div className="h-5 bg-gray-300 rounded mb-4"></div>
-    <div className="w-full aspect-4/3 bg-gray-300 rounded mb-4"></div>
-    <div className="h-4 bg-gray-300 rounded"></div>
+ const LifeCardSkeleton = () => (
+  <div className="w-full flex flex-col gap-3  bg-[#FFFFFF4D]">
+    <Skeleton className="w-full h-[200px] md:h-[220px] lg:h-[230px]" />
   </div>
 );
 
   const [loading, setLoading] = useState(false);
-  const [visibleCount, setVisibleCount] = useState(4);
+  const [visibleCount, setVisibleCount] = useState(6);
   const [prevCount, setPrevCount] = useState(0);
 const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const loadMore = () => {
     setLoading(true);
   setPrevCount(visibleCount); 
  setTimeout(() => {
-    setVisibleCount(prev => prev + 4);
+    setVisibleCount(prev => prev + 6);
     setLoading(false);
   }, 700); //
 };
@@ -85,24 +84,29 @@ const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
       </ScrollWidget>
       <div className="py-8 pb-9 sm sm:py-8 md:py-8 lg:py-12 xl:py-10 2xl:py-16 3xl:py-20 4xl:py-15">
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 3xl:grid-cols-4 4xl:grid-cols-4 gap-4 sm:gap-4 md:gap-4 lg:gap-4 xl:gap-5 2xl:gap-5 3xl:gap-6 4xl:gap-7">
-          {listItems.slice(0, visibleCount).map((card,index) => (
-            <div
-            key={card.id}
-            ref={(el: HTMLDivElement | null) => {
-              cardsRef.current[index] = el;
-            }}
-          >
-            <ScrollWidget key={card.id} animation="fadeUp" delay={0.1}>
-              <ParallaxWidget speed={-0.1}>
-              <LifeCard card={card} />
-              </ParallaxWidget>
-            </ScrollWidget>
-            </div>
-          ))}
-          {loading &&
-    [...Array(4)].map((_, i) => (
-      <LifeCardSkeleton key={`skeleton-${i}`} />
-    ))}
+          {listItems.slice(0, visibleCount + (loading ? 6 : 0)).map((card, index) => {
+                    const isSkeleton =
+                      loading && index >= visibleCount && index < visibleCount + 6;
+
+                    if (isSkeleton) {
+                      return <LifeCardSkeleton key={`skeleton-${index}`} />;
+                    }
+                    return (
+                      <div
+                        key={card.id}
+                        ref={(el: HTMLDivElement | null) => {
+                          cardsRef.current[index] = el;
+                        }}
+                      >
+                        <ScrollWidget animation="fadeUp" delay={0.1}>
+                          <ParallaxWidget speed={-0.1}>
+                            <LifeCard card={card} />
+                          </ParallaxWidget>
+                        </ScrollWidget>
+                      </div>
+                    );
+                  })}
+
         </div>
         {visibleCount < listItems.length && (
           <ScrollWidget  animation="fadeUp" delay={0.1}>
