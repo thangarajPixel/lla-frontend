@@ -6,7 +6,6 @@ import { AboutHeroSectionProps } from "./utils/about-us";
 import { getS3Url } from "@/helpers/ConstantHelper";
 
 const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
-  console.log(data,'data');
   return (
     <Fragment>
       <section

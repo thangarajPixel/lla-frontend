@@ -4,8 +4,11 @@ import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { FounderDummy1, FounderDummy2 } from "@/helpers/ImageHelper";
+import { FounderSectionProps } from "./utils/about-us";
+import { getS3Url } from "@/helpers/ConstantHelper";
 
-const FounderSection = () => {
+const FounderSection = ({ data }: FounderSectionProps) => {
+  console.log(data,'data');
   return (
     <section
       className="3xl:max-h-[1665px]
@@ -52,7 +55,7 @@ const FounderSection = () => {
           4xl:text-[90px]
           "
             >
-              Founders
+              {data.Title}
             </h3>
           </ScrollWidget>
           <ScrollWidget delay={0.1}>
@@ -78,7 +81,7 @@ const FounderSection = () => {
           xl:max-w-[600px]
           "
             >
-              Lorem ipsum
+             {data.Heading}
               <span className="text-[#E97451] ml-2">dolor sit amet,</span>
             </p>
           </ScrollWidget>
@@ -116,7 +119,7 @@ const FounderSection = () => {
               4xl:text-4xl
               "
                 >
-                  Iqbal Mohamed
+                 {data.Founder_card[0].Heading}
                 </h4>
                 <p
                   className="
@@ -131,11 +134,7 @@ const FounderSection = () => {
               4xl:text-[22px]
               "
                 >
-                  Iqbal Mohamed is a visual artist and a mentor to many
-                  generations of storytellers. His dedication to the craft, a
-                  deep desire to unravel the meaning of life and humility is an
-                  inspiration to many. He believes that everyone has the power
-                  to change the world by seeing it differently.
+                  {data.Founder_card[0].Description[0].children[0].text}
                 </p>
                 <p
                   className=" font-mulish text-black leading-relaxed text-[13px]
@@ -148,17 +147,9 @@ const FounderSection = () => {
               4xl:text-[22px]
               "
                 >
-                  After a graduation in history and political science and then
-                  an MBA, Iqbal decided to follow his passion, photography. His
-                  first step was to study professional photography at the
-                  renowned Brooks Institute of Photography, ​California, USA. He
-                  followed it up working with some of the celebrated
-                  professional photographers in Hollywood like Dick Zimmerman,
-                  Bill Werts & Jay Silverman. Iqbal then came back to India in
-                  1988, amongst the first to do so, to make a career in
-                  professional photography.
+                  {data.Founder_card[0].Description[1].children[0].text ?? ""}
                 </p>
-                <OrangeButtonWidget content="Know More" />
+                <OrangeButtonWidget content={data.Founder_card[0].Btn_txt ?? ""} />
               </div>
             </ScrollWidget>
             <ScrollWidget delay={0.3} className="order-1 md:order-2">
@@ -166,7 +157,7 @@ const FounderSection = () => {
                 className="mb-3 block md:hidden font-urbanist font-regular text-[#E97451] text-[32px]  xs:text-[32px]
                  sm:text-[32px]l"
               >
-                Anuradha Iqbal
+                 {data.Founder_card[0].Heading}
               </h4>
               <div
                 className="
@@ -174,7 +165,7 @@ const FounderSection = () => {
             "
               >
                 <ImageWidget
-                  src={FounderDummy1}
+                  src={getS3Url(data.Founder_card[0].Image.url)}
                   alt="Founder"
                   width={500}
                   height={600}
@@ -214,11 +205,11 @@ const FounderSection = () => {
                 className="mb-3 block md:hidden font-urbanist font-regular text-[#E97451] text-[32px]  xs:text-[32px]
                  sm:text-[32px]l"
               >
-                Anuradha Iqbal
+                 {data.Founder_card[1].Heading}
               </h4>
               <div className="flex justify-center md:justify-end w-full">
                 <ImageWidget
-                  src={FounderDummy2}
+                  src={getS3Url(data.Founder_card[1].Image.url)}
                   alt="Founder"
                   width={500}
                   height={600}
@@ -262,7 +253,7 @@ const FounderSection = () => {
               4xl:text-[48px]
               "
                 >
-                  Anuradha Iqbal
+                   {data.Founder_card[1].Heading}
                 </h4>
                 <p
                   className="
@@ -277,14 +268,7 @@ const FounderSection = () => {
               4xl:text-[22px]
               "
                 >
-                  Anuradha Iqbal, is the co-founder and director of LLA. She
-                  holds a postgraduate degree in Economics from Mumbai
-                  University and a Diploma in Advertising & Marketing. Her
-                  career started in the field of Advertising where she was in
-                  charge of handling brands like Godrej, Taj group of Hotels,
-                  Amul, Philips, Ciba Geigy, etc. and grew to become the head of
-                  FCB Ulka in Bangalore. Along the way, Anuradha helped create
-                  many memorable and award winning campaigns.
+                  {data.Founder_card[1].Description[0].children[0].text ?? ""}
                 </p>
                 <p
                   className="
@@ -299,12 +283,9 @@ const FounderSection = () => {
               4xl:text-[22px]
               "
                 >
-                  Advertising campaigns brought Anuradha and Iqbal Mohamed
-                  together. In due course, she was handling operations, planning
-                  and business development for Iqbal Mohamed Photography and
-                  together they reached greater heights.
+                  {data.Founder_card[1].Description[1].children[0].text ?? ""}
                 </p>
-                <OrangeButtonWidget content="Know More" />
+                <OrangeButtonWidget content={data.Founder_card[1].Btn_txt} />
               </div>
             </ScrollWidget>
           </div>
