@@ -23,6 +23,7 @@ export { default as TeamDummy4 } from "@/assets/dummy/team-dummy-4.png";
 export { default as TeamGroupDummy } from "@/assets/dummy/team-group-dummy.png";
 export { default as ArrowLeftBlack } from "@/assets/icons/arrow-left-black.png";
 export { default as ArrowRight } from "@/assets/icons/arrow-right.svg";
+export { default as ArrowDown } from "@/assets/icons/arrow-down.png";
 export { default as ArrowRightBlack } from "@/assets/icons/arrow-right-black.png";
 export { default as Facebook } from "@/assets/icons/facebook.svg";
 export { default as Instagram } from "@/assets/icons/instagram.svg";
