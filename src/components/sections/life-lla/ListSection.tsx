@@ -37,18 +37,15 @@ const ListSection = () => {
           <h3 className="text-[30px] md:text-[35px] lg:text-[40px] xl:text-[50px] 2xl:text-[60px] 3xl:text-[64px] font-regular text-black font-urbanist">
             Life @ LLA
           </h3>
-          <p
-            className=" text-[16px] sm:text-[17px] md:text-[18px] lg:text-[20px] xl:text-[25px] 2xl:text-[30px] 3xl:text-[40px] font-regular font-mulish 
-                      px-3 sm:px-30 md:px-35 lg:px-38 xl:px-40 2xl:px-40 3xl:px-40 text-black"
-          >
+          <p className=" text-[16px] sm:text-[17px] md:text-[18px] lg:text-[20px] xl:text-[25px] 2xl:text-[30px] 3xl:text-[40px] font-regular font-mulish 
+                      px-3 sm:px-30 md:px-35 lg:px-38 xl:px-40 2xl:px-40 3xl:px-40 text-black">
             Lorem ipsum dolor sit amet, consectetur
             <span className="text-[#E97451]">
               {" "}
               adipiscing elit, sed do eiusmod tempor
             </span>
           </p>
-          <p
-            className="text-[12px] sm:text-[13px] md:text-[14px] lg:text-[12px] xl:text-[12px] 2xl:text-[16px] 3xl:text-[18px] font-regular text-black font-mulish
+          <p className="text-[12px] sm:text-[13px] md:text-[14px] lg:text-[12px] xl:text-[12px] 2xl:text-[16px] 3xl:text-[18px] font-regular text-black font-mulish
                       px-3 sm:px-30 md:px-35 lg:px-35 xl:px-35 2xl:px-40 3xl:px-40">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
