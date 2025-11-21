@@ -92,11 +92,9 @@ const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
                       return <LifeCardSkeleton key={`skeleton-${index}`} />;
                     }
                     return (
-                      <div  key={card.id}
-                        ref={(el: HTMLDivElement | null) => {
+                      <div  key={card.id}  ref={(el: HTMLDivElement | null) => {
                           cardsRef.current[index] = el;
-                        }}
-                      >
+                        }} >
                         <ScrollWidget animation="fadeUp" delay={0.1}>
                           <ParallaxWidget speed={-0.1}>
                             <LifeCard card={card} />
