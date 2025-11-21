@@ -7,7 +7,6 @@ import { FounderSectionProps } from "./utils/about-us";
 import { getS3Url } from "@/helpers/ConstantHelper";
 
 const FounderSection = ({ data }: FounderSectionProps) => {
-  console.log(data,'data');
   return (
     <section
       className="3xl:max-h-[1665px]

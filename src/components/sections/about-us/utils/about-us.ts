@@ -48,3 +48,37 @@ export type FounderSectionProps = {
   };
 };
 
+
+export type TeamSectionProps = {
+  data: {
+    __component?: string;
+    id?: number;
+    Title: string;
+    Heading: string;
+    SubHeading: string;
+    Card: Array<{
+      id: number;
+      Title: string;
+      Description: string;
+      Btn_txt: string;
+      Image: Array<{
+        id: number;
+        name: string;
+        url: string;
+      }>;
+    }>;
+    Frame: {
+      id: number;
+      Title: string;
+      Description: string;
+      Btn_txt: string | null;
+      Image: Array<{
+        id: number;
+        name: string;
+        url: string;
+      }>;
+    };
+  };
+};
+
+
