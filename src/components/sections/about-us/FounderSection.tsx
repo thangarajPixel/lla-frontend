@@ -3,7 +3,6 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
-import { FounderDummy1, FounderDummy2 } from "@/helpers/ImageHelper";
 import { FounderSectionProps } from "./utils/about-us";
 import { getS3Url } from "@/helpers/ConstantHelper";
 
@@ -82,7 +81,7 @@ const FounderSection = ({ data }: FounderSectionProps) => {
           "
             >
              {data.Heading}
-              <span className="text-[#E97451] ml-2">dolor sit amet,</span>
+              <span className="text-[#E97451] ml-2">{data.SubHeading}</span>
             </p>
           </ScrollWidget>
         </div>

@@ -11,7 +11,7 @@ const AboutUsPage = async ()  => {
     <Fragment>
       <AboutHeroSection data={response?.about?.[0]} />
       <FounderSection data={response?.about?.[1]} />
-      <TeamSection />
+      <TeamSection data={response?.about?.[2]} />
     </Fragment>
   );
 };

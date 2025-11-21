@@ -5,7 +5,7 @@ import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { TeamDummy4, TeamGroupDummy } from "@/helpers/ImageHelper";
 
-const TeamSection = () => {
+const TeamSection = ( { data }: { data: any }) => {
   const facultyData = [
     {
       id: "faculty-0",
