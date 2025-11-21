@@ -85,9 +85,7 @@ const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
       <div className="py-8 pb-9 sm sm:py-8 md:py-8 lg:py-12 xl:py-10 2xl:py-16 3xl:py-20 4xl:py-15">
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 3xl:grid-cols-4 4xl:grid-cols-4 gap-4 sm:gap-4 md:gap-4 lg:gap-4 xl:gap-5 2xl:gap-5 3xl:gap-6 4xl:gap-7">
           {listItems.slice(0, visibleCount + (loading ? 6 : 0)).map((card, index) => {
-                    const isSkeleton =
-                      loading && index >= visibleCount && index < visibleCount + 6;
-
+                    const isSkeleton = loading && index >= visibleCount && index < visibleCount + 6;
                     if (isSkeleton) {
                       return <LifeCardSkeleton key={`skeleton-${index}`} />;
                     }
