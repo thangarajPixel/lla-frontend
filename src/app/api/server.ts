@@ -8,3 +8,13 @@ export async function getLandingPageData() {
     return { error: JSON.stringify(error, null, 2) };
   }
 }
+
+
+export async function getAboutUsPageData() {
+  try {
+    const { data } = await serverAxios.get(`/about`);
+    return data;
+  } catch (error) {
+    return { error: JSON.stringify(error, null, 2) };
+  }
+}
