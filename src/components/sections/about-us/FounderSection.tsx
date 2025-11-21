@@ -8,24 +8,9 @@ import { getS3Url } from "@/helpers/ConstantHelper";
 
 const FounderSection = ({ data }: FounderSectionProps) => {
   return (
-    <section
-      className="3xl:max-h-[1665px]
-  w-full bg-[#ECECEC]
-  py-8
-  xs:py-10
-  sm:py-12
-  md:py-14
-  lg:py-20
-  xl:py-14
-  2xl:py-18
-  3xl:py-26
-  4xl:py-30
-  "
-    >
+    <section className="3xl:max-h-[1665px] w-full bg-[#ECECEC] py-8 xs:py-10 sm:py-12  md:py-14 lg:py-20 xl:py-14  2xl:py-18 3xl:py-26 4xl:py-30 ">
       <ContainerWidget>
-        <div
-          className="
-      text-center
+        <div className="text-center
       space-y-1
       xs:space-y-2
       sm:space-y-3
@@ -33,14 +18,9 @@ const FounderSection = ({ data }: FounderSectionProps) => {
       lg:space-y-6
       xl:space-y-4
       2xl:space-y-12
-      3xl:space-y-14
-      4xl:space-y-16
-      "
-        >
+      3xl:space-y-14 4xl:space-y-16">
           <ScrollWidget delay={0.1}>
-            <h3
-              className="
-          font-urbanist font-regular text-black
+            <h3 className="font-urbanist font-regular text-black
           text-left xs:text-left md:text-center
           text-[32px]
           xs:text-3xl
@@ -50,9 +30,7 @@ const FounderSection = ({ data }: FounderSectionProps) => {
           xl:text-6xl
           2xl:text-7xl
           3xl:text-[80px]
-          4xl:text-[90px]
-          "
-            >
+          4xl:text-[90px]">
               {data.Title}
             </h3>
           </ScrollWidget>

@@ -5,6 +5,7 @@ import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { TeamDummy4, TeamGroupDummy } from "@/helpers/ImageHelper";
 import { TeamSectionProps } from "./utils/about-us";
+import { getS3Url } from "@/helpers/ConstantHelper";
 
 const TeamSection = ( { data }: TeamSectionProps) => {
   const facultyData = [
@@ -43,10 +44,9 @@ const TeamSection = ( { data }: TeamSectionProps) => {
               xl:text-6xl 2xl:text-[70px] 3xl:text-[80px] 4xl:text-[90px]
             "
             >
-              The Team
+              {data.Title}
             </h3>
           </ScrollWidget>
-
           <ScrollWidget delay={0.15}>
             <p
               className="
@@ -57,12 +57,11 @@ const TeamSection = ( { data }: TeamSectionProps) => {
               max-w-[1100px] mx-auto
             "
             >
-              Lorem ipsum{" "}
-              <span className="text-[#E97451] ml-2">dolor sit amet,</span>
+              {data.Heading}
+              <span className="text-[#E97451] ml-2">{data.SubHeading}</span>
             </p>
           </ScrollWidget>
         </div>
-
         <div className="py-8 pb-9 sm sm:py-8 md:py-8 lg:py-12 xl:py-12 2xl:py-16 3xl:py-20 4xl:py-15">
           <div
             className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4
@@ -131,26 +130,20 @@ const TeamSection = ( { data }: TeamSectionProps) => {
             ))}
           </div>
         </div>
-        <div
-          className="bg-[#ECECEC] py-5 sm:py-5 md:py-6 lg:py-5 xl:py-5 2xl:py-7 3xl:py-9 4xl:py-11 
-        px-4 sm:px-5 md:px-6 lg:px-5 xl:px-5 2xl:px-7 3xl:px-9 4xl:px-11"
-        >
+        <div className="bg-[#ECECEC] py-5 sm:py-5 md:py-6 lg:py-5 xl:py-5 2xl:py-7 3xl:py-9 4xl:py-11 
+        px-4 sm:px-5 md:px-6 lg:px-5 xl:px-5 2xl:px-7 3xl:px-9 4xl:px-11">
           <ScrollWidget delay={0.2} animation="fadeUp">
-            <div
-              className="
-                relative w-full 
+            <div className="relative w-full 
                 h-[150px] sm:h-[380px] md:h-[300px] 
                 lg:h-[300px] xl:h-[430px] 2xl:h-[520px] 
-                3xl:h-[600px] 4xl:h-[430px]
-              "
+                3xl:h-[600px] 4xl:h-[430px]"
               style={{
                 maxWidth: "1242px",
                 width: "100%",
                 margin: "0 auto",
-              }}
-            >
+              }}>
               <ImageWidget
-                src={TeamGroupDummy}
+                src={getS3Url(data.Frame.Image[0].url)}
                 alt="Team"
                 fill
                 className="object-cover"
@@ -158,29 +151,16 @@ const TeamSection = ( { data }: TeamSectionProps) => {
             </div>
 
             <div className="space-y-3 sm:space-y-4 md:space-y-5 py-4">
-              <h5
-                className="
-                  font-urbanist font-normal text-[#E97451] text-left
+              <h5 className="font-urbanist font-normal text-[#E97451] text-left
                   text-xl sm:text-xl md:text-xl lg:text-2xl 
-                  xl:text-3xl 2xl:text-[55px] 3xl:text-[70px] 4xl:text-[80px]
-                "
-              >
-                Akkas & Annas
+                  xl:text-3xl 2xl:text-[55px] 3xl:text-[70px] 4xl:text-[80px]">
+                {data.Frame.Title}
               </h5>
-
-              <p
-                className="
-                  font-mulish font-normal text-black leading-normal
+              <p  className="font-mulish font-normal text-black leading-normal
                   text-xs sm:text-sm md:text-base lg:text-[15px] 
                   xl:text-[16px] 2xl:text-[18px] 3xl:text-[20px] 4xl:text-[22px]
-                  w-full
-                "
-              >
-                The Akkas and Annas form the backbone of the LLA family. They
-                ensure that the campus is in pristine condition and do their
-                best to ensure the students are well fed. They embody the spirit
-                of the Nilgiris and its people – welcoming, generous and jovial.
-                It’s no surprise that they are the most popular folks on campus.
+                  w-full">
+                {data.Frame.Description}
               </p>
             </div>
           </ScrollWidget>
