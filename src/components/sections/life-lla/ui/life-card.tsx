@@ -8,7 +8,7 @@ import ImageWidget from "@/components/widgets/ImageWidget";
     <div className="relative w-full aspect-4/3 overflow-hidden mb-2 lg:mb-3 3xl:mb-4">
       <ImageWidget
         src={card.image}
-        alt={card.Title}
+        alt={card.title}
         fill
         className="object-cover"
       />
