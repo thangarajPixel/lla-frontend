@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { ArrowDown, Dummy5 } from "@/helpers/ImageHelper";
 import LifeCard from "./ui/life-card";
+import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 
 
 const ListSection = () => {
@@ -24,9 +25,9 @@ const ListSection = () => {
     { id: 11, title: "The 25th Year Begins", Description: "The 25th Year Begins", image: Dummy5 },
     { id: 12, title: "The 25th Year Begins", Description: "The 25th Year Begins", image: Dummy5 },
   ];
-  const [visibleCount, setVisibleCount] = useState(1);
+  const [visibleCount, setVisibleCount] = useState(4);
   const loadMore = () => {
-    setVisibleCount(prev => prev + 1);
+    setVisibleCount(prev => prev + 4);
   };
  return (
   <section className="w-full bg-white h-full py-4 sm:py-6 md:py-8 lg:py-10 xl:py-5 2xl:py-7 3xl:py-10">
@@ -56,21 +57,23 @@ const ListSection = () => {
           </p>
         </div>
       </ScrollWidget>
-      <div className="py-8 pb-9 sm sm:py-8 md:py-8 lg:py-12 xl:py-12 2xl:py-16 3xl:py-20 4xl:py-15">
-        <div
-          className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4
+      <div className="py-8 pb-9 sm sm:py-8 md:py-8 lg:py-12 xl:py-10 2xl:py-16 3xl:py-20 4xl:py-15">
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4
                             2xl:grid-cols-4 3xl:grid-cols-4 4xl:grid-cols-4
-                            gap-4 sm:gap-4 md:gap-4 lg:gap-4 xl:gap-4
+                            gap-4 sm:gap-4 md:gap-4 lg:gap-4 xl:gap-5
                             2xl:gap-5 3xl:gap-6 4xl:gap-7">
           {listItems.slice(0, visibleCount).map((card) => (
-            <ScrollWidget key={card.id} animation="scale" delay={0.3}>
+            <ScrollWidget key={card.id} animation="fadeUp" delay={0.1}>
+              <ParallaxWidget speed={-0.1}>
               <LifeCard card={card} />
+              </ParallaxWidget>
             </ScrollWidget>
           ))}
         </div>
         {visibleCount < listItems.length && (
-          <ScrollWidget  animation="scale" delay={0.3}>
+          <ScrollWidget  animation="fadeUp" delay={0.1}>
           <div className="flex justify-center items-center mt-6">
+             <ParallaxWidget speed={0.1}>
             <ButtonWidget
               onClick={loadMore}
               className="font-mulish hover:bg-white  font-bold  bg-white border border-[#E97451] rounded-[60px] text-[#E97451] px-5 h-10 text-xs xl:text-[14px] 2xl:text-[14px] 3xl:text-[18px]"
@@ -84,6 +87,7 @@ const ListSection = () => {
                 className="object-cover"
               />
             </ButtonWidget>
+            </ParallaxWidget>
           </div>
           </ScrollWidget>
         )}
