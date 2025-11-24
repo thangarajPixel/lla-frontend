@@ -9,7 +9,6 @@ if(!val.page || !val.per_page) {
   val.per_page = 8;
 }
  const response = await getLifePageData(val.page, val.per_page);
- 
   return (
       <Fragment>
       <ListSection data={response} />

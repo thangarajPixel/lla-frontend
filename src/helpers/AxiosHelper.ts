@@ -4,7 +4,7 @@ const baseConfiguration = {
   baseURL: process.env.BASE_URL,
   headers: {
     "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
+    // "Access-Control-Allow-Origin": "*",
   },
   timeout: 3000,
 };
