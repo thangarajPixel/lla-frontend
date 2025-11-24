@@ -12,7 +12,6 @@ import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import { Skeleton } from "@/components/ui/skeleton";
 import { LifeSectionProps } from "./utils/life-lla";
 import { getLifePageData } from "@/app/api/server";
-import { useRouter, useSearchParams } from "next/navigation";
 
 const ListSection = ({ data }: LifeSectionProps) => {
   const LifeCardSkeleton = () => (
@@ -28,8 +27,6 @@ const ListSection = ({ data }: LifeSectionProps) => {
 
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const previousLength = useRef(cards.length);
-    const router = useRouter();
-   const searchParams = useSearchParams();
 
   const loadMore = async () => {
     if (loading || cards.length >= total) return;
@@ -101,7 +98,7 @@ const ListSection = ({ data }: LifeSectionProps) => {
           </div>
 
           {!loading && cards.length < total && (
-            <ScrollWidget animation="fadeUp" delay={0.1}>
+            <ScrollWidget animation="fadeUp" delay={-0.1}>
               <div className="flex justify-center items-center mt-6">
                 <ParallaxWidget speed={0.1}>
                   <ButtonWidget
