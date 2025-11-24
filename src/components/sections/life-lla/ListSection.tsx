@@ -14,20 +14,7 @@ import { LifeSectionProps } from "./utils/life-lla";
 
 
 const ListSection = ({ data }: LifeSectionProps) => {
-  const listItems = [
-    { id: 1, title: "The 25th Year Begins", Description: "A special anniversary celebration at LLA.", image: Dummy5 },
-    { id: 2, title: "Fine Art Photography", Description: "A Workshop by Varun Gupta", image: Dummy5 },
-    { id: 3, title: "Conceptual Product Photography", Description: "A higher level approach to product photography", image: Dummy5 },
-    { id: 4, title: "Architecture Photography", Description: "Specialisation by Mohsin Taha", image: Dummy5 },
-    { id: 5, title: "The 25th Year Begins", Description: "The 25th Year Begins", image: Dummy5 },
-    { id: 6, title: "The 25th Year Begins", Description: "The 25th Year Begins", image: Dummy5 },
-    { id: 7, title: "The 25th Year Begins", Description: "The 25th Year Begins", image: Dummy5 },
-    { id: 8, title: "The 25th Year Begins", Description: "The 25th Year Begins", image: Dummy5 },
-    { id: 9, title: "The 25th Year Begins", Description: "The 25th Year Begins", image: Dummy5 },
-    { id: 10, title: "The 25th Year Begins", Description: "The 25th Year Begins", image: Dummy5 },
-    { id: 11, title: "The 25th Year Begins", Description: "The 25th Year Begins", image: Dummy5 },
-    { id: 12, title: "The 25th Year Begins", Description: "The 25th Year Begins", image: Dummy5 },
-  ];
+  
  const LifeCardSkeleton = () => (
   <div className="w-full flex flex-col gap-3  bg-[#FFFFFF4D]">
     <Skeleton className="w-full h-[200px] md:h-[220px] lg:h-[230px]" />
@@ -44,7 +31,7 @@ const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
  setTimeout(() => {
     setVisibleCount(prev => prev + 6);
     setLoading(false);
-  }, 700); //
+  }, 700);
 };
   useEffect(() => {
    const newCards = cardsRef.current.slice(prevCount, visibleCount);
@@ -101,7 +88,7 @@ const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
                   })}
 
         </div>
-        {visibleCount < listItems.length && (
+        {visibleCount < data.Card.length && (
           <ScrollWidget  animation="fadeUp" delay={0.1}>
           <div className="flex justify-center items-center mt-6">
              <ParallaxWidget speed={0.1}>
