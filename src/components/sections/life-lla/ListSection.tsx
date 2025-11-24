@@ -5,7 +5,7 @@ import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
-import { ArrowDown, Dummy5 } from "@/helpers/ImageHelper";
+import { ArrowDown } from "@/helpers/ImageHelper";
 import LifeCard from "./ui/life-card";
 import gsap from "gsap";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
