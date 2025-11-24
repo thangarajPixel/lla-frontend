@@ -16,6 +16,12 @@ export type LifeSectionProps = {
         url: string;
       }>;
     }>;
+    pagination: {
+      page: number;
+      perPage: number;
+      total: number;
+      totalPages: number;
+    }
   };
   meta?: {
     page: number;

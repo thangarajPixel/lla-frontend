@@ -19,9 +19,9 @@ export async function getAboutUsPageData() {
   }
 }
 
-export async function getLifePageData() {
+export async function getLifePageData(page : number, perPage : number) {
   try {
-    const { data } = await serverAxios.get(`/life`);
+    const { data } = await serverAxios.get(`/life?per_page=${perPage}&page=${page}`);
     return data;
   } catch (error) {
     return { error: JSON.stringify(error, null, 2) };
