@@ -10,9 +10,10 @@ import LifeCard from "./ui/life-card";
 import gsap from "gsap";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import { Skeleton } from "@/components/ui/skeleton";
+import { LifeSectionProps } from "./utils/life-lla";
 
 
-const ListSection = () => {
+const ListSection = ({ data }: LifeSectionProps) => {
   const listItems = [
     { id: 1, title: "The 25th Year Begins", Description: "The 25th Year Begins", image: Dummy5 },
     { id: 2, title: "The 25th Year Begins", Description: "The 25th Year Begins", image: Dummy5 },
@@ -65,26 +66,23 @@ const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
       <ScrollWidget animation="fadeDown" delay={0.1}>
         <div className="space-y-3.5 md:space-y-3 lg:space-y-5 text-left md:text-center lg:text-center xl:text-center">
           <h3 className="text-[30px] md:text-[35px] lg:text-[40px] xl:text-[50px] 2xl:text-[60px] 3xl:text-[64px] font-regular text-black font-urbanist">
-            Life @ LLA
+            {data.Title}
           </h3>
           <p className="text-[16px] sm:text-[17px] md:text-[18px] lg:text-[20px] xl:text-[25px] 2xl:text-[30px] 3xl:text-[40px] font-regular font-mulish px-3 sm:px-30 md:px-35 lg:px-38 xl:px-40 2xl:px-40 3xl:px-40 text-black">
-            Lorem ipsum dolor sit amet, consectetur
+            {data.Heading}
             <span className="text-[#E97451]">
               {" "}
-              adipiscing elit, sed do eiusmod tempor
+              {data.SubHeading}
             </span>
           </p>
           <p className="text-[12px] sm:text-[13px] md:text-[14px] lg:text-[12px] xl:text-[12px] 2xl:text-[16px] 3xl:text-[18px] font-regular text-black font-mulish px-3 sm:px-30 md:px-35 lg:px-35 xl:px-35 2xl:px-40 3xl:px-40">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+            {data.Description}
           </p>
         </div>
       </ScrollWidget>
       <div className="py-8 pb-9 sm sm:py-8 md:py-8 lg:py-12 xl:py-10 2xl:py-16 3xl:py-20 4xl:py-15">
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 3xl:grid-cols-4 4xl:grid-cols-4 gap-4 sm:gap-4 md:gap-4 lg:gap-4 xl:gap-5 2xl:gap-5 3xl:gap-6 4xl:gap-7">
-          {listItems.slice(0, visibleCount + (loading ? 6 : 0)).map((card, index) => {
+          {data.Card.slice(0, visibleCount + (loading ? 6 : 0)).map((card, index) => {
                     const isSkeleton = loading && index >= visibleCount && index < visibleCount + 6;
                     if (isSkeleton) {
                       return <LifeCardSkeleton key={`skeleton-${index}`} />;

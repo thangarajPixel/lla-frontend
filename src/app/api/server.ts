@@ -18,3 +18,12 @@ export async function getAboutUsPageData() {
     return { error: JSON.stringify(error, null, 2) };
   }
 }
+
+export async function getLifePageData() {
+  try {
+    const { data } = await serverAxios.get(`/life`);
+    return data;
+  } catch (error) {
+    return { error: JSON.stringify(error, null, 2) };
+  }
+}
