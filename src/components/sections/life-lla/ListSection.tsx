@@ -15,10 +15,10 @@ import { LifeSectionProps } from "./utils/life-lla";
 
 const ListSection = ({ data }: LifeSectionProps) => {
   const listItems = [
-    { id: 1, title: "The 25th Year Begins", Description: "The 25th Year Begins", image: Dummy5 },
-    { id: 2, title: "The 25th Year Begins", Description: "The 25th Year Begins", image: Dummy5 },
-    { id: 3, title: "The 25th Year Begins", Description: "The 25th Year Begins", image: Dummy5 },
-    { id: 4, title: "The 25th Year Begins", Description: "The 25th Year Begins", image: Dummy5 },
+    { id: 1, title: "The 25th Year Begins", Description: "A special anniversary celebration at LLA.", image: Dummy5 },
+    { id: 2, title: "Fine Art Photography", Description: "A Workshop by Varun Gupta", image: Dummy5 },
+    { id: 3, title: "Conceptual Product Photography", Description: "A higher level approach to product photography", image: Dummy5 },
+    { id: 4, title: "Architecture Photography", Description: "Specialisation by Mohsin Taha", image: Dummy5 },
     { id: 5, title: "The 25th Year Begins", Description: "The 25th Year Begins", image: Dummy5 },
     { id: 6, title: "The 25th Year Begins", Description: "The 25th Year Begins", image: Dummy5 },
     { id: 7, title: "The 25th Year Begins", Description: "The 25th Year Begins", image: Dummy5 },

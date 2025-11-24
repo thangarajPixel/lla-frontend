@@ -8,13 +8,13 @@ import { getS3Url } from "@/helpers/ConstantHelper";
     </h4>
     <div className="relative w-full aspect-4/3 overflow-hidden mb-2 lg:mb-3 3xl:mb-4">
       <ImageWidget
-        src={getS3Url(card.Image?.[0]?.url)}
+        src={getS3Url(card.Image?.[0]?.url) || ""}
         alt={card.Title}
         fill
         className="object-cover"
       />
     </div>
-    <p className="text-sm sm:text-base md:text-[12px] lg:text-[15px] 2xl:text-[16px] 3xl:text-[18px] font-mulish font-regular text-black overflow-hidden ">
+    <p className="text-sm sm:text-base md:text-[12px] lg:text-[12px] xl:text-[12px] 2xl:text-[16px] 3xl:text-[18px] font-mulish font-regular text-black overflow-hidden ">
       {card.Description}
     </p>
   </div>
