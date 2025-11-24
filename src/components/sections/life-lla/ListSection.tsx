@@ -11,7 +11,6 @@ import gsap from "gsap";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import { Skeleton } from "@/components/ui/skeleton";
 import { LifeSectionProps } from "./utils/life-lla";
-import { getLifePageData } from "@/app/api/server";
 import { useRouter, useSearchParams } from "next/navigation";
 
 const ListSection = ({ data }: LifeSectionProps) => {
@@ -21,15 +20,16 @@ const ListSection = ({ data }: LifeSectionProps) => {
     </div>
   );
 
-  const [cards, setCards] = useState(data.Card || []);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const total = data.pagination.total;
 
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+    const [cards, setCards] = useState(data.Card || []);
   const previousLength = useRef(cards.length);
     const router = useRouter();
    const searchParams = useSearchParams();
+  
 
   const loadMore = async () => {
     if (loading || cards.length >= total) return;
@@ -37,15 +37,19 @@ const ListSection = ({ data }: LifeSectionProps) => {
     const nextPage = page + 1;
    const params = new URLSearchParams(searchParams.toString());
     params.set("page", nextPage.toString());
-    params.set("per_page", "8");
+   params.set("per_page", "8");
     router.replace(`?${params.toString()}`, { scroll: false });
     const res = data;
-    if (res?.Card) {
-      setCards(prev => [...prev, ...res.Card]);
       setPage(nextPage);
-    }
     setLoading(false);
   };
+  useEffect(() => {
+  if (page === 1) {
+    setCards(data.Card || []);
+  } else {
+    setCards(prev => [...prev, ...data.Card]);
+  }
+}, [data]);
   useEffect(() => {
     const newItems = cardsRef.current.slice(previousLength.current);
     gsap.fromTo(
@@ -82,7 +86,7 @@ const ListSection = ({ data }: LifeSectionProps) => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 xl:gap-5 2xl:gap-6">
             {cards.map((card, index) => (
               <div
-                key={card.id}
+               key={`${card.id}-${index}`}
                 ref={(el: HTMLDivElement | null) => {
                           cardsRef.current[index] = el;
                         }}
