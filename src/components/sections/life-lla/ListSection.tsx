@@ -24,7 +24,7 @@ const ListSection = ({ data }: LifeSectionProps) => {
   const [cards, setCards] = useState(data.Card || []);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const total = data.pagination.total;
+  const total = data?.pagination?.total;
 
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const previousLength = useRef(cards.length);
