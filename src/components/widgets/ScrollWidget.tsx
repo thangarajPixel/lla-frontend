@@ -80,14 +80,21 @@ const ScrollWidget = ({
           scrub,
           once,
           markers,
-          toggleActions: once ? "play none none none" : "play none none reverse",
+          toggleActions: once
+            ? "play none none none"
+            : "play none none reverse",
           onEnter: () => {
             if (once && tl.progress() === 0) {
               tl.play();
             }
           },
           onRefresh: () => {
-            if (once && tl.scrollTrigger && tl.scrollTrigger.progress > 0 && tl.progress() === 0) {
+            if (
+              once &&
+              tl.scrollTrigger &&
+              tl.scrollTrigger.progress > 0 &&
+              tl.progress() === 0
+            ) {
               tl.play();
             }
           },
@@ -100,7 +107,11 @@ const ScrollWidget = ({
 
       if (once && tl.scrollTrigger) {
         requestAnimationFrame(() => {
-          if (tl.scrollTrigger && tl.scrollTrigger.progress > 0 && tl.progress() === 0) {
+          if (
+            tl.scrollTrigger &&
+            tl.scrollTrigger.progress > 0 &&
+            tl.progress() === 0
+          ) {
             tl.play();
           }
         });

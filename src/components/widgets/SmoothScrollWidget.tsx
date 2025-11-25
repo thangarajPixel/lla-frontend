@@ -38,8 +38,7 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
       if (ScrollTrigger && typeof ScrollTrigger.update === "function") {
         try {
           ScrollTrigger.update();
-        } catch (_error) {
-        }
+        } catch (_error) {}
       }
     });
 
@@ -55,8 +54,7 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
         if (ScrollTrigger && typeof ScrollTrigger.refresh === "function") {
           try {
             ScrollTrigger.refresh();
-          } catch (_error) {
-          }
+          } catch (_error) {}
         }
       }, 100);
     });

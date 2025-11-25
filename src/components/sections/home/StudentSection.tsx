@@ -147,10 +147,10 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                           />
                           <div className="relative z-20 flex items-end justify-between h-full">
                             <div
-                              className="flex flex-col justify-end gap-3 bg-[#E97451]/80 w-full h-30 p-4"
+                              className="flex flex-col justify-end gap-3 bg-[#E97451]/80 w-full h-27 p-4"
                               style={{
                                 clipPath:
-                                  "polygon(0 0%, 100% 42%, 100% 100%, 0% 100%)",
+                                  "polygon(0 0%, 100% 23%, 100% 100%, 0% 100%)",
                               }}
                             >
                               <h3 className="font-mulish text-xl md:text-xl lg:text-2xl xl:text-[20px] 2xl:text-[20px] 3xl:text-[24px] font-bold text-white font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight transition-colors duration-500 ease-in-out delay-150">
@@ -162,17 +162,25 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                             </div>
                             <DialogWidget
                               trigger={
-                                <ButtonWidget
-                                  className="absolute right-3 bottom-10 w-18 h-18 p-0 bg-transparent hover:bg-transparent border-none shadow-none rounded-full group/play-button hover:scale-110 active:scale-95 transition-all duration-300 ease-out animate-play-pulse"
-                                  aria-label="Play video"
-                                >
-                                  <ImageWidget
-                                    src={Play}
-                                    alt=""
-                                    className="w-18 cursor-pointer h-18 text-white group-hover/play-button:text-[#E97451] transition-colors duration-500 ease-in-out"
-                                    aria-hidden="true"
-                                  />
-                                </ButtonWidget>
+                                <div className="absolute right-5 bottom-15 w-13 h-13">
+                                  <div className="video-main">
+                                    <div className="waves-block">
+                                      <div className="waves wave-1" />
+                                      <div className="waves wave-2" />
+                                      <div className="waves wave-3" />
+                                    </div>
+                                  </div>
+                                  <ButtonWidget
+                                    type="button"
+                                    className="relative w-13 h-13 p-0 bg-transparent hover:bg-transparent border-none shadow-none rounded-full group/play-button transition-all duration-300 ease-out z-10"
+                                  >
+                                    <ImageWidget
+                                      src={Play}
+                                      alt="play video"
+                                      className="w-13 cursor-pointer h-13 text-white group-hover/play-button:text-[#E97451] transition-colors duration-500 ease-in-out relative z-10"
+                                    />
+                                  </ButtonWidget>
+                                </div>
                               }
                               contentClassName="sm:max-w-[90vw] lg:max-w-[800px] p-0"
                               showCancel={false}
