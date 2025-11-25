@@ -2,7 +2,6 @@
 
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { DialogClose } from "@/components/ui/dialog";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
@@ -11,7 +10,7 @@ import DialogWidget from "@/components/widgets/DialogWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import { Into, Play } from "@/helpers/ImageHelper";
+import { ArrowLeftBlack, ArrowRightBlack, Into, Play } from "@/helpers/ImageHelper";
 import type { StudentSectionProps } from "./utils/home";
 
 const StudentSection = ({ data }: StudentSectionProps) => {
@@ -117,7 +116,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                       >
                         {/* biome-ignore lint/a11y/noStaticElementInteractions: Hover-only interaction for video playback, not a clickable element */}
                         <div
-                          className="group relative flex flex-col gap-4 overflow-hidden transition-all duration-500 ease-in-out delay-75 p-3 sm:p-4 lg:p-5 aspect-3/4 min-h-[380px] sm:min-h-[430px] bg-[#F6F6F6] hover:bg-[#E97451]/80"
+                          className="group relative flex flex-col gap-4 overflow-hidden transition-all duration-500 ease-in-out delay-75 p-3 sm:p-4 lg:p-5 aspect-3/4 min-h-[380px] sm:min-h-[480px] sm:max-w-[330px] bg-[#F6F6F6] hover:bg-[#E97451]/80"
                           onMouseEnter={(e) => {
                             const video =
                               e.currentTarget.querySelector("video");
@@ -214,23 +213,35 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                   type="button"
                   onClick={scrollPrev}
                   disabled={!canScrollPrev}
-                  className={`p-2 rounded-full bg-black/50 hover:bg-black/70 transition-colors ${
-                    !canScrollPrev ? "opacity-50 cursor-not-allowed" : ""
+                  className={`h-[35px] w-[35px] sm:h-[35px]  md:h-[40px] lg:h-[40px] xl:h-[48px] 2xl:h-[48px] 3xl:h-[48px] sm:w-[35px] md:w-[40px] lg:w-[40px] xl:w-[48px] 2xl:w-[48px] 3xl:w-[48px]  ${
+                    !canScrollPrev
+                      ? "opacity-50 cursor-not-allowed"
+                      : "cursor-pointer"
                   }`}
                   aria-label="Previous"
                 >
-                  <ChevronLeft className="w-5 h-5 text-white" />
+                  <ImageWidget
+                    src={ArrowLeftBlack}
+                    alt="Prev"
+                    className="w-[35px] h-[35px]"
+                  />
                 </button>
                 <button
                   type="button"
                   onClick={scrollNext}
                   disabled={!canScrollNext}
-                  className={`p-2 rounded-full bg-black/50 hover:bg-black/70 transition-colors ${
-                    !canScrollNext ? "opacity-50 cursor-not-allowed" : ""
+                  className={`h-[35px] w-[35px] sm:h-[35px]  md:h-[40px] lg:h-[40px] xl:h-[48px] 2xl:h-[48px] 3xl:h-[48px] sm:w-[35px] md:w-[40px] lg:w-[40px] xl:w-[48px] 2xl:w-[48px] 3xl:w-[48px]  ${
+                    !canScrollNext
+                      ? "opacity-50 cursor-not-allowed"
+                      : "cursor-pointer"
                   }`}
                   aria-label="Next"
                 >
-                  <ChevronRight className="w-5 h-5 text-white" />
+                  <ImageWidget
+                    src={ArrowRightBlack}
+                    alt="Next"
+                    className="w-[35px] h-[35px]"
+                  />
                 </button>
               </div>
             </div>
