@@ -35,7 +35,7 @@ const FacultySection = ({ data }: FacultySectionProps) => {
       : [data.Heading];
 
   return (
-    <section className="w-full py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 3xl:py-28 bg-white mx-auto max-w-[1920px]">
+    <section className="w-full py-8 md:py-12 lg:pt-16 xl:pt-20 2xl:pt-24 3xl:pt-28 bg-white mx-auto max-w-[1920px]">
       <ContainerWidget>
         <ScrollWidget animation="fadeUp" delay={0.1}>
           <div className="flex flex-col justify-start md:justify-center items-start md:items-center text-left md:text-center gap-4">
