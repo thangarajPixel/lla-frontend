@@ -109,11 +109,13 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
       <section
         className="
           z-50 max-w-[2560px] bg-cover bg-bottom bg-no-repeat 
-          min-h-[510px] 
+          min-h-[300px] 
+          md:min-h-[500px]
           lg:min-h-[580px]
           xl:min-h-[700px] 
           2xl:min-h-[800px]
           3xl:min-h-[1204px]
+          4xl:min-h-[1500px]
           bg-white text-white
         "
         style={{
