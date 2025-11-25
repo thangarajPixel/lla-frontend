@@ -98,12 +98,12 @@ const LifeSection = ({ data }: LifeSectionProps) => {
             </div>
 
             {/* Desktop: Grid Layout */}
-            <div className="hidden md:grid md:grid-cols-2 gap-4 md:gap-5 lg:gap-6 xl:gap-6 2xl:gap-7 3xl:gap-8">
+            <div className="hidden md:grid md:grid-cols-2 gap-4 md:gap-5 lg:gap-6 xl:gap-6 2xl:gap-7 3xl:gap-8 ml-auto">
               <div className="space-y-4 md:space-y-5 lg:space-y-6 xl:space-y-6 2xl:space-y-7 3xl:space-y-8">
                 {cardsWithoutLast.slice(0, midPoint).map((card) => (
                   <div
                     key={card.id}
-                    className="w-full max-w-[200px] md:max-w-[220px] lg:max-w-[240px] xl:max-w-[250px] 2xl:max-w-[260px] 3xl:max-w-[280px]"
+                    className="w-full max-w-[200px] md:max-w-[220px] lg:max-w-[240px] xl:max-w-[250px] 2xl:max-w-[260px] 3xl:max-w-[280px] ml-auto"
                   >
                     <ScrollWidget
                       animation="fadeUp"
@@ -120,7 +120,7 @@ const LifeSection = ({ data }: LifeSectionProps) => {
                 {cardsWithoutLast.slice(midPoint).map((card) => (
                   <div
                     key={card.id}
-                    className="w-full max-w-[200px] md:max-w-[220px] lg:max-w-[240px] xl:max-w-[250px] 2xl:max-w-[260px] 3xl:max-w-[280px]"
+                    className="w-full max-w-[200px] md:max-w-[220px] lg:max-w-[240px] xl:max-w-[250px] 2xl:max-w-[260px] 3xl:max-w-[280px] ml-auto"
                   >
                     <ScrollWidget
                       animation="fadeUp"
