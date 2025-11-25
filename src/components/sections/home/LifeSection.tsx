@@ -9,6 +9,7 @@ import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url, parseHeading } from "@/helpers/ConstantHelper";
 import { Life } from "@/helpers/ImageHelper";
 import type { LifeCardProps, LifeSectionProps } from "./utils/home";
+import LinkWidget from "@/components/widgets/LinkWidget";
 
 const LifeCard = ({ card }: LifeCardProps) => (
   <div className="bg-white/30 p-3 sm:p-4 lg:p-4 xl:p-5 3xl:p-6 hover:bg-white transition-all duration-300 cursor-pointer">
@@ -77,7 +78,9 @@ const LifeSection = ({ data }: LifeSectionProps) => {
                   )}
                 </p>
                 <div className="self-start">
-                  <OrangeButtonWidget content={data.Btn_txt || "View More"} />
+                  <LinkWidget href="/life-at-lla">
+                    <OrangeButtonWidget content={data.Btn_txt || "View More"} />
+                  </LinkWidget>
                 </div>
               </div>
               <div className="flex justify-end items-end mt-8 sm:mt-10 md:mt-12 lg:mt-12 xl:mt-14 2xl:mt-16 3xl:mt-20">

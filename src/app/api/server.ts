@@ -18,11 +18,9 @@ export async function getAboutUsPageData() {
   }
 }
 
-export async function getLifePageData(page: number, perPage: number) {
+export async function getLifePageData(params: { page: number; per_page: number }) {
   try {
-    const { data } = await serverAxios.get(
-      `/life?per_page=${perPage}&page=${page}`,
-    );
+    const { data } = await serverAxios.get(`/life`, { params: params });
     return data;
   } catch (error) {
     return { error: JSON.stringify(error, null, 2) };
