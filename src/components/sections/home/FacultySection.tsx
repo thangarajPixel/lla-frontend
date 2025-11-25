@@ -156,7 +156,7 @@ const FacultySection = ({ data }: FacultySectionProps) => {
               <div
                 className={`shrink-0 ${
                   facultyData.length % 2 ? "mt-30" : "mt-0"
-                } w-[calc((100%-3rem)/3)] lg:w-[calc((100%-4.5rem)/4)] xl:w-[calc((100%-6rem)/5)] 2xl:w-[calc((100%-7.5rem)/6)]`}
+                } w-[calc((100%-3rem)/3)] lg:w-[calc((100%-4.5rem)/4)] xl:w-[calc((100%-6rem)/5)] 2xl:w-[calc((100%-7.5rem)/6)] ml-3`}
               >
                 <ScrollWidget
                   animation="scale"
