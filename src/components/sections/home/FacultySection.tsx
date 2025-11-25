@@ -5,7 +5,6 @@ import useEmblaCarousel from "embla-carousel-react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
-import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import { Dummy11 } from "@/helpers/ImageHelper";
@@ -39,29 +38,27 @@ const FacultySection = ({ data }: FacultySectionProps) => {
     <section className="w-full py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 3xl:py-28 bg-white mx-auto max-w-[1920px]">
       <ContainerWidget>
         <ScrollWidget animation="fadeUp" delay={0.1}>
-          <ParallaxWidget speed={-0.2}>
-            <div className="flex flex-col justify-start md:justify-center items-start md:items-center text-left md:text-center gap-4">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
-                {data.Title || "Faculty"}
-              </h2>
-              <p className="font-area-variable font-semibold text-lg md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
-                {headingParts[0]}
-                {headingParts[1] && (
-                  <>
-                    <br />
-                    <span className="text-[#E97451]">{headingParts[1]}</span>
-                  </>
-                )}
-              </p>
-              <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[650px]">
-                {data.Description ||
-                  "Our faculty foster an environment of collaboration and mentorship. The guidance is personal, conversations are open, and growth happens through shared experience."}
-              </p>
-              <OrangeButtonWidget
-                content={data.Btn_txt || "Know Your Guides"}
-              />
-            </div>
-          </ParallaxWidget>
+          <div className="flex flex-col justify-start md:justify-center items-start md:items-center text-left md:text-center gap-4">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
+              {data.Title || "Faculty"}
+            </h2>
+            <p className="font-area-variable font-semibold text-lg md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
+              {headingParts[0]}
+              {headingParts[1] && (
+                <>
+                  <br />
+                  <span className="text-[#E97451]">{headingParts[1]}</span>
+                </>
+              )}
+            </p>
+            <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[650px]">
+              {data.Description ||
+                "Our faculty foster an environment of collaboration and mentorship. The guidance is personal, conversations are open, and growth happens through shared experience."}
+            </p>
+            <OrangeButtonWidget
+              content={data.Btn_txt || "Know Your Guides"}
+            />
+          </div>
         </ScrollWidget>
       </ContainerWidget>
       <div className="pt-8 relative">
@@ -74,16 +71,14 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                 delay={0.1 + index * 0.1}
               >
                 <div className="flex flex-col gap-2 sm:gap-3">
-                  <ParallaxWidget speed={0.3}>
-                    <div className="w-full aspect-square sm:aspect-auto overflow-hidden relative">
-                      <ImageWidget
-                        src={getS3Url(faculty?.Image?.[0]?.url) || Dummy11}
-                        alt={faculty.Title}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  </ParallaxWidget>
+                  <div className="w-full aspect-square sm:aspect-auto overflow-hidden relative">
+                    <ImageWidget
+                      src={getS3Url(faculty?.Image?.[0]?.url) || Dummy11}
+                      alt={faculty.Title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
                   <h3 className="font-mulish text-lg sm:text-xl font-bold text-black font-urbanist leading-tight">
                     {faculty.Title}
                   </h3>
@@ -133,16 +128,14 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                 >
                   <ScrollWidget animation="scale" delay={0.1 + index * 0.05}>
                     <div className="group relative flex flex-col gap-3 overflow-hidden transition-all duration-500 ease-in-out delay-75 hover:bg-[#E97451]/20 p-3.5 cursor-pointer">
-                      <ParallaxWidget speed={0.25}>
-                        <div className="relative w-full aspect-square overflow-hidden transition-transform duration-500 ease-in-out delay-100 group-hover:scale-[1.02]">
-                          <ImageWidget
-                            src={getS3Url(faculty?.Image?.[0]?.url) || Dummy11}
-                            alt={faculty.Title}
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
-                      </ParallaxWidget>
+                      <div className="relative w-full aspect-square overflow-hidden transition-transform duration-500 ease-in-out delay-100 group-hover:scale-[1.02]">
+                        <ImageWidget
+                          src={getS3Url(faculty?.Image?.[0]?.url) || Dummy11}
+                          alt={faculty.Title}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
                       <h3 className="font-mulish text-xl md:text-xl lg:text-2xl xl:text-[20px] 2xl:text-[20px] 3xl:text-[24px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight transition-colors duration-500 ease-in-out delay-150">
                         {faculty.Title}
                       </h3>
