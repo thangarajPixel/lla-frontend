@@ -5,7 +5,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
-import { getS3Url, parseHeading } from "@/helpers/ConstantHelper";
+import { getS3Url } from "@/helpers/ConstantHelper";
 import {
   Dummy3,
   Dummy4,
@@ -19,7 +19,6 @@ import {
 import type { GallerySectionProps } from "./utils/home";
 
 const GallertSection = ({ data }: GallerySectionProps) => {
-  const headingParts = parseHeading(data.Heading);
   const galleryImages = data.Image || [];
 
   const getImageUrl = (index: number) => {
@@ -80,9 +79,9 @@ const GallertSection = ({ data }: GallerySectionProps) => {
           {data.Title || "Gallery"}
         </h2>
         <p className="font-area-variable font-semibold text-base text-black">
-          {headingParts[0]}
-          {headingParts[1] && (
-            <span className="text-[#E97451] ml-2">{headingParts[1]}</span>
+          {data.Heading}
+          {data.SubHeading && (
+            <span className="text-[#E97451] ml-2">{data.SubHeading}</span>
           )}
         </p>
         <div className="mt-6 text-left lg:text-center md:hidden">
@@ -132,16 +131,16 @@ const GallertSection = ({ data }: GallerySectionProps) => {
           </ParallaxWidget>
         </div>
         <div className="flex flex-col gap-6">
-          <div className="flex flex-col justify-end items-center gap-2">
+          <div className="flex flex-col justify-end  items-center gap-2">
             <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
               {data.Title || "Gallery"}
             </h2>
-            <p className="font-area-variable font-semibold text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
-              {headingParts[0]}
+            <p className="font-area-variable font-semibold text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black text-center">
+              {data.Heading}
             </p>
-            {headingParts[1] && (
+            {data.SubHeading && (
               <p className="font-area-variable font-semibold text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
-                <span className="text-[#E97451] ml-2">{headingParts[1]}</span>
+                <span className="text-[#E97451] ml-2">{data.SubHeading}</span>
               </p>
             )}
             <div className="mt-6 text-left lg:text-center">

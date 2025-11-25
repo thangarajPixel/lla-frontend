@@ -4,12 +4,12 @@ import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
-import { getS3Url, parseHeading } from "@/helpers/ConstantHelper";
+import { getS3Url } from "@/helpers/ConstantHelper";
 import { Life } from "@/helpers/ImageHelper";
 import type { LifeCardProps, LifeSectionProps } from "./utils/home";
-import LinkWidget from "@/components/widgets/LinkWidget";
 
 const LifeCard = ({ card }: LifeCardProps) => (
   <div className="bg-white/30 p-3 sm:p-4 lg:p-4 xl:p-5 3xl:p-6 hover:bg-white transition-all duration-300 cursor-pointer">
@@ -31,7 +31,6 @@ const LifeCard = ({ card }: LifeCardProps) => (
 );
 
 const LifeSection = ({ data }: LifeSectionProps) => {
-  const headingParts = parseHeading(data.Heading);
   const lifeCardsData = data.Card || [];
   const lastCard =
     lifeCardsData.length > 0 ? lifeCardsData[lifeCardsData.length - 1] : null;
@@ -58,7 +57,13 @@ const LifeSection = ({ data }: LifeSectionProps) => {
       className="w-full min-h-[1100px] md:min-h-[700px] lg:min-h-[900px] xl:min-h-[1000px] 2xl:min-h-[1100px] 3xl:min-h-[1200px] bg-cover  bg-no-repeat bg-position-[bottom_left_-200px] md:bg-center sm:bg-position-center md:bg-fixed relative bg-[#ECECEC] py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 3xl:py-28"
       style={{ backgroundImage: `url(${Life.src})` }}
     >
-      <div className="absolute inset-0 bg-linear-to-b from-[#ECECEC] via-transparent to-transparent" />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(to bottom, #ECECEC 0%, #ECECEC 20%, rgba(236, 236, 236, 0.6) 40%, rgba(236, 236, 236, 0.3) 60%, rgba(236, 236, 236, 0.1) 80%, transparent 100%)",
+        }}
+      />
 
       <div className="relative z-10">
         <ContainerWidget>
@@ -69,13 +74,14 @@ const LifeSection = ({ data }: LifeSectionProps) => {
                   {data.Title || "Life at LLA"}
                 </h3>
                 <p className="font-area-variable font-semibold text-lg md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
-                  {headingParts[0]}
-                  {headingParts[1] && (
-                    <>
-                      <br />
-                      <span className="text-[#E97451]">{headingParts[1]}</span>
-                    </>
+                  {data.Heading}
+                  <br />
+                  {data.SubHeading && (
+                    <span className="text-[#E97451]">{data.SubHeading}</span>
                   )}
+                </p>
+                <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[650px]">
+                  {data.Description}
                 </p>
                 <div className="self-start">
                   <LinkWidget href="/life-at-lla">

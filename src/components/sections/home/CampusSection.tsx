@@ -6,10 +6,6 @@ import { Building } from "@/helpers/ImageHelper";
 import type { CampusSectionProps } from "./utils/home";
 
 const CampusSection = ({ data }: CampusSectionProps) => {
-  const headingParts = data.Heading?.includes(",")
-    ? data.Heading.split(",").map((part) => part.trim())
-    : [data.Heading];
-
   return (
     <section
       className="w-full h-screen md:bg-fixed bg-cover bg-right bg-no-repeat sm:py-20 py-10 bg-[#F6F6F6]"
@@ -25,9 +21,9 @@ const CampusSection = ({ data }: CampusSectionProps) => {
                 {data.Title || "Campus"}
               </h3>
               <p className="font-area-variable font-semibold text-lg md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
-                {headingParts[0]}
-                {headingParts[1] && (
-                  <span className="text-[#E97451] ml-2">{headingParts[1]}</span>
+                {data.Heading}
+                {data.SubHeading && (
+                  <span className="text-[#E97451] ml-2">{data.SubHeading}</span>
                 )}
               </p>
               <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[600px]">

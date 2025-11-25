@@ -5,12 +5,11 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
-import { getS3Url, parseHeading } from "@/helpers/ConstantHelper";
+import { getS3Url } from "@/helpers/ConstantHelper";
 import { Dummy1 } from "@/helpers/ImageHelper";
 import type { AboutSectionProps } from "./utils/home";
 
 const AboutSection = ({ data }: AboutSectionProps) => {
-  const headingParts = parseHeading(data.Heading);
   const aboutImages = data.Image || [];
 
   const getImageUrl = (index: number) => {
@@ -44,11 +43,11 @@ const AboutSection = ({ data }: AboutSectionProps) => {
               {data.Title || "About LLA"}
             </h3>
             <p className="font-area-variable font-semibold text-lg md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
-              {headingParts[0]}
-              {headingParts[1] && (
+              {data.Heading}
+              {data.SubHeading && (
                 <>
                   <br className="hidden sm:block" />
-                  <span className="text-[#E97451]">{headingParts[1]}</span>
+                  <span className="text-[#E97451]">{data.SubHeading}</span>
                 </>
               )}
             </p>

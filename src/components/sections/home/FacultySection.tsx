@@ -28,12 +28,6 @@ const FacultySection = ({ data }: FacultySectionProps) => {
 
   const facultyData = data.Card || [];
 
-  const headingParts = data.Heading?.includes(" a ")
-    ? data.Heading.split(" a ").map((part) => part.trim())
-    : data.Heading?.includes(" a")
-      ? data.Heading.split(" a").map((part) => part.trim())
-      : [data.Heading];
-
   return (
     <section className="w-full py-8 md:py-12 lg:pt-16 xl:pt-20 2xl:pt-24 3xl:pt-28 bg-white mx-auto max-w-[1920px]">
       <ContainerWidget>
@@ -43,11 +37,11 @@ const FacultySection = ({ data }: FacultySectionProps) => {
               {data.Title || "Faculty"}
             </h2>
             <p className="font-area-variable font-semibold text-lg md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
-              {headingParts[0]}
-              {headingParts[1] && (
+              {data.Heading}
+              {data.SubHeading && (
                 <>
                   <br />
-                  <span className="text-[#E97451]">{headingParts[1]}</span>
+                  <span className="text-[#E97451]">{data.SubHeading}</span>
                 </>
               )}
             </p>
@@ -55,9 +49,7 @@ const FacultySection = ({ data }: FacultySectionProps) => {
               {data.Description ||
                 "Our faculty foster an environment of collaboration and mentorship. The guidance is personal, conversations are open, and growth happens through shared experience."}
             </p>
-            <OrangeButtonWidget
-              content={data.Btn_txt || "Know Your Guides"}
-            />
+            <OrangeButtonWidget content={data.Btn_txt || "Know Your Guides"} />
           </div>
         </ScrollWidget>
       </ContainerWidget>

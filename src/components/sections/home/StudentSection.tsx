@@ -10,12 +10,11 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import DialogWidget from "@/components/widgets/DialogWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
-import { getS3Url, parseHeading } from "@/helpers/ConstantHelper";
+import { getS3Url } from "@/helpers/ConstantHelper";
 import { Into, Play } from "@/helpers/ImageHelper";
 import type { StudentSectionProps } from "./utils/home";
 
 const StudentSection = ({ data }: StudentSectionProps) => {
-  const headingParts = parseHeading(data.Heading);
   const studentData = data.Card || [];
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
@@ -82,9 +81,9 @@ const StudentSection = ({ data }: StudentSectionProps) => {
               {data.Title || "Student Testimonials"}
             </h2>
             <p className="font-area-variable font-semibold text-lg md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl 3xl:text-[40px] text-black">
-              {headingParts[0]}
-              {headingParts[1] && (
-                <span className="text-[#E97451] pl-2">{headingParts[1]}</span>
+              {data.Heading}
+              {data.SubHeading && (
+                <span className="text-[#E97451] pl-2">{data.SubHeading}</span>
               )}
             </p>
             <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[760px]">
