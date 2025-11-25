@@ -81,7 +81,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
       <ContainerWidget>
         <ScrollWidget animation="fadeUp" delay={0.1}>
           <div className="flex flex-col justify-start md:justify-center items-start md:items-center text-left md:text-center gap-4.5">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-normal text-black font-urbanist">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
               {data.Title || "Student Testimonials"}
             </h2>
             <p className="font-area-variable font-semibold text-lg md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl 3xl:text-[40px] text-black">
@@ -213,7 +213,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                   );
                 })}
               </div>
-              <div className="md:hidden flex gap-2 mt-10">
+              <div className="md:hidden flex gap-2 mt-5">
                 <button
                   type="button"
                   onClick={scrollPrev}
