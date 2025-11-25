@@ -44,5 +44,5 @@ export const parseHeading = (heading: string | undefined): string[] => {
 };
 
 export const getS3Url = (url: string) => {
-  return "https://" + process.env.S3_URL + url;
+  return `https://${process.env.S3_URL}${url}`;
 };

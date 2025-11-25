@@ -1,7 +1,7 @@
 "use client";
 
 import gsap from "gsap";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { getLifePageData } from "@/app/api/server";
 import { Skeleton } from "@/components/ui/skeleton";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
@@ -27,6 +27,19 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
 
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const previousLength = useRef(cards.length);
+  const skeletonIdRef = useRef(0);
+
+  const skeletonKeys = useMemo(() => {
+    if (loading) {
+      skeletonIdRef.current += 1;
+      const baseId = skeletonIdRef.current;
+      return Array.from({ length: 8 }, () => {
+        const uniqueId = `${baseId}-${Math.random().toString(36).substring(2, 9)}`;
+        return `skeleton-${uniqueId}`;
+      });
+    }
+    return [];
+  }, [loading]);
 
   const loadMore = async () => {
     if (loading || cards.length >= total) return;
@@ -97,7 +110,7 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
             ))}
 
             {loading &&
-              [...Array(8)].map((_, i) => <LifeCardSkeleton key={`sk-${i}`} />)}
+              skeletonKeys.map((key) => <LifeCardSkeleton key={key} />)}
           </div>
 
           {!loading && cards.length < total && (
