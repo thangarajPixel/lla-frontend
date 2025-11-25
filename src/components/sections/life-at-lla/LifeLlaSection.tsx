@@ -81,11 +81,11 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
     <section className="w-full bg-white h-full py-4 sm:py-6 md:py-8 lg:py-10 xl:py-2 2xl:py-7 3xl:py-10">
       <ContainerWidget>
         <ScrollWidget animation="fadeDown" delay={0.1}>
-          <div className="flex flex-col justify-start md:justify-center items-start md:items-center text-left md:text-center gap-4.5">
-            <h3 className="text-[30px] md:text-[35px] lg:text-[40px] xl:text-[50px] 2xl:text-[60px] 3xl:text-[64px] font-regular text-black font-urbanist">
+          <div className="flex flex-col justify-start md:justify-center items-start md:items-center text-left md:text-center gap-2 md:gap-5">
+            <h3 className="text-[32px] md:text-[35px] lg:text-[40px] xl:text-[50px] 2xl:text-[60px] 3xl:text-[64px] font-regular text-black font-urbanist">
               {data.Title}
             </h3>
-            <p className="text-[16px] sm:text-[17px] md:text-[18px] lg:text-[20px] xl:text-[25px] 2xl:text-[30px] 3xl:text-[40px] font-regular font-mulish px-3 sm:px-30 md:px-35 lg:px-38 xl:px-40 2xl:px-40 3xl:px-40 text-black">
+            <p className="text-[16px] sm:text-[17px] md:text-[18px] lg:text-[20px] xl:text-[25px] 2xl:text-[30px] 3xl:text-[40px] font-regular font-mulish  text-black w-full md:max-w-[600px]">
               {data.Heading}{" "}
               <span className="text-[#E97451]"> {data.SubHeading} </span>{" "}
             </p>
