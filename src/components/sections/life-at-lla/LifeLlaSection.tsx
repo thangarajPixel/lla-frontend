@@ -42,21 +42,23 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
   }, [loading]);
 
   const loadMore = async () => {
-    if (loading || cards.length >= total) return;
+  if (loading || cards.length >= total) return;
 
-    setLoading(true);
+  // STEP 1: show skeleton first
+  setLoading(true);
 
-    const nextPage = page + 1;
-    const params = { page: nextPage, per_page: 8 };
-    const res = await getLifePageData(params);
+  await new Promise((res) => setTimeout(res, 500));
 
-    if (res?.Card) {
-      setCards((prev) => [...prev, ...res.Card]);
-      setPage(nextPage);
-    }
+  const nextPage = page + 1;
+  const params = { page: nextPage, per_page: 8 };
+  const res = await getLifePageData(params);
+  if (res?.Card) {
+    setCards((prev) => [...prev, ...res.Card]);
+    setPage(nextPage);
+  }
+  setLoading(false);
+};
 
-    setLoading(false);
-  };
 
   useEffect(() => {
     const newItems = cardsRef.current.slice(previousLength.current);
@@ -102,7 +104,7 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
                   cardsRef.current[index] = el;
                 }}
               >
-                <ScrollWidget animation="fadeUp" delay={0.1}>
+                <ScrollWidget animation="fadeIn" delay={-0.1}>
                   <ParallaxWidget speed={-0.1}>
                     <LifeCard card={card} />
                   </ParallaxWidget>
@@ -115,9 +117,9 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
           </div>
 
           {!loading && cards.length < total && (
-            <ScrollWidget animation="fadeUp" delay={-0.1}>
+            <ScrollWidget animation="fadeIn" delay={0.1}>
               <div className="flex justify-center items-center mt-6">
-                <ParallaxWidget speed={0.1}>
+                
                   <ButtonWidget
                     onClick={loadMore}
                     className="font-mulish hover:bg-white font-bold bg-white border border-[#E97451] rounded-[60px] text-[#E97451] px-5 h-10 text-xs xl:text-[14px] 2xl:text-[14px] 3xl:text-[18px]"
@@ -131,7 +133,7 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
                       className="object-cover"
                     />
                   </ButtonWidget>
-                </ParallaxWidget>
+               
               </div>
             </ScrollWidget>
           )}
