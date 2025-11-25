@@ -19,7 +19,7 @@ const LifeCard = ({ card }: LifeCardProps) => (
     </h4>
     <div className="relative w-full aspect-4/3 overflow-hidden mb-2 lg:mb-3 3xl:mb-4">
       <ImageWidget
-        src={getS3Url(card.Image?.[0]?.url) || ""}
+        src={card.Image?.[0]?.url ? getS3Url(card.Image[0].url) : ""}
         alt={card.Title}
         fill
         className="object-cover"
