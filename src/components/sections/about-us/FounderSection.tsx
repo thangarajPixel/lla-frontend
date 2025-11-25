@@ -13,14 +13,14 @@ const FounderSection = ({ data }: FounderSectionProps) => {
         <div className="text-center space-y-1  xs:space-y-2 sm:space-y-3 md:space-y-5 lg:space-y-6 xl:space-y-4  2xl:space-y-12  3xl:space-y-14 4xl:space-y-16">
           <ScrollWidget delay={0.1}>
             <h3 className="font-urbanist font-regular text-black text-left xs:text-left md:text-center
-                text-[32px] xs:text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] 4xl:text-[90px]">
+                text-[32px] xs:text-[34px] sm:text-[36px] md:text-[40px] lg:text-[48px] xl:text-[56px] 2xl:text-[64px] 3xl:text-[64px] 4xl:text-[64px]">
                 {data.Title}
             </h3>
           </ScrollWidget>
           <ScrollWidget delay={0.1}>
             <p className="font-mulish font-regular text-black text-left xs:text-left md:text-center
-                           text-[24px] xs:text-[25px] sm:text-[26px] md:text-xl lg:text-2xl
-          xl:text-3xl 2xl:text-4xl 3xl:text-[40px] 4xl:text-[45px] mx-auto max-w-[500px]
+                           text-[24px] xs:text-[25px] sm:text-[26px] md:text-[28px] lg:text-[28px]
+          xl:text-[30px] 2xl:text-[35px] 3xl:text-[40px] 4xl:text-[45px] mx-auto max-w-[500px]
           xs:max-w-[600px] sm:max-w-[650px]
           md:max-w-[700px] lg:max-w-[850px] xl:max-w-[600px]">
              {data.Heading}
@@ -50,15 +50,14 @@ const FounderSection = ({ data }: FounderSectionProps) => {
               >
                 <h4
                   className="font-urbanist font-semibold text-[#E97451] block hidden md:block
-              text-xl
-              xs:text-2xl
-              sm:text-3xl
-              md:text-3xl
-              lg:text-3xl
-              xl:text-4xl
-              2xl:text-[38px]
-              3xl:text-[42px]
-              4xl:text-4xl
+              text-[24px]
+              xs:text-[26px]
+              sm:text-[26px]
+              md:text-[28px]
+              lg:text-[28px]
+              xl:text-[32px]
+              2xl:text-[36px]
+              3xl:text-[40px]
               "
                 >
                  {data.Founder_card[0].Heading}
@@ -66,27 +65,28 @@ const FounderSection = ({ data }: FounderSectionProps) => {
                 <p
                   className="
               font-mulish text-black leading-relaxed
-              text-[13px]
-              xs:text-[12px]
-              sm:text-[13px]
-              lg:text-[14px]
+              text-[16px]
+              xs:text-[16px]
+              sm:text-[16px]
+              lg:text-[16px]
               xl:text-[16px]
               2xl:text-[18px]
-              3xl:text-[20px]
-              4xl:text-[22px]
+              3xl:text-[18px]
+              4xl:text-[18px]
               "
                 >
                   {data.Founder_card[0].Description[0].children[0].text}
                 </p>
                 <p
                   className=" font-mulish text-black leading-relaxed text-[13px]
-              xs:text-[13px]
-              sm:text-[13px]
-              lg:text-[14px]
+              text-[16px]
+              xs:text-[16px]
+              sm:text-[16px]
+              lg:text-[16px]
               xl:text-[16px]
               2xl:text-[18px]
-              3xl:text-[20px]
-              4xl:text-[22px]
+              3xl:text-[18px]
+              4xl:text-[18px]
               "
                 >
                   {data.Founder_card[0].Description[1].children[0].text ?? ""}
@@ -200,31 +200,20 @@ const FounderSection = ({ data }: FounderSectionProps) => {
                 <p
                   className="
               font-mulish text-black leading-relaxed
-              text-[13px]
-              xs:text-[12px]
-              sm:text-[13px]
-              lg:text-[14px]
+             text-[16px]
+              xs:text-[16px]
+              sm:text-[16px]
+              lg:text-[16px]
               xl:text-[16px]
               2xl:text-[18px]
-              3xl:text-[20px]
-              4xl:text-[22px]
+              3xl:text-[18px]
               "
                 >
                   {data.Founder_card[1].Description[0].children[0].text ?? ""}
                 </p>
-                <p
-                  className="
-              font-mulish text-black leading-relaxed
-              text-[13px]
-              xs:text-[13px]
-              sm:text-[13px]
-              lg:text-[14px]
-              xl:text-[16px]
-              2xl:text-[18px]
-              3xl:text-[20px]
-              4xl:text-[22px]
-              "
-                >
+                <p  className="font-mulish text-black leading-relaxed text-[16px]
+              xs:text-[13px]  sm:text-[14px]  md:text-[15px]   lg:text-[16px]
+              xl:text-[17px]  2xl:text-[18px]   3xl:text-[18px]">
                   {data.Founder_card[1].Description[1].children[0].text ?? ""}
                 </p>
                 <OrangeButtonWidget content={data.Founder_card[1].Btn_txt} />
