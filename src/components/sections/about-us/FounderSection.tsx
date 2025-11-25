@@ -29,17 +29,9 @@ const FounderSection = ({ data }: FounderSectionProps) => {
           </ScrollWidget>
         </div>
         <div className="mt-2 xs:mt-6 sm:mt-12 md:mt-10 space-y-10 sm:space-y-10 md:space-y-12 ">
-          <div
-            className="
-        grid grid-cols-1
-        md:grid-cols-2
-        gap-6 md:gap-14 lg:gap-16 xl:gap-18 2xl:gap-20 3xl:gap-24
-        items-center
-        "
-          >
+          <div  className=" grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-14 lg:gap-16 xl:gap-18 2xl:gap-20 3xl:gap-24 items-center " >
             <ScrollWidget delay={0.2} className="order-2 md:order-1">
-              <div
-                className="
+              <div  className="
             space-y-3
             xs:space-y-4
             md:space-y-5
@@ -48,8 +40,7 @@ const FounderSection = ({ data }: FounderSectionProps) => {
             4xl:max-w-[420px]
             "
               >
-                <h4
-                  className="font-urbanist font-semibold text-[#E97451] block hidden md:block
+                <h4 className="font-urbanist font-semibold text-[#E97451] block hidden md:block
               text-[24px]
               xs:text-[26px]
               sm:text-[26px]
@@ -57,14 +48,10 @@ const FounderSection = ({ data }: FounderSectionProps) => {
               lg:text-[28px]
               xl:text-[32px]
               2xl:text-[36px]
-              3xl:text-[40px]
-              "
-                >
+              3xl:text-[40px] ">
                  {data.Founder_card[0].Heading}
                 </h4>
-                <p
-                  className="
-              font-mulish text-black leading-relaxed
+                <p className="font-mulish text-black leading-normal
               text-[16px]
               xs:text-[16px]
               sm:text-[16px]
@@ -73,12 +60,11 @@ const FounderSection = ({ data }: FounderSectionProps) => {
               2xl:text-[18px]
               3xl:text-[18px]
               4xl:text-[18px]
-              "
-                >
+              " >
                   {data.Founder_card[0].Description[0].children[0].text}
                 </p>
                 <p
-                  className=" font-mulish text-black leading-relaxed text-[13px]
+                  className=" font-mulish text-black leading-normal text-[13px]
               text-[16px]
               xs:text-[16px]
               sm:text-[16px]
@@ -127,8 +113,7 @@ const FounderSection = ({ data }: FounderSectionProps) => {
               </div>
             </ScrollWidget>
           </div>
-          <div
-            className="
+          <div  className="
         grid grid-cols-1
         md:grid-cols-2
         gap-6
@@ -140,8 +125,7 @@ const FounderSection = ({ data }: FounderSectionProps) => {
         2xl:gap-20
         3xl:gap-24
         items-center
-        "
-          >
+        ">
             <ScrollWidget delay={0.3}>
               <h4
                 className="mb-3 block md:hidden font-urbanist font-regular text-[#E97451] text-[32px]  xs:text-[32px]
@@ -193,25 +177,19 @@ const FounderSection = ({ data }: FounderSectionProps) => {
               xl:text-4xl
               3xl:text-[42px]
               4xl:text-[48px]
-              "
-                >
+              ">
                    {data.Founder_card[1].Heading}
                 </h4>
-                <p
-                  className="
-              font-mulish text-black leading-relaxed
-             text-[16px]
+                <p className="font-mulish text-black leading-normal text-[16px]
               xs:text-[16px]
               sm:text-[16px]
               lg:text-[16px]
               xl:text-[16px]
               2xl:text-[18px]
-              3xl:text-[18px]
-              "
-                >
+              3xl:text-[18px] ">
                   {data.Founder_card[1].Description[0].children[0].text ?? ""}
                 </p>
-                <p  className="font-mulish text-black leading-relaxed text-[16px]
+                <p  className="font-mulish text-black leading-normal text-[16px]
               xs:text-[13px]  sm:text-[14px]  md:text-[15px]   lg:text-[16px]
               xl:text-[17px]  2xl:text-[18px]   3xl:text-[18px]">
                   {data.Founder_card[1].Description[1].children[0].text ?? ""}
