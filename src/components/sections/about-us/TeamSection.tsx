@@ -3,9 +3,9 @@ import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
-import { TeamDummy4, TeamGroupDummy } from "@/helpers/ImageHelper";
-import { TeamSectionProps } from "./utils/about-us";
 import { getS3Url } from "@/helpers/ConstantHelper";
+import { TeamDummy4, TeamGroupDummy } from "@/helpers/ImageHelper";
+import type { TeamSectionProps } from "./utils/about-us";
 
 const TeamSection = ({ data }: TeamSectionProps) => {
   const facultyData = [

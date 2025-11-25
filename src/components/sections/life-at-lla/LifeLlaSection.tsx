@@ -1,17 +1,17 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import gsap from "gsap";
+import { useEffect, useRef, useState } from "react";
+import { getLifePageData } from "@/app/api/server";
+import { Skeleton } from "@/components/ui/skeleton";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { ArrowDown } from "@/helpers/ImageHelper";
 import LifeCard from "./utils/life-card";
-import gsap from "gsap";
-import ParallaxWidget from "@/components/widgets/ParallaxWidget";
-import { Skeleton } from "@/components/ui/skeleton";
-import { LifeSectionProps } from "./utils/life-lla";
-import { getLifePageData } from "@/app/api/server";
+import type { LifeSectionProps } from "./utils/life-lla";
 
 const LifeLlaSection = ({ data }: LifeSectionProps) => {
   const LifeCardSkeleton = () => (

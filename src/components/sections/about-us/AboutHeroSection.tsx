@@ -1,9 +1,9 @@
 import { Fragment } from "react/jsx-runtime";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
-import { AboutBg } from "@/helpers/ImageHelper";
-import { AboutHeroSectionProps } from "./utils/about-us";
 import { getS3Url } from "@/helpers/ConstantHelper";
+import { AboutBg } from "@/helpers/ImageHelper";
+import type { AboutHeroSectionProps } from "./utils/about-us";
 
 const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
   return (

@@ -3,8 +3,8 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
-import { FounderSectionProps } from "./utils/about-us";
 import { getS3Url } from "@/helpers/ConstantHelper";
+import type { FounderSectionProps } from "./utils/about-us";
 
 const FounderSection = ({ data }: FounderSectionProps) => {
   return (
