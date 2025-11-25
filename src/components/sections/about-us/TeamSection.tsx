@@ -73,19 +73,19 @@ const TeamSection = ({ data }: TeamSectionProps) => {
             </p>
           </ScrollWidget>
         </div>
-        <div className="py-8 pb-9 sm sm:py-8 md:py-14 lg:py-12 xl:py-12 2xl:py-16 3xl:py-20 4xl:py-15">
+        <div className="py-7 pb-9 sm sm:py-8 md:py-14 lg:py-12 xl:py-12 2xl:py-16 3xl:py-20 4xl:py-15">
           <div
             className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4
             2xl:grid-cols-4 3xl:grid-cols-4 4xl:grid-cols-4
-            gap-4 sm:gap-4 md:gap-8 lg:gap-4 xl:gap-4
+            gap-2 sm:gap-4 md:gap-8 lg:gap-4 xl:gap-4
             2xl:gap-5 3xl:gap-6 4xl:gap-7" >
             {facultyData.map((faculty) => (
               <ScrollWidget key={faculty.id} animation="scale" delay={0.1}>
-                <div  className={`${faculty.className} group max-w-[300px]  bg-white
+                <div  className={`${faculty.className} group max-w-[320px]  bg-white
                             hover:bg-[#E97451]/20 cursor-pointer
                             transition-colors duration-500 ease-out
                             px-3 py-3 flex flex-col
-                            h-[270px] xs:h-[310px] sm:h-[310px] md:h-[300px] lg:h-[300px]
+                            h-[300px] xs:h-[310px] sm:h-[310px] md:h-[300px] lg:h-[300px]
                             xl:h-[340px] 2xl:h-[410px] 3xl:h-[480px] 4xl:h-[500px]`} >
                   <ParallaxWidget speed={-0.1}>
                     <div className="w-full aspect-square overflow-hidden max-h-[300px] max-w-[300px]">
@@ -97,19 +97,19 @@ const TeamSection = ({ data }: TeamSectionProps) => {
                       />
                     </div>
                   </ParallaxWidget>
-                  <h3
+                  <h5
                     className="
-                    font-urbanist font-bold text-black 
-                    mt-3 leading-tight
-                    text-[12px] sm:text-lg md:text-xl lg:text-[20px]
-                    xl:text-[16px] 2xl:text-[24px] 3xl:text-[26px] 4xl:text-[28px]"
+                    font-mulish font-bold text-black 
+                    mt-3 leading-[24px]
+                    text-[13px] sm:text-[16px] md:text-xl lg:text-[20px]
+                    xl:text-[18px] 2xl:text-[24px] 3xl:text-[24px] 4xl:text-[24px]"
                   >
                     {faculty.name}
-                  </h3>
+                  </h5>
                   <p
-                    className="font-mulish text-black
-                    text-[14px] sm:text-[16px] md:text-base lg:text-[12px]
-                    xl:text-[12px] 2xl:text-[18px] 3xl:text-[20px] 4xl:text-[22px]"
+                    className="font-mulish text-black font-regular
+                    text-[13px] sm:text-[16px] md:[16px] lg:text-[16px]
+                    xl:text-[14px] 2xl:text-[18px] 3xl:text-[18px] 4xl:text-[18px]"
                   >
                     {faculty.description}
                   </p>
@@ -150,15 +150,15 @@ const TeamSection = ({ data }: TeamSectionProps) => {
 
             <div className="space-y-3 sm:space-y-4 md:space-y-5 py-4">
               <h5
-                className="font-urbanist font-normal text-[#E97451] text-left
-                  text-xl sm:text-xl md:text-xl lg:text-2xl 
+                className="font-urbanist font-regular text-[#E97451] text-left
+                  text-[24px] sm:text-[24px] md:text-xl lg:text-2xl 
                   xl:text-3xl 2xl:text-[55px] 3xl:text-[70px] 4xl:text-[80px]"
               >
                 {data.Frame.Title}
               </h5>
               <p
-                className="font-mulish font-normal text-black leading-normal
-                  text-xs sm:text-sm md:text-base lg:text-[15px] 
+                className="font-mulish font-regular text-black leading-normal
+                  text-[16px] sm:text-sm md:text-base lg:text-[15px] 
                   xl:text-[16px] 2xl:text-[18px] 3xl:text-[20px] 4xl:text-[22px]
                   w-full"
               >
