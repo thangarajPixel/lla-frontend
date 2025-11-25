@@ -9,7 +9,7 @@ import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url, parseHeading } from "@/helpers/ConstantHelper";
 import { Life } from "@/helpers/ImageHelper";
 import type { LifeCardProps, LifeSectionProps } from "./utils/home";
-
+import LinkWidget from "@/components/widgets/LinkWidget";
 
 const LifeCard = ({ card }: LifeCardProps) => (
   <div className="bg-white/30 p-3 sm:p-4 lg:p-4 xl:p-5 3xl:p-6 hover:bg-white transition-all duration-300 cursor-pointer">
@@ -54,7 +54,6 @@ const LifeSection = ({ data }: LifeSectionProps) => {
     ],
   );
   return (
-    
     <section
       className="w-full min-h-[1100px] md:min-h-[700px] lg:min-h-[900px] xl:min-h-[1000px] 2xl:min-h-[1100px] 3xl:min-h-[1200px] bg-cover  bg-no-repeat bg-position-[bottom_left_-200px] md:bg-center sm:bg-position-center md:bg-fixed relative bg-[#ECECEC] py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 3xl:py-28"
       style={{ backgroundImage: `url(${Life.src})` }}
@@ -79,7 +78,9 @@ const LifeSection = ({ data }: LifeSectionProps) => {
                   )}
                 </p>
                 <div className="self-start">
-                  <OrangeButtonWidget content={data.Btn_txt || "View More"} />
+                  <LinkWidget href="/life-at-lla">
+                    <OrangeButtonWidget content={data.Btn_txt || "View More"} />
+                  </LinkWidget>
                 </div>
               </div>
               <div className="flex justify-end items-end mt-8 sm:mt-10 md:mt-12 lg:mt-12 xl:mt-14 2xl:mt-16 3xl:mt-20">

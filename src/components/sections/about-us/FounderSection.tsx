@@ -3,8 +3,8 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
-import { FounderSectionProps } from "./utils/about-us";
 import { getS3Url } from "@/helpers/ConstantHelper";
+import type { FounderSectionProps } from "./utils/about-us";
 
 const FounderSection = ({ data }: FounderSectionProps) => {
   return (
@@ -22,8 +22,9 @@ const FounderSection = ({ data }: FounderSectionProps) => {
                            text-[24px] xs:text-[25px] sm:text-[26px] md:text-[28px] lg:text-[28px]
           xl:text-[30px] 2xl:text-[35px] 3xl:text-[40px] 4xl:text-[45px] mx-auto max-w-[500px]
           xs:max-w-[600px] sm:max-w-[650px]
-          md:max-w-[700px] lg:max-w-[850px] xl:max-w-[600px]">
-             {data.Heading}
+          md:max-w-[700px] lg:max-w-[850px] xl:max-w-[600px]"
+            >
+              {data.Heading}
               <span className="text-[#E97451] ml-2">{data.SubHeading}</span>
             </p>
           </ScrollWidget>
@@ -77,7 +78,9 @@ const FounderSection = ({ data }: FounderSectionProps) => {
                 >
                   {data.Founder_card[0].Description[1].children[0].text ?? ""}
                 </p>
-                <OrangeButtonWidget content={data.Founder_card[0].Btn_txt ?? ""} />
+                <OrangeButtonWidget
+                  content={data.Founder_card[0].Btn_txt ?? ""}
+                />
               </div>
             </ScrollWidget>
             <ScrollWidget delay={0.3} className="order-1 md:order-2">
@@ -85,7 +88,7 @@ const FounderSection = ({ data }: FounderSectionProps) => {
                 className="mb-3 block md:hidden font-urbanist font-regular text-[#E97451] text-[32px]  xs:text-[32px]
                  sm:text-[32px]l"
               >
-                 {data.Founder_card[0].Heading}
+                {data.Founder_card[0].Heading}
               </h4>
               <div
                 className="
@@ -131,7 +134,7 @@ const FounderSection = ({ data }: FounderSectionProps) => {
                 className="mb-3 block md:hidden font-urbanist font-regular text-[#E97451] text-[32px]  xs:text-[32px]
                  sm:text-[32px]l"
               >
-                 {data.Founder_card[1].Heading}
+                {data.Founder_card[1].Heading}
               </h4>
               <div className="flex justify-center md:justify-end w-full">
                 <ImageWidget

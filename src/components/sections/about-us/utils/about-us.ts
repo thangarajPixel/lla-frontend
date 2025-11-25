@@ -20,7 +20,6 @@ export type AboutHeroSectionProps = {
   };
 };
 
-
 export type FounderSectionProps = {
   data: {
     __component?: string;
@@ -47,7 +46,6 @@ export type FounderSectionProps = {
     }>;
   };
 };
-
 
 export type TeamSectionProps = {
   data: {
@@ -80,5 +78,3 @@ export type TeamSectionProps = {
     };
   };
 };
-
-
