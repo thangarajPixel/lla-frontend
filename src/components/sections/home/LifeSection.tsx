@@ -13,7 +13,7 @@ import type { LifeCardProps, LifeSectionProps } from "./utils/home";
 
 const LifeCard = ({ card }: LifeCardProps) => (
   <div className="bg-white/30 p-3 sm:p-4 lg:p-4 xl:p-5 3xl:p-6 hover:bg-white transition-all duration-300 cursor-pointer">
-    <h4 className="text-base sm:text-lg md:text-xl lg:text-[18px] 2xl:text-[20px] 3xl:text-[24px] font-bold text-black font-urbanist leading-tight mb-2 lg:mb-3 3xl:mb-4">
+    <h4 className="text-base sm:text-lg md:text-xl lg:text-[18px] 2xl:text-[18px] 3xl:text-[24px] font-bold text-black font-urbanist leading-tight mb-2 lg:mb-3 3xl:mb-4">
       {card.Title}
     </h4>
     <div className="relative w-full aspect-4/3 overflow-hidden mb-2 lg:mb-3 3xl:mb-4">
