@@ -87,7 +87,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                 <span className="text-[#E97451] pl-2">{headingParts[1]}</span>
               )}
             </p>
-            <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[650px]">
+            <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[760px]">
               {data.Description ||
                 "Over the years, Light & Life Academy has grown into a close-knit community. Here, they share their stories of discovery, growth, and the many ways their time at the Academy shaped who they are today."}
             </p>
