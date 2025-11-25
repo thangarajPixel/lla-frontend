@@ -45,7 +45,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
   return (
     <section className="w-full bg-white py-10 sm:py-12 md:py-16 lg:py-20 xl:py-20 2xl:py-28 3xl:py-32 4xl:py-36">
       <ContainerWidget>
-        <div className="text-center space-y-3 sm:space-y-4 md:space-y-6 lg:space-y-8 xl:space-y-10 2xl:space-y-12 3xl:space-y-16 4xl:space-y-20">
+        <div className="text-center space-y-3 sm:space-y-4 md:space-y-6 lg:space-y-8 xl:space-y-5 2xl:space-y-6 3xl:space-y-7 4xl:space-y-20">
           <ScrollWidget delay={0.1}>
             <h3
               className="
@@ -73,31 +73,27 @@ const TeamSection = ({ data }: TeamSectionProps) => {
             </p>
           </ScrollWidget>
         </div>
-        <div className="py-8 pb-9 sm sm:py-8 md:py-8 lg:py-12 xl:py-12 2xl:py-16 3xl:py-20 4xl:py-15">
+        <div className="py-8 pb-9 sm sm:py-8 md:py-14 lg:py-12 xl:py-12 2xl:py-16 3xl:py-20 4xl:py-15">
           <div
-            className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4
+            className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4
             2xl:grid-cols-4 3xl:grid-cols-4 4xl:grid-cols-4
-            gap-4 sm:gap-4 md:gap-4 lg:gap-4 xl:gap-4
-            2xl:gap-5 3xl:gap-6 4xl:gap-7"
-          >
+            gap-4 sm:gap-4 md:gap-8 lg:gap-4 xl:gap-4
+            2xl:gap-5 3xl:gap-6 4xl:gap-7" >
             {facultyData.map((faculty) => (
               <ScrollWidget key={faculty.id} animation="scale" delay={0.1}>
-                <div
-                  className={`${faculty.className} group
-                            bg-white
+                <div  className={`${faculty.className} group max-w-[300px]  bg-white
                             hover:bg-[#E97451]/20 cursor-pointer
                             transition-colors duration-500 ease-out
                             px-3 py-3 flex flex-col
-                            h-[270px] xs:h-[310px] sm:h-[310px] md:h-[350px] lg:h-[300px]
-                            xl:h-[340px] 2xl:h-[400px] 3xl:h-[480px] 4xl:h-[500px]`}
-                >
+                            h-[270px] xs:h-[310px] sm:h-[310px] md:h-[300px] lg:h-[300px]
+                            xl:h-[340px] 2xl:h-[410px] 3xl:h-[480px] 4xl:h-[500px]`} >
                   <ParallaxWidget speed={-0.1}>
-                    <div className="w-full aspect-square overflow-hidden">
+                    <div className="w-full aspect-square overflow-hidden max-h-[300px] max-w-[300px]">
                       <ImageWidget
                         src={faculty.imageUrl}
                         alt="Faculty"
                         fill
-                        className="object-cover w-full h-full"
+                        className="object-cover w-full h-full md:w-[200px] md:h-[200px]"
                       />
                     </div>
                   </ParallaxWidget>
@@ -119,12 +115,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
                   </p>
                   <div className="self-start mt-auto opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out">
                     <OrangeButtonWidget
-                      className="h-7 sm:h-8 md:h-9 lg:h-7 xl:h-7 
-                    2xl:h-10 3xl:h-11 4xl:h-12 
-                    w-25 sm:w-24 md:w-28 lg:w-28 xl:w-28 
-                    2xl:w-35 3xl:w-43 4xl:w-40
-                    text-[10px] sm:text-sm md:text-base lg:text-[12px] xl:text-[12px] 2xl:text-[18px] 
-                    3xl:text-[20px] 4xl:text-[22px]"
+                      className=""
                       content={faculty.Btn_txt}
                     />
                   </div>
