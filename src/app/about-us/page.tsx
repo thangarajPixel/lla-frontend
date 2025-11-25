@@ -4,16 +4,16 @@ import FounderSection from "@/components/sections/about-us/FounderSection";
 import TeamSection from "@/components/sections/about-us/TeamSection";
 import { getAboutUsPageData } from "../api/server";
 
-const AboutUsPage = async ()  => {
-   const response = await getAboutUsPageData();
-   if (response?.about)
-  return (
-    <Fragment>
-      <AboutHeroSection data={response?.about?.[0]} />
-      <FounderSection data={response?.about?.[1]} />
-      <TeamSection data={response?.about?.[2]} />
-    </Fragment>
-  );
+const AboutUsPage = async () => {
+  const response = await getAboutUsPageData();
+  if (response?.about)
+    return (
+      <Fragment>
+        <AboutHeroSection data={response?.about?.[0]} />
+        <FounderSection data={response?.about?.[1]} />
+        <TeamSection data={response?.about?.[2]} />
+      </Fragment>
+    );
 };
 
 export default AboutUsPage;

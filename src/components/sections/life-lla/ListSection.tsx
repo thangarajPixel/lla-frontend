@@ -37,7 +37,7 @@ const ListSection = ({ data }: LifeSectionProps) => {
     const res = await getLifePageData(nextPage, 8);
 
     if (res?.Card) {
-      setCards(prev => [...prev, ...res.Card]);
+      setCards((prev) => [...prev, ...res.Card]);
       setPage(nextPage);
     }
 
@@ -55,7 +55,7 @@ const ListSection = ({ data }: LifeSectionProps) => {
         duration: 0.6,
         ease: "power2.out",
         stagger: 0.1,
-      }
+      },
     );
 
     previousLength.current = cards.length;
@@ -69,7 +69,11 @@ const ListSection = ({ data }: LifeSectionProps) => {
             <h3 className="text-[30px] md:text-[35px] lg:text-[40px] xl:text-[50px] 2xl:text-[60px] 3xl:text-[64px] font-regular text-black font-urbanist">
               {data.Title}
             </h3>
-           <p className="text-[16px] sm:text-[17px] md:text-[18px] lg:text-[20px] xl:text-[25px] 2xl:text-[30px] 3xl:text-[40px] font-regular font-mulish px-3 sm:px-30 md:px-35 lg:px-38 xl:px-40 2xl:px-40 3xl:px-40 text-black"> {data.Heading} <span className="text-[#E97451]"> {" "} {data.SubHeading} </span> </p>
+            <p className="text-[16px] sm:text-[17px] md:text-[18px] lg:text-[20px] xl:text-[25px] 2xl:text-[30px] 3xl:text-[40px] font-regular font-mulish px-3 sm:px-30 md:px-35 lg:px-38 xl:px-40 2xl:px-40 3xl:px-40 text-black">
+              {" "}
+              {data.Heading}{" "}
+              <span className="text-[#E97451]"> {data.SubHeading} </span>{" "}
+            </p>
             <p className="text-[12px] md:text-[14px] 2xl:text-[16px] 3xl:text-[18px] font-mulish text-black px-3">
               {data.Description}
             </p>
@@ -82,8 +86,8 @@ const ListSection = ({ data }: LifeSectionProps) => {
               <div
                 key={card.id}
                 ref={(el: HTMLDivElement | null) => {
-                          cardsRef.current[index] = el;
-                        }}
+                  cardsRef.current[index] = el;
+                }}
               >
                 <ScrollWidget animation="fadeUp" delay={0.1}>
                   <ParallaxWidget speed={-0.1}>

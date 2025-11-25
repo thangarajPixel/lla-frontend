@@ -9,7 +9,6 @@ export async function getLandingPageData() {
   }
 }
 
-
 export async function getAboutUsPageData() {
   try {
     const { data } = await serverAxios.get(`/about`);
@@ -19,9 +18,11 @@ export async function getAboutUsPageData() {
   }
 }
 
-export async function getLifePageData(page : number, perPage : number) {
+export async function getLifePageData(page: number, perPage: number) {
   try {
-    const { data } = await serverAxios.get(`/life?per_page=${perPage}&page=${page}`);
+    const { data } = await serverAxios.get(
+      `/life?per_page=${perPage}&page=${page}`,
+    );
     return data;
   } catch (error) {
     return { error: JSON.stringify(error, null, 2) };

@@ -21,7 +21,7 @@ export type LifeSectionProps = {
       perPage: number;
       total: number;
       totalPages: number;
-    }
+    };
   };
   meta?: {
     page: number;

@@ -12,18 +12,22 @@ const FounderSection = ({ data }: FounderSectionProps) => {
       <ContainerWidget>
         <div className="text-center space-y-1  xs:space-y-2 sm:space-y-3 md:space-y-5 lg:space-y-6 xl:space-y-4  2xl:space-y-12  3xl:space-y-14 4xl:space-y-16">
           <ScrollWidget delay={0.1}>
-            <h3 className="font-urbanist font-regular text-black text-left xs:text-left md:text-center
-                text-[32px] xs:text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] 4xl:text-[90px]">
-                {data.Title}
+            <h3
+              className="font-urbanist font-regular text-black text-left xs:text-left md:text-center
+                text-[32px] xs:text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] 4xl:text-[90px]"
+            >
+              {data.Title}
             </h3>
           </ScrollWidget>
           <ScrollWidget delay={0.1}>
-            <p className="font-mulish font-regular text-black text-left xs:text-left md:text-center
+            <p
+              className="font-mulish font-regular text-black text-left xs:text-left md:text-center
                            text-[24px] xs:text-[25px] sm:text-[26px] md:text-xl lg:text-2xl
           xl:text-3xl 2xl:text-4xl 3xl:text-[40px] 4xl:text-[45px] mx-auto max-w-[500px]
           xs:max-w-[600px] sm:max-w-[650px]
-          md:max-w-[700px] lg:max-w-[850px] xl:max-w-[600px]">
-             {data.Heading}
+          md:max-w-[700px] lg:max-w-[850px] xl:max-w-[600px]"
+            >
+              {data.Heading}
               <span className="text-[#E97451] ml-2">{data.SubHeading}</span>
             </p>
           </ScrollWidget>
@@ -61,7 +65,7 @@ const FounderSection = ({ data }: FounderSectionProps) => {
               4xl:text-4xl
               "
                 >
-                 {data.Founder_card[0].Heading}
+                  {data.Founder_card[0].Heading}
                 </h4>
                 <p
                   className="
@@ -91,7 +95,9 @@ const FounderSection = ({ data }: FounderSectionProps) => {
                 >
                   {data.Founder_card[0].Description[1].children[0].text ?? ""}
                 </p>
-                <OrangeButtonWidget content={data.Founder_card[0].Btn_txt ?? ""} />
+                <OrangeButtonWidget
+                  content={data.Founder_card[0].Btn_txt ?? ""}
+                />
               </div>
             </ScrollWidget>
             <ScrollWidget delay={0.3} className="order-1 md:order-2">
@@ -99,7 +105,7 @@ const FounderSection = ({ data }: FounderSectionProps) => {
                 className="mb-3 block md:hidden font-urbanist font-regular text-[#E97451] text-[32px]  xs:text-[32px]
                  sm:text-[32px]l"
               >
-                 {data.Founder_card[0].Heading}
+                {data.Founder_card[0].Heading}
               </h4>
               <div
                 className="
@@ -147,7 +153,7 @@ const FounderSection = ({ data }: FounderSectionProps) => {
                 className="mb-3 block md:hidden font-urbanist font-regular text-[#E97451] text-[32px]  xs:text-[32px]
                  sm:text-[32px]l"
               >
-                 {data.Founder_card[1].Heading}
+                {data.Founder_card[1].Heading}
               </h4>
               <div className="flex justify-center md:justify-end w-full">
                 <ImageWidget
@@ -195,7 +201,7 @@ const FounderSection = ({ data }: FounderSectionProps) => {
               4xl:text-[48px]
               "
                 >
-                   {data.Founder_card[1].Heading}
+                  {data.Founder_card[1].Heading}
                 </h4>
                 <p
                   className="

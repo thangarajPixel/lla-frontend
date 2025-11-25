@@ -29,7 +29,7 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
                 xl:text-7xl 2xl:text-[70px] 3xl:text-[80px] 4xl:text-[95px]
                 font-normal text-black font-urbanist"
               >
-                 {data.Title}
+                {data.Title}
               </h3>
             </ScrollWidget>
             <ScrollWidget animation="slideLeft" delay={0.2}>
@@ -43,10 +43,8 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
                 xl:max-w-[550px] 2xl:max-w-[650px] 3xl:max-w-[700px] 4xl:max-w-[900px]
               "
               >
-               {data.Heading}
-                <span className="text-[#E97451] ml-2">
-                  {data.SubHeading}
-                </span>
+                {data.Heading}
+                <span className="text-[#E97451] ml-2">{data.SubHeading}</span>
               </p>
             </ScrollWidget>
             <ScrollWidget animation="fadeUp" delay={0.3}>
@@ -61,7 +59,6 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
               "
               >
                 {data.Description[0].children[0].text}
-               
               </p>
             </ScrollWidget>
             <ScrollWidget animation="fadeUp" delay={0.4}>
@@ -103,7 +100,7 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
                 3xl:max-w-[900px] 4xl:max-w-[1100px]
               "
               >
-                 {data.Description[3].children[0].text}
+                {data.Description[3].children[0].text}
               </p>
             </ScrollWidget>
           </div>
@@ -120,8 +117,9 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
           4xl:min-h-[1204px]
           bg-white text-white
         "
-        style={{ backgroundImage:`url(${getS3Url(data?.Image?.url) || AboutBg.src})`  }
-      }
+        style={{
+          backgroundImage: `url(${getS3Url(data?.Image?.url) || AboutBg.src})`,
+        }}
       >
         <ContainerWidget>
           <div className="flex flex-col items-start justify-start gap-3 md:gap-4">
