@@ -113,8 +113,7 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
           lg:min-h-[580px]
           xl:min-h-[700px] 
           2xl:min-h-[800px]
-          3xl:min-h-[1004px]
-          4xl:min-h-[1204px]
+          3xl:min-h-[1204px]
           bg-white text-white
         "
         style={{
