@@ -1,4 +1,5 @@
 "use client";
+import { useState, useEffect } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
@@ -11,6 +12,25 @@ import type { AboutSectionProps } from "./utils/home";
 
 const AboutSection = ({ data }: AboutSectionProps) => {
   const aboutImages = data.Image || [];
+  const [currentIndices, setCurrentIndices] = useState([0, 1, 2]);
+
+  useEffect(() => {
+    if (aboutImages.length === 0) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndices((prev) => {
+        const maxIndex = Math.max(0, aboutImages.length - 1);
+
+        return [
+          Math.min(prev[2], maxIndex),
+          Math.min(prev[0], maxIndex),
+          Math.min(prev[1], maxIndex),
+        ];
+      });
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [aboutImages.length]);
 
   const getImageUrl = (index: number) => {
     if (aboutImages[index]) {
@@ -64,36 +84,36 @@ const AboutSection = ({ data }: AboutSectionProps) => {
           <ScrollWidget delay={0.1} animation="fadeUp">
             <div className="hidden xl:block  relative">
               <div className="relative">
-                {aboutImages[1] && (
+                {aboutImages[currentIndices[0]] && (
                   <div className="relative top">
-                    <div className="absolute w-[200px] h-[160px] md:w-[250px] md:h-[200px] lg:w-[280px] lg:h-[230px] xl:w-[300px] xl:h-[250px] mt-[-150px] md:mt-[-170px] lg:mt-[-180px] xl:mt-[-190px] 2xl:mt-[-200px] ml-[100px] md:ml-[120px] lg:ml-[140px] xl:ml-[150px] opacity-40">
+                    <div className="absolute w-[200px] h-[160px] md:w-[250px] md:h-[200px] lg:w-[280px] lg:h-[230px] xl:w-[300px] xl:h-[250px] mt-[-150px] md:mt-[-170px] lg:mt-[-180px] xl:mt-[-190px] 2xl:mt-[-200px] ml-[100px] md:ml-[120px] lg:ml-[140px] xl:ml-[150px] opacity-40 transition-opacity duration-500">
                       <ImageWidget
-                        src={getImageUrl(1)}
-                        alt={aboutImages[1].name || "About 3"}
+                        src={getImageUrl(currentIndices[0])}
+                        alt={aboutImages[currentIndices[0]].name || "About 2"}
                         fill
                         className="object-cover"
                       />
                     </div>
                   </div>
                 )}
-                {aboutImages[2] && (
+                {aboutImages[currentIndices[1]] && (
                   <div className="relative">
-                    <div className="w-[320px] h-[240px] md:w-[400px] md:h-[280px] lg:w-[450px] lg:h-[320px] xl:w-[500px] xl:h-[350px] ml-[-60px] md:ml-[-80px] lg:ml-[-90px] xl:ml-[-60px] 2xl:ml-[-100px] relative z-10">
+                    <div className="w-[320px] h-[240px] md:w-[400px] md:h-[280px] lg:w-[450px] lg:h-[320px] xl:w-[500px] xl:h-[350px] ml-[-60px] md:ml-[-80px] lg:ml-[-90px] xl:ml-[-60px] 2xl:ml-[-100px] relative z-10 transition-opacity duration-500">
                       <ImageWidget
-                        src={getImageUrl(2)}
-                        alt={aboutImages[2].name || "About 1"}
+                        src={getImageUrl(currentIndices[1])}
+                        alt={aboutImages[currentIndices[1]].name || "About 3"}
                         fill
                         className="object-cover"
                       />
                     </div>
                   </div>
                 )}
-                {aboutImages[1] && (
+                {aboutImages[currentIndices[2]] && (
                   <div className="relative">
-                    <div className="absolute w-[260px] h-[200px] md:w-[340px] md:h-[240px] lg:w-[380px] lg:h-[260px] xl:w-[420px] xl:h-[280px] mt-[-120px] md:mt-[-135px] lg:mt-[-140px] xl:mt-[-145px] 2xl:mt-[-150px] ml-[50px] md:ml-[65px] lg:ml-[75px] xl:ml-[80px] opacity-40">
+                    <div className="absolute w-[260px] h-[200px] md:w-[340px] md:h-[240px] lg:w-[380px] lg:h-[260px] xl:w-[420px] xl:h-[280px] mt-[-120px] md:mt-[-135px] lg:mt-[-140px] xl:mt-[-145px] 2xl:mt-[-150px] ml-[50px] md:ml-[65px] lg:ml-[75px] xl:ml-[80px] opacity-40 transition-opacity duration-500">
                       <ImageWidget
-                        src={getImageUrl(1)}
-                        alt={aboutImages[1].name || "About 2"}
+                        src={getImageUrl(currentIndices[2])}
+                        alt={aboutImages[currentIndices[2]].name || "About 1"}
                         fill
                         className="object-cover"
                       />
