@@ -10,7 +10,12 @@ import DialogWidget from "@/components/widgets/DialogWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import { ArrowLeftBlack, ArrowRightBlack, Into, Play } from "@/helpers/ImageHelper";
+import {
+  ArrowLeftBlack,
+  ArrowRightBlack,
+  Into,
+  Play,
+} from "@/helpers/ImageHelper";
 import type { StudentSectionProps } from "./utils/home";
 
 const StudentSection = ({ data }: StudentSectionProps) => {
@@ -75,7 +80,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
     <section className="w-full py-10 md:py-10 lg:py-12 xl:py-16 2xl:py-20 3xl:py-24 bg-white mx-auto max-w-[1920px]">
       <ContainerWidget>
         <ScrollWidget animation="fadeUp" delay={0.1}>
-          <div className="flex flex-col justify-start md:justify-center items-start md:items-center text-left md:text-center gap-4">
+          <div className="flex flex-col justify-start md:justify-center items-start md:items-center text-left md:text-center gap-4.5">
             <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-normal text-black font-urbanist">
               {data.Title || "Student Testimonials"}
             </h2>

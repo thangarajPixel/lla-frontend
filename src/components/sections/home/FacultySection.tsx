@@ -32,7 +32,7 @@ const FacultySection = ({ data }: FacultySectionProps) => {
     <section className="w-full py-8 md:py-12 lg:pt-16 xl:pt-20 2xl:pt-24 3xl:pt-28 bg-white mx-auto max-w-[1920px]">
       <ContainerWidget>
         <ScrollWidget animation="fadeUp" delay={0.1}>
-          <div className="flex flex-col justify-start md:justify-center items-start md:items-center text-left md:text-center gap-4">
+          <div className="flex flex-col justify-start md:justify-center items-start md:items-center text-left md:text-center gap-4.5">
             <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
               {data.Title || "Faculty"}
             </h2>
@@ -115,11 +115,13 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                 <div
                   key={faculty.id}
                   className={`shrink-0 ${
-                    index === 0 
+                    index === 0
                       ? "mt-10 hover:mt-0"
-                      :  index === 3 ? "mt-20 hover:mt-0" : index % 2
-                        ? "mt-40 hover:mt-0"
-                        : "mt-0"
+                      : index === 3
+                        ? "mt-20 hover:mt-0"
+                        : index % 2
+                          ? "mt-40 hover:mt-0"
+                          : "mt-0"
                   } w-[calc((100%-3rem)/3)] lg:w-[calc((100%-4.5rem)/4)] xl:w-[calc((100%-6rem)/5)] 2xl:w-[calc((100%-7.5rem)/6)] transition-all duration-1000 ease-in-out delay-150`}
                 >
                   <ScrollWidget animation="scale" delay={0.1 + index * 0.05}>

@@ -38,7 +38,7 @@ const AboutSection = ({ data }: AboutSectionProps) => {
     <section className="w-full bg-[#ECECEC] flex flex-col items-center justify-center z-40 relative py-15 md:pt-[280px] md:pb-[220px]">
       <ContainerWidget>
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 sm:gap-10 md:gap-12 lg:gap-14 xl:gap-16 2xl:gap-18">
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-4.5">
             <h3 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
               {data.Title || "About LLA"}
             </h3>
