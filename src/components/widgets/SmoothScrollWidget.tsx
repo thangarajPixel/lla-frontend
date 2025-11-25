@@ -39,7 +39,6 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
         try {
           ScrollTrigger.update();
         } catch (_error) {
-          // Silently handle ScrollTrigger update errors
         }
       }
     });
@@ -50,6 +49,17 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
 
     gsap.ticker.add(raf);
     gsap.ticker.lagSmoothing(0);
+
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        if (ScrollTrigger && typeof ScrollTrigger.refresh === "function") {
+          try {
+            ScrollTrigger.refresh();
+          } catch (_error) {
+          }
+        }
+      }, 100);
+    });
 
     const observer = new MutationObserver(() => {
       const isScrollLocked =

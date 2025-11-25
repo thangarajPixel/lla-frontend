@@ -32,11 +32,19 @@ const ParallaxWidget = ({
     if (typeof window === "undefined") return;
     if (!gsap || !ScrollTrigger) return;
 
-    const timer = setTimeout(() => {
-      setIsReady(true);
-    }, 150);
+    let timer: NodeJS.Timeout | null = null;
+    const rafId = requestAnimationFrame(() => {
+      timer = setTimeout(() => {
+        setIsReady(true);
+      }, 100);
+    });
 
-    return () => clearTimeout(timer);
+    return () => {
+      cancelAnimationFrame(rafId);
+      if (timer) {
+        clearTimeout(timer);
+      }
+    };
   }, []);
 
   useEffect(() => {
@@ -69,7 +77,13 @@ const ParallaxWidget = ({
         },
       });
 
-      ScrollTrigger.refresh();
+      requestAnimationFrame(() => {
+        if (ScrollTrigger && typeof ScrollTrigger.refresh === "function") {
+          try {
+            ScrollTrigger.refresh();
+          } catch (_error) {}
+        }
+      });
     } catch (_error) {}
 
     return () => {
