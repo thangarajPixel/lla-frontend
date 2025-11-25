@@ -76,7 +76,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
   return (
     <section className="w-full py-10 md:py-10 lg:py-12 xl:py-16 2xl:py-20 3xl:py-24 bg-white mx-auto max-w-[1920px]">
       <ContainerWidget>
-        <ScrollWidget animation="slideRight" delay={0.1}>
+        <ScrollWidget animation="fadeUp" delay={0.1}>
           <div className="flex flex-col justify-start md:justify-center items-start md:items-center text-left md:text-center gap-4">
             <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-normal text-black font-urbanist">
               {data.Title || "Student Testimonials"}
@@ -87,7 +87,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                 <span className="text-[#E97451] pl-2">{headingParts[1]}</span>
               )}
             </p>
-            <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
+            <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[650px]">
               {data.Description ||
                 "Over the years, Light & Life Academy has grown into a close-knit community. Here, they share their stories of discovery, growth, and the many ways their time at the Academy shaped who they are today."}
             </p>
@@ -108,7 +108,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                   return (
                     <ScrollWidget
                       key={student.id}
-                      animation={index % 2 === 0 ? "slideLeft" : "slideRight"}
+                      animation={index % 2 === 0 ? "fadeUp" : "fadeDown"}
                       delay={0.1 + index * 0.15}
                     >
                       <div
