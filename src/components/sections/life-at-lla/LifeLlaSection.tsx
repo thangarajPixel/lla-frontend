@@ -78,10 +78,10 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
   }, [cards]);
 
   return (
-    <section className="w-full bg-white h-full py-4 sm:py-6 md:py-8 lg:py-10 xl:py-5 2xl:py-7 3xl:py-10">
+    <section className="w-full bg-white h-full py-4 sm:py-6 md:py-8 lg:py-10 xl:py-2 2xl:py-7 3xl:py-10">
       <ContainerWidget>
         <ScrollWidget animation="fadeDown" delay={0.1}>
-          <div className="space-y-3.5 md:space-y-3 lg:space-y-5 text-left md:text-center">
+          <div className="flex flex-col justify-start md:justify-center items-start md:items-center text-left md:text-center gap-4.5">
             <h3 className="text-[30px] md:text-[35px] lg:text-[40px] xl:text-[50px] 2xl:text-[60px] 3xl:text-[64px] font-regular text-black font-urbanist">
               {data.Title}
             </h3>
@@ -89,8 +89,9 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
               {data.Heading}{" "}
               <span className="text-[#E97451]"> {data.SubHeading} </span>{" "}
             </p>
-            <p className="text-[12px] md:text-[14px] 2xl:text-[16px] 3xl:text-[18px] font-mulish text-black px-3">
-              {data.Description}
+            <p className="text-[12px] lg:text-[14px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[750px]">
+              {data.Description ||
+                "Our faculty foster an environment of collaboration and mentorship. The guidance is personal, conversations are open, and growth happens through shared experience."}
             </p>
           </div>
         </ScrollWidget>
