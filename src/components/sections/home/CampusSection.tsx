@@ -6,10 +6,6 @@ import { Building } from "@/helpers/ImageHelper";
 import type { CampusSectionProps } from "./utils/home";
 
 const CampusSection = ({ data }: CampusSectionProps) => {
-  const headingParts = data.Heading?.includes(",")
-    ? data.Heading.split(",").map((part) => part.trim())
-    : [data.Heading];
-
   return (
     <section
       className="w-full h-screen md:bg-fixed bg-cover bg-right bg-no-repeat sm:py-20 py-10 bg-[#F6F6F6]"
@@ -20,14 +16,14 @@ const CampusSection = ({ data }: CampusSectionProps) => {
       <ContainerWidget>
         <ScrollWidget animation="slideRight">
           <div className="space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12 2xl:space-y-14 3xl:space-y-16">
-            <div className="space-y-3.5 md:space-y-3 lg:space-y-5">
+            <div className="space-y-2 md:space-y-3 lg:space-y-4">
               <h3 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
                 {data.Title || "Campus"}
               </h3>
               <p className="font-area-variable font-semibold text-lg md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
-                {headingParts[0]}
-                {headingParts[1] && (
-                  <span className="text-[#E97451] ml-2">{headingParts[1]}</span>
+                {data.Heading}
+                {data.SubHeading && (
+                  <span className="text-[#E97451] ml-2">{data.SubHeading}</span>
                 )}
               </p>
               <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[600px]">

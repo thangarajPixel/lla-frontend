@@ -5,12 +5,10 @@ import { useEffect, useState } from "react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
-import { parseHeading } from "@/helpers/ConstantHelper";
 import { ArrowLeftBlack, ArrowRightBlack, Quote } from "@/helpers/ImageHelper";
 import type { TestimonialSectionProps } from "./utils/home";
 
 const TestimonialSection = ({ data }: TestimonialSectionProps) => {
-  const headingParts = parseHeading(data.Heading);
   const testimonials = data.Slider || [];
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
@@ -48,16 +46,16 @@ const TestimonialSection = ({ data }: TestimonialSectionProps) => {
       <ContainerWidget>
         <ScrollWidget animation="fadeUp" delay={0.1}>
           <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-10 lg:gap-12 xl:gap-14 2xl:gap-16 items-stretch">
-            <div className="space-y-3.5 md:space-y-3 lg:space-y-5">
+            <div className="space-y-2 md:space-y-3 lg:space-y-4">
               <h3 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
                 {data.Title || "Testimonials"}
               </h3>
               <p className="font-area-variable font-semibold text-lg md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
-                {headingParts[0]}
-                {headingParts[1] && (
+                {data.Heading}
+                {data.SubHeading && (
                   <>
                     <br className="hidden sm:block" />
-                    <span className="text-[#E97451]">{headingParts[1]}</span>
+                    <span className="text-[#E97451]">{data.SubHeading}</span>
                   </>
                 )}
               </p>
@@ -87,7 +85,7 @@ const TestimonialSection = ({ data }: TestimonialSectionProps) => {
                               className="object-center"
                             />
                           </div>
-                          <p className=" text-center text-[16px] lg:text-[15px] xl:text-[17px] 3xl:text-[18px] font-normal font-mulish  text-black leading-normal w-full md:max-w-[750px]">
+                          <p className=" text-center text-[16px] lg:text-[15px] xl:text-[18px] 3xl:text-[24px] font-normal font-mulish  text-black leading-normal w-full md:max-w-[750px]">
                             {testimonial.Description}
                           </p>
 
@@ -95,7 +93,7 @@ const TestimonialSection = ({ data }: TestimonialSectionProps) => {
                             {testimonial.Name}
                           </p>
 
-                          <p className="mb-3 text-sm sm:text-base md:text-[16px] text-black font-regular font-mulish">
+                          <p className="mb-3 text-sm sm:text-base md:text-[14px] 3xl:text-[16px] text-black font-regular font-mulish -mt-5">
                             {testimonial.Batch}
                           </p>
                         </div>

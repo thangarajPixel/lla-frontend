@@ -4,16 +4,16 @@ import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
-import { getS3Url, parseHeading } from "@/helpers/ConstantHelper";
+import { getS3Url } from "@/helpers/ConstantHelper";
 import { Life } from "@/helpers/ImageHelper";
 import type { LifeCardProps, LifeSectionProps } from "./utils/home";
-import LinkWidget from "@/components/widgets/LinkWidget";
 
 const LifeCard = ({ card }: LifeCardProps) => (
   <div className="bg-white/30 p-3 sm:p-4 lg:p-4 xl:p-5 3xl:p-6 hover:bg-white transition-all duration-300 cursor-pointer">
-    <h4 className="text-base sm:text-lg md:text-xl lg:text-[18px] 2xl:text-[20px] 3xl:text-[24px] font-bold text-black font-urbanist leading-tight mb-2 lg:mb-3 3xl:mb-4">
+    <h4 className="text-base sm:text-lg md:text-xl lg:text-[18px] 2xl:text-[18px] 3xl:text-[24px] font-bold text-black font-urbanist leading-tight mb-2 lg:mb-3 3xl:mb-4">
       {card.Title}
     </h4>
     <div className="relative w-full aspect-4/3 overflow-hidden mb-2 lg:mb-3 3xl:mb-4">
@@ -31,7 +31,6 @@ const LifeCard = ({ card }: LifeCardProps) => (
 );
 
 const LifeSection = ({ data }: LifeSectionProps) => {
-  const headingParts = parseHeading(data.Heading);
   const lifeCardsData = data.Card || [];
   const lastCard =
     lifeCardsData.length > 0 ? lifeCardsData[lifeCardsData.length - 1] : null;
@@ -58,24 +57,31 @@ const LifeSection = ({ data }: LifeSectionProps) => {
       className="w-full min-h-[1100px] md:min-h-[700px] lg:min-h-[900px] xl:min-h-[1000px] 2xl:min-h-[1100px] 3xl:min-h-[1200px] bg-cover  bg-no-repeat bg-position-[bottom_left_-200px] md:bg-center sm:bg-position-center md:bg-fixed relative bg-[#ECECEC] py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 3xl:py-28"
       style={{ backgroundImage: `url(${Life.src})` }}
     >
-      <div className="absolute inset-0 bg-linear-to-b from-[#ECECEC] via-transparent to-transparent" />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(to bottom, #ECECEC 0%, #ECECEC 20%, rgba(236, 236, 236, 0.6) 40%, rgba(236, 236, 236, 0.3) 60%, rgba(236, 236, 236, 0.1) 80%, transparent 100%)",
+        }}
+      />
 
       <div className="relative z-10">
         <ContainerWidget>
           <div className="flex flex-col md:flex-row gap-4 sm:gap-5 md:gap-6 lg:gap-6 xl:gap-8 2xl:gap-8 3xl:gap-10">
-            <div className="w-full md:w-auto md:min-w-[350px] lg:min-w-[400px] xl:min-w-[450px] 2xl:min-w-[500px] 3xl:min-w-[550px]">
-              <div className="flex flex-col gap-3.5 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-6 2xl:gap-7 3xl:gap-8">
+            <div className="w-full md:w-auto md:min-w-[350px] lg:min-w-[400px] xl:min-w-[482px] 2xl:min-w-[500px] 3xl:min-w-[550px]">
+              <div className="flex flex-col gap-3.5 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-6 2xl:gap-6 3xl:gap-8">
                 <h3 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
                   {data.Title || "Life at LLA"}
                 </h3>
                 <p className="font-area-variable font-semibold text-lg md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
-                  {headingParts[0]}
-                  {headingParts[1] && (
-                    <>
-                      <br />
-                      <span className="text-[#E97451]">{headingParts[1]}</span>
-                    </>
+                  {data.Heading}
+                  <br />
+                  {data.SubHeading && (
+                    <span className="text-[#E97451]">{data.SubHeading}</span>
                   )}
+                </p>
+                <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[650px]">
+                  {data.Description}
                 </p>
                 <div className="self-start">
                   <LinkWidget href="/life-at-lla">
@@ -98,12 +104,12 @@ const LifeSection = ({ data }: LifeSectionProps) => {
             </div>
 
             {/* Desktop: Grid Layout */}
-            <div className="hidden md:grid md:grid-cols-2 gap-4 md:gap-5 lg:gap-6 xl:gap-6 2xl:gap-7 3xl:gap-8">
+            <div className="hidden md:grid md:grid-cols-2 gap-4 md:gap-5 lg:gap-6 xl:gap-6 2xl:gap-7 3xl:gap-8 ml-auto">
               <div className="space-y-4 md:space-y-5 lg:space-y-6 xl:space-y-6 2xl:space-y-7 3xl:space-y-8">
                 {cardsWithoutLast.slice(0, midPoint).map((card) => (
                   <div
                     key={card.id}
-                    className="w-full max-w-[200px] md:max-w-[220px] lg:max-w-[240px] xl:max-w-[250px] 2xl:max-w-[260px] 3xl:max-w-[280px]"
+                    className="w-full max-w-[200px] md:max-w-[220px] lg:max-w-[240px] xl:max-w-[250px] 2xl:max-w-[260px] 3xl:max-w-[280px] ml-auto"
                   >
                     <ScrollWidget
                       animation="fadeUp"
@@ -120,7 +126,7 @@ const LifeSection = ({ data }: LifeSectionProps) => {
                 {cardsWithoutLast.slice(midPoint).map((card) => (
                   <div
                     key={card.id}
-                    className="w-full max-w-[200px] md:max-w-[220px] lg:max-w-[240px] xl:max-w-[250px] 2xl:max-w-[260px] 3xl:max-w-[280px]"
+                    className="w-full max-w-[200px] md:max-w-[220px] lg:max-w-[240px] xl:max-w-[250px] 2xl:max-w-[260px] 3xl:max-w-[280px] ml-auto"
                   >
                     <ScrollWidget
                       animation="fadeUp"

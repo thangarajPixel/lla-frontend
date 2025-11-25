@@ -3,7 +3,7 @@ import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
-import { getS3Url, parseHeading } from "@/helpers/ConstantHelper";
+import { getS3Url } from "@/helpers/ConstantHelper";
 import { Dummy1, Dummy2 } from "@/helpers/ImageHelper";
 import type { CourseSectionProps } from "./utils/home";
 
@@ -17,8 +17,6 @@ type AnimationType =
   | "rotate";
 
 const CourseSection = ({ data }: CourseSectionProps) => {
-  const headingParts = parseHeading(data.Heading);
-
   const animations: Array<{
     image: AnimationType;
     content: AnimationType;
@@ -60,9 +58,9 @@ const CourseSection = ({ data }: CourseSectionProps) => {
               {data.Title || "Courses"}
             </h2>
             <p className="font-area-variable font-semibold text-lg md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
-              {headingParts[0]}
-              {headingParts[1] && (
-                <span className="text-[#E97451] ml-2">{headingParts[1]}</span>
+              {data.Heading}
+              {data.SubHeading && (
+                <span className="text-[#E97451] ml-2">{data.SubHeading}</span>
               )}
             </p>
             <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[650px]">

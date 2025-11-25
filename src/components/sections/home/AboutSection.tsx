@@ -5,12 +5,11 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
-import { getS3Url, parseHeading } from "@/helpers/ConstantHelper";
+import { getS3Url } from "@/helpers/ConstantHelper";
 import { Dummy1 } from "@/helpers/ImageHelper";
 import type { AboutSectionProps } from "./utils/home";
 
 const AboutSection = ({ data }: AboutSectionProps) => {
-  const headingParts = parseHeading(data.Heading);
   const aboutImages = data.Image || [];
 
   const getImageUrl = (index: number) => {
@@ -39,16 +38,16 @@ const AboutSection = ({ data }: AboutSectionProps) => {
     <section className="w-full bg-[#ECECEC] flex flex-col items-center justify-center z-40 relative py-15 md:pt-[280px] md:pb-[220px]">
       <ContainerWidget>
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 sm:gap-10 md:gap-12 lg:gap-14 xl:gap-16 2xl:gap-18">
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-4.5">
             <h3 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
               {data.Title || "About LLA"}
             </h3>
             <p className="font-area-variable font-semibold text-lg md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
-              {headingParts[0]}
-              {headingParts[1] && (
+              {data.Heading}
+              {data.SubHeading && (
                 <>
                   <br className="hidden sm:block" />
-                  <span className="text-[#E97451]">{headingParts[1]}</span>
+                  <span className="text-[#E97451]">{data.SubHeading}</span>
                 </>
               )}
             </p>
