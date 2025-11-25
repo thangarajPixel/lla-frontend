@@ -7,7 +7,8 @@ import type { AboutHeroSectionProps } from "./utils/about-us";
 const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
   return (
     <Fragment>
-      <section className="
+      <section 
+        className="
           z-50 max-w-[2560px] bg-cover bg-bottom bg-no-repeat 
           min-h-[2150px] 
           md:min-h-[1200px]
