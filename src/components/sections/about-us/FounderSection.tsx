@@ -155,8 +155,7 @@ const FounderSection = ({ data }: FounderSectionProps) => {
               </div>
             </ScrollWidget>
             <ScrollWidget delay={0.2}>
-              <div
-                className="
+              <div  className="
             space-y-2
             xs:space-y-4
             md:space-y-5
@@ -164,9 +163,7 @@ const FounderSection = ({ data }: FounderSectionProps) => {
             xl:space-y-4
             md:pl-5
             lg:pl-10
-            4xl:max-w-[420px]
-            "
-              >
+            4xl:max-w-[420px]" >
                 <h4
                   className="block hidden md:block
               font-urbanist font-semibold text-[#E97451]
