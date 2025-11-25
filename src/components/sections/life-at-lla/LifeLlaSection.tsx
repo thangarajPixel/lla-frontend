@@ -13,7 +13,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { LifeSectionProps } from "./utils/life-lla";
 import { getLifePageData } from "@/app/api/server";
 
-const ListSection = ({ data }: LifeSectionProps) => {
+const LifeLlaSection = ({ data }: LifeSectionProps) => {
   const LifeCardSkeleton = () => (
     <div className="w-full flex flex-col gap-3 bg-[#FFFFFF4D]">
       <Skeleton className="w-full h-[200px] md:h-[220px] lg:h-[230px]" />
@@ -70,7 +70,6 @@ const ListSection = ({ data }: LifeSectionProps) => {
               {data.Title}
             </h3>
             <p className="text-[16px] sm:text-[17px] md:text-[18px] lg:text-[20px] xl:text-[25px] 2xl:text-[30px] 3xl:text-[40px] font-regular font-mulish px-3 sm:px-30 md:px-35 lg:px-38 xl:px-40 2xl:px-40 3xl:px-40 text-black">
-              {" "}
               {data.Heading}{" "}
               <span className="text-[#E97451]"> {data.SubHeading} </span>{" "}
             </p>
@@ -128,4 +127,4 @@ const ListSection = ({ data }: LifeSectionProps) => {
   );
 };
 
-export default ListSection;
+export default LifeLlaSection;
