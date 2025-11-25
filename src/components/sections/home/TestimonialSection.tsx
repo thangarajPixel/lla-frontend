@@ -46,8 +46,8 @@ const TestimonialSection = ({ data }: TestimonialSectionProps) => {
       <ContainerWidget>
         <ScrollWidget animation="fadeUp" delay={0.1}>
           <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-10 lg:gap-12 xl:gap-14 2xl:gap-16 items-stretch">
-            <div className="space-y-2 md:space-y-3 lg:space-y-4">
-              <h3 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
+            <div className="space-y-3 md:space-y-3 lg:space-y-4">
+              <h3 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
                 {data.Title || "Testimonials"}
               </h3>
               <p className="font-area-variable font-semibold text-lg md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
@@ -93,7 +93,7 @@ const TestimonialSection = ({ data }: TestimonialSectionProps) => {
                             {testimonial.Name}
                           </p>
 
-                          <p className="mb-3 text-sm sm:text-base md:text-[14px] 3xl:text-[16px] text-black font-regular font-mulish -mt-5">
+                          <p className="mb-3 text-sm sm:text-base md:text-[14px] 3xl:text-[16px] text-black font-regular font-mulish lg:-mt-5">
                             {testimonial.Batch}
                           </p>
                         </div>
@@ -103,7 +103,7 @@ const TestimonialSection = ({ data }: TestimonialSectionProps) => {
                 </div>
               </div>
 
-              <div className="flex gap-3 justify-center mt-3 md:mt-5">
+              <div className="flex gap-3 justify-start mt-5 md:justify-center md:mt-5">
                 <button
                   type="button"
                   onClick={scrollPrev}
