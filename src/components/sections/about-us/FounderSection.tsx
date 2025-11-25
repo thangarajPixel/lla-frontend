@@ -10,7 +10,7 @@ const FounderSection = ({ data }: FounderSectionProps) => {
   return (
     <section className="3xl:max-h-[1665px] w-full bg-[#ECECEC] py-8 xs:py-10 sm:py-12  md:py-14 lg:py-20 xl:py-14  2xl:py-18 3xl:py-26 4xl:py-30 ">
       <ContainerWidget>
-        <div className="text-center space-y-1  xs:space-y-2 sm:space-y-3 md:space-y-5 lg:space-y-6 xl:space-y-4  2xl:space-y-12  3xl:space-y-14 4xl:space-y-16">
+        <div className="text-center space-y-1  xs:space-y-2 sm:space-y-3 md:space-y-5 lg:space-y-6 xl:space-y-4  2xl:space-y-4  3xl:space-y-10 4xl:space-y-14">
           <ScrollWidget delay={0.1}>
             <h3 className="font-urbanist font-regular text-black text-left xs:text-left md:text-center
                 text-[32px] xs:text-[34px] sm:text-[36px] md:text-[40px] lg:text-[48px] xl:text-[56px] 2xl:text-[64px] 3xl:text-[64px] 4xl:text-[64px]">
@@ -155,8 +155,7 @@ const FounderSection = ({ data }: FounderSectionProps) => {
               </div>
             </ScrollWidget>
             <ScrollWidget delay={0.2}>
-              <div  className="
-            space-y-2
+              <div  className="space-y-2
             xs:space-y-4
             md:space-y-5
             lg:space-y-6
