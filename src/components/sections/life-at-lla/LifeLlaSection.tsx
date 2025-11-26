@@ -11,7 +11,9 @@ import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { ArrowDown } from "@/helpers/ImageHelper";
 import LifeCard from "./utils/life-card";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import type { LifeSectionProps } from "./utils/life-lla";
+
 
 const LifeLlaSection = ({ data }: LifeSectionProps) => {
   const LifeCardSkeleton = () => (
@@ -95,27 +97,39 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
             </p>
           </div>
         </ScrollWidget>
-
         <div className="py-8 md:py-8 lg:py-12 xl:py-10 2xl:py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 xl:gap-5 2xl:gap-6">
-            {cards.map((card, index) => (
-              <div 
-                key={card.id}
-                ref={(el: HTMLDivElement | null) => {
-                  cardsRef.current[index] = el;
-                }}
-              >
-                <ScrollWidget animation="fadeIn" delay={-0.1}>
-                  <ParallaxWidget speed={-0.1}>
-                    <LifeCard card={card} />
-                  </ParallaxWidget>
-                </ScrollWidget>
-              </div>
-            ))}
+                <ResponsiveMasonry
+                  columnsCountBreakPoints={{
+                    350: 1,
+                    768: 2,
+                    1024: 4
+                  } as any}
+                >
+                  <Masonry gutter="20px" >
+                    {cards.map((card, index) => (
+                      <div className="w-full sm:max-w-[300px]  md:max-w-[350px] lg:max-w-[380px]  xl:max-w-[400px] 2xl:max-w-[450px] "
+                        key={card.id}
+                        ref={(el) => {
+                          cardsRef.current[index] = el;
+                        }}
+                      >
+                        <ScrollWidget animation="fadeIn" delay={-0.1}>
+                          <ParallaxWidget speed={-0.1}>
+                            <LifeCard card={card} />
+                          </ParallaxWidget>
+                        </ScrollWidget>
+                      </div>
+                    ))}
 
-            {loading &&
-              skeletonKeys.map((key) => <LifeCardSkeleton key={key} />)}
-          </div>
+                    {loading &&
+                      skeletonKeys.map((key) => (
+                        <div key={key}>
+                          <LifeCardSkeleton />
+                        </div>
+                      ))}
+                  </Masonry>
+                </ResponsiveMasonry>
+
 
           {!loading && cards.length < total && (
             <ScrollWidget animation="fadeIn" delay={0.1}>
