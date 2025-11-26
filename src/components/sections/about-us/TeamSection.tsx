@@ -78,15 +78,18 @@ const TeamSection = ({ data }: TeamSectionProps) => {
             className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4
             2xl:grid-cols-4 3xl:grid-cols-4 4xl:grid-cols-4
             gap-2 sm:gap-4 md:gap-8 lg:gap-4 xl:gap-4
-            2xl:gap-5 3xl:gap-6 4xl:gap-7" >
+            2xl:gap-5 3xl:gap-6 4xl:gap-7"
+          >
             {facultyData.map((faculty) => (
               <ScrollWidget key={faculty.id} animation="scale" delay={0.1}>
-                <div  className={`${faculty.className} group max-w-[320px]  bg-white
+                <div
+                  className={`${faculty.className} group max-w-[320px]  bg-white
                             hover:bg-[#E97451]/20 cursor-pointer
                             transition-colors duration-500 ease-out
                             px-3 py-3 flex flex-col
                             h-[300px] xs:h-[310px] sm:h-[310px] md:h-[300px] lg:h-[300px]
-                            xl:h-[340px] 2xl:h-[410px] 3xl:h-[480px] 4xl:h-[500px]`} >
+                            xl:h-[340px] 2xl:h-[410px] 3xl:h-[480px] 4xl:h-[500px]`}
+                >
                   <ParallaxWidget speed={-0.1}>
                     <div className="w-full aspect-square overflow-hidden max-h-[300px] max-w-[300px]">
                       <ImageWidget
