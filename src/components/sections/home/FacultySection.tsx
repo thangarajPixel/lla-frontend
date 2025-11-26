@@ -62,13 +62,13 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                 animation="scale"
                 delay={0.1 + index * 0.1}
               >
-                <div className="flex flex-col gap-2 sm:gap-3">
+                <div className="flex flex-col gap-2 sm:gap-3 group">
                   <div className="w-full aspect-square sm:aspect-auto overflow-hidden relative">
                     <ImageWidget
                       src={getS3Url(faculty?.Image?.[0]?.url) || Dummy11}
                       alt={faculty.Title}
                       fill
-                      className="object-cover"
+                      className="object-cover grayscale transition-all duration-500 group-hover:grayscale-0"
                     />
                   </div>
                   <h3 className="font-mulish text-lg sm:text-xl font-bold text-black font-urbanist leading-tight truncate">
@@ -131,7 +131,7 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                           src={getS3Url(faculty?.Image?.[0]?.url) || Dummy11}
                           alt={faculty.Title}
                           fill
-                          className="object-cover"
+                          className="object-cover grayscale transition-all duration-500 group-hover:grayscale-0"
                         />
                       </div>
                       <h3 className="font-mulish text-xl md:text-xl lg:text-2xl xl:text-[20px] 2xl:text-[20px] 3xl:text-[24px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight transition-colors duration-500 ease-in-out delay-150">
