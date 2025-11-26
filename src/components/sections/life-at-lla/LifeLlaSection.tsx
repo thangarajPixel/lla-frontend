@@ -108,12 +108,12 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
                   }}
                 >
                   <Masonry  style={{
-                      gap:"30px",
+                      gap:"20px",
                         }} >
                     {cards.map((card, index) => (
                       <div className= "gap-30 max-w-[250px] sm:max-w-[300px]  md:max-w-[350px] lg:max-w-[380px]  xl:max-w-[400px] 2xl:max-w-[450px] "
                         key={card.id}
-                         style={{ marginBottom: "8px",padding:"10px" }}
+                         style={{ marginBottom: "8px"}}
                         ref={(el) => {
                           cardsRef.current[index] = el;
                         }}
