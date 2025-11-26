@@ -99,7 +99,7 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
         <div className="py-8 md:py-8 lg:py-12 xl:py-10 2xl:py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 xl:gap-5 2xl:gap-6">
             {cards.map((card, index) => (
-              <div
+              <div 
                 key={card.id}
                 ref={(el: HTMLDivElement | null) => {
                   cardsRef.current[index] = el;
