@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import LinkWidget from "@/components/widgets/LinkWidget";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
+import LinkWidget from "@/components/widgets/LinkWidget";
 
 const sidebarMenuItems = [
   { href: "#overview", label: "Overview" },
@@ -26,7 +26,8 @@ const PgDiplomaInProfessionalPhotographyDigitalProduction = () => {
     if (targetElement) {
       const headerOffset = 100;
       const elementPosition = targetElement.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      const offsetPosition =
+        elementPosition + window.pageYOffset - headerOffset;
 
       window.scrollTo({
         top: offsetPosition,
@@ -92,9 +93,15 @@ const PgDiplomaInProfessionalPhotographyDigitalProduction = () => {
                 Overview
               </h2>
               <p className="text-gray-700">
-                Content for overview section goes here. Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque eum nobis quibusdam aut molestiae aspernatur unde hic exercitationem explicabo soluta quo blanditiis corporis, sed aliquam! Quisquam error mollitia facilis iure?
-              Content for curriculum section goes here. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus nesciunt quidem quas obcaecati tempora consectetur perferendis atque totam, repellendus nulla! Maxime dolorem amet voluptate adipisci pariatur placeat voluptates commodi corrupti.  
-
+                Content for overview section goes here. Lorem ipsum dolor sit
+                amet consectetur adipisicing elit. Neque eum nobis quibusdam aut
+                molestiae aspernatur unde hic exercitationem explicabo soluta
+                quo blanditiis corporis, sed aliquam! Quisquam error mollitia
+                facilis iure? Content for curriculum section goes here. Lorem
+                ipsum dolor sit amet consectetur, adipisicing elit. Delectus
+                nesciunt quidem quas obcaecati tempora consectetur perferendis
+                atque totam, repellendus nulla! Maxime dolorem amet voluptate
+                adipisci pariatur placeat voluptates commodi corrupti.
               </p>
             </section>
 
@@ -103,21 +110,32 @@ const PgDiplomaInProfessionalPhotographyDigitalProduction = () => {
                 Curriculum
               </h2>
               <p className="text-gray-700">
-                Content for curriculum section goes here. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus nesciunt quidem quas obcaecati tempora consectetur perferendis atque totam, repellendus nulla! Maxime dolorem amet voluptate adipisci pariatur placeat voluptates commodi corrupti.  
-              Content for curriculum section goes here. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus nesciunt quidem quas obcaecati tempora consectetur perferendis atque totam, repellendus nulla! Maxime dolorem amet voluptate adipisci pariatur placeat voluptates commodi corrupti.  
-
+                Content for curriculum section goes here. Lorem ipsum dolor sit
+                amet consectetur, adipisicing elit. Delectus nesciunt quidem
+                quas obcaecati tempora consectetur perferendis atque totam,
+                repellendus nulla! Maxime dolorem amet voluptate adipisci
+                pariatur placeat voluptates commodi corrupti. Content for
+                curriculum section goes here. Lorem ipsum dolor sit amet
+                consectetur, adipisicing elit. Delectus nesciunt quidem quas
+                obcaecati tempora consectetur perferendis atque totam,
+                repellendus nulla! Maxime dolorem amet voluptate adipisci
+                pariatur placeat voluptates commodi corrupti.
               </p>
             </section>
 
             <section id="faculty" className="mb-12 scroll-mt-24">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                Faculty
-              </h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Faculty</h2>
               <p className="text-gray-700">
-              Content for curriculum section goes here. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus nesciunt quidem quas obcaecati tempora consectetur perferendis atque totam, repellendus nulla! Maxime dolorem amet voluptate adipisci pariatur placeat voluptates commodi corrupti.  
-              Content for faculty section goes here.
-              Content for curriculum section goes here. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus nesciunt quidem quas obcaecati tempora consectetur perferendis atque totam, repellendus nulla! Maxime dolorem amet voluptate adipisci pariatur placeat voluptates commodi corrupti.  
-
+                Content for curriculum section goes here. Lorem ipsum dolor sit
+                amet consectetur, adipisicing elit. Delectus nesciunt quidem
+                quas obcaecati tempora consectetur perferendis atque totam,
+                repellendus nulla! Maxime dolorem amet voluptate adipisci
+                pariatur placeat voluptates commodi corrupti. Content for
+                faculty section goes here. Content for curriculum section goes
+                here. Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Delectus nesciunt quidem quas obcaecati tempora consectetur
+                perferendis atque totam, repellendus nulla! Maxime dolorem amet
+                voluptate adipisci pariatur placeat voluptates commodi corrupti.
               </p>
             </section>
 
@@ -126,10 +144,16 @@ const PgDiplomaInProfessionalPhotographyDigitalProduction = () => {
                 Admission
               </h2>
               <p className="text-gray-700">
-              Content for curriculum section goes here. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus nesciunt quidem quas obcaecati tempora consectetur perferendis atque totam, repellendus nulla! Maxime dolorem amet voluptate adipisci pariatur placeat voluptates commodi corrupti.  
-              Content for admission section goes here.
-              Content for curriculum section goes here. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus nesciunt quidem quas obcaecati tempora consectetur perferendis atque totam, repellendus nulla! Maxime dolorem amet voluptate adipisci pariatur placeat voluptates commodi corrupti.  
-
+                Content for curriculum section goes here. Lorem ipsum dolor sit
+                amet consectetur, adipisicing elit. Delectus nesciunt quidem
+                quas obcaecati tempora consectetur perferendis atque totam,
+                repellendus nulla! Maxime dolorem amet voluptate adipisci
+                pariatur placeat voluptates commodi corrupti. Content for
+                admission section goes here. Content for curriculum section goes
+                here. Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Delectus nesciunt quidem quas obcaecati tempora consectetur
+                perferendis atque totam, repellendus nulla! Maxime dolorem amet
+                voluptate adipisci pariatur placeat voluptates commodi corrupti.
               </p>
             </section>
 
@@ -138,22 +162,70 @@ const PgDiplomaInProfessionalPhotographyDigitalProduction = () => {
                 Career Opportunities
               </h2>
               <p className="text-gray-700">
-              Content for curriculum section goes here. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus nesciunt quidem quas obcaecati tempora consectetur perferendis atque totam, repellendus nulla! Maxime dolorem amet voluptate adipisci pariatur placeat voluptates commodi corrupti.  
-              Content for career opportunities section goes here.
-              Content for curriculum section goes here. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus nesciunt quidem quas obcaecati tempora consectetur perferendis atque totam, repellendus nulla! Maxime dolorem amet voluptate adipisci pariatur placeat voluptates commodi corrupti.  
-              Content for overview section goes here. Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque eum nobis quibusdam aut molestiae aspernatur unde hic exercitationem explicabo soluta quo blanditiis corporis, sed aliquam! Quisquam error mollitia facilis iure?
-              Content for curriculum section goes here. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus nesciunt quidem quas obcaecati tempora consectetur perferendis atque totam, repellendus nulla! Maxime dolorem amet voluptate adipisci pariatur placeat voluptates commodi corrupti.  
-              Content for overview section goes here. Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque eum nobis quibusdam aut molestiae aspernatur unde hic exercitationem explicabo soluta quo blanditiis corporis, sed aliquam! Quisquam error mollitia facilis iure?
-              Content for curriculum section goes here. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus nesciunt quidem quas obcaecati tempora consectetur perferendis atque totam, repellendus nulla! Maxime dolorem amet voluptate adipisci pariatur placeat voluptates commodi corrupti.  
-              Content for overview section goes here. Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque eum nobis quibusdam aut molestiae aspernatur unde hic exercitationem explicabo soluta quo blanditiis corporis, sed aliquam! Quisquam error mollitia facilis iure?
-              Content for curriculum section goes here. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus nesciunt quidem quas obcaecati tempora consectetur perferendis atque totam, repellendus nulla! Maxime dolorem amet voluptate adipisci pariatur placeat voluptates commodi corrupti.  
-              Content for overview section goes here. Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque eum nobis quibusdam aut molestiae aspernatur unde hic exercitationem explicabo soluta quo blanditiis corporis, sed aliquam! Quisquam error mollitia facilis iure?
-              Content for curriculum section goes here. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus nesciunt quidem quas obcaecati tempora consectetur perferendis atque totam, repellendus nulla! Maxime dolorem amet voluptate adipisci pariatur placeat voluptates commodi corrupti.  
-              Content for overview section goes here. Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque eum nobis quibusdam aut molestiae aspernatur unde hic exercitationem explicabo soluta quo blanditiis corporis, sed aliquam! Quisquam error mollitia facilis iure?
-              Content for curriculum section goes here. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus nesciunt quidem quas obcaecati tempora consectetur perferendis atque totam, repellendus nulla! Maxime dolorem amet voluptate adipisci pariatur placeat voluptates commodi corrupti.  
-              Content for overview section goes here. Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque eum nobis quibusdam aut molestiae aspernatur unde hic exercitationem explicabo soluta quo blanditiis corporis, sed aliquam! Quisquam error mollitia facilis iure?
-              Content for curriculum section goes here. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus nesciunt quidem quas obcaecati tempora consectetur perferendis atque totam, repellendus nulla! Maxime dolorem amet voluptate adipisci pariatur placeat voluptates commodi corrupti.  
-
+                Content for curriculum section goes here. Lorem ipsum dolor sit
+                amet consectetur, adipisicing elit. Delectus nesciunt quidem
+                quas obcaecati tempora consectetur perferendis atque totam,
+                repellendus nulla! Maxime dolorem amet voluptate adipisci
+                pariatur placeat voluptates commodi corrupti. Content for career
+                opportunities section goes here. Content for curriculum section
+                goes here. Lorem ipsum dolor sit amet consectetur, adipisicing
+                elit. Delectus nesciunt quidem quas obcaecati tempora
+                consectetur perferendis atque totam, repellendus nulla! Maxime
+                dolorem amet voluptate adipisci pariatur placeat voluptates
+                commodi corrupti. Content for overview section goes here. Lorem
+                ipsum dolor sit amet consectetur adipisicing elit. Neque eum
+                nobis quibusdam aut molestiae aspernatur unde hic exercitationem
+                explicabo soluta quo blanditiis corporis, sed aliquam! Quisquam
+                error mollitia facilis iure? Content for curriculum section goes
+                here. Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Delectus nesciunt quidem quas obcaecati tempora consectetur
+                perferendis atque totam, repellendus nulla! Maxime dolorem amet
+                voluptate adipisci pariatur placeat voluptates commodi corrupti.
+                Content for overview section goes here. Lorem ipsum dolor sit
+                amet consectetur adipisicing elit. Neque eum nobis quibusdam aut
+                molestiae aspernatur unde hic exercitationem explicabo soluta
+                quo blanditiis corporis, sed aliquam! Quisquam error mollitia
+                facilis iure? Content for curriculum section goes here. Lorem
+                ipsum dolor sit amet consectetur, adipisicing elit. Delectus
+                nesciunt quidem quas obcaecati tempora consectetur perferendis
+                atque totam, repellendus nulla! Maxime dolorem amet voluptate
+                adipisci pariatur placeat voluptates commodi corrupti. Content
+                for overview section goes here. Lorem ipsum dolor sit amet
+                consectetur adipisicing elit. Neque eum nobis quibusdam aut
+                molestiae aspernatur unde hic exercitationem explicabo soluta
+                quo blanditiis corporis, sed aliquam! Quisquam error mollitia
+                facilis iure? Content for curriculum section goes here. Lorem
+                ipsum dolor sit amet consectetur, adipisicing elit. Delectus
+                nesciunt quidem quas obcaecati tempora consectetur perferendis
+                atque totam, repellendus nulla! Maxime dolorem amet voluptate
+                adipisci pariatur placeat voluptates commodi corrupti. Content
+                for overview section goes here. Lorem ipsum dolor sit amet
+                consectetur adipisicing elit. Neque eum nobis quibusdam aut
+                molestiae aspernatur unde hic exercitationem explicabo soluta
+                quo blanditiis corporis, sed aliquam! Quisquam error mollitia
+                facilis iure? Content for curriculum section goes here. Lorem
+                ipsum dolor sit amet consectetur, adipisicing elit. Delectus
+                nesciunt quidem quas obcaecati tempora consectetur perferendis
+                atque totam, repellendus nulla! Maxime dolorem amet voluptate
+                adipisci pariatur placeat voluptates commodi corrupti. Content
+                for overview section goes here. Lorem ipsum dolor sit amet
+                consectetur adipisicing elit. Neque eum nobis quibusdam aut
+                molestiae aspernatur unde hic exercitationem explicabo soluta
+                quo blanditiis corporis, sed aliquam! Quisquam error mollitia
+                facilis iure? Content for curriculum section goes here. Lorem
+                ipsum dolor sit amet consectetur, adipisicing elit. Delectus
+                nesciunt quidem quas obcaecati tempora consectetur perferendis
+                atque totam, repellendus nulla! Maxime dolorem amet voluptate
+                adipisci pariatur placeat voluptates commodi corrupti. Content
+                for overview section goes here. Lorem ipsum dolor sit amet
+                consectetur adipisicing elit. Neque eum nobis quibusdam aut
+                molestiae aspernatur unde hic exercitationem explicabo soluta
+                quo blanditiis corporis, sed aliquam! Quisquam error mollitia
+                facilis iure? Content for curriculum section goes here. Lorem
+                ipsum dolor sit amet consectetur, adipisicing elit. Delectus
+                nesciunt quidem quas obcaecati tempora consectetur perferendis
+                atque totam, repellendus nulla! Maxime dolorem amet voluptate
+                adipisci pariatur placeat voluptates commodi corrupti.
               </p>
             </section>
           </div>
