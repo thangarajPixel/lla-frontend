@@ -101,14 +101,19 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
                 <ResponsiveMasonry
                   columnsCountBreakPoints={{
                     350: 1,
-                    768: 2,
+                    660: 2,
+                    700: 2,
+                    768: 3,
                     1024: 4
-                  } as any}
+                  }}
                 >
-                  <Masonry gutter="20px" >
+                  <Masonry  style={{
+                      gap:"30px",
+                        }} >
                     {cards.map((card, index) => (
-                      <div className="w-full sm:max-w-[300px]  md:max-w-[350px] lg:max-w-[380px]  xl:max-w-[400px] 2xl:max-w-[450px] "
+                      <div className= "gap-30 max-w-[250px] sm:max-w-[300px]  md:max-w-[350px] lg:max-w-[380px]  xl:max-w-[400px] 2xl:max-w-[450px] "
                         key={card.id}
+                         style={{ marginBottom: "8px",padding:"10px" }}
                         ref={(el) => {
                           cardsRef.current[index] = el;
                         }}
