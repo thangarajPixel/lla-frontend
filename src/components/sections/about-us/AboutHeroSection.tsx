@@ -9,7 +9,7 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
     <Fragment>
       <section 
         className="
-          z-50 max-w-[2560px] bg-cover bg-bottom bg-no-repeat 
+          z-40 max-w-[2560px] bg-cover bg-bottom bg-no-repeat 
           min-h-[2150px] 
           md:min-h-[1200px]
           lg:min-h-[1200px]
@@ -46,7 +46,7 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
                 delay={0.2 + index * 0.1}
               >
                 <p
-                  className="text-[16px] sm:text-[16px] lg:text-[16px] font-mulish
+                  className="text-[16px] sm:text-[16px] lg:text-[16px] font-mulish font-normal
                   xl:text-[16px] 2xl:text-[18px] 3xl:text-[18px] 4xl:text-[18px]
                   font-regular text-black leading-[24px] md:leading-[24px] 
                   lg:leading-[24px] xl:leading-[24px] 2xl:leading-[26px] 3xl:leading-[26px]
