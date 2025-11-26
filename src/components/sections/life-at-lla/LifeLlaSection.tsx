@@ -2,6 +2,7 @@
 
 import gsap from "gsap";
 import { useEffect, useMemo, useRef, useState } from "react";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { getLifePageData } from "@/app/api/server";
 import { Skeleton } from "@/components/ui/skeleton";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
@@ -11,9 +12,7 @@ import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { ArrowDown } from "@/helpers/ImageHelper";
 import LifeCard from "./utils/life-card";
-import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import type { LifeSectionProps } from "./utils/life-lla";
-
 
 const LifeLlaSection = ({ data }: LifeSectionProps) => {
   const LifeCardSkeleton = () => (
@@ -44,23 +43,22 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
   }, [loading]);
 
   const loadMore = async () => {
-  if (loading || cards.length >= total) return;
+    if (loading || cards.length >= total) return;
 
-  // STEP 1: show skeleton first
-  setLoading(true);
+    // STEP 1: show skeleton first
+    setLoading(true);
 
-  await new Promise((res) => setTimeout(res, 500));
+    await new Promise((res) => setTimeout(res, 500));
 
-  const nextPage = page + 1;
-  const params = { page: nextPage, per_page: 8 };
-  const res = await getLifePageData(params);
-  if (res?.Card) {
-    setCards((prev) => [...prev, ...res.Card]);
-    setPage(nextPage);
-  }
-  setLoading(false);
-};
-
+    const nextPage = page + 1;
+    const params = { page: nextPage, per_page: 8 };
+    const res = await getLifePageData(params);
+    if (res?.Card) {
+      setCards((prev) => [...prev, ...res.Card]);
+      setPage(nextPage);
+    }
+    setLoading(false);
+  };
 
   useEffect(() => {
     const newItems = cardsRef.current.slice(previousLength.current);
@@ -98,57 +96,55 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
           </div>
         </ScrollWidget>
         <div className="py-8 md:py-8 lg:py-12 xl:py-10 2xl:py-16">
-                <ResponsiveMasonry
-                  columnsCountBreakPoints={{
-                    350: 1,
-                    768: 2,
-                    1024: 4
-                  } as any}
+          <ResponsiveMasonry
+            columnsCountBreakPoints={{
+              350: 1,
+              768: 2,
+              1024: 4,
+            }}
+          >
+            <Masonry gutter="20px">
+              {cards.map((card, index) => (
+                <div
+                  className="w-full sm:max-w-[300px]  md:max-w-[350px] lg:max-w-[380px]  xl:max-w-[400px] 2xl:max-w-[450px] "
+                  key={card.id}
+                  ref={(el) => {
+                    cardsRef.current[index] = el;
+                  }}
                 >
-                  <Masonry gutter="20px" >
-                    {cards.map((card, index) => (
-                      <div className="w-full sm:max-w-[300px]  md:max-w-[350px] lg:max-w-[380px]  xl:max-w-[400px] 2xl:max-w-[450px] "
-                        key={card.id}
-                        ref={(el) => {
-                          cardsRef.current[index] = el;
-                        }}
-                      >
-                        <ScrollWidget animation="fadeIn" delay={-0.1}>
-                          <ParallaxWidget speed={-0.1}>
-                            <LifeCard card={card} />
-                          </ParallaxWidget>
-                        </ScrollWidget>
-                      </div>
-                    ))}
+                  <ScrollWidget animation="fadeIn" delay={-0.1}>
+                    <ParallaxWidget speed={-0.1}>
+                      <LifeCard card={card} />
+                    </ParallaxWidget>
+                  </ScrollWidget>
+                </div>
+              ))}
 
-                    {loading &&
-                      skeletonKeys.map((key) => (
-                        <div key={key}>
-                          <LifeCardSkeleton />
-                        </div>
-                      ))}
-                  </Masonry>
-                </ResponsiveMasonry>
-
+              {loading &&
+                skeletonKeys.map((key) => (
+                  <div key={key}>
+                    <LifeCardSkeleton />
+                  </div>
+                ))}
+            </Masonry>
+          </ResponsiveMasonry>
 
           {!loading && cards.length < total && (
             <ScrollWidget animation="fadeIn" delay={0.1}>
               <div className="flex justify-center items-center mt-6">
-                
-                  <ButtonWidget
-                    onClick={loadMore}
-                    className="font-mulish hover:bg-white font-bold bg-white border border-[#E97451] rounded-[60px] text-[#E97451] px-5 h-10 text-xs xl:text-[14px] 2xl:text-[14px] 3xl:text-[18px]"
-                  >
-                    Load More
-                    <ImageWidget
-                      src={ArrowDown}
-                      alt="Arrow Down"
-                      height={24}
-                      width={24}
-                      className="object-cover"
-                    />
-                  </ButtonWidget>
-               
+                <ButtonWidget
+                  onClick={loadMore}
+                  className="font-mulish hover:bg-white font-bold bg-white border border-[#E97451] rounded-[60px] text-[#E97451] px-5 h-10 text-xs xl:text-[14px] 2xl:text-[14px] 3xl:text-[18px]"
+                >
+                  Load More
+                  <ImageWidget
+                    src={ArrowDown}
+                    alt="Arrow Down"
+                    height={24}
+                    width={24}
+                    className="object-cover"
+                  />
+                </ButtonWidget>
               </div>
             </ScrollWidget>
           )}
