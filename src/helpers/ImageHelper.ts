@@ -42,3 +42,5 @@ export { default as LlaOnline } from "@/assets/images/lla-online.svg";
 export { default as LlaOutreach } from "@/assets/images/lla-outreach.svg";
 export { default as LogoBlack } from "@/assets/images/logo-black.svg";
 export { default as Logo } from "@/assets/images/logo-white.svg";
+
+export { default as ApplicationFormBg } from "@/assets/dummy/admission-form-banner.png";

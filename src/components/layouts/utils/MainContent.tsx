@@ -9,9 +9,10 @@ export default function MainContent({
 }) {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
+  const formPage = pathname === "/application-form";
 
   return (
-    <main className={`flex-1 w-full ${!isHomePage ? "pt-20 md:pt-24" : ""}`}>
+    <main className={`flex-1 w-full ${formPage ? "pt-16" : !isHomePage ? "pt-20 md:pt-24" :  ""}`}>
       {children}
     </main>
   );
