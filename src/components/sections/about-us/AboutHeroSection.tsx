@@ -7,17 +7,36 @@ import type { AboutHeroSectionProps } from "./utils/about-us";
 const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
   return (
     <Fragment>
-      <section  className="z-40 max-w-[2560px] bg-cover bg-bottom bg-no-repeat 
-          min-h-[2150px] 
-          md:min-h-[1200px]
-          lg:min-h-[1200px]
-          xl:min-h-[1200px] 
-          2xl:min-h-[1550px]
-          3xl:min-h-[1650px] bg-white text-white "
-        style={{
-          backgroundImage: `url(${getS3Url(data?.Image?.url)})`,
-        }}
-      >
+     <section className="relative z-40 max-w-[2560px] text-white">
+
+  {/* Mobile BG (<md) */}
+  <div
+    className="absolute inset-0 md:hidden bg-cover bg-bottom bg-no-repeat"
+    style={{
+      backgroundImage: `url(${getS3Url(data?.Image?.url)})`,
+    }}
+  />
+
+  {/* Desktop BG (md and above) */}
+  <div
+    className="absolute inset-0 hidden md:block bg-cover bg-bottom bg-no-repeat"
+    style={{
+      backgroundImage: `url(${getS3Url(data?.Image?.url)})`,
+    }}
+  />
+
+  {/* Content */}
+  <div
+    className="relative
+      min-h-[1600px] 
+      xs:min-h-[1500px]
+      sm:min-h-[1500px]
+      md:min-h-[1200px]
+      lg:min-h-[1200px]
+      xl:min-h-[1200px] 
+      2xl:min-h-[1550px]
+      3xl:min-h-[1650px]"
+  >
         <ContainerWidget>
            <ScrollWidget animation="fadeUp" delay={0.1}>
               <h3  className="text-[32px] sm:text-[34px] md:text-[36px] lg:text-[48px] xl:text-[56px] 2xl:text-[64px] 3xl:text-[64px] 4xl:text-[64px]  font-regular text-black font-urbanist">
@@ -53,6 +72,7 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
             ))}
           </div>
         </ContainerWidget>
+        </div>
       </section>
     </Fragment>
   );
