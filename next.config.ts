@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: process.env.NEXT_APP_S3_URL || ""
+        hostname: process.env.NEXT_APP_S3_URL || "",
       },
     ],
   },

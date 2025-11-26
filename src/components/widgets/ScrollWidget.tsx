@@ -45,50 +45,96 @@ const ScrollWidget = ({
   const elementRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
     const element = elementRef.current;
     if (!element) return;
 
-    const initialStates: Record<string, gsap.TweenVars> = {
-      fadeIn: { opacity: 0 },
-      fadeUp: { opacity: 0, y: 80 },
-      fadeDown: { opacity: 0, y: -80 },
-      slideLeft: { opacity: 0, x: 80 },
-      slideRight: { opacity: 0, x: -80 },
-      scale: { opacity: 0, scale: 0.8 },
-      rotate: { opacity: 0, rotation: -10 },
+    const initAnimation = () => {
+      const initialStates: Record<string, gsap.TweenVars> = {
+        fadeIn: { opacity: 0 },
+        fadeUp: { opacity: 0, y: 80 },
+        fadeDown: { opacity: 0, y: -80 },
+        slideLeft: { opacity: 0, x: 80 },
+        slideRight: { opacity: 0, x: -80 },
+        scale: { opacity: 0, scale: 0.8 },
+        rotate: { opacity: 0, rotation: -10 },
+      };
+
+      gsap.set(element, initialStates[animation] || initialStates.fadeUp);
+
+      const animations: Record<string, gsap.TweenVars> = {
+        fadeIn: { opacity: 1, duration, delay, ease },
+        fadeUp: { opacity: 1, y: 0, duration, delay, ease },
+        fadeDown: { opacity: 1, y: 0, duration, delay, ease },
+        slideLeft: { opacity: 1, x: 0, duration, delay, ease },
+        slideRight: { opacity: 1, x: 0, duration, delay, ease },
+        scale: { opacity: 1, scale: 1, duration, delay, ease },
+        rotate: { opacity: 1, rotation: 0, duration, delay, ease },
+      };
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: element,
+          start,
+          end,
+          scrub,
+          once,
+          markers,
+          toggleActions: once
+            ? "play none none none"
+            : "play none none reverse",
+          onEnter: () => {
+            if (once && tl.progress() === 0) {
+              tl.play();
+            }
+          },
+          onRefresh: () => {
+            if (
+              once &&
+              tl.scrollTrigger &&
+              tl.scrollTrigger.progress > 0 &&
+              tl.progress() === 0
+            ) {
+              tl.play();
+            }
+          },
+        },
+      });
+
+      tl.to(element, animations[animation] || animations.fadeUp);
+
+      ScrollTrigger.refresh();
+
+      if (once && tl.scrollTrigger) {
+        requestAnimationFrame(() => {
+          if (
+            tl.scrollTrigger &&
+            tl.scrollTrigger.progress > 0 &&
+            tl.progress() === 0
+          ) {
+            tl.play();
+          }
+        });
+      }
+
+      return tl;
     };
 
-    gsap.set(element, initialStates[animation] || initialStates.fadeUp);
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: element,
-        start,
-        end,
-        scrub,
-        once,
-        markers,
-        toggleActions: once ? "play none none none" : "play none none reverse",
-      },
+    let tl: gsap.core.Timeline | null = null;
+    const rafId = requestAnimationFrame(() => {
+      setTimeout(() => {
+        tl = initAnimation();
+      }, 50);
     });
 
-    const animations: Record<string, gsap.TweenVars> = {
-      fadeIn: { opacity: 1, duration, delay, ease },
-      fadeUp: { opacity: 1, y: 0, duration, delay, ease },
-      fadeDown: { opacity: 1, y: 0, duration, delay, ease },
-      slideLeft: { opacity: 1, x: 0, duration, delay, ease },
-      slideRight: { opacity: 1, x: 0, duration, delay, ease },
-      scale: { opacity: 1, scale: 1, duration, delay, ease },
-      rotate: { opacity: 1, rotation: 0, duration, delay, ease },
-    };
-
-    tl.to(element, animations[animation] || animations.fadeUp);
-
     return () => {
-      if (tl.scrollTrigger) {
-        tl.scrollTrigger.kill();
+      cancelAnimationFrame(rafId);
+      if (tl) {
+        if (tl.scrollTrigger) {
+          tl.scrollTrigger.kill();
+        }
+        tl.kill();
       }
-      tl.kill();
     };
   }, [animation, delay, duration, ease, start, end, scrub, once, markers]);
 

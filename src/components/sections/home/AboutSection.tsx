@@ -1,17 +1,36 @@
 "use client";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
+import { useEffect, useState } from "react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
-import { getS3Url, parseHeading } from "@/helpers/ConstantHelper";
+import { getS3Url } from "@/helpers/ConstantHelper";
 import { Dummy1 } from "@/helpers/ImageHelper";
 import type { AboutSectionProps } from "./utils/home";
 
 const AboutSection = ({ data }: AboutSectionProps) => {
-  const headingParts = parseHeading(data.Heading);
   const aboutImages = data.Image || [];
+  const [currentIndices, setCurrentIndices] = useState([0, 1, 2]);
+
+  useEffect(() => {
+    if (aboutImages.length === 0) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndices((prev) => {
+        const maxIndex = Math.max(0, aboutImages.length - 1);
+
+        return [
+          Math.min(prev[2], maxIndex),
+          Math.min(prev[0], maxIndex),
+          Math.min(prev[1], maxIndex),
+        ];
+      });
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [aboutImages.length]);
 
   const getImageUrl = (index: number) => {
     if (aboutImages[index]) {
@@ -36,19 +55,19 @@ const AboutSection = ({ data }: AboutSectionProps) => {
   );
 
   return (
-    <section className="w-full bg-[#ECECEC] flex flex-col items-center justify-center z-40 relative py-15 md:pt-[280px] md:pb-[220px]">
+    <section className="w-full bg-[#ECECEC] flex flex-col items-center justify-center z-40 relative py-15 lg:pt-[280px] lg:pb-[220px]">
       <ContainerWidget>
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 sm:gap-10 md:gap-12 lg:gap-14 xl:gap-16 2xl:gap-18">
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-4.5">
             <h3 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
               {data.Title || "About LLA"}
             </h3>
             <p className="font-area-variable font-semibold text-lg md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
-              {headingParts[0]}
-              {headingParts[1] && (
+              {data.Heading}
+              {data.SubHeading && (
                 <>
                   <br className="hidden sm:block" />
-                  <span className="text-[#E97451]">{headingParts[1]}</span>
+                  <span className="text-[#E97451]">{data.SubHeading}</span>
                 </>
               )}
             </p>
@@ -65,36 +84,36 @@ const AboutSection = ({ data }: AboutSectionProps) => {
           <ScrollWidget delay={0.1} animation="fadeUp">
             <div className="hidden xl:block  relative">
               <div className="relative">
-                {aboutImages[1] && (
+                {aboutImages[currentIndices[0]] && (
                   <div className="relative top">
-                    <div className="absolute w-[200px] h-[160px] md:w-[250px] md:h-[200px] lg:w-[280px] lg:h-[230px] xl:w-[300px] xl:h-[250px] mt-[-150px] md:mt-[-170px] lg:mt-[-180px] xl:mt-[-190px] 2xl:mt-[-200px] ml-[100px] md:ml-[120px] lg:ml-[140px] xl:ml-[150px] opacity-40">
+                    <div className="absolute w-[200px] h-[160px] md:w-[250px] md:h-[200px] lg:w-[280px] lg:h-[230px] xl:w-[300px] xl:h-[250px] mt-[-150px] md:mt-[-170px] lg:mt-[-180px] xl:mt-[-190px] 2xl:mt-[-200px] ml-[100px] md:ml-[120px] lg:ml-[140px] xl:ml-[150px] opacity-40 transition-opacity duration-500">
                       <ImageWidget
-                        src={getImageUrl(1)}
-                        alt={aboutImages[1].name || "About 3"}
+                        src={getImageUrl(currentIndices[0])}
+                        alt={aboutImages[currentIndices[0]].name || "About 2"}
                         fill
                         className="object-cover"
                       />
                     </div>
                   </div>
                 )}
-                {aboutImages[2] && (
+                {aboutImages[currentIndices[1]] && (
                   <div className="relative">
-                    <div className="w-[320px] h-[240px] md:w-[400px] md:h-[280px] lg:w-[450px] lg:h-[320px] xl:w-[500px] xl:h-[350px] ml-[-60px] md:ml-[-80px] lg:ml-[-90px] xl:ml-[-60px] 2xl:ml-[-100px] relative z-10">
+                    <div className="w-[320px] h-[240px] md:w-[400px] md:h-[280px] lg:w-[450px] lg:h-[320px] xl:w-[500px] xl:h-[350px] ml-[-60px] md:ml-[-80px] lg:ml-[-90px] xl:ml-[-60px] 2xl:ml-[-100px] relative z-10 transition-opacity duration-500">
                       <ImageWidget
-                        src={getImageUrl(2)}
-                        alt={aboutImages[2].name || "About 1"}
+                        src={getImageUrl(currentIndices[1])}
+                        alt={aboutImages[currentIndices[1]].name || "About 3"}
                         fill
                         className="object-cover"
                       />
                     </div>
                   </div>
                 )}
-                {aboutImages[1] && (
+                {aboutImages[currentIndices[2]] && (
                   <div className="relative">
-                    <div className="absolute w-[260px] h-[200px] md:w-[340px] md:h-[240px] lg:w-[380px] lg:h-[260px] xl:w-[420px] xl:h-[280px] mt-[-120px] md:mt-[-135px] lg:mt-[-140px] xl:mt-[-145px] 2xl:mt-[-150px] ml-[50px] md:ml-[65px] lg:ml-[75px] xl:ml-[80px] opacity-40">
+                    <div className="absolute w-[260px] h-[200px] md:w-[340px] md:h-[240px] lg:w-[380px] lg:h-[260px] xl:w-[420px] xl:h-[280px] mt-[-120px] md:mt-[-135px] lg:mt-[-140px] xl:mt-[-145px] 2xl:mt-[-150px] ml-[50px] md:ml-[65px] lg:ml-[75px] xl:ml-[80px] opacity-40 transition-opacity duration-500">
                       <ImageWidget
-                        src={getImageUrl(1)}
-                        alt={aboutImages[1].name || "About 2"}
+                        src={getImageUrl(currentIndices[2])}
+                        alt={aboutImages[currentIndices[2]].name || "About 1"}
                         fill
                         className="object-cover"
                       />

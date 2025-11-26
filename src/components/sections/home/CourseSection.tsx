@@ -3,7 +3,7 @@ import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
-import { getS3Url, parseHeading } from "@/helpers/ConstantHelper";
+import { getS3Url } from "@/helpers/ConstantHelper";
 import { Dummy1, Dummy2 } from "@/helpers/ImageHelper";
 import type { CourseSectionProps } from "./utils/home";
 
@@ -17,8 +17,6 @@ type AnimationType =
   | "rotate";
 
 const CourseSection = ({ data }: CourseSectionProps) => {
-  const headingParts = parseHeading(data.Heading);
-
   const animations: Array<{
     image: AnimationType;
     content: AnimationType;
@@ -56,13 +54,13 @@ const CourseSection = ({ data }: CourseSectionProps) => {
       <ContainerWidget>
         <div className="space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12 2xl:space-y-14 3xl:space-y-16">
           <div className="space-y-2 md:space-y-3 lg:space-y-4">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
               {data.Title || "Courses"}
             </h2>
             <p className="font-area-variable font-semibold text-lg md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
-              {headingParts[0]}
-              {headingParts[1] && (
-                <span className="text-[#E97451] ml-2">{headingParts[1]}</span>
+              {data.Heading}
+              {data.SubHeading && (
+                <span className="text-[#E97451] ml-2">{data.SubHeading}</span>
               )}
             </p>
             <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[650px]">

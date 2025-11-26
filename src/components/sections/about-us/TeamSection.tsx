@@ -3,27 +3,40 @@ import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
-import { TeamDummy4, TeamGroupDummy } from "@/helpers/ImageHelper";
+import { getS3Url } from "@/helpers/ConstantHelper";
+import type { TeamSectionProps } from "./utils/about-us";
 
-const TeamSection = () => {
+const TeamSection = ({ data }: TeamSectionProps) => {
   const facultyData = [
     {
-      id: "faculty-0",
-      name: "Kavitha Swaminathan",
-      description: "(Manager, Academics)",
+      id: data?.Card[0]?.id,
+      name: data?.Card[0]?.Title,
+      description: data?.Card[0]?.Description,
+      imageUrl: getS3Url(data?.Card[0]?.Image[0]?.url),
+      Btn_txt: data?.Card[0]?.Btn_txt,
       className: "mt-0 md:mt-0 lg:mt-15 xl:mt-15 2xl:mt-15 3xl:mt-20 4xl:mt-25",
     },
     {
-      id: "faculty-1",
-      name: "Nithya JB",
-      description: "(Manager Operations)",
+      id: data?.Card[1]?.id,
+      name: data?.Card[1]?.Title,
+      description: data?.Card[1]?.Description,
+      imageUrl: getS3Url(data?.Card[1]?.Image[0]?.url),
+      Btn_txt: data?.Card[1]?.Btn_txt,
       className: "mt-0 md:mt-0 lg:mt-45 xl:mt-45 2xl:mt-45 3xl:mt-50 4xl:mt-55",
     },
-    { id: "faculty-2", name: "Devaraj", description: "(Manager, Accounts)" },
     {
-      id: "faculty-3",
-      name: "Rajendran",
-      description: "(Equipment and Store Supervisor)",
+      id: data?.Card[2]?.id,
+      name: data?.Card[2]?.Title,
+      description: data?.Card[2]?.Description,
+      imageUrl: getS3Url(data?.Card[2]?.Image[0]?.url),
+      Btn_txt: data?.Card[2]?.Btn_txt,
+    },
+    {
+      id: data?.Card[3]?.id,
+      name: data?.Card[3]?.Title,
+      description: data?.Card[3]?.Description,
+      imageUrl: getS3Url(data?.Card[3]?.Image[0]?.url),
+      Btn_txt: data?.Card[3]?.Btn_txt,
       className:
         " mt-0 md:mt-0 lg:mt-15 xl:mt-15 2xl:mt-15 3xl:mt-20 4xl:mt-25",
     },
@@ -32,7 +45,7 @@ const TeamSection = () => {
   return (
     <section className="w-full bg-white py-10 sm:py-12 md:py-16 lg:py-20 xl:py-20 2xl:py-28 3xl:py-32 4xl:py-36">
       <ContainerWidget>
-        <div className="text-center space-y-3 sm:space-y-4 md:space-y-6 lg:space-y-8 xl:space-y-10 2xl:space-y-12 3xl:space-y-16 4xl:space-y-20">
+        <div className="text-center space-y-3 sm:space-y-4 md:space-y-6 lg:space-y-8 xl:space-y-5 2xl:space-y-6 3xl:space-y-7 4xl:space-y-20">
           <ScrollWidget delay={0.1}>
             <h3
               className="
@@ -42,10 +55,9 @@ const TeamSection = () => {
               xl:text-6xl 2xl:text-[70px] 3xl:text-[80px] 4xl:text-[90px]
             "
             >
-              The Team
+              {data.Title}
             </h3>
           </ScrollWidget>
-
           <ScrollWidget delay={0.15}>
             <p
               className="
@@ -56,73 +68,55 @@ const TeamSection = () => {
               max-w-[1100px] mx-auto
             "
             >
-              Lorem ipsum{" "}
-              <span className="text-[#E97451] ml-2">dolor sit amet,</span>
+              {data.Heading}
+              <span className="text-[#E97451] ml-2">{data.SubHeading}</span>
             </p>
           </ScrollWidget>
         </div>
-
-        <div className="py-8 pb-9 sm sm:py-8 md:py-8 lg:py-12 xl:py-12 2xl:py-16 3xl:py-20 4xl:py-15">
+        <div className="py-7 pb-9 sm sm:py-8 md:py-14 lg:py-12 xl:py-12 2xl:py-16 3xl:py-20 4xl:py-15">
           <div
-            className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4
+            className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4
             2xl:grid-cols-4 3xl:grid-cols-4 4xl:grid-cols-4
-            gap-4 sm:gap-4 md:gap-4 lg:gap-4 xl:gap-4
-            2xl:gap-5 3xl:gap-6 4xl:gap-7"
-          >
+            gap-2 sm:gap-4 md:gap-8 lg:gap-4 xl:gap-4
+            2xl:gap-5 3xl:gap-6 4xl:gap-7" >
             {facultyData.map((faculty) => (
               <ScrollWidget key={faculty.id} animation="scale" delay={0.1}>
-                <div
-                  className={`
-                            ${faculty.className}
-                            group
-                            bg-white
+                <div  className={`${faculty.className} group max-w-[320px]  bg-white
                             hover:bg-[#E97451]/20 cursor-pointer
                             transition-colors duration-500 ease-out
                             px-3 py-3 flex flex-col
-                            h-[270px] xs:h-[310px] sm:h-[310px] md:h-[350px] lg:h-[300px]
-                            xl:h-[340px] 2xl:h-[400px] 3xl:h-[480px] 4xl:h-[500px]
-                          `}
-                >
+                            h-[300px] xs:h-[310px] sm:h-[310px] md:h-[300px] lg:h-[300px]
+                            xl:h-[340px] 2xl:h-[410px] 3xl:h-[480px] 4xl:h-[500px]`} >
                   <ParallaxWidget speed={-0.1}>
-                    <div className="w-full aspect-square overflow-hidden">
+                    <div className="w-full aspect-square overflow-hidden max-h-[300px] max-w-[300px]">
                       <ImageWidget
-                        src={TeamDummy4}
+                        src={faculty.imageUrl}
                         alt="Faculty"
-                        className="object-cover w-full h-full"
+                        fill
+                        className="object-cover w-full h-full md:w-[200px] md:h-[200px]"
                       />
                     </div>
                   </ParallaxWidget>
-
-                  <h3
+                  <h5
                     className="
-                    font-urbanist font-bold text-black 
-                    mt-3 leading-tight
-                    text-[12px] sm:text-lg md:text-xl lg:text-[20px]
-                    xl:text-[16px] 2xl:text-[24px] 3xl:text-[26px] 4xl:text-[28px]
-                  "
+                    font-mulish font-bold text-black 
+                    mt-3 leading-[24px]
+                    text-[13px] sm:text-[16px] md:text-xl lg:text-[20px]
+                    xl:text-[18px] 2xl:text-[24px] 3xl:text-[24px] 4xl:text-[24px]"
                   >
                     {faculty.name}
-                  </h3>
-
+                  </h5>
                   <p
-                    className="
-                    font-mulish text-black
-                    text-[14px] sm:text-[16px] md:text-base lg:text-[12px]
-                    xl:text-[12px] 2xl:text-[18px] 3xl:text-[20px] 4xl:text-[22px]
-                  "
+                    className="font-mulish text-black font-regular
+                    text-[13px] sm:text-[16px] md:[16px] lg:text-[16px]
+                    xl:text-[14px] 2xl:text-[18px] 3xl:text-[18px] 4xl:text-[18px]"
                   >
                     {faculty.description}
                   </p>
-
                   <div className="self-start mt-auto opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out">
                     <OrangeButtonWidget
-                      className="h-7 sm:h-8 md:h-9 lg:h-7 xl:h-7 
-                    2xl:h-10 3xl:h-11 4xl:h-12 
-                    w-25 sm:w-24 md:w-28 lg:w-28 xl:w-28 
-                    2xl:w-35 3xl:w-43 4xl:w-40
-                    text-[10px] sm:text-sm md:text-base lg:text-[12px] xl:text-[12px] 2xl:text-[18px] 
-                    3xl:text-[20px] 4xl:text-[22px]"
-                      content="Know More"
+                      className=""
+                      content={faculty.Btn_txt}
                     />
                   </div>
                 </div>
@@ -136,12 +130,10 @@ const TeamSection = () => {
         >
           <ScrollWidget delay={0.2} animation="fadeUp">
             <div
-              className="
-                relative w-full 
+              className="relative w-full 
                 h-[150px] sm:h-[380px] md:h-[300px] 
                 lg:h-[300px] xl:h-[430px] 2xl:h-[520px] 
-                3xl:h-[600px] 4xl:h-[430px]
-              "
+                3xl:h-[600px] 4xl:h-[430px]"
               style={{
                 maxWidth: "1242px",
                 width: "100%",
@@ -149,7 +141,7 @@ const TeamSection = () => {
               }}
             >
               <ImageWidget
-                src={TeamGroupDummy}
+                src={getS3Url(data.Frame.Image[0].url)}
                 alt="Team"
                 fill
                 className="object-cover"
@@ -158,28 +150,19 @@ const TeamSection = () => {
 
             <div className="space-y-3 sm:space-y-4 md:space-y-5 py-4">
               <h5
-                className="
-                  font-urbanist font-normal text-[#E97451] text-left
-                  text-xl sm:text-xl md:text-xl lg:text-2xl 
-                  xl:text-3xl 2xl:text-[55px] 3xl:text-[70px] 4xl:text-[80px]
-                "
+                className="font-urbanist font-regular text-[#E97451] text-left
+                  text-[24px] sm:text-[24px] md:text-xl lg:text-2xl 
+                  xl:text-3xl 2xl:text-[55px] 3xl:text-[70px] 4xl:text-[80px]"
               >
-                Akkas & Annas
+                {data.Frame.Title}
               </h5>
-
               <p
-                className="
-                  font-mulish font-normal text-black leading-normal
-                  text-xs sm:text-sm md:text-base lg:text-[15px] 
+                className="font-mulish font-regular text-black leading-normal
+                  text-[16px] sm:text-sm md:text-base lg:text-[15px] 
                   xl:text-[16px] 2xl:text-[18px] 3xl:text-[20px] 4xl:text-[22px]
-                  w-full
-                "
+                  w-full"
               >
-                The Akkas and Annas form the backbone of the LLA family. They
-                ensure that the campus is in pristine condition and do their
-                best to ensure the students are well fed. They embody the spirit
-                of the Nilgiris and its people – welcoming, generous and jovial.
-                It’s no surprise that they are the most popular folks on campus.
+                {data.Frame.Description}
               </p>
             </div>
           </ScrollWidget>

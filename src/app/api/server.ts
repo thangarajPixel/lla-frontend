@@ -1,10 +1,31 @@
 import { serverAxios } from "@/helpers/AxiosHelper";
 
-export async function getLandingPageData() {
+const fetchData = async (
+  endpoint: string,
+  params?: Record<string, unknown>,
+) => {
   try {
-    const { data } = await serverAxios.get(`/home`);
+    const { data } = await serverAxios.get(
+      endpoint,
+      params ? { params } : undefined,
+    );
     return data;
   } catch (error) {
     return { error: JSON.stringify(error, null, 2) };
   }
+};
+
+export async function getLandingPageData() {
+  return fetchData("/home");
+}
+
+export async function getAboutUsPageData() {
+  return fetchData("/about");
+}
+
+export async function getLifePageData(params: {
+  page: number;
+  per_page: number;
+}) {
+  return fetchData("/life", params);
 }

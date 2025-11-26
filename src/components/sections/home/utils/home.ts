@@ -17,6 +17,7 @@ export type CourseSectionProps = {
     id?: number;
     Title: string;
     Heading: string;
+    SubHeading: string;
     Description: string;
     Card: Array<{
       id: number;
@@ -38,6 +39,7 @@ export type CampusSectionProps = {
     id?: number;
     Title: string;
     Heading: string;
+    SubHeading: string;
     Description: string;
     Btn_txt: string;
     Bg_img: {
@@ -54,6 +56,7 @@ export type FacultySectionProps = {
     id?: number;
     Title: string;
     Heading: string;
+    SubHeading: string;
     Description: string;
     Btn_txt: string;
     Card: Array<{
@@ -76,6 +79,8 @@ export type LifeSectionProps = {
     id?: number;
     Title: string;
     Heading: string;
+    SubHeading: string;
+    Description: string;
     Btn_txt: string;
     Card: Array<{
       id: number;
@@ -110,6 +115,7 @@ export type StudentSectionProps = {
     id?: number;
     Title: string;
     Heading: string;
+    SubHeading: string;
     Description: string;
     Card: Array<{
       id: number;
@@ -131,6 +137,7 @@ export type TestimonialSectionProps = {
     id?: number;
     Title: string;
     Heading: string;
+    SubHeading: string;
     Description: string;
     Slider: Array<{
       id: number;
@@ -147,6 +154,7 @@ export type GallerySectionProps = {
     id?: number;
     Title: string;
     Heading: string;
+    SubHeading: string;
     Btn_txt: string;
     Image: Array<{
       id: number;
@@ -162,6 +170,7 @@ export type AboutSectionProps = {
     id?: number;
     Title: string;
     Heading: string;
+    SubHeading: string;
     Description: string;
     Btn_txt: string;
     Image: Array<{
