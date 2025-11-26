@@ -39,51 +39,24 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
                 <span className="text-[#E97451] ml-2">{data.SubHeading}</span>
               </p>
             </ScrollWidget>
-             <ScrollWidget animation="fadeUp" delay={0.3}>
-              <p className="text-[16px] sm:text-[16px] lg:text-[16px] 
-                xl:text-[16px] 2xl:text-[18px] 3xl:text-[18px] 4xl:text-[18px]
-                font-mulish font-regular text-black leading-[24px]   md:leading-[24px] lg:leading-[24px] xl:leading-[24px] 3xl:leading-[26px]
-                w-full md:max-w-[650px] xl:max-w-[660px] 2xl:max-w-[850px] 
-                3xl:max-w-[854px] 4xl:max-w-[1100px]">
-                {data.Description[0].children[0].text}
-              </p>
-            </ScrollWidget>
-                <ScrollWidget animation="fadeUp" delay={0.4}>
-              <p className="text-[16px] sm:text-[16px] lg:text-[16px]  font-mulish
-                xl:text-[16px] 2xl:text-[18px] 3xl:text-[18px] 4xl:text-[18px]
-                font-regular text-black leading-[24px]   md:leading-[24px] lg:leading-[24px] xl:leading-[24px] 3xl:leading-[26px]
-                w-full md:max-w-[650px] xl:max-w-[660px] 2xl:max-w-[850px] 
-                3xl:max-w-[854px] 4xl:max-w-[1100px]">
-                {data.Description[1].children[0].text}
-              </p>
-            </ScrollWidget>
-             <ScrollWidget animation="fadeUp" delay={0.2}>
-                    <p className="text-[16px] sm:text-[16px] lg:text-[16px]  font-mulish
-                xl:text-[16px] 2xl:text-[18px] 3xl:text-[18px] 4xl:text-[18px]
-                font-regular text-black leading-[24px]   md:leading-[24px] lg:leading-[24px] xl:leading-[24px] 3xl:leading-[26px]
-                w-full md:max-w-[650px] xl:max-w-[660px] 2xl:max-w-[850px] 
-                3xl:max-w-[854px] 4xl:max-w-[1100px]">
-                {data.Description[2].children[0].text}
-              </p>
-            </ScrollWidget>
-             <ScrollWidget animation="fadeUp" delay={0.3}>
-                    <p className="text-[16px] sm:text-[16px] lg:text-[16px]  font-mulish
-                xl:text-[16px] 2xl:text-[18px] 3xl:text-[18px] 4xl:text-[18px]
-                font-regular text-black leading-[24px]   md:leading-[24px] lg:leading-[24px] xl:leading-[24px] 3xl:leading-[26px]
-                w-full md:max-w-[650px] xl:max-w-[660px] 2xl:max-w-[850px] 
-                3xl:max-w-[854px] 4xl:max-w-[1100px]">
-                {data.Description[3].children[0].text}
-              </p>
-            </ScrollWidget>
-            <ScrollWidget animation="fadeUp" delay={0.4}>
-                    <p className="text-[16px] sm:text-[16px] lg:text-[16px]  font-mulish
-                xl:text-[16px] 2xl:text-[18px] 3xl:text-[18px] 4xl:text-[18px]
-                font-regular text-black leading-[24px]   md:leading-[24px] lg:leading-[24px] xl:leading-[24px] 3xl:leading-[26px]
-                w-full md:max-w-[650px] xl:max-w-[660px] 2xl:max-w-[850px] 
-                3xl:max-w-[854px] 4xl:max-w-[1100px]">
-                {data.Description[4].children[0].text}
-              </p>
-            </ScrollWidget>
+             {data.Description?.map((item, index) => (
+              <ScrollWidget
+                key={index}
+                animation="fadeUp"
+                delay={0.2 + index * 0.1} // auto increasing delay
+              >
+                <p
+                  className="text-[16px] sm:text-[16px] lg:text-[16px] font-mulish
+                  xl:text-[16px] 2xl:text-[18px] 3xl:text-[18px] 4xl:text-[18px]
+                  font-regular text-black leading-[24px] md:leading-[24px] 
+                  lg:leading-[24px] xl:leading-[24px] 3xl:leading-[26px]
+                  w-full md:max-w-[650px] xl:max-w-[660px] 2xl:max-w-[850px]
+                  3xl:max-w-[854px] 4xl:max-w-[1100px]"
+                >
+                  {item.children?.[0]?.text}
+                </p>
+              </ScrollWidget>
+            ))}
           </div>
         </ContainerWidget>
       </section>
