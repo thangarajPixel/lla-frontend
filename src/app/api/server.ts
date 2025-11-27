@@ -22,6 +22,9 @@ export async function getLandingPageData() {
 export async function getAboutUsPageData() {
   return fetchData("/about");
 }
+export async function getFacultyPageData() {
+  return fetchData("/faculty");
+}
 
 export async function getLifePageData(params: {
   page: number;
