@@ -12,7 +12,7 @@ import TestimonialSection from "@/components/sections/home/TestimonialSection";
 import { getLandingPageData } from "./api/server";
 
 const Home = async () => {
-  const response = await getLandingPageData();
+  const [{ data: response }] = await Promise.all([getLandingPageData()]);
 
   if (response?.Home)
     return (

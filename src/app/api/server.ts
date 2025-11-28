@@ -5,11 +5,14 @@ const fetchData = async (
   params?: Record<string, unknown>,
 ) => {
   try {
-    const { data } = await serverAxios.get(
+    const response = await serverAxios.get(
       endpoint,
       params ? { params } : undefined,
     );
-    return data;
+    return {
+      data: response.data,
+      response: response,
+    };
   } catch (error) {
     return { error: JSON.stringify(error, null, 2) };
   }
@@ -17,6 +20,10 @@ const fetchData = async (
 
 export async function getLandingPageData() {
   return fetchData("/home");
+}
+
+export async function getLandingpageCourseData() {
+  return fetchData("/home/find-cards");
 }
 
 export async function getAboutUsPageData() {

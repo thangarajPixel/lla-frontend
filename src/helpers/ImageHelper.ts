@@ -38,6 +38,7 @@ export { default as FooterBg } from "@/assets/images/footer-bg.svg";
 export { default as FooterLogo } from "@/assets/images/footer-logo.svg";
 export { default as IQAC } from "@/assets/images/iqbal-logo.svg";
 export { default as Life } from "@/assets/images/life.png";
+export { default as LifeMobile } from "@/assets/images/life-mobile.png";
 export { default as LlaOnline } from "@/assets/images/lla-online.svg";
 export { default as LlaOutreach } from "@/assets/images/lla-outreach.svg";
 export { default as LogoBlack } from "@/assets/images/logo-black.svg";
