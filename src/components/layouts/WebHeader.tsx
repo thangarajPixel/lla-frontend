@@ -34,7 +34,7 @@ const menuItems: (MenuItem | DropdownMenuType)[] = [
     label: "More",
     pathPrefix: "/more",
     items: [
-      { href: "/more/about-us", label: "About us" },
+      { href: "/about-us", label: "About us" },
       { href: "/life-at-lla", label: "Life at LLA" },
       { href: "/more/blog", label: "Blog" },
       { href: "/more/contact-us", label: "Contact Us" },
