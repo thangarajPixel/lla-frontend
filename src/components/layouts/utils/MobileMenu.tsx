@@ -10,7 +10,7 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Logo, LogoBlack, TopArrowIcon } from "@/helpers/ImageHelper";
+import { LogoBlack, TopArrowIcon } from "@/helpers/ImageHelper";
 import ButtonWidget from "../../widgets/ButtonWidget";
 import ImageWidget from "../../widgets/ImageWidget";
 import LinkWidget from "../../widgets/LinkWidget";
@@ -51,7 +51,7 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
           aria-label="Open menu"
         >
           <div className="flex flex-col gap-1.5 w-6">
-          <span
+            <span
               className={`block h-0.5 w-full transition-all duration-300 ${
                 isSticky ? "bg-black" : "bg-white"
               }`}
