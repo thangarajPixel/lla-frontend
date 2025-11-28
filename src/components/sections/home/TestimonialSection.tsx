@@ -82,14 +82,14 @@ const TestimonialSection = ({ data }: TestimonialSectionProps) => {
                             <ImageWidget
                               src={Quote}
                               alt="Quote"
-                              className="object-center"
+                              className="object-center w-[70px] h-[70px]"
                             />
                           </div>
                           <p className=" text-center text-[16px] lg:text-[15px] xl:text-[18px] 3xl:text-[24px] font-normal font-mulish  text-black leading-normal w-full md:max-w-[750px]">
                             {testimonial.Description}
                           </p>
 
-                          <p className="text-lg sm:text-xl md:text-2xl lg:text-[24px] text-[#E97451] font-regular font-mulish">
+                          <p className="mb-2 text-lg sm:text-xl md:text-2xl lg:text-[24px] text-[#E97451] font-regular font-mulish">
                             {testimonial.Name}
                           </p>
 

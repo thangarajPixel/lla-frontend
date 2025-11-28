@@ -19,7 +19,7 @@ const FacultySection = ({ data }: FacultySectionProps) => {
     },
     [
       Autoplay({
-        delay: 3000,
+        delay: 1500,
         stopOnInteraction: false,
         stopOnMouseEnter: true,
       }),

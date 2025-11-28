@@ -61,7 +61,7 @@ const LifeSection = ({ data }: LifeSectionProps) => {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(to bottom, #ECECEC 0%, #ECECEC 20%, rgba(236, 236, 236, 0.6) 40%, rgba(236, 236, 236, 0.3) 60%, rgba(236, 236, 236, 0.1) 80%, transparent 100%)",
+            "linear-gradient(to bottom, #ECECEC 0%, #ECECEC 25%, rgba(236, 236, 236, 0.6) 45%, rgba(236, 236, 236, 0.3) 65%, rgba(236, 236, 236, 0.1) 80%, transparent 100%)",
         }}
       />
 
