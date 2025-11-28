@@ -54,7 +54,7 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
                     return (
                         <div
                             key={index}
-                            className={`ml-1 mb-5 text-sm font-medium ${isActive ? "text-red-600" : isCompleted ? "text-gray-900" : "text-gray-500"
+                            className={`ml-1 mb-5 text-sm font-medium ${isActive ? "text-[#E97451]" : isCompleted ? "text-gray-900" : "text-gray-500"
                                 }`}
                         >
                             {`Step ${stepNum}`}
@@ -77,7 +77,7 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
                         {index < total_Steps - 1 && (
                             <div
                                 className={cn(
-                                    "w-32 md:w-96 h-0.5",
+                                    "w-32 xs:w-48 sm:w-60 md:w-80 min-w-[900px]:w-96 lg:w-80 h-0.5",
                                     index + 1 < currentStep ? "bg-green-500" : "bg-primary/30"
                                 )}
                             />
@@ -96,7 +96,7 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
                     return (
                         <div
                             key={step}
-                            className={`ml-3 mt-5 hidden sm:block text-sm font-medium ${isActive ? "text-red-600" : isCompleted ? "text-gray-900" : "text-gray-500"
+                            className={`ml-3 mt-5 hidden sm:block text-sm font-medium ${isActive ? "text-[#E97451]" : isCompleted ? "text-gray-900" : "text-gray-500"
                                 }`}
                         >
                             {step}

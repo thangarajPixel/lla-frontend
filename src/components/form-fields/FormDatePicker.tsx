@@ -34,7 +34,7 @@ type DatePickerFieldProps<T extends FieldValues> = UseControllerProps<T> & {
   // isReport?: boolean;
 };
 
-const DatePickerField = <T extends FieldValues>({
+const FormDatePicker = <T extends FieldValues>({
   name,
   control,
   label,
@@ -154,4 +154,4 @@ const DatePickerField = <T extends FieldValues>({
   );
 };
 
-export default DatePickerField;
+export default FormDatePicker;

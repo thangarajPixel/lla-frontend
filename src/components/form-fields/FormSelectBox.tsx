@@ -20,7 +20,7 @@ type SelectProps<T extends FieldValues> = {
 
 const defaultOptions: { value: string; label: string; subtitle?: string }[] = [];
 
-function SelectBox<T extends FieldValues>({
+const FormSelectBox = <T extends FieldValues>({
   name,
   control,
   label,
@@ -31,7 +31,7 @@ function SelectBox<T extends FieldValues>({
   defaultValue,
   className,
   disabled,
-}: SelectProps<T>) {
+}: SelectProps<T>) => {
   const { field, fieldState: { error } } = useController({ name, control });
 
   return (
@@ -78,4 +78,4 @@ function SelectBox<T extends FieldValues>({
   );
 }
 
-export default SelectBox;
+export default FormSelectBox;

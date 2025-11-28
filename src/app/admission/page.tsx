@@ -1,8 +1,8 @@
-import { MultiStepForm } from "@/components/sections/application-form/application-form";
-
 import { Fragment } from "react/jsx-runtime";
 
-const ApplicationFormPage = () => {
+import { MultiStepForm } from "@/components/sections/admission-form/admission-form";
+
+const ApplicationFormPage = async () => {
   return (
     <Fragment>
       <MultiStepForm />

@@ -16,7 +16,7 @@ type InputProps<T extends FieldValues> = UseControllerProps<T> & {
   errorClassName?: string;
 } & React.ComponentProps<'input'>;
 
-const InputField = <T extends FieldValues>({ name, control, label, notRequired, defaultValue, errorMessage, ...props }: InputProps<T>) => {
+const FormInput = <T extends FieldValues>({ name, control, label, notRequired, defaultValue, errorMessage, ...props }: InputProps<T>) => {
   const {
     field,
     fieldState: { error },
@@ -44,4 +44,4 @@ const InputField = <T extends FieldValues>({ name, control, label, notRequired, 
   );
 };
 
-export default InputField;
+export default FormInput;
