@@ -103,7 +103,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
                   <h5
                     className="
                     font-mulish font-bold text-black 
-                    mt-3 leading-[24px]
+                    mt-3 leading-6
                     text-[13px] sm:text-[16px] md:text-xl lg:text-[20px]
                     xl:text-[18px] 2xl:text-[24px] 3xl:text-[24px] 4xl:text-[24px]"
                   >

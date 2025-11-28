@@ -36,3 +36,7 @@ export async function getLifePageData(params: {
 }) {
   return fetchData("/life", params);
 }
+
+export async function getAdmissionsPageData() {
+  return fetchData("/admissions");
+}

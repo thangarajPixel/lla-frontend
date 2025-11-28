@@ -3,10 +3,12 @@ export const dynamic = "force-dynamic";
 import type { Metadata } from "next";
 import { Mulish, Urbanist } from "next/font/google";
 import localFont from "next/font/local";
+import { Toaster } from "sonner";
 import MainContent from "@/components/layouts/utils/MainContent";
 import WebFooter from "@/components/layouts/WebFooter";
 import WebHeader from "@/components/layouts/WebHeader";
 import SmoothScrollWidget from "@/components/widgets/SmoothScrollWidget";
+
 import "./globals.css";
 
 const mulish = Mulish({
@@ -44,6 +46,7 @@ export default function RootLayout({
       >
         <SmoothScrollWidget>
           <WebHeader />
+          <Toaster position="top-right" expand richColors />
           <MainContent>{children}</MainContent>
           <WebFooter />
         </SmoothScrollWidget>
