@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import OrangeBorderButtonWidget from "@/components/widgets/OrangeBorderButtonWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
@@ -135,9 +136,12 @@ const CourseSection = ({ data }: CourseSectionProps) => {
                       <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
                         {card.Description}
                       </p>
-                      <OrangeButtonWidget
-                        content={card.Btn_txt || "Discover Your Frame"}
-                      />
+                      <div className="self-start flex gap-4">
+                        <OrangeButtonWidget
+                          content={card.Btn_txt || "Discover Your Frame"}
+                        />
+                        <OrangeBorderButtonWidget content="Course Detail" />
+                      </div>
                     </ParallaxWidget>
                   </ScrollWidget>
                 </div>
