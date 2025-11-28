@@ -92,7 +92,7 @@ const WebHeader = () => {
               />
             </LinkWidget>
 
-            <ul className="hidden lg:flex items-center gap-7 xl:gap-[38px] 2xl:gap-[46px] text-[14px] 2xl:text-[14px] 3xl:text-[18px]">
+            <ul className="hidden lg:flex items-center gap-7 lg:gap-[14px] xl:gap-[38px] 2xl:gap-[46px] text-[14px] 2xl:text-[14px] 3xl:text-[18px]">
               {menuItems.map((item) => {
                 if (isDropdown(item)) {
                   const menuId = item.label.toLowerCase();
