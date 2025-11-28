@@ -13,7 +13,6 @@ import NavLink from "./utils/NavLink";
 import type { DropdownMenu as DropdownMenuType, MenuItem } from "./utils/types";
 
 const menuItems: (MenuItem | DropdownMenuType)[] = [
-  { href: "/about-us", label: "About us" },
   {
     label: "Courses",
     pathPrefix: "/courses",
@@ -28,16 +27,20 @@ const menuItems: (MenuItem | DropdownMenuType)[] = [
       },
     ],
   },
-  {
-    label: "Campus",
-    pathPrefix: "/campus",
-    items: [
-      { href: "/campus/location", label: "Location" },
-      { href: "/campus/facilities", label: "Facilities" },
-      { href: "/campus/tours", label: "Campus Tours" },
-    ],
-  },
+  { href: "/campus", label: "Campus" },
   { href: "/faculty", label: "Faculty" },
+  { href: "/gallery", label: "Gallery" },
+  {
+    label: "More",
+    pathPrefix: "/more",
+    items: [
+      { href: "/more/about-us", label: "About us" },
+      { href: "/more/life-at-lla", label: "Life at LLA" },
+      { href: "/more/blog", label: "Blog" },
+      { href: "/more/contact-us", label: "Contact Us" },
+      { href: "/more/faq", label: "FAQ" },
+    ],
+  }
 ];
 
 const WebHeader = () => {
@@ -85,7 +88,7 @@ const WebHeader = () => {
               <ImageWidget
                 src={isHomePage ? (isSticky ? LogoBlack : Logo) : LogoBlack}
                 alt="Logo"
-                className="mt-2 md:mt-0 w-60 2xl:w-70 3xl:w-[348px] h-auto"
+                className="mt-2 md:mt-0 w-60 2xl:w-70 3xl:w-[348px] h-auto relative md:top-[7px]"
               />
             </LinkWidget>
 
