@@ -64,9 +64,9 @@ const AboutSection = ({ data }: AboutSectionProps) => {
   );
 
   return (
-    <section className="w-full bg-[#ECECEC] flex flex-col items-center justify-center z-40 relative py-30 pb-20">
+    <section className="w-full bg-[#ECECEC] flex flex-col items-center justify-center z-40 relative py-20 pb-0">
       <ContainerWidget>
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 sm:gap-10 md:gap-12 lg:gap-14 xl:gap-16 2xl:gap-18">
+        <div className="grid grid-cols-1 xl:grid-cols-2">
           <div className="flex flex-col gap-4.5">
             <h3 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
               {data.Title || "About LLA"}
@@ -93,16 +93,16 @@ const AboutSection = ({ data }: AboutSectionProps) => {
           <ScrollWidget delay={0.1} animation="fadeUp">
             <div className="hidden xl:block">
               <div
-                className={`frame-39 property-1-${variant} relative h-[550px] -mt-10 box-border`}
+                className={`frame-39 property-1-${variant} relative h-[650px] -mt-10 box-border`}
               >
                 {aboutImages[currentIndices[0]] && (
                   <div
                     className={`rectangle-79 absolute object-cover transition-all duration-500 ${
                       variant === "variant-2"
-                        ? "opacity-50 w-[250px] h-[250px] left-[330px] top-0 z-10"
+                        ? "opacity-50 w-[300px] h-[300px] left-[330px] top-0 z-10"
                         : variant === "variant-3"
-                          ? "w-[400px] h-[400px] left-0 top-[65px] z-20"
-                          : "opacity-50 w-[280px] h-[280px] left-[210px] top-[260px] z-10"
+                          ? "w-[500px] h-[500px] left-0 top-[65px] z-20"
+                          : "opacity-50 w-[350px] h-[350px] left-[210px] top-[260px] z-10"
                     }`}
                   >
                     <ImageWidget
@@ -117,10 +117,10 @@ const AboutSection = ({ data }: AboutSectionProps) => {
                   <div
                     className={`rectangle-80 absolute object-cover transition-all duration-500 ${
                       variant === "variant-2"
-                        ? "w-[400px] h-[400px] left-0 top-[65px] z-20"
+                        ? "w-[500px] h-[500px] left-0 top-[65px] z-20"
                         : variant === "variant-3"
-                          ? "opacity-50 w-[280px] h-[280px] left-[210px] top-[260px] z-10"
-                          : "opacity-50 w-[250px] h-[250px] left-[330px] top-0 z-10"
+                          ? "opacity-50 w-[350px] h-[350px] left-[210px] top-[260px] z-10"
+                          : "opacity-50 w-[300px] h-[300px] left-[330px] top-0 z-10"
                     }`}
                   >
                     <ImageWidget
@@ -135,10 +135,10 @@ const AboutSection = ({ data }: AboutSectionProps) => {
                   <div
                     className={`rectangle-78 absolute object-cover transition-all duration-500 ${
                       variant === "variant-2"
-                        ? "opacity-50 w-[280px] h-[280px] left-[210px] top-[260px] z-10"
+                        ? "opacity-50 w-[350px] h-[350px] left-[210px] top-[260px] z-10"
                         : variant === "variant-3"
-                          ? "opacity-50 w-[250px] h-[250px] left-[330px] top-0 z-10"
-                          : "w-[400px] h-[400px] left-0 top-[65px] z-20"
+                          ? "opacity-50 w-[300px] h-[300px] left-[330px] top-0 z-10"
+                          : "w-[500px] h-[500px] left-0 top-[65px] z-20"
                     }`}
                   >
                     <ImageWidget
