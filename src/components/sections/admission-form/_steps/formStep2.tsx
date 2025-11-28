@@ -72,17 +72,11 @@ const FormStep2 = ({ onNextStep, onPrevStep }: Step2FormProps) => {
       onNextStep();
       alert("Application submitted successfully!");
     } catch (error) {
-      notify({ success: false, message: error });
+      notify({ success: false, message: error as string });
     }
   };
 
   return (
-    // <main className="min-h-screen bg-background py-8 px-4 md:px-8">
-    //   <div className="max-w-4xl mx-auto space-y-12">
-    //     <EducationDetails control={form.control} />
-    //     <WorkExperience control={form.control} />
-    //   </div>
-    // </main>
 
     <FormProvider {...form_step2}>
       <form
