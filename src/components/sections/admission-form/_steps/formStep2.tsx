@@ -72,7 +72,7 @@ const FormStep2 = ({ onNextStep, onPrevStep }: Step2FormProps) => {
       onNextStep();
       alert("Application submitted successfully!");
     } catch (error) {
-      notify({ success: false, message: error });
+      notify({ success: false, message: error as string });
     }
   };
 
