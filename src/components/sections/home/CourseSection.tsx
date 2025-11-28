@@ -1,5 +1,9 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import OrangeBorderButtonWidget from "@/components/widgets/OrangeBorderButtonWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
@@ -17,6 +21,21 @@ type AnimationType =
   | "rotate";
 
 const CourseSection = ({ data }: CourseSectionProps) => {
+  const [imageIndices, setImageIndices] = useState<number[]>(() => {
+    return data?.Card?.map(() => 0) || [];
+  });
+
+  useEffect(() => {
+    setImageIndices(
+      data?.Card?.map((card) => {
+        const images = card?.Image || [];
+        return images.length > 0
+          ? Math.floor(Math.random() * images.length) * 1
+          : 0;
+      }) || [],
+    );
+  }, [data?.Card]);
+
   const animations: Array<{
     image: AnimationType;
     content: AnimationType;
@@ -69,53 +88,65 @@ const CourseSection = ({ data }: CourseSectionProps) => {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-7 2xl:gap-6">
-            {data?.Card?.map((card, index) => (
-              <div
-                key={card.id}
-                className={
-                  cardContainerClasses[index] || cardContainerClasses[0]
-                }
-              >
-                <ScrollWidget
-                  animation={animations[index]?.image || "scale"}
-                  delay={animations[index]?.delay.image || 0.1}
+            {data?.Card?.map((card, index) => {
+              const images = card?.Image || [];
+              const imageIndex = imageIndices[index] ?? 0;
+              const primaryImage = images[imageIndex];
+
+              return (
+                <div
+                  key={card.id}
+                  className={
+                    cardContainerClasses[index] || cardContainerClasses[0]
+                  }
                 >
-                  <ParallaxWidget
-                    speed={parallaxSpeeds[index]?.image || 0.4}
-                    className="relative w-full aspect-4/3 overflow-hidden"
+                  <ScrollWidget
+                    animation={animations[index]?.image || "scale"}
+                    delay={animations[index]?.delay.image || 0.1}
                   >
-                    <ImageWidget
-                      src={
-                        getS3Url(card?.Image?.[0]?.url) ||
-                        (index === 0 ? Dummy1 : Dummy2)
-                      }
-                      alt={card?.Title}
-                      fill
-                      className="object-cover"
-                    />
-                  </ParallaxWidget>
-                </ScrollWidget>
-                <ScrollWidget
-                  animation={animations[index]?.content || "slideLeft"}
-                  delay={animations[index]?.delay.content || 0.3}
-                >
-                  <ParallaxWidget
-                    speed={parallaxSpeeds[index]?.content || -0.25}
-                    className={contentClasses[index] || contentClasses[0]}
+                    <ParallaxWidget
+                      speed={parallaxSpeeds[index]?.image || 0.4}
+                      className="relative w-full aspect-4/3 overflow-hidden"
+                    >
+                      <ImageWidget
+                        src={
+                          primaryImage?.url
+                            ? getS3Url(primaryImage.url)
+                            : index === 0
+                              ? Dummy1
+                              : Dummy2
+                        }
+                        alt={card?.Title}
+                        fill
+                        className="object-cover"
+                      />
+                    </ParallaxWidget>
+                  </ScrollWidget>
+                  <ScrollWidget
+                    animation={animations[index]?.content || "slideLeft"}
+                    delay={animations[index]?.delay.content || 0.3}
                   >
-                    <h3 className="text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[32px] 3xl:text-[40px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
-                      {card.Title}
-                    </h3>
-                    <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
-                      {card.Description}
-                    </p>
-                    <OrangeButtonWidget
-                      content={card.Btn_txt || "Discover Your Frame"}
-                    />
-                  </ParallaxWidget>
-                </ScrollWidget>
-              </div>
-            ))}
+                    <ParallaxWidget
+                      speed={parallaxSpeeds[index]?.content || -0.25}
+                      className={contentClasses[index] || contentClasses[0]}
+                    >
+                      <h3 className="text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[32px] 3xl:text-[40px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
+                        {card.Title}
+                      </h3>
+                      <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
+                        {card.Description}
+                      </p>
+                      <div className="self-start flex gap-4">
+                        <OrangeButtonWidget
+                          content={card.Btn_txt || "Discover Your Frame"}
+                        />
+                        <OrangeBorderButtonWidget content="Course Detail" />
+                      </div>
+                    </ParallaxWidget>
+                  </ScrollWidget>
+                </div>
+              );
+            })}
           </div>
         </div>
       </ContainerWidget>

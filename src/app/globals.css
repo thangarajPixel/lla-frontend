@@ -102,6 +102,10 @@ body {
   @apply bg-[#E97451] text-white transition-colors duration-300 hover:bg-[#F5855F]/80;
 }
 
+.orange-button-white {
+  @apply bg-white text-[#E97451] transition-colors duration-300 hover:bg-white/80 border border-[#E97451] hover:border-[#E97451]/80;
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

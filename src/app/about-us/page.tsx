@@ -5,7 +5,7 @@ import TeamSection from "@/components/sections/about-us/TeamSection";
 import { getAboutUsPageData } from "../api/server";
 
 const AboutUsPage = async () => {
-  const response = await getAboutUsPageData();
+  const { data: response } = await getAboutUsPageData();
   if (response?.about)
     return (
       <Fragment>

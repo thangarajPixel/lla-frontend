@@ -13,6 +13,9 @@ import type { AboutSectionProps } from "./utils/home";
 const AboutSection = ({ data }: AboutSectionProps) => {
   const aboutImages = data.Image || [];
   const [currentIndices, setCurrentIndices] = useState([0, 1, 2]);
+  const [variant, setVariant] = useState<"default" | "variant-2" | "variant-3">(
+    "default",
+  );
 
   useEffect(() => {
     if (aboutImages.length === 0) return;
@@ -22,10 +25,16 @@ const AboutSection = ({ data }: AboutSectionProps) => {
         const maxIndex = Math.max(0, aboutImages.length - 1);
 
         return [
-          Math.min(prev[2], maxIndex),
           Math.min(prev[0], maxIndex),
           Math.min(prev[1], maxIndex),
+          Math.min(prev[2], maxIndex),
         ];
+      });
+
+      setVariant((prev) => {
+        if (prev === "default") return "variant-2";
+        if (prev === "variant-2") return "variant-3";
+        return "default";
       });
     }, 3000);
 
@@ -55,9 +64,9 @@ const AboutSection = ({ data }: AboutSectionProps) => {
   );
 
   return (
-    <section className="w-full bg-[#ECECEC] flex flex-col items-center justify-center z-40 relative py-15 lg:pt-[280px] lg:pb-[220px]">
+    <section className="w-full bg-[#ECECEC] flex flex-col items-center justify-center z-40 relative py-20 pb-0">
       <ContainerWidget>
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 sm:gap-10 md:gap-12 lg:gap-14 xl:gap-16 2xl:gap-18">
+        <div className="grid grid-cols-1 xl:grid-cols-2">
           <div className="flex flex-col gap-4.5">
             <h3 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
               {data.Title || "About LLA"}
@@ -82,42 +91,62 @@ const AboutSection = ({ data }: AboutSectionProps) => {
             </div>
           </div>
           <ScrollWidget delay={0.1} animation="fadeUp">
-            <div className="hidden xl:block  relative">
-              <div className="relative">
+            <div className="hidden xl:block">
+              <div
+                className={`frame-39 property-1-${variant} relative h-[650px] -mt-10 box-border`}
+              >
                 {aboutImages[currentIndices[0]] && (
-                  <div className="relative top">
-                    <div className="absolute w-[200px] h-[160px] md:w-[250px] md:h-[200px] lg:w-[280px] lg:h-[230px] xl:w-[300px] xl:h-[250px] mt-[-150px] md:mt-[-170px] lg:mt-[-180px] xl:mt-[-190px] 2xl:mt-[-200px] ml-[100px] md:ml-[120px] lg:ml-[140px] xl:ml-[150px] opacity-40 transition-opacity duration-500">
-                      <ImageWidget
-                        src={getImageUrl(currentIndices[0])}
-                        alt={aboutImages[currentIndices[0]].name || "About 2"}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
+                  <div
+                    className={`rectangle-79 absolute object-cover transition-all duration-500 ${
+                      variant === "variant-2"
+                        ? "opacity-50 xl:w-[250px] xl:h-[250px] xl:left-[280px] 2xl:w-[300px] 2xl:h-[300px] 2xl:left-[330px] top-0 z-10"
+                        : variant === "variant-3"
+                          ? "xl:w-[420px] xl:h-[420px] 2xl:w-[500px] 2xl:h-[500px] left-0 top-[65px] z-20"
+                          : "opacity-50 xl:w-[300px] xl:h-[300px] xl:left-[180px] 2xl:w-[350px] 2xl:h-[350px] 2xl:left-[210px] top-[260px] z-10"
+                    }`}
+                  >
+                    <ImageWidget
+                      src={getImageUrl(currentIndices[0])}
+                      alt={aboutImages[currentIndices[0]].name || "About"}
+                      fill
+                      className="object-contain"
+                    />
                   </div>
                 )}
                 {aboutImages[currentIndices[1]] && (
-                  <div className="relative">
-                    <div className="w-[320px] h-[240px] md:w-[400px] md:h-[280px] lg:w-[450px] lg:h-[320px] xl:w-[500px] xl:h-[350px] ml-[-60px] md:ml-[-80px] lg:ml-[-90px] xl:ml-[-60px] 2xl:ml-[-100px] relative z-10 transition-opacity duration-500">
-                      <ImageWidget
-                        src={getImageUrl(currentIndices[1])}
-                        alt={aboutImages[currentIndices[1]].name || "About 3"}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
+                  <div
+                    className={`rectangle-80 absolute object-cover transition-all duration-500 ${
+                      variant === "variant-2"
+                        ? "xl:w-[420px] xl:h-[420px] 2xl:w-[500px] 2xl:h-[500px] left-0 top-[65px] z-20"
+                        : variant === "variant-3"
+                          ? "opacity-50 xl:w-[300px] xl:h-[300px] xl:left-[180px] 2xl:w-[350px] 2xl:h-[350px] 2xl:left-[210px] top-[260px] z-10"
+                          : "opacity-50 xl:w-[250px] xl:h-[250px] xl:left-[280px] 2xl:w-[300px] 2xl:h-[300px] 2xl:left-[330px] top-0 z-10"
+                    }`}
+                  >
+                    <ImageWidget
+                      src={getImageUrl(currentIndices[1])}
+                      alt={aboutImages[currentIndices[1]].name || "About"}
+                      fill
+                      className="object-contain"
+                    />
                   </div>
                 )}
                 {aboutImages[currentIndices[2]] && (
-                  <div className="relative">
-                    <div className="absolute w-[260px] h-[200px] md:w-[340px] md:h-[240px] lg:w-[380px] lg:h-[260px] xl:w-[420px] xl:h-[280px] mt-[-120px] md:mt-[-135px] lg:mt-[-140px] xl:mt-[-145px] 2xl:mt-[-150px] ml-[50px] md:ml-[65px] lg:ml-[75px] xl:ml-[80px] opacity-40 transition-opacity duration-500">
-                      <ImageWidget
-                        src={getImageUrl(currentIndices[2])}
-                        alt={aboutImages[currentIndices[2]].name || "About 1"}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
+                  <div
+                    className={`rectangle-78 absolute object-cover transition-all duration-500 ${
+                      variant === "variant-2"
+                        ? "opacity-50 xl:w-[300px] xl:h-[300px] xl:left-[180px] 2xl:w-[350px] 2xl:h-[350px] 2xl:left-[210px] top-[260px] z-10"
+                        : variant === "variant-3"
+                          ? "opacity-50 xl:w-[250px] xl:h-[250px] xl:left-[280px] 2xl:w-[300px] 2xl:h-[300px] 2xl:left-[330px] top-0 z-10"
+                          : "xl:w-[420px] xl:h-[420px] 2xl:w-[500px] 2xl:h-[500px] left-0 top-[65px] z-20"
+                    }`}
+                  >
+                    <ImageWidget
+                      src={getImageUrl(currentIndices[2])}
+                      alt={aboutImages[currentIndices[2]].name || "About"}
+                      fill
+                      className="object-contain"
+                    />
                   </div>
                 )}
               </div>
