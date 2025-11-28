@@ -3,12 +3,12 @@
 import { useEffect, useState } from "react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import OrangeBorderButtonWidget from "@/components/widgets/OrangeBorderButtonWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import { Dummy1, Dummy2 } from "@/helpers/ImageHelper";
-import OrangeBorderButtonWidget from "@/components/widgets/OrangeBorderButtonWidget";
 import type { CourseSectionProps } from "./utils/home";
 
 type AnimationType =
@@ -137,12 +137,10 @@ const CourseSection = ({ data }: CourseSectionProps) => {
                         {card.Description}
                       </p>
                       <div className="self-start flex gap-4">
-                      <OrangeButtonWidget
-                        content={card.Btn_txt || "Discover Your Frame"}
-                      />
-                      <OrangeBorderButtonWidget
-                        content="Course Detail"
-                      />
+                        <OrangeButtonWidget
+                          content={card.Btn_txt || "Discover Your Frame"}
+                        />
+                        <OrangeBorderButtonWidget content="Course Detail" />
                       </div>
                     </ParallaxWidget>
                   </ScrollWidget>
