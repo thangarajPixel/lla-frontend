@@ -81,7 +81,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
     if (emblaApi) {
       emblaApi.reInit();
     }
-  }, [emblaApi, studentData.length]);
+  }, [emblaApi]);
 
   const scrollPrev = () => {
     emblaApi?.scrollPrev();
