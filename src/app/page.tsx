@@ -12,11 +12,13 @@ import TestimonialSection from "@/components/sections/home/TestimonialSection";
 import { getLandingPageData, getLandingpageCourseData } from "./api/server";
 
 const Home = async () => {
-  const { data: response } = await getLandingPageData();
-  const { response: courseResponse } = await getLandingpageCourseData({
-    page: 1,
-    pageSize: 2,
-  });
+
+  const [{ data: response }, { data: courseResponse }] = await Promise.all([
+    getLandingPageData(),
+    getLandingpageCourseData(),
+  ]);
+  
+  console.log(courseResponse);
 
   if (response?.Home)
     return (

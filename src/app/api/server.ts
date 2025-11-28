@@ -22,11 +22,8 @@ export async function getLandingPageData() {
   return fetchData("/home");
 }
 
-export async function getLandingpageCourseData(params: {
-  page: number;
-  pageSize: number;
-}) {
-  return fetchData("/home/find-cards", params);
+export async function getLandingpageCourseData() {
+  return fetchData("/home/find-cards");
 }
 
 export async function getAboutUsPageData() {
