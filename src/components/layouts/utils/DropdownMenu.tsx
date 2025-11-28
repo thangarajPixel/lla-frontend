@@ -54,7 +54,7 @@ const DropdownMenu = ({
           className={`${
             isSticky
               ? "bg-white shadow-lg rounded-md py-2"
-              : "bg-black shadow-lg rounded-md py-2"
+              : "bg-white shadow-lg rounded-md py-2"
           }`}
         >
           {menu.items.map((item) => (
@@ -66,7 +66,7 @@ const DropdownMenu = ({
                     ? ACTIVE_COLOR
                     : isSticky
                       ? "text-black hover:bg-black/10"
-                      : "text-white hover:bg-white/10"
+                      : "text-black hover:bg-black/10"
                 }`}
               >
                 {item.label}
