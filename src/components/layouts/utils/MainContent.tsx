@@ -11,7 +11,7 @@ export default function MainContent({
 }) {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
-  const formPage = pathname === "/application-form";
+  const formPage = pathname === "/admission";
 
   return (
     <QueryClientProvider client={queryClient}>
