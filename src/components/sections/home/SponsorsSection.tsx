@@ -39,7 +39,7 @@ const SponsorsSection = ({ data }: SponsorsSectionProps) => {
                     className="space-y-4 md:space-y-4 lg:space-y-5 xl:space-y-6"
                   >
                     <ScrollWidget animation="fadeUp" delay={0.1 + index * 0.05}>
-                      <div className="relative w-full h-0 pb-[75%] aspect-4/3 overflow-hidden">
+                      <div className="relative w-[163px] h-[63px] overflow-hidden">
                         <ImageWidget
                           src={getS3Url(sponsor.url)}
                           alt={sponsor.name || `Sponsor ${sponsor.id}`}
@@ -56,7 +56,7 @@ const SponsorsSection = ({ data }: SponsorsSectionProps) => {
                     className="space-y-4 md:space-y-4 lg:space-y-5 xl:space-y-6"
                   >
                     <ScrollWidget animation="fadeUp" delay={0.1 + index * 0.05}>
-                      <div className="relative w-full h-0 pb-[75%] aspect-4/3 overflow-hidden">
+                      <div className="relative w-[163px] h-[63px] overflow-hidden">
                         <ImageWidget
                           src={item.image}
                           alt={`Sponsor ${index + 1}`}
