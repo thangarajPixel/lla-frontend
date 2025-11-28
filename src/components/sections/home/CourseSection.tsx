@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
@@ -28,8 +28,10 @@ const CourseSection = ({ data }: CourseSectionProps) => {
     setImageIndices(
       data?.Card?.map((card) => {
         const images = card?.Image || [];
-        return images.length > 0 ? Math.floor(Math.random() * images.length) * 1 : 0;
-      }) || []
+        return images.length > 0
+          ? Math.floor(Math.random() * images.length) * 1
+          : 0;
+      }) || [],
     );
   }, [data?.Card]);
 
@@ -119,25 +121,25 @@ const CourseSection = ({ data }: CourseSectionProps) => {
                       />
                     </ParallaxWidget>
                   </ScrollWidget>
-                <ScrollWidget
-                  animation={animations[index]?.content || "slideLeft"}
-                  delay={animations[index]?.delay.content || 0.3}
-                >
-                  <ParallaxWidget
-                    speed={parallaxSpeeds[index]?.content || -0.25}
-                    className={contentClasses[index] || contentClasses[0]}
+                  <ScrollWidget
+                    animation={animations[index]?.content || "slideLeft"}
+                    delay={animations[index]?.delay.content || 0.3}
                   >
-                    <h3 className="text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[32px] 3xl:text-[40px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
-                      {card.Title}
-                    </h3>
-                    <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
-                      {card.Description}
-                    </p>
-                    <OrangeButtonWidget
-                      content={card.Btn_txt || "Discover Your Frame"}
-                    />
-                  </ParallaxWidget>
-                </ScrollWidget>
+                    <ParallaxWidget
+                      speed={parallaxSpeeds[index]?.content || -0.25}
+                      className={contentClasses[index] || contentClasses[0]}
+                    >
+                      <h3 className="text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[32px] 3xl:text-[40px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
+                        {card.Title}
+                      </h3>
+                      <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
+                        {card.Description}
+                      </p>
+                      <OrangeButtonWidget
+                        content={card.Btn_txt || "Discover Your Frame"}
+                      />
+                    </ParallaxWidget>
+                  </ScrollWidget>
                 </div>
               );
             })}

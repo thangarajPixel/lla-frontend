@@ -12,12 +12,9 @@ import TestimonialSection from "@/components/sections/home/TestimonialSection";
 import { getLandingPageData } from "./api/server";
 
 const Home = async () => {
+  const [{ data: response }] = await Promise.all([getLandingPageData()]);
 
-  const [{ data: response }] = await Promise.all([
-    getLandingPageData(),
-  ]);
-
-  if (response && response?.Home)
+  if (response?.Home)
     return (
       <Fragment>
         <HeroSection data={response?.Home?.[0]} />
