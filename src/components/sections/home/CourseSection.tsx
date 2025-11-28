@@ -8,6 +8,7 @@ import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import { Dummy1, Dummy2 } from "@/helpers/ImageHelper";
+import OrangeBorderButtonWidget from "@/components/widgets/OrangeBorderButtonWidget";
 import type { CourseSectionProps } from "./utils/home";
 
 type AnimationType =
@@ -135,9 +136,14 @@ const CourseSection = ({ data }: CourseSectionProps) => {
                       <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
                         {card.Description}
                       </p>
+                      <div className="self-start flex gap-4">
                       <OrangeButtonWidget
                         content={card.Btn_txt || "Discover Your Frame"}
                       />
+                      <OrangeBorderButtonWidget
+                        content="Course Detail"
+                      />
+                      </div>
                     </ParallaxWidget>
                   </ScrollWidget>
                 </div>
