@@ -1,25 +1,26 @@
-'use client';
+"use client";
 
-import { format, isValid, parseISO } from 'date-fns';
-import { CalendarIcon } from 'lucide-react';
-import * as React from 'react';
+import { format, isValid, parseISO } from "date-fns";
+import { CalendarIcon } from "lucide-react";
+import * as React from "react";
 import type {
   Control,
   FieldValues,
   Path,
   PathValue,
   UseControllerProps,
-} from 'react-hook-form';
-import { useController } from 'react-hook-form';
+} from "react-hook-form";
+import { useController } from "react-hook-form";
 
-import { Button } from '@/components/ui/button';
-import { Calendar } from '@/components/ui/calendar';
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover';
-import { cn } from '@/lib/utils';
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+
 // import type { ReportFiltersType } from '@/types/reports';
 
 type DatePickerFieldProps<T extends FieldValues> = UseControllerProps<T> & {
@@ -62,7 +63,7 @@ const FormDatePicker = <T extends FieldValues>({
     if (value instanceof Date && isValid(value)) {
       return value;
     }
-    if (typeof value === 'string') {
+    if (typeof value === "string") {
       const parsed = parseISO(value);
       return isValid(parsed) ? parsed : undefined;
     }
@@ -72,8 +73,8 @@ const FormDatePicker = <T extends FieldValues>({
   const selectedDate = getDateValue(field.value);
 
   const displayValue = selectedDate
-    ? format(selectedDate, 'dd-MM-yyyy')
-    : placeholder || 'Pick a date';
+    ? format(selectedDate, "dd-MM-yyyy")
+    : placeholder || "Pick a date";
 
   const handleSelect = (value: Date | undefined) => {
     // if (value) {
@@ -98,23 +99,26 @@ const FormDatePicker = <T extends FieldValues>({
 
     const handleClickOutside = (event: MouseEvent) => {
       if (
-        dropdownRef.current
-        && !dropdownRef.current.contains(event.target as Node)
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
       ) {
         setOpen(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [open]);
 
   return (
     <div className="relative space-y-1">
       {label && (
-        <label className={`block text-sm font-medium text-foreground`}>
+        <label
+          htmlFor={label}
+          className={`block text-sm font-medium text-foreground`}
+        >
           {label}
-          {notRequired !== 'true' && (
+          {notRequired !== "true" && (
             <span className="text-destructive">*</span>
           )}
         </label>
@@ -124,12 +128,12 @@ const FormDatePicker = <T extends FieldValues>({
         <PopoverTrigger asChild>
           <Button
             type="button"
-            onClick={() => setOpen(prev => !prev)}
+            onClick={() => setOpen((prev) => !prev)}
             id={name.toString()}
             variant="outline"
             className={cn(
-              'flex h-10 w-full rounded-full border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm justify-start text-left font-normal',
-              !field.value && 'text-muted-foreground',
+              "flex h-10 w-full rounded-full border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm justify-start text-left font-normal",
+              !field.value && "text-muted-foreground",
             )}
             {...props}
           >
@@ -147,9 +151,7 @@ const FormDatePicker = <T extends FieldValues>({
         </PopoverContent>
       </Popover>
 
-      {error && (
-        <p className="text-sm text-red-500">{error.message}</p>
-      )}
+      {error && <p className="text-sm text-red-500">{error.message}</p>}
     </div>
   );
 };

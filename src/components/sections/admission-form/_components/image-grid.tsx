@@ -1,4 +1,7 @@
+"use client";
+
 import { X } from "lucide-react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 interface ImageGridProps {
@@ -14,7 +17,8 @@ export const ImageGrid = ({ images, onRemove }: ImageGridProps) => {
       {images.map((image) => (
         <div key={image.id} className="relative group">
           <div className="aspect-4/3 rounded-xl overflow-hidden bg-muted">
-            <img
+            <Image
+              fill
               src={image.url}
               alt="Portfolio upload"
               className="w-full h-full object-cover"

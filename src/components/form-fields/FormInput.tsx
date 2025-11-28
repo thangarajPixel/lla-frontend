@@ -1,7 +1,14 @@
-import * as React from 'react';
-import { type Control, type FieldValues, type Path, type PathValue, useController, type UseControllerProps } from 'react-hook-form';
+import type * as React from "react";
+import {
+  type Control,
+  type FieldValues,
+  type Path,
+  type PathValue,
+  type UseControllerProps,
+  useController,
+} from "react-hook-form";
 
-import { Input } from '@/components/ui/input';
+import { Input } from "@/components/ui/input";
 
 type InputProps<T extends FieldValues> = UseControllerProps<T> & {
   notRequired?: boolean;
@@ -14,9 +21,17 @@ type InputProps<T extends FieldValues> = UseControllerProps<T> & {
   labelClassName?: string;
   inputClassName?: string;
   errorClassName?: string;
-} & React.ComponentProps<'input'>;
+} & React.ComponentProps<"input">;
 
-const FormInput = <T extends FieldValues>({ name, control, label, notRequired, defaultValue, errorMessage, ...props }: InputProps<T>) => {
+const FormInput = <T extends FieldValues>({
+  name,
+  control,
+  label,
+  notRequired,
+  defaultValue,
+  errorMessage,
+  ...props
+}: InputProps<T>) => {
   const {
     field,
     fieldState: { error },
@@ -27,9 +42,11 @@ const FormInput = <T extends FieldValues>({ name, control, label, notRequired, d
   });
 
   // Ensure value is never undefined or null
-  const safeValue
-    = field.value === undefined || field.value === null
-      ? (props.type === 'number' ? '' : '')
+  const safeValue =
+    field.value === undefined || field.value === null
+      ? props.type === "number"
+        ? ""
+        : ""
       : field.value;
 
   return (

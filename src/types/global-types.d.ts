@@ -20,15 +20,17 @@ type StateDataResponse = {
 };
 
 type AdmissionFormDataResponse = {
-  data: ApplicationFormSchema_Step1 | ApplicationFormSchema_Step2 | ApplicationFormSchema_Step3;
+  data:
+    | ApplicationFormSchema_Step1
+    | ApplicationFormSchema_Step2
+    | ApplicationFormSchema_Step3;
   pagination: PaginationInterFace;
 };
 
-
 type ToastPosition =
-  | 'top-left'
-  | 'top-right'
-  | 'bottom-left'
-  | 'bottom-right'
-  | 'top-center'
-  | 'bottom-center';
+  | "top-left"
+  | "top-right"
+  | "bottom-left"
+  | "bottom-right"
+  | "top-center"
+  | "bottom-center";

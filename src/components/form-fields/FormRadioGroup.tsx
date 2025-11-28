@@ -1,10 +1,8 @@
-'use client';
+"use client";
 
-import type { Control, FieldValues, Path } from 'react-hook-form';
-import { useController } from 'react-hook-form';
-
+import type { Control, FieldValues, Path } from "react-hook-form";
+import { useController } from "react-hook-form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Recycle } from "lucide-react";
 
 type RadioGroupProps<T extends FieldValues> = {
   label?: string;
@@ -38,15 +36,21 @@ const FormRadioGroup = <T extends FieldValues>({
   return (
     <div className="w-full max-w-md rounded-xl">
       {label && (
-        <label className="block text-sm font-medium text-foreground mb-1">
+        <label
+          htmlFor={name}
+          className="block text-sm font-medium text-foreground mb-1"
+        >
           {label}
-          {notRequired !== "true" && <span className="text-destructive">*</span>}
+          {notRequired !== "true" && (
+            <span className="text-destructive">*</span>
+          )}
         </label>
       )}
 
       {isLoading ? (
         <div className="flex items-center justify-center py-6">
-          <Recycle className="size-6 animate-spin" />
+          {/* <Recycle className="size-6 animate-spin" /> */}
+          Loading...
         </div>
       ) : (
         <div>

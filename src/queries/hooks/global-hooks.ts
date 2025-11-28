@@ -1,12 +1,14 @@
-import type { UseQueryResult } from '@tanstack/react-query';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import type { UseQueryResult } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
-import { getStateLists } from '@/queries/services/global-services';
-import { ApplicationFormSchema_Step1 } from '@/validations/multi-step-form';
+import { getStateLists } from "@/queries/services/global-services";
 
-export const useGetStateLists = (): UseQueryResult<any, Error> => {
+export const useGetStateLists = (): UseQueryResult<
+  StateDataResponse,
+  Error
+> => {
   return useQuery({
-    queryKey: ['state-list'],
-    queryFn: () => getStateLists(),
+    queryKey: ["state-list"],
+    queryFn: getStateLists,
   });
 };

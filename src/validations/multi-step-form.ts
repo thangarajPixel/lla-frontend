@@ -104,10 +104,8 @@ export const applicationFormSchema_Step1 = z.object({
 
 export const applicationFormSchema_Step2 = z.object({
   Education_Details: z.object({
-    Education_Details_12th_std: z
-      .number().optional(),
-    Education_Details_10th_std: z
-      .number().optional(),
+    Education_Details_12th_std: z.number().optional(),
+    Education_Details_10th_std: z.number().optional(),
   }),
   Under_Graduate: z
     .object({
@@ -127,11 +125,11 @@ export const applicationFormSchema_Step2 = z.object({
 
 export const applicationFormSchema_Step3 = z.object({
   portfolio: z
-    . file()
+    .file()
     .refine((file) => file instanceof File, "Image file is required")
     .refine(
       (file) => file?.size <= 1_000_000,
-      "File size must be less than 1MB"
+      "File size must be less than 1MB",
     )
     // .refine(
     //   (file) => ["image/jpeg", "image/png"].includes(file?.type),

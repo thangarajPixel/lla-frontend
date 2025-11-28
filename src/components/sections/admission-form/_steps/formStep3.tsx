@@ -1,16 +1,17 @@
-"use client"
+"use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { zodResolver } from '@hookform/resolvers/zod';
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { UploadArea } from "@/components/sections/admission-form/_components/upload-area";
-import { ImageGrid } from "@/components/sections/admission-form/_components/image-grid";
-import { toast } from "@/components/sections/admission-form/_components/use-toast";
 import { FormProvider, useForm } from "react-hook-form";
-import { applicationFormSchema_Step3, ApplicationFormSchema_Step3 } from "@/validations/multi-step-form";
+import { ImageGrid } from "@/components/sections/admission-form/_components/image-grid";
+import { UploadArea } from "@/components/sections/admission-form/_components/upload-area";
+import { toast } from "@/components/sections/admission-form/_components/use-toast";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import { cn } from "@/lib/utils";
+import {
+  type ApplicationFormSchema_Step3,
+  applicationFormSchema_Step3,
+} from "@/validations/multi-step-form";
 
 interface UploadedImage {
   id: string;
@@ -21,7 +22,7 @@ interface UploadedImage {
 type Step3FormProps = {
   onPrevStep: () => void;
   onPreview: () => void;
-}
+};
 
 const FormStep3 = ({ onPrevStep, onPreview }: Step3FormProps) => {
   const [images, setImages] = useState<UploadedImage[]>([]);
@@ -34,12 +35,12 @@ const FormStep3 = ({ onPrevStep, onPreview }: Step3FormProps) => {
     },
   });
 
-  const { control, handleSubmit, formState: { errors } } = form_step3;
+  const { handleSubmit } = form_step3;
 
   const handleFilesSelected = (files: File[]) => {
-    const MAX_SIZE = 3* 1024 * 1024; // 1MB in bytes
+    const MAX_SIZE = 3 * 1024 * 1024; // 1MB in bytes
 
-    const validFiles = files.filter(file => {
+    const validFiles = files.filter((file) => {
       if (file.size > MAX_SIZE) {
         alert(`File ${file.name} exceeds 1MB limit`);
         toast({
@@ -52,30 +53,30 @@ const FormStep3 = ({ onPrevStep, onPreview }: Step3FormProps) => {
       return true;
     });
 
-    const newImages = validFiles.map(file => ({
+    const newImages = validFiles.map((file) => ({
       id: Math.random().toString(36).substr(2, 9),
       url: URL.createObjectURL(file),
       file,
     }));
 
-    setImages(prev => [...prev, ...newImages]);
+    setImages((prev) => [...prev, ...newImages]);
   };
 
   const handleRemoveImage = (id: string) => {
-    setImages(prev => {
-      const image = prev.find(img => img.id === id);
+    setImages((prev) => {
+      const image = prev.find((img) => img.id === id);
       if (image) {
         URL.revokeObjectURL(image.url);
       }
-      return prev.filter(img => img.id !== id);
+      return prev.filter((img) => img.id !== id);
     });
   };
 
   const onSubmit = async (payload: ApplicationFormSchema_Step3) => {
     console.log("Server response:", payload);
     onPreview();
-    alert("Application submitted successfully!")
-  }
+    alert("Application submitted successfully!");
+  };
 
   return (
     <FormProvider {...form_step3}>
@@ -87,7 +88,10 @@ const FormStep3 = ({ onPrevStep, onPreview }: Step3FormProps) => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
             <div>
-              <label className="block text-foreground text-sm mb-4">
+              <label
+                htmlFor="portfolio"
+                className="block text-foreground text-sm mb-4"
+              >
                 Upload Images<span className="text-destructive">*</span>
               </label>
               <UploadArea onFilesSelected={handleFilesSelected} />
@@ -106,7 +110,9 @@ const FormStep3 = ({ onPrevStep, onPreview }: Step3FormProps) => {
           <ButtonWidget
             type="button"
             onClick={onPrevStep}
-            className={cn("px-6 py-2 bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors")}
+            className={cn(
+              "px-6 py-2 bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
+            )}
           >
             Back
           </ButtonWidget>
@@ -119,7 +125,6 @@ const FormStep3 = ({ onPrevStep, onPreview }: Step3FormProps) => {
           >
             Preview Application
           </ButtonWidget>
-
         </div>
       </form>
     </FormProvider>

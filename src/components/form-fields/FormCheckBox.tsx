@@ -1,6 +1,11 @@
 "use client";
 
-import { Control, FieldValues, Path, useController } from "react-hook-form";
+import {
+  type Control,
+  type FieldValues,
+  type Path,
+  useController,
+} from "react-hook-form";
 import { Checkbox } from "@/components/ui/checkbox";
 
 type FormCheckBoxProps<T extends FieldValues> = {
@@ -38,7 +43,11 @@ function FormCheckBox<T extends FieldValues>({
 
       {/* Label + Error */}
       <div className="flex flex-col leading-none">
-        {label && <label className="text-sm text-foreground">{label}</label>}
+        {label && (
+          <label htmlFor={name} className="text-sm text-foreground">
+            {label}
+          </label>
+        )}
 
         {error && (
           <span className="text-xs text-red-500 mt-1">{error.message}</span>

@@ -7,7 +7,7 @@ const ApplicationFormPage = async () => {
     <Fragment>
       <MultiStepForm />
     </Fragment>
-  )
-}
+  );
+};
 
 export default ApplicationFormPage;

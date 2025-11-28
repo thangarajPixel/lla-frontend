@@ -20,12 +20,11 @@
 
 // export { Input };
 
+import type * as React from "react";
 
-import * as React from 'react';
+import { cn } from "@/lib/utils";
 
-import { cn } from '@/lib/utils';
-
-type InputFieldProps = React.ComponentProps<'input'> & {
+type InputFieldProps = React.ComponentProps<"input"> & {
   label?: string;
   error?: { message?: string };
   notRequired?: boolean;
@@ -46,9 +45,15 @@ const Input = ({
   ...props
 }: InputFieldProps) => {
   return (
-    <div className={cn('space-y-1', className)}>
+    <div className={cn("space-y-1", className)}>
       {label && (
-        <label htmlFor={label} className={cn('block text-sm font-medium text-foreground', labelClassName)}>
+        <label
+          htmlFor={label}
+          className={cn(
+            "block text-sm font-medium text-foreground",
+            labelClassName,
+          )}
+        >
           {label}
           {!notRequired && <span className="text-chart-1">*</span>}
         </label>
@@ -57,13 +62,13 @@ const Input = ({
         id={label}
         className={cn(
           // 'flex h-10 w-full rounded-full border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
-          'flex h-10 w-full rounded-full border border-[#BDBDBD] bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:border-chart-1 focus-visible:ring-0 focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+          "flex h-10 w-full rounded-full border border-[#BDBDBD] bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:border-chart-1 focus-visible:ring-0 focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
           inputClassName,
         )}
         {...props}
       />
       {error && (
-        <p className={cn('text-sm text-red-500', errorClassName)}>
+        <p className={cn("text-sm text-red-500", errorClassName)}>
           {error.message}
         </p>
       )}
@@ -71,6 +76,6 @@ const Input = ({
   );
 };
 
-Input.displayName = 'Input';
+Input.displayName = "Input";
 
 export { Input };
