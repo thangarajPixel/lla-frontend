@@ -19,6 +19,7 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
+    window.scrollTo(0, 0);
 
     const lenis = new Lenis({
       duration: 1.5,
@@ -48,35 +49,6 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
     gsap.ticker.add(raf);
     gsap.ticker.lagSmoothing(0);
 
-    const handleHashNavigation = () => {
-      const hash = window.location.hash;
-      if (hash) {
-        setTimeout(() => {
-          const targetId = hash.substring(1);
-          const targetElement = document.getElementById(targetId);
-          if (targetElement) {
-            const headerOffset = 100;
-            const elementPosition = targetElement.getBoundingClientRect().top;
-            const offsetPosition =
-              elementPosition + window.pageYOffset - headerOffset;
-
-            lenis.scrollTo(offsetPosition, {
-              duration: 1.5,
-              easing: (t) => Math.min(1, 1.001 - 2 ** (-10 * t)),
-            });
-          }
-        }, 100);
-      } else {
-        window.scrollTo(0, 0);
-      }
-    };
-
-    const handleHashChange = () => {
-      handleHashNavigation();
-    };
-
-    window.addEventListener("hashchange", handleHashChange);
-
     requestAnimationFrame(() => {
       setTimeout(() => {
         if (ScrollTrigger && typeof ScrollTrigger.refresh === "function") {
@@ -84,7 +56,6 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
             ScrollTrigger.refresh();
           } catch (_error) {}
         }
-        handleHashNavigation();
       }, 100);
     });
 
@@ -104,7 +75,6 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
 
     return () => {
       observer.disconnect();
-      window.removeEventListener("hashchange", handleHashChange);
       gsap.ticker.remove(raf);
       lenis.destroy();
     };
