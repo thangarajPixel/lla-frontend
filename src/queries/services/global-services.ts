@@ -1,5 +1,5 @@
 import { clientAxios } from "@/helpers/AxiosHelper";
-import { ApplicationFormSchema_Step1, ApplicationFormSchema_Step2, ApplicationFormSchema_Step3 } from "@/validations/multi-step-form";
+import type { ApplicationFormSchema_Step1, ApplicationFormSchema_Step2, ApplicationFormSchema_Step3 } from "@/validations/multi-step-form";
 
 
 export const getStateLists = async (): Promise<StateDataResponse> => {
