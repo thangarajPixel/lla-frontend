@@ -3,7 +3,7 @@
 import { Fragment, useRef, useState } from "react"
 import { Upload, Plus, X } from "lucide-react"
 import { Control, FormProvider, useFieldArray, useForm } from "react-hook-form"
-import { applicationFormSchema_Step1, ApplicationFormSchema_Step1 } from "@/validations/multile-step-form"
+import { applicationFormSchema_Step1, ApplicationFormSchema_Step1 } from "@/validations/multi-step-form"
 import Image from "next/image";
 import { FormDatePicker, FormInput, FormSelectBox } from "@/components/form-fields";
 import z from "zod";

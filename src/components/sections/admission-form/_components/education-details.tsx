@@ -8,7 +8,7 @@ import { FileUploadButton } from "@/components/sections/admission-form/_componen
 import { Plus } from "lucide-react"
 import FormFileUploadButton from "@/components/form-fields/FormFileUploadButton"
 import { Control, useFieldArray } from "react-hook-form"
-import { ApplicationFormSchema_Step2 } from "@/validations/multile-step-form"
+import { ApplicationFormSchema_Step2 } from "@/validations/multi-step-form"
 import { FormInput } from "@/components/form-fields"
 import FormRadioGroup from "@/components/form-fields/FormRadioGroup"
 type EducationDetailsProps = {

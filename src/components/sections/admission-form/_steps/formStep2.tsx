@@ -3,7 +3,7 @@
 
 import { FormProvider, useForm } from "react-hook-form"
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ApplicationFormSchema_Step2, applicationFormSchema_Step2 } from "@/validations/multile-step-form"
+import { ApplicationFormSchema_Step2, applicationFormSchema_Step2 } from "@/validations/multi-step-form"
 import { EducationDetails } from "@/components/sections/admission-form/_components/education-details"
 import { WorkExperience } from "@/components/sections/admission-form/_components/work-experience"
 import ButtonWidget from "@/components/widgets/ButtonWidget";

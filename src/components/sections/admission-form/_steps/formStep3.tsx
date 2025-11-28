@@ -8,7 +8,7 @@ import { UploadArea } from "@/components/sections/admission-form/_components/upl
 import { ImageGrid } from "@/components/sections/admission-form/_components/image-grid";
 import { toast } from "@/components/sections/admission-form/_components/use-toast";
 import { FormProvider, useForm } from "react-hook-form";
-import { applicationFormSchema_Step3, ApplicationFormSchema_Step3 } from "@/validations/multile-step-form";
+import { applicationFormSchema_Step3, ApplicationFormSchema_Step3 } from "@/validations/multi-step-form";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import { cn } from "@/lib/utils";
 

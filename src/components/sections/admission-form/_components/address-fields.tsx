@@ -2,7 +2,7 @@
 
 import { FormInput, FormSelectBox } from '@/components/form-fields'
 import { useGetStateLists } from '@/queries/hooks/global-hooks';
-import { ApplicationFormSchema_Step1 } from '@/validations/multile-step-form';
+import { ApplicationFormSchema_Step1 } from '@/validations/multi-step-form';
 import { type Control, } from 'react-hook-form'
 
 type AddressFieldsProps = {
