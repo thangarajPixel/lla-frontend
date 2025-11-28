@@ -9,18 +9,15 @@ import LifeSection from "@/components/sections/home/LifeSection";
 import SponsorsSection from "@/components/sections/home/SponsorsSection";
 import StudentSection from "@/components/sections/home/StudentSection";
 import TestimonialSection from "@/components/sections/home/TestimonialSection";
-import { getLandingPageData, getLandingpageCourseData } from "./api/server";
+import { getLandingPageData } from "./api/server";
 
 const Home = async () => {
 
-  const [{ data: response }, { data: courseResponse }] = await Promise.all([
+  const [{ data: response }] = await Promise.all([
     getLandingPageData(),
-    getLandingpageCourseData(),
   ]);
-  
-  console.log(courseResponse);
 
-  if (response?.Home)
+  if (response && response?.Home)
     return (
       <Fragment>
         <HeroSection data={response?.Home?.[0]} />

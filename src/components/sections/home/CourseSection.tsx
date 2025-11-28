@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
@@ -17,6 +20,19 @@ type AnimationType =
   | "rotate";
 
 const CourseSection = ({ data }: CourseSectionProps) => {
+  const [imageIndices, setImageIndices] = useState<number[]>(() => {
+    return data?.Card?.map(() => 0) || [];
+  });
+
+  useEffect(() => {
+    setImageIndices(
+      data?.Card?.map((card) => {
+        const images = card?.Image || [];
+        return images.length > 0 ? Math.floor(Math.random() * images.length) * 1 : 0;
+      }) || []
+    );
+  }, [data?.Card]);
+
   const animations: Array<{
     image: AnimationType;
     content: AnimationType;
@@ -69,32 +85,40 @@ const CourseSection = ({ data }: CourseSectionProps) => {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-7 2xl:gap-6">
-            {data?.Card?.map((card, index) => (
-              <div
-                key={card.id}
-                className={
-                  cardContainerClasses[index] || cardContainerClasses[0]
-                }
-              >
-                <ScrollWidget
-                  animation={animations[index]?.image || "scale"}
-                  delay={animations[index]?.delay.image || 0.1}
+            {data?.Card?.map((card, index) => {
+              const images = card?.Image || [];
+              const imageIndex = imageIndices[index] ?? 0;
+              const primaryImage = images[imageIndex];
+
+              return (
+                <div
+                  key={card.id}
+                  className={
+                    cardContainerClasses[index] || cardContainerClasses[0]
+                  }
                 >
-                  <ParallaxWidget
-                    speed={parallaxSpeeds[index]?.image || 0.4}
-                    className="relative w-full aspect-4/3 overflow-hidden"
+                  <ScrollWidget
+                    animation={animations[index]?.image || "scale"}
+                    delay={animations[index]?.delay.image || 0.1}
                   >
-                    <ImageWidget
-                      src={
-                        getS3Url(card?.Image?.[0]?.url) ||
-                        (index === 0 ? Dummy1 : Dummy2)
-                      }
-                      alt={card?.Title}
-                      fill
-                      className="object-cover"
-                    />
-                  </ParallaxWidget>
-                </ScrollWidget>
+                    <ParallaxWidget
+                      speed={parallaxSpeeds[index]?.image || 0.4}
+                      className="relative w-full aspect-4/3 overflow-hidden"
+                    >
+                      <ImageWidget
+                        src={
+                          primaryImage?.url
+                            ? getS3Url(primaryImage.url)
+                            : index === 0
+                              ? Dummy1
+                              : Dummy2
+                        }
+                        alt={card?.Title}
+                        fill
+                        className="object-cover"
+                      />
+                    </ParallaxWidget>
+                  </ScrollWidget>
                 <ScrollWidget
                   animation={animations[index]?.content || "slideLeft"}
                   delay={animations[index]?.delay.content || 0.3}
@@ -114,8 +138,9 @@ const CourseSection = ({ data }: CourseSectionProps) => {
                     />
                   </ParallaxWidget>
                 </ScrollWidget>
-              </div>
-            ))}
+                </div>
+              );
+            })}
           </div>
         </div>
       </ContainerWidget>
