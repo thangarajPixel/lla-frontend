@@ -88,7 +88,7 @@ const WebHeader = () => {
               <ImageWidget
                 src={isHomePage ? (isSticky ? LogoBlack : Logo) : LogoBlack}
                 alt="Logo"
-                className="mt-2 md:mt-0 w-60 2xl:w-70 3xl:w-[348px] h-auto relative md:top-[7px]"
+                className={isSticky ? "mt-2 md:mt-0 w-60 2xl:w-70 3xl:w-[348px] h-auto relative" : "mt-2 md:mt-0 w-60 2xl:w-70 3xl:w-[348px] h-auto relative md:top-[7px]"}
               />
             </LinkWidget>
 
