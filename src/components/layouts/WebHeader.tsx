@@ -40,7 +40,7 @@ const menuItems: (MenuItem | DropdownMenuType)[] = [
       { href: "/more/contact-us", label: "Contact Us" },
       { href: "/more/faq", label: "FAQ" },
     ],
-  }
+  },
 ];
 
 const WebHeader = () => {
