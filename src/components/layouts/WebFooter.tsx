@@ -10,11 +10,11 @@ import {
   Location,
   Twitter,
 } from "@/helpers/ImageHelper";
+import BackdropWidget from "../widgets/BackdropWidget";
 import ContainerWidget from "../widgets/ContainerWidget";
 import ImageWidget from "../widgets/ImageWidget";
 import LinkWidget from "../widgets/LinkWidget";
 import OrangeButtonWidget from "../widgets/OrangeButtonWidget";
-import BackdropWidget from "../widgets/BackdropWidget";
 
 const SOCIAL_LINKS = [
   {
