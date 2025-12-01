@@ -12,10 +12,11 @@ export default function MainContent({
   const isHomePage = pathname === "/";
    const facultyPage = pathname === "/faculty";
      const formPage = pathname.startsWith("/admission");
+     const aboutPage = pathname.startsWith("/about-us");
   return (
     <QueryClientProvider client={queryClient}>
       <main
-        className={`flex-1 w-full ${formPage ? "pt-16" : facultyPage ? "pt-16" : !isHomePage ? "pt-20 md:pt-24" : ""}`}
+        className={`flex-1 w-full ${formPage ? "pt-16" : facultyPage ? "pt-16" :  aboutPage ? "pt-16" : !isHomePage ? "pt-20 md:pt-24" : ""}`}
       >
         {children}
       </main>

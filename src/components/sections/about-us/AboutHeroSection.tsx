@@ -7,7 +7,7 @@ import type { AboutHeroSectionProps } from "./utils/about-us";
 const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
   return (
     <Fragment>
-      <section className="relative z-40 max-w-[2560px] text-white">
+      <section className="relative z-40 max-w-[2560px] text-white bg-white py-4">
         {/* Mobile BG (<md) */}
         <div
           className="absolute inset-0 md:hidden bg-cover bg-bottom bg-no-repeat"
