@@ -57,7 +57,7 @@ const FaqSection = () => {
   return (
     <section className="w-full  bg-cover  bg-no-repeat bg-position-[bottom_left_-200px] md:bg-center sm:bg-position-center md:bg-fixed relative bg-[#ECECEC] py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 3xl:py-28">
       <ContainerWidget>
-        <ScrollWidget animation="slideRight">
+        <ScrollWidget animation="fadeUp">
           <div className="space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12 2xl:space-y-14 3xl:space-y-16">
             <h3 className="text-center 3xl:text-[64px] text-3xl 2xl:text-[50px] leading-5 font-semibold md:font-normal text-black font-urbanist">
               Frequently Asked Questions
