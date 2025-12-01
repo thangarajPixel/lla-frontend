@@ -25,12 +25,16 @@ const DialogWidget = ({
   showCloseButton = true,
   customCloseButton,
   onSubmit,
+  open: controlledOpen,
   onOpenChange,
   className = "",
   contentClassName = "",
 }: DialogWidgetProps) => {
-  const [open, setOpen] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
+
+  const isControlled = controlledOpen !== undefined;
+  const open = isControlled ? controlledOpen : internalOpen;
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -40,7 +44,9 @@ const DialogWidget = ({
   };
 
   const handleOpenChange = (newOpen: boolean) => {
-    setOpen(newOpen);
+    if (!isControlled) {
+      setInternalOpen(newOpen);
+    }
     if (onOpenChange) {
       onOpenChange(newOpen);
     }

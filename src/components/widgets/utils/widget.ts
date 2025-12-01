@@ -20,6 +20,7 @@ export type DialogWidgetProps = {
   showCloseButton?: boolean;
   customCloseButton?: ReactNode;
   onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
+  open?: boolean;
   onOpenChange?: (open: boolean) => void;
   className?: string;
   contentClassName?: string;

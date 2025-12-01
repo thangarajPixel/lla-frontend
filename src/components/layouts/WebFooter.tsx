@@ -137,7 +137,7 @@ const WebFooter = () => {
               <ImageWidget
                 src={FooterLogo}
                 alt="Logo"
-                className="w-65 h-auto"
+                className="w-65 3xl:w-[292.57px] 3xl:h-[66.51px] h-auto"
               />
 
               <div className="flex flex-row items-start justify-start gap-6">
@@ -215,24 +215,24 @@ const WebFooter = () => {
             <ImageWidget
               src={LlaOutreach}
               alt="LlaOutreach"
-              className="w-40 md:w-60 h-auto"
+              className="w-40 md:w-60 3xl:w-[262.46px] 3xl:h-[63.95px] h-auto"
             />
             <ImageWidget
               src={IQAC}
               alt="IQAC"
-              className="w-24 md:w-30 h-auto"
+              className="w-24 md:w-30 h-auto 3xl:w-[146.66px] 3xl:h-[74.06px]"
             />
             <div className="w-full sm:hidden flex justify-center">
               <ImageWidget
                 src={LlaOnline}
                 alt="LlaOnline"
-                className="w-36 md:w-50 h-auto"
+                className="w-36 md:w-50 h-auto 3xl:w-[252.9px] 3xl:h-[74.92px]"
               />
             </div>
             <ImageWidget
               src={LlaOnline}
               alt="LlaOnline"
-              className="hidden sm:block w-36 md:w-50 h-auto"
+              className="hidden sm:block w-36 md:w-50 h-auto 3xl:w-[252.9px] 3xl:h-[74.92px]"
             />
           </div>
 
