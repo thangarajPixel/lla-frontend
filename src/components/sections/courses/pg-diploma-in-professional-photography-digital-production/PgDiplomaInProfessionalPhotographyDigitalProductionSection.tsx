@@ -173,28 +173,26 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = () => {
       </aside>
 
       <main className="min-h-screen">
-        <div className="py-8">
-          <section id="overview" className="scroll-mt-24">
-            <OverviewSection />
-          </section>
+        <section id="overview" className="scroll-mt-24">
+          <OverviewSection />
+        </section>
 
-          <section id="course-content" className="scroll-mt-24">
-            <CourseContentSection />
-          </section>
+        <section id="course-content" className="scroll-mt-24">
+          <CourseContentSection />
+        </section>
 
-          <section id="other-info" className="scroll-mt-24">
-            <OtherInfoSection />
-          </section>
-          <StudentSection data={studentData} />
-          <TestimonialSection data={testimonialData} />
-          <section id="how-to-apply" className="scroll-mt-24">
-            <HowtoApplySection />
-          </section>
+        <section id="other-info" className="scroll-mt-24">
+          <OtherInfoSection />
+        </section>
+        <StudentSection data={studentData} />
+        <TestimonialSection data={testimonialData} />
+        <section id="how-to-apply" className="scroll-mt-24">
+          <HowtoApplySection />
+        </section>
 
-          <section id="faqs" className="scroll-mt-24">
-            <FaqSection />
-          </section>
-        </div>
+        <section id="faqs" className="scroll-mt-24">
+          <FaqSection />
+        </section>
       </main>
     </div>
   );
