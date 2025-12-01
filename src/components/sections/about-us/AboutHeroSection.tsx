@@ -33,8 +33,8 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
       md:min-h-[1200px]
       lg:min-h-[1200px]
       xl:min-h-[1200px] 
-      2xl:min-h-[1550px]
-      3xl:min-h-[1650px]"
+      2xl:min-h-[1500px]
+      3xl:min-h-[1500px]"
         >
           <ContainerWidget>
             <ScrollWidget animation="fadeUp" delay={0.1}>
@@ -66,7 +66,7 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
                       className="text-[16px] sm:text-[16px] lg:text-[16px] font-mulish font-normal
                     xl:text-[16px] 2xl:text-[18px] 3xl:text-[18px] 4xl:text-[18px]
                     font-regular text-black leading-6 md:leading-6 
-                    lg:leading-6 xl:leading-6 2xl:leading-[26px] 3xl:leading-[26px]
+                    lg:leading-6 xl:leading-[23px] 2xl:leading-[26px] 3xl:leading-[26px]
                     w-full md:max-w-[650px] xl:max-w-[660px] 2xl:max-w-[850px]
                     3xl:max-w-[854px] 4xl:max-w-[1100px]"
                     >
