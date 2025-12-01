@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { DialogClose } from "@/components/ui/dialog";
 import DialogWidget from "@/components/widgets/DialogWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
@@ -24,7 +24,9 @@ const AdmissionButton = ({
   const pathname = usePathname();
 
   useEffect(() => {
-    setIsOpen(false);
+    if (pathname) {
+      setIsOpen(false);
+    }
   }, [pathname]);
 
   const handleOpenChange = (open: boolean) => {
@@ -100,7 +102,7 @@ const AdmissionButton = ({
           </p>
           <div className="self-start flex gap-2">
             <LinkWidget href="/admission">
-            <OrangeButtonWidget content="Apply now" />
+              <OrangeButtonWidget content="Apply now" />
             </LinkWidget>
             <LinkWidget href="/">
               <OrangeBorderButtonWidget content="Course Detail" />
