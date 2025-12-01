@@ -19,6 +19,8 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
     if (typeof window === "undefined") return;
     if (!gsap || !ScrollTrigger) return;
 
+    window.scrollTo(0, 0);
+
     const checkIsMobile = () => {
       if (typeof window === "undefined") return false;
       return window.innerWidth <= 768;
@@ -78,6 +80,7 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
       rafIdRef.current = requestAnimationFrame(raf);
 
       requestAnimationFrame(() => {
+        lenis.scrollTo(0, { immediate: true });
         setTimeout(() => {
           if (ScrollTrigger && typeof ScrollTrigger.refresh === "function") {
             try {
