@@ -3,7 +3,7 @@ import { getFacultyPageData } from "../api/server";
 import FacultyHeroSection from "@/components/sections/faculty/FacultyHeroSection";
 
 const Faculty = async () => {
-   const response = await getFacultyPageData();
+    const { data: response } = await getFacultyPageData();
    if (response?.Faculty)
     return (
       <Fragment>

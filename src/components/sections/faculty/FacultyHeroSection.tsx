@@ -9,8 +9,8 @@ const FacultyHeroSection = ({ data }: any) => {
       <ContainerWidget>
         <div className="pb-[80px] flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row 2xl:flex-row gap-6 ">
           <ScrollWidget delay={0.3}>
-            <div className="space-y-4 pt-10">
-              <h2 className="font-urbanist font-semibold text-black text-[32px] sm:text-[36px] md:text-[36px] lg:text-[48px] xl:text-[56px] 2xl:text-[64px]">
+            <div className="space-y-2 pt-10">
+              <h2 className="font-urbanist font-regular text-black text-[32px] sm:text-[36px] md:text-[36px] lg:text-[48px] xl:text-[56px] 2xl:text-[60px] 3xl:text-[64px]">
                 {data.Title}
               </h2>
               <p className="font-mulish text-black text-[24px] sm:text-[24px] md:text-[24px] lg:text-[28px] xl:text-[30px] 2xl:text-[35px] 3xl:text-[40px]">
