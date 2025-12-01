@@ -40,3 +40,7 @@ export async function getLifePageData(params: {
 export async function getAdmissionsPageData() {
   return fetchData("/admissions");
 }
+
+export async function getAdmissionsById(id: number) {
+  return fetchData(`/admissions/${id}`);
+}

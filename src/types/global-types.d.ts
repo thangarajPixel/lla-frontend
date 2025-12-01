@@ -34,3 +34,7 @@ type ToastPosition =
   | "bottom-right"
   | "top-center"
   | "bottom-center";
+
+type FileUploadResponse = {
+  data: { id: number }[];
+};

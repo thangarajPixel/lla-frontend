@@ -18,7 +18,7 @@ export function EducationDetails({ control }: EducationDetailsProps) {
   });
 
   const addDegree = () => {
-    append({ degree: "", pg_status: "in-progress" });
+    append({ degree: "", pg_status: "In-Progress" });
   };
 
   return (
@@ -32,7 +32,6 @@ export function EducationDetails({ control }: EducationDetailsProps) {
           control={control}
           label="12th std"
           placeholder="Upload your MarkSheet"
-          notRequired={false}
         />
 
         <FormFileUploadButton
@@ -40,7 +39,6 @@ export function EducationDetails({ control }: EducationDetailsProps) {
           control={control}
           label="10th std"
           placeholder="Upload your MarkSheet"
-          notRequired={false}
         />
       </div>
 
@@ -58,8 +56,8 @@ export function EducationDetails({ control }: EducationDetailsProps) {
             name="Under_Graduate.ug_status"
             control={control}
             options={[
-              { value: "finished", label: "Finished" },
-              { value: "in-progress", label: "In-Progress" },
+              { value: "Finished", label: "Finished" },
+              { value: "In-Progress", label: "In-Progress" },
             ]}
           />
         </div>
@@ -90,8 +88,8 @@ export function EducationDetails({ control }: EducationDetailsProps) {
             name={`Post_Graduate.${index}.pg_status`}
             control={control}
             options={[
-              { value: "finished", label: "Finished" },
-              { value: "in-progress", label: "In-Progress" },
+              { value: "Finished", label: "Finished" },
+              { value: "In-Progress", label: "In-Progress" },
             ]}
           />
         </div>

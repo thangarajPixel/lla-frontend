@@ -43,10 +43,7 @@ const FormFileUploadButton = <T extends FieldValues>({
     const formData = new FormData();
     formData.append("files", file);
 
-    const res = await axios.post(
-      "https://dev-admin.lightandlifeacademy.in/api/upload",
-      formData,
-    );
+    const res = await axios.post(`${process.env.BASE_URL}/upload`, formData);
 
     const resData = await res.data;
     field.onChange(resData[0].id);
@@ -65,9 +62,10 @@ const FormFileUploadButton = <T extends FieldValues>({
       )}
       <div className="space-y-2">
         <FileUploadButton
-          label={placeholder}
-          maxSize={maxSize ?? "3MB"}
-          handleUpload={handleUpload}
+          placeholder={placeholder}
+          maxSize={maxSize ?? "2MB"}
+          onUpload={handleUpload}
+          onRemove={() => field.onChange(0)}
         />
       </div>
       {error && <p className="text-sm text-red-500">{error.message}</p>}

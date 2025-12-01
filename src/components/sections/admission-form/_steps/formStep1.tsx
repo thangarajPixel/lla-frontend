@@ -2,9 +2,9 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { Plus, Upload, X } from "lucide-react";
+import { Plus, X } from "lucide-react";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import {
   FormDatePicker,
@@ -12,7 +12,10 @@ import {
   FormSelectBox,
 } from "@/components/form-fields";
 import FormCheckBox from "@/components/form-fields/FormCheckBox";
+import { Button } from "@/components/ui/button";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
+import ImageWidget from "@/components/widgets/ImageWidget";
+import { UploadIconImg } from "@/helpers/ImageHelper";
 import { notify } from "@/lib/utils";
 import { createAdmission } from "@/queries/services/global-services";
 import {
@@ -22,12 +25,12 @@ import {
 import AddressFields from "../_components/address-fields";
 
 type Step1FormProps = {
-  // form?: ReturnType<typeof useForm<z.infer<typeof applicationFormSchema_Step1>>>;
+  admissionData?: AdmissionFormData;
   onNextStep: () => void;
   onPrevStep: () => void;
 };
 
-const FormStep1 = ({ onNextStep }: Step1FormProps) => {
+const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
@@ -35,41 +38,56 @@ const FormStep1 = ({ onNextStep }: Step1FormProps) => {
     resolver: zodResolver(applicationFormSchema_Step1),
     mode: "all",
     defaultValues: {
-      name_title: "Mr.",
-      first_name: "",
-      last_name: "",
-      date_of_birth: null,
-      mobile_no: "",
-      email: "",
-      nationality: "",
-      Language_Proficiency: [
-        { language: "", read: false, write: false, speak: false },
-      ],
-      address: "",
-      city: "",
-      district: "",
-      state: "",
-      pincode: "",
-      hobbies: "",
-      photography_club: "",
-      blood_group: "",
-      Parent_Guardian_Spouse_Details: {
-        title: "Mr.",
-        first_name: "",
-        last_name: "",
-        mobile_no: "",
-        email: "",
-        nationality: "",
-        address: "",
-        city: "",
-        district: "",
-        state: undefined,
-        pincode: "",
-      },
-      passport_size_image: undefined,
-      step_1: false,
+      name_title: admissionData?.name_title ?? "Mr.",
+      first_name: admissionData?.first_name ?? "",
+      last_name: admissionData?.last_name ?? "",
+      date_of_birth:
+        new Date(admissionData?.date_of_birth as string) ??
+        new Date("2025-11-30"),
+      mobile_no: admissionData?.mobile_no ?? "",
+      email: admissionData?.email ?? "",
+      nationality: admissionData?.nationality ?? "",
+      Language_Proficiency: admissionData?.Language_Proficiency?.map(
+        (item) => ({
+          language: item.language,
+          read: item.read,
+          write: item.write,
+          speak: item.speak,
+        }),
+      ) ?? [{ language: "", read: false, write: false, speak: false }],
+      address: admissionData?.address ?? "",
+      city: admissionData?.city ?? "",
+      district: admissionData?.district ?? "",
+      state: (admissionData?.state as string) ?? "",
+      pincode: admissionData?.pincode ?? "",
+      hobbies: admissionData?.hobbies ?? "",
+      photography_club: admissionData?.photography_club ?? "",
+      blood_group: admissionData?.blood_group ?? "",
+      Parent_Guardian_Spouse_Details:
+        admissionData?.Parent_Guardian_Spouse_Details ?? {
+          title: "Mr.",
+          first_name: "",
+          last_name: "",
+          mobile_no: "",
+          email: "",
+          nationality: "",
+          address: "",
+          city: "",
+          district: "",
+          state: undefined,
+          pincode: "",
+        },
+      passport_size_image:
+        (admissionData?.passport_size_image as number | undefined) ?? 0,
+      step_1: admissionData?.step_1 ?? false,
     },
   });
+
+  useEffect(() => {
+    if (admissionData) {
+      form_step1.reset(admissionData as never);
+    }
+  }, [admissionData, form_step1]);
 
   const { control, handleSubmit } = form_step1;
 
@@ -103,8 +121,8 @@ const FormStep1 = ({ onNextStep }: Step1FormProps) => {
         // revoke object URL once loaded to free memory
         URL.revokeObjectURL(objectUrl);
 
-        const maxWidth = 36000; // 12 inches @300dpi
-        const maxHeight = 24000; // 8 inches @300dpi
+        const maxWidth = 3600; // 12 inches @300dpi
+        const maxHeight = 2400; // 8 inches @300dpi
 
         if (width > maxWidth || height > maxHeight) {
           alert(
@@ -136,7 +154,7 @@ const FormStep1 = ({ onNextStep }: Step1FormProps) => {
     formData.append("files", file);
 
     // 1️⃣ Validate file size (< 1MB)
-    if (file.size > 2 * 1024 * 1024) {
+    if (file.size > 1024 * 1024) {
       alert("File size must be less than 1MB.");
       return;
     }
@@ -149,10 +167,7 @@ const FormStep1 = ({ onNextStep }: Step1FormProps) => {
     const url = URL.createObjectURL(file);
     setPreviewUrl(url);
 
-    const res = await axios.post(
-      "https://dev-admin.lightandlifeacademy.in/api/upload",
-      formData,
-    );
+    const res = await axios.post(`${process.env.BASE_URL}/upload`, formData);
 
     const resData = await res.data;
     notify({ success: true, message: "Image uploaded successfully" });
@@ -171,16 +186,15 @@ const FormStep1 = ({ onNextStep }: Step1FormProps) => {
 
     const data = {
       ...filteredData,
-      // passport_size_image: payload.passport_size_image,
       step_1: true,
     };
 
     try {
       const res = await createAdmission(data as ApplicationFormSchema_Step1);
-      localStorage.setItem("admissionId", res.data.id);
+      localStorage.setItem("admissionId", res.data.documentId);
       notify({ success: true, message: "Admission submitted successfully" });
       onNextStep();
-      alert("Application submitted successfully!");
+      // alert("Application submitted successfully!");
     } catch (error) {
       notify({ success: false, message: error as string });
     }
@@ -191,7 +205,7 @@ const FormStep1 = ({ onNextStep }: Step1FormProps) => {
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
         {/* Personal Details */}
         <div className="max-w-5xl mx-auto">
-          <h1 className="text-2xl md:text-3xl text-[#E97451] mb-8">
+          <h1 className="text-2xl md:text-3xl text-[#E97451] mb-8 font-urbanist">
             Personal Details
           </h1>
 
@@ -201,7 +215,7 @@ const FormStep1 = ({ onNextStep }: Step1FormProps) => {
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium text-foreground mb-2"
+                  className="block text-sm font-medium text-foreground mb-2 font-mulish"
                 >
                   Full Name (As in Certificate)
                   <span className="text-chart-1">*</span>
@@ -231,7 +245,6 @@ const FormStep1 = ({ onNextStep }: Step1FormProps) => {
                 </div>
               </div>
 
-              {/* Date of Birth & Nationality */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <FormDatePicker
                   name="date_of_birth"
@@ -249,7 +262,6 @@ const FormStep1 = ({ onNextStep }: Step1FormProps) => {
                 />
               </div>
 
-              {/* Mobile Number & Email */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <FormInput
                   name="mobile_no"
@@ -266,13 +278,12 @@ const FormStep1 = ({ onNextStep }: Step1FormProps) => {
                 />
               </div>
 
-              {/* Language & Proficiency */}
               <div>
                 <label
                   htmlFor="Language_Proficiency"
                   className="block text-sm font-medium text-foreground mb-2"
                 >
-                  Language & Proficiency<span className="text-primary">*</span>
+                  Language & Proficiency<span className="text-chart-1">*</span>
                 </label>
 
                 {languageFields.map((lang, index) => (
@@ -307,38 +318,36 @@ const FormStep1 = ({ onNextStep }: Step1FormProps) => {
                       />
 
                       {index > 0 && (
-                        <button
+                        <Button
                           type="button"
                           onClick={() => removeLanguage(index)}
-                          className="flex ml-auto items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity"
+                          className="flex items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
                         >
                           <X className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
-                        </button>
+                        </Button>
                       )}
                     </div>
                   </div>
                 ))}
-                <button
+                <ButtonWidget
                   type="button"
                   onClick={handleAddLanguage}
-                  className="flex relative bottom-5 ml-auto items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity"
+                  className="flex relative bottom-5 ml-auto items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
                 >
                   <Plus className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
-                  <span className="text-chart-1">Add Language</span>
-                </button>
+                  <span className="text-chart-1 font-normal">Add Language</span>
+                </ButtonWidget>
               </div>
             </div>
 
-            {/* Passport Size Image Upload */}
             <div className="lg:pt-7 mb-4">
               <label
                 htmlFor="passport"
                 className="block text-sm font-medium text-foreground mb-2"
               >
-                Passport size Image<span className="text-primary">*</span>
+                Passport size Image<span className="text-chart-1">*</span>
               </label>
 
-              {/* Upload Box */}
               <div
                 aria-hidden
                 className="border border-dashed border-border rounded-lg max-w-[180px] flex flex-col items-center justify-center min-h-[180px] bg-secondary cursor-pointer hover:bg-accent transition relative overflow-hidden"
@@ -346,7 +355,11 @@ const FormStep1 = ({ onNextStep }: Step1FormProps) => {
               >
                 {!previewUrl ? (
                   <>
-                    <Upload className="h-10 w-10 text-primary mb-3" />
+                    <ImageWidget
+                      src={UploadIconImg}
+                      alt="Upload Icon"
+                      className="h-10 w-10 mb-3"
+                    />
                     <p className="text-sm text-muted-foreground text-center">
                       Upload your passport
                       <br />
@@ -366,22 +379,12 @@ const FormStep1 = ({ onNextStep }: Step1FormProps) => {
                 )}
               </div>
 
-              {/* Hidden file input */}
               <input
                 type="file"
                 accept="image/*"
                 ref={fileInputRef}
                 onChange={handleFileChange}
                 className="hidden"
-                // {...register("passportImage", {
-                //   required: "Passport image is required",
-                //   validate: {
-                //     // Max size: 1MB
-                //     fileSize: (files) =>
-                //       files?.[0]?.size <= 1024 * 1024 ||
-                //       "File size should not exceed 1MB",
-                //   },
-                // })}
               />
 
               <p className="text-xs text-muted-foreground mt-2">
@@ -394,7 +397,6 @@ const FormStep1 = ({ onNextStep }: Step1FormProps) => {
             </div>
           </div>
 
-          {/* Address */}
           <AddressFields control={control} />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
@@ -429,7 +431,6 @@ const FormStep1 = ({ onNextStep }: Step1FormProps) => {
 
           <div className="grid grid-cols-1">
             <div className="space-y-6">
-              {/* Full Name */}
               <div>
                 <label
                   htmlFor="name"
@@ -442,7 +443,6 @@ const FormStep1 = ({ onNextStep }: Step1FormProps) => {
                   <FormSelectBox
                     control={control}
                     name="Parent_Guardian_Spouse_Details.title"
-                    defaultValue="mr"
                     options={[
                       { value: "Mr.", label: "Mr" },
                       { value: "Ms.", label: "Ms" },
@@ -464,7 +464,6 @@ const FormStep1 = ({ onNextStep }: Step1FormProps) => {
                 </div>
               </div>
 
-              {/* Mobile Number & Email */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <FormInput
                   name="Parent_Guardian_Spouse_Details.mobile_no"
@@ -480,7 +479,6 @@ const FormStep1 = ({ onNextStep }: Step1FormProps) => {
                 />
               </div>
 
-              {/* Date of Birth & Nationality */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <FormInput
                   name="Parent_Guardian_Spouse_Details.profession"
@@ -496,7 +494,6 @@ const FormStep1 = ({ onNextStep }: Step1FormProps) => {
                 />
               </div>
 
-              {/* Address */}
               <AddressFields
                 control={control}
                 name="Parent_Guardian_Spouse_Details"

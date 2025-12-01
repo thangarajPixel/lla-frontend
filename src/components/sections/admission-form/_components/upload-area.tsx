@@ -1,6 +1,7 @@
-import { Upload } from "lucide-react";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
+import ImageWidget from "@/components/widgets/ImageWidget";
+import { UploadIconImg } from "@/helpers/ImageHelper";
 
 interface UploadAreaProps {
   onFilesSelected: (files: File[]) => void;
@@ -45,10 +46,16 @@ export const UploadArea = ({ onFilesSelected }: UploadAreaProps) => {
       onDrop={handleDrop}
       className="border-2 border-dashed border-border rounded-xl p-12 flex flex-col items-center justify-center gap-4 bg-card hover:border-primary/50 transition-colors"
     >
-      <Upload className="w-12 h-12 text-primary" strokeWidth={1.5} />
+      {/* <Upload className="w-12 h-12 text-primary" strokeWidth={1.5} /> */}
+      <ImageWidget
+        src={UploadIconImg}
+        alt="Upload Icon"
+        className="h-10 w-10 mb-3"
+      />
       <p className="text-foreground/70 text-sm">Drag and Drop here</p>
       <Button
         onClick={handleSelectClick}
+        type="button"
         className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-8"
       >
         Select File

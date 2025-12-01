@@ -3,6 +3,8 @@
 import { format, isValid, parseISO } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import * as React from "react";
+import { useState } from "react";
+import type { DateRange } from "react-day-picker";
 import type {
   Control,
   FieldValues,
@@ -11,7 +13,6 @@ import type {
   UseControllerProps,
 } from "react-hook-form";
 import { useController } from "react-hook-form";
-
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -21,8 +22,6 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 
-// import type { ReportFiltersType } from '@/types/reports';
-
 type DatePickerFieldProps<T extends FieldValues> = UseControllerProps<T> & {
   label?: string;
   name: Path<T>;
@@ -30,9 +29,10 @@ type DatePickerFieldProps<T extends FieldValues> = UseControllerProps<T> & {
   defaultValue?: PathValue<T, Path<T>>;
   notRequired?: string;
   placeholder?: string;
-  // inDrawer?: boolean;
-  // onFilterChange?: (key: keyof any, value: any) => void;
-  // isReport?: boolean;
+  dateRange?: boolean;
+  index?: number;
+  endDate?: (index: number) => void;
+  onSelectEndDate?: (index: number, date: string) => void;
 };
 
 const FormDatePicker = <T extends FieldValues>({
@@ -42,9 +42,10 @@ const FormDatePicker = <T extends FieldValues>({
   defaultValue,
   notRequired,
   placeholder,
-  // inDrawer = false,
-  // onFilterChange,
-  // isReport,
+  dateRange,
+  index,
+  endDate,
+  onSelectEndDate,
   ...props
 }: DatePickerFieldProps<T>) => {
   const {
@@ -56,7 +57,9 @@ const FormDatePicker = <T extends FieldValues>({
     defaultValue,
   });
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [range, setRange] = useState<DateRange | undefined>(undefined);
+  const [defaultEndDate, setDefaultEndDate] = useState<string | null>(null);
   const dropdownRef = React.useRef<HTMLDivElement>(null);
 
   const getDateValue = (value: unknown): Date | undefined => {
@@ -72,26 +75,46 @@ const FormDatePicker = <T extends FieldValues>({
 
   const selectedDate = getDateValue(field.value);
 
+  // const displayValue = selectedDate
+  //   ? format(selectedDate, "dd-MM-yyyy")
+  //   : placeholder || "Pick a date";
+
   const displayValue = selectedDate
     ? format(selectedDate, "dd-MM-yyyy")
-    : placeholder || "Pick a date";
+    : // : range?.from && range?.to
+      //   ? `${range.from.toLocaleDateString()} - ${range.to.toLocaleDateString()}`
+      range?.from && range?.to
+      ? `${format(range.from, "dd-MM-yyyy")} - ${format(range.to, "dd-MM-yyyy")}`
+      : dateRange
+        ? `${placeholder} - ${placeholder}`
+        : placeholder || "Pick a date";
 
-  const handleSelect = (value: Date | undefined) => {
-    // if (value) {
-    //   isReport ? field.onChange(value.toISOString()) : field.onChange(value);
-    //   if (field.name && onFilterChange) {
-    //     const formattedDate = format(new Date(value), 'yyyy-MM-dd');
-    //     onFilterChange?.(field.name as any, formattedDate);
-    //   }
-    //   setOpen(false);
-    // }
+  const handleSelect = (
+    value?: Date | undefined,
+    range?: DateRange | undefined,
+  ) => {
+    const formatDate = (date?: Date) =>
+      date ? date.toISOString().split("T")[0] : "";
+
+    if (range) {
+      setDefaultEndDate(null);
+      setRange(range);
+      // const start = range.from?.toLocaleDateString();
+      // const end = range.to?.toLocaleDateString();
+      const start = formatDate(range.from);
+      const end = formatDate(range.to);
+      field.onChange(start);
+      setDefaultEndDate(end);
+      onSelectEndDate?.(index ?? 0, end ?? "");
+    }
+
     if (value) {
       field.onChange(value);
-      setOpen(false);
     }
+
+    setOpen(false);
   };
 
-  // ✅ Close calendar on outside click (only in drawer mode)
   React.useEffect(() => {
     if (!open) {
       return;
@@ -109,6 +132,13 @@ const FormDatePicker = <T extends FieldValues>({
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [open]);
+
+  React.useEffect(() => {
+    if (endDate) {
+      const res = endDate(index ?? 0);
+      setDefaultEndDate(res ?? null);
+    }
+  }, [index, endDate]);
 
   return (
     <div className="relative space-y-1">
@@ -137,17 +167,29 @@ const FormDatePicker = <T extends FieldValues>({
             )}
             {...props}
           >
-            <CalendarIcon className="mr-2 size-4" />
-            {displayValue}
+            {`${displayValue}${defaultEndDate ? ` - ${defaultEndDate}` : ""}`}
+            <CalendarIcon className="ml-auto mr-2 size-4 text-chart-1" />
           </Button>
         </PopoverTrigger>
         <PopoverContent forceMount className="z-9999 w-auto p-0" align="start">
-          <Calendar
-            mode="single"
-            selected={selectedDate}
-            onSelect={handleSelect}
-            initialFocus
-          />
+          {dateRange ? (
+            <Calendar
+              mode="range"
+              selected={range}
+              onSelect={(range) => handleSelect(undefined, range)}
+              // onSelect={range => {
+              //   setRange(range)
+              // }}
+              initialFocus
+            />
+          ) : (
+            <Calendar
+              mode="single"
+              selected={selectedDate}
+              onSelect={(value) => handleSelect(value)}
+              initialFocus
+            />
+          )}
         </PopoverContent>
       </Popover>
 
