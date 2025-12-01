@@ -61,14 +61,12 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
                     animation="fadeUp"
                     delay={0.2 + index * 0.1}
                   >
-                    <p
-                      className="text-[16px] sm:text-[16px] lg:text-[16px] font-mulish font-normal
-                    xl:text-[16px] 2xl:text-[18px] 3xl:text-[18px] 4xl:text-[18px]
+                    <p className="text-[16px] sm:text-[16px] lg:text-[16px] font-mulish font-normal
+                    xl:text-[16px] 2xl:text-[16px] 3xl:text-[18px]
                     font-regular text-black leading-6 md:leading-6 
-                    lg:leading-6 xl:leading-[23px] 2xl:leading-[26px] 3xl:leading-[26px]
+                    lg:leading-6 xl:leading-[22px] 2xl:leading-[24px] 3xl:leading-[26px]
                     w-full md:max-w-[650px] xl:max-w-[660px] 2xl:max-w-[850px]
-                    3xl:max-w-[854px] 4xl:max-w-[1100px]"
-                    >
+                    3xl:max-w-[854px]">
                       {textContent}
                     </p>
                   </ScrollWidget>
