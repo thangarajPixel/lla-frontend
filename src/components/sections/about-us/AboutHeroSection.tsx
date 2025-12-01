@@ -7,7 +7,7 @@ import type { AboutHeroSectionProps } from "./utils/about-us";
 const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
   return (
     <Fragment>
-      <section className="relative z-40 max-w-[2560px] text-white bg-white py-4">
+      <section className="relative z-40 max-w-[2560px] text-white bg-white py-6 md:py-16">
         {/* Mobile BG (<md) */}
         <div
           className="absolute inset-0 md:hidden bg-cover bg-bottom bg-no-repeat"
@@ -23,10 +23,7 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
             backgroundImage: `url(${getS3Url(data?.Image?.url)})`,
           }}
         />
-
-        {/* Content */}
-        <div
-          className="relative
+        <div  className="relative
       min-h-[1600px] 
       xs:min-h-[1500px]
       sm:min-h-[1500px]
@@ -34,8 +31,7 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
       lg:min-h-[1200px]
       xl:min-h-[1200px] 
       2xl:min-h-[1500px]
-      3xl:min-h-[1500px]"
-        >
+      3xl:min-h-[1500px]">
           <ContainerWidget>
             <ScrollWidget animation="fadeUp" delay={0.1}>
               <h3 className="text-[32px] sm:text-[34px] md:text-[36px] lg:text-[48px] xl:text-[56px] 2xl:text-[64px] 3xl:text-[64px] 4xl:text-[64px]  font-regular text-black font-urbanist">
@@ -45,7 +41,7 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
             <div className="flex flex-col items-start justify-start gap-2 md:gap-2">
               <ScrollWidget animation="slideLeft" delay={0.2}>
                 <p
-                  className="font-mulish font-regular text-[24px] md:text-[28px] lg:text-[28px] xl:text-[24px] 
+                  className="font-mulish font-normal font-regular leading-[32px] 3xl:leading-[48px]  text-[24px] md:text-[28px] lg:text-[28px] xl:text-[24px] 
                 2xl:text-[30px] 3xl:text-[40px] text-black sm:max-w-[600px] md:max-w-[750px] lg:max-w-[800px] 
                 xl:max-w-[550px] 2xl:max-w-[650px] 3xl:max-w-[852px]"
                 >
