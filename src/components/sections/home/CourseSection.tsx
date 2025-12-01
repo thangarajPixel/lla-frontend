@@ -10,6 +10,7 @@ import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import { Dummy1, Dummy2 } from "@/helpers/ImageHelper";
 import type { CourseSectionProps } from "./utils/home";
+import LinkWidget from "@/components/widgets/LinkWidget";
 
 type AnimationType =
   | "fadeIn"
@@ -137,10 +138,14 @@ const CourseSection = ({ data }: CourseSectionProps) => {
                         {card.Description}
                       </p>
                       <div className="self-start flex gap-4">
+                        <LinkWidget href="/admission">
                         <OrangeButtonWidget
-                          content={card.Btn_txt || "Discover Your Frame"}
-                        />
-                        <OrangeBorderButtonWidget content="Course Detail" />
+                            content={card.Btn_txt || "Discover Your Frame"}
+                          />
+                        </LinkWidget>
+                        <LinkWidget href="/">
+                          <OrangeBorderButtonWidget content="Course Detail" />
+                        </LinkWidget>
                       </div>
                     </ParallaxWidget>
                   </ScrollWidget>
