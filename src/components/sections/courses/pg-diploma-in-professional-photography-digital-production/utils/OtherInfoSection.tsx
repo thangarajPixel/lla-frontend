@@ -18,7 +18,7 @@ const OtherInfoSection = () => {
 
   return (
     <section className="w-full min-h-[1100px] md:min-h-[700px] lg:min-h-[900px] xl:min-h-[1000px] 2xl:min-h-[1100px] 3xl:min-h-[1446px] bg-cover  bg-no-repeat bg-position-[bottom_left_-200px] md:bg-center sm:bg-position-center md:bg-fixed relative bg-[#ECECEC] py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 3xl:py-28">
-       <div
+      <div
         className="absolute inset-0 bg-cover bg-no-repeat sm:bg-position-center md:hidden"
         style={{ backgroundImage: `url(${Dummy12.src})` }}
       />
