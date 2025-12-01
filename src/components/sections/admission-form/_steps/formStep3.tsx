@@ -1,13 +1,15 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { ImageGrid } from "@/components/sections/admission-form/_components/image-grid";
 import { UploadArea } from "@/components/sections/admission-form/_components/upload-area";
 import { toast } from "@/components/sections/admission-form/_components/use-toast";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
-import { cn } from "@/lib/utils";
+import { cn, filteredPayload, notify } from "@/lib/utils";
+import { updateAdmission } from "@/queries/services/global-services";
 import {
   type ApplicationFormSchema_Step3,
   applicationFormSchema_Step3,
@@ -20,25 +22,45 @@ interface UploadedImage {
 }
 
 type Step3FormProps = {
+  admissionData?: AdmissionFormData;
   onPrevStep: () => void;
   onPreview: () => void;
 };
 
-const FormStep3 = ({ onPrevStep, onPreview }: Step3FormProps) => {
+const FormStep3 = ({
+  admissionData,
+  onPrevStep,
+  onPreview,
+}: Step3FormProps) => {
   const [images, setImages] = useState<UploadedImage[]>([]);
 
   const form_step3 = useForm<ApplicationFormSchema_Step3>({
     resolver: zodResolver(applicationFormSchema_Step3),
     mode: "all",
     defaultValues: {
-      portfolio: undefined,
+      Upload_Your_Portfolio: {
+        images: admissionData?.Upload_Your_Portfolio.images || [],
+      },
+      step_3: admissionData?.step_3 ?? false,
     },
   });
 
-  const { handleSubmit } = form_step3;
+  useEffect(() => {
+    form_step3.reset({
+      Upload_Your_Portfolio: {
+        images: admissionData?.Upload_Your_Portfolio.images || [],
+      },
+      step_3: admissionData?.step_3 ?? false,
+    });
+  }, [admissionData, form_step3]);
 
-  const handleFilesSelected = (files: File[]) => {
-    const MAX_SIZE = 3 * 1024 * 1024; // 1MB in bytes
+  const {
+    handleSubmit,
+    formState: { errors },
+  } = form_step3;
+
+  const handleFilesSelected = async (files: File[]) => {
+    const MAX_SIZE = 1024 * 1024; // 1MB in bytes
 
     const validFiles = files.filter((file) => {
       if (file.size > MAX_SIZE) {
@@ -53,29 +75,76 @@ const FormStep3 = ({ onPrevStep, onPreview }: Step3FormProps) => {
       return true;
     });
 
-    const newImages = validFiles.map((file) => ({
+    if (!validFiles.length) return;
+
+    const formData = new FormData();
+    // validFiles.forEach((file) => formData.append("files", file));
+    for (const file of validFiles) {
+      formData.append("files", file);
+    }
+
+    const res = await axios.post(`${process.env.BASE_URL}/upload`, formData);
+
+    const uploaded = res.data;
+
+    const currentImages =
+      form_step3.getValues("Upload_Your_Portfolio.images") || [];
+
+    const uploadedIds = uploaded.map((item: { id: string }) => ({
+      id: item.id,
+    }));
+
+    form_step3.setValue(
+      "Upload_Your_Portfolio.images",
+      [...currentImages, ...uploadedIds],
+      { shouldValidate: true, shouldDirty: true },
+    );
+
+    const newPreviewImages = validFiles.map((file) => ({
       id: Math.random().toString(36).substr(2, 9),
       url: URL.createObjectURL(file),
       file,
     }));
 
-    setImages((prev) => [...prev, ...newImages]);
+    setImages((prev) => [...prev, ...newPreviewImages]);
   };
 
-  const handleRemoveImage = (id: string) => {
+  const handleRemoveImage = (index: number) => {
     setImages((prev) => {
-      const image = prev.find((img) => img.id === id);
-      if (image) {
-        URL.revokeObjectURL(image.url);
-      }
-      return prev.filter((img) => img.id !== id);
+      const img = prev[index];
+      if (img) URL.revokeObjectURL(img.url);
+      return prev.filter((_, i) => i !== index);
+    });
+
+    const existing = form_step3.getValues("Upload_Your_Portfolio.images") || [];
+
+    const updated = existing.filter((_, i) => i !== index);
+
+    form_step3.setValue("Upload_Your_Portfolio.images", updated, {
+      shouldValidate: true,
+      shouldDirty: true,
     });
   };
 
   const onSubmit = async (payload: ApplicationFormSchema_Step3) => {
-    console.log("Server response:", payload);
-    onPreview();
-    alert("Application submitted successfully!");
+    const filteredData = filteredPayload(payload);
+
+    const data = {
+      ...filteredData,
+      step_3: true,
+    };
+
+    const formId = localStorage.getItem("admissionId");
+
+    try {
+      await updateAdmission(
+        formId as string,
+        data as ApplicationFormSchema_Step3,
+      );
+      onPreview();
+    } catch (error) {
+      notify({ success: false, message: error as string });
+    }
   };
 
   return (
@@ -98,6 +167,12 @@ const FormStep3 = ({ onPrevStep, onPreview }: Step3FormProps) => {
               <p className="text-xs text-muted-foreground mt-2">
                 Max. file size not more than 1MB.
               </p>
+
+              {errors.Upload_Your_Portfolio?.images && (
+                <p className="text-xs text-destructive mt-2">
+                  {errors.Upload_Your_Portfolio?.images.message}
+                </p>
+              )}
             </div>
 
             <div className="lg:pl-8">

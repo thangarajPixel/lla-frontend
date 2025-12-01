@@ -1,11 +1,12 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { EducationDetails } from "@/components/sections/admission-form/_components/education-details";
 import { WorkExperience } from "@/components/sections/admission-form/_components/work-experience";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
-import { cn, notify } from "@/lib/utils";
+import { cn, filteredPayload, notify } from "@/lib/utils";
 import { updateAdmission } from "@/queries/services/global-services";
 import {
   type ApplicationFormSchema_Step2,
@@ -13,51 +14,88 @@ import {
 } from "@/validations/multi-step-form";
 
 type Step2FormProps = {
-  // form: ReturnType<typeof useForm<z.infer<typeof applicationFormSchema_Step2>>>;
+  admissionData?: AdmissionFormData;
   onNextStep: () => void;
   onPrevStep: () => void;
 };
 
-const FormStep2 = ({ onNextStep, onPrevStep }: Step2FormProps) => {
+const FormStep2 = ({
+  admissionData,
+  onNextStep,
+  onPrevStep,
+}: Step2FormProps) => {
   const form_step2 = useForm<ApplicationFormSchema_Step2>({
     resolver: zodResolver(applicationFormSchema_Step2),
     mode: "all",
     defaultValues: {
       Education_Details: {
-        Education_Details_12th_std: undefined,
-        Education_Details_10th_std: undefined,
+        Education_Details_12th_std:
+          (admissionData?.Education_Details?.Education_Details_12th_std as
+            | number
+            | undefined) ?? 0,
+        Education_Details_10th_std:
+          (admissionData?.Education_Details?.Education_Details_10th_std as
+            | number
+            | undefined) ?? 0,
       },
       Under_Graduate: {
-        degree: "",
-        ug_status: "in-progress",
-        marksheet: undefined,
+        degree: admissionData?.Under_Graduate?.degree ?? "",
+        ug_status:
+          (admissionData?.Under_Graduate?.ug_status as
+            | "Finished"
+            | "In-Progress") ?? "In-Progress",
+        marksheet:
+          (admissionData?.Under_Graduate?.marksheet as number | undefined) ?? 0,
       },
-      Post_Graduate: [{ degree: "", pg_status: "in-progress" }],
-      Work_Experience: [
+      // Post_Graduate: [{ degree: "", pg_status: "In-Progress" }],
+      Post_Graduate: admissionData?.Post_Graduate?.map((item) => ({
+        degree: item.degree,
+        pg_status:
+          (item.pg_status as "Finished" | "In-Progress") ?? "In-Progress",
+      })) ?? [{ degree: "", pg_status: "In-Progress" }],
+      Work_Experience: admissionData?.Work_Experience?.map((item) => ({
+        designation: item.designation,
+        employer: item.employer,
+        duration_start: item.duration_start,
+        duration_end: item.duration_end,
+        reference_letter: (item.reference_letter as number | undefined) ?? 0,
+      })) ?? [
         {
           designation: "",
           employer: "",
           duration_start: "",
           duration_end: "",
-          reference_letter: undefined,
+          reference_letter: 0,
         },
       ],
-      step_2: false,
+      step_2: (admissionData?.step_2 as boolean) ?? false,
     },
   });
 
-  const { control, handleSubmit } = form_step2;
+  useEffect(() => {
+    if (admissionData) {
+      form_step2.reset(admissionData as never);
+    }
+  }, [admissionData, form_step2]);
+
+  const { control, handleSubmit, setValue, watch } = form_step2;
+
+  const selectEndDate = (index: number, date: string) => {
+    setValue(`Work_Experience.${index}.duration_end`, date, {
+      shouldValidate: true,
+    });
+  };
+
+  const onWatchEndDate = (index: number) => {
+    const duration_end = watch(`Work_Experience.${index}.duration_end`);
+    return duration_end?.split("-").reverse().join("-");
+  };
 
   const onSubmit = async (payload: ApplicationFormSchema_Step2) => {
-    const filteredData = Object.fromEntries(
-      Object.entries(payload).filter(
-        ([_, value]) => value !== undefined && value !== null,
-      ),
-    );
+    const filteredData = filteredPayload(payload);
 
     const data = {
       ...filteredData,
-      // passport_size_image: payload.passport_size_image,
       step_2: true,
     };
 
@@ -65,7 +103,7 @@ const FormStep2 = ({ onNextStep, onPrevStep }: Step2FormProps) => {
 
     try {
       await updateAdmission(
-        Number(formId),
+        formId as string,
         data as ApplicationFormSchema_Step2,
       );
       notify({ success: true, message: "Admission submitted successfully" });
@@ -77,14 +115,17 @@ const FormStep2 = ({ onNextStep, onPrevStep }: Step2FormProps) => {
   };
 
   return (
-
     <FormProvider {...form_step2}>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="space-y-12 py-8 px-4 md:px-8 bg-background max-w-4xl mx-auto"
       >
         <EducationDetails control={control} />
-        <WorkExperience control={control} />
+        <WorkExperience
+          control={control}
+          onWatchEndDate={onWatchEndDate}
+          onSelectEndDate={selectEndDate}
+        />
 
         <div className="flex justify-start gap-3 mt-10 pt-6">
           <ButtonWidget

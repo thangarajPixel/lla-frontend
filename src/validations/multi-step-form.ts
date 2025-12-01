@@ -18,7 +18,8 @@ export const languageSchema = z.object({
 // });
 
 export const parentDetails = z.object({
-  title: z.enum(["Mr.", "Ms."]).optional(),
+  // title: z.enum(["Mr.", "Ms."]).optional(),
+  title: z.string().optional(),
   first_name: z.string().min(1, "First name is required"),
   last_name: z.string().min(1, "Last name is required"),
   mobile_no: z.string().regex(/^[6-9]\d{9}$/, "Enter a valid mobile number"),
@@ -56,12 +57,13 @@ export const education = z.object({
 
 export const postGraduate = z.object({
   degree: z.string().min(1, "Graduation degree is required"),
-  pg_status: z.enum(["finished", "in-progress"]).optional(),
+  pg_status: z.enum(["Finished", "In-Progress"]).optional(),
   marksheet: z.number().optional(),
 });
 
 export const applicationFormSchema_Step1 = z.object({
-  name_title: z.enum(["Mr.", "Ms."]).optional(),
+  // name_title: z.enum(["Mr.", "Ms."]).optional(),
+  name_title: z.string().optional(),
 
   first_name: z.string().min(1, "First name is required"),
   last_name: z.string().min(1, "Last name is required"),
@@ -104,13 +106,13 @@ export const applicationFormSchema_Step1 = z.object({
 
 export const applicationFormSchema_Step2 = z.object({
   Education_Details: z.object({
-    Education_Details_12th_std: z.number().optional(),
-    Education_Details_10th_std: z.number().optional(),
+    Education_Details_12th_std: z.number().min(1, "MarkSheet is required"),
+    Education_Details_10th_std: z.number().min(1, "MarkSheet is required"),
   }),
   Under_Graduate: z
     .object({
       degree: z.string().min(1, "Graduation degree is required"),
-      ug_status: z.enum(["finished", "in-progress"]).optional(),
+      ug_status: z.enum(["Finished", "In-Progress"]).optional(),
       marksheet: z.number().optional(),
     })
     .optional(),
@@ -124,18 +126,16 @@ export const applicationFormSchema_Step2 = z.object({
 });
 
 export const applicationFormSchema_Step3 = z.object({
-  portfolio: z
-    .file()
-    .refine((file) => file instanceof File, "Image file is required")
-    .refine(
-      (file) => file?.size <= 1_000_000,
-      "File size must be less than 1MB",
-    )
-    // .refine(
-    //   (file) => ["image/jpeg", "image/png"].includes(file?.type),
-    //   "Only JPG or PNG allowed"
-    // )
-    .optional(),
+  Upload_Your_Portfolio: z.object({
+    images: z
+      .array(
+        z.object({
+          id: z.number().min(1, "Image ID is required"),
+        }),
+      )
+      .min(1, "At least one image is required"),
+  }),
+  step_3: z.boolean().optional(),
 });
 
 // export type ApplicationFormSchema = z.infer<typeof applicationFormSchema_Step1>;

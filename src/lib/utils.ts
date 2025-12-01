@@ -70,3 +70,79 @@ export function notify({
       break;
   }
 }
+
+export const validateDimensions = (file: File): Promise<boolean> => {
+  return new Promise((resolve) => {
+    const img = document.createElement("img") as HTMLImageElement;
+    const objectUrl = URL.createObjectURL(file);
+    img.src = objectUrl;
+
+    img.onload = () => {
+      const width = img.width;
+      const height = img.height;
+
+      // revoke object URL once loaded to free memory
+      URL.revokeObjectURL(objectUrl);
+
+      const maxWidth = 36000; // 12 inches @300dpi
+      const maxHeight = 24000; // 8 inches @300dpi
+
+      if (width > maxWidth || height > maxHeight) {
+        alert(
+          `Image must be max 12"x8" (3600x2400 pixels). Your image is ${width}x${height}px.`,
+        );
+        resolve(false);
+      } else {
+        resolve(true);
+      }
+    };
+
+    img.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      resolve(false);
+    };
+  });
+};
+
+export const filteredPayload = <T>(input: T): T | undefined => {
+  if (Array.isArray(input)) {
+    const cleaned = input
+      .map((item) => filteredPayload(item))
+      .filter(
+        (item): item is Exclude<typeof item, undefined> => item !== undefined,
+      );
+
+    return cleaned.length > 0 ? (cleaned as T) : undefined;
+  }
+
+  if (typeof input === "object" && input !== null) {
+    const result: Record<string, unknown> = {};
+
+    for (const [key, value] of Object.entries(input)) {
+      const cleanedValue = filteredPayload(value as unknown);
+
+      if (
+        cleanedValue !== undefined &&
+        cleanedValue !== "" &&
+        cleanedValue !== 0
+      ) {
+        result[key] = cleanedValue;
+      }
+    }
+
+    return Object.keys(result).length > 0 ? (result as T) : undefined;
+  }
+
+  // Remove empties
+  if (input === 0 || input === "" || input === null || input === undefined) {
+    return undefined;
+  }
+
+  return input;
+};
+
+export const decryptCode = (str: string) => {
+  const padded = str + "=".repeat((4 - (str.length % 4)) % 4);
+  const decoded = Buffer.from(padded, "base64").toString();
+  return decoded.slice(0, 2);
+};

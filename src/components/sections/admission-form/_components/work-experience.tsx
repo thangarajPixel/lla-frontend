@@ -2,29 +2,22 @@
 
 import { Plus } from "lucide-react";
 import { type Control, useFieldArray } from "react-hook-form";
-import { FormInput } from "@/components/form-fields";
+import { FormDatePicker, FormInput } from "@/components/form-fields";
 import FormFileUploadButton from "@/components/form-fields/FormFileUploadButton";
-import { FileUploadButton } from "@/components/sections/admission-form/_components/file-upload-button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import type { ApplicationFormSchema_Step2 } from "@/validations/multi-step-form";
 
 type WorkExperienceProps = {
   control: Control<ApplicationFormSchema_Step2>;
+  onWatchEndDate?: (index: number) => void;
+  onSelectEndDate?: (index: number, value: string) => void;
 };
 
-// type WorkExperience = {
-//   id: string;
-//   designation: string;
-//   employer: string;
-//   duration: string;
-//   referenceLetter: string;
-// };
-
-export function WorkExperience({ control }: WorkExperienceProps) {
-  // const [workExperiences, setWorkExperiences] = useState<WorkExperience[]>([])
-
+export function WorkExperience({
+  control,
+  onWatchEndDate,
+  onSelectEndDate,
+}: WorkExperienceProps) {
   const { fields, append, remove } = useFieldArray({
     control: control,
     name: "Work_Experience",
@@ -36,47 +29,13 @@ export function WorkExperience({ control }: WorkExperienceProps) {
       employer: "",
       duration_start: "",
       duration_end: "",
-      reference_letter: undefined,
+      reference_letter: 0,
     });
   };
 
   return (
     <div className="space-y-6">
       <h2 className="text-2xl text-[#E97451]">Work Experience</h2>
-
-      <div className="hidden grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="space-y-2">
-          <Label className="text-sm font-medium">Role / Designation</Label>
-          <Input
-            placeholder="Enter your designation or role in the company"
-            className="rounded-full border-border h-11"
-          />
-          {/* <FormInput name="designation" placeholder="First Name" control={control} /> */}
-        </div>
-
-        <div className="space-y-2">
-          <Label className="text-sm font-medium">Employer</Label>
-          <Input
-            placeholder="Enter your name of the company you worked for"
-            className="rounded-full border-border h-11"
-          />
-        </div>
-      </div>
-
-      <div className="hidden grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="space-y-2">
-          <Label className="text-sm font-medium">Duration</Label>
-          <Input
-            placeholder="Enter duration (e.g., 2 years)"
-            className="rounded-full border-border h-11"
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label className="text-sm font-medium">Reference Letter</Label>
-          <FileUploadButton label="Upload reference letter" variant="light" />
-        </div>
-      </div>
 
       {fields?.map((experience, index) => (
         <div key={experience.id} className="space-y-6">
@@ -87,7 +46,7 @@ export function WorkExperience({ control }: WorkExperienceProps) {
               </h2>
               <ButtonWidget
                 onClick={() => remove(index)}
-                className="bg-chart-1 text-white hover:bg-chart-1/80 w-24"
+                className="bg-chart-1 text-white hover:bg-chart-1/80 text-xs px-2"
               >
                 Remove
               </ButtonWidget>
@@ -95,11 +54,6 @@ export function WorkExperience({ control }: WorkExperienceProps) {
           )}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              {/* <Label className="text-sm font-medium">Role / Designation</Label>
-                                <Input
-                                    placeholder="Enter your designation or role in the company"
-                                    className="rounded-full border-border h-11"
-                                /> */}
               <FormInput
                 name={`Work_Experience.${index}.designation`}
                 label="Role / Designation"
@@ -109,11 +63,6 @@ export function WorkExperience({ control }: WorkExperienceProps) {
             </div>
 
             <div className="space-y-2">
-              {/* <Label className="text-sm font-medium">Employer</Label>
-                                <Input
-                                    placeholder="Enter your name of the company you worked for"
-                                    className="rounded-full border-border h-11"
-                                /> */}
               <FormInput
                 name={`Work_Experience.${index}.employer`}
                 label="Employer"
@@ -124,34 +73,27 @@ export function WorkExperience({ control }: WorkExperienceProps) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <FormInput
+            <FormDatePicker
               name={`Work_Experience.${index}.duration_start`}
-              label="Duration"
-              placeholder="Enter duration (e.g., 2 years)"
+              placeholder="DD/MM/YYYY"
+              label="Enter Duration"
               control={control}
+              dateRange
+              index={index}
+              endDate={onWatchEndDate}
+              onSelectEndDate={onSelectEndDate}
             />
 
             <FormFileUploadButton
               name={`Work_Experience.${index}.reference_letter`}
               control={control}
               label="Reference Letter"
-              placeholder="Upload your MarkSheet"
+              placeholder="Upload your reference Letter"
               notRequired={false}
             />
           </div>
         </div>
       ))}
-
-      {/* <div className="flex justify-end">
-                <button
-                    type="button"
-                    onClick={handleAddExperience}
-                    className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
-                >
-                    <Plus className="h-5 w-5" />
-                    <span className="text-sm font-medium">Add More Work Experience</span>
-                </button>
-            </div> */}
 
       <button
         type="button"

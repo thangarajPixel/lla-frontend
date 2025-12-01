@@ -24,7 +24,7 @@ export const createAdmission = async (
 };
 
 export const updateAdmission = async (
-  id: number,
+  id: string,
   formData:
     | ApplicationFormSchema_Step1
     | ApplicationFormSchema_Step2
@@ -33,6 +33,15 @@ export const updateAdmission = async (
   const response = await clientAxios.put<AdmissionFormDataResponse>(
     `/admissions/${id}`,
     { data: formData },
+  );
+  return response.data;
+};
+
+export const getAdmissionById = async (
+  id: number,
+): Promise<AdmissionResponse> => {
+  const response = await clientAxios.get<AdmissionResponse>(
+    `/admissions/${id}`,
   );
   return response.data;
 };

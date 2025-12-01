@@ -1,57 +1,87 @@
 "use client";
-
-import { Upload } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
+import ImageWidget from "@/components/widgets/ImageWidget";
+import { UploadIconImg } from "@/helpers/ImageHelper";
+import { validateDimensions } from "@/lib/utils";
 
 type FileUploadButtonProps = {
-  label?: string;
+  placeholder?: string;
   maxSize?: string;
   variant?: "dark" | "light";
-  handleUpload?: (file: File, url: string) => void;
+  onUpload?: (file: File, url: string) => void;
+  onRemove?: () => void;
 };
 
+const generateDocumentPreview = (file: File): string => {
+  const fileName = file.name;
+  const fileExtension = fileName.split(".").pop()?.toUpperCase() || "FILE";
+
+  // Create a simple SVG preview for documents
+  const svg = `
+    <svg width="96" height="96" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
+      <rect width="96" height="96" fill="#f5f5f5" rx="8"/>
+      <rect x="8" y="8" width="80" height="80" fill="white" rx="4" stroke="#e5e5e5" strokeWidth="1"/>
+      <text x="48" y="45" fontSize="32" fontWeight="bold" textAnchor="middle" fill="#666" fontFamily="system-ui">${fileExtension.slice(0, 3)}</text>
+      <line x1="16" y1="58" x2="80" y2="58" stroke="#e5e5e5" strokeWidth="1"/>
+      <line x1="16" y1="66" x2="80" y2="66" stroke="#e5e5e5" strokeWidth="1"/>
+      <line x1="16" y1="74" x2="70" y2="74" stroke="#e5e5e5" strokeWidth="1"/>
+    </svg>
+  `;
+
+  return `data:image/svg+xml;base64,${btoa(svg)}`;
+};
+
+const formatFileSize = (bytes: number): string => {
+  if (bytes === 0) return "0 Bytes";
+  const k = 1024;
+  const sizes = ["Bytes", "KB", "MB", "GB"];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return `${Math.round((bytes / k ** i) * 100) / 100} ${sizes[i]}`;
+};
+
+// const getFileIcon = (fileType: string) => {
+//   if (fileType.startsWith("image/")) {
+//     return <ImageIcon className="w-4 h-4" />;
+//   } else if (fileType.startsWith("audio/")) {
+//     return <Music className="w-4 h-4" />;
+//   } else if (fileType.includes("pdf")) {
+//     return <FileText className="w-4 h-4 text-red-500" />;
+//   } else if (fileType.includes("word") || fileType.includes("document")) {
+//     return <FileText className="w-4 h-4 text-blue-500" />;
+//   } else if (
+//     fileType.includes("spreadsheet") ||
+//     fileType.includes("excel") ||
+//     fileType.includes("csv")
+//   ) {
+//     return <FileSpreadsheet className="w-4 h-4 text-green-500" />;
+//   } else if (fileType.includes("json")) {
+//     return <FileJson className="w-4 h-4" />;
+//   } else if (
+//     fileType.includes("code") ||
+//     fileType.includes("javascript") ||
+//     fileType.includes("typescript") ||
+//     fileType.includes("python")
+//   ) {
+//     return <FileCode className="w-4 h-4" />;
+//   } else if (fileType.includes("text")) {
+//     return <FileText className="w-4 h-4" />;
+//   } else if (fileType.includes("zip") || fileType.includes("compressed")) {
+//     return <Archive className="w-4 h-4" />;
+//   }
+//   return <File className="w-4 h-4" />;
+// };
+
 export function FileUploadButton({
-  label,
+  placeholder,
   maxSize = "2MB",
   variant,
-  handleUpload,
+  onUpload,
+  onRemove,
 }: FileUploadButtonProps) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-
-  const validateDimensions = (file: File): Promise<boolean> => {
-    return new Promise((resolve) => {
-      const img = document.createElement("img") as HTMLImageElement;
-      const objectUrl = URL.createObjectURL(file);
-      img.src = objectUrl;
-
-      img.onload = () => {
-        const width = img.width;
-        const height = img.height;
-
-        // revoke object URL once loaded to free memory
-        URL.revokeObjectURL(objectUrl);
-
-        const maxWidth = 36000; // 12 inches @300dpi
-        const maxHeight = 24000; // 8 inches @300dpi
-
-        if (width > maxWidth || height > maxHeight) {
-          alert(
-            `Image must be max 12"x8" (3600x2400 pixels). Your image is ${width}x${height}px.`,
-          );
-          resolve(false);
-        } else {
-          resolve(true);
-        }
-      };
-
-      img.onerror = () => {
-        URL.revokeObjectURL(objectUrl);
-        resolve(false);
-      };
-    });
-  };
+  const [preview, setPreview] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -68,14 +98,23 @@ export function FileUploadButton({
       return;
     }
 
-    // 2️⃣ Validate dimensions (<= 12x8 inches → <= 3600x2400 px)
-    const valid = await validateDimensions(file);
-    if (!valid) return;
+    if (file.type.startsWith("image/")) {
+      const valid = await validateDimensions(file);
+      if (!valid) return;
 
-    // 3️⃣ Preview
-    const url = URL.createObjectURL(file);
-    setPreviewUrl(url);
-    handleUpload?.(file, url);
+      const url = URL.createObjectURL(file);
+      setPreview(url);
+      onUpload?.(file, url);
+    } else if (
+      file.type.includes("pdf") ||
+      file.type.includes("document") ||
+      file.type.includes("word") ||
+      file.type.includes("spreadsheet")
+    ) {
+      setPreview(generateDocumentPreview(file));
+    }
+
+    setSelectedFile(file);
   };
 
   return (
@@ -83,14 +122,18 @@ export function FileUploadButton({
       <button
         type="button"
         onClick={() => inputRef.current?.click()}
-        className={`flex items-center justify-center gap-2 w-full py-3 px-4 cursor-pointer rounded-lg transition-colors ${
+        className={`flex items-center justify-center gap-2 w-full py-2 cursor-pointer rounded-lg transition-colors ${
           variant === "light"
             ? "border border-border text-muted-foreground hover:bg-muted"
             : "bg-gray-100 border border-[#969696]"
         }`}
       >
-        <Upload className="h-4 w-4" />
-        <span className="text-sm">{label}</span>
+        <ImageWidget
+          src={UploadIconImg}
+          alt="Upload Icon"
+          className="h-5 w-5"
+        />
+        <span className="text-xs">{placeholder}</span>
       </button>
       <input
         ref={inputRef}
@@ -104,24 +147,43 @@ export function FileUploadButton({
         Max. file size not more than {maxSize}.
       </p>
 
-      {previewUrl && (
-        <div className="relative w-[180px] h-[180px]">
-          <Image
-            src={previewUrl}
-            width={100}
-            height={100}
-            alt="Preview"
-            className="h-[180px] w-full object-cover rounded-md"
-          />
-          <button
-            type="button"
-            className="absolute top-2 size-6 right-2 text-white bg-red-500 rounded-full p-1 text-sm flex items-center justify-center hover:bg-red-600 cursor-pointer"
-            onClick={() => setPreviewUrl(null)}
-          >
-            X
-          </button>
-        </div>
-      )}
+      <div className="flex-1 min-w-0">
+        {preview && (
+          <div className="w-12 h-12 rounded bg-muted flex items-center justify-center shrink-0 overflow-hidden">
+            <Image
+              width={100}
+              height={100}
+              src={preview || "/placeholder.svg"}
+              alt={selectedFile?.name ?? ""}
+              className="w-full h-full object-cover rounded"
+            />
+          </div>
+        )}
+
+        {selectedFile && (
+          <>
+            <p className="text-sm font-medium truncate text-foreground">
+              {selectedFile?.name}
+            </p>
+            <div className="flex gap-2 text-xs text-muted-foreground mt-1">
+              <span>{formatFileSize(selectedFile?.size ?? 0)}</span>
+              <span>•</span>
+              <span>{selectedFile?.type || "unknown type"}</span>
+              <button
+                type="button"
+                className="text-white bg-red-500 size-5 rounded-full p-1 text-sm flex items-center justify-center hover:bg-red-600 cursor-pointer"
+                onClick={() => {
+                  setSelectedFile(null);
+                  setPreview(null);
+                  onRemove?.();
+                }}
+              >
+                X
+              </button>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 }

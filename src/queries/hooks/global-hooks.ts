@@ -1,7 +1,10 @@
 import type { UseQueryResult } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
 
-import { getStateLists } from "@/queries/services/global-services";
+import {
+  getAdmissionById,
+  getStateLists,
+} from "@/queries/services/global-services";
 
 export const useGetStateLists = (): UseQueryResult<
   StateDataResponse,
@@ -9,6 +12,16 @@ export const useGetStateLists = (): UseQueryResult<
 > => {
   return useQuery({
     queryKey: ["state-list"],
-    queryFn: getStateLists,
+    queryFn: () => getStateLists(),
+  });
+};
+
+export const useGetAdmissionById = (
+  id: number,
+): UseQueryResult<AdmissionResponse, Error> => {
+  return useQuery({
+    enabled: !!id,
+    queryKey: [`admission-details`, id],
+    queryFn: () => getAdmissionById(id),
   });
 };

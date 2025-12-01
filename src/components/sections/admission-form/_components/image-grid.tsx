@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 interface ImageGridProps {
   images: Array<{ id: string; url: string; file: File }>;
-  onRemove: (id: string) => void;
+  onRemove: (index: number) => void;
 }
 
 export const ImageGrid = ({ images, onRemove }: ImageGridProps) => {
@@ -14,7 +14,7 @@ export const ImageGrid = ({ images, onRemove }: ImageGridProps) => {
 
   return (
     <div className="grid grid-cols-2 gap-4">
-      {images.map((image) => (
+      {images.map((image, index) => (
         <div key={image.id} className="relative group">
           <div className="aspect-4/3 rounded-xl overflow-hidden bg-muted">
             <Image
@@ -25,7 +25,7 @@ export const ImageGrid = ({ images, onRemove }: ImageGridProps) => {
             />
           </div>
           <Button
-            onClick={() => onRemove(image.id)}
+            onClick={() => onRemove(index)}
             size="icon"
             className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-destructive hover:bg-destructive/90 text-destructive-foreground shadow-lg"
           >
