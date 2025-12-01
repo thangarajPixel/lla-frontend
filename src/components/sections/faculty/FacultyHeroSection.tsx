@@ -24,7 +24,7 @@ const FacultyHeroSection = ({ data }: any) => {
             </div>
           </ScrollWidget>
           <ScrollWidget delay={0.4}>
-                <div className="flex flex-row gap-3 xs:gap-5 ">
+                <div className="flex flex-row gap-3 xs:gap-5 column-gap:2 sm:gap-6 md:gap-8 lg:gap-10 ">
                 <div className="flex flex-col gap-3 pt-25  sm:pt-30 lg:pt-35">
                     {data.Image?.slice(0, 2).map((image: any, index: number) => (
                     <div
