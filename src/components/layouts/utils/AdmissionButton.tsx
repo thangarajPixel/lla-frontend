@@ -6,8 +6,8 @@ import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { ArrowRight, Dummy1, Dummy2, Into } from "@/helpers/ImageHelper";
 import ButtonWidget from "../../widgets/ButtonWidget";
 import ImageWidget from "../../widgets/ImageWidget";
-import OrangeBorderButtonWidget from "../../widgets/OrangeBorderButtonWidget";
 import LinkWidget from "../../widgets/LinkWidget";
+import OrangeBorderButtonWidget from "../../widgets/OrangeBorderButtonWidget";
 
 type AdmissionButtonProps = {
   className?: string;
@@ -61,10 +61,10 @@ const AdmissionButton = ({
           </p>
           <div className="self-start flex gap-2">
             <LinkWidget href="/admission">
-            <OrangeButtonWidget content="Apply now" />
+              <OrangeButtonWidget content="Apply now" />
             </LinkWidget>
             <LinkWidget href="/">
-            <OrangeBorderButtonWidget content="Course Detail" />
+              <OrangeBorderButtonWidget content="Course Detail" />
             </LinkWidget>
           </div>
         </div>
