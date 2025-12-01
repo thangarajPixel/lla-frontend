@@ -1,13 +1,13 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { cn } from "@/lib/utils";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { cn } from "@/lib/utils";
 
 export type AccordionItemData = {
   value: string;
@@ -65,14 +65,12 @@ const AccordionWidget = ({
           <AccordionTrigger
             className={cn(
               "text-black transition-colors hover:no-underline data-[state=open]:text-[#E97451] [&>svg]:text-[#E97451] [&>svg]:transition-transform",
-              item.triggerClassName
+              item.triggerClassName,
             )}
           >
             {item.title}
           </AccordionTrigger>
-          <AccordionContent
-            className={cn("text-black", item.contentClassName)}
-          >
+          <AccordionContent className={cn("text-black", item.contentClassName)}>
             {item.content}
           </AccordionContent>
         </AccordionItem>
@@ -86,10 +84,7 @@ const AccordionWidget = ({
 
     return (
       <div
-        className={cn(
-          "grid grid-cols-1 md:grid-cols-2 md:gap-6",
-          className
-        )}
+        className={cn("grid grid-cols-1 md:grid-cols-2 md:gap-6", className)}
       >
         <div className="w-full">
           <Accordion {...accordionProps} className="w-full">
@@ -98,13 +93,16 @@ const AccordionWidget = ({
                 <AccordionTrigger
                   className={cn(
                     "text-black bg-white cursor-pointer 3xl:text-[24px] text-[17px] px-4 py-3 data-[state=closed]:mb-5 transition-all duration-200 hover:no-underline data-[state=open]:text-[#E97451] [&>svg]:text-[#E97451] [&>svg]:transition-transform",
-                    item.triggerClassName
+                    item.triggerClassName,
                   )}
                 >
                   {item.title}
                 </AccordionTrigger>
                 <AccordionContent
-                  className={cn("text-black bg-white mb-5 px-4 pb-3 pt-1", item.contentClassName)}
+                  className={cn(
+                    "text-black bg-white mb-5 px-4 pb-3 pt-1",
+                    item.contentClassName,
+                  )}
                 >
                   {item.content}
                 </AccordionContent>
@@ -116,16 +114,19 @@ const AccordionWidget = ({
           <Accordion {...accordionProps} className="w-full">
             {rightColumnItems.map((item) => (
               <AccordionItem key={item.value} value={item.value}>
-                               <AccordionTrigger
+                <AccordionTrigger
                   className={cn(
                     "text-black bg-white cursor-pointer 3xl:text-[24px] text-[17px] px-4 py-3 data-[state=closed]:mb-5 transition-all duration-200 hover:no-underline data-[state=open]:text-[#E97451] [&>svg]:text-[#E97451] [&>svg]:transition-transform",
-                    item.triggerClassName
+                    item.triggerClassName,
                   )}
                 >
                   {item.title}
                 </AccordionTrigger>
                 <AccordionContent
-                  className={cn("text-black bg-white mb-5 px-4 pb-3 pt-1", item.contentClassName)}
+                  className={cn(
+                    "text-black bg-white mb-5 px-4 pb-3 pt-1",
+                    item.contentClassName,
+                  )}
                 >
                   {item.content}
                 </AccordionContent>
@@ -149,4 +150,3 @@ const AccordionWidget = ({
 
 export { AccordionItem, AccordionTrigger, AccordionContent };
 export default AccordionWidget;
-

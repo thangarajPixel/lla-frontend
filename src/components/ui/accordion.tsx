@@ -1,11 +1,10 @@
 "use client";
 
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
-import { AcArrow } from "@/helpers/ImageHelper";
-import ImageWidget from "../widgets/ImageWidget";
 import type * as React from "react";
-
+import { AcArrow } from "@/helpers/ImageHelper";
 import { cn } from "@/lib/utils";
+import ImageWidget from "../widgets/ImageWidget";
 
 function Accordion({
   ...props
@@ -43,7 +42,11 @@ function AccordionTrigger({
       >
         {children}
         <span className="text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5 transition-transform duration-200">
-          <ImageWidget src={AcArrow} alt="Arrow" className="mt-0.5 w-full h-full" />
+          <ImageWidget
+            src={AcArrow}
+            alt="Arrow"
+            className="mt-0.5 w-full h-full"
+          />
         </span>
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
