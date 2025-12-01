@@ -32,11 +32,14 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = () => {
     if (targetElement) {
       const headerOffset = 100;
       const elementPosition = targetElement.getBoundingClientRect().top;
+      const scrollMarginTop = parseFloat(
+        window.getComputedStyle(targetElement).scrollMarginTop || "96",
+      );
       const offsetPosition =
-        elementPosition + window.pageYOffset - headerOffset;
+        elementPosition + window.pageYOffset - headerOffset - scrollMarginTop;
 
       window.scrollTo({
-        top: offsetPosition,
+        top: Math.max(0, offsetPosition),
         behavior: "smooth",
       });
     }
@@ -173,24 +176,24 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = () => {
       </aside>
 
       <main className="min-h-screen">
-        <section id="overview" className="scroll-mt-24">
+        <section id="overview">
           <OverviewSection />
         </section>
 
-        <section id="course-content" className="scroll-mt-24">
+        <section id="course-content" className="scroll-mt-[-40px]">
           <CourseContentSection />
         </section>
 
-        <section id="other-info" className="scroll-mt-24">
+        <section id="other-info" className="scroll-mt-[-40px]">
           <OtherInfoSection />
         </section>
         <StudentSection data={studentData} />
         <TestimonialSection data={testimonialData} />
-        <section id="how-to-apply" className="scroll-mt-24">
+        <section id="how-to-apply" className="scroll-mt-[-40px]">
           <HowtoApplySection />
         </section>
 
-        <section id="faqs" className="scroll-mt-24">
+        <section id="faqs" className="scroll-mt-[-40px]">
           <FaqSection />
         </section>
       </main>
