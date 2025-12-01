@@ -113,7 +113,7 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
             >
               {cards.map((card, index) => (
                 <div
-                  className="gap-30 max-w-[250px] sm:max-w-[300px]  md:max-w-[300px] lg:max-w-[300px]  xl:max-w-[300px] 2xl:max-w-[400px] "
+                  className="gap-30 max-w-[300px]"
                   key={card.id}
                   style={{ marginBottom: "8px" }}
                   ref={(el) => {
