@@ -10,7 +10,7 @@ const FounderSection = ({ data }: FounderSectionProps) => {
   return (
     <section className="3xl:max-h-[1665px] w-full bg-[#ECECEC] py-8 xs:py-10 sm:py-12  md:py-14 lg:py-20 xl:py-14  2xl:py-18 3xl:py-26 4xl:py-30 ">
       <ContainerWidget>
-        <div className="text-center space-y-1  xs:space-y-2 sm:space-y-3 md:space-y-5 lg:space-y-6 xl:space-y-4  2xl:space-y-4  3xl:space-y-10 4xl:space-y-14">
+        <div className="text-center space-y-1  xs:space-y-2 sm:space-y-3 md:space-y-5 lg:space-y-6 xl:space-y-4  2xl:space-y-4  3xl:space-y-2 4xl:space-y-3">
           <ScrollWidget delay={0.1}>
             <h3 className="font-urbanist font-regular text-black text-left xs:text-left md:text-center text-[32px] xs:text-[34px] sm:text-[36px] md:text-[40px] lg:text-[48px] xl:text-[56px] 2xl:text-[64px] 3xl:text-[64px] 4xl:text-[64px]">
               {data.Title}
@@ -27,7 +27,7 @@ const FounderSection = ({ data }: FounderSectionProps) => {
           <div className=" grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-14 lg:gap-16 xl:gap-18 2xl:gap-20 3xl:gap-24 items-center ">
             <ScrollWidget delay={0.2} className="order-2 md:order-1">
               <div className="space-y-3 xs:space-y-4 md:space-y-5 lg:space-y-6 xl:space-y-4 4xl:max-w-[420px]">
-                <h4 className="font-urbanist font-semibold text-[#E97451] block hidden md:block  text-[24px]  xs:text-[26px] sm:text-[26px] md:text-[28px] lg:text-[28px] xl:text-[32px] 2xl:text-[36px] 3xl:text-[40px] ">
+                <h4 className="font-urbanist  font-normal text-[#E97451] block hidden md:block  text-[24px]  xs:text-[26px] sm:text-[26px] md:text-[28px] lg:text-[28px] xl:text-[32px] 2xl:text-[36px] 3xl:text-[40px] ">
                   {data.Founder_card[0].Heading}
                 </h4>
                 <p className="font-mulish text-black leading-normal text-[16px] xs:text-[16px] sm:text-[16px] lg:text-[16px] xl:text-[16px] 2xl:text-[18px] 3xl:text-[18px] 4xl:text-[18px]">
@@ -73,7 +73,7 @@ const FounderSection = ({ data }: FounderSectionProps) => {
             </ScrollWidget>
             <ScrollWidget delay={0.2}>
               <div className="space-y-2 xs:space-y-4  md:space-y-5 lg:space-y-6 xl:space-y-4  md:pl-5 lg:pl-10 4xl:max-w-[420px]">
-                <h4 className="font-urbanist font-semibold text-[#E97451] block hidden md:block text-[24px] xs:text-[26px] sm:text-[26px]  md:text-[28px] lg:text-[28px]  xl:text-[32px] 2xl:text-[36px] 3xl:text-[40px] ">
+                <h4 className="font-urbanist font-normal text-[#E97451] block hidden md:block text-[24px] xs:text-[26px] sm:text-[26px]  md:text-[28px] lg:text-[28px]  xl:text-[32px] 2xl:text-[36px] 3xl:text-[40px] ">
                   {data.Founder_card[1].Heading}
                 </h4>
                 <p className="font-mulish text-black leading-normal text-[16px] xs:text-[16px] sm:text-[16px] lg:text-[16px] xl:text-[16px] 2xl:text-[18px] 3xl:text-[18px] ">
