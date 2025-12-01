@@ -64,7 +64,7 @@ const AboutSection = ({ data }: AboutSectionProps) => {
   );
 
   return (
-    <section className="w-full bg-[#ECECEC] flex flex-col items-center justify-center z-40 relative py-10 md:py-20 3xl:h-[1048px]">
+    <section className="w-full bg-[#ECECEC] flex flex-col items-center justify-center z-40 relative py-10 sm:pt-20 3xl:h-[1048px]">
       <ContainerWidget>
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 xl:gap-0">
           <div className="flex flex-col gap-4.5 justify-center md:-mt-15">
