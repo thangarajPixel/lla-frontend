@@ -67,7 +67,7 @@ const AboutSection = ({ data }: AboutSectionProps) => {
     <section className="w-full bg-[#ECECEC] flex flex-col items-center justify-center z-40 relative py-10 md:py-20 3xl:h-[1048px]">
       <ContainerWidget>
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 xl:gap-0">
-          <div className="flex flex-col gap-4.5 justify-center">
+          <div className="flex flex-col gap-4.5 justify-center md:-mt-15">
             <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
               {data.Title || "About LLA"}
             </h3>
