@@ -8,6 +8,7 @@ body {
 }
 
 @theme {
+  --breakpoint-xss: 393px;
   --breakpoint-xs: 475px;
   --breakpoint-sm: 640px;
   --breakpoint-md: 768px;
