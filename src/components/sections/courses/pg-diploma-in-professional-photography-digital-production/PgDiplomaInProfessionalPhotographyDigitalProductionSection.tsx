@@ -1,7 +1,7 @@
 "use client";
 
-import LinkWidget from "@/components/widgets/LinkWidget";
 import { useEffect, useState } from "react";
+import LinkWidget from "@/components/widgets/LinkWidget";
 import CourseContentSection from "./utils/CourseContentSection";
 import FaqSection from "./utils/FaqSection";
 import HowtoApplySection from "./utils/HowtoApplySection";
@@ -67,25 +67,26 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = () => {
     Title: "Student Testimonials",
     Heading: "Hear from",
     SubHeading: "Our Community",
-    Description: "Over the years, Light & Life Academy has grown into a close-knit community. Here, they share their stories of discovery, growth, and the many ways their time at the Academy shaped who they are today.",
+    Description:
+      "Over the years, Light & Life Academy has grown into a close-knit community. Here, they share their stories of discovery, growth, and the many ways their time at the Academy shaped who they are today.",
     Card: [
       {
         id: 1,
         Title: "Ajith S",
         Description: "Batch - ‘09 - ‘10",
-        Image: [{ id: 1, name: "Student Testimonials", url:"/dummy.mp4" }],
+        Image: [{ id: 1, name: "Student Testimonials", url: "/dummy.mp4" }],
       },
       {
         id: 2,
         Title: "Rajesh K S",
         Description: "Batch - ‘09 - ‘10",
-        Image: [{ id: 2, name: "Student Testimonials", url:"/dummy.mp4" }],
+        Image: [{ id: 2, name: "Student Testimonials", url: "/dummy.mp4" }],
       },
       {
         id: 3,
         Title: "Harshad K S",
         Description: "Batch - ‘09 - ‘10",
-        Image: [{ id: 3, name: "Student Testimonials", url:"/dummy.mp4" }],
+        Image: [{ id: 3, name: "Student Testimonials", url: "/dummy.mp4" }],
       },
     ],
   };
@@ -95,7 +96,9 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = () => {
       <aside className="fixed left-0 top-18 w-54 border-r border-b border-gray-200 z-20 bg-white">
         <div className="h-full overflow-y-auto">
           <nav className="py-6 px-4">
-            <span className="block px-4 py-3 text-[15px] 3xl:text-lg">Menu</span>
+            <span className="block px-4 py-3 text-[15px] 3xl:text-lg">
+              Menu
+            </span>
             <ul>
               {sidebarMenuItems.map((item) => {
                 const isActive = activeSection === item.href;
@@ -121,27 +124,27 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = () => {
       </aside>
 
       <main className="min-h-screen">
-          <div className="py-8">
-            <section id="overview" className="mb-12 scroll-mt-24">
-              <OverviewSection />
-            </section>
+        <div className="py-8">
+          <section id="overview" className="mb-12 scroll-mt-24">
+            <OverviewSection />
+          </section>
 
-            <section id="course-content" className="mb-12 scroll-mt-24">
-              <CourseContentSection />
-            </section>
+          <section id="course-content" className="mb-12 scroll-mt-24">
+            <CourseContentSection />
+          </section>
 
-            <section id="other-info" className="mb-12 scroll-mt-24">
-              <OtherInfoSection />
-            </section>
-            <StudentSection data={studentData} />
-            <section id="how-to-apply" className="mb-12 scroll-mt-24">
-              <HowtoApplySection />
-            </section>
+          <section id="other-info" className="mb-12 scroll-mt-24">
+            <OtherInfoSection />
+          </section>
+          <StudentSection data={studentData} />
+          <section id="how-to-apply" className="mb-12 scroll-mt-24">
+            <HowtoApplySection />
+          </section>
 
-            <section id="faqs" className="mb-12 scroll-mt-24">
-              <FaqSection />
-            </section>
-          </div>
+          <section id="faqs" className="mb-12 scroll-mt-24">
+            <FaqSection />
+          </section>
+        </div>
       </main>
     </div>
   );
