@@ -2,8 +2,9 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
+import { FacultyHeroSectionProps } from "./utils/faculty";
 
-const FacultyHeroSection = ({ data }: any) => {
+const FacultyHeroSection = ({ data }: FacultyHeroSectionProps) => {
   return (
     <section className="max-h-[1000px] w-full bg-[#ECECEC] overflow-hidden  py-2 sm:py-8 md:py-10 lg:py-12 xl:py-10 2xl:py-16 3xl:py-20">
       <ContainerWidget>
