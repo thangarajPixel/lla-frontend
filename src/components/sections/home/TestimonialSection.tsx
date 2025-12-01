@@ -77,15 +77,15 @@ const TestimonialSection = ({ data }: TestimonialSectionProps) => {
                         key={testimonial.id}
                         className="shrink-0 w-full bg-white border border-[#E97451] p-2 sm:p-2 md:p-2 lg:p-2 xl:p-4 px-5 md:px-0"
                       >
-                        <div className="flex flex-col gap-2  md:gap-2 lg:gap-3 xl:gap-4 2xl:gap-5 3xl:gap-6 h-full w-full text-left md:text-center">
-                          <div className="flex items-center justify-start md:justify-center">
+                        <div className="flex flex-col gap-2 items-start md:items-center  md:gap-2 lg:gap-3 xl:gap-4 2xl:gap-5 3xl:gap-6 h-full w-full ">
+                          <div className="flex items-center">
                             <ImageWidget
                               src={Quote}
                               alt="Quote"
                               className="object-center w-[70px] h-[70px]"
                             />
                           </div>
-                          <p className="text-left md:text-center text-[16px] lg:text-[15px] xl:text-[18px] 3xl:text-[24px] font-normal font-mulish  text-black leading-normal w-full md:max-w-[750px]">
+                          <p className="md:text-center text-[16px] lg:text-[15px] xl:text-[18px] 3xl:text-[24px] font-normal font-mulish  text-black leading-normal w-full md:max-w-[750px]">
                             {testimonial.Description}
                           </p>
 
