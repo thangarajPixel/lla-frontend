@@ -83,7 +83,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
             {facultyData.map((faculty) => (
               <ScrollWidget key={faculty.id} animation="scale" delay={0.1}>
                 <div
-                  className={`${faculty.className} group max-w-[360px]  bg-white
+                  className={`${faculty.className} group min-w-[171px] max-w-[360px]  bg-white
                             hover:bg-[#E97451]/20 cursor-pointer
                             transition-colors duration-500 ease-out
                             px-3 py-3 flex flex-col
@@ -91,7 +91,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
                             xl:h-[340px] 2xl:h-[410px] 3xl:h-[480px] 4xl:h-[500px]`}
                 >
                   <ParallaxWidget speed={-0.1}>
-                    <div className="w-full aspect-square overflow-hidden  w-[160px] h-[160px] md:w-[200px] md:h-[200px] lg:w-[200px] lg:h-[200px] xl:w-[200px] xl:h-[200px] 2xl:w-[300px] 2xl:h-[302px] 3xl:w-[300px] 3xl:h-[302px]">
+                    <div className="w-full aspect-square overflow-hidden  w-[170px] h-[171px] md:w-[200px] md:h-[200px] lg:w-[200px] lg:h-[200px] xl:w-[200px] xl:h-[200px] 2xl:w-[300px] 2xl:h-[302px] 3xl:w-[300px] 3xl:h-[302px]">
                       <ImageWidget
                         src={faculty.imageUrl}
                         alt="Faculty"
