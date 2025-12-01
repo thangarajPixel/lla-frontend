@@ -118,7 +118,7 @@ const CourseSection = ({ data }: CourseSectionProps) => {
                         }
                         alt={card?.Title}
                         fill
-                        className="object-cover"
+                        className="object-cover 3xl:max-h-[429px] 3xl:max-w-[630px]"
                       />
                     </ParallaxWidget>
                   </ScrollWidget>

@@ -21,7 +21,7 @@ const LifeCard = ({ card }: LifeCardProps) => (
         src={getS3Url(card.Image?.[0]?.url) || Life}
         alt={card.Title}
         fill
-        className="object-cover"
+        className="object-cover 3xl:max-w-[252px] 3xl:max-h-[168.79px]"
       />
     </div>
     <p className="text-sm sm:text-base lg:text-[15px] 2xl:text-[16px] 3xl:text-[18px] font-normal text-black leading-normal">
@@ -53,7 +53,7 @@ const LifeSection = ({ data }: LifeSectionProps) => {
     ],
   );
   return (
-    <section className="w-full min-h-[1100px] md:min-h-[700px] lg:min-h-[900px] xl:min-h-[1000px] 2xl:min-h-[1100px] 3xl:min-h-[1200px] bg-cover  bg-no-repeat bg-position-[bottom_left_-200px] md:bg-center sm:bg-position-center md:bg-fixed relative bg-[#ECECEC] py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 3xl:py-28">
+    <section className="w-full min-h-[1100px] md:min-h-[700px] lg:min-h-[900px] xl:min-h-[1000px] 2xl:min-h-[1100px] 3xl:min-h-[1446px] bg-cover  bg-no-repeat bg-position-[bottom_left_-200px] md:bg-center sm:bg-position-center md:bg-fixed relative bg-[#ECECEC] py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 3xl:py-28">
       <div
         className="absolute inset-0 bg-cover bg-no-repeat sm:bg-position-center md:hidden"
         style={{ backgroundImage: `url(${LifeMobile.src})` }}
@@ -94,7 +94,7 @@ const LifeSection = ({ data }: LifeSectionProps) => {
                   </LinkWidget>
                 </div>
               </div>
-              <div className="flex justify-end items-end mt-8 sm:mt-10 md:mt-12 lg:mt-12 xl:mt-14 2xl:mt-16 3xl:mt-20 relative left-1.5">
+              <div className="flex justify-end items-end mt-8 sm:mt-10 md:mt-12 lg:mt-12 xl:mt-14 2xl:mt-16 3xl:mt-20 relative left-1.5 3xl:left-8">
                 <div className="w-full max-w-[200px] sm:max-w-[220px] md:max-w-[220px] lg:max-w-[230px] xl:max-w-[180px] 2xl:max-w-[220px] 3xl:max-w-[280px] hidden md:block">
                   <ScrollWidget
                     animation="fadeUp"

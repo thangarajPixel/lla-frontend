@@ -131,7 +131,7 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                           src={getS3Url(faculty?.Image?.[0]?.url) || Dummy11}
                           alt={faculty.Title}
                           fill
-                          className="object-cover grayscale transition-all duration-500 group-hover:grayscale-0"
+                          className="object-cover grayscale transition-all duration-500 group-hover:grayscale-0 3xl:min-w-[299px] 3xl:min-h-[299px]"
                         />
                       </div>
                       <h3 className="font-mulish text-xl md:text-xl lg:text-2xl xl:text-[20px] 2xl:text-[20px] 3xl:text-[24px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight transition-colors duration-500 ease-in-out delay-150">

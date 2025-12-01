@@ -8,7 +8,7 @@ import type { CampusSectionProps } from "./utils/home";
 const CampusSection = ({ data }: CampusSectionProps) => {
   return (
     <section
-      className="w-full h-screen md:bg-fixed bg-cover bg-right bg-no-repeat sm:py-20 py-10 bg-[#F6F6F6]"
+      className="w-full h-screen md:bg-fixed bg-cover bg-right bg-no-repeat sm:py-20 py-10 3xl:h-[1043px] bg-[#F6F6F6]"
       style={{
         backgroundImage: `url(${getS3Url(data?.Bg_img?.url) || Building.src})`,
       }}
