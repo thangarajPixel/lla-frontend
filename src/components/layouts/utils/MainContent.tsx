@@ -16,7 +16,7 @@ export default function MainContent({
   return (
     <QueryClientProvider client={queryClient}>
       <main
-        className={`flex-1 w-full ${formPage ? "pt-16" : !isHomePage ? "pt-17" : ""}`}
+        className={`flex-1 w-full ${formPage ? "pt-16" : !isHomePage ? "pt-16" : ""}`}
       >
         {children}
       </main>
