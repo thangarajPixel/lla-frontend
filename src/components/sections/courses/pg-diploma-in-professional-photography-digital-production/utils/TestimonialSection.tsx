@@ -2,11 +2,11 @@
 
 import useEmblaCarousel from "embla-carousel-react";
 import { useEffect, useState } from "react";
+import type { TestimonialSectionProps } from "@/components/sections/home/utils/home";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { ArrowLeftBlack, ArrowRightBlack, Quote } from "@/helpers/ImageHelper";
-import type { TestimonialSectionProps } from "@/components/sections/home/utils/home";
 
 const TestimonialSection = ({ data }: TestimonialSectionProps) => {
   const testimonials = data.Slider || [];
