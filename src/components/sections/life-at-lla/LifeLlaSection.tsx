@@ -98,6 +98,8 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
           <ResponsiveMasonry
             columnsCountBreakPoints={{
               350: 1,
+              400: 1,
+              630: 2,
               660: 2,
               700: 2,
               768: 3,

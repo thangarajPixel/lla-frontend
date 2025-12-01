@@ -13,11 +13,14 @@ type LifeCardProps = {
 };
 
 const LifeCard = ({ card }: LifeCardProps) => (
-  <div className="px-6 py-6 bg-[#ECECEC] min-w-[320px] sm:min-w-[300px]  md:min-w-[200px] lg:min-w-[180px] xl:min-w-[200px] 2xl:min-w-[250px]  3xl:min-w-[300px] p-3 sm:p-4 lg:p-4 xl:p-5 3xl:p-6 hover:bg-white border hover:border-[#E97451] transition-all duration-300 cursor-pointer">
+  <div className="px-6 py-6 bg-[#ECECEC] min-w-[300px] sm:min-w-[280px] m:min-w-[340px] xss:min-w-[380px]  md:min-w-[180px] lg:min-w-[190px] xl:min-w-[200px] 2xl:min-w-[250px]  3xl:min-w-[300px] p-3 sm:p-4 lg:p-4 xl:p-5 3xl:p-6 hover:bg-white border hover:border-[#E97451] transition-all duration-300 cursor-pointer">
     <h4 className="text-base sm:text-lg md:text-xl lg:text-[18px] xl:text-[16px] 2xl:text-[20px] 3xl:text-[24px] font-bold text-black font-mulish leading-tight mb-2 lg:mb-3 3xl:mb-4">
       {card.Title}
     </h4>
-    <div className="relative w-full aspect-4/3 overflow-hidden mb-2 lg:mb-3 3xl:mb-4 3xl:w-[252px] 3xl:h-[168.79px]">
+    <div className="relative w-full aspect-4/3 overflow-hidden mb-2 lg:mb-3 3xl:mb-4 
+    s:w-[260px] s:h-[210px] m:w-[290px] m:h-[210px] xss:w-[330px] xss:h-[210px] 
+    sm:w-[250px] sm:h-[210px] md:w-[180px] md:h-[140px] lg:w-[220px] lg:h-[140px]
+    xl:w-[160px] xl:h-[100px] 2xl:w-[252px] 2xl:h-[168.79px] 3xl:w-[252px] 3xl:h-[168.79px]">
       <ImageWidget
         src={card.Image?.[0]?.url ? getS3Url(card.Image[0].url) : ""}
         alt={card.Title}
