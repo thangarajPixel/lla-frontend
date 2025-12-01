@@ -27,7 +27,7 @@ const SponsorsSection = ({ data }: SponsorsSectionProps) => {
       <ContainerWidget>
         <div className="space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12 2xl:space-y-14 3xl:space-y-16">
           <div className="space-y-2 md:space-y-3 lg:space-y-4 xl:space-y-6 2xl:space-y-8 3xl:space-y-10">
-            <h2 className="text-left md:text-center text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist mb-6 sm:mb-8 md:mb-10 lg:mb-12 xl:mb-14 2xl:mb-16 3xl:mb-20">
+            <h2 className="text-left xss:text-[32px] md:text-center text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist mb-6 sm:mb-8 md:mb-10 lg:mb-12 xl:mb-14 2xl:mb-16 3xl:mb-20">
               {data.Title || "Our Sponsors"}
             </h2>
           </div>

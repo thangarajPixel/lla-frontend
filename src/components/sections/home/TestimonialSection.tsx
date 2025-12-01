@@ -47,10 +47,10 @@ const TestimonialSection = ({ data }: TestimonialSectionProps) => {
         <ScrollWidget animation="fadeUp" delay={0.1}>
           <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-10 lg:gap-12 xl:gap-14 2xl:gap-16 items-stretch">
             <div className="space-y-3 md:space-y-3 lg:space-y-4">
-              <h3 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
+              <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
                 {data.Title || "Testimonials"}
               </h3>
-              <p className="font-area-variable font-semibold text-lg md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
+              <p className="font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
                 {data.Heading}
                 {data.SubHeading && (
                   <>
@@ -75,25 +75,25 @@ const TestimonialSection = ({ data }: TestimonialSectionProps) => {
                     {testimonials.map((testimonial) => (
                       <div
                         key={testimonial.id}
-                        className="shrink-0 w-full bg-white border border-[#E97451] p-2 sm:p-2 md:p-2 lg:p-2 xl:p-4"
+                        className="shrink-0 w-full bg-white border border-[#E97451] p-2 sm:p-2 md:p-2 lg:p-2 xl:p-4 px-5 md:px-0"
                       >
-                        <div className="flex flex-col gap-2  md:gap-2 lg:gap-3 xl:gap-4 2xl:gap-5 3xl:gap-6 h-full w-full text-center">
-                          <div className="flex items-center justify-center">
+                        <div className="flex flex-col gap-2 items-start md:items-center  md:gap-2 lg:gap-3 xl:gap-4 2xl:gap-5 3xl:gap-6 h-full w-full ">
+                          <div className="flex items-center">
                             <ImageWidget
                               src={Quote}
                               alt="Quote"
                               className="object-center w-[70px] h-[70px]"
                             />
                           </div>
-                          <p className=" text-center text-[16px] lg:text-[15px] xl:text-[18px] 3xl:text-[24px] font-normal font-mulish  text-black leading-normal w-full md:max-w-[750px]">
+                          <p className="md:text-center text-[16px] lg:text-[15px] xl:text-[18px] 3xl:text-[24px] font-normal font-mulish  text-black leading-normal w-full md:max-w-[750px]">
                             {testimonial.Description}
                           </p>
 
-                          <p className="mb-2 text-lg sm:text-xl md:text-2xl lg:text-[24px] text-[#E97451] font-regular font-mulish">
+                          <p className="mb-2 text-lg xss:text-[16px] sm:text-xl md:text-2xl lg:text-[24px] text-[#E97451] font-regular font-mulish">
                             {testimonial.Name}
                           </p>
 
-                          <p className="mb-3 text-sm sm:text-base md:text-[14px] 3xl:text-[16px] text-black font-regular font-mulish lg:-mt-5">
+                          <p className="mb-3 text-sm xss:text-[16px] sm:text-base md:text-[14px] 3xl:text-[16px] text-black font-regular font-mulish lg:-mt-5">
                             {testimonial.Batch}
                           </p>
                         </div>

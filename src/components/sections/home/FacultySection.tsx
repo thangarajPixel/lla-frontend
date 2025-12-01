@@ -33,10 +33,10 @@ const FacultySection = ({ data }: FacultySectionProps) => {
       <ContainerWidget>
         <ScrollWidget animation="fadeUp" delay={0.1}>
           <div className="flex flex-col justify-start md:justify-center items-start md:items-center text-left md:text-center gap-3 md:gap-4.5">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
+            <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
               {data.Title || "Faculty"}
             </h2>
-            <p className="font-area-variable font-semibold text-lg md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
+            <p className="font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
               {data.Heading}
               {data.SubHeading && (
                 <>
@@ -71,10 +71,10 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                       className="object-cover grayscale transition-all duration-500 group-hover:grayscale-0"
                     />
                   </div>
-                  <h3 className="font-mulish text-lg sm:text-xl font-bold text-black font-urbanist leading-tight truncate">
+                  <h3 className="font-mulish text-lg xss:text-[16px] sm:text-xl font-bold text-black font-urbanist leading-tight truncate">
                     {faculty.Title}
                   </h3>
-                  <p className="text-sm sm:text-base font-normal text-black leading-relaxed line-clamp-2 overflow-hidden text-ellipsis">
+                  <p className="text-sm sm:text-base font-normal xss:text-[16px] text-black leading-relaxed line-clamp-2 overflow-hidden text-ellipsis">
                     {faculty.Description}
                   </p>
                   <div className="self-start mt-auto">
@@ -131,10 +131,10 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                           src={getS3Url(faculty?.Image?.[0]?.url) || Dummy11}
                           alt={faculty.Title}
                           fill
-                          className="object-cover grayscale transition-all duration-500 group-hover:grayscale-0"
+                          className="object-cover grayscale transition-all duration-500 group-hover:grayscale-0 3xl:min-w-[299px] 3xl:min-h-[299px]"
                         />
                       </div>
-                      <h3 className="font-mulish text-xl md:text-xl lg:text-2xl xl:text-[20px] 2xl:text-[20px] 3xl:text-[24px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight transition-colors duration-500 ease-in-out delay-150">
+                      <h3 className="font-mulish text-xl  md:text-xl lg:text-2xl xl:text-[20px] 2xl:text-[20px] 3xl:text-[24px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight transition-colors duration-500 ease-in-out delay-150">
                         {faculty.Title}
                       </h3>
                       <div className="opacity-0 transition-all duration-500 ease-in-out delay-200 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2">

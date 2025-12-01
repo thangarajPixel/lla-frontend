@@ -1,11 +1,14 @@
 "use client";
 
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { DialogClose } from "@/components/ui/dialog";
 import DialogWidget from "@/components/widgets/DialogWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { ArrowRight, Dummy1, Dummy2, Into } from "@/helpers/ImageHelper";
 import ButtonWidget from "../../widgets/ButtonWidget";
 import ImageWidget from "../../widgets/ImageWidget";
+import LinkWidget from "../../widgets/LinkWidget";
 import OrangeBorderButtonWidget from "../../widgets/OrangeBorderButtonWidget";
 
 type AdmissionButtonProps = {
@@ -17,11 +20,26 @@ const AdmissionButton = ({
   className = "",
   iconClassName = "",
 }: AdmissionButtonProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (pathname) {
+      setIsOpen(false);
+    }
+  }, [pathname]);
+
+  const handleOpenChange = (open: boolean) => {
+    setIsOpen(open);
+  };
+
   return (
     <DialogWidget
+      open={isOpen}
+      onOpenChange={handleOpenChange}
       trigger={
         <ButtonWidget
-          className={`orange-button group rounded-[60px] px-5 h-10 text-[14px] 2xl:text-[14px] 3xl:text-[18px] ${className}`}
+          className={`orange-button group rounded-[60px] xss:text-[16px] px-5 h-10 3xl:h-[50px] text-[14px] 2xl:text-[14px] 3xl:text-[18px] ${className}`}
         >
           Admission Open
           <ImageWidget
@@ -59,8 +77,12 @@ const AdmissionButton = ({
             eiusmod tempor incididunt
           </p>
           <div className="self-start flex gap-2">
-            <OrangeButtonWidget content="Apply now" />
-            <OrangeBorderButtonWidget content="Course Detail" />
+            <LinkWidget href="/admission">
+              <OrangeButtonWidget content="Apply now" />
+            </LinkWidget>
+            <LinkWidget href="/">
+              <OrangeBorderButtonWidget content="Course Detail" />
+            </LinkWidget>
           </div>
         </div>
         <div className="flex-1 flex flex-col gap-3 sm:gap-4">
@@ -79,8 +101,12 @@ const AdmissionButton = ({
             eiusmod tempor incididunt
           </p>
           <div className="self-start flex gap-2">
-            <OrangeButtonWidget content="Apply now" />
-            <OrangeBorderButtonWidget content="Course Detail" />
+            <LinkWidget href="/admission">
+              <OrangeButtonWidget content="Apply now" />
+            </LinkWidget>
+            <LinkWidget href="/">
+              <OrangeBorderButtonWidget content="Course Detail" />
+            </LinkWidget>
           </div>
         </div>
       </div>

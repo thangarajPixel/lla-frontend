@@ -37,7 +37,7 @@ export function notify({
 }:
   | { error?: string | unknown; message: string; success: boolean }
   | NotifyInput) {
-  const errorObj: any = error || message;
+  const errorObj: string | string[] | unknown = error || message;
   switch (success) {
     case true:
       if (Array.isArray(message)) {
@@ -51,15 +51,31 @@ export function notify({
       }
 
     case false:
-      if (typeof errorObj === "object") {
-        for (const key in errorObj) {
-          const errormessage: string = errorObj[key].message || "";
-          toast.error(errormessage, toastConfig("bottom-right"));
+      if (
+        typeof errorObj === "object" &&
+        errorObj !== null &&
+        !Array.isArray(errorObj)
+      ) {
+        const errorRecord = errorObj as Record<
+          string,
+          { message?: string } | unknown
+        >;
+        for (const key in errorRecord) {
+          const errorValue = errorRecord[key];
+          const errormessage: string =
+            typeof errorValue === "object" &&
+            errorValue !== null &&
+            "message" in errorValue
+              ? String(errorValue.message || "")
+              : "";
+          if (errormessage) {
+            toast.error(errormessage, toastConfig("bottom-right"));
+          }
         }
       } else if (typeof errorObj === "string") {
         toast.error(errorObj, toastConfig("bottom-right"));
       } else {
-        toast.error(errorObj, toastConfig("bottom-right"));
+        toast.error(String(errorObj), toastConfig("bottom-right"));
       }
       break;
     default:
