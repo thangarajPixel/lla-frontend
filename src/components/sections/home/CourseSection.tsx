@@ -73,10 +73,10 @@ const CourseSection = ({ data }: CourseSectionProps) => {
       <ContainerWidget>
         <div className="space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12 2xl:space-y-14 3xl:space-y-16">
           <div className="space-y-2 md:space-y-3 lg:space-y-4">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
+            <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
               {data.Title || "Courses"}
             </h2>
-            <p className="font-area-variable font-semibold text-lg md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
+            <p className="font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
               {data.Heading}
               {data.SubHeading && (
                 <span className="text-[#E97451] ml-2">{data.SubHeading}</span>
@@ -118,7 +118,7 @@ const CourseSection = ({ data }: CourseSectionProps) => {
                         }
                         alt={card?.Title}
                         fill
-                        className="object-cover"
+                        className="object-cover 3xl:max-h-[429px] 3xl:max-w-[630px]"
                       />
                     </ParallaxWidget>
                   </ScrollWidget>
@@ -130,7 +130,7 @@ const CourseSection = ({ data }: CourseSectionProps) => {
                       speed={parallaxSpeeds[index]?.content || -0.25}
                       className={contentClasses[index] || contentClasses[0]}
                     >
-                      <h3 className="text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[32px] 3xl:text-[40px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
+                      <h3 className="text-xl xss:text-[24px] md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[32px] 3xl:text-[40px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
                         {card.Title}
                       </h3>
                       <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
