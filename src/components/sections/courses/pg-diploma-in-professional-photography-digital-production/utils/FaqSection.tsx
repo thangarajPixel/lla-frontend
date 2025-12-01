@@ -1,8 +1,10 @@
+import ContainerWidget from "@/components/widgets/ContainerWidget";
+
 const FaqSection = () => {
   return (
-    <div>
+    <ContainerWidget>
       <h1>FAQ's</h1>
-    </div>
+    </ContainerWidget>
   );
 };
 

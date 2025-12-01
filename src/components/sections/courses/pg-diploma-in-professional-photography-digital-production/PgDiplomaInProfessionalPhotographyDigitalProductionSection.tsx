@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import ContainerWidget from "@/components/widgets/ContainerWidget";
 import LinkWidget from "@/components/widgets/LinkWidget";
-import OverviewSection from "./utils/OverviewSection";
+import { useEffect, useState } from "react";
 import CourseContentSection from "./utils/CourseContentSection";
-import OtherInfoSection from "./utils/OtherInfoSection";
-import HowtoApplySection from "./utils/HowtoApplySection";
 import FaqSection from "./utils/FaqSection";
+import HowtoApplySection from "./utils/HowtoApplySection";
+import OtherInfoSection from "./utils/OtherInfoSection";
+import OverviewSection from "./utils/OverviewSection";
+import StudentSection from "./utils/StudentSection";
 
 const sidebarMenuItems = [
   { href: "#overview", label: "Overview" },
@@ -61,6 +61,35 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const studentData = {
+    __component: "student-section",
+    id: 1,
+    Title: "Student Testimonials",
+    Heading: "Hear from",
+    SubHeading: "Our Community",
+    Description: "Over the years, Light & Life Academy has grown into a close-knit community. Here, they share their stories of discovery, growth, and the many ways their time at the Academy shaped who they are today.",
+    Card: [
+      {
+        id: 1,
+        Title: "Ajith S",
+        Description: "Batch - ‘09 - ‘10",
+        Image: [{ id: 1, name: "Student Testimonials", url:"/dummy.mp4" }],
+      },
+      {
+        id: 2,
+        Title: "Rajesh K S",
+        Description: "Batch - ‘09 - ‘10",
+        Image: [{ id: 2, name: "Student Testimonials", url:"/dummy.mp4" }],
+      },
+      {
+        id: 3,
+        Title: "Harshad K S",
+        Description: "Batch - ‘09 - ‘10",
+        Image: [{ id: 3, name: "Student Testimonials", url:"/dummy.mp4" }],
+      },
+    ],
+  };
+
   return (
     <div className=" bg-white">
       <aside className="fixed left-0 top-18 w-54 border-r border-b border-gray-200 z-20 bg-white">
@@ -91,8 +120,7 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = () => {
         </div>
       </aside>
 
-      <main className="min-h-screen bg-[#f7f7f7]">
-        <ContainerWidget>
+      <main className="min-h-screen">
           <div className="py-8">
             <section id="overview" className="mb-12 scroll-mt-24">
               <OverviewSection />
@@ -105,7 +133,7 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = () => {
             <section id="other-info" className="mb-12 scroll-mt-24">
               <OtherInfoSection />
             </section>
-
+            <StudentSection data={studentData} />
             <section id="how-to-apply" className="mb-12 scroll-mt-24">
               <HowtoApplySection />
             </section>
@@ -114,7 +142,6 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = () => {
               <FaqSection />
             </section>
           </div>
-        </ContainerWidget>
       </main>
     </div>
   );

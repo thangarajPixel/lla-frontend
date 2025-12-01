@@ -1,8 +1,10 @@
+import ContainerWidget from "@/components/widgets/ContainerWidget";
+
 const OverviewSection = () => {
   return (
-    <div>
+    <ContainerWidget>
       <h1>Overview</h1>
-    </div>
+    </ContainerWidget>
   );
 };
 

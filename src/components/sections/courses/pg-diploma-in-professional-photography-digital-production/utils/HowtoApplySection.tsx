@@ -1,8 +1,10 @@
+import ContainerWidget from "@/components/widgets/ContainerWidget";
+
 const HowtoApplySection = () => {
   return (
-    <div>
+    <ContainerWidget>
       <h1>How to Apply</h1>
-    </div>
+    </ContainerWidget>
   );
 };
 

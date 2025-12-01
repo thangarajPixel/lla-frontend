@@ -1,8 +1,10 @@
+import ContainerWidget from "@/components/widgets/ContainerWidget";
+
 const OtherInfoSection = () => {
   return (
-    <div>
+    <ContainerWidget>
       <h1>Other Info</h1>
-    </div>
+    </ContainerWidget>
   );
 };
 

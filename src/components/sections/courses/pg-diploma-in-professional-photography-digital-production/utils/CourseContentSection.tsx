@@ -1,8 +1,10 @@
+import ContainerWidget from "@/components/widgets/ContainerWidget";
+
 const CourseContentSection = () => {
   return (
-    <div>
+    <ContainerWidget>
       <h1>Course Content</h1>
-    </div>
+    </ContainerWidget>
   );
 };
 
