@@ -12,7 +12,7 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
         <div
           className="absolute inset-0 md:hidden bg-cover bg-bottom bg-no-repeat"
           style={{
-            backgroundImage: `url(${getS3Url(data?.Image?.url)})`,
+            backgroundImage: `url(${getS3Url(data?.Mobile_image?.url)})`,
           }}
         />
 
@@ -24,10 +24,11 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
           }}
         />
         <div  className="relative
-      min-h-[1600px] 
+      min-h-[1650px] 
+      m:min-h-[1500px]
       xs:min-h-[1500px]
       sm:min-h-[1500px]
-      md:min-h-[1200px]
+      md:min-h-[1400px]
       lg:min-h-[1200px]
       xl:min-h-[1200px] 
       2xl:min-h-[1500px]
