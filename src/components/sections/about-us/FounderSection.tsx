@@ -23,7 +23,7 @@ const FounderSection = ({ data }: FounderSectionProps) => {
             </p>
           </ScrollWidget>
         </div>
-        <div className="mt-2 xs:mt-6 sm:mt-12 md:mt-10 space-y-10 sm:space-y-10 md:space-y-12 ">
+        <div className="mt-2 xs:mt-6 sm:mt-12 md:mt-10 space-y-3 sm:space-y-10 md:space-y-12 ">
           <div className=" grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-14 lg:gap-16 xl:gap-18 2xl:gap-20 3xl:gap-24 items-center ">
             <ScrollWidget delay={0.2} className="order-2 md:order-1">
               <div className="space-y-3 xs:space-y-4 md:space-y-5 lg:space-y-6 xl:space-y-4 4xl:max-w-[420px]">
