@@ -51,7 +51,7 @@ const FounderSection = ({ data }: FounderSectionProps) => {
                   alt="Founder"
                   width={500}
                   height={600}
-                  className="object-cover w-[360px] h-[480px] xs:w-[420px] xs:h-[530px] sm:w-[400px] sm:h-[500px] md:w-[340px] md:h-[460px]  lg:w-[380px] lg:h-[520px] xl:w-[400px] xl:h-[500px]  2xl:w-[420px] 2xl:h-[560px] 3xl:w-[430px] 3xl:h-[580px] 4xl:w-[450px] 4xl:h-[600px] "
+                  className="object-cover w-[360px] h-[480px] xs:w-[420px] xs:h-[530px] sm:w-[400px] sm:h-[500px] md:w-[340px] md:h-[460px]  lg:w-[380px] lg:h-[520px] xl:w-[400px] xl:h-[500px]  2xl:w-[420px] 2xl:h-[560px] 3xl:w-[410px] 3xl:h-[549px] 4xl:w-[450px] 4xl:h-[600px] "
                 />
               </div>
             </ScrollWidget>
@@ -67,7 +67,7 @@ const FounderSection = ({ data }: FounderSectionProps) => {
                   alt="Founder"
                   width={500}
                   height={600}
-                  className="object-cover w-[360px] h-[480px] xs:w-[420px] xs:h-[530px]  sm:w-[300px] sm:h-[380px]  md:w-[340px] md:h-[440px]  lg:w-[380px] lg:h-[500px]  xl:w-[400px] xl:h-[530px]  2xl:w-[420px] 2xl:h-[550px]  3xl:w-[430px] 3xl:h-[570px] 4xl:w-[450px] 4xl:h-[590px] "
+                  className="object-cover w-[360px] h-[480px] xs:w-[420px] xs:h-[530px]  sm:w-[300px] sm:h-[380px]  md:w-[340px] md:h-[440px]  lg:w-[380px] lg:h-[500px]  xl:w-[400px] xl:h-[530px]  2xl:w-[410px] 2xl:h-[549px]  3xl:w-[410px] 3xl:h-[549px] 4xl:w-[450px] 4xl:h-[590px] "
                 />
               </div>
             </ScrollWidget>
