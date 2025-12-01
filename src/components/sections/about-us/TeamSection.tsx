@@ -152,15 +152,19 @@ const TeamSection = ({ data }: TeamSectionProps) => {
             </div>
 
             <div className="space-y-3 sm:space-y-4 md:space-y-5 py-4">
-              <h5 className="font-urbanist font-regular text-[#E97451] text-left
+              <h5
+                className="font-urbanist font-regular text-[#E97451] text-left
                   text-[24px] sm:text-[24px] md:text-[24px] lg:text-[24px] 
-                  xl:text-[30px] 2xl:text-[40px] 3xl:text-[40px] 4xl:text-[40px]">
+                  xl:text-[30px] 2xl:text-[40px] 3xl:text-[40px] 4xl:text-[40px]"
+              >
                 {data.Frame.Title}
               </h5>
-              <p className="font-mulish font-regular text-black leading-normal
+              <p
+                className="font-mulish font-regular text-black leading-normal
                   text-[16px] sm:text-sm md:text-base lg:text-[15px] 
                   xl:text-[16px] 2xl:text-[18px] 3xl:text-[18px] 4xl:text-[20px]
-                  w-full">
+                  w-full"
+              >
                 {data.Frame.Description}
               </p>
             </div>

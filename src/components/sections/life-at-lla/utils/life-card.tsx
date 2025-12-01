@@ -17,10 +17,12 @@ const LifeCard = ({ card }: LifeCardProps) => (
     <h4 className="text-base sm:text-lg md:text-xl lg:text-[18px] xl:text-[16px] 2xl:text-[20px] 3xl:text-[24px] font-bold text-black font-mulish leading-tight mb-2 lg:mb-3 3xl:mb-4">
       {card.Title}
     </h4>
-    <div className="relative w-full aspect-4/3 overflow-hidden mb-2 lg:mb-3 3xl:mb-4 
+    <div
+      className="relative w-full aspect-4/3 overflow-hidden mb-2 lg:mb-3 3xl:mb-4 
     s:w-[260px] s:h-[210px] m:w-[290px] m:h-[210px] xss:w-[330px] xss:h-[210px] 
     sm:w-[250px] sm:h-[210px] md:w-[180px] md:h-[140px] lg:w-[220px] lg:h-[140px]
-    xl:w-[160px] xl:h-[100px] 2xl:w-[252px] 2xl:h-[168.79px] 3xl:w-[252px] 3xl:h-[168.79px]">
+    xl:w-[160px] xl:h-[100px] 2xl:w-[252px] 2xl:h-[168.79px] 3xl:w-[252px] 3xl:h-[168.79px]"
+    >
       <ImageWidget
         src={card.Image?.[0]?.url ? getS3Url(card.Image[0].url) : ""}
         alt={card.Title}

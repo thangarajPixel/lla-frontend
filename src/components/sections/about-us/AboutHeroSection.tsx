@@ -23,7 +23,8 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
             backgroundImage: `url(${getS3Url(data?.Image?.url)})`,
           }}
         />
-        <div  className="relative
+        <div
+          className="relative
       min-h-[1650px] 
       m:min-h-[1500px]
       xs:min-h-[1500px]
@@ -32,7 +33,8 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
       lg:min-h-[1200px]
       xl:min-h-[1200px] 
       2xl:min-h-[1500px]
-      3xl:min-h-[1500px]">
+      3xl:min-h-[1500px]"
+        >
           <ContainerWidget>
             <ScrollWidget animation="fadeUp" delay={0.1}>
               <h3 className="text-[32px] sm:text-[34px] md:text-[36px] lg:text-[48px] xl:text-[56px] 2xl:text-[64px] 3xl:text-[64px] 4xl:text-[64px]  font-regular text-black font-urbanist">

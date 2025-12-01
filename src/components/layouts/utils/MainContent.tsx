@@ -10,9 +10,7 @@ export default function MainContent({
 }) {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
-   const facultyPage = pathname === "/faculty";
-     const formPage = pathname.startsWith("/admission");
-     const aboutPage = pathname.startsWith("/about-us");
+  const formPage = pathname.startsWith("/admission");
   return (
     <QueryClientProvider client={queryClient}>
       <main
