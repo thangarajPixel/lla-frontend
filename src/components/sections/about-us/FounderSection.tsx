@@ -56,7 +56,7 @@ const FounderSection = ({ data }: FounderSectionProps) => {
               </div>
             </ScrollWidget>
           </div>
-          <div className=" grid grid-cols-1 md:grid-cols-2  gap-6  xs:gap-10 sm:gap-12 md:gap-14 lg:gap-16 xl:gap-18 2xl:gap-20 3xl:gap-24 items-center ">
+          <div className=" grid grid-cols-1 md:grid-cols-2  gap-6  xs:gap-10 sm:gap-12 md:gap-14 lg:gap-16 xl:gap-18 2xl:gap-20 3xl:gap-20 items-center ">
             <ScrollWidget delay={0.3}>
               <h4 className="mb-3 block md:hidden font-urbanist font-regular text-[#E97451] text-[32px]  xs:text-[32px] sm:text-[32px]">
                 {data.Founder_card[1].Heading}
