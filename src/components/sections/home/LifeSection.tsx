@@ -13,7 +13,7 @@ import type { LifeCardProps, LifeSectionProps } from "./utils/home";
 
 const LifeCard = ({ card }: LifeCardProps) => (
   <div className="bg-white/30 p-3 sm:p-4 lg:p-4 xl:p-5 3xl:p-6 hover:bg-white transition-all duration-300 cursor-pointer">
-    <h4 className="text-base sm:text-lg md:text-xl lg:text-[18px] 2xl:text-[18px] 3xl:text-[24px] font-bold text-black font-urbanist leading-tight mb-2 lg:mb-3 3xl:mb-4">
+    <h4 className="text-base xss:text-[24px] sm:text-lg md:text-xl lg:text-[18px] 2xl:text-[18px] 3xl:text-[24px] font-bold text-black font-urbanist leading-tight mb-2 lg:mb-3 3xl:mb-4">
       {card.Title}
     </h4>
     <div className="relative w-full aspect-4/3 overflow-hidden mb-2 lg:mb-3 3xl:mb-4">
@@ -24,7 +24,7 @@ const LifeCard = ({ card }: LifeCardProps) => (
         className="object-cover 3xl:max-w-[252px] 3xl:max-h-[168.79px]"
       />
     </div>
-    <p className="text-sm sm:text-base lg:text-[15px] 2xl:text-[16px] 3xl:text-[18px] font-normal text-black leading-normal">
+    <p className="text-sm xss:text-[16px] sm:text-base lg:text-[15px] 2xl:text-[16px] 3xl:text-[18px] font-normal text-black leading-normal">
       {card.Description}
     </p>
   </div>
@@ -75,10 +75,10 @@ const LifeSection = ({ data }: LifeSectionProps) => {
           <div className="flex flex-col md:flex-row gap-4 sm:gap-5 md:gap-6 lg:gap-6 xl:gap-8 2xl:gap-8 3xl:gap-10">
             <div className="w-full md:w-auto md:min-w-[350px] lg:min-w-[400px] 2xl:min-w-[500px] 3xl:min-w-[550px]">
               <div className="flex flex-col gap-3.5 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-6 2xl:gap-6 3xl:gap-8">
-                <h3 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
+                <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
                   {data.Title || "Life at LLA"}
                 </h3>
-                <p className="font-area-variable font-semibold text-lg md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
+                <p className="font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
                   {data.Heading}
                   <br />
                   {data.SubHeading && (

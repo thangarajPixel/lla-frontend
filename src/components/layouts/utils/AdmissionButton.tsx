@@ -21,7 +21,7 @@ const AdmissionButton = ({
     <DialogWidget
       trigger={
         <ButtonWidget
-          className={`orange-button group rounded-[60px] px-5 h-10 3xl:h-[50px] text-[14px] 2xl:text-[14px] 3xl:text-[18px] ${className}`}
+          className={`orange-button group rounded-[60px] xss:text-[16px] px-5 h-10 3xl:h-[50px] text-[14px] 2xl:text-[14px] 3xl:text-[18px] ${className}`}
         >
           Admission Open
           <ImageWidget

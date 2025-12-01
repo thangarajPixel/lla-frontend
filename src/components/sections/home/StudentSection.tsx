@@ -95,11 +95,11 @@ const StudentSection = ({ data }: StudentSectionProps) => {
     <section className="w-full py-10 md:py-10 lg:py-12 xl:py-16 2xl:py-20 3xl:py-24 bg-white mx-auto max-w-[1920px]">
       <ContainerWidget>
         <ScrollWidget animation="fadeUp" delay={0.1}>
-          <div className="flex flex-col justify-start md:justify-center items-start md:items-center text-left md:text-center gap-4.5">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
+          <div className="flex flex-col justify-start md:justify-center items-start md:items-center text-left md:text-center gap-2.5 md:gap-4.5">
+            <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
               {data.Title || "Student Testimonials"}
             </h2>
-            <p className="font-area-variable font-semibold text-lg md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl 3xl:text-[40px] text-black">
+            <p className="font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl 3xl:text-[40px] text-black">
               {data.Heading}
               {data.SubHeading && (
                 <span className="text-[#E97451] pl-2">{data.SubHeading}</span>
@@ -112,7 +112,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
           </div>
         </ScrollWidget>
       </ContainerWidget>
-      <div className="pt-10 md:pt-20 md:pb-5 pb relative px-4 sm:px-0">
+      <div className="pt-10 md:pt-20 md:pb-5 pb relative md:px-4 sm:px-0">
         <ScrollWidget animation="fadeDown" delay={0.2}>
           <div className="relative" ref={carouselRef}>
             <div
@@ -237,7 +237,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                 })}
               </div>
             </div>
-            <div className="md:hidden flex gap-2 mt-5 justify-start">
+            <div className="md:hidden flex gap-2 mt-5 ml-4 justify-start">
               <button
                 type="button"
                 onClick={scrollPrev}

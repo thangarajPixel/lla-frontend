@@ -10,7 +10,7 @@ const OrangeBorderButtonWidget = ({
   return (
     <ButtonWidget
       className={cn(
-        "orange-button-white group rounded-[60px] px-5 h-10 3xl:h-[50px] text-xs 2xl:text-[14px] 3xl:text-[18px]",
+        "orange-button-white group rounded-[60px] px-5 h-10 xss:text-[16px] 3xl:h-[50px] text-xs 2xl:text-[14px] 3xl:text-[18px]",
         className,
       )}
       {...props}

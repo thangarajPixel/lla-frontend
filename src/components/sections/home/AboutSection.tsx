@@ -64,14 +64,14 @@ const AboutSection = ({ data }: AboutSectionProps) => {
   );
 
   return (
-    <section className="w-full bg-[#ECECEC] flex flex-col items-center justify-center z-40 relative py-20 3xl:h-[1048px] pb-0">
+    <section className="w-full bg-[#ECECEC] flex flex-col items-center justify-center z-40 relative py-10 md:py-20 3xl:h-[1048px]">
       <ContainerWidget>
-        <div className="grid grid-cols-1 xl:grid-cols-2">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 xl:gap-0">
           <div className="flex flex-col gap-4.5 justify-center">
-            <h3 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
+            <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
               {data.Title || "About LLA"}
             </h3>
-            <p className="font-area-variable font-semibold text-lg md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
+            <p className="font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
               {data.Heading}
               {data.SubHeading && (
                 <>
