@@ -7,6 +7,7 @@ import { ArrowRight, Dummy1, Dummy2, Into } from "@/helpers/ImageHelper";
 import ButtonWidget from "../../widgets/ButtonWidget";
 import ImageWidget from "../../widgets/ImageWidget";
 import OrangeBorderButtonWidget from "../../widgets/OrangeBorderButtonWidget";
+import LinkWidget from "../../widgets/LinkWidget";
 
 type AdmissionButtonProps = {
   className?: string;
@@ -59,8 +60,12 @@ const AdmissionButton = ({
             eiusmod tempor incididunt
           </p>
           <div className="self-start flex gap-2">
+            <LinkWidget href="/admission">
             <OrangeButtonWidget content="Apply now" />
+            </LinkWidget>
+            <LinkWidget href="/">
             <OrangeBorderButtonWidget content="Course Detail" />
+            </LinkWidget>
           </div>
         </div>
         <div className="flex-1 flex flex-col gap-3 sm:gap-4">
