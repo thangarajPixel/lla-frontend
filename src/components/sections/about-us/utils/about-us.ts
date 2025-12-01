@@ -21,7 +21,7 @@ export type AboutHeroSectionProps = {
       id?: number;
       name: string;
       url: string;
-    }
+    };
   };
 };
 

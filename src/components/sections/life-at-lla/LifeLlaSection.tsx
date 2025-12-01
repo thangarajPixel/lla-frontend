@@ -90,7 +90,7 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
               <span className="text-[#E97451] ml-2"> {data.SubHeading} </span>
             </p>
             <p className="text-[12px] lg:text-[14px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[750px] 3xl:max-w-[976px]">
-              {data.Description }
+              {data.Description}
             </p>
           </div>
         </ScrollWidget>

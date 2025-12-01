@@ -36,7 +36,8 @@ const FounderSection = ({ data }: FounderSectionProps) => {
                 <p className="font-mulish text-black leading-normal text-[13px] text-[16px] xs:text-[16px]  sm:text-[16px] lg:text-[16px] xl:text-[14px] 2xl:text-[18px] 3xl:text-[18px]  4xl:text-[18px] ">
                   {data.Founder_card[0].Description[1].children[0].text ?? ""}
                 </p>
-                <OrangeButtonWidget className="h-[50px] w-[178px] text-[18px]"
+                <OrangeButtonWidget
+                  className="h-[50px] w-[178px] text-[18px]"
                   content={data.Founder_card[0].Btn_txt ?? ""}
                 />
               </div>
@@ -82,7 +83,10 @@ const FounderSection = ({ data }: FounderSectionProps) => {
                 <p className="font-mulish text-black leading-normal text-[16px] xs:text-[13px]  sm:text-[14px]  md:text-[14px]  lg:text-[14px] xl:text-[14px]  2xl:text-[18px]   3xl:text-[18px]">
                   {data.Founder_card[1].Description[1].children[0].text ?? ""}
                 </p>
-                <OrangeButtonWidget className="h-[50px] w-[178px] text-[18px]" content={data.Founder_card[1].Btn_txt} />
+                <OrangeButtonWidget
+                  className="h-[50px] w-[178px] text-[18px]"
+                  content={data.Founder_card[1].Btn_txt}
+                />
               </div>
             </ScrollWidget>
           </div>
