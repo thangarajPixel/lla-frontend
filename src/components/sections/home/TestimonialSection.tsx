@@ -93,7 +93,7 @@ const TestimonialSection = ({ data }: TestimonialSectionProps) => {
                             {testimonial.Name}
                           </p>
 
-                          <p className="mb-3 text-sm xss:text-[16px] sm:text-base md:text-[14px] 3xl:text-[16px] text-black font-regular font-mulish lg:-mt-5">
+                          <p className="md:text-center mb-3 text-sm xss:text-[16px] sm:text-base md:text-[14px] 3xl:text-[16px] text-black font-regular font-mulish lg:-mt-5">
                             {testimonial.Batch}
                           </p>
                         </div>
