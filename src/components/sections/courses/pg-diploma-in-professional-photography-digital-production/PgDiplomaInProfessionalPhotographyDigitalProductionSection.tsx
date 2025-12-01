@@ -148,7 +148,7 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = () => {
       <aside className="fixed left-0 top-18 w-54 border-r border-b border-gray-200 z-50 bg-white">
         <div className="h-full overflow-y-auto">
           <nav className="py-6 px-4">
-            <span className="block px-4 py-3 text-[15px] 3xl:text-lg">
+            <span className="block px-4 py-3 text-[15px] 3xl:text-lg text-[#E97451] font-semibold">
               Menu
             </span>
             <ul>
