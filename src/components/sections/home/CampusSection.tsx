@@ -1,4 +1,5 @@
 import ContainerWidget from "@/components/widgets/ContainerWidget";
+import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
@@ -30,9 +31,11 @@ const CampusSection = ({ data }: CampusSectionProps) => {
                 {data.Description ||
                   "Every space is thoughtfully built to nurture learning. The campus invites reflection, exploration, and creativity at every turn."}
               </p>
-              <OrangeButtonWidget
-                content={data.Btn_txt || "Experience the View"}
-              />
+              <LinkWidget href="/campus" className="w-full">
+                <OrangeButtonWidget
+                  content={data.Btn_txt || "Experience the View"}
+                />
+              </LinkWidget>
             </div>
           </div>
         </ScrollWidget>

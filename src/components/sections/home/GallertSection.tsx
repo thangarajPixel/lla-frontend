@@ -4,6 +4,7 @@ import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import { useEffect, useState } from "react";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
@@ -104,7 +105,9 @@ const GallertSection = ({ data }: GallerySectionProps) => {
           )}
         </p>
         <div className="mt-6 text-left lg:text-center md:hidden">
-          <OrangeButtonWidget content={data.Btn_txt || "View More"} />
+          <LinkWidget href="/gallery" className="w-full">
+            <OrangeButtonWidget content={data.Btn_txt || "View More"} />
+          </LinkWidget>
         </div>
       </div>
 
@@ -163,7 +166,9 @@ const GallertSection = ({ data }: GallerySectionProps) => {
               </p>
             )}
             <div className="mt-6 text-left lg:text-center">
-              <OrangeButtonWidget content={data.Btn_txt || "View More"} />
+              <LinkWidget href="/gallery" className="w-full">
+                <OrangeButtonWidget content={data.Btn_txt || "View More"} />
+              </LinkWidget>
             </div>
           </div>
           <div className="relative w-full aspect-2/3 mt-20 overflow-hidden">

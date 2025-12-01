@@ -44,22 +44,22 @@ const SOCIAL_LINKS = [
 
 const QUICK_LINKS = [
   { id: "home", href: "/", label: "Home" },
-  { id: "about", href: "/", label: "About LLA" },
-  { id: "campus", href: "/", label: "Campus" },
-  { id: "faculty", href: "/", label: "Faculty" },
-  { id: "gallery", href: "/", label: "Gallery" },
-  { id: "contact", href: "/", label: "Contact Us" },
+  { id: "about", href: "/more/about-us", label: "About LLA" },
+  { id: "campus", href: "/campus", label: "Campus" },
+  { id: "faculty", href: "/faculty", label: "Faculty" },
+  { id: "gallery", href: "/gallery", label: "Gallery" },
+  { id: "contact", href: "/more/contact-us", label: "Contact Us" },
 ];
 
 const COURSES = [
   {
     id: "photography-diploma",
-    href: "/",
+    href: "/courses/pg-diploma-in-professional-photography-digital-production",
     label: "PG Diploma in Professional Photography & Digital Production",
   },
   {
     id: "filmmaking-diploma",
-    href: "/",
+    href: "/courses/pg-diploma-in-documentary-corporate-filmmaking",
     label: "PG Diploma in Documentary & Corporate Filmmaking",
   },
 ];

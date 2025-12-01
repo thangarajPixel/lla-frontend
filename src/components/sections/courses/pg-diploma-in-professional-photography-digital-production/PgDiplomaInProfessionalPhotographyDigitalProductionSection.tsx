@@ -5,11 +5,11 @@ import TestimonialSection from "@/components/sections/home/TestimonialSection";
 import LinkWidget from "@/components/widgets/LinkWidget";
 import CourseContentSection from "./utils/CourseContentSection";
 import FaqSection from "./utils/FaqSection";
+import GallerySection from "./utils/GallerySection";
 import HowtoApplySection from "./utils/HowtoApplySection";
 import OtherInfoSection from "./utils/OtherInfoSection";
 import OverviewSection from "./utils/OverviewSection";
 import StudentSection from "./utils/StudentSection";
-import GallerySection from "./utils/GallerySection";
 
 const sidebarMenuItems = [
   { href: "#overview", label: "Overview" },
@@ -180,9 +180,9 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = () => {
         <section id="overview">
           <OverviewSection />
         </section>
-       <section id="gallery">
-        <GallerySection />
-       </section>
+        <section id="gallery">
+          <GallerySection />
+        </section>
         <section id="course-content" className="scroll-mt-[-40px]">
           <CourseContentSection />
         </section>

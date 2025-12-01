@@ -4,6 +4,7 @@ import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
@@ -49,7 +50,11 @@ const FacultySection = ({ data }: FacultySectionProps) => {
               {data.Description ||
                 "Our faculty foster an environment of collaboration and mentorship. The guidance is personal, conversations are open, and growth happens through shared experience."}
             </p>
-            <OrangeButtonWidget content={data.Btn_txt || "Know Your Guides"} />
+            <LinkWidget href="/faculty" className="w-full">
+              <OrangeButtonWidget
+                content={data.Btn_txt || "Know Your Guides"}
+              />
+            </LinkWidget>
           </div>
         </ScrollWidget>
       </ContainerWidget>
@@ -78,9 +83,11 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                     {faculty.Description}
                   </p>
                   <div className="self-start mt-auto">
-                    <OrangeButtonWidget
-                      content={faculty.Btn_txt || "Know More"}
-                    />
+                    <LinkWidget href="/faculty" className="w-full">
+                      <OrangeButtonWidget
+                        content={faculty.Btn_txt || "Know More"}
+                      />
+                    </LinkWidget>
                   </div>
                 </div>
               </ScrollWidget>
@@ -95,9 +102,11 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                   {" "}
                 </h3>
                 <div className="self-start mt-auto">
-                  <OrangeButtonWidget
-                    content={data.Btn_txt || "View All Faculty"}
-                  />
+                  <LinkWidget href="/faculty" className="w-full">
+                    <OrangeButtonWidget
+                      content={data.Btn_txt || "View All Faculty"}
+                    />
+                  </LinkWidget>
                 </div>
               </div>
             </ScrollWidget>
@@ -142,9 +151,11 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                           {faculty.Description}
                         </p>
                         <div className="self-start mt-3">
-                          <OrangeButtonWidget
-                            content={faculty.Btn_txt || "Know More"}
-                          />
+                          <LinkWidget href="/faculty" className="w-full">
+                            <OrangeButtonWidget
+                              content={faculty.Btn_txt || "Know More"}
+                            />
+                          </LinkWidget>
                         </div>
                       </div>
                     </div>
@@ -165,9 +176,11 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                       {" "}
                     </h3>
                     <div className="self-start mt-3">
-                      <OrangeButtonWidget
-                        content={data.Btn_txt || "View All Faculty"}
-                      />
+                      <LinkWidget href="/faculty" className="w-full">
+                        <OrangeButtonWidget
+                          content={data.Btn_txt || "View All Faculty"}
+                        />
+                      </LinkWidget>
                     </div>
                   </div>
                 </ScrollWidget>

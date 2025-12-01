@@ -1,9 +1,8 @@
 import ContainerWidget from "@/components/widgets/ContainerWidget";
-import ScrollWidget from "@/components/widgets/ScrollWidget";
 
 const GallerySection = () => {
   return (
-      <ContainerWidget>
+    <ContainerWidget>
       <div className="flex flex-col h-[80vh] justify-start md:justify-center items-start md:items-center text-left md:text-center gap-2.5 md:gap-4.5">
         <h1 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
           Gallery
@@ -15,7 +14,7 @@ const GallerySection = () => {
           aliquip ex ea commodo consequat.
         </p>
       </div>
-      </ContainerWidget>
+    </ContainerWidget>
   );
 };
 
