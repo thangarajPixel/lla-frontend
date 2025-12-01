@@ -2,11 +2,11 @@
 
 import useEmblaCarousel from "embla-carousel-react";
 import { useEffect, useState } from "react";
+import type { TestimonialSectionProps } from "@/components/sections/home/utils/home";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { ArrowLeftBlack, ArrowRightBlack, Quote } from "@/helpers/ImageHelper";
-import type { TestimonialSectionProps } from "./utils/home";
 
 const TestimonialSection = ({ data }: TestimonialSectionProps) => {
   const testimonials = data.Slider || [];
@@ -42,7 +42,7 @@ const TestimonialSection = ({ data }: TestimonialSectionProps) => {
   const scrollNext = () => emblaApi?.scrollNext();
 
   return (
-    <section className="w-full bg-[#ECECEC] flex flex-col z-40 relative py-10 sm:py-14 md:py-18 lg:py-20 xl:py-20 2xl:py-20 3xl:py-20">
+    <section className="w-full bg-[#ECECEC] flex flex-col z-10! relative py-10 sm:py-14 md:py-18 lg:py-20 xl:py-20 2xl:py-20 3xl:py-20">
       <ContainerWidget>
         <ScrollWidget animation="fadeUp" delay={0.1}>
           <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-10 lg:gap-12 xl:gap-14 2xl:gap-16 items-stretch">

@@ -121,7 +121,6 @@ export type StudentSectionProps = {
       id: number;
       Title: string;
       Description: string;
-      Btn_txt: string | null;
       Image: Array<{
         id: number;
         name: string;
