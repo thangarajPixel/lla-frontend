@@ -19,7 +19,7 @@ const FacultySection = ({ data }: FacultySectionProps) => {
     },
     [
       Autoplay({
-        delay: 3000,
+        delay: 1500,
         stopOnInteraction: false,
         stopOnMouseEnter: true,
       }),
@@ -92,11 +92,11 @@ const FacultySection = ({ data }: FacultySectionProps) => {
             >
               <div className="min-h-[200px] flex flex-col justify-between gap-2 sm:gap-3 bg-[#E97451]/20 p-3 sm:p-4">
                 <h3 className="font-mulish text-lg sm:text-xl font-bold text-black font-urbanist leading-tight">
-                  View All Faculty
+                  {" "}
                 </h3>
                 <div className="self-start mt-auto">
                   <OrangeButtonWidget
-                    content={data.Btn_txt || "Know your guides"}
+                    content={data.Btn_txt || "View All Faculty"}
                   />
                 </div>
               </div>
@@ -162,11 +162,11 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                 >
                   <div className="min-h-[230px] group relative flex flex-col justify-between gap-3 overflow-hidden transition-all duration-500 ease-in-out delay-75 bg-[#E97451]/20 hover:bg-[#E97451]/20 p-3.5 cursor-pointer">
                     <h3 className="font-mulish text-xl md:text-xl lg:text-2xl xl:text-[20px] 2xl:text-[20px] 3xl:text-[24px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight transition-colors duration-500 ease-in-out delay-150">
-                      View All Faculty
+                      {" "}
                     </h3>
                     <div className="self-start mt-3">
                       <OrangeButtonWidget
-                        content={data.Btn_txt || "Know your guides"}
+                        content={data.Btn_txt || "View All Faculty"}
                       />
                     </div>
                   </div>

@@ -10,7 +10,7 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Logo, LogoBlack, TopArrowIcon } from "@/helpers/ImageHelper";
+import { LogoBlack, TopArrowIcon } from "@/helpers/ImageHelper";
 import ButtonWidget from "../../widgets/ButtonWidget";
 import ImageWidget from "../../widgets/ImageWidget";
 import LinkWidget from "../../widgets/LinkWidget";
@@ -71,33 +71,23 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
       </SheetTrigger>
       <SheetContent
         side="top"
-        className={`w-full! max-w-full! overflow-y-auto p-0 h-auto max-h-[90vh] transition-all duration-300 [&_button.absolute]:hidden ${
-          isSticky
-            ? "bg-white text-black border-b border-black/10"
-            : "bg-black text-white border-b border-white/10"
-        }`}
+        className="w-full! max-w-full! overflow-y-auto p-0 h-auto max-h-[90vh] transition-all duration-300 [&_button.absolute]:hidden bg-white text-black border-b border-black/10"
       >
         <DialogTitle className="hidden" />
         <DialogContent className="hidden" />
         <div className="flex flex-col h-full">
-          <div
-            className={`px-6 py-6 border-b ${
-              isSticky ? "border-black/10" : "border-white/10"
-            }`}
-          >
+          <div className="px-6 py-6 border-b border-black/10">
             <div className="flex items-center justify-between w-full">
               <LinkWidget href="/" onClick={() => setIsSheetOpen(false)}>
                 <ImageWidget
-                  src={isSticky ? LogoBlack : Logo}
+                  src={LogoBlack}
                   alt="Logo"
                   className="w-60 sm:w-40 md:w-48 lg:w-56 xl:w-64 2xl:w-80 3xl:w-[348px] h-auto"
                 />
               </LinkWidget>
               <SheetClose asChild>
                 <ButtonWidget
-                  className={`p-2 bg-transparent hover:bg-transparent transition-all duration-300 rounded-lg ${
-                    isSticky ? "text-black" : "text-white"
-                  }`}
+                  className="p-2 bg-transparent hover:bg-transparent transition-all duration-300 rounded-lg text-black"
                   aria-label="Close menu"
                 >
                   <XIcon className="w-6 h-6" />
@@ -115,9 +105,7 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
                 return (
                   <div
                     key={menuId}
-                    className={`flex flex-col border-b last:border-0 ${
-                      isSticky ? "border-black/10" : "border-white/10"
-                    }`}
+                    className="flex flex-col border-b last:border-0 border-black/10"
                   >
                     <button
                       type="button"
@@ -125,9 +113,7 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
                       className={`flex items-center justify-between text-left py-4 transition-all duration-300 ${
                         isActive
                           ? "text-[#E97451]"
-                          : isSticky
-                            ? "text-black hover:text-[#E97451]"
-                            : "text-white hover:text-[#E97451]"
+                          : "text-black hover:text-[#E97451]"
                       }`}
                     >
                       <span className="text-base font-medium">
@@ -136,9 +122,9 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
                       <ImageWidget
                         src={TopArrowIcon}
                         alt="Arrow"
-                        className={`w-[13px] h-[13px] transition-transform duration-500 ease-out ${
-                          isSticky ? "brightness-0" : ""
-                        } ${isOpen ? "rotate-180" : "rotate-0"}`}
+                        className={`w-[13px] h-[13px] transition-transform duration-500 ease-out brightness-0 ${
+                          isOpen ? "rotate-180" : "rotate-0"
+                        }`}
                       />
                     </button>
                     <div
@@ -157,9 +143,7 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
                               className={`block py-3 text-sm transition-all duration-300 ${
                                 isSubItemActive
                                   ? "text-[#E97451]"
-                                  : isSticky
-                                    ? "text-black/80 hover:text-[#E97451]"
-                                    : "text-white/80 hover:text-[#E97451]"
+                                  : "text-black/80 hover:text-[#E97451]"
                               }`}
                             >
                               {subItem.label}
@@ -177,14 +161,10 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
                   key={item.href}
                   href={item.href}
                   onClick={() => setIsSheetOpen(false)}
-                  className={`flex items-center py-4 text-base font-medium transition-all duration-300 border-b last:border-0 ${
-                    isSticky ? "border-black/10" : "border-white/10"
-                  } ${
+                  className={`flex items-center py-4 text-base font-medium transition-all duration-300 border-b last:border-0 border-black/10 ${
                     isItemActive
                       ? "text-[#E97451]"
-                      : isSticky
-                        ? "text-black hover:text-[#E97451]"
-                        : "text-white hover:text-[#E97451]"
+                      : "text-black hover:text-[#E97451]"
                   }`}
                 >
                   {item.label}
@@ -193,11 +173,7 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
             })}
           </div>
 
-          <div
-            className={`px-6 pt-6 pb-6 border-t ${
-              isSticky ? "border-black/10" : "border-white/10"
-            }`}
-          >
+          <div className="px-6 pt-6 pb-6 border-t border-black/10">
             <AdmissionButton
               className="px-6 py-3.5 h-10 text-sm w-full justify-center font-semibold"
               iconClassName="w-4 h-4"

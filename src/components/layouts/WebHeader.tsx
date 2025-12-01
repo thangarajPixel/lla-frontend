@@ -13,7 +13,6 @@ import NavLink from "./utils/NavLink";
 import type { DropdownMenu as DropdownMenuType, MenuItem } from "./utils/types";
 
 const menuItems: (MenuItem | DropdownMenuType)[] = [
-  { href: "/about-us", label: "About us" },
   {
     label: "Courses",
     pathPrefix: "/courses",
@@ -28,16 +27,20 @@ const menuItems: (MenuItem | DropdownMenuType)[] = [
       },
     ],
   },
+  { href: "/campus", label: "Campus" },
+  { href: "/faculty", label: "Faculty" },
+  { href: "/gallery", label: "Gallery" },
   {
-    label: "Campus",
-    pathPrefix: "/campus",
+    label: "More",
+    pathPrefix: "/more",
     items: [
-      { href: "/campus/location", label: "Location" },
-      { href: "/campus/facilities", label: "Facilities" },
-      { href: "/campus/tours", label: "Campus Tours" },
+      { href: "/about-us", label: "About us" },
+      { href: "/life-at-lla", label: "Life at LLA" },
+      { href: "/more/blog", label: "Blog" },
+      { href: "/more/contact-us", label: "Contact Us" },
+      { href: "/more/faq", label: "FAQ" },
     ],
   },
-  { href: "/faculty", label: "Faculty" },
 ];
 
 const WebHeader = () => {
@@ -85,11 +88,15 @@ const WebHeader = () => {
               <ImageWidget
                 src={isHomePage ? (isSticky ? LogoBlack : Logo) : LogoBlack}
                 alt="Logo"
-                className="mt-2 md:mt-0 w-60 2xl:w-70 3xl:w-[348px] h-auto"
+                className={
+                  isSticky
+                    ? "mt-2 md:mt-0 w-60 2xl:w-70 3xl:w-[348px] 3xl:h-[69px] h-auto relative"
+                    : "mt-2 md:mt-0 w-60 2xl:w-70 3xl:w-[348px] 3xl:h-[69px] h-auto relative md:top-[7px]"
+                }
               />
             </LinkWidget>
 
-            <ul className="hidden lg:flex items-center gap-7 xl:gap-[38px] 2xl:gap-[46px] text-[14px] 2xl:text-[14px] 3xl:text-[18px]">
+            <ul className="hidden lg:flex items-center gap-7 lg:gap-[14px] xl:gap-[18px] 2xl:gap-[46px] text-[14px] 2xl:text-[14px] 3xl:text-[18px]">
               {menuItems.map((item) => {
                 if (isDropdown(item)) {
                   const menuId = item.label.toLowerCase();

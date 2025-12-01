@@ -29,7 +29,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
     },
     [
       Autoplay({
-        delay: 3000,
+        delay: 5000,
         stopOnInteraction: false,
         stopOnMouseEnter: false,
       }),
@@ -61,11 +61,26 @@ const StudentSection = ({ data }: StudentSectionProps) => {
     updateScrollButtons();
     emblaApi.on("select", updateScrollButtons);
     emblaApi.on("reInit", updateScrollButtons);
+    emblaApi.on("resize", updateScrollButtons);
+
+    const handleResize = () => {
+      emblaApi.reInit();
+    };
+
+    window.addEventListener("resize", handleResize);
 
     return () => {
       emblaApi.off("select", updateScrollButtons);
       emblaApi.off("reInit", updateScrollButtons);
+      emblaApi.off("resize", updateScrollButtons);
+      window.removeEventListener("resize", handleResize);
     };
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (emblaApi) {
+      emblaApi.reInit();
+    }
   }, [emblaApi]);
 
   const scrollPrev = () => {
@@ -104,7 +119,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
               className="overflow-hidden cursor-grab active:cursor-grabbing"
               ref={emblaRef}
             >
-              <div className={`flex gap-4 sm:gap-6 justify-center`}>
+              <div className="flex w-full justify-start md:justify-center gap-4 sm:gap-6">
                 {studentData.map((student, index) => {
                   const videoUrl =
                     getS3Url(student.Image?.[0]?.url) || "/dummy.mp4";
@@ -117,7 +132,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                       <div
                         className={`shrink-0 ${
                           index % 2 ? "md:mt-30" : "mt-0"
-                        } w-[calc(100%-2rem)] min-w-[320px] sm:w-[calc((100%-3rem-1rem)/2)] md:w-[calc((100%-4.5rem)/3.5)] lg:w-[calc((100%-4.5rem)/3.5)] xl:w-[calc((100%-4.5rem)/3.5)] 2xl:w-[calc((100%-4.5rem)/3.5)]`}
+                        } w-[calc(100%-2rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc((100%-4.5rem)/3.5)] lg:w-[calc((100%-4.5rem)/3.5)] xl:w-[calc((100%-4.5rem)/3.5)] 2xl:w-[calc((100%-4.5rem)/3.5)]`}
                       >
                         {/* biome-ignore lint/a11y/noStaticElementInteractions: Hover-only interaction for video playback, not a clickable element */}
                         <div
@@ -221,42 +236,42 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                   );
                 })}
               </div>
-              <div className="md:hidden flex gap-2 mt-5">
-                <button
-                  type="button"
-                  onClick={scrollPrev}
-                  disabled={!canScrollPrev}
-                  className={`h-[35px] w-[35px] sm:h-[35px]  md:h-[40px] lg:h-[40px] xl:h-[48px] 2xl:h-[48px] 3xl:h-[48px] sm:w-[35px] md:w-[40px] lg:w-[40px] xl:w-[48px] 2xl:w-[48px] 3xl:w-[48px]  ${
-                    !canScrollPrev
-                      ? "opacity-50 cursor-not-allowed"
-                      : "cursor-pointer"
-                  }`}
-                  aria-label="Previous"
-                >
-                  <ImageWidget
-                    src={ArrowLeftBlack}
-                    alt="Prev"
-                    className="w-[35px] h-[35px]"
-                  />
-                </button>
-                <button
-                  type="button"
-                  onClick={scrollNext}
-                  disabled={!canScrollNext}
-                  className={`h-[35px] w-[35px] sm:h-[35px]  md:h-[40px] lg:h-[40px] xl:h-[48px] 2xl:h-[48px] 3xl:h-[48px] sm:w-[35px] md:w-[40px] lg:w-[40px] xl:w-[48px] 2xl:w-[48px] 3xl:w-[48px]  ${
-                    !canScrollNext
-                      ? "opacity-50 cursor-not-allowed"
-                      : "cursor-pointer"
-                  }`}
-                  aria-label="Next"
-                >
-                  <ImageWidget
-                    src={ArrowRightBlack}
-                    alt="Next"
-                    className="w-[35px] h-[35px]"
-                  />
-                </button>
-              </div>
+            </div>
+            <div className="md:hidden flex gap-2 mt-5 justify-start">
+              <button
+                type="button"
+                onClick={scrollPrev}
+                disabled={!canScrollPrev}
+                className={`h-[35px] w-[35px] sm:h-[35px]  md:h-[40px] lg:h-[40px] xl:h-[48px] 2xl:h-[48px] 3xl:h-[48px] sm:w-[35px] md:w-[40px] lg:w-[40px] xl:w-[48px] 2xl:w-[48px] 3xl:w-[48px]  ${
+                  !canScrollPrev
+                    ? "opacity-50 cursor-not-allowed"
+                    : "cursor-pointer"
+                }`}
+                aria-label="Previous"
+              >
+                <ImageWidget
+                  src={ArrowLeftBlack}
+                  alt="Prev"
+                  className="w-[35px] h-[35px]"
+                />
+              </button>
+              <button
+                type="button"
+                onClick={scrollNext}
+                disabled={!canScrollNext}
+                className={`h-[35px] w-[35px] sm:h-[35px]  md:h-[40px] lg:h-[40px] xl:h-[48px] 2xl:h-[48px] 3xl:h-[48px] sm:w-[35px] md:w-[40px] lg:w-[40px] xl:w-[48px] 2xl:w-[48px] 3xl:w-[48px]  ${
+                  !canScrollNext
+                    ? "opacity-50 cursor-not-allowed"
+                    : "cursor-pointer"
+                }`}
+                aria-label="Next"
+              >
+                <ImageWidget
+                  src={ArrowRightBlack}
+                  alt="Next"
+                  className="w-[35px] h-[35px]"
+                />
+              </button>
             </div>
           </div>
         </ScrollWidget>

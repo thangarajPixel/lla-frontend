@@ -52,7 +52,7 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
 
     const nextPage = page + 1;
     const params = { page: nextPage, per_page: 8 };
-    const res = await getLifePageData(params);
+    const { data: res } = await getLifePageData(params);
     if (res?.Card) {
       setCards((prev) => [...prev, ...res.Card]);
       setPage(nextPage);
@@ -96,42 +96,36 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
           </div>
         </ScrollWidget>
         <div className="py-8 md:py-8 lg:py-12 xl:py-10 2xl:py-16">
-                <ResponsiveMasonry
-                  columnsCountBreakPoints={{
-                    350: 1,
-                    660: 2,
-                    700: 2,
-                    768: 3,
-                    1024: 4
+          <ResponsiveMasonry
+            columnsCountBreakPoints={{
+              350: 1,
+              660: 2,
+              700: 2,
+              768: 3,
+              1024: 4,
+            }}
+          >
+            <Masonry
+              style={{
+                gap: "20px",
+              }}
+            >
+              {cards.map((card, index) => (
+                <div
+                  className="gap-30 max-w-[250px] sm:max-w-[300px]  md:max-w-[350px] lg:max-w-[380px]  xl:max-w-[400px] 2xl:max-w-[450px] "
+                  key={card.id}
+                  style={{ marginBottom: "8px" }}
+                  ref={(el) => {
+                    cardsRef.current[index] = el;
                   }}
                 >
-                  <Masonry  style={{
-                      gap:"20px",
-                        }} >
-                    {cards.map((card, index) => (
-                      <div className= "gap-30 max-w-[250px] sm:max-w-[300px]  md:max-w-[350px] lg:max-w-[380px]  xl:max-w-[400px] 2xl:max-w-[450px] "
-                        key={card.id}
-                         style={{ marginBottom: "8px"}}
-                        ref={(el) => {
-                          cardsRef.current[index] = el;
-                        }}
-                      >
-                        <ScrollWidget animation="fadeIn" delay={-0.1}>
-                          <ParallaxWidget speed={-0.1}>
-                            <LifeCard card={card} />
-                          </ParallaxWidget>
-                        </ScrollWidget>
-                      </div>
-                    ))}
-
-                    {loading &&
-                      skeletonKeys.map((key) => (
-                        <div key={key}>
-                          <LifeCardSkeleton />
-                        </div>
-                      ))}
-                  </Masonry>
-                </ResponsiveMasonry>
+                  <ScrollWidget animation="fadeIn" delay={-0.1}>
+                    <ParallaxWidget speed={-0.1}>
+                      <LifeCard card={card} />
+                    </ParallaxWidget>
+                  </ScrollWidget>
+                </div>
+              ))}
 
               {loading &&
                 skeletonKeys.map((key) => (
@@ -139,6 +133,15 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
                     <LifeCardSkeleton />
                   </div>
                 ))}
+            </Masonry>
+          </ResponsiveMasonry>
+
+          {loading &&
+            skeletonKeys.map((key) => (
+              <div key={key}>
+                <LifeCardSkeleton />
+              </div>
+            ))}
 
           {!loading && cards.length < total && (
             <ScrollWidget animation="fadeIn" delay={0.1}>

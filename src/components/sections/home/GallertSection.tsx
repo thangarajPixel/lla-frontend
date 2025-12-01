@@ -2,6 +2,7 @@
 
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
+import { useEffect, useState } from "react";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
@@ -21,9 +22,27 @@ import type { GallerySectionProps } from "./utils/home";
 const GallertSection = ({ data }: GallerySectionProps) => {
   const galleryImages = data.Image || [];
 
-  const getImageUrl = (index: number) => {
-    if (galleryImages[index]) {
-      return getS3Url(galleryImages[index].url);
+  const [randomIndices, setRandomIndices] = useState<number[]>(() => {
+    return Array.from({ length: 8 }, (_, i) => i);
+  });
+
+  useEffect(() => {
+    if (galleryImages.length > 8) {
+      const shuffled = [...galleryImages]
+        .map((_, index) => index)
+        .sort(() => Math.random() - 0.5);
+      setRandomIndices(shuffled.slice(0, 8));
+    } else {
+      setRandomIndices(
+        Array.from({ length: Math.min(8, galleryImages.length) }, (_, i) => i),
+      );
+    }
+  }, [galleryImages]);
+
+  const getImageUrl = (position: number) => {
+    const actualIndex = randomIndices[position] ?? position;
+    if (galleryImages[actualIndex]) {
+      return getS3Url(galleryImages[actualIndex].url);
     }
     const fallbackImages = [
       Dummy3,
@@ -35,7 +54,7 @@ const GallertSection = ({ data }: GallerySectionProps) => {
       Dummy9,
       Dummy10,
     ];
-    return fallbackImages[index % fallbackImages.length];
+    return fallbackImages[position % fallbackImages.length];
   };
 
   const [emblaRef1] = useEmblaCarousel(
