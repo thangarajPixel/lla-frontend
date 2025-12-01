@@ -30,10 +30,10 @@ const FounderSection = ({ data }: FounderSectionProps) => {
                 <h4 className="font-urbanist  font-normal text-[#E97451] block hidden md:block  text-[24px]  xs:text-[26px] sm:text-[26px] md:text-[28px] lg:text-[28px] xl:text-[32px] 2xl:text-[36px] 3xl:text-[40px] ">
                   {data.Founder_card[0].Heading}
                 </h4>
-                <p className="font-mulish text-black leading-normal text-[16px] xs:text-[16px] sm:text-[16px] lg:text-[16px] xl:text-[14px] 2xl:text-[18px] 3xl:text-[18px] 4xl:text-[18px]">
+                <p className="font-mulish text-black leading-normal text-[13px] xs:text-[16px] sm:text-[16px] lg:text-[16px] xl:text-[14px] 2xl:text-[18px] 3xl:text-[18px]">
                   {data.Founder_card[0].Description[0].children[0].text}
                 </p>
-                <p className="font-mulish text-black leading-normal text-[13px] text-[16px] xs:text-[16px]  sm:text-[16px] lg:text-[16px] xl:text-[14px] 2xl:text-[18px] 3xl:text-[18px]  4xl:text-[18px] ">
+                <p className="font-mulish text-black leading-normal text-[13px] text-[16px] xs:text-[16px]  sm:text-[16px] lg:text-[16px] xl:text-[14px] 2xl:text-[18px] 3xl:text-[18px]">
                   {data.Founder_card[0].Description[1].children[0].text ?? ""}
                 </p>
                 <OrangeButtonWidget
@@ -77,10 +77,10 @@ const FounderSection = ({ data }: FounderSectionProps) => {
                 <h4 className="font-urbanist font-normal text-[#E97451] block hidden md:block text-[24px] xs:text-[26px] sm:text-[26px]  md:text-[28px] lg:text-[28px]  xl:text-[32px] 2xl:text-[36px] 3xl:text-[40px] ">
                   {data.Founder_card[1].Heading}
                 </h4>
-                <p className="font-mulish text-black leading-normal text-[16px] xs:text-[16px] sm:text-[14px] lg:text-[14px] xl:text-[14px] 2xl:text-[14px] 3xl:text-[18px] ">
-                  {data.Founder_card[1].Description[0].children[0].text ?? ""}
+                 <p className="font-mulish text-black leading-normal text-[13px] xs:text-[16px] sm:text-[16px] lg:text-[16px] xl:text-[14px] 2xl:text-[18px] 3xl:text-[18px]">
+                  {data.Founder_card[1].Description[0].children[0].text}
                 </p>
-                <p className="font-mulish text-black leading-normal text-[16px] xs:text-[13px]  sm:text-[14px]  md:text-[14px]  lg:text-[14px] xl:text-[14px]  2xl:text-[18px]   3xl:text-[18px]">
+                <p className="font-mulish text-black leading-normal text-[13px] text-[16px] xs:text-[16px]  sm:text-[16px] lg:text-[16px] xl:text-[14px] 2xl:text-[18px] 3xl:text-[18px]">
                   {data.Founder_card[1].Description[1].children[0].text ?? ""}
                 </p>
                 <OrangeButtonWidget

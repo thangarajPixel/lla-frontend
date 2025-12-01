@@ -20,8 +20,8 @@ const LifeCard = ({ card }: LifeCardProps) => (
     <div
       className="relative w-full aspect-4/3 overflow-hidden mb-2 lg:mb-3 3xl:mb-4 
     s:w-[260px] s:h-[210px] m:w-[290px] m:h-[210px] xss:w-[330px] xss:h-[210px] 
-    sm:w-[250px] sm:h-[210px] md:w-[180px] md:h-[140px] lg:w-[220px] lg:h-[140px]
-    xl:w-[160px] xl:h-[100px] 2xl:w-[252px] 2xl:h-[168.79px] 3xl:w-[252px] 3xl:h-[168.79px]"
+    sm:w-[250px] sm:h-[210px] md:w-[220px] md:h-[140px] lg:w-[170px] lg:h-[100px]
+    xl:w-[160px] xl:h-[110px] 2xl:w-[210px] 2xl:h-[120px] 3xl:w-[252px] 3xl:h-[168.79px]"
     >
       <ImageWidget
         src={card.Image?.[0]?.url ? getS3Url(card.Image[0].url) : ""}
