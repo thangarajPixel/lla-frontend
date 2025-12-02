@@ -84,3 +84,13 @@ export type PhotographyFacultySectionProps= {
     Card: FacultyMember[];
   };
 }
+
+export type VisitingFacultySectionProps= {
+  data: {
+    Title: string;
+    Heading: string;
+    SubHeading: string;
+    Description: string;
+    Card: FacultyMember[];
+  };
+}
