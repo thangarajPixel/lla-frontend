@@ -1,16 +1,12 @@
 "use client";
 
-import TestimonialSection from "@/components/sections/home/TestimonialSection";
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import ButtonWidget from "@/components/widgets/ButtonWidget";
-import LinkWidget from "@/components/widgets/LinkWidget";
 import { DialogContent, DialogTitle } from "@radix-ui/react-dialog";
 import { Menu } from "lucide-react";
 import { useEffect, useState } from "react";
+import TestimonialSection from "@/components/sections/home/TestimonialSection";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import ButtonWidget from "@/components/widgets/ButtonWidget";
+import LinkWidget from "@/components/widgets/LinkWidget";
 import CourseContentSection from "./utils/CourseContentSection";
 import FaqSection from "./utils/FaqSection";
 import GallerySection from "./utils/GallerySection";
@@ -184,7 +180,6 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = () => {
 
   return (
     <div className="bg-white">
-
       <aside className="hidden xl:block fixed left-0 top-18 w-54 border-r border-b border-gray-200 z-50 bg-white">
         <div className="h-full overflow-y-auto">
           <nav className="py-6 px-4">{renderMenuItems()}</nav>
