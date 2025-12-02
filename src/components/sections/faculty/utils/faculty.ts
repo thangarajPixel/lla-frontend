@@ -64,3 +64,23 @@ export type FilmmakingFacultySectionProps ={
     Card: FacultyMember[];
   };
 };
+
+interface FacultyMember {
+  id:number,
+  Title: string;
+  Image: {
+    id:number,
+    url: string;
+    name: string;
+  };
+}
+
+export type PhotographyFacultySectionProps= {
+  data: {
+    Title: string;
+    Heading: string;
+    SubHeading: string;
+    Description: string;
+    Card: FacultyMember[];
+  };
+}

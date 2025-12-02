@@ -2,26 +2,9 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
+import { PhotographyFacultySectionProps } from "./utils/faculty";
 
-interface FacultyMember {
-  id:number,
-  Title: string;
-  Image: {
-    id:number,
-    url: string;
-    name: string;
-  };
-}
 
-interface PhotographyFacultySectionProps {
-  data: {
-    Title: string;
-    Heading: string;
-    SubHeading: string;
-    Description: string;
-    Card: FacultyMember[];
-  };
-}
 
 const PhotographyFacultySection = ({ data }: PhotographyFacultySectionProps) => {
   return (
@@ -41,7 +24,6 @@ const PhotographyFacultySection = ({ data }: PhotographyFacultySectionProps) => 
             </p>
           </div>
         </ScrollWidget>
-
         <div className="grid grid-cols-1 s:grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 3xl:grid-cols-4 gap-2 s:gap-2 m:gap-2 xss:gap-2 xs:gap-3 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-7 2xl:gap-8 3xl:gap-8.5">
           {data?.Card?.map((member, index) => (
             <ScrollWidget key={member.id} delay={0.1 * (index + 1)}>
