@@ -14,29 +14,29 @@ const DirectorAcademicsSection = ({ data }: FacultyFounderSectionProps) => {
             {data?.Title}
           </h2>
         </ScrollWidget>
-        <div className="flex flex-col md:flex-row lg:flex-row items-center gap-8 md:gap-10 lg:gap-10 xl:gap-15 2xl:gap-15 3xl:gap-15">
+        <div className="flex flex-col md:flex-row lg:flex-row items-center gap-8 md:gap-10 lg:gap-10 xl:gap-15 2xl:gap-10 3xl:gap-15">
           <ScrollWidget
             delay={0.3}
             className="order-2 md:order-1 w-full lg:w-1/2 space-y-4 md:space-y-3 lg:space-y-3 xl:space-y-3 2xl:space-y-5"
           >
-            <div className="space-y-3 md:space-y-2 lg:space-y-3 xl:space-y-4 md:w-[400px] lg:w-[420px] xl:w-[420px] 2xl:w-[500px]  3xl:w-[520px]">
+            <div className="space-y-3 md:space-y-2 lg:space-y-3 xl:space-y-4 w-200 s:w-[260px] xss:w-[350px] xs:w-[300px] sm:w-[350px] md:w-[380px] lg:w-[340px] xl:w-[360px] 2xl:w-[400px] 3xl:w-[520px]">
             <h3 className="font-urbanist font-normal text-left  text-[#E97451] text-[20px] sm:text-[22px] md:text-[24px] lg:text-[26px] xl:text-[28px] 2xl:text-[30px]">
               {data?.Founder_card[0]?.Heading}
             </h3>
-              <p className="font-mulish font-regular font-normal text-black text-[14px] sm:text-[15px] md:text-[14px] lg:text-[15px] xl:text-[15px] 2xl:text-[16px] 3xl:text-[18px] ledding-normal">
+            <p className=" text-left  font-mulish text-black text-[18px] sm:text-[14px] md:text-[12px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px] 3xl:text-[18px]">
                 {data?.Founder_card[0]?.Description[0]?.children[0]?.text}
               </p>
-              <p className="font-mulish font-regular font-normal  text-black text-[14px] sm:text-[14px] md:text-[14px] lg:text-[15px] xl:text-[15px] 2xl:text-[16px] 3xl:text-[18px] ledding-normal">
+            <p className=" text-left  font-mulish text-black text-[18px] sm:text-[14px] md:text-[12px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px] 3xl:text-[18px]">
                 {data?.Founder_card[0]?.Description[1]?.children[0]?.text}
               </p>
-              <p className="font-mulish font-regular font-normal text-black text-[14px] sm:text-[14px] md:text-[14px] lg:text-[15px] xl:text-[15px] 2xl:text-[16px] 3xl:text-[18px] ledding-normal">
+            <p className="text-left  font-mulish text-black text-[18px] sm:text-[14px] md:text-[12px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px] 3xl:text-[18px]">
                 {data?.Founder_card[0]?.Description[2]?.children[0]?.text}
               </p>
                <OrangeButtonWidget content={data.Founder_card[0].Btn_txt ?? ""} />
             </div>
           </ScrollWidget>
           <ScrollWidget delay={0.4} className="order-1 md:order-2">
-            <div className="relative h-[484px] w-[361px] sm:h-[484px] sm:w-[400px] md:h-[500px] md:w-[361px] lg:h-[520px] lg:w-[400px] xl:h-[520px] xl:w-[400px] 2xl:h-[620px] 2xl:w-[500px]  3xl:w-[520px] 3xl:h-[696px] overflow-hidden">
+            <div className="relative h-[484px] w-[361px] s:h-[434px] s:w-[300px] sm:h-[484px] sm:w-[400px] md:h-[484px] md:w-[361px] lg:h-[470px] lg:w-[370px] xl:h-[480px] xl:w-[370px] 2xl:h-[520px] 2xl:w-[400px]  3xl:w-[520px] 3xl:h-[696px] overflow-hidden">
               <ImageWidget
                 src={getS3Url(data.Founder_card[0].Image.url)}
                 alt={data.Founder_card[0].Image.name}
