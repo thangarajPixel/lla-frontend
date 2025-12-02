@@ -1,7 +1,7 @@
 "use client";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
-import { queryClient } from "@/lib/utils";
+import { queryClient } from "@/helpers/ConstantHelper";
 
 export default function MainContent({
   children,

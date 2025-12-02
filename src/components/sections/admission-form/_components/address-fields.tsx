@@ -1,9 +1,9 @@
 "use client";
 
 import type { Control } from "react-hook-form";
-import { FormInput, FormSelectBox } from "@/components/form-fields";
-import { useGetStateLists } from "@/queries/hooks/global-hooks";
-import type { ApplicationFormSchema_Step1 } from "@/validations/multi-step-form";
+import { FormInput, FormSelectBox } from "@/components/form";
+import type { ApplicationFormSchema_Step1 } from "@/helpers/ValidationHelper";
+import { useGetStateLists } from "@/store/hooks/global-hooks";
 
 type AddressFieldsProps = {
   control: Control<ApplicationFormSchema_Step1>;
@@ -29,7 +29,11 @@ const AddressFields = ({ control, name }: AddressFieldsProps) => {
       </label>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <FormInput
-          name={name ? "Parent_Guardian_Spouse_Details.address" : "address"}
+          name={
+            name
+              ? "Parent_Guardian_Spouse_Details.address.0.children.0.text"
+              : "address.0.children.0.text"
+          }
           placeholder="Flat/House/Apartment No, Street Name"
           control={control}
         />

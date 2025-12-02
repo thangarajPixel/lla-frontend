@@ -2,9 +2,94 @@ type DocumentFile = {
   id: number;
   name: string;
   url: string;
+  alternativeText: string | null;
+  caption: string | null;
+  createdAt: string;
+  documentId: string;
+  ext: string;
+  folderPath: string;
+  formats: {
+    thumbnail?: {
+      name: string;
+      hash: string;
+      ext: string;
+      mime: string;
+      path: string | null;
+      width: number;
+      height: number;
+      size: number;
+      url: string;
+    };
+    small?: {
+      name: string;
+      hash: string;
+      ext: string;
+      mime: string;
+      path: string | null;
+      width: number;
+      height: number;
+      size: number;
+      url: string;
+    };
+    medium?: {
+      name: string;
+      hash: string;
+      ext: string;
+      mime: string;
+      path: string | null;
+      width: number;
+      height: number;
+      size: number;
+      url: string;
+    };
+    large?: {
+      name: string;
+      hash: string;
+      ext: string;
+      mime: string;
+      path: string | null;
+      width: number;
+      height: number;
+      size: number;
+      url: string;
+    };
+  };
+  hash: string;
+  height: number;
+  locale: string | null;
+  mime: string;
+  previewUrl: string | null;
+  provider: string;
+  provider_metadata: any | null;
+  publishedAt: string;
+  size: number;
+  updatedAt: string;
+  width: number;
+};
+
+type State = {
+  id: number;
+  documentId: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: null;
+  locale: null;
+};
+
+type AddressChild = {
+  text: string;
+  type?: string; // usually "text"
+};
+
+type AddressBlock = {
+  type: string; // usually "paragraph"
+  children: AddressChild[];
 };
 
 type AdmissionFormData = {
+  id: number;
+  documentId: string;
   name_title: string;
   first_name: string;
   last_name: string;
@@ -16,10 +101,10 @@ type AdmissionFormData = {
 
   Language_Proficiency: LanguageProficiency[];
 
-  address: string;
+  address: AddressBlock[];
   city: string;
   district: string;
-  state: string | number;
+  state: State;
   pincode: string;
   hobbies: string;
   photography_club: string;
@@ -63,10 +148,10 @@ type ParentGuardianDetails = {
   email: string;
   profession: string;
   nationality: string;
-  address: string;
+  address: AddressBlock[];
   city: string;
   district: string;
-  state: string;
+  state: State;
   pincode: string;
 };
 
@@ -79,14 +164,14 @@ type UnderGraduate = {
   id: number;
   degree: string;
   marksheet: DocumentFile;
-  ug_status: "Finished" | "In-Progress" | string;
+  ug_status: string;
 };
 
 type PostGraduate = {
-  id: number;
+  // id: number;
   degree: string;
   marksheet: DocumentFile;
-  pg_status: "Finished" | "In-Progress" | string;
+  pg_status: string;
 };
 
 type WorkExperience = {
@@ -95,7 +180,7 @@ type WorkExperience = {
   employer: string;
   duration_start: string; // ISO date
   duration_end: string; // ISO date
-  reference_letter: DocumentFile | number;
+  reference_letter: DocumentFile;
 };
 
 type Portfolio = {

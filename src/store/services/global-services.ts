@@ -3,7 +3,7 @@ import type {
   ApplicationFormSchema_Step1,
   ApplicationFormSchema_Step2,
   ApplicationFormSchema_Step3,
-} from "@/validations/multi-step-form";
+} from "@/helpers/ValidationHelper";
 
 export const getStateLists = async (): Promise<StateDataResponse> => {
   const response = await clientAxios.get<StateDataResponse>("/states");

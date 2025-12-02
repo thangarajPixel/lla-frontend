@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import {
   getAdmissionById,
   getStateLists,
-} from "@/queries/services/global-services";
+} from "@/store/services/global-services";
 
 export const useGetStateLists = (): UseQueryResult<
   StateDataResponse,
@@ -21,7 +21,7 @@ export const useGetAdmissionById = (
 ): UseQueryResult<AdmissionResponse, Error> => {
   return useQuery({
     enabled: !!id,
-    queryKey: [`admission-details`, id],
+    queryKey: [`admission-details-${id}`],
     queryFn: () => getAdmissionById(id),
   });
 };

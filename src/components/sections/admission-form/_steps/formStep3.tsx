@@ -2,18 +2,18 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { ImageGrid } from "@/components/sections/admission-form/_components/image-grid";
 import { UploadArea } from "@/components/sections/admission-form/_components/upload-area";
-import { toast } from "@/components/sections/admission-form/_components/use-toast";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
-import { cn, filteredPayload, notify } from "@/lib/utils";
-import { updateAdmission } from "@/queries/services/global-services";
+import { filteredPayload, notify } from "@/helpers/ConstantHelper";
 import {
   type ApplicationFormSchema_Step3,
   applicationFormSchema_Step3,
-} from "@/validations/multi-step-form";
+} from "@/helpers/ValidationHelper";
+import { cn } from "@/lib/utils";
+import { updateAdmission } from "@/store/services/global-services";
 
 interface UploadedImage {
   id: string;
@@ -24,7 +24,7 @@ interface UploadedImage {
 type Step3FormProps = {
   admissionData?: AdmissionFormData;
   onPrevStep: () => void;
-  onPreview: () => void;
+  onPreview: (preview: boolean) => void;
 };
 
 const FormStep3 = ({
@@ -39,20 +39,14 @@ const FormStep3 = ({
     mode: "all",
     defaultValues: {
       Upload_Your_Portfolio: {
-        images: admissionData?.Upload_Your_Portfolio.images || [],
+        images:
+          admissionData?.Upload_Your_Portfolio?.images?.map((item) => ({
+            id: item.id,
+          })) ?? [],
       },
       step_3: admissionData?.step_3 ?? false,
     },
   });
-
-  useEffect(() => {
-    form_step3.reset({
-      Upload_Your_Portfolio: {
-        images: admissionData?.Upload_Your_Portfolio.images || [],
-      },
-      step_3: admissionData?.step_3 ?? false,
-    });
-  }, [admissionData, form_step3]);
 
   const {
     handleSubmit,
@@ -65,11 +59,6 @@ const FormStep3 = ({
     const validFiles = files.filter((file) => {
       if (file.size > MAX_SIZE) {
         alert(`File ${file.name} exceeds 1MB limit`);
-        toast({
-          title: "File too large",
-          description: `${file.name} exceeds 1MB limit`,
-          //   variant: "destructive",
-        });
         return false;
       }
       return true;
@@ -134,14 +123,14 @@ const FormStep3 = ({
       step_3: true,
     };
 
-    const formId = localStorage.getItem("admissionId");
+    // const formId = localStorage.getItem("admissionId");
 
     try {
       await updateAdmission(
-        formId as string,
+        admissionData?.documentId as string,
         data as ApplicationFormSchema_Step3,
       );
-      onPreview();
+      onPreview(true);
     } catch (error) {
       notify({ success: false, message: error as string });
     }
@@ -176,7 +165,10 @@ const FormStep3 = ({
             </div>
 
             <div className="lg:pl-8">
-              <ImageGrid images={images} onRemove={handleRemoveImage} />
+              <ImageGrid
+                images={images ?? admissionData?.Upload_Your_Portfolio?.images}
+                onRemove={handleRemoveImage}
+              />
             </div>
           </div>
         </div>

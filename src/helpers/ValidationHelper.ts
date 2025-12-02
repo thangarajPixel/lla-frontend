@@ -1,24 +1,23 @@
 import { z } from "zod";
 
 export const languageSchema = z.object({
-  // id: z.number(),
   language: z.string().min(1, "Language is required"),
   read: z.boolean().default(false).optional(),
   write: z.boolean().default(false).optional(),
   speak: z.boolean().default(false).optional(),
 });
 
-// export const address = z.object({
-//   flat: z.string().optional(),
-//   doorNumber: z.string().optional(),
-//   city: z.string().optional(),
-//   district: z.string().optional(),
-//   state: z.string().optional(),
-//   pincode: z.string().regex(/^\d{6}$/, "Enter a valid 6-digit pincode"),
-// });
+const addressSchema = z.object({
+  type: z.literal("paragraph"), // or z.string() if Strapi may return other types
+  children: z.array(
+    z.object({
+      text: z.string(),
+      type: z.string().optional(), // Strapi usually returns "text"
+    }),
+  ),
+});
 
 export const parentDetails = z.object({
-  // title: z.enum(["Mr.", "Ms."]).optional(),
   title: z.string().optional(),
   first_name: z.string().min(1, "First name is required"),
   last_name: z.string().min(1, "Last name is required"),
@@ -28,7 +27,7 @@ export const parentDetails = z.object({
   profession: z.string().optional(),
   nationality: z.string().optional(),
   contact_no: z.string().optional(),
-  address: z.string().optional(),
+  address: z.array(addressSchema).optional(),
   city: z.string().optional(),
   district: z.string().optional(),
   state: z.string().optional(),
@@ -57,12 +56,11 @@ export const education = z.object({
 
 export const postGraduate = z.object({
   degree: z.string().min(1, "Graduation degree is required"),
-  pg_status: z.enum(["Finished", "In-Progress"]).optional(),
+  pg_status: z.string().optional(),
   marksheet: z.number().optional(),
 });
 
 export const applicationFormSchema_Step1 = z.object({
-  // name_title: z.enum(["Mr.", "Ms."]).optional(),
   name_title: z.string().optional(),
 
   first_name: z.string().min(1, "First name is required"),
@@ -70,12 +68,13 @@ export const applicationFormSchema_Step1 = z.object({
   mobile_no: z.string().regex(/^[6-9]\d{9}$/, "Enter a valid mobile number"),
   email: z.email("Enter a valid email address"),
   nationality: z.string().min(1, "Nationality is required"),
-  date_of_birth: z.date().nullable().optional(),
+  date_of_birth: z.string().nullable().optional(),
   Language_Proficiency: z
     .array(languageSchema)
     .min(1, "Add at least one language")
     .optional(),
-  address: z.string().optional(),
+  //   address: z.string().optional(),
+  address: z.array(addressSchema).optional(),
   city: z.string().optional(),
   district: z.string().optional(),
   state: z.string().optional(),
@@ -87,18 +86,6 @@ export const applicationFormSchema_Step1 = z.object({
 
   profession: z.string().optional(),
 
-  // passport_size_image: z
-  //   .file()
-  //   .refine((file) => file instanceof File, "Image file is required")
-  //   .refine(
-  //     (file) => file?.size <= 3 * 1_000_000,
-  //     "File size must be less than 1MB"
-  //   )
-  //   // .refine(
-  //   //   (file) => ["image/jpeg", "image/png"].includes(file?.type),
-  //   //   "Only JPG or PNG allowed"
-  //   // )
-  //   .optional(),
   passport_size_image: z.number().optional(),
 
   step_1: z.boolean().optional(),
@@ -112,7 +99,7 @@ export const applicationFormSchema_Step2 = z.object({
   Under_Graduate: z
     .object({
       degree: z.string().min(1, "Graduation degree is required"),
-      ug_status: z.enum(["Finished", "In-Progress"]).optional(),
+      ug_status: z.string().optional(),
       marksheet: z.number().optional(),
     })
     .optional(),
@@ -137,8 +124,6 @@ export const applicationFormSchema_Step3 = z.object({
   }),
   step_3: z.boolean().optional(),
 });
-
-// export type ApplicationFormSchema = z.infer<typeof applicationFormSchema_Step1>;
 
 export type ApplicationFormSchema_Step1 = z.infer<
   typeof applicationFormSchema_Step1
