@@ -42,7 +42,7 @@ const CourseContentSection = () => {
               <h3 className="font-mulish text-xl text-[#E97451] font-normal 3xl:text-[24px]">
                 Section A
               </h3>
-              <h2 className="font-urbanist text-[37px] 3xl:text-[40px] font-normal text-black mt-[-10px]">
+              <h2 className="font-urbanist text-[37px] xl:text-[25px] 2xl:text-[37px] 3xl:text-[40px] font-normal text-black mt-[-10px]">
                 Professional Photography Part 1
               </h2>
               <ul className="text-[16px] flex flex-col gap-2.5 lg:text-[13px] 3xl:text-[18px] font-normal text-black w-full">
@@ -158,7 +158,7 @@ const CourseContentSection = () => {
               <h3 className="font-mulish text-xl text-[#E97451] font-normal 3xl:text-[24px]">
                 Section B
               </h3>
-              <h2 className="font-urbanist text-[37px] 3xl:text-[40px] font-normal text-black mt-[-10px]">
+              <h2 className="font-urbanist text-[37px] xl:text-[25px] 2xl:text-[37px] 3xl:text-[40px] font-normal text-black mt-[-10px]">
                 Professional Photography Part 2
               </h2>
               <p className="text-[16px] lg:text-[13px] 3xl:text-[18px] font-normal text-black">
