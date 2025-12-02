@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import FormStep1 from "@/components/sections/admission-form/_steps/formStep1";
 import FormStep2 from "@/components/sections/admission-form/_steps/formStep2";
 import FormStep3 from "@/components/sections/admission-form/_steps/formStep3";
@@ -16,6 +16,27 @@ export function MultiStepForm({
 }) {
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [isReviewOpen, setIsReviewOpen] = useState<boolean>(false);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const scrollToTop = () => {
+      if (scrollContainerRef.current) {
+        scrollContainerRef.current.scrollTop = 0;
+      }
+      if (headerRef.current) {
+        headerRef.current.scrollIntoView({
+          behavior: "instant",
+          block: "start",
+        });
+      }
+    };
+
+    if (currentStep) {
+      const timeoutId = setTimeout(scrollToTop, 100);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [currentStep]);
 
   const handleNextStep = () => {
     setCurrentStep((prev) => Math.min(prev + 1, 3));
@@ -63,9 +84,13 @@ export function MultiStepForm({
 
       {/* Right Form Content */}
       <div className="w-full lg:w-3/4 bg-white p-8 lg:p-12 lg:pr-40 ">
-        <div className=" mx-auto">
+        <div
+          ref={scrollContainerRef}
+          className=" mx-auto h-[800px] overflow-y-auto scroll-mt-[-100px]"
+          data-lenis-prevent
+        >
           {/* Header */}
-          <div className="mb-8">
+          <div ref={headerRef} className="mb-8">
             <h2 className="text-4xl text-[#E97451] mb-2 font-urbanist">
               Application Form
             </h2>
