@@ -19,7 +19,7 @@ const PhotographyFacultySection = ({ data }: PhotographyFacultySectionProps) => 
               {data?.Heading}{" "}
               <span className="text-[#E97451]">{data?.SubHeading}</span>
             </p>
-            <p className=" text-left md:text-center font-mulish text-black text-[13px] sm:text-[14px] md:text-[12px] lg:text-[12px] xl:text-[12px] 2xl:text-[14px] 3xl:text-[18px] max-w-[280px] s:max-w-[320px] m:max-w-[350px] xss:max-w-[370px] xs:max-w-[450px] sm:max-w-[500px] md:max-w-[600px] lg:max-w-[650px] xl:max-w-[700px] 2xl:max-w-[750px] 3xl:max-w-[770px] mx-auto">
+            <p className=" text-left md:text-center font-mulish text-black text-[16px] sm:text-[14px] md:text-[12px] lg:text-[12px] xl:text-[12px] 2xl:text-[14px] 3xl:text-[18px] max-w-[280px] s:max-w-[320px] m:max-w-[350px] xss:max-w-[370px] xs:max-w-[450px] sm:max-w-[500px] md:max-w-[600px] lg:max-w-[650px] xl:max-w-[700px] 2xl:max-w-[750px] 3xl:max-w-[770px] mx-auto">
               {data?.Description}
             </p>
           </div>
