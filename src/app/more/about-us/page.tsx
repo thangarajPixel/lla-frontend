@@ -1,8 +1,8 @@
 import { Fragment } from "react/jsx-runtime";
+import { getAboutUsPageData } from "@/app/api/server";
 import AboutHeroSection from "@/components/sections/about-us/AboutHeroSection";
 import FounderSection from "@/components/sections/about-us/FounderSection";
 import TeamSection from "@/components/sections/about-us/TeamSection";
-import { getAboutUsPageData } from "../api/server";
 
 const AboutUsPage = async () => {
   const { data: response } = await getAboutUsPageData();

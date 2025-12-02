@@ -4,6 +4,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { useEffect, useState } from "react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
@@ -85,9 +86,11 @@ const AboutSection = ({ data }: AboutSectionProps) => {
                 "In thought, in learning, and in spirit, what began as Iqbal Mohamed's dream to establish India's first professional photography institute has grown into a community that continues to explore, question, and create with purpose."}
             </p>
             <div className="self-start">
-              <OrangeButtonWidget
-                content={data.Btn_txt || "Step into the LLA"}
-              />
+              <LinkWidget href="/more/life-at-lla" className="w-full">
+                <OrangeButtonWidget
+                  content={data.Btn_txt || "Step into the LLA"}
+                />
+              </LinkWidget>
             </div>
           </div>
           <ScrollWidget delay={0.1} animation="fadeUp">

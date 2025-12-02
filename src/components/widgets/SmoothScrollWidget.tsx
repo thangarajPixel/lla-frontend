@@ -14,10 +14,13 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
   const rafIdRef = useRef<number | null>(null);
   const observerRef = useRef<MutationObserver | null>(null);
   const isMobileRef = useRef<boolean>(false);
+  const wheelHandlerRef = useRef<((e: WheelEvent) => void) | null>(null);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (!gsap || !ScrollTrigger) return;
+
+    window.scrollTo(0, 0);
 
     const checkIsMobile = () => {
       if (typeof window === "undefined") return false;
@@ -32,6 +35,12 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
       if (observerRef.current) {
         observerRef.current.disconnect();
         observerRef.current = null;
+      }
+      if (wheelHandlerRef.current) {
+        window.removeEventListener("wheel", wheelHandlerRef.current, {
+          capture: true,
+        } as EventListenerOptions);
+        wheelHandlerRef.current = null;
       }
       if (lenisRef.current) {
         lenisRef.current.destroy();
@@ -62,6 +71,43 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
 
       lenisRef.current = lenis;
 
+      const handleWheel = (e: WheelEvent) => {
+        let target = e.target as HTMLElement;
+
+        while (target && target !== document.body) {
+          if (target.hasAttribute("data-lenis-prevent")) {
+            e.stopPropagation();
+            return;
+          }
+
+          const styles = window.getComputedStyle(target);
+          if (styles.overflowY === "auto" || styles.overflowY === "scroll") {
+            const isScrollable = target.scrollHeight > target.clientHeight;
+            if (isScrollable) {
+              const canScrollUp = target.scrollTop > 0;
+              const canScrollDown =
+                target.scrollTop < target.scrollHeight - target.clientHeight;
+
+              if (
+                (e.deltaY < 0 && canScrollUp) ||
+                (e.deltaY > 0 && canScrollDown)
+              ) {
+                e.stopPropagation();
+                return;
+              }
+            }
+          }
+
+          target = target.parentElement as HTMLElement;
+        }
+      };
+
+      wheelHandlerRef.current = handleWheel;
+      window.addEventListener("wheel", handleWheel, {
+        passive: false,
+        capture: true,
+      });
+
       lenis.on("scroll", () => {
         if (ScrollTrigger && typeof ScrollTrigger.update === "function") {
           try {
@@ -78,6 +124,7 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
       rafIdRef.current = requestAnimationFrame(raf);
 
       requestAnimationFrame(() => {
+        lenis.scrollTo(0, { immediate: true });
         setTimeout(() => {
           if (ScrollTrigger && typeof ScrollTrigger.refresh === "function") {
             try {

@@ -78,27 +78,30 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
   }, [cards]);
 
   return (
-    <section className="w-full bg-white h-full py-4 sm:py-6 md:py-8 lg:py-10 xl:py-2 2xl:py-7 3xl:py-10">
+    <section className="w-full bg-white h-full py-4 sm:py-6 md:py-8 lg:py-10 xl:py-2 2xl:py-7 3xl:py-20">
       <ContainerWidget>
         <ScrollWidget animation="fadeDown" delay={0.1}>
-          <div className="flex flex-col justify-start md:justify-center items-start md:items-center text-left md:text-center gap-2 md:gap-5">
+          <div className="flex flex-col justify-start md:justify-center items-start md:items-center text-left md:text-center gap-2 md:gap-5 lg:gap-3">
             <h3 className="text-[32px] md:text-[35px] lg:text-[40px] xl:text-[50px] 2xl:text-[60px] 3xl:text-[64px] font-regular text-black font-urbanist">
               {data.Title}
             </h3>
-            <p className="text-[16px] sm:text-[17px] md:text-[18px] lg:text-[20px] xl:text-[25px] 2xl:text-[30px] 3xl:text-[40px] font-regular font-mulish  text-black w-full md:max-w-[600px]">
-              {data.Heading}{" "}
-              <span className="text-[#E97451]"> {data.SubHeading} </span>{" "}
+            <p className="text-[16px] sm:text-[17px] md:text-[18px] lg:text-[20px] xl:text-[25px] 2xl:text-[30px] 3xl:text-[40px] font-regular font-mulish  text-black w-full md:max-w-[600px] 3xl:max-w-[976px] 3xl:leading-[48px]">
+              {data.Heading}
+              <span className="text-[#E97451] ml-2"> {data.SubHeading} </span>
             </p>
-            <p className="text-[12px] lg:text-[14px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[750px]">
-              {data.Description ||
-                "Our faculty foster an environment of collaboration and mentorship. The guidance is personal, conversations are open, and growth happens through shared experience."}
+            <p className="text-[12px] lg:text-[14px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[750px] 3xl:max-w-[976px]">
+              {data.Description}
             </p>
           </div>
         </ScrollWidget>
-        <div className="py-8 md:py-8 lg:py-12 xl:py-10 2xl:py-16">
+        <div className="py-8 md:py-8 lg:py-12 xl:py-10 2xl:py-10 3xl:py-10">
           <ResponsiveMasonry
             columnsCountBreakPoints={{
               350: 1,
+              400: 1,
+              500: 1,
+              600: 2,
+              630: 2,
               660: 2,
               700: 2,
               768: 3,
@@ -112,7 +115,7 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
             >
               {cards.map((card, index) => (
                 <div
-                  className="gap-30 max-w-[250px] sm:max-w-[300px]  md:max-w-[350px] lg:max-w-[380px]  xl:max-w-[400px] 2xl:max-w-[450px] "
+                  className="gap-20 max-w-[300px]"
                   key={card.id}
                   style={{ marginBottom: "8px" }}
                   ref={(el) => {
@@ -148,7 +151,7 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
               <div className="flex justify-center items-center mt-6">
                 <ButtonWidget
                   onClick={loadMore}
-                  className="font-mulish hover:bg-white font-bold bg-white border border-[#E97451] rounded-[60px] text-[#E97451] px-5 h-10 text-xs xl:text-[14px] 2xl:text-[14px] 3xl:text-[18px]"
+                  className="h-[50px] w-[172px]  font-mulish hover:bg-white font-bold bg-white border border-[#E97451] rounded-[60px] text-[#E97451] px-5 h-10 text-xs xl:text-[14px] 2xl:text-[14px] 3xl:text-[18px]"
                 >
                   Load More
                   <ImageWidget

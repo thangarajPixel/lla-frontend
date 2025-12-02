@@ -17,6 +17,11 @@ export type AboutHeroSectionProps = {
       name: string;
       url: string;
     };
+    Mobile_image: {
+      id?: number;
+      name: string;
+      url: string;
+    };
   };
 };
 

@@ -89,7 +89,7 @@ const LifeSection = ({ data }: LifeSectionProps) => {
                   {data.Description}
                 </p>
                 <div className="self-start">
-                  <LinkWidget href="/life-at-lla">
+                  <LinkWidget href="/more/life-at-lla">
                     <OrangeButtonWidget content={data.Btn_txt || "View More"} />
                   </LinkWidget>
                 </div>

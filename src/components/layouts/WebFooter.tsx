@@ -10,6 +10,7 @@ import {
   Location,
   Twitter,
 } from "@/helpers/ImageHelper";
+import BackdropWidget from "../widgets/BackdropWidget";
 import ContainerWidget from "../widgets/ContainerWidget";
 import ImageWidget from "../widgets/ImageWidget";
 import LinkWidget from "../widgets/LinkWidget";
@@ -44,22 +45,22 @@ const SOCIAL_LINKS = [
 
 const QUICK_LINKS = [
   { id: "home", href: "/", label: "Home" },
-  { id: "about", href: "/", label: "About LLA" },
-  { id: "campus", href: "/", label: "Campus" },
-  { id: "faculty", href: "/", label: "Faculty" },
-  { id: "gallery", href: "/", label: "Gallery" },
-  { id: "contact", href: "/", label: "Contact Us" },
+  { id: "about", href: "/more/about-us", label: "About LLA" },
+  { id: "campus", href: "/campus", label: "Campus" },
+  { id: "faculty", href: "/faculty", label: "Faculty" },
+  { id: "gallery", href: "/gallery", label: "Gallery" },
+  { id: "contact", href: "/more/contact-us", label: "Contact Us" },
 ];
 
 const COURSES = [
   {
     id: "photography-diploma",
-    href: "/",
+    href: "/courses/pg-diploma-in-professional-photography-digital-production",
     label: "PG Diploma in Professional Photography & Digital Production",
   },
   {
     id: "filmmaking-diploma",
-    href: "/",
+    href: "/courses/pg-diploma-in-documentary-corporate-filmmaking",
     label: "PG Diploma in Documentary & Corporate Filmmaking",
   },
 ];
@@ -120,6 +121,7 @@ const WebFooter = () => {
       className="relative z-50  w-full bg-cover bg-bottom bg-no-repeat min-h-[1950px] md:min-h-[1070px] bg-black text-white py-8 md:py-12 lg:py-22"
       style={{ backgroundImage: `url(${FooterBg?.src})` }}
     >
+      <BackdropWidget />
       <ContainerWidget>
         <div className="flex flex-col items-start justify-start gap-5 md:gap-6">
           <h6 className="text-[32px] md:text-[40px] lg:text-[50px] 3xl:text-[56px] font-normal font-urbanist leading-10">

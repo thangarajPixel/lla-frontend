@@ -51,8 +51,8 @@ const TeamSection = ({ data }: TeamSectionProps) => {
               className="
               font-urbanist font-normal text-black
               text-left sm:text-center
-              text-2xl sm:text-3xl md:text-4xl lg:text-5xl
-              xl:text-6xl 2xl:text-[70px] 3xl:text-[80px] 4xl:text-[90px]
+              text-2xl sm:text-3xl md:text-[32px] lg:text-[40px]
+              xl:text-[48px] 2xl:text-[64px] 3xl:text-[64px] 4xl:text-[64px]
             "
             >
               {data.Title}
@@ -83,7 +83,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
             {facultyData.map((faculty) => (
               <ScrollWidget key={faculty.id} animation="scale" delay={0.1}>
                 <div
-                  className={`${faculty.className} group max-w-[320px]  bg-white
+                  className={`${faculty.className} group min-w-[171px] max-w-[360px]  bg-white
                             hover:bg-[#E97451]/20 cursor-pointer
                             transition-colors duration-500 ease-out
                             px-3 py-3 flex flex-col
@@ -91,12 +91,12 @@ const TeamSection = ({ data }: TeamSectionProps) => {
                             xl:h-[340px] 2xl:h-[410px] 3xl:h-[480px] 4xl:h-[500px]`}
                 >
                   <ParallaxWidget speed={-0.1}>
-                    <div className="w-full aspect-square overflow-hidden max-h-[300px] max-w-[300px]">
+                    <div className="w-full aspect-square overflow-hidden  w-[170px] h-[171px] md:w-[200px] md:h-[200px] lg:w-[200px] lg:h-[200px] xl:w-[200px] xl:h-[200px] 2xl:w-[300px] 2xl:h-[302px] 3xl:w-[300px] 3xl:h-[302px]">
                       <ImageWidget
                         src={faculty.imageUrl}
                         alt="Faculty"
                         fill
-                        className="object-cover w-full h-full md:w-[200px] md:h-[200px]"
+                        className="object-cover"
                       />
                     </div>
                   </ParallaxWidget>
@@ -154,15 +154,15 @@ const TeamSection = ({ data }: TeamSectionProps) => {
             <div className="space-y-3 sm:space-y-4 md:space-y-5 py-4">
               <h5
                 className="font-urbanist font-regular text-[#E97451] text-left
-                  text-[24px] sm:text-[24px] md:text-xl lg:text-2xl 
-                  xl:text-3xl 2xl:text-[55px] 3xl:text-[70px] 4xl:text-[80px]"
+                  text-[24px] sm:text-[24px] md:text-[24px] lg:text-[24px] 
+                  xl:text-[30px] 2xl:text-[40px] 3xl:text-[40px] 4xl:text-[40px]"
               >
                 {data.Frame.Title}
               </h5>
               <p
                 className="font-mulish font-regular text-black leading-normal
                   text-[16px] sm:text-sm md:text-base lg:text-[15px] 
-                  xl:text-[16px] 2xl:text-[18px] 3xl:text-[20px] 4xl:text-[22px]
+                  xl:text-[16px] 2xl:text-[18px] 3xl:text-[18px] 4xl:text-[20px]
                   w-full"
               >
                 {data.Frame.Description}
