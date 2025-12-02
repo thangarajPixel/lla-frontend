@@ -99,6 +99,8 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
             columnsCountBreakPoints={{
               350: 1,
               400: 1,
+              500: 1,
+              600: 2,
               630: 2,
               660: 2,
               700: 2,
@@ -113,7 +115,7 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
             >
               {cards.map((card, index) => (
                 <div
-                  className="gap-30 max-w-[300px]"
+                  className="gap-20 max-w-[300px]"
                   key={card.id}
                   style={{ marginBottom: "8px" }}
                   ref={(el) => {
