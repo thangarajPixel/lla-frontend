@@ -2,7 +2,7 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import {  VisitingFacultySectionProps } from "./utils/faculty";
+import type { VisitingFacultySectionProps } from "./utils/faculty";
 
 const VisitingFacultySection = ({ data }: VisitingFacultySectionProps) => {
   return (

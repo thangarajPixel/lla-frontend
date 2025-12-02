@@ -2,13 +2,9 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import { FilmmakingFacultySectionProps } from "./utils/faculty";
+import type { FilmmakingFacultySectionProps } from "./utils/faculty";
 
-
-
-const FilmmakingFacultySection = ({
-  data,
-}: FilmmakingFacultySectionProps) => {
+const FilmmakingFacultySection = ({ data }: FilmmakingFacultySectionProps) => {
   return (
     <section className="w-full bg-white py-4 sm:py-10 md:py-14 lg:py-18 xl:py-20 2xl:py-20 3xl:py-25">
       <ContainerWidget>
@@ -18,12 +14,12 @@ const FilmmakingFacultySection = ({
               {data?.Title}
             </h2>
             <div className="space-y-3 sm:space-y-4 md:space-y-4 lg:space-y-5 xl:space-y-5 2xl:space-y-5 3xl:space-y-6 max-w-[280px] s:max-w-[320px] m:max-w-[350px] xss:max-w-[370px] xs:max-w-[450px] sm:max-w-[600px] md:max-w-[750px] lg:max-w-[900px] xl:max-w-[1000px] 2xl:max-w-[1100px] 3xl:max-w-[1290px] mx-auto">
-              {data?.Description?.map((paragraph, index) => {
+              {data?.Description?.map((paragraph, type) => {
                 const text = paragraph.children[0]?.text;
                 if (!text) return null;
                 return (
                   <p
-                    key={index}
+                    key={type}
                     className="font-mulish text-black text-[16px] sm:text-[16px] md:text-[14px] lg:text-[12px] xl:text-[12px] 2xl:text-[14px] 3xl:text-[18px] leading-normal"
                   >
                     {text}

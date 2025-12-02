@@ -15,7 +15,7 @@ const DirectorAcademicsSection = ({ data }: FacultyFounderSectionProps) => {
           </h2>
         </ScrollWidget>
         <div className="flex flex-col md:flex-row lg:flex-row items-center gap-8 md:gap-10 lg:gap-10 xl:gap-10 2xl:gap-8 3xl:gap-15">
-            <ScrollWidget
+          <ScrollWidget
             delay={0.3}
             className="order-2 md:order-1 w-full md:flex-1"
           >
@@ -33,7 +33,9 @@ const DirectorAcademicsSection = ({ data }: FacultyFounderSectionProps) => {
                 {data?.Founder_card[0]?.Description[2]?.children[0]?.text}
               </p>
               <div className="pt-2 s:pt-2 m:pt-2 xss:pt-2 xs:pt-2 sm:pt-2 md:pt-3 lg:pt-3 xl:pt-3 2xl:pt-3 3xl:pt-4">
-                <OrangeButtonWidget content={data.Founder_card[0].Btn_txt ?? ""} />
+                <OrangeButtonWidget
+                  content={data.Founder_card[0].Btn_txt ?? ""}
+                />
               </div>
             </div>
           </ScrollWidget>

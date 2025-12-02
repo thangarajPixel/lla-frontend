@@ -3,8 +3,8 @@ import DirectorAcademicsSection from "@/components/sections/faculty/DirectorAcad
 import FacultyHeroSection from "@/components/sections/faculty/FacultyHeroSection";
 import FilmmakingFacultySection from "@/components/sections/faculty/FilmmakingFacultySection";
 import PhotographyFacultySection from "@/components/sections/faculty/PhotographyFacultySection";
-import { getFacultyPageData } from "../api/server";
 import VisitingFacultySection from "@/components/sections/faculty/VisitingFacultySection";
+import { getFacultyPageData } from "../api/server";
 
 const Faculty = async () => {
   const { data: response } = await getFacultyPageData();
@@ -15,7 +15,7 @@ const Faculty = async () => {
         <DirectorAcademicsSection data={response?.Faculty?.[1]} />
         <PhotographyFacultySection data={response?.Faculty?.[2]} />
         <FilmmakingFacultySection data={response?.Faculty?.[3]} />
-        <VisitingFacultySection  data={response?.Faculty?.[4]} />
+        <VisitingFacultySection data={response?.Faculty?.[4]} />
       </Fragment>
     );
 };

@@ -49,9 +49,9 @@ interface FacultyMember {
     url: string;
     name: string;
   };
-};
+}
 
-export type FilmmakingFacultySectionProps ={
+export type FilmmakingFacultySectionProps = {
   data: {
     Title: string;
     Description: Array<{
@@ -66,16 +66,16 @@ export type FilmmakingFacultySectionProps ={
 };
 
 interface FacultyMember {
-  id:number,
+  id: number;
   Title: string;
   Image: {
-    id:number,
+    id: number;
     url: string;
     name: string;
   };
 }
 
-export type PhotographyFacultySectionProps= {
+export type PhotographyFacultySectionProps = {
   data: {
     Title: string;
     Heading: string;
@@ -83,9 +83,9 @@ export type PhotographyFacultySectionProps= {
     Description: string;
     Card: FacultyMember[];
   };
-}
+};
 
-export type VisitingFacultySectionProps= {
+export type VisitingFacultySectionProps = {
   data: {
     Title: string;
     Heading: string;
@@ -93,4 +93,4 @@ export type VisitingFacultySectionProps= {
     Description: string;
     Card: FacultyMember[];
   };
-}
+};
