@@ -42,7 +42,7 @@ const PhotographyFacultySection = ({ data }: PhotographyFacultySectionProps) => 
           </div>
         </ScrollWidget>
 
-        <div className="grid grid-cols-1 s:grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 3xl:grid-cols-4 gap-4 s:gap-5 m:gap-5 xss:gap-6 xs:gap-6 sm:gap-6 md:gap-8 lg:gap-10 xl:gap-12 2xl:gap-14 3xl:gap-16">
+        <div className="grid grid-cols-1 s:grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 3xl:grid-cols-4 gap-2 s:gap-2 m:gap-2 xss:gap-2 xs:gap-3 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-7 2xl:gap-8 3xl:gap-8.5">
           {data?.Card?.map((member, index) => (
             <ScrollWidget key={member.id} delay={0.1 * (index + 1)}>
               <div className="flex flex-col items-start group">

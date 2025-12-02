@@ -40,3 +40,27 @@ export type FacultyFounderSectionProps = {
     }>;
   };
 };
+
+interface FacultyMember {
+  id: number;
+  Title: string;
+  Image: {
+    id: number;
+    url: string;
+    name: string;
+  };
+};
+
+export type FilmmakingFacultySectionProps ={
+  data: {
+    Title: string;
+    Description: Array<{
+      type: string;
+      children: Array<{
+        type: string;
+        text: string;
+      }>;
+    }>;
+    Card: FacultyMember[];
+  };
+};
