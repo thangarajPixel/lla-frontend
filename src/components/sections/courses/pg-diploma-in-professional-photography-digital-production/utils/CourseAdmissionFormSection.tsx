@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { type FormEvent, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
-import { notify } from "@/lib/utils";
+import { notify } from "@/helpers/ConstantHelper";
 
 type FormData = {
   name: string;
