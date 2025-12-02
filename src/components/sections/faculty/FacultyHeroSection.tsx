@@ -29,7 +29,7 @@ const FacultyHeroSection = ({ data }: FacultyHeroSectionProps) => {
                 {data.Image?.slice(0, 2).map(({ url }: { url: string }) => (
                   <div
                     key={url}
-                    className="relative  h-[100px] w-[100px] s:h-[85px] s:w-[85px]  sm:h-[140px] sm:w-[140px] md:h-[100px] md:w-[100px] lg:h-[140px] lg:w-[120px] xl:h-[130px] xl:w-[130px]
+                    className="relative  h-[110px] w-[110px] s:h-[85px] s:w-[85px] xss:h-[100px] xss:w-[100px]  sm:h-[140px] sm:w-[140px] md:h-[100px] md:w-[100px] lg:h-[140px] lg:w-[120px] xl:h-[130px] xl:w-[130px]
                         2xl:h-[170px] 2xl:w-[170px] 3xl:h-[190px] 3xl:w-[190px]  overflow-hidden"
                   >
                     <ImageWidget
