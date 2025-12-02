@@ -14,10 +14,10 @@ const FacultyHeroSection = ({ data }: FacultyHeroSectionProps) => {
               <h2 className="font-urbanist  font-regular font-normal text-black text-[32px] sm:text-[36px] md:text-[36px] lg:text-[48px] xl:text-[48px] 2xl:text-[60px] 3xl:text-[64px]">
                 {data.Title}
               </h2>
-               <p className="text-[16px] sm:text-[17px] md:text-[18px] lg:text-[20px] xl:text-[25px] 2xl:text-[30px] 3xl:text-[40px] font-regular font-mulish  text-black w-full md:max-w-[375px] lg:max-w-[375px] xl:max-w-[550px] 2xl:max-w-[606px] 3xl:max-w-[606px] 3xl:leading-[48px]">
-                  {data.Heading}
-                  <span className="text-[#E97451] ml-2"> {data.SubHeading} </span>
-                </p>
+              <p className="text-[16px] sm:text-[17px] md:text-[18px] lg:text-[20px] xl:text-[25px] 2xl:text-[30px] 3xl:text-[40px] font-regular font-mulish  text-black w-full md:max-w-[375px] lg:max-w-[375px] xl:max-w-[550px] 2xl:max-w-[606px] 3xl:max-w-[606px] 3xl:leading-[48px]">
+                {data.Heading}
+                <span className="text-[#E97451] ml-2"> {data.SubHeading} </span>
+              </p>
               <p className="font-mulish text-black text-[14px] md:text-[12px] lg:text-[14px] xl:text-[14px] 2xl:text-[18px] 3xl:text-[18px]">
                 {data.Description}
               </p>
