@@ -151,7 +151,7 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
               <div className="flex justify-center items-center mt-6">
                 <ButtonWidget
                   onClick={loadMore}
-                  className="h-[50px] w-[172px]  font-mulish hover:bg-white font-bold bg-white border border-[#E97451] rounded-[60px] text-[#E97451] px-5 h-10 text-xs xl:text-[14px] 2xl:text-[14px] 3xl:text-[18px]"
+                  className="h-[50px] w-[172px]  font-mulish hover:bg-white font-bold bg-white border border-[#E97451] rounded-[60px] text-[#E97451] px-5 text-xs xl:text-[14px] 2xl:text-[14px] 3xl:text-[18px]"
                 >
                   Load More
                   <ImageWidget

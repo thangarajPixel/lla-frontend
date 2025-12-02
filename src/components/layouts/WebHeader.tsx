@@ -67,6 +67,12 @@ const WebHeader = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isHomePage]);
 
+  useEffect(() => {
+    if (pathname) {
+      setOpenDropdown(null);
+    }
+  }, [pathname]);
+
   const isDropdown = (
     item: MenuItem | DropdownMenuType,
   ): item is DropdownMenuType => "items" in item;

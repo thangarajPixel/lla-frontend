@@ -92,7 +92,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
   return (
     <section className="w-full py-10 md:py-10 lg:py-12 xl:py-16 2xl:py-20 3xl:py-24 bg-[#f6f6f6] mx-auto max-w-[1920px]">
       <ScrollWidget animation="fadeUp" delay={0.1}>
-        <div className="flex flex-col justify-start md:justify-center items-start md:items-center text-left md:text-center gap-2.5 md:gap-4.5">
+        <div className="flex flex-col w-[90vw] mx-auto justify-start md:justify-center items-start md:items-center text-left md:text-center gap-2.5 md:gap-4.5">
           <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
             {data.Title || "Student Testimonials"}
           </h2>
