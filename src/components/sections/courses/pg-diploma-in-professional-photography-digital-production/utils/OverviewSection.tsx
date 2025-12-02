@@ -107,7 +107,9 @@ const OverviewSection = () => {
               {data.SubHeading && (
                 <>
                   <br className="hidden sm:block" />
-                  <span className="text-[#E97451] ml-2">{data.SubHeading}</span>
+                  <span className="text-[#E97451] ml-2 sm:ml-0">
+                    {data.SubHeading}
+                  </span>
                 </>
               )}
             </p>

@@ -30,6 +30,7 @@ const FormInput = <T extends FieldValues>({
   notRequired,
   defaultValue,
   errorMessage,
+  rules,
   ...props
 }: InputProps<T>) => {
   const {
@@ -39,6 +40,7 @@ const FormInput = <T extends FieldValues>({
     name,
     control,
     defaultValue,
+    rules,
   });
 
   // Ensure value is never undefined or null
