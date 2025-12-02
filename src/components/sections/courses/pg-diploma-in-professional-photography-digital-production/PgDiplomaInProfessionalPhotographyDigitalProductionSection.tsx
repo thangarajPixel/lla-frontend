@@ -185,13 +185,13 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = () => {
   return (
     <div className="bg-white">
 
-      <aside className="hidden lg:block fixed left-0 top-18 w-54 border-r border-b border-gray-200 z-50 bg-white">
+      <aside className="hidden xl:block fixed left-0 top-18 w-54 border-r border-b border-gray-200 z-50 bg-white">
         <div className="h-full overflow-y-auto">
           <nav className="py-6 px-4">{renderMenuItems()}</nav>
         </div>
       </aside>
 
-      <div className="lg:hidden fixed top-18 left-0 right-0 z-50 bg-white border-b border-gray-200 px-4 py-3">
+      <div className="xl:hidden fixed top-18 left-0 right-0 z-50 bg-white border-b border-gray-200 px-4 py-3">
         <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
           <SheetTrigger asChild>
             <ButtonWidget
