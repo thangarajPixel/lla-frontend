@@ -1,8 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import TestimonialSection from "@/components/sections/home/TestimonialSection";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import ButtonWidget from "@/components/widgets/ButtonWidget";
 import LinkWidget from "@/components/widgets/LinkWidget";
+import { DialogContent, DialogTitle } from "@radix-ui/react-dialog";
+import { Menu } from "lucide-react";
+import { useEffect, useState } from "react";
 import CourseContentSection from "./utils/CourseContentSection";
 import FaqSection from "./utils/FaqSection";
 import GallerySection from "./utils/GallerySection";
@@ -21,6 +29,7 @@ const sidebarMenuItems = [
 
 const PgDiplomaInProfessionalPhotographyDigitalProductionSection = () => {
   const [activeSection, setActiveSection] = useState<string>("#overview");
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   const handleSmoothScroll = (
     e: React.MouseEvent<HTMLElement>,
@@ -43,6 +52,7 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = () => {
         top: Math.max(0, offsetPosition),
         behavior: "smooth",
       });
+      setIsSheetOpen(false);
     }
   };
 
@@ -144,37 +154,63 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = () => {
     ],
   };
 
+  const renderMenuItems = () => (
+    <>
+      <span className="block px-4 py-3 text-[15px] 3xl:text-lg text-[#E97451] font-semibold">
+        Menu
+      </span>
+      <ul>
+        {sidebarMenuItems.map((item) => {
+          const isActive = activeSection === item.href;
+          return (
+            <li key={item.href}>
+              <LinkWidget
+                href={item.href}
+                onClick={(e) => handleSmoothScroll(e, item.href)}
+                className={`block px-4 py-3 text-[15px] 3xl:text-lg transition-colors duration-200 cursor-pointer ${
+                  isActive
+                    ? "text-[#E97451] font-semibold"
+                    : "hover:text-[#E97451]"
+                }`}
+              >
+                {item.label}
+              </LinkWidget>
+            </li>
+          );
+        })}
+      </ul>
+    </>
+  );
+
   return (
-    <div className=" bg-white">
-      <aside className="fixed left-0 top-18 w-54 border-r border-b border-gray-200 z-50 bg-white">
+    <div className="bg-white">
+
+      <aside className="hidden lg:block fixed left-0 top-18 w-54 border-r border-b border-gray-200 z-50 bg-white">
         <div className="h-full overflow-y-auto">
-          <nav className="py-6 px-4">
-            <span className="block px-4 py-3 text-[15px] 3xl:text-lg text-[#E97451] font-semibold">
-              Menu
-            </span>
-            <ul>
-              {sidebarMenuItems.map((item) => {
-                const isActive = activeSection === item.href;
-                return (
-                  <li key={item.href}>
-                    <LinkWidget
-                      href={item.href}
-                      onClick={(e) => handleSmoothScroll(e, item.href)}
-                      className={`block px-4 py-3 text-[15px] 3xl:text-lg transition-colors duration-200 cursor-pointer ${
-                        isActive
-                          ? "text-[#E97451] font-semibold"
-                          : "hover:text-[#E97451]"
-                      }`}
-                    >
-                      {item.label}
-                    </LinkWidget>
-                  </li>
-                );
-              })}
-            </ul>
-          </nav>
+          <nav className="py-6 px-4">{renderMenuItems()}</nav>
         </div>
       </aside>
+
+      <div className="lg:hidden fixed top-18 left-0 right-0 z-50 bg-white border-b border-gray-200 px-4 py-3">
+        <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+          <SheetTrigger asChild>
+            <ButtonWidget
+              className="flex items-center gap-2 px-4 py-2 bg-transparent hover:bg-gray-100 text-black"
+              aria-label="Open menu"
+            >
+              <Menu className="w-5 h-5" />
+              <span className="text-[15px] font-semibold">Menu</span>
+            </ButtonWidget>
+          </SheetTrigger>
+          <SheetContent side="left" className="w-[280px] sm:w-[320px] p-0">
+            <DialogTitle className="hidden" />
+            <DialogContent className="hidden" />
+            <div className="h-full overflow-y-auto">
+              <nav className="pt-20 px-4">{renderMenuItems()}</nav>
+            </div>
+          </SheetContent>
+        </Sheet>
+      </div>
 
       <main className="min-h-screen">
         <section id="overview">
@@ -186,7 +222,6 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = () => {
         <section id="course-content" className="scroll-mt-[-40px]">
           <CourseContentSection />
         </section>
-
         <section id="other-info" className="scroll-mt-[-40px]">
           <OtherInfoSection />
         </section>
@@ -195,7 +230,6 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = () => {
         <section id="how-to-apply" className="scroll-mt-[-40px]">
           <HowtoApplySection />
         </section>
-
         <section id="faqs" className="scroll-mt-[-40px]">
           <FaqSection />
         </section>
