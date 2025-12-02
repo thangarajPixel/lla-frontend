@@ -56,7 +56,7 @@ export const UploadArea = ({ onFilesSelected }: UploadAreaProps) => {
       <Button
         onClick={handleSelectClick}
         type="button"
-        className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-8"
+        className="bg-chart-1 hover:bg-chart-1/90 text-primary-foreground rounded-full px-8"
       >
         Select File
       </Button>

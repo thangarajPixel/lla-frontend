@@ -1,16 +1,25 @@
 "use client";
+import {
+  Archive,
+  File,
+  FileCode,
+  FileJson,
+  FileSpreadsheet,
+  FileText,
+  ImageIcon,
+  Music,
+} from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import ImageWidget from "@/components/widgets/ImageWidget";
-import { UploadIconImg } from "@/helpers/ImageHelper";
-import { X, File, ImageIcon, Music, FileText, Archive, FileJson, FileSpreadsheet, FileCode } from "lucide-react"
 import { validateDimensions } from "@/helpers/ConstantHelper";
+import { UploadIconImg } from "@/helpers/ImageHelper";
 
 type FileUploadButtonProps = {
   placeholder?: string;
   maxSize?: string;
   variant?: "dark" | "light";
-  onUpload?: (file: File, url: string) => void;
+  onUpload?: (file: File) => void;
   onRemove?: () => void;
   defaultValue?: DocumentFile | null;
 };
@@ -72,6 +81,7 @@ const getFileIcon = (fileType: string) => {
     return <Archive className="w-4 h-4" />;
   }
   return <File className="w-4 h-4" />;
+  // return null;
 };
 
 export function FileUploadButton({
@@ -87,9 +97,12 @@ export function FileUploadButton({
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isRemoved, setIsRemoved] = useState<boolean>(false);
 
+  console.log(isRemoved, "isRemoved");
+
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+    setIsRemoved(false);
 
     // if (!file.type.startsWith("image/")) {
     //     alert("Please upload a valid image.")
@@ -108,7 +121,7 @@ export function FileUploadButton({
 
       const url = URL.createObjectURL(file);
       setPreview(url);
-      onUpload?.(file, url);
+      onUpload?.(file);
     } else if (
       file.type.includes("pdf") ||
       file.type.includes("document") ||
@@ -116,10 +129,11 @@ export function FileUploadButton({
       file.type.includes("spreadsheet")
     ) {
       setPreview(generateDocumentPreview(file));
+      onUpload?.(file);
     }
 
+    // setIsRemoved(false);
     setSelectedFile(file);
-    setIsRemoved(false);
   };
 
   return (
@@ -127,10 +141,11 @@ export function FileUploadButton({
       <button
         type="button"
         onClick={() => inputRef.current?.click()}
-        className={`flex items-center justify-center gap-2 w-full py-2 cursor-pointer rounded-lg transition-colors ${variant === "light"
-          ? "border border-border text-muted-foreground hover:bg-muted"
-          : "bg-gray-100 border border-[#969696]"
-          }`}
+        className={`flex items-center justify-center gap-2 w-full py-2 cursor-pointer rounded-lg transition-colors ${
+          variant === "light"
+            ? "border border-border text-muted-foreground hover:bg-muted"
+            : "bg-gray-100 border border-[#969696]"
+        }`}
       >
         <ImageWidget
           src={UploadIconImg}
@@ -152,7 +167,7 @@ export function FileUploadButton({
       </p>
 
       <div className="flex-1 min-w-0">
-        {
+        {/* {
           !isRemoved && (
             <div className="w-12 h-12 rounded bg-muted flex items-center justify-center shrink-0 overflow-hidden">
               {
@@ -166,12 +181,35 @@ export function FileUploadButton({
                   />
                 )
                   : (
-                    <div className="text-muted-foreground">{getFileIcon(defaultValue?.mime ?? "")}</div>
+                    <div className="text-muted-foreground">{ (selectedFile || defaultValue) && getFileIcon(selectedFile?.type ?? defaultValue?.mime ?? "")}</div>
                   )
               }
             </div>
           )
-        }
+        } */}
+
+        {!isRemoved && (
+          <>
+            {/* <div className="w-12 h-12 rounded bg-muted flex items-center justify-center shrink-0 overflow-hidden"> */}
+            {preview || defaultValue?.mime?.startsWith("image/") ? (
+              <div className="w-12 h-12 rounded bg-muted flex items-center justify-center shrink-0 overflow-hidden">
+                <Image
+                  width={100}
+                  height={100}
+                  src={preview || defaultValue?.url || "/placeholder.svg"}
+                  alt={selectedFile?.name ?? ""}
+                  className="w-full h-full object-cover rounded"
+                />
+              </div>
+            ) : (
+              <div className="text-muted-foreground">
+                {(selectedFile || defaultValue) &&
+                  getFileIcon(selectedFile?.type ?? defaultValue?.mime ?? "")}
+              </div>
+            )}
+            {/* </div> */}
+          </>
+        )}
 
         {(selectedFile || defaultValue) && !isRemoved && (
           <>
@@ -179,9 +217,13 @@ export function FileUploadButton({
               {selectedFile?.name ?? defaultValue?.name ?? ""}
             </p>
             <div className="flex gap-2 text-xs text-muted-foreground mt-1">
-              <span>{formatFileSize(selectedFile?.size ?? defaultValue?.size ?? 0)}</span>
+              <span>
+                {formatFileSize(selectedFile?.size ?? defaultValue?.size ?? 0)}
+              </span>
               <span>•</span>
-              <span>{selectedFile?.type || defaultValue?.mime || "unknown type"}</span>
+              <span>
+                {selectedFile?.type || defaultValue?.mime || "unknown type"}
+              </span>
               <button
                 type="button"
                 className="text-white bg-red-500 size-5 rounded-full p-1 text-sm flex items-center justify-center hover:bg-red-600 cursor-pointer"

@@ -68,16 +68,28 @@ type DocumentFile = {
 };
 
 type State = {
-  id: number,
-  documentId: string,
-  name: string,
-  createdAt: string,
-  updatedAt: string,
-  publishedAt: null,
-  locale: null,
+  id: number;
+  documentId: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: null;
+  locale: null;
+};
+
+type AddressChild = {
+  text: string;
+  type?: string; // usually "text"
+};
+
+type AddressBlock = {
+  type: string; // usually "paragraph"
+  children: AddressChild[];
 };
 
 type AdmissionFormData = {
+  id: number;
+  documentId: string;
   name_title: string;
   first_name: string;
   last_name: string;
@@ -89,7 +101,7 @@ type AdmissionFormData = {
 
   Language_Proficiency: LanguageProficiency[];
 
-  address: string;
+  address: AddressBlock[];
   city: string;
   district: string;
   state: State;
@@ -136,7 +148,7 @@ type ParentGuardianDetails = {
   email: string;
   profession: string;
   nationality: string;
-  address: string;
+  address: AddressBlock[];
   city: string;
   district: string;
   state: State;

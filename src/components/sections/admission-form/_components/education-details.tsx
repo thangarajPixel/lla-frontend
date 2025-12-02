@@ -1,10 +1,11 @@
 "use client";
 
-import { Plus } from "lucide-react";
+import { Plus, X } from "lucide-react";
 import { type Control, useFieldArray } from "react-hook-form";
 import { FormInput } from "@/components/form";
 import FormFileUploadButton from "@/components/form/FormFileUploadButton";
 import FormRadioGroup from "@/components/form/FormRadioGroup";
+import { Button } from "@/components/ui/button";
 import type { ApplicationFormSchema_Step2 } from "@/helpers/ValidationHelper";
 
 type EducationDetailsProps = {
@@ -12,8 +13,15 @@ type EducationDetailsProps = {
   control: Control<ApplicationFormSchema_Step2>;
 };
 
-export function EducationDetails({ admissionData, control }: EducationDetailsProps) {
-  const { fields: pgDegrees, append } = useFieldArray({
+export function EducationDetails({
+  admissionData,
+  control,
+}: EducationDetailsProps) {
+  const {
+    fields: pgDegrees,
+    append,
+    remove: removePgDegree,
+  } = useFieldArray({
     control: control,
     name: "Post_Graduate",
   });
@@ -33,7 +41,9 @@ export function EducationDetails({ admissionData, control }: EducationDetailsPro
           control={control}
           label="12th std"
           placeholder="Upload your MarkSheet"
-          defaultValue={admissionData?.Education_Details?.Education_Details_12th_std ?? null}
+          defaultValue={
+            admissionData?.Education_Details?.Education_Details_12th_std ?? null
+          }
         />
 
         <FormFileUploadButton
@@ -41,7 +51,9 @@ export function EducationDetails({ admissionData, control }: EducationDetailsPro
           control={control}
           label="10th std"
           placeholder="Upload your MarkSheet"
-          defaultValue={admissionData?.Education_Details?.Education_Details_12th_std ?? null}
+          defaultValue={
+            admissionData?.Education_Details?.Education_Details_12th_std ?? null
+          }
         />
       </div>
 
@@ -70,6 +82,7 @@ export function EducationDetails({ admissionData, control }: EducationDetailsPro
             control={control}
             placeholder="Upload your MarkSheet"
             notRequired={true}
+            defaultValue={admissionData?.Under_Graduate?.marksheet ?? null}
           />
         </div>
       </div>
@@ -95,6 +108,15 @@ export function EducationDetails({ admissionData, control }: EducationDetailsPro
               { value: "In-Progress", label: "In-Progress" },
             ]}
           />
+          {index > 0 && (
+            <Button
+              type="button"
+              onClick={() => removePgDegree(index)}
+              className="flex items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
+            >
+              <X className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
+            </Button>
+          )}
         </div>
       ))}
 

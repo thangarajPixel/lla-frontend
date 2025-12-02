@@ -7,6 +7,16 @@ export const languageSchema = z.object({
   speak: z.boolean().default(false).optional(),
 });
 
+const addressSchema = z.object({
+  type: z.literal("paragraph"), // or z.string() if Strapi may return other types
+  children: z.array(
+    z.object({
+      text: z.string(),
+      type: z.string().optional(), // Strapi usually returns "text"
+    }),
+  ),
+});
+
 export const parentDetails = z.object({
   title: z.string().optional(),
   first_name: z.string().min(1, "First name is required"),
@@ -17,7 +27,7 @@ export const parentDetails = z.object({
   profession: z.string().optional(),
   nationality: z.string().optional(),
   contact_no: z.string().optional(),
-  address: z.string().optional(),
+  address: z.array(addressSchema).optional(),
   city: z.string().optional(),
   district: z.string().optional(),
   state: z.string().optional(),
@@ -58,12 +68,13 @@ export const applicationFormSchema_Step1 = z.object({
   mobile_no: z.string().regex(/^[6-9]\d{9}$/, "Enter a valid mobile number"),
   email: z.email("Enter a valid email address"),
   nationality: z.string().min(1, "Nationality is required"),
-  date_of_birth: z.date().nullable().optional(),
+  date_of_birth: z.string().nullable().optional(),
   Language_Proficiency: z
     .array(languageSchema)
     .min(1, "Add at least one language")
     .optional(),
-  address: z.string().optional(),
+  //   address: z.string().optional(),
+  address: z.array(addressSchema).optional(),
   city: z.string().optional(),
   district: z.string().optional(),
   state: z.string().optional(),
@@ -113,7 +124,6 @@ export const applicationFormSchema_Step3 = z.object({
   }),
   step_3: z.boolean().optional(),
 });
-
 
 export type ApplicationFormSchema_Step1 = z.infer<
   typeof applicationFormSchema_Step1

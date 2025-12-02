@@ -21,7 +21,7 @@ export const useGetAdmissionById = (
 ): UseQueryResult<AdmissionResponse, Error> => {
   return useQuery({
     enabled: !!id,
-    queryKey: [`admission-details`, id],
+    queryKey: [`admission-details-${id}`],
     queryFn: () => getAdmissionById(id),
   });
 };

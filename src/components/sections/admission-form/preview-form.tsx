@@ -23,6 +23,8 @@ function Section({
         <h3 className="font-semibold text-base text-[#ff6d45]">{title}</h3>
         <Image
           src={EditIcon}
+          width={20}
+          height={20}
           alt="Edit"
           className="size-4 rounded-full"
           onClick={onEdit}
@@ -137,6 +139,8 @@ export default function ReviewApplicationClone({
             </p>
           </div>
           <ImageWidget
+            width={200}
+            height={200}
             src={admissionData?.passport_size_image?.url ?? ""}
             alt="profile"
             className="w-64 h-80 rounded-md shadow-md"
@@ -174,7 +178,10 @@ export default function ReviewApplicationClone({
                 value={admissionData?.date_of_birth}
               />
               <Field label="Blood Group" value={admissionData?.blood_group} />
-              <Field label="Address" value={admissionData?.address} />
+              <Field
+                label="Address"
+                value={admissionData?.address[0]?.children[0]?.text ?? ""}
+              />
               <LanguageField
                 label={"Language & Proficiency:"}
                 value={
@@ -208,7 +215,10 @@ export default function ReviewApplicationClone({
               />
               <Field
                 label="Address"
-                value={admissionData?.Parent_Guardian_Spouse_Details?.address}
+                value={
+                  admissionData?.Parent_Guardian_Spouse_Details?.address[0]
+                    ?.children[0]?.text ?? ""
+                }
               />
             </Section>
 
@@ -341,6 +351,8 @@ export default function ReviewApplicationClone({
                 {admissionData?.Upload_Your_Portfolio?.images.map(
                   (img, index) => (
                     <ImageWidget
+                      width={200}
+                      height={200}
                       alt="Portfolio Image"
                       key={`portfolio-${index + 1}`}
                       src={img.url}

@@ -2,8 +2,8 @@
 import { usePathname } from "next/navigation";
 import { Fragment } from "react/jsx-runtime";
 import { MultiStepForm } from "@/components/sections/admission-form/admission-form";
-import { useGetAdmissionById } from "@/store/hooks/global-hooks";
 import { decryptCode } from "@/helpers/ConstantHelper";
+import { useGetAdmissionById } from "@/store/hooks/global-hooks";
 
 const ApplicationFormPage = () => {
   const pathName = usePathname();

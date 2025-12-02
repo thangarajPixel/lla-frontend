@@ -4,23 +4,25 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { Plus, X } from "lucide-react";
 import Image from "next/image";
-import {  useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useRef, useState } from "react";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
-import {
-  FormDatePicker,
-  FormInput,
-  FormSelectBox,
-} from "@/components/form";
+import { FormDatePicker, FormInput, FormSelectBox } from "@/components/form";
 import FormCheckBox from "@/components/form/FormCheckBox";
 import { Button } from "@/components/ui/button";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import { encryptId, filteredPayload, notify } from "@/helpers/ConstantHelper";
 import { UploadIconImg } from "@/helpers/ImageHelper";
-import { createAdmission } from "@/store/services/global-services";
+import {
+  type ApplicationFormSchema_Step1,
+  applicationFormSchema_Step1,
+} from "@/helpers/ValidationHelper";
+import {
+  createAdmission,
+  updateAdmission,
+} from "@/store/services/global-services";
 import AddressFields from "../_components/address-fields";
-import { useRouter } from "next/navigation";
-import { encryptId, notify } from "@/helpers/ConstantHelper";
-import { applicationFormSchema_Step1, type ApplicationFormSchema_Step1 } from "@/helpers/ValidationHelper";
 
 type Step1FormProps = {
   admissionData?: AdmissionFormData;
@@ -38,53 +40,99 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
   const form_step1 = useForm<ApplicationFormSchema_Step1>({
     resolver: zodResolver(applicationFormSchema_Step1),
     mode: "all",
-    defaultValues : {
+    defaultValues: {
       name_title: admissionData?.name_title ?? "Mr.",
-        first_name: admissionData?.first_name ?? "",
-        last_name: admissionData?.last_name ?? "",
-        date_of_birth: new Date(admissionData?.date_of_birth ?? ""),
-        mobile_no: admissionData?.mobile_no ?? "",
-        email: admissionData?.email ?? "",
-        nationality: admissionData?.nationality ?? "",
-        Language_Proficiency:
-          admissionData?.Language_Proficiency ?? [
-            { language: "", read: false, write: false, speak: false },
+      first_name: admissionData?.first_name ?? "",
+      last_name: admissionData?.last_name ?? "",
+      // date_of_birth: new Date(admissionData?.date_of_birth ?? ""),
+      date_of_birth: admissionData?.date_of_birth ?? "",
+      mobile_no: admissionData?.mobile_no ?? "",
+      email: admissionData?.email ?? "",
+      nationality: admissionData?.nationality ?? "",
+      Language_Proficiency: admissionData?.Language_Proficiency ?? [
+        { language: "", read: false, write: false, speak: false },
+      ],
+      address: admissionData?.address?.map((block) => ({
+        type: "paragraph",
+        children: block.children.map((child) => ({
+          text: child.text,
+          type: child.type,
+        })),
+      })) ?? [
+        {
+          type: "paragraph",
+          children: [
+            {
+              text: "anil",
+              type: "text",
+            },
           ],
-        address: admissionData?.address ?? "",
-        city: admissionData?.city ?? "",
-        district: admissionData?.district ?? "",
-        state: admissionData?.state?.documentId ?? "",
-        pincode: admissionData?.pincode ?? "",
-        hobbies: admissionData?.hobbies ?? "",
-        photography_club: admissionData?.photography_club ?? "",
-        blood_group: admissionData?.blood_group ?? "",
-        Parent_Guardian_Spouse_Details: {
-          title: admissionData?.Parent_Guardian_Spouse_Details?.title ?? "Mr.",
-          first_name:
-            admissionData?.Parent_Guardian_Spouse_Details?.first_name ?? "",
-          last_name:
-            admissionData?.Parent_Guardian_Spouse_Details?.last_name ?? "",
-          mobile_no:
-            admissionData?.Parent_Guardian_Spouse_Details?.mobile_no ?? "",
-          email: admissionData?.Parent_Guardian_Spouse_Details?.email ?? "",
-          nationality:
-            admissionData?.Parent_Guardian_Spouse_Details?.nationality ?? "",
-          address: admissionData?.Parent_Guardian_Spouse_Details?.address ?? "",
-          city: admissionData?.Parent_Guardian_Spouse_Details?.city ?? "",
-          district:
-            admissionData?.Parent_Guardian_Spouse_Details?.district ?? "",
-          state:
-            admissionData?.Parent_Guardian_Spouse_Details?.state?.documentId ??
-            "",
-          pincode: admissionData?.Parent_Guardian_Spouse_Details?.pincode ?? "",
         },
-        passport_size_image: admissionData?.passport_size_image?.id ?? 0,
-        step_1: admissionData?.step_1 ?? false,
-    }
+      ],
+      // address: admissionData?.address ?? [
+      //   {
+      //     type: "paragraph",
+      //     children: [
+      //       {
+      //         text: "anil",
+      //         type: "text",
+      //       },
+      //     ],
+      //   },
+      // ],
+      city: admissionData?.city ?? "",
+      district: admissionData?.district ?? "",
+      state: admissionData?.state?.documentId ?? "",
+      pincode: admissionData?.pincode ?? "",
+      hobbies: admissionData?.hobbies ?? "",
+      photography_club: admissionData?.photography_club ?? "",
+      blood_group: admissionData?.blood_group ?? "",
+      Parent_Guardian_Spouse_Details: {
+        title: admissionData?.Parent_Guardian_Spouse_Details?.title ?? "Mr.",
+        first_name:
+          admissionData?.Parent_Guardian_Spouse_Details?.first_name ?? "",
+        last_name:
+          admissionData?.Parent_Guardian_Spouse_Details?.last_name ?? "",
+        mobile_no:
+          admissionData?.Parent_Guardian_Spouse_Details?.mobile_no ?? "",
+        email: admissionData?.Parent_Guardian_Spouse_Details?.email ?? "",
+        nationality:
+          admissionData?.Parent_Guardian_Spouse_Details?.nationality ?? "",
+        // address: admissionData?.Parent_Guardian_Spouse_Details?.address ?? "",
+        address: admissionData?.Parent_Guardian_Spouse_Details?.address?.map(
+          (block) => ({
+            type: "paragraph",
+            children: block.children.map((child) => ({
+              text: child.text,
+              type: child.type,
+            })),
+          }),
+        ) ?? [
+          {
+            type: "paragraph",
+            children: [
+              {
+                text: "anil",
+                type: "text",
+              },
+            ],
+          },
+        ],
+        city: admissionData?.Parent_Guardian_Spouse_Details?.city ?? "",
+        district: admissionData?.Parent_Guardian_Spouse_Details?.district ?? "",
+        state:
+          admissionData?.Parent_Guardian_Spouse_Details?.state?.documentId ??
+          "",
+        pincode: admissionData?.Parent_Guardian_Spouse_Details?.pincode ?? "",
+      },
+      passport_size_image: admissionData?.passport_size_image?.id ?? 0,
+      step_1: admissionData?.step_1 ?? false,
+    },
   });
 
-
   const { control, handleSubmit } = form_step1;
+
+  console.log(form_step1.formState.errors, "errors");
 
   const {
     fields: languageFields,
@@ -139,6 +187,8 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    setIsRemoved(false);
+
     if (!file.type.startsWith("image/")) {
       alert("Please upload a valid image.");
       return;
@@ -168,23 +218,34 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
   };
 
   const onSubmit = async (payload: ApplicationFormSchema_Step1) => {
-    const filteredData = Object.fromEntries(
-      Object.entries(payload).filter(
-        ([_, value]) => value !== undefined && value !== null && value !== "",
-      ),
-    );
+    // const filteredData = Object.fromEntries(
+    //   Object.entries(payload).filter(
+    //     ([_, value]) => value !== undefined && value !== null && value !== "",
+    //   ),
+    // );
+    const filteredData = filteredPayload(payload);
 
     const data = {
       ...filteredData,
       step_1: true,
     };
 
+    // const formId = localStorage.getItem("admissionId");
+
     try {
-      const res = await createAdmission(data as ApplicationFormSchema_Step1);
-      localStorage.setItem("admissionId", res.data.documentId);
-      notify({ success: true, message: "Admission submitted successfully" });
-      const encryptedId = encryptId(res?.data?.id);
-      router.push(`/admission/${encryptedId}`);
+      if (admissionData?.id) {
+        await updateAdmission(
+          admissionData?.documentId,
+          data as ApplicationFormSchema_Step1,
+        );
+        onNextStep(2);
+      } else {
+        const res = await createAdmission(data as ApplicationFormSchema_Step1);
+        // localStorage.setItem("admissionId", res.data.documentId);
+        notify({ success: true, message: "Admission submitted successfully" });
+        const encryptedId = encryptId(res?.data?.id);
+        router.push(`/admission/${encryptedId}`);
+      }
     } catch (error) {
       notify({ success: false, message: error as string });
     }
@@ -342,7 +403,8 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
                 className="border border-dashed border-border rounded-lg max-w-[180px] flex flex-col items-center justify-center min-h-[180px] bg-secondary cursor-pointer hover:bg-accent transition relative overflow-hidden group"
                 onClick={handleClick}
               >
-                {(!previewUrl && !admissionData?.passport_size_image) || isRemoved ? (
+                {(!previewUrl && !admissionData?.passport_size_image) ||
+                isRemoved ? (
                   <>
                     <ImageWidget
                       src={UploadIconImg}
@@ -360,7 +422,11 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
                 ) : (
                   <>
                     <Image
-                      src={previewUrl ?? admissionData?.passport_size_image?.url ?? ""}
+                      src={
+                        previewUrl ??
+                        admissionData?.passport_size_image?.url ??
+                        ""
+                      }
                       width={100}
                       height={100}
                       alt="Preview"
@@ -372,7 +438,9 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
                         e.stopPropagation();
                         setIsRemoved(true);
                         setPreviewUrl(null);
-                        form_step1.setValue("passport_size_image", 0, { shouldValidate: true })
+                        form_step1.setValue("passport_size_image", 0, {
+                          shouldValidate: true,
+                        });
                       }}
                       className="absolute top-2 right-2 hidden group-hover:flex items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
                     >

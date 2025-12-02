@@ -15,13 +15,13 @@ import type {
 import { useController } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import { Input } from "@/components/ui/input";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
 
 type DatePickerFieldProps<T extends FieldValues> = UseControllerProps<T> & {
   label?: string;
@@ -38,7 +38,7 @@ type DatePickerFieldProps<T extends FieldValues> = UseControllerProps<T> & {
 
 function formatDate(date: Date | undefined) {
   if (!date) {
-    return ''
+    return "";
   }
 
   // return date.toLocaleDateString('en-US', {
@@ -60,10 +60,10 @@ function toISO(date?: Date) {
 
 function isValidDate(date: Date | undefined) {
   if (!date) {
-    return false
+    return false;
   }
 
-  return !isNaN(date.getTime())
+  return !isNaN(date.getTime());
 }
 
 const FormDatePicker = <T extends FieldValues>({
@@ -89,16 +89,17 @@ const FormDatePicker = <T extends FieldValues>({
   });
 
   const [open, setOpen] = useState(false);
-  const [date, setDate] = useState<Date | undefined>(new Date())
-  const [month, setMonth] = useState<Date | undefined>(date)
-  const [value, setValue] = useState(formatDate(date))
+  const [date, setDate] = useState<Date | undefined>(new Date());
+  const [month, setMonth] = useState<Date | undefined>(date);
+  const [value, setValue] = useState(formatDate(date));
   const [range, setRange] = useState<DateRange | undefined>(undefined);
   const [defaultEndDate, setDefaultEndDate] = useState<string | null>(null);
   const dropdownRef = React.useRef<HTMLDivElement>(null);
 
-  console.log(date, 'date');
-  console.log(value, 'value');
-  console.log(month, 'month');
+  console.log(date, "date");
+  console.log(value, "value");
+  console.log(month, "month");
+  console.log(defaultEndDate, "defaultEndDate");
 
   const getDateValue = (value: unknown): Date | undefined => {
     if (value instanceof Date && isValid(value)) {
@@ -117,11 +118,11 @@ const FormDatePicker = <T extends FieldValues>({
   //   ? format(selectedDate, "dd-MM-yyyy")
   //   : placeholder || "Pick a date";
 
-  const displayValue = selectedDate
+  const _displayValue = selectedDate
     ? format(selectedDate, "dd-MM-yyyy")
     : // : range?.from && range?.to
-    //   ? `${range.from.toLocaleDateString()} - ${range.to.toLocaleDateString()}`
-    range?.from && range?.to
+      //   ? `${range.from.toLocaleDateString()} - ${range.to.toLocaleDateString()}`
+      range?.from && range?.to
       ? `${format(range.from, "dd-MM-yyyy")} - ${format(range.to, "dd-MM-yyyy")}`
       : dateRange
         ? `${placeholder} - ${placeholder}`
@@ -194,29 +195,28 @@ const FormDatePicker = <T extends FieldValues>({
 
       <div className="relative border border-[#BDBDBD] rounded-full items-center flex gap-2 peer-focus-within:border-chart-1">
         <Input
-          id='date'
+          id="date"
           value={value}
           placeholder={placeholder}
-          className='w-full'
+          className="w-full"
           // inputClassName="border-none focus-visible:border-chart-1 focus-visible:ring-0 focus-visible:ring-offset-0"
           inputClassName="peer border-none"
-          onChange={e => {
-            const date = new Date(e.target.value)
+          onChange={(e) => {
+            const date = new Date(e.target.value);
 
-            setValue(e.target.value)
+            setValue(e.target.value);
 
             if (isValidDate(date)) {
-              setDate(date)
-              setMonth(date)
+              setDate(date);
+              setMonth(date);
             }
           }}
-          onKeyDown={e => {
-            if (e.key === 'ArrowDown') {
-              e.preventDefault()
-              setOpen(true)
+          onKeyDown={(e) => {
+            if (e.key === "ArrowDown") {
+              e.preventDefault();
+              setOpen(true);
             }
           }}
-
         />
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
@@ -236,7 +236,11 @@ const FormDatePicker = <T extends FieldValues>({
               <CalendarIcon className="ml-auto mr-2 size-4 text-chart-1" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent forceMount className="z-9999 relative right-10 top-2 w-auto p-0" align="start">
+          <PopoverContent
+            forceMount
+            className="z-9999 relative right-10 top-2 w-auto p-0"
+            align="start"
+          >
             {dateRange ? (
               <Calendar
                 mode="range"
@@ -255,15 +259,15 @@ const FormDatePicker = <T extends FieldValues>({
               //   initialFocus
               // />
               <Calendar
-                mode='single'
+                mode="single"
                 selected={date}
                 month={month}
                 onMonthChange={setMonth}
-                onSelect={date => {
-                  setDate(date)
-                  setValue(formatDate(date))
+                onSelect={(date) => {
+                  setDate(date);
+                  setValue(formatDate(date));
                   field.onChange(toISO(date));
-                  setOpen(false)
+                  setOpen(false);
                 }}
               />
             )}

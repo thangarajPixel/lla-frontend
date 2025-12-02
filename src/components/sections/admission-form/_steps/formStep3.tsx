@@ -7,10 +7,13 @@ import { FormProvider, useForm } from "react-hook-form";
 import { ImageGrid } from "@/components/sections/admission-form/_components/image-grid";
 import { UploadArea } from "@/components/sections/admission-form/_components/upload-area";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
-import { updateAdmission } from "@/store/services/global-services";
-import { applicationFormSchema_Step3, ApplicationFormSchema_Step3 } from "@/helpers/ValidationHelper";
 import { filteredPayload, notify } from "@/helpers/ConstantHelper";
+import {
+  type ApplicationFormSchema_Step3,
+  applicationFormSchema_Step3,
+} from "@/helpers/ValidationHelper";
 import { cn } from "@/lib/utils";
+import { updateAdmission } from "@/store/services/global-services";
 
 interface UploadedImage {
   id: string;
@@ -36,10 +39,10 @@ const FormStep3 = ({
     mode: "all",
     defaultValues: {
       Upload_Your_Portfolio: {
-        images: 
-        admissionData?.Upload_Your_Portfolio?.images?.map((item) => ({
-          id: item.id,
-        })) ?? [],
+        images:
+          admissionData?.Upload_Your_Portfolio?.images?.map((item) => ({
+            id: item.id,
+          })) ?? [],
       },
       step_3: admissionData?.step_3 ?? false,
     },
@@ -120,11 +123,11 @@ const FormStep3 = ({
       step_3: true,
     };
 
-    const formId = localStorage.getItem("admissionId");
+    // const formId = localStorage.getItem("admissionId");
 
     try {
       await updateAdmission(
-        formId as string,
+        admissionData?.documentId as string,
         data as ApplicationFormSchema_Step3,
       );
       onPreview(true);
@@ -162,7 +165,10 @@ const FormStep3 = ({
             </div>
 
             <div className="lg:pl-8">
-              <ImageGrid images={images} onRemove={handleRemoveImage} />
+              <ImageGrid
+                images={images ?? admissionData?.Upload_Your_Portfolio?.images}
+                onRemove={handleRemoveImage}
+              />
             </div>
           </div>
         </div>

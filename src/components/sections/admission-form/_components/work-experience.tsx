@@ -8,12 +8,14 @@ import ButtonWidget from "@/components/widgets/ButtonWidget";
 import type { ApplicationFormSchema_Step2 } from "@/helpers/ValidationHelper";
 
 type WorkExperienceProps = {
+  admissionData?: AdmissionFormData;
   control: Control<ApplicationFormSchema_Step2>;
   onWatchEndDate?: (index: number) => void;
   onSelectEndDate?: (index: number, value: string) => void;
 };
 
 export function WorkExperience({
+  admissionData,
   control,
   onWatchEndDate,
   onSelectEndDate,
@@ -90,6 +92,10 @@ export function WorkExperience({
               label="Reference Letter"
               placeholder="Upload your reference Letter"
               notRequired={false}
+              defaultValue={
+                admissionData?.Education_Details?.Education_Details_12th_std ??
+                null
+              }
             />
           </div>
         </div>

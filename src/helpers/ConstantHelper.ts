@@ -1,6 +1,6 @@
 import { QueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
 import type { ExternalToast } from "sonner";
+import { toast } from "sonner";
 
 export const parseHeading = (heading: string | undefined): string[] => {
   if (!heading) return [""];
@@ -201,21 +201,24 @@ export const filteredPayload = <T>(input: T): T | undefined => {
 };
 
 export const encryptId = (id: string): string => {
-          // Base64 encode with some obfuscation
-          const encoded = btoa(id + '_lla_' + Date.now().toString().slice(-4));
-          return encoded.replace(/[+/=]/g, (match) => {
-            switch (match) {
-              case '+': return '-';
-              case '/': return '_';
-              case '=': return '';
-              default: return match;
-            }
-          });
-        };
+  // Base64 encode with some obfuscation
+  const encoded = btoa(id + "_lla_" + Date.now().toString().slice(-4));
+  return encoded.replace(/[+/=]/g, (match) => {
+    switch (match) {
+      case "+":
+        return "-";
+      case "/":
+        return "_";
+      case "=":
+        return "";
+      default:
+        return match;
+    }
+  });
+};
 
 export const decryptCode = (str: string) => {
   const padded = str + "=".repeat((4 - (str.length % 4)) % 4);
   const decoded = Buffer.from(padded, "base64").toString();
   return decoded.slice(0, 2);
 };
-
