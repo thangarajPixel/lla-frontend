@@ -26,3 +26,30 @@ export type ChevronIconProps = {
   isOpen: boolean;
   isSticky?: boolean;
 };
+
+export type CourseCard = {
+  id: number;
+  Title: string;
+  Description: string;
+  Btn_txt: string;
+  Image: Array<{
+    id: number;
+    name: string;
+    url: string;
+  }>;
+};
+
+export type CourseSectionData = {
+  __component?: string;
+  id?: number;
+  Title?: string;
+  Description?: string;
+  Heading?: string;
+  SubHeading?: string;
+  Card?: CourseCard[];
+};
+
+export type AdmissionButtonProps = {
+  className?: string;
+  iconClassName?: string;
+};
