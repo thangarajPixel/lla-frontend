@@ -2,16 +2,17 @@
 
 import { Plus } from "lucide-react";
 import { type Control, useFieldArray } from "react-hook-form";
-import { FormInput } from "@/components/form-fields";
-import FormFileUploadButton from "@/components/form-fields/FormFileUploadButton";
-import FormRadioGroup from "@/components/form-fields/FormRadioGroup";
-import type { ApplicationFormSchema_Step2 } from "@/validations/multi-step-form";
+import { FormInput } from "@/components/form";
+import FormFileUploadButton from "@/components/form/FormFileUploadButton";
+import FormRadioGroup from "@/components/form/FormRadioGroup";
+import type { ApplicationFormSchema_Step2 } from "@/helpers/ValidationHelper";
 
 type EducationDetailsProps = {
+  admissionData?: AdmissionFormData;
   control: Control<ApplicationFormSchema_Step2>;
 };
 
-export function EducationDetails({ control }: EducationDetailsProps) {
+export function EducationDetails({ admissionData, control }: EducationDetailsProps) {
   const { fields: pgDegrees, append } = useFieldArray({
     control: control,
     name: "Post_Graduate",
@@ -32,6 +33,7 @@ export function EducationDetails({ control }: EducationDetailsProps) {
           control={control}
           label="12th std"
           placeholder="Upload your MarkSheet"
+          defaultValue={admissionData?.Education_Details?.Education_Details_12th_std ?? null}
         />
 
         <FormFileUploadButton
@@ -39,6 +41,7 @@ export function EducationDetails({ control }: EducationDetailsProps) {
           control={control}
           label="10th std"
           placeholder="Upload your MarkSheet"
+          defaultValue={admissionData?.Education_Details?.Education_Details_12th_std ?? null}
         />
       </div>
 
@@ -72,7 +75,7 @@ export function EducationDetails({ control }: EducationDetailsProps) {
       </div>
 
       {/* Post Graduate */}
-      {pgDegrees.map((degree, index) => (
+      {pgDegrees?.map((degree, index) => (
         <div
           key={degree.id ?? index}
           className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4 items-center space-y-3"

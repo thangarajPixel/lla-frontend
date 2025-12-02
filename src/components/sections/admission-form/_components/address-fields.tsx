@@ -1,9 +1,9 @@
 "use client";
 
 import type { Control } from "react-hook-form";
-import { FormInput, FormSelectBox } from "@/components/form-fields";
-import { useGetStateLists } from "@/queries/hooks/global-hooks";
-import type { ApplicationFormSchema_Step1 } from "@/validations/multi-step-form";
+import { FormInput, FormSelectBox } from "@/components/form";
+import { useGetStateLists } from "@/store/hooks/global-hooks";
+import type { ApplicationFormSchema_Step1 } from "@/helpers/ValidationHelper";
 
 type AddressFieldsProps = {
   control: Control<ApplicationFormSchema_Step1>;

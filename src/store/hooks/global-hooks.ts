@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import {
   getAdmissionById,
   getStateLists,
-} from "@/queries/services/global-services";
+} from "@/store/services/global-services";
 
 export const useGetStateLists = (): UseQueryResult<
   StateDataResponse,

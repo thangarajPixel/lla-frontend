@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import FormStep1 from "@/components/sections/admission-form/_steps/formStep1";
 import FormStep2 from "@/components/sections/admission-form/_steps/formStep2";
 import FormStep3 from "@/components/sections/admission-form/_steps/formStep3";
@@ -16,23 +16,41 @@ export function MultiStepForm({
 }) {
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [isReviewOpen, setIsReviewOpen] = useState<boolean>(false);
+  const [initialMount, setInitialMount] = useState<boolean>(false);
 
-  const handleNextStep = () => {
-    setCurrentStep((prev) => Math.min(prev + 1, 3));
+  const handleNextStep = (step: number) => {
+    // setCurrentStep((prev) => Math.min(prev + 1, 3));
+    setCurrentStep(step);
   };
 
   const handlePrevStep = () => {
     setCurrentStep((prev) => Math.max(prev - 1, 1));
   };
 
-  const handlePreview = () => {
-    setIsReviewOpen(true);
+  const handlePreview = (preview: boolean) => {
+    setIsReviewOpen(preview);
   };
 
   const handleStepEditChange = (step: number) => {
     setCurrentStep(step);
     setIsReviewOpen(false);
   };
+
+ useEffect(() => {
+  if (!admissionData || initialMount) return;
+
+  if (admissionData.step_3) {
+    setIsReviewOpen(true);
+  } else if (admissionData.step_2) {
+    setCurrentStep(3);
+  } else if (admissionData.step_1) {
+    setCurrentStep(2);
+  } else {
+    setCurrentStep(1);
+  }
+
+  setInitialMount(true);
+}, [admissionData, initialMount]);
 
   if (isReviewOpen) {
     return (

@@ -2,10 +2,10 @@
 
 import { Plus } from "lucide-react";
 import { type Control, useFieldArray } from "react-hook-form";
-import { FormDatePicker, FormInput } from "@/components/form-fields";
-import FormFileUploadButton from "@/components/form-fields/FormFileUploadButton";
+import { FormDatePicker, FormInput } from "@/components/form";
+import FormFileUploadButton from "@/components/form/FormFileUploadButton";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
-import type { ApplicationFormSchema_Step2 } from "@/validations/multi-step-form";
+import type { ApplicationFormSchema_Step2 } from "@/helpers/ValidationHelper";
 
 type WorkExperienceProps = {
   control: Control<ApplicationFormSchema_Step2>;

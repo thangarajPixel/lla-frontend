@@ -3,7 +3,8 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import { UploadIconImg } from "@/helpers/ImageHelper";
-import { validateDimensions } from "@/lib/utils";
+import { X, File, ImageIcon, Music, FileText, Archive, FileJson, FileSpreadsheet, FileCode } from "lucide-react"
+import { validateDimensions } from "@/helpers/ConstantHelper";
 
 type FileUploadButtonProps = {
   placeholder?: string;
@@ -11,6 +12,7 @@ type FileUploadButtonProps = {
   variant?: "dark" | "light";
   onUpload?: (file: File, url: string) => void;
   onRemove?: () => void;
+  defaultValue?: DocumentFile | null;
 };
 
 const generateDocumentPreview = (file: File): string => {
@@ -40,37 +42,37 @@ const formatFileSize = (bytes: number): string => {
   return `${Math.round((bytes / k ** i) * 100) / 100} ${sizes[i]}`;
 };
 
-// const getFileIcon = (fileType: string) => {
-//   if (fileType.startsWith("image/")) {
-//     return <ImageIcon className="w-4 h-4" />;
-//   } else if (fileType.startsWith("audio/")) {
-//     return <Music className="w-4 h-4" />;
-//   } else if (fileType.includes("pdf")) {
-//     return <FileText className="w-4 h-4 text-red-500" />;
-//   } else if (fileType.includes("word") || fileType.includes("document")) {
-//     return <FileText className="w-4 h-4 text-blue-500" />;
-//   } else if (
-//     fileType.includes("spreadsheet") ||
-//     fileType.includes("excel") ||
-//     fileType.includes("csv")
-//   ) {
-//     return <FileSpreadsheet className="w-4 h-4 text-green-500" />;
-//   } else if (fileType.includes("json")) {
-//     return <FileJson className="w-4 h-4" />;
-//   } else if (
-//     fileType.includes("code") ||
-//     fileType.includes("javascript") ||
-//     fileType.includes("typescript") ||
-//     fileType.includes("python")
-//   ) {
-//     return <FileCode className="w-4 h-4" />;
-//   } else if (fileType.includes("text")) {
-//     return <FileText className="w-4 h-4" />;
-//   } else if (fileType.includes("zip") || fileType.includes("compressed")) {
-//     return <Archive className="w-4 h-4" />;
-//   }
-//   return <File className="w-4 h-4" />;
-// };
+const getFileIcon = (fileType: string) => {
+  if (fileType.startsWith("image/")) {
+    return <ImageIcon className="w-4 h-4" />;
+  } else if (fileType.startsWith("audio/")) {
+    return <Music className="w-4 h-4" />;
+  } else if (fileType.includes("pdf")) {
+    return <FileText className="w-4 h-4 text-red-500" />;
+  } else if (fileType.includes("word") || fileType.includes("document")) {
+    return <FileText className="w-4 h-4 text-blue-500" />;
+  } else if (
+    fileType.includes("spreadsheet") ||
+    fileType.includes("excel") ||
+    fileType.includes("csv")
+  ) {
+    return <FileSpreadsheet className="w-4 h-4 text-green-500" />;
+  } else if (fileType.includes("json")) {
+    return <FileJson className="w-4 h-4" />;
+  } else if (
+    fileType.includes("code") ||
+    fileType.includes("javascript") ||
+    fileType.includes("typescript") ||
+    fileType.includes("python")
+  ) {
+    return <FileCode className="w-4 h-4" />;
+  } else if (fileType.includes("text")) {
+    return <FileText className="w-4 h-4" />;
+  } else if (fileType.includes("zip") || fileType.includes("compressed")) {
+    return <Archive className="w-4 h-4" />;
+  }
+  return <File className="w-4 h-4" />;
+};
 
 export function FileUploadButton({
   placeholder,
@@ -78,10 +80,12 @@ export function FileUploadButton({
   variant,
   onUpload,
   onRemove,
+  defaultValue,
 }: FileUploadButtonProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [isRemoved, setIsRemoved] = useState<boolean>(false);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -115,6 +119,7 @@ export function FileUploadButton({
     }
 
     setSelectedFile(file);
+    setIsRemoved(false);
   };
 
   return (
@@ -122,11 +127,10 @@ export function FileUploadButton({
       <button
         type="button"
         onClick={() => inputRef.current?.click()}
-        className={`flex items-center justify-center gap-2 w-full py-2 cursor-pointer rounded-lg transition-colors ${
-          variant === "light"
-            ? "border border-border text-muted-foreground hover:bg-muted"
-            : "bg-gray-100 border border-[#969696]"
-        }`}
+        className={`flex items-center justify-center gap-2 w-full py-2 cursor-pointer rounded-lg transition-colors ${variant === "light"
+          ? "border border-border text-muted-foreground hover:bg-muted"
+          : "bg-gray-100 border border-[#969696]"
+          }`}
       >
         <ImageWidget
           src={UploadIconImg}
@@ -148,27 +152,36 @@ export function FileUploadButton({
       </p>
 
       <div className="flex-1 min-w-0">
-        {preview && (
-          <div className="w-12 h-12 rounded bg-muted flex items-center justify-center shrink-0 overflow-hidden">
-            <Image
-              width={100}
-              height={100}
-              src={preview || "/placeholder.svg"}
-              alt={selectedFile?.name ?? ""}
-              className="w-full h-full object-cover rounded"
-            />
-          </div>
-        )}
+        {
+          !isRemoved && (
+            <div className="w-12 h-12 rounded bg-muted flex items-center justify-center shrink-0 overflow-hidden">
+              {
+                preview || defaultValue?.mime?.startsWith("image/") ? (
+                  <Image
+                    width={100}
+                    height={100}
+                    src={preview || defaultValue?.url || "/placeholder.svg"}
+                    alt={selectedFile?.name ?? ""}
+                    className="w-full h-full object-cover rounded"
+                  />
+                )
+                  : (
+                    <div className="text-muted-foreground">{getFileIcon(defaultValue?.mime ?? "")}</div>
+                  )
+              }
+            </div>
+          )
+        }
 
-        {selectedFile && (
+        {(selectedFile || defaultValue) && !isRemoved && (
           <>
             <p className="text-sm font-medium truncate text-foreground">
-              {selectedFile?.name}
+              {selectedFile?.name ?? defaultValue?.name ?? ""}
             </p>
             <div className="flex gap-2 text-xs text-muted-foreground mt-1">
-              <span>{formatFileSize(selectedFile?.size ?? 0)}</span>
+              <span>{formatFileSize(selectedFile?.size ?? defaultValue?.size ?? 0)}</span>
               <span>•</span>
-              <span>{selectedFile?.type || "unknown type"}</span>
+              <span>{selectedFile?.type || defaultValue?.mime || "unknown type"}</span>
               <button
                 type="button"
                 className="text-white bg-red-500 size-5 rounded-full p-1 text-sm flex items-center justify-center hover:bg-red-600 cursor-pointer"
@@ -176,6 +189,7 @@ export function FileUploadButton({
                   setSelectedFile(null);
                   setPreview(null);
                   onRemove?.();
+                  setIsRemoved(true);
                 }}
               >
                 X

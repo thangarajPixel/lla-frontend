@@ -120,7 +120,7 @@ export default function ReviewApplicationClone({
   handleStepEditChange,
 }: {
   admissionData?: AdmissionFormData;
-  onClose: () => void;
+  onClose: (preview: boolean) => void;
   handleStepEditChange: (step: number) => void;
 }) {
   return (
@@ -146,7 +146,7 @@ export default function ReviewApplicationClone({
             <Button
               variant="outline"
               className="rounded-full px-6"
-              onClick={onClose}
+              onClick={() => onClose(false)}
             >
               Back
             </Button>

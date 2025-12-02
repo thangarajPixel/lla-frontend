@@ -4,90 +4,85 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { Plus, X } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import {  useRef, useState } from "react";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import {
   FormDatePicker,
   FormInput,
   FormSelectBox,
-} from "@/components/form-fields";
-import FormCheckBox from "@/components/form-fields/FormCheckBox";
+} from "@/components/form";
+import FormCheckBox from "@/components/form/FormCheckBox";
 import { Button } from "@/components/ui/button";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import { UploadIconImg } from "@/helpers/ImageHelper";
-import { notify } from "@/lib/utils";
-import { createAdmission } from "@/queries/services/global-services";
-import {
-  type ApplicationFormSchema_Step1,
-  applicationFormSchema_Step1,
-} from "@/validations/multi-step-form";
+import { createAdmission } from "@/store/services/global-services";
 import AddressFields from "../_components/address-fields";
+import { useRouter } from "next/navigation";
+import { encryptId, notify } from "@/helpers/ConstantHelper";
+import { applicationFormSchema_Step1, type ApplicationFormSchema_Step1 } from "@/helpers/ValidationHelper";
 
 type Step1FormProps = {
   admissionData?: AdmissionFormData;
-  onNextStep: () => void;
+  // onNextStep: () => void;
+  onNextStep: (step: number) => void;
   onPrevStep: () => void;
 };
 
 const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [isRemoved, setIsRemoved] = useState<boolean>(false);
+  const router = useRouter();
 
   const form_step1 = useForm<ApplicationFormSchema_Step1>({
     resolver: zodResolver(applicationFormSchema_Step1),
     mode: "all",
-    defaultValues: {
+    defaultValues : {
       name_title: admissionData?.name_title ?? "Mr.",
-      first_name: admissionData?.first_name ?? "",
-      last_name: admissionData?.last_name ?? "",
-      date_of_birth:
-        new Date(admissionData?.date_of_birth as string) ??
-        new Date("2025-11-30"),
-      mobile_no: admissionData?.mobile_no ?? "",
-      email: admissionData?.email ?? "",
-      nationality: admissionData?.nationality ?? "",
-      Language_Proficiency: admissionData?.Language_Proficiency?.map(
-        (item) => ({
-          language: item.language,
-          read: item.read,
-          write: item.write,
-          speak: item.speak,
-        }),
-      ) ?? [{ language: "", read: false, write: false, speak: false }],
-      address: admissionData?.address ?? "",
-      city: admissionData?.city ?? "",
-      district: admissionData?.district ?? "",
-      state: (admissionData?.state as string) ?? "",
-      pincode: admissionData?.pincode ?? "",
-      hobbies: admissionData?.hobbies ?? "",
-      photography_club: admissionData?.photography_club ?? "",
-      blood_group: admissionData?.blood_group ?? "",
-      Parent_Guardian_Spouse_Details:
-        admissionData?.Parent_Guardian_Spouse_Details ?? {
-          title: "Mr.",
-          first_name: "",
-          last_name: "",
-          mobile_no: "",
-          email: "",
-          nationality: "",
-          address: "",
-          city: "",
-          district: "",
-          state: undefined,
-          pincode: "",
+        first_name: admissionData?.first_name ?? "",
+        last_name: admissionData?.last_name ?? "",
+        date_of_birth: new Date(admissionData?.date_of_birth ?? ""),
+        mobile_no: admissionData?.mobile_no ?? "",
+        email: admissionData?.email ?? "",
+        nationality: admissionData?.nationality ?? "",
+        Language_Proficiency:
+          admissionData?.Language_Proficiency ?? [
+            { language: "", read: false, write: false, speak: false },
+          ],
+        address: admissionData?.address ?? "",
+        city: admissionData?.city ?? "",
+        district: admissionData?.district ?? "",
+        state: admissionData?.state?.documentId ?? "",
+        pincode: admissionData?.pincode ?? "",
+        hobbies: admissionData?.hobbies ?? "",
+        photography_club: admissionData?.photography_club ?? "",
+        blood_group: admissionData?.blood_group ?? "",
+        Parent_Guardian_Spouse_Details: {
+          title: admissionData?.Parent_Guardian_Spouse_Details?.title ?? "Mr.",
+          first_name:
+            admissionData?.Parent_Guardian_Spouse_Details?.first_name ?? "",
+          last_name:
+            admissionData?.Parent_Guardian_Spouse_Details?.last_name ?? "",
+          mobile_no:
+            admissionData?.Parent_Guardian_Spouse_Details?.mobile_no ?? "",
+          email: admissionData?.Parent_Guardian_Spouse_Details?.email ?? "",
+          nationality:
+            admissionData?.Parent_Guardian_Spouse_Details?.nationality ?? "",
+          address: admissionData?.Parent_Guardian_Spouse_Details?.address ?? "",
+          city: admissionData?.Parent_Guardian_Spouse_Details?.city ?? "",
+          district:
+            admissionData?.Parent_Guardian_Spouse_Details?.district ?? "",
+          state:
+            admissionData?.Parent_Guardian_Spouse_Details?.state?.documentId ??
+            "",
+          pincode: admissionData?.Parent_Guardian_Spouse_Details?.pincode ?? "",
         },
-      passport_size_image:
-        (admissionData?.passport_size_image as number | undefined) ?? 0,
-      step_1: admissionData?.step_1 ?? false,
-    },
+        passport_size_image: admissionData?.passport_size_image?.id ?? 0,
+        step_1: admissionData?.step_1 ?? false,
+    }
   });
 
-  useEffect(() => {
-    if (admissionData) {
-      form_step1.reset(admissionData as never);
-    }
-  }, [admissionData, form_step1]);
 
   const { control, handleSubmit } = form_step1;
 
@@ -118,11 +113,10 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
         const width = img.width;
         const height = img.height;
 
-        // revoke object URL once loaded to free memory
         URL.revokeObjectURL(objectUrl);
 
-        const maxWidth = 3600; // 12 inches @300dpi
-        const maxHeight = 2400; // 8 inches @300dpi
+        const maxWidth = 3600;
+        const maxHeight = 2400;
 
         if (width > maxWidth || height > maxHeight) {
           alert(
@@ -153,17 +147,14 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
     const formData = new FormData();
     formData.append("files", file);
 
-    // 1️⃣ Validate file size (< 1MB)
     if (file.size > 1024 * 1024) {
       alert("File size must be less than 1MB.");
       return;
     }
 
-    // 2️⃣ Validate dimensions (<= 12x8 inches → <= 3600x2400 px)
     const valid = await validateDimensions(file);
     if (!valid) return;
 
-    // 3️⃣ Preview
     const url = URL.createObjectURL(file);
     setPreviewUrl(url);
 
@@ -171,7 +162,6 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
 
     const resData = await res.data;
     notify({ success: true, message: "Image uploaded successfully" });
-    // notify({ success: true, message: "Saved successfully" });
     form_step1.setValue("passport_size_image", resData[0].id, {
       shouldValidate: true,
     });
@@ -193,8 +183,8 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
       const res = await createAdmission(data as ApplicationFormSchema_Step1);
       localStorage.setItem("admissionId", res.data.documentId);
       notify({ success: true, message: "Admission submitted successfully" });
-      onNextStep();
-      // alert("Application submitted successfully!");
+      const encryptedId = encryptId(res?.data?.id);
+      router.push(`/admission/${encryptedId}`);
     } catch (error) {
       notify({ success: false, message: error as string });
     }
@@ -203,7 +193,6 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
   return (
     <FormProvider {...form_step1}>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
-        {/* Personal Details */}
         <div className="max-w-5xl mx-auto">
           <h1 className="text-2xl md:text-3xl text-[#E97451] mb-8 font-urbanist">
             Personal Details
@@ -350,10 +339,10 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
 
               <div
                 aria-hidden
-                className="border border-dashed border-border rounded-lg max-w-[180px] flex flex-col items-center justify-center min-h-[180px] bg-secondary cursor-pointer hover:bg-accent transition relative overflow-hidden"
+                className="border border-dashed border-border rounded-lg max-w-[180px] flex flex-col items-center justify-center min-h-[180px] bg-secondary cursor-pointer hover:bg-accent transition relative overflow-hidden group"
                 onClick={handleClick}
               >
-                {!previewUrl ? (
+                {(!previewUrl && !admissionData?.passport_size_image) || isRemoved ? (
                   <>
                     <ImageWidget
                       src={UploadIconImg}
@@ -369,13 +358,27 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
                     </p>
                   </>
                 ) : (
-                  <Image
-                    src={previewUrl}
-                    width={100}
-                    height={100}
-                    alt="Preview"
-                    className="h-[180px] w-full object-cover rounded-md"
-                  />
+                  <>
+                    <Image
+                      src={previewUrl ?? admissionData?.passport_size_image?.url ?? ""}
+                      width={100}
+                      height={100}
+                      alt="Preview"
+                      className="h-[180px] w-full object-cover rounded-md hover:opacity-80 transition-opacity"
+                    />
+                    <Button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setIsRemoved(true);
+                        setPreviewUrl(null);
+                        form_step1.setValue("passport_size_image", 0, { shouldValidate: true })
+                      }}
+                      className="absolute top-2 right-2 hidden group-hover:flex items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
+                    >
+                      <X className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
+                    </Button>
+                  </>
                 )}
               </div>
 

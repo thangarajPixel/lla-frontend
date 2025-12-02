@@ -17,7 +17,7 @@ type UploadButtonProps<T extends FieldValues> = {
   placeholder?: string;
   noDataMessage?: string;
   notRequired?: boolean;
-  defaultValue?: string;
+  defaultValue?: DocumentFile | null;
   className?: string;
   disabled?: boolean;
   maxSize?: string;
@@ -29,6 +29,7 @@ const FormFileUploadButton = <T extends FieldValues>({
   label,
   placeholder,
   notRequired,
+  defaultValue,
   className,
   maxSize,
 }: UploadButtonProps<T>) => {
@@ -66,6 +67,7 @@ const FormFileUploadButton = <T extends FieldValues>({
           maxSize={maxSize ?? "2MB"}
           onUpload={handleUpload}
           onRemove={() => field.onChange(0)}
+          defaultValue={defaultValue}
         />
       </div>
       {error && <p className="text-sm text-red-500">{error.message}</p>}
