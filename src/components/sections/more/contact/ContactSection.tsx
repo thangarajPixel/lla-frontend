@@ -21,7 +21,7 @@ const contactSchema = z.object({
 type ContactFormData = z.infer<typeof contactSchema>;
 
 export default function ContactSection() {
-  const { control, handleSubmit, reset, register } = useForm<ContactFormData>({
+  const { control, handleSubmit, reset, register, formState: { errors } } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
       firstName: "",
@@ -31,6 +31,7 @@ export default function ContactSection() {
       message: "",
     },
   });
+  console.log(errors,'asfddfdsf');
 
   const onSubmit = async (data: ContactFormData) => {
     try {
@@ -150,6 +151,7 @@ export default function ContactSection() {
                 rows={6}
                 className="flex w-full rounded-2xl border border-[#BDBDBD] bg-background px-4 py-3 text-base placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-0 focus-visible:border-chart-1/50 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
               />
+              {errors.message && <p className="text-danger">{errors.message.message}</p>}
             </div>
             <OrangeButtonWidget  content="Submit"/>               
           </form>
