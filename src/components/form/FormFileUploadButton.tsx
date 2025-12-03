@@ -55,7 +55,7 @@ const FormFileUploadButton = <T extends FieldValues>({
       {label && (
         <label
           htmlFor={label}
-          className="block text-sm font-medium text-foreground"
+          className="block text-sm font-medium text-foreground font-mulish"
         >
           {label}
           {!notRequired && <span className="text-chart-1">*</span>}

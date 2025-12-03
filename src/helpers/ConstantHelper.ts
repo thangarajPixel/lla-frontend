@@ -200,7 +200,7 @@ export const filteredPayload = <T>(input: T): T | undefined => {
   return input;
 };
 
-export const encryptId = (id: string): string => {
+export const encryptId = (id: number): string => {
   // Base64 encode with some obfuscation
   const encoded = btoa(id + "_lla_" + Date.now().toString().slice(-4));
   return encoded.replace(/[+/=]/g, (match) => {
@@ -220,5 +220,6 @@ export const encryptId = (id: string): string => {
 export const decryptCode = (str: string) => {
   const padded = str + "=".repeat((4 - (str.length % 4)) % 4);
   const decoded = Buffer.from(padded, "base64").toString();
-  return decoded.slice(0, 2);
+  // return decoded.slice(0, 2);
+  return decoded.split("_")[0];
 };

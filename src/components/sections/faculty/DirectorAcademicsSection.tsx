@@ -20,9 +20,9 @@ const DirectorAcademicsSection = ({ data }: FacultyFounderSectionProps) => {
             className="order-2 md:order-1 w-full lg:w-1/2 space-y-4 md:space-y-3 lg:space-y-3 xl:space-y-3 2xl:space-y-5"
           >
             <div className="space-y-3 md:space-y-2 lg:space-y-3 xl:space-y-4 md:w-[400px] lg:w-[420px] xl:w-[420px] 2xl:w-[500px]  3xl:w-[520px]">
-            <h3 className="font-urbanist font-normal text-left  text-[#E97451] text-[20px] sm:text-[22px] md:text-[24px] lg:text-[26px] xl:text-[28px] 2xl:text-[30px]">
-              {data?.Founder_card[0]?.Heading}
-            </h3>
+              <h3 className="font-urbanist font-normal text-left  text-[#E97451] text-[20px] sm:text-[22px] md:text-[24px] lg:text-[26px] xl:text-[28px] 2xl:text-[30px]">
+                {data?.Founder_card[0]?.Heading}
+              </h3>
               <p className="font-mulish font-regular font-normal text-black text-[14px] sm:text-[15px] md:text-[14px] lg:text-[15px] xl:text-[15px] 2xl:text-[16px] 3xl:text-[18px] ledding-normal">
                 {data?.Founder_card[0]?.Description[0]?.children[0]?.text}
               </p>
@@ -32,7 +32,9 @@ const DirectorAcademicsSection = ({ data }: FacultyFounderSectionProps) => {
               <p className="font-mulish font-regular font-normal text-black text-[14px] sm:text-[14px] md:text-[14px] lg:text-[15px] xl:text-[15px] 2xl:text-[16px] 3xl:text-[18px] ledding-normal">
                 {data?.Founder_card[0]?.Description[2]?.children[0]?.text}
               </p>
-               <OrangeButtonWidget content={data.Founder_card[0].Btn_txt ?? ""} />
+              <OrangeButtonWidget
+                content={data.Founder_card[0].Btn_txt ?? ""}
+              />
             </div>
           </ScrollWidget>
           <ScrollWidget delay={0.4} className="order-1 md:order-2">

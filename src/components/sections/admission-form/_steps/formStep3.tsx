@@ -2,11 +2,12 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { ImageGrid } from "@/components/sections/admission-form/_components/image-grid";
 import { UploadArea } from "@/components/sections/admission-form/_components/upload-area";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
+import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { filteredPayload, notify } from "@/helpers/ConstantHelper";
 import {
   type ApplicationFormSchema_Step3,
@@ -15,11 +16,11 @@ import {
 import { cn } from "@/lib/utils";
 import { updateAdmission } from "@/store/services/global-services";
 
-interface UploadedImage {
+export type UploadedImage = {
   id: string;
   url: string;
-  file: File;
-}
+  file: File | null;
+};
 
 type Step3FormProps = {
   admissionData?: AdmissionFormData;
@@ -39,26 +40,41 @@ const FormStep3 = ({
     mode: "all",
     defaultValues: {
       Upload_Your_Portfolio: {
-        images:
-          admissionData?.Upload_Your_Portfolio?.images?.map((item) => ({
-            id: item.id,
-          })) ?? [],
+        images: [],
       },
       step_3: admissionData?.step_3 ?? false,
     },
   });
 
-  const {
-    handleSubmit,
-    formState: { errors },
-  } = form_step3;
+  const formRef = useRef(form_step3);
+
+  const { handleSubmit, formState } = form_step3;
+  const { errors } = formState;
+
+  useEffect(() => {
+    if (!admissionData?.Upload_Your_Portfolio?.images) return;
+
+    const apiImages = admissionData.Upload_Your_Portfolio.images.map((img) => ({
+      id: img.id.toString(),
+      url: img.url,
+      file: null,
+    }));
+
+    setImages(apiImages);
+
+    formRef?.current?.setValue(
+      "Upload_Your_Portfolio.images",
+      apiImages.map((i) => ({ id: Number(i.id) })),
+      { shouldValidate: true },
+    );
+  }, [admissionData]);
 
   const handleFilesSelected = async (files: File[]) => {
-    const MAX_SIZE = 1024 * 1024; // 1MB in bytes
+    const MAX_SIZE = 1024 * 1024; // 1 MB
 
     const validFiles = files.filter((file) => {
       if (file.size > MAX_SIZE) {
-        alert(`File ${file.name} exceeds 1MB limit`);
+        alert(`${file.name} exceeds 1MB limit`);
         return false;
       }
       return true;
@@ -67,63 +83,61 @@ const FormStep3 = ({
     if (!validFiles.length) return;
 
     const formData = new FormData();
-    // validFiles.forEach((file) => formData.append("files", file));
-    for (const file of validFiles) {
+
+    validFiles.forEach((file) => {
       formData.append("files", file);
-    }
+    });
 
-    const res = await axios.post(`${process.env.BASE_URL}/upload`, formData);
+    const uploadRes = await axios.post(
+      `${process.env.BASE_URL}/upload`,
+      formData,
+    );
 
-    const uploaded = res.data;
+    const uploaded = uploadRes.data;
 
-    const currentImages =
+    const currentHf =
       form_step3.getValues("Upload_Your_Portfolio.images") || [];
-
-    const uploadedIds = uploaded.map((item: { id: string }) => ({
-      id: item.id,
-    }));
+    const uploadedIds = uploaded.map((u: UploadRes) => ({ id: u.id }));
 
     form_step3.setValue(
       "Upload_Your_Portfolio.images",
-      [...currentImages, ...uploadedIds],
+      [...currentHf, ...uploadedIds],
       { shouldValidate: true, shouldDirty: true },
     );
 
-    const newPreviewImages = validFiles.map((file) => ({
-      id: Math.random().toString(36).substr(2, 9),
+    const newStateImages = validFiles.map((file) => ({
+      id: Math.random().toString(36).slice(2, 9),
       url: URL.createObjectURL(file),
       file,
     }));
 
-    setImages((prev) => [...prev, ...newPreviewImages]);
+    setImages((prev) => [...prev, ...newStateImages]);
   };
 
   const handleRemoveImage = (index: number) => {
-    setImages((prev) => {
-      const img = prev[index];
-      if (img) URL.revokeObjectURL(img.url);
-      return prev.filter((_, i) => i !== index);
-    });
+    const img = images[index];
+    if (img?.file) URL.revokeObjectURL(img.url);
 
-    const existing = form_step3.getValues("Upload_Your_Portfolio.images") || [];
+    const updatedImages = images.filter((_, i) => i !== index);
+    setImages(updatedImages);
 
-    const updated = existing.filter((_, i) => i !== index);
+    const hfImages = form_step3.getValues("Upload_Your_Portfolio.images") || [];
+    const updatedHfImages = hfImages.filter((_, i) => i !== index);
 
-    form_step3.setValue("Upload_Your_Portfolio.images", updated, {
-      shouldValidate: true,
+    form_step3.setValue("Upload_Your_Portfolio.images", updatedHfImages, {
       shouldDirty: true,
+      shouldValidate: true,
     });
   };
 
   const onSubmit = async (payload: ApplicationFormSchema_Step3) => {
-    const filteredData = filteredPayload(payload);
+    const filtered = filteredPayload(payload);
 
     const data = {
-      ...filteredData,
+      ...filtered,
       step_3: true,
+      // Payment_Status: "Paid",
     };
-
-    // const formId = localStorage.getItem("admissionId");
 
     try {
       await updateAdmission(
@@ -138,13 +152,13 @@ const FormStep3 = ({
 
   return (
     <FormProvider {...form_step3}>
-      <form onSubmit={handleSubmit(onSubmit)} className=" bg-background p-8">
+      <form onSubmit={handleSubmit(onSubmit)} className="bg-background p-8">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl font-normal text-primary mb-8">
+          <h1 className="text-2xl text-[#E97451] font-urbanist mb-8">
             Upload Your Portfolio
           </h1>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+          <div className="grid grid-cols-1  sm:grid-cols-2 gap-8 mb-12">
             <div>
               <label
                 htmlFor="portfolio"
@@ -152,46 +166,44 @@ const FormStep3 = ({
               >
                 Upload Images<span className="text-destructive">*</span>
               </label>
+
               <UploadArea onFilesSelected={handleFilesSelected} />
+
               <p className="text-xs text-muted-foreground mt-2">
                 Max. file size not more than 1MB.
               </p>
 
               {errors.Upload_Your_Portfolio?.images && (
                 <p className="text-xs text-destructive mt-2">
-                  {errors.Upload_Your_Portfolio?.images.message}
+                  {errors.Upload_Your_Portfolio.images.message}
                 </p>
               )}
             </div>
 
             <div className="lg:pl-8">
               <ImageGrid
-                images={images ?? admissionData?.Upload_Your_Portfolio?.images}
+                images={images as UploadedImage[]}
                 onRemove={handleRemoveImage}
               />
             </div>
           </div>
-        </div>
 
-        <div className="flex justify-start gap-3 mt-10 pt-6">
-          <ButtonWidget
-            type="button"
-            onClick={onPrevStep}
-            className={cn(
-              "px-6 py-2 bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
-            )}
-          >
-            Back
-          </ButtonWidget>
+          <div className="flex justify-start gap-3 mt-10 pt-6">
+            <ButtonWidget
+              type="button"
+              onClick={onPrevStep}
+              className={cn(
+                "px-6 py-2 bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50",
+              )}
+            >
+              Back
+            </ButtonWidget>
 
-          <ButtonWidget
-            type="submit"
-            // onClick={handleNextStep}
-            // disabled={!!errors}
-            className="px-6 py-2 bg-chart-1 text-white rounded-full hover:bg-red-700 transition-colors"
-          >
-            Preview Application
-          </ButtonWidget>
+            <OrangeButtonWidget
+              content="Preview Application"
+              className="px-6 py-2 bg-chart-1 text-white rounded-full hover:bg-red-700 transition-colors"
+            />
+          </div>
         </div>
       </form>
     </FormProvider>

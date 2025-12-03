@@ -5,6 +5,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { EducationDetails } from "@/components/sections/admission-form/_components/education-details";
 import { WorkExperience } from "@/components/sections/admission-form/_components/work-experience";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
+import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { filteredPayload, notify } from "@/helpers/ConstantHelper";
 import {
   type ApplicationFormSchema_Step2,
@@ -67,8 +68,8 @@ const FormStep2 = ({
               {
                 designation: "",
                 employer: "",
-                duration_start: "",
-                duration_end: "",
+                duration_start: "2025-12-02",
+                duration_end: "2025-12-10",
                 reference_letter: 0,
               },
             ],
@@ -76,18 +77,7 @@ const FormStep2 = ({
     },
   });
 
-  const { control, handleSubmit, setValue, watch } = form_step2;
-
-  const selectEndDate = (index: number, date: string) => {
-    setValue(`Work_Experience.${index}.duration_end`, date, {
-      shouldValidate: true,
-    });
-  };
-
-  const onWatchEndDate = (index: number) => {
-    const duration_end = watch(`Work_Experience.${index}.duration_end`);
-    return duration_end?.split("-").reverse().join("-");
-  };
+  const { control, handleSubmit } = form_step2;
 
   const onSubmit = async (payload: ApplicationFormSchema_Step2) => {
     const filteredData = filteredPayload(payload);
@@ -97,16 +87,12 @@ const FormStep2 = ({
       step_2: true,
     };
 
-    // const formId = localStorage.getItem("admissionId");
-
     try {
       await updateAdmission(
         admissionData?.documentId as string,
         data as ApplicationFormSchema_Step2,
       );
-      notify({ success: true, message: "Admission submitted successfully" });
       onNextStep(3);
-      alert("Application submitted successfully!");
     } catch (error) {
       notify({ success: false, message: error as string });
     }
@@ -119,12 +105,7 @@ const FormStep2 = ({
         className="space-y-12 py-8 px-4 md:px-8 bg-background max-w-4xl mx-auto"
       >
         <EducationDetails admissionData={admissionData} control={control} />
-        <WorkExperience
-          admissionData={admissionData}
-          control={control}
-          onWatchEndDate={onWatchEndDate}
-          onSelectEndDate={selectEndDate}
-        />
+        <WorkExperience admissionData={admissionData} control={control} />
 
         <div className="flex justify-start gap-3 mt-10 pt-6">
           <ButtonWidget
@@ -139,14 +120,10 @@ const FormStep2 = ({
             Back
           </ButtonWidget>
 
-          <ButtonWidget
-            type="submit"
-            // onClick={handleNextStep}
-            // disabled={!!errors}
+          <OrangeButtonWidget
+            content="Save & Continue"
             className="px-6 py-2 bg-chart-1 text-white rounded-full hover:bg-red-700 transition-colors"
-          >
-            Save & Continue
-          </ButtonWidget>
+          />
         </div>
       </form>
     </FormProvider>

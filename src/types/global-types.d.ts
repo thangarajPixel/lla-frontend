@@ -38,3 +38,25 @@ type ToastPosition =
 type FileUploadResponse = {
   data: { id: number }[];
 };
+
+type UploadRes = {
+  id: number;
+  documentId: string;
+  name: string;
+  alternativeText: null;
+  caption: null;
+  width: null;
+  height: null;
+  formats: null;
+  hash: string;
+  ext: string;
+  mime: string;
+  size: number;
+  url: string;
+  previewUrl: null;
+  provider: string;
+  provider_metadata: null;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+};

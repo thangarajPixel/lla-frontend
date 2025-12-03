@@ -1,24 +1,21 @@
 "use client";
 
-import { Plus } from "lucide-react";
+import { Plus, X } from "lucide-react";
 import { type Control, useFieldArray } from "react-hook-form";
-import { FormDatePicker, FormInput } from "@/components/form";
+import { FormInput } from "@/components/form";
 import FormFileUploadButton from "@/components/form/FormFileUploadButton";
-import ButtonWidget from "@/components/widgets/ButtonWidget";
+import FormDateRangePickerWithInput from "@/components/form/FormInputDateRangePicker";
+import { Button } from "@/components/ui/button";
 import type { ApplicationFormSchema_Step2 } from "@/helpers/ValidationHelper";
 
 type WorkExperienceProps = {
   admissionData?: AdmissionFormData;
   control: Control<ApplicationFormSchema_Step2>;
-  onWatchEndDate?: (index: number) => void;
-  onSelectEndDate?: (index: number, value: string) => void;
 };
 
 export function WorkExperience({
   admissionData,
   control,
-  onWatchEndDate,
-  onSelectEndDate,
 }: WorkExperienceProps) {
   const { fields, append, remove } = useFieldArray({
     control: control,
@@ -37,7 +34,7 @@ export function WorkExperience({
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl text-[#E97451]">Work Experience</h2>
+      <h2 className="text-2xl text-[#E97451] font-urbanist">Work Experience</h2>
 
       {fields?.map((experience, index) => (
         <div key={experience.id} className="space-y-6">
@@ -46,12 +43,14 @@ export function WorkExperience({
               <h2 className="mb-4 text-chart-1 font-medium">
                 Work Experience - {index}
               </h2>
-              <ButtonWidget
+
+              <Button
+                type="button"
                 onClick={() => remove(index)}
-                className="bg-chart-1 text-white hover:bg-chart-1/80 text-xs px-2"
+                className="flex relative bottom-2 items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
               >
-                Remove
-              </ButtonWidget>
+                <X className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
+              </Button>
             </div>
           )}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -75,15 +74,12 @@ export function WorkExperience({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <FormDatePicker
-              name={`Work_Experience.${index}.duration_start`}
-              placeholder="DD/MM/YYYY"
-              label="Enter Duration"
+            <FormDateRangePickerWithInput
+              startName={`Work_Experience.${index}.duration_start`}
+              endName={`Work_Experience.${index}.duration_end`}
               control={control}
-              dateRange
-              index={index}
-              endDate={onWatchEndDate}
-              onSelectEndDate={onSelectEndDate}
+              label="Enter Duration"
+              required
             />
 
             <FormFileUploadButton
