@@ -74,7 +74,7 @@ const FormStep3 = ({
 
     const validFiles = files.filter((file) => {
       if (file.size > MAX_SIZE) {
-        alert(`${file.name} exceeds 1MB limit`);
+        notify({ success: false, message: `${file.name} exceeds 1MB limit` });
         return false;
       }
       return true;

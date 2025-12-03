@@ -127,6 +127,8 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
     formState: { errors },
   } = form_step1;
 
+  console.log(form_step1.formState.errors, "errors");
+
   const {
     fields: languageFields,
     append,
@@ -217,6 +219,7 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
       ...filteredData,
       step_1: true,
     };
+
 
     try {
       if (admissionData?.id) {

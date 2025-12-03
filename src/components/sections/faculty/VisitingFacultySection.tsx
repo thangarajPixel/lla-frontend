@@ -2,11 +2,9 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import type { PhotographyFacultySectionProps } from "./utils/faculty";
+import type { VisitingFacultySectionProps } from "./utils/faculty";
 
-const PhotographyFacultySection = ({
-  data,
-}: PhotographyFacultySectionProps) => {
+const VisitingFacultySection = ({ data }: VisitingFacultySectionProps) => {
   return (
     <section className="w-full bg-[#ECECEC] py-8 sm:py-12 md:py-16 lg:py-20 xl:py-20 2xl:py-22 3xl:py-25">
       <ContainerWidget>
@@ -48,4 +46,4 @@ const PhotographyFacultySection = ({
   );
 };
 
-export default PhotographyFacultySection;
+export default VisitingFacultySection;

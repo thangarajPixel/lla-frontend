@@ -140,11 +140,10 @@ export const validateDimensions = (file: File): Promise<boolean> => {
       const width = img.width;
       const height = img.height;
 
-      // revoke object URL once loaded to free memory
       URL.revokeObjectURL(objectUrl);
 
-      const maxWidth = 36000; // 12 inches @300dpi
-      const maxHeight = 24000; // 8 inches @300dpi
+      const maxWidth = 36000;
+      const maxHeight = 24000;
 
       if (width > maxWidth || height > maxHeight) {
         alert(
@@ -201,7 +200,6 @@ export const filteredPayload = <T>(input: T): T | undefined => {
 };
 
 export const encryptId = (id: number): string => {
-  // Base64 encode with some obfuscation
   const encoded = btoa(id + "_lla_" + Date.now().toString().slice(-4));
   return encoded.replace(/[+/=]/g, (match) => {
     switch (match) {
@@ -220,6 +218,5 @@ export const encryptId = (id: number): string => {
 export const decryptCode = (str: string) => {
   const padded = str + "=".repeat((4 - (str.length % 4)) % 4);
   const decoded = Buffer.from(padded, "base64").toString();
-  // return decoded.slice(0, 2);
   return decoded.split("_")[0];
 };

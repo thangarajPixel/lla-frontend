@@ -68,8 +68,8 @@ const FormStep2 = ({
               {
                 designation: "",
                 employer: "",
-                duration_start: "2025-12-02",
-                duration_end: "2025-12-10",
+                duration_start: "",
+                duration_end: "",
                 reference_letter: 0,
               },
             ],

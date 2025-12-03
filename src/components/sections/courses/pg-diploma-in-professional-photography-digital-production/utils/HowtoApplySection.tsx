@@ -60,11 +60,11 @@ const HowtoApplySection = () => {
                       />
                     </div>
 
-                    <h3 className="text-[#E97451] font-urbanist text-lg sm:text-[18px] 3xl:text-[24px] font-normal mb-3 pr-16 lg:pr-20">
+                    <h3 className="text-[#E97451] font-urbanist text-lg sm:text-[18px] xl:text-[14px] 2xl:text-[18px] 3xl:text-[24px] font-normal mb-3 pr-16 lg:pr-20">
                       {step.title}
                     </h3>
 
-                    <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[760px]">
+                    <p className="text-[16px] lg:text-[15px] xl:text-[14px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[760px]">
                       {step.description}
                     </p>
                   </div>
