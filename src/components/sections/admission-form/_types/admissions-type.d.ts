@@ -60,7 +60,6 @@ type DocumentFile = {
   mime: string;
   previewUrl: string | null;
   provider: string;
-  provider_metadata: Record<string, unknown> | null;
   publishedAt: string;
   size: number;
   updatedAt: string;
@@ -79,11 +78,11 @@ type State = {
 
 type AddressChild = {
   text: string;
-  type?: string; // usually "text"
+  type?: string;
 };
 
 type AddressBlock = {
-  type: string; // usually "paragraph"
+  type: string;
   children: AddressChild[];
 };
 
@@ -169,7 +168,7 @@ type UnderGraduate = {
 };
 
 type PostGraduate = {
-  // id: number;
+  id: number;
   degree: string;
   marksheet: DocumentFile;
   pg_status: string;
@@ -179,8 +178,8 @@ type WorkExperience = {
   id: number;
   designation: string;
   employer: string;
-  duration_start: string; // ISO date
-  duration_end: string; // ISO date
+  duration_start: string;
+  duration_end: string;
   reference_letter: DocumentFile;
 };
 
@@ -188,10 +187,6 @@ type Portfolio = {
   id: number;
   images: DocumentFile[];
 };
-
-//  type PortfolioImage = {
-//   id: number;
-// }
 
 type AdmissionListResponse = {
   data: AdmissionFormData[];

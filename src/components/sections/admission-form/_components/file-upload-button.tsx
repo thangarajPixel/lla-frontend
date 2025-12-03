@@ -155,23 +155,26 @@ export function FileUploadButton({
       </p>
 
       <div className="flex-1 min-w-0">
-        {!isRemoved &&
-          (preview || defaultValue?.mime?.startsWith("image/") ? (
-            <div className="w-12 h-12 rounded bg-muted flex items-center justify-center shrink-0 overflow-hidden">
-              <Image
-                width={100}
-                height={100}
-                src={preview || defaultValue?.url || "/placeholder.svg"}
-                alt={selectedFile?.name ?? ""}
-                className="w-full h-full object-cover rounded"
-              />
-            </div>
-          ) : (
-            <div className="text-muted-foreground">
-              {(selectedFile || defaultValue) &&
-                getFileIcon(selectedFile?.type ?? defaultValue?.mime ?? "")}
-            </div>
-          ))}
+        {!isRemoved && (
+          <>
+            {preview || defaultValue?.mime?.startsWith("image/") ? (
+              <div className="w-12 h-12 rounded bg-muted flex items-center justify-center shrink-0 overflow-hidden">
+                <Image
+                  width={100}
+                  height={100}
+                  src={preview || defaultValue?.url || "/placeholder.svg"}
+                  alt={selectedFile?.name ?? ""}
+                  className="w-full h-full object-cover rounded"
+                />
+              </div>
+            ) : (
+              <div className="text-muted-foreground">
+                {(selectedFile || defaultValue) &&
+                  getFileIcon(selectedFile?.type ?? defaultValue?.mime ?? "")}
+              </div>
+            )}
+          </>
+        )}
 
         {(selectedFile || defaultValue) && !isRemoved && (
           <>
