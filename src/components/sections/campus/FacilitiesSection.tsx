@@ -1,37 +1,38 @@
 "use client";
 
+import type { StaticImageData } from "next/image";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import { Dummy1 } from "@/helpers/ImageHelper";
 
-const facilities = [
-  { id: 1, name: "Classroom", image: Dummy1 },
-  { id: 2, name: "Get mentored by Iqbal Mohamed", image: Dummy1 },
-  { id: 3, name: "Day Light Studio", image: Dummy1 },
-  { id: 4, name: "4500 sq ft. Automobile Studio", image: Dummy1 },
-  { id: 5, name: "Equipment Room", image: Dummy1 },
-  { id: 6, name: "Auditorium", image: Dummy1 },
-  { id: 7, name: "Library", image: Dummy1 },
-  { id: 8, name: "Prop Room", image: Dummy1 },
-  { id: 9, name: "Cafeteria", image: Dummy1 },
-  { id: 10, name: "Reception", image: Dummy1 },
-  { id: 11, name: "Student Hangout Space", image: Dummy1 },
-  { id: 12, name: "Football Ground", image: Dummy1 },
-  { id: 13, name: "Table Tennis Room", image: Dummy1 },
-  { id: 14, name: "Carrom Room", image: Dummy1 },
-];
+type FacilitiesSectionProps = {
+  data: {
+    Title: string;
+    Heading: string;
+    SubHeading: string | null;
+    Card: Array<{
+      id: number;
+      name?: string;
+      Title?: string;
+      image?: string | StaticImageData;
+      Image?: {
+        url: string;
+      };
+    }>;
+  };
+};
 
-const FacilitiesSection = ({ data }) => {
-  const facilitiesData = data?.Card || facilities;
+const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
+  const facilitiesData = data?.Card || [];
 
   return (
     <section className="w-full bg-white py-8 md:py-12 lg:py-16 xl:py-16 2xl:py-16 3xl:py-28">
       <ContainerWidget>
         <div className="space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12 2xl:space-y-14 3xl:space-y-16">
           <ScrollWidget animation="fadeUp" delay={0.1}>
-            <div className="space-y-4 md:space-y-4 w-full md:max-w-[550px]">
+            <div className="space-y-4 md:space-y-4 w-full md:max-w-[650px]">
               <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[64px] font-semibold md:font-normal text-black font-urbanist">
                 {data?.Title || "Facilities"}
               </h2>
