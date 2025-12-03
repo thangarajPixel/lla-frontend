@@ -1,13 +1,13 @@
 "use client";
 
 import { useRef, useState } from "react";
-import ContainerWidget from "@/components/widgets/ContainerWidget";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import ContainerWidget from "@/components/widgets/ContainerWidget";
 
 type FaqCategory = {
   id: string;
@@ -30,15 +30,19 @@ const faqData: FaqCategory[] = [
       },
       {
         question: "Can I visit the campus?",
-        answer: "Yes, campus visits are welcome. Please contact us in advance to schedule your visit.",
+        answer:
+          "Yes, campus visits are welcome. Please contact us in advance to schedule your visit.",
       },
       {
         question: "What is the weather like in Nilgiris?",
-        answer: "Nilgiris has a pleasant climate throughout the year with cool temperatures ranging from 10°C to 25°C.",
+        answer:
+          "Nilgiris has a pleasant climate throughout the year with cool temperatures ranging from 10°C to 25°C.",
       },
       {
-        question: "What is a typical week in college like for full time PG Diploma students?",
-        answer: "Students engage in practical sessions, theory classes, assignments, and collaborative projects throughout the week.",
+        question:
+          "What is a typical week in college like for full time PG Diploma students?",
+        answer:
+          "Students engage in practical sessions, theory classes, assignments, and collaborative projects throughout the week.",
       },
       {
         question: "What is the language of instruction?",
@@ -46,7 +50,8 @@ const faqData: FaqCategory[] = [
       },
       {
         question: "What kind of careers are the alumni in?",
-        answer: "Our alumni work in various fields including photography, filmmaking, media, advertising, and creative industries.",
+        answer:
+          "Our alumni work in various fields including photography, filmmaking, media, advertising, and creative industries.",
       },
     ],
   },
@@ -56,27 +61,33 @@ const faqData: FaqCategory[] = [
     questions: [
       {
         question: "Does LLA provide hostel facilities?",
-        answer: "Yes, we provide comfortable hostel facilities for both male and female students with all necessary amenities.",
+        answer:
+          "Yes, we provide comfortable hostel facilities for both male and female students with all necessary amenities.",
       },
       {
         question: "Does LLA provide food and transport?",
-        answer: "Yes, we provide nutritious meals and transportation facilities for students.",
+        answer:
+          "Yes, we provide nutritious meals and transportation facilities for students.",
       },
       {
         question: "What is Light & Life Academy's studio access policy?",
-        answer: "Students have access to our studios during designated hours with proper supervision and booking procedures.",
+        answer:
+          "Students have access to our studios during designated hours with proper supervision and booking procedures.",
       },
       {
         question: "Who will be teaching me at LLA?",
-        answer: "Our faculty consists of experienced professionals and industry experts in photography and visual arts.",
+        answer:
+          "Our faculty consists of experienced professionals and industry experts in photography and visual arts.",
       },
       {
         question: "Can I speak to current faculty members/students?",
-        answer: "Yes, we can arrange interactions with current faculty and students during campus visits or open house events.",
+        answer:
+          "Yes, we can arrange interactions with current faculty and students during campus visits or open house events.",
       },
       {
         question: "Does Light & Life Academy provide placements?",
-        answer: "We provide career guidance, portfolio development support, and connect students with industry opportunities.",
+        answer:
+          "We provide career guidance, portfolio development support, and connect students with industry opportunities.",
       },
     ],
   },
@@ -86,19 +97,23 @@ const faqData: FaqCategory[] = [
     questions: [
       {
         question: "What are the courses offered?",
-        answer: "We offer PG Diploma in Photography, specialized workshops, and short-term courses in various photography genres.",
+        answer:
+          "We offer PG Diploma in Photography, specialized workshops, and short-term courses in various photography genres.",
       },
       {
         question: "What are the course durations?",
-        answer: "The PG Diploma is a full-time program. Workshop durations vary from a few days to several weeks.",
+        answer:
+          "The PG Diploma is a full-time program. Workshop durations vary from a few days to several weeks.",
       },
       {
         question: "Can I do these courses online?",
-        answer: "Currently, our courses are primarily in-person to provide hands-on practical experience. Some theory sessions may be available online.",
+        answer:
+          "Currently, our courses are primarily in-person to provide hands-on practical experience. Some theory sessions may be available online.",
       },
       {
         question: "Are courses by Light & Life Academy recognised?",
-        answer: "Our courses are industry-recognized and our alumni are well-regarded in the professional photography community.",
+        answer:
+          "Our courses are industry-recognized and our alumni are well-regarded in the professional photography community.",
       },
       {
         question: "What is the language of instruction?",
@@ -106,7 +121,8 @@ const faqData: FaqCategory[] = [
       },
       {
         question: "What kind of careers are the alumni in?",
-        answer: "Our alumni work as professional photographers, cinematographers, photo editors, visual artists, and in various creative roles.",
+        answer:
+          "Our alumni work as professional photographers, cinematographers, photo editors, visual artists, and in various creative roles.",
       },
     ],
   },
@@ -116,19 +132,23 @@ const faqData: FaqCategory[] = [
     questions: [
       {
         question: "What is covered in the PG Diploma program?",
-        answer: "The program covers technical photography skills, visual storytelling, lighting techniques, post-processing, portfolio development, and professional practices.",
+        answer:
+          "The program covers technical photography skills, visual storytelling, lighting techniques, post-processing, portfolio development, and professional practices.",
       },
       {
         question: "What equipment will I need?",
-        answer: "Students are required to have their own DSLR or mirrorless camera. The academy provides studio equipment and lighting for practical sessions.",
+        answer:
+          "Students are required to have their own DSLR or mirrorless camera. The academy provides studio equipment and lighting for practical sessions.",
       },
       {
         question: "Is there any practical training included?",
-        answer: "Yes, the program is heavily focused on practical training with studio sessions, outdoor shoots, and real-world projects.",
+        answer:
+          "Yes, the program is heavily focused on practical training with studio sessions, outdoor shoots, and real-world projects.",
       },
       {
         question: "Will I get a certificate upon completion?",
-        answer: "Yes, students receive a PG Diploma certificate from Light & Life Academy upon successful completion of the program.",
+        answer:
+          "Yes, students receive a PG Diploma certificate from Light & Life Academy upon successful completion of the program.",
       },
     ],
   },
@@ -138,19 +158,23 @@ const faqData: FaqCategory[] = [
     questions: [
       {
         question: "What is the fee structure for the PG Diploma?",
-        answer: "Please contact our admissions office for detailed fee structure and payment plans.",
+        answer:
+          "Please contact our admissions office for detailed fee structure and payment plans.",
       },
       {
         question: "Are there any scholarships available?",
-        answer: "We offer merit-based scholarships and financial assistance to deserving students. Please inquire during the admission process.",
+        answer:
+          "We offer merit-based scholarships and financial assistance to deserving students. Please inquire during the admission process.",
       },
       {
         question: "What does the fee include?",
-        answer: "The fee includes tuition, access to facilities, basic materials, and hostel accommodation (if opted).",
+        answer:
+          "The fee includes tuition, access to facilities, basic materials, and hostel accommodation (if opted).",
       },
       {
         question: "Are there any additional costs?",
-        answer: "Additional costs may include personal equipment, specialized materials for projects, and optional field trips.",
+        answer:
+          "Additional costs may include personal equipment, specialized materials for projects, and optional field trips.",
       },
     ],
   },
@@ -160,23 +184,28 @@ const faqData: FaqCategory[] = [
     questions: [
       {
         question: "What are the eligibility criteria?",
-        answer: "Applicants should have completed their undergraduate degree in any discipline. A passion for photography and creative aptitude are essential.",
+        answer:
+          "Applicants should have completed their undergraduate degree in any discipline. A passion for photography and creative aptitude are essential.",
       },
       {
         question: "How do I apply?",
-        answer: "You can apply online through our website by filling out the application form and submitting the required documents.",
+        answer:
+          "You can apply online through our website by filling out the application form and submitting the required documents.",
       },
       {
         question: "Is there an entrance exam or interview?",
-        answer: "Yes, shortlisted candidates will be called for a portfolio review and personal interview.",
+        answer:
+          "Yes, shortlisted candidates will be called for a portfolio review and personal interview.",
       },
       {
         question: "When does the admission process start?",
-        answer: "Admissions typically open in early spring. Please check our website for specific dates and deadlines.",
+        answer:
+          "Admissions typically open in early spring. Please check our website for specific dates and deadlines.",
       },
       {
         question: "What documents are required?",
-        answer: "Required documents include academic transcripts, ID proof, passport-size photographs, and a portfolio of your work (if available).",
+        answer:
+          "Required documents include academic transcripts, ID proof, passport-size photographs, and a portfolio of your work (if available).",
       },
     ],
   },
