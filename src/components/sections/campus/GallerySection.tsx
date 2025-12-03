@@ -1,0 +1,283 @@
+"use client";
+
+import Autoplay from "embla-carousel-autoplay";
+import useEmblaCarousel from "embla-carousel-react";
+import { useEffect, useState } from "react";
+import ImageWidget from "@/components/widgets/ImageWidget";
+import LinkWidget from "@/components/widgets/LinkWidget";
+import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
+import ParallaxWidget from "@/components/widgets/ParallaxWidget";
+import { getS3Url } from "@/helpers/ConstantHelper";
+import {
+  Dummy3,
+  Dummy4,
+  Dummy5,
+  Dummy6,
+  Dummy7,
+  Dummy8,
+  Dummy9,
+  Dummy10,
+} from "@/helpers/ImageHelper";
+import type { GallerySectionProps } from "./utils/campus";
+
+const GallertSection = ({ data }: GallerySectionProps) => {
+  const galleryImages = data.Image || [];
+
+  const [randomIndices, setRandomIndices] = useState<number[]>(() => {
+    return Array.from({ length: 8 }, (_, i) => i);
+  });
+
+  useEffect(() => {
+    const shuffleIndices = () => {
+      if (galleryImages.length > 8) {
+        const shuffled = [...galleryImages]
+          .map((_, index) => index)
+          .sort(() => Math.random() - 0.5);
+        setRandomIndices(shuffled.slice(0, 8));
+      } else {
+        setRandomIndices(
+          Array.from(
+            { length: Math.min(8, galleryImages.length) },
+            (_, i) => i,
+          ),
+        );
+      }
+    };
+
+    shuffleIndices();
+
+    const interval = setInterval(shuffleIndices, 3000);
+
+    return () => clearInterval(interval);
+  }, [galleryImages]);
+
+  const getImageUrl = (position: number) => {
+    const actualIndex = randomIndices[position] ?? position;
+    if (galleryImages[actualIndex]) {
+      return getS3Url(galleryImages[actualIndex].url);
+    }
+    const fallbackImages = [
+      Dummy3,
+      Dummy4,
+      Dummy5,
+      Dummy6,
+      Dummy7,
+      Dummy8,
+      Dummy9,
+      Dummy10,
+    ];
+    return fallbackImages[position % fallbackImages.length];
+  };
+
+  const [emblaRef1] = useEmblaCarousel(
+    {
+      align: "start",
+      slidesToScroll: 1,
+      loop: true,
+      dragFree: false,
+      direction: "rtl",
+    },
+    [
+      Autoplay({
+        delay: 2000,
+        stopOnInteraction: false,
+        stopOnMouseEnter: true,
+      }),
+    ],
+  );
+
+  const [emblaRef2] = useEmblaCarousel(
+    {
+      align: "start",
+      slidesToScroll: 1,
+      loop: true,
+      dragFree: false,
+      direction: "ltr",
+    },
+    [
+      Autoplay({
+        delay: 2000,
+        stopOnInteraction: false,
+        stopOnMouseEnter: true,
+      }),
+    ],
+  );
+
+  return (
+    <section className="bg-[#ECECEC]">
+      <div className="w-full py-8 md:py-12 lg:py-16 xl:py-24 2xl:py-24 3xl:py-38 max-w-[1920px] mx-auto lg:w-[90vw]">
+        <div className="mb-6 md:hidden text-left px-5 lg:text-center lg:pl-0">
+          <h2 className="text-3xl xss:text-[32px] font-normal text-black font-urbanist mb-2">
+            {data.Title || "Gallery"}
+          </h2>
+          <p className="text-sm xss:text-[16px] sm:text-base lg:text-[15px] 2xl:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
+            {data.Heading}
+          </p>
+          <div className="mt-6 text-left lg:text-center md:hidden">
+            <LinkWidget href="/gallery" className="w-full">
+              <OrangeButtonWidget content={data.Btn_txt || "View More"} />
+            </LinkWidget>
+          </div>
+        </div>
+
+        <div className="hidden lg:grid grid-cols-5 gap-6 3xl:gap-0">
+          <div className="flex flex-col gap-6 mt-[50px]">
+            <ParallaxWidget speed={7}>
+              <div className="relative w-full aspect-4/3 mb-6 3xl:mb-11 overflow-hidden">
+                <ImageWidget
+                  src={getImageUrl(0)}
+                  alt="Gallery"
+                  fill
+                  className="object-cover 3xl:max-w-[300px] 3xl:max-h-[300px] 3xl:min-w-[300px] 3xl:min-h-[300px]"
+                />
+              </div>
+              <div className="relative w-full aspect-4/3 overflow-hidden">
+                <ImageWidget
+                  src={getImageUrl(1)}
+                  alt="Gallery"
+                  fill
+                  className="object-cover 3xl:max-w-[300px] 3xl:max-h-[300px] 3xl:min-w-[300px] 3xl:min-h-[300px]"
+                />
+              </div>
+            </ParallaxWidget>
+          </div>
+          <div className="flex flex-col gap-6 mt-[350px] z-5 relative">
+            <ParallaxWidget speed={4}>
+              <div className="relative w-full aspect-4/3 mb-6 3xl:mb-11 overflow-hidden">
+                <ImageWidget
+                  src={getImageUrl(2)}
+                  alt="Gallery"
+                  fill
+                  className="object-cover 3xl:max-w-[300px] 3xl:max-h-[300px] 3xl:min-w-[300px] 3xl:min-h-[300px]"
+                />
+              </div>
+              <div className="relative w-full aspect-4/3 overflow-hidden">
+                <ImageWidget
+                  src={getImageUrl(3)}
+                  alt="Gallery"
+                  fill
+                  className="object-cover 3xl:max-w-[300px] 3xl:max-h-[300px] 3xl:min-w-[300px] 3xl:min-h-[300px]"
+                />
+              </div>
+            </ParallaxWidget>
+          </div>
+          <div className="flex flex-col gap-6 z-1 relative">
+            <div className="flex flex-col justify-end  items-center gap-2">
+              <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist mb-6">
+                {data.Title || "Gallery"}
+              </h2>
+              <p className="font-mulish font-normal text-base xss:text-[24px] md:text-lg lg:text-xl xl:text-[14px] 2xl:text-[14px] 3xl:text-[40px] text-black text-center relative min-w-[500px]">
+                {data.Heading}
+              </p>
+              <div className="mt-6 text-left lg:text-center">
+                <LinkWidget href="/gallery" className="w-full">
+                  <OrangeButtonWidget content={data.Btn_txt || "View More"} />
+                </LinkWidget>
+              </div>
+            </div>
+            <div className="relative w-full aspect-2/3 mt-20 overflow-hidden">
+              <ImageWidget
+                src={getImageUrl(7)}
+                alt="Gallery"
+                fill
+                className="object-cover 3xl:max-w-[300px] 3xl:max-h-[300px] 3xl:min-w-[300px] 3xl:min-h-[300px]"
+              />
+            </div>
+          </div>
+          <div className="flex flex-col gap-6 mt-[350px] z-5 relative">
+            <ParallaxWidget speed={4}>
+              <div className="relative w-full aspect-4/3 mb-6 3xl:mb-11 overflow-hidden">
+                <ImageWidget
+                  src={getImageUrl(4)}
+                  alt="Gallery"
+                  fill
+                  className="object-cover 3xl:max-w-[300px] 3xl:max-h-[300px] 3xl:min-w-[300px] 3xl:min-h-[300px]"
+                />
+              </div>
+              <div className="relative w-full aspect-4/3 overflow-hidden">
+                <ImageWidget
+                  src={getImageUrl(5)}
+                  alt="Gallery"
+                  fill
+                  className="object-cover 3xl:max-w-[300px] 3xl:max-h-[300px] 3xl:min-w-[300px] 3xl:min-h-[300px]"
+                />
+              </div>
+            </ParallaxWidget>
+          </div>
+          <div className="flex flex-col gap-6 mt-[50px]">
+            <ParallaxWidget speed={7}>
+              <div className="relative w-full aspect-4/3 mb-6 3xl:mb-11 overflow-hidden">
+                <ImageWidget
+                  src={getImageUrl(6)}
+                  alt="Gallery"
+                  fill
+                  className="object-cover 3xl:max-w-[300px] 3xl:max-h-[300px] 3xl:min-w-[300px] 3xl:min-h-[300px]"
+                />
+              </div>
+              <div className="relative w-full aspect-4/3 overflow-hidden">
+                <ImageWidget
+                  src={getImageUrl(0)}
+                  alt="Gallery"
+                  fill
+                  className="object-cover 3xl:max-w-[300px] 3xl:max-h-[300px] 3xl:min-w-[300px] 3xl:min-h-[300px]"
+                />
+              </div>
+            </ParallaxWidget>
+          </div>
+        </div>
+
+        <div className="lg:hidden space-y-4 overflow-hidden">
+          <div className="relative overflow-hidden">
+            <div
+              ref={emblaRef1}
+              className="overflow-hidden cursor-grab active:cursor-grabbing"
+              dir="rtl"
+            >
+              <div className="flex gap-4 touch-pan-x pl-5 pr-5">
+                {galleryImages.map((image) => (
+                  <div
+                    key={`row1-${image.id}`}
+                    className="relative flex-[0_0_45vw] aspect-square overflow-hidden min-w-0"
+                  >
+                    <ImageWidget
+                      src={getS3Url(image.url)}
+                      alt={image.name || "Gallery"}
+                      fill
+                      className="object-cover 3xl:max-w-[300px] 3xl:max-h-[300px] 3xl:min-w-[300px] 3xl:min-h-[300px]"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="relative overflow-hidden">
+            <div
+              ref={emblaRef2}
+              className="overflow-hidden cursor-grab active:cursor-grabbing"
+              dir="ltr"
+            >
+              <div className="flex gap-4 touch-pan-x pl-5 pr-5">
+                {galleryImages.map((image) => (
+                  <div
+                    key={`row2-${image.id}`}
+                    className="relative flex-[0_0_45vw] aspect-square overflow-hidden min-w-0"
+                  >
+                    <ImageWidget
+                      src={getS3Url(image.url)}
+                      alt={image.name || "Gallery"}
+                      fill
+                      className="object-cover 3xl:max-w-[300px] 3xl:max-h-[300px] 3xl:min-w-[300px] 3xl:min-h-[300px]"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default GallertSection;

@@ -6,10 +6,11 @@ import DialogWidget from "@/components/widgets/DialogWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import { Dummy1, Into, Play } from "@/helpers/ImageHelper";
+import { Into, Play } from "@/helpers/ImageHelper";
 import type { CampusHeroSectionProps } from "./utils/campus";
 
 const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
+  console.log(data);
   const stopAllVideos = () => {
     const videos = document.querySelectorAll("video");
     videos.forEach((video) => {
@@ -24,10 +25,10 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
         <ScrollWidget animation="fadeUp" delay={0.1}>
           <div className="flex flex-col justify-center h-full space-y-4  px-4 py-8 md:space-y-6 md:px-6 lg:px-8 xl:px-12 xl:pl-50 2xl:pl-58 2xl:pr-16 3xl:px-20 3xl:pl-74">
             <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
-              {data.Title || "Campus"}
+              {data.Title}
             </h3>
             <p className="font-area-variable font-normal text-base xss:text-[24px] md:text-lg lg:text-xl xl:text-[28px] 2xl:text-[30px] 3xl:text-[40px] text-black font-mulish">
-              {data.Heading || "Lorem ipsum dolor sit amet, consectetur"}
+              {data.Heading}
               {data.SubHeading && (
                 <span className="text-[#E97451] ml-2">{data.SubHeading}</span>
               )}
@@ -45,7 +46,7 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
               playsInline
             >
               <source
-                src={data?.Video?.url ? getS3Url(data.Video.url) : "/dummy.mp4"}
+                src={data?.Video?.url ? getS3Url(data.Video.url) : ""}
                 type="video/mp4"
               />
               <track kind="captions" srcLang="en" label="English" />
@@ -95,9 +96,7 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
             >
               <video className="w-full h-auto" controls autoPlay playsInline>
                 <source
-                  src={
-                    data?.Video?.url ? getS3Url(data.Video.url) : "/dummy.mp4"
-                  }
+                  src={data?.Video?.url ? getS3Url(data.Video.url) : ""}
                   type="video/mp4"
                 />
                 <track kind="captions" srcLang="en" label="English" />
@@ -117,9 +116,13 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
           <div className="relative w-full aspect-video h-auto xss:h-[361px] sm:h-[425px] 3xl:h-[525px] overflow-hidden">
             <ImageWidget
               src={
-                data?.BottomImage?.url ? getS3Url(data.BottomImage.url) : Dummy1
+                data?.Image?.url
+                  ? getS3Url(data.Image.url)
+                  : data?.BottomImage?.url
+                    ? getS3Url(data.BottomImage.url)
+                    : ""
               }
-              alt={data?.BottomImage?.name || "Campus"}
+              alt={data?.Image?.name || data?.BottomImage?.name || ""}
               fill
               className="object-cover"
             />
@@ -132,17 +135,18 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
           className="order-1 md:order-2"
         >
           <div className="flex flex-col justify-center h-full space-y-4 md:space-y-6 px-4 py-8 md:px-6 md:py-12 lg:px-8 lg:py-15 xl:px-12 xl:pr-50 2xl:pr-58 2xl:pl-16 3xl:pr-74 3xl:py-15">
-            <p className="text-sm xss:text-[16px] sm:text-base lg:text-[15px] 2xl:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
-              {data.Description ||
-                "Light and Life Academy is perched on a mountaintop about 7000 ft. above sea level near Ooty, Tamil Nadu, India, with a spectacular view of the Ketti valley, arguably the second largest inhabited valley in the world. The campus is an inspiring 60,000 sq ft theater with up to three seasons visiting it everyday. Custom-designed by one of India's most celebrated architects, Mr. Jaisim (recipient of NDTV award for Lifetime Achievement in Architecture), any part of the campus is a window to the continuously unfolding drama of the sights and sounds of nature."}
-            </p>
-            <p className="text-sm xss:text-[16px] sm:text-base lg:text-[15px] 2xl:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
-              The quality of light is perfect for students of photography.
-              Besides, as there are few distractions, the students stay focused
-              on photography. The locals and officials are not just supportive
-              but welcoming of cameras and photography, unlike most other
-              places. It is a truly conducive environment to create a picture.
-            </p>
+            {data.Description?.map((paragraph, index) => {
+              const textContent = paragraph.children?.[0]?.text || "";
+              if (!textContent) return null;
+              return (
+                <p
+                  key={index}
+                  className="text-sm xss:text-[16px] sm:text-base lg:text-[15px] 2xl:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal"
+                >
+                  {textContent}
+                </p>
+              );
+            })}
           </div>
         </ScrollWidget>
       </div>
