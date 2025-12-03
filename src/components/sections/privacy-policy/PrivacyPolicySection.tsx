@@ -48,8 +48,6 @@ const PrivacyPolicySection = () => {
               </div>
             </div>
           </div>
-
-          {/* How We Use Your Information */}
           <div className="mb-12">
             <h2 className="text-2xl md:text-3xl font-semibold text-black mb-6">
               How We Use Your Information
@@ -73,8 +71,6 @@ const PrivacyPolicySection = () => {
               </div>
             </div>
           </div>
-
-          {/* Data Security */}
           <div className="mb-12">
             <h2 className="text-2xl md:text-3xl font-semibold text-black mb-4">
               Data Security
@@ -84,8 +80,6 @@ const PrivacyPolicySection = () => {
               payment transactions are conducted through trusted third-party payment gateways using encryption protocols.
             </p>
           </div>
-
-          {/* Sharing of Information */}
           <div className="mb-12">
             <h2 className="text-2xl md:text-3xl font-semibold text-black mb-4">
               Sharing of Information
@@ -104,8 +98,6 @@ const PrivacyPolicySection = () => {
               </div>
             </div>
           </div>
-
-          {/* Cookies */}
           <div className="mb-12">
             <h2 className="text-2xl md:text-3xl font-semibold text-black mb-4">
               Cookies
@@ -115,8 +107,6 @@ const PrivacyPolicySection = () => {
               cookies if preferred.
             </p>
           </div>
-
-          {/* Contact Us */}
           <div className="mb-12">
             <h2 className="text-2xl md:text-3xl font-semibold text-black mb-4">
               Contact Us
@@ -129,8 +119,6 @@ const PrivacyPolicySection = () => {
               <p>Phone: +91 7508287370</p>
             </div>
           </div>
-
-          {/* Footer Note */}
           <div className="pt-3">
             <p className="text-sm text-black leading-relaxed">
               By submitting your application and fees, you agree to the terms of this Privacy Policy. We reserve the right to update this policy as needed, 
