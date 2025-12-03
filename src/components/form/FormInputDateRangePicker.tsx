@@ -99,7 +99,10 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
   const handleCalendarSelect = (r: { from?: Date; to?: Date } | undefined) => {
     if (!r) return;
 
-    setRange(r);
+    setRange({
+      from: r.from ?? undefined,
+      to: r.to ?? undefined,
+    });
 
     if (r.from) {
       setStart(format(r.from, STORE));
