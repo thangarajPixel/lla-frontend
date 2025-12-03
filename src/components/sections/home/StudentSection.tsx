@@ -158,7 +158,14 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                             playsInline
                             preload="metadata"
                             className="absolute inset-0 w-full h-full object-cover z-0 p-1.5"
-                          />
+                          >
+                            <track
+                              kind="captions"
+                              src="data:text/vtt;charset=utf-8,WEBVTT%0A%0A"
+                              srcLang="en"
+                              label="English captions"
+                            />
+                          </video>
                           <div className="relative z-20 flex items-end justify-between h-full">
                             <div
                               className="flex flex-col justify-end gap-3 bg-[#E97451]/80 w-full h-27 p-4"
@@ -226,7 +233,15 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                                   playsInline
                                   controls
                                   className="w-full h-full object-contain rounded-lg"
-                                />
+                                >
+                                  <track
+                                    kind="captions"
+                                    src="data:text/vtt;charset=utf-8,WEBVTT%0A%0A"
+                                    srcLang="en"
+                                    label="English captions"
+                                    default
+                                  />
+                                </video>
                               </div>
                             </DialogWidget>
                           </div>
