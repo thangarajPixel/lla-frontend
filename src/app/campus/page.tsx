@@ -1,4 +1,6 @@
+import { Fragment } from "react/jsx-runtime";
 import CampusHeroSection from "@/components/sections/campus/CampusHeroSection";
+import FacilitiesSection from "@/components/sections/campus/FacilitiesSection";
 
 const Campus = () => {
   const dummyData = {
@@ -24,7 +26,12 @@ const Campus = () => {
     },
   };
 
-  return <CampusHeroSection data={dummyData} />;
+  return (
+    <Fragment>
+      <CampusHeroSection data={dummyData} />
+      <FacilitiesSection data={[]} />
+    </Fragment>
+  );
 };
 
 export default Campus;

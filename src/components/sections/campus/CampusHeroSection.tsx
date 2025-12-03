@@ -26,7 +26,7 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
             <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
               {data.Title || "Campus"}
             </h3>
-            <p className="font-area-variable font-semibold text-base xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
+            <p className="font-area-variable font-normal text-base xss:text-[24px] md:text-lg lg:text-xl xl:text-[28px] 2xl:text-[30px] 3xl:text-[40px] text-black font-mulish">
               {data.Heading || "Lorem ipsum dolor sit amet, consectetur"}
               {data.SubHeading && (
                 <span className="text-[#E97451] ml-2">{data.SubHeading}</span>
