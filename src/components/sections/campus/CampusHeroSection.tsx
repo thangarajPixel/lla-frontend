@@ -92,6 +92,7 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
                   }
                   type="video/mp4"
                 />
+                <track kind="captions" srcLang="en" label="English" />
                 Your browser does not support the video tag.
               </video>
             </DialogWidget>

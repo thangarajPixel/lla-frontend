@@ -63,7 +63,7 @@ function isValidDate(date: Date | undefined) {
     return false;
   }
 
-  return !isNaN(date.getTime());
+  return !Number.isNaN(date.getTime());
 }
 
 const FormDatePicker = <T extends FieldValues>({
