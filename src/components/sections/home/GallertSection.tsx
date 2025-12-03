@@ -28,16 +28,24 @@ const GallertSection = ({ data }: GallerySectionProps) => {
   });
 
   useEffect(() => {
-    if (galleryImages.length > 8) {
-      const shuffled = [...galleryImages]
-        .map((_, index) => index)
-        .sort(() => Math.random() - 0.5);
-      setRandomIndices(shuffled.slice(0, 8));
-    } else {
-      setRandomIndices(
-        Array.from({ length: Math.min(8, galleryImages.length) }, (_, i) => i),
-      );
-    }
+    const shuffleIndices = () => {
+      if (galleryImages.length > 8) {
+        const shuffled = [...galleryImages]
+          .map((_, index) => index)
+          .sort(() => Math.random() - 0.5);
+        setRandomIndices(shuffled.slice(0, 8));
+      } else {
+        setRandomIndices(
+          Array.from({ length: Math.min(8, galleryImages.length) }, (_, i) => i),
+        );
+      }
+    };
+
+    shuffleIndices();
+
+    const interval = setInterval(shuffleIndices, 3000);
+
+    return () => clearInterval(interval);
   }, [galleryImages]);
 
   const getImageUrl = (position: number) => {
