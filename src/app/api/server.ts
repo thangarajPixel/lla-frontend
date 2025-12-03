@@ -47,3 +47,7 @@ export async function getAdmissionsPageData() {
 export async function getAdmissionsById(id: number) {
   return fetchData(`/admissions/${id}`);
 }
+
+export async function getCampusPageData() {
+  return fetchData("/campus");
+}
