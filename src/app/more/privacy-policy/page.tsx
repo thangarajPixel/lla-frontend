@@ -1,4 +1,4 @@
-import PrivacyPolicySection from "@/components/sections/privacy-policy/PrivacyPolicySection";
+import PrivacyPolicySection from "@/components/sections/more/privacy-policy/PrivacyPolicySection";
 
 const PrivacyPolicy = () => {
   return (
