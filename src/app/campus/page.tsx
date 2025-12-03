@@ -10,7 +10,7 @@ const Campus = () => {
     Video: {
       id: 1,
       name: "Campus Video",
-      url: "/dummy.mp4",
+      url: "",
     },
     TopImage: {
       id: 1,

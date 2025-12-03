@@ -6,7 +6,7 @@ import DialogWidget from "@/components/widgets/DialogWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import { Dummy1, Dummy2, Into, Play } from "@/helpers/ImageHelper";
+import { Dummy1, Into, Play } from "@/helpers/ImageHelper";
 import type { CampusHeroSectionProps } from "./utils/campus";
 
 const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
@@ -36,13 +36,21 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
         </ScrollWidget>
 
         <ScrollWidget animation="fadeUp" delay={0.2}>
-          <div className="relative w-full aspect-video h-auto xss:h-[361px] sm:h-[525px] 3xl:h-[525px] overflow-hidden">
-            <ImageWidget
-              src={data?.TopImage?.url ? getS3Url(data.TopImage.url) : Dummy2}
-              alt={data?.TopImage?.name || "Campus"}
-              fill
-              className="object-cover"
-            />
+          <div className="relative w-full aspect-video h-auto xss:h-[361px] sm:h-[425px] 3xl:h-[525px] overflow-hidden">
+            <video
+              className="w-full h-full object-cover"
+              autoPlay
+              loop
+              muted
+              playsInline
+            >
+              <source
+                src={data?.Video?.url ? getS3Url(data.Video.url) : "/dummy.mp4"}
+                type="video/mp4"
+              />
+              <track kind="captions" srcLang="en" label="English" />
+              Your browser does not support the video tag.
+            </video>
             <DialogWidget
               trigger={
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -106,7 +114,7 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
           delay={0.3}
           className="order-2 md:order-1"
         >
-          <div className="relative w-full aspect-video h-auto xss:h-[361px] sm:h-[525px] 3xl:h-[525px] overflow-hidden">
+          <div className="relative w-full aspect-video h-auto xss:h-[361px] sm:h-[425px] 3xl:h-[525px] overflow-hidden">
             <ImageWidget
               src={
                 data?.BottomImage?.url ? getS3Url(data.BottomImage.url) : Dummy1
@@ -124,11 +132,11 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
           className="order-1 md:order-2"
         >
           <div className="flex flex-col justify-center h-full space-y-4 md:space-y-6 px-4 py-8 md:px-6 md:py-12 lg:px-8 lg:py-15 xl:px-12 xl:pr-50 2xl:pr-58 2xl:pl-16 3xl:pr-74 3xl:py-15">
-            <p className="text-sm xss:text-[16px] sm:text-base lg:text-[15px] 2xl:text-[16px] 3xl:text-[18px] font-normal text-black leading-normal">
+            <p className="text-sm xss:text-[16px] sm:text-base lg:text-[15px] 2xl:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
               {data.Description ||
                 "Light and Life Academy is perched on a mountaintop about 7000 ft. above sea level near Ooty, Tamil Nadu, India, with a spectacular view of the Ketti valley, arguably the second largest inhabited valley in the world. The campus is an inspiring 60,000 sq ft theater with up to three seasons visiting it everyday. Custom-designed by one of India's most celebrated architects, Mr. Jaisim (recipient of NDTV award for Lifetime Achievement in Architecture), any part of the campus is a window to the continuously unfolding drama of the sights and sounds of nature."}
             </p>
-            <p className="text-sm xss:text-[16px] sm:text-base lg:text-[15px] 2xl:text-[16px] 3xl:text-[18px] font-normal text-black leading-normal">
+            <p className="text-sm xss:text-[16px] sm:text-base lg:text-[15px] 2xl:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
               The quality of light is perfect for students of photography.
               Besides, as there are few distractions, the students stay focused
               on photography. The locals and officials are not just supportive
