@@ -48,10 +48,7 @@ const FormRadioGroup = <T extends FieldValues>({
       )}
 
       {isLoading ? (
-        <div className="flex items-center justify-center py-6">
-          {/* <Recycle className="size-6 animate-spin" /> */}
-          Loading...
-        </div>
+        <div className="flex items-center justify-center py-6">Loading...</div>
       ) : (
         <div>
           <RadioGroup

@@ -1,4 +1,3 @@
-import { Fragment } from "react/jsx-runtime";
 import { cn } from "@/lib/utils";
 
 interface StepIndicatorProps {
@@ -16,7 +15,7 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
   const total_Steps = 3;
 
   return (
-    <Fragment>
+    <section className="mx-auto">
       <div className="flex items-center justify-between">
         {Array.from({ length: totalSteps }).map((_, index) => {
           const stepNum = index + 1;
@@ -84,6 +83,6 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
           );
         })}
       </div>
-    </Fragment>
+    </section>
   );
 }

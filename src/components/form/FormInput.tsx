@@ -41,7 +41,6 @@ const FormInput = <T extends FieldValues>({
     defaultValue,
   });
 
-  // Ensure value is never undefined or null
   const safeValue =
     field.value === undefined || field.value === null
       ? props.type === "number"

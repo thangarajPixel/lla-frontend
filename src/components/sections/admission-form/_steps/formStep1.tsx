@@ -7,11 +7,13 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
-import { FormDatePicker, FormInput, FormSelectBox } from "@/components/form";
+import { FormInput, FormSelectBox } from "@/components/form";
 import FormCheckBox from "@/components/form/FormCheckBox";
+import FormDatePickerWithInput from "@/components/form/FormInputDatePicker";
 import { Button } from "@/components/ui/button";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { encryptId, filteredPayload, notify } from "@/helpers/ConstantHelper";
 import { UploadIconImg } from "@/helpers/ImageHelper";
 import {
@@ -26,7 +28,6 @@ import AddressFields from "../_components/address-fields";
 
 type Step1FormProps = {
   admissionData?: AdmissionFormData;
-  // onNextStep: () => void;
   onNextStep: (step: number) => void;
   onPrevStep: () => void;
 };
@@ -41,10 +42,10 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
     resolver: zodResolver(applicationFormSchema_Step1),
     mode: "all",
     defaultValues: {
+      course_id: admissionData?.course_id ?? 1,
       name_title: admissionData?.name_title ?? "Mr.",
       first_name: admissionData?.first_name ?? "",
       last_name: admissionData?.last_name ?? "",
-      // date_of_birth: new Date(admissionData?.date_of_birth ?? ""),
       date_of_birth: admissionData?.date_of_birth ?? "",
       mobile_no: admissionData?.mobile_no ?? "",
       email: admissionData?.email ?? "",
@@ -63,23 +64,12 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
           type: "paragraph",
           children: [
             {
-              text: "anil",
+              text: "",
               type: "text",
             },
           ],
         },
       ],
-      // address: admissionData?.address ?? [
-      //   {
-      //     type: "paragraph",
-      //     children: [
-      //       {
-      //         text: "anil",
-      //         type: "text",
-      //       },
-      //     ],
-      //   },
-      // ],
       city: admissionData?.city ?? "",
       district: admissionData?.district ?? "",
       state: admissionData?.state?.documentId ?? "",
@@ -96,9 +86,10 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
         mobile_no:
           admissionData?.Parent_Guardian_Spouse_Details?.mobile_no ?? "",
         email: admissionData?.Parent_Guardian_Spouse_Details?.email ?? "",
+        profession:
+          admissionData?.Parent_Guardian_Spouse_Details?.profession ?? "",
         nationality:
           admissionData?.Parent_Guardian_Spouse_Details?.nationality ?? "",
-        // address: admissionData?.Parent_Guardian_Spouse_Details?.address ?? "",
         address: admissionData?.Parent_Guardian_Spouse_Details?.address?.map(
           (block) => ({
             type: "paragraph",
@@ -112,7 +103,7 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
             type: "paragraph",
             children: [
               {
-                text: "anil",
+                text: "",
                 type: "text",
               },
             ],
@@ -130,7 +121,11 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
     },
   });
 
-  const { control, handleSubmit } = form_step1;
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = form_step1;
 
   console.log(form_step1.formState.errors, "errors");
 
@@ -218,11 +213,6 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
   };
 
   const onSubmit = async (payload: ApplicationFormSchema_Step1) => {
-    // const filteredData = Object.fromEntries(
-    //   Object.entries(payload).filter(
-    //     ([_, value]) => value !== undefined && value !== null && value !== "",
-    //   ),
-    // );
     const filteredData = filteredPayload(payload);
 
     const data = {
@@ -230,7 +220,6 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
       step_1: true,
     };
 
-    // const formId = localStorage.getItem("admissionId");
 
     try {
       if (admissionData?.id) {
@@ -241,7 +230,6 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
         onNextStep(2);
       } else {
         const res = await createAdmission(data as ApplicationFormSchema_Step1);
-        // localStorage.setItem("admissionId", res.data.documentId);
         notify({ success: true, message: "Admission submitted successfully" });
         const encryptedId = encryptId(res?.data?.id);
         router.push(`/admission/${encryptedId}`);
@@ -261,7 +249,6 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
 
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_220px] gap-8">
             <div className="space-y-6">
-              {/* Full Name */}
               <div>
                 <label
                   htmlFor="name"
@@ -277,6 +264,7 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
                     options={[
                       { value: "Mr.", label: "Mr" },
                       { value: "Ms.", label: "Ms" },
+                      { value: "Mrs.", label: "Mrs" },
                     ]}
                     placeholder="select title"
                     className="w-20"
@@ -296,12 +284,12 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <FormDatePicker
+                <FormDatePickerWithInput
                   name="date_of_birth"
                   placeholder="DD/MM/YYYY"
                   label="Date of Birth"
                   control={control}
-                  notRequired="false"
+                  required
                 />
 
                 <FormInput
@@ -465,6 +453,12 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
                 <br />
                 Max. file size not more than 1MB.
               </p>
+
+              {errors.passport_size_image && (
+                <p className="text-xs text-red-600 mt-2">
+                  {errors.passport_size_image.message}
+                </p>
+              )}
             </div>
           </div>
 
@@ -494,7 +488,6 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
           </div>
         </div>
 
-        {/* Parent/Guardian Details */}
         <div className="max-w-5xl mx-auto mt-12">
           <h1 className="text-2xl md:text-3xl text-[#E97451] mb-8">
             Parent/Guardian/Souse Details
@@ -517,6 +510,7 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
                     options={[
                       { value: "Mr.", label: "Mr" },
                       { value: "Ms.", label: "Ms" },
+                      { value: "Mrs.", label: "Mrs" },
                     ]}
                     placeholder="select title"
                     className="w-20 "
@@ -574,14 +568,10 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
         </div>
 
         <div className="flex justify-start gap-3 mt-10 pt-6">
-          <ButtonWidget
-            type="submit"
-            // onClick={handleNextStep}
-            // disabled={errors && Object.keys(errors).length > 0}
+          <OrangeButtonWidget
+            content="Save & Continue"
             className="px-6 py-2 bg-chart-1 text-white rounded-full hover:bg-red-700 transition-colors"
-          >
-            Save & Continue
-          </ButtonWidget>
+          />
         </div>
       </form>
     </FormProvider>

@@ -20,38 +20,17 @@ export function MultiStepForm({
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
 
-  // useEffect(() => {
-  //   const scrollToTop = () => {
-  //     if (scrollContainerRef.current) {
-  //       scrollContainerRef.current.scrollTop = 0;
-  //     }
-  //     if (headerRef.current) {
-  //       headerRef.current.scrollIntoView({
-  //         behavior: "instant",
-  //         block: "start",
-  //       });
-  //     }
-  //   };
-
-  //   if (currentStep) {
-  //     const timeoutId = setTimeout(scrollToTop, 100);
-  //     return () => clearTimeout(timeoutId);
-  //   }
-  // }, [currentStep]);
   useEffect(() => {
     const el = scrollContainerRef.current;
     if (!el) return;
 
-    // Disable browser restoring scroll
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
 
-    // Force scroll reset AFTER everything renders
     requestAnimationFrame(() => {
       el.scrollTop = 0;
 
-      // Run again to override ScrollWidget animation offsets
       setTimeout(() => {
         el.scrollTop = 0;
       }, 50);
@@ -59,13 +38,11 @@ export function MultiStepForm({
   }, []);
 
   const handleNextStep = (step: number) => {
-    // setCurrentStep((prev) => Math.min(prev + 1, 3));
     setCurrentStep(step);
   };
 
   const handlePrevStep = () => {
     setCurrentStep((prev) => Math.max(prev - 1, 1));
-    // queryClient.refetchQueries({ queryKey: [`admission-details-${admissionId}`] });
   };
 
   const handlePreview = (preview: boolean) => {
@@ -105,7 +82,6 @@ export function MultiStepForm({
 
   return (
     <section className="flex">
-      {/* Left Sidebar */}
       <div
         className="hidden h-[650px] lg:flex w-1/4 p-12"
         style={{
@@ -120,8 +96,7 @@ export function MultiStepForm({
         </h1>
       </div>
 
-      {/* Right Form Content */}
-      <div className="w-full lg:w-3/4 bg-white p-8 lg:p-12 lg:pr-40 ">
+      <div className="w-full lg:w-3/4 bg-white p-8 lg:p-12 lg:pr-30 ">
         <div
           ref={scrollContainerRef}
           className=" mx-auto h-[550px] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
@@ -129,10 +104,10 @@ export function MultiStepForm({
         >
           {/* Header */}
           <div ref={headerRef} className="mb-8">
-            <h2 className="text-4xl text-[#E97451] mb-2 font-urbanist">
+            <h2 className="text-4xl text-[#E97451] mb-2 font-light font-urbanist">
               Application Form
             </h2>
-            <p className="text-gray-600">
+            <p className="text-gray-600 text-base">
               Do go ahead and complete the application process as detailed
               below. Use the unique URL sent to your email if you need to check
               the mail in inbox/spam folder to complete at a later date.

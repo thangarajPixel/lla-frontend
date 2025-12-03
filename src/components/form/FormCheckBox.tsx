@@ -31,20 +31,24 @@ function FormCheckBox<T extends FieldValues>({
     control,
   });
 
+  const id = `checkbox-${name.replace(/\./g, "-")}`;
+
   return (
     <div className="flex items-start gap-2">
-      {/* Checkbox */}
       <Checkbox
+        id={id}
         checked={!!value}
         onCheckedChange={(checked) => onChange(!!checked)}
         disabled={disabled}
         className={className}
       />
 
-      {/* Label + Error */}
       <div className="flex flex-col leading-none">
         {label && (
-          <label htmlFor={name} className="text-sm text-foreground">
+          <label
+            htmlFor={id}
+            className="text-sm text-foreground cursor-pointer"
+          >
             {label}
           </label>
         )}

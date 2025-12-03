@@ -21,17 +21,21 @@ export const parentDetails = z.object({
   title: z.string().optional(),
   first_name: z.string().min(1, "First name is required"),
   last_name: z.string().min(1, "Last name is required"),
-  mobile_no: z.string().regex(/^[6-9]\d{9}$/, "Enter a valid mobile number"),
-  email: z.email("Enter a valid email address"),
-  name: z.string().optional(),
-  profession: z.string().optional(),
-  nationality: z.string().optional(),
-  contact_no: z.string().optional(),
-  address: z.array(addressSchema).optional(),
+  mobile_no: z
+    .string()
+    .regex(/^[6-9]\d{9}$/, "Enter a valid mobile number")
+    .min(1, "Mobile number is required"),
+  email: z.email("Enter a valid email address").min(1, "Email is required"),
+  profession: z.string().min(1, "Profession is required"),
+  nationality: z.string().min(1, "Nationality is required"),
+  address: z.array(addressSchema).min(1, "Address is required").optional(),
   city: z.string().optional(),
   district: z.string().optional(),
   state: z.string().optional(),
-  pincode: z.string().regex(/^\d{6}$/, "Enter a valid 6-digit pincode"),
+  pincode: z
+    .string()
+    .regex(/^\d{6}$/, "Enter a valid 6-digit pincode")
+    .optional(),
 });
 
 export const uploadMarkSheet = z.object({
@@ -41,7 +45,7 @@ export const uploadMarkSheet = z.object({
 });
 
 export const workExperience = z.object({
-  designation: z.string().min(1, "Designation is required"),
+  designation: z.string().optional(),
   employer: z.string().optional(),
   duration_start: z.string().optional(),
   duration_end: z.string().optional(),
@@ -61,32 +65,41 @@ export const postGraduate = z.object({
 });
 
 export const applicationFormSchema_Step1 = z.object({
+  course_id: z.number().optional(),
   name_title: z.string().optional(),
 
   first_name: z.string().min(1, "First name is required"),
   last_name: z.string().min(1, "Last name is required"),
-  mobile_no: z.string().regex(/^[6-9]\d{9}$/, "Enter a valid mobile number"),
-  email: z.email("Enter a valid email address"),
+  mobile_no: z
+    .string()
+    .regex(/^[6-9]\d{9}$/, "Enter a valid mobile number")
+    .min(1, "Mobile number is required"),
+  email: z.email("Enter a valid email address").min(1, "Email is required"),
   nationality: z.string().min(1, "Nationality is required"),
-  date_of_birth: z.string().nullable().optional(),
+  date_of_birth: z.string().min(1, "Date of birth is required"),
   Language_Proficiency: z
     .array(languageSchema)
     .min(1, "Add at least one language")
     .optional(),
-  //   address: z.string().optional(),
-  address: z.array(addressSchema).optional(),
+  address: z.array(addressSchema).min(1, "Address is required").optional(),
   city: z.string().optional(),
   district: z.string().optional(),
   state: z.string().optional(),
-  pincode: z.string().regex(/^\d{6}$/, "Enter a valid 6-digit pincode"),
+  pincode: z
+    .string()
+    .regex(/^\d{6}$/, "Enter a valid 6-digit pincode")
+    .optional(),
   hobbies: z.string().optional(),
   photography_club: z.string().optional(),
-  blood_group: z.string().optional(),
+  blood_group: z.string().min(1, "Blood group is required"),
   Parent_Guardian_Spouse_Details: parentDetails,
 
   profession: z.string().optional(),
 
-  passport_size_image: z.number().optional(),
+  passport_size_image: z
+    .number()
+    .min(1, "Passport image is required")
+    .optional(),
 
   step_1: z.boolean().optional(),
 });

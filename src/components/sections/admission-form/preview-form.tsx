@@ -1,12 +1,14 @@
 "use client";
-import { FileIcon } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import type React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import CheckboxField from "@/components/ui/checkbox";
 import ImageWidget from "@/components/widgets/ImageWidget";
-import { EditIcon } from "@/helpers/ImageHelper";
+import LinkWidget from "@/components/widgets/LinkWidget";
+import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
+import { DocumentIcon, EditIcon } from "@/helpers/ImageHelper";
 
 function Section({
   title,
@@ -20,16 +22,15 @@ function Section({
   return (
     <div className="space-y-3">
       <section className="flex items-center justify-between">
-        <h3 className="font-semibold text-base text-[#ff6d45]">{title}</h3>
+        <h3 className="text-xl text-[#E97451]">{title}</h3>
         <Image
           src={EditIcon}
           width={20}
           height={20}
           alt="Edit"
-          className="size-4 rounded-full"
+          className="size-4 rounded-full cursor-pointer"
           onClick={onEdit}
         />
-        {/* <button type="button"><EditIcon size={10}/></button> */}
       </section>
       <div className="space-y-2">{children}</div>
     </div>
@@ -38,9 +39,9 @@ function Section({
 
 function Field({ label, value }: { label: string; value?: string }) {
   return (
-    <div className="flex items-center justify-between text-gray-700">
-      <span className="font-medium w-40">{label}:</span>
-      <span>{value ?? "-"}</span>
+    <div className="flex items-center justify-between text-sm">
+      <span className="text-black/50 w-40">{label}:</span>
+      <span className="text-black">{value ?? "-"}</span>
     </div>
   );
 }
@@ -53,29 +54,29 @@ function LanguageField({
   value?: LanguageProficiency[];
 }) {
   return (
-    <div className="flex items-center justify-between text-gray-700">
-      <span className="font-medium w-40">{label}</span>
+    <div className="flex items-center justify-between">
+      <span className="text-black/50 text-sm">{label}</span>
       <div className="flex flex-col gap-4">
         {value?.map((language, index) => (
           <main key={`language-${index + 1}`} className="flex flex-col gap-2">
             <span className="ml-auto">{language.language}</span>
             <section className="flex flex-row items-center justify-between gap-10">
               <span className="text-xs flex items-center justify-center">
-                {`${language.read ? "Read" : ""}`}
+                <span>Read</span>
                 <CheckboxField
                   className="ml-2 size-4"
                   checked={language.read}
                 />
               </span>
               <span className="text-xs flex items-center justify-center">
-                {`${language.write ? "Write" : ""}`}
+                <span>Write</span>
                 <CheckboxField
                   className="ml-2 size-4"
                   checked={language.write}
                 />
               </span>
               <span className="text-xs flex items-center justify-center">
-                {`${language.speak ? "Speak" : ""}`}
+                <span>Speak</span>
                 <CheckboxField
                   className="ml-2 size-4"
                   checked={language.speak}
@@ -96,18 +97,30 @@ function EducationField({
 }: {
   label?: string;
   title: string;
-  value?: string | DocumentFile | boolean;
+  value?: DocumentFile;
 }) {
   return (
     <div className="flex flex-col items-start justify-start text-gray-700">
-      <span className="font-medium w-40">{label}:</span>
+      <span className="w-40 text-chart-1">{label}:</span>
       {value && (
         <>
-          <span className="text-chart-1">{title}</span>
+          <span className="text-black/50">{title}</span>
           <section className="flex flex-row items-center justify-between gap-10 mt-2">
-            <span className="text-xs flex items-center justify-center">
-              <FileIcon className="size-3 text-chart-1" />
-              <span className="ml-2 text-chart-1">View Document</span>
+            <span className="text-xs flex items-center justify-center gap-1">
+              <ImageWidget
+                src={DocumentIcon}
+                alt="Document"
+                width={100}
+                height={100}
+                className="size-4 rounded-full"
+              />
+              <LinkWidget
+                href={value?.url}
+                target="_blank"
+                className="text-chart-1/80"
+              >
+                View Document
+              </LinkWidget>
             </span>
           </section>
         </>
@@ -131,10 +144,10 @@ export default function ReviewApplicationClone({
         {/* LEFT SIDE */}
         <div className="flex lg:ml-48 md:w-2/4 lg:w-1/4 flex-col items-center gap-6 pt-8 mb-8">
           <div className="flex flex-col gap-3">
-            <h1 className="text-2xl font-bold text-[#ff6d45]">
+            <h1 className="text-2xl lg:text-3xl font-urbanist text-[#E97451]">
               Review Application
             </h1>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm">
               Kindly verify the details before submitting.
             </p>
           </div>
@@ -146,17 +159,19 @@ export default function ReviewApplicationClone({
             className="w-64 h-80 rounded-md shadow-md"
           />
 
-          <div className="flex gap-3">
+          <div className="flex flex-row gap-1">
             <Button
               variant="outline"
-              className="rounded-full px-6"
+              className="rounded-full h-8 xss:text-[12px] bg-chart-1/10 text-chart-1"
               onClick={() => onClose(false)}
             >
-              Back
+              <ArrowLeft className="size-4 text-chart-1 font-light" />
+              Back to Edit
             </Button>
-            <Button className="rounded-full px-6 bg-[#ff7e5c] hover:bg-[#ff6d45] text-white">
-              Proceed to Pay
-            </Button>
+            <OrangeButtonWidget
+              content="Proceed to Pay"
+              className="xss:text-[12px] h-8 px-4"
+            />
           </div>
         </div>
 
@@ -244,35 +259,44 @@ export default function ReviewApplicationClone({
               </div>
             </Section>
 
-            {/* <h2>Under Graduate</h2> */}
             <Section
               title="Under Graduate"
               onEdit={() => handleStepEditChange(2)}
             >
               <div className="flex flex-row items-center justify-between">
                 <section>
-                  <span>Degree</span>
+                  <span className="text-black/50">Degree</span>
                   <p>{admissionData?.Under_Graduate?.degree}</p>
                 </section>
 
                 <section>
-                  <span>Status</span>
+                  <span className="text-black/50">Status</span>
                   <p>{admissionData?.Under_Graduate?.ug_status}</p>
                 </section>
 
                 {admissionData?.Under_Graduate?.marksheet?.url && (
                   <section>
-                    <span>Document</span>
-                    <span className="text-xs flex items-center justify-center">
-                      <FileIcon className="size-3 text-chart-1" />
-                      <span className="ml-2 text-chart-1">View Document</span>
+                    <span className="text-black/50">Document</span>
+                    <span className="text-xs flex items-center justify-center gap-1">
+                      <ImageWidget
+                        src={DocumentIcon}
+                        alt="Document"
+                        width={100}
+                        height={100}
+                        className="size-4 rounded-full"
+                      />
+                      <LinkWidget
+                        href={admissionData?.Under_Graduate?.marksheet?.url}
+                        target="_blank"
+                        className="text-chart-1/80"
+                      >
+                        View Document
+                      </LinkWidget>
                     </span>
                   </section>
                 )}
               </div>
             </Section>
-
-            {/* <h2>Post Graduate</h2> */}
 
             <Section
               title="Post Graduate"
@@ -284,20 +308,32 @@ export default function ReviewApplicationClone({
                   className="flex flex-row items-center justify-between"
                 >
                   <section>
-                    <span>Degree</span>
+                    <span className="text-black/50">Degree</span>
                     <p>{degree?.degree}</p>
                   </section>
 
                   <section>
-                    <span>Status</span>
+                    <span className="text-black/50">Status</span>
                     <p>{degree?.pg_status}</p>
                   </section>
 
                   <section className="invisible">
-                    <span>Document</span>
+                    <span className="text-black/50">Document</span>
                     <span className="text-xs flex items-center justify-center">
-                      <FileIcon className="size-3" />
-                      <span className="ml-2">View Document</span>
+                      <ImageWidget
+                        src={DocumentIcon}
+                        alt="Document"
+                        width={100}
+                        height={100}
+                        className="size-4 rounded-full"
+                      />
+                      <LinkWidget
+                        href={degree?.marksheet?.url ?? ""}
+                        target="_blank"
+                        className="text-chart-1/80"
+                      >
+                        View Document
+                      </LinkWidget>
                     </span>
                   </section>
                 </div>
@@ -314,17 +350,17 @@ export default function ReviewApplicationClone({
                   className="flex flex-row items-center justify-between"
                 >
                   <section>
-                    <span>Role/Designation</span>
+                    <span className="text-black/50">Role/Designation</span>
                     <p>{experience?.designation ?? "-"}</p>
                   </section>
 
                   <section>
-                    <span>Employer</span>
+                    <span className="text-black/50">Employer</span>
                     <p>{experience?.employer ?? "-"}</p>
                   </section>
 
                   <section>
-                    <span>Duration</span>
+                    <span className="text-black/50">Duration</span>
                     <span className="text-xs flex items-center justify-center">
                       <span>
                         {experience?.duration_start} -{" "}
@@ -347,7 +383,7 @@ export default function ReviewApplicationClone({
               title="Portfolio Images"
               onEdit={() => handleStepEditChange(3)}
             >
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {admissionData?.Upload_Your_Portfolio?.images.map(
                   (img, index) => (
                     <ImageWidget
@@ -356,7 +392,7 @@ export default function ReviewApplicationClone({
                       alt="Portfolio Image"
                       key={`portfolio-${index + 1}`}
                       src={img.url}
-                      className="w-full h-fit object-contain rounded-md shadow-sm"
+                      className="w-full h-48 object-contain"
                     />
                   ),
                 )}

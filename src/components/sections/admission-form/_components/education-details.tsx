@@ -32,9 +32,10 @@ export function EducationDetails({
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl text-[#E97451]">Education Details</h2>
+      <h2 className="text-2xl text-[#E97451] font-urbanist">
+        Education Details
+      </h2>
 
-      {/* 12th and 10th std uploads */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <FormFileUploadButton
           name="Education_Details.Education_Details_12th_std"
@@ -57,7 +58,6 @@ export function EducationDetails({
         />
       </div>
 
-      {/* Under Graduate */}
       <div className="space-y-3">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4 items-center">
           <FormInput
@@ -65,7 +65,6 @@ export function EducationDetails({
             label="Under Graduate"
             placeholder="Enter your graduation  degree"
             control={control}
-            inputClassName="max-w-md"
           />
           <FormRadioGroup
             name="Under_Graduate.ug_status"
@@ -75,8 +74,6 @@ export function EducationDetails({
               { value: "In-Progress", label: "In-Progress" },
             ]}
           />
-        </div>
-        <div className="max-w-md">
           <FormFileUploadButton
             name="Under_Graduate.marksheet"
             control={control}
@@ -87,18 +84,17 @@ export function EducationDetails({
         </div>
       </div>
 
-      {/* Post Graduate */}
       {pgDegrees?.map((degree, index) => (
         <div
           key={degree.id ?? index}
-          className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4 items-center space-y-3"
+          className="grid grid-cols-1 md:grid-cols-[1fr_auto_auto] gap-4 items-center space-y-3"
         >
           <FormInput
             name={`Post_Graduate.${index}.degree`}
-            label="Post Graduate"
+            label={index > 0 ? `Additional Degree ${index}` : "Post Graduate"}
             placeholder="Enter your post graduation degree"
             control={control}
-            inputClassName="max-w-md"
+            notRequired={index > 0}
           />
           <FormRadioGroup
             name={`Post_Graduate.${index}.pg_status`}
@@ -112,7 +108,7 @@ export function EducationDetails({
             <Button
               type="button"
               onClick={() => removePgDegree(index)}
-              className="flex items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
+              className="flex relative bottom-2 items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
             >
               <X className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
             </Button>
@@ -120,15 +116,14 @@ export function EducationDetails({
         </div>
       ))}
 
-      {/* Add Degree Button */}
-      <button
+      <Button
         type="button"
         onClick={addDegree}
-        className="flex ml-auto items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity"
+        className="flex ml-auto items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
       >
         <Plus className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
         <span className="text-chart-1">Add Any Other Degree</span>
-      </button>
+      </Button>
     </div>
   );
 }

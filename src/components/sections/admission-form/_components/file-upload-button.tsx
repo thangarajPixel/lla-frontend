@@ -28,7 +28,6 @@ const generateDocumentPreview = (file: File): string => {
   const fileName = file.name;
   const fileExtension = fileName.split(".").pop()?.toUpperCase() || "FILE";
 
-  // Create a simple SVG preview for documents
   const svg = `
     <svg width="96" height="96" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
       <rect width="96" height="96" fill="#f5f5f5" rx="8"/>
@@ -81,7 +80,6 @@ const getFileIcon = (fileType: string) => {
     return <Archive className="w-4 h-4" />;
   }
   return <File className="w-4 h-4" />;
-  // return null;
 };
 
 export function FileUploadButton({
@@ -97,21 +95,13 @@ export function FileUploadButton({
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isRemoved, setIsRemoved] = useState<boolean>(false);
 
-  console.log(isRemoved, "isRemoved");
-
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     setIsRemoved(false);
 
-    // if (!file.type.startsWith("image/")) {
-    //     alert("Please upload a valid image.")
-    //     return
-    // }
-
-    // 1️⃣ Validate file size (< 1MB)
-    if (file.size > 3 * 1024 * 1024) {
-      alert("File size must be less than 1MB.");
+    if (file.size > 2 * 1024 * 1024) {
+      alert("File size must be less than 2MB.");
       return;
     }
 
@@ -132,7 +122,6 @@ export function FileUploadButton({
       onUpload?.(file);
     }
 
-    // setIsRemoved(false);
     setSelectedFile(file);
   };
 
@@ -159,7 +148,6 @@ export function FileUploadButton({
         type="file"
         className="hidden"
         accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
-        // accept="image/*"
         onChange={handleFileChange}
       />
       <p className="text-xs text-muted-foreground">
@@ -167,30 +155,8 @@ export function FileUploadButton({
       </p>
 
       <div className="flex-1 min-w-0">
-        {/* {
-          !isRemoved && (
-            <div className="w-12 h-12 rounded bg-muted flex items-center justify-center shrink-0 overflow-hidden">
-              {
-                preview || defaultValue?.mime?.startsWith("image/") ? (
-                  <Image
-                    width={100}
-                    height={100}
-                    src={preview || defaultValue?.url || "/placeholder.svg"}
-                    alt={selectedFile?.name ?? ""}
-                    className="w-full h-full object-cover rounded"
-                  />
-                )
-                  : (
-                    <div className="text-muted-foreground">{ (selectedFile || defaultValue) && getFileIcon(selectedFile?.type ?? defaultValue?.mime ?? "")}</div>
-                  )
-              }
-            </div>
-          )
-        } */}
-
         {!isRemoved && (
           <>
-            {/* <div className="w-12 h-12 rounded bg-muted flex items-center justify-center shrink-0 overflow-hidden"> */}
             {preview || defaultValue?.mime?.startsWith("image/") ? (
               <div className="w-12 h-12 rounded bg-muted flex items-center justify-center shrink-0 overflow-hidden">
                 <Image
@@ -207,7 +173,6 @@ export function FileUploadButton({
                   getFileIcon(selectedFile?.type ?? defaultValue?.mime ?? "")}
               </div>
             )}
-            {/* </div> */}
           </>
         )}
 

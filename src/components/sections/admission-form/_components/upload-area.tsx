@@ -46,7 +46,6 @@ export const UploadArea = ({ onFilesSelected }: UploadAreaProps) => {
       onDrop={handleDrop}
       className="border-2 border-dashed border-border rounded-xl p-12 flex flex-col items-center justify-center gap-4 bg-card hover:border-primary/50 transition-colors"
     >
-      {/* <Upload className="w-12 h-12 text-primary" strokeWidth={1.5} /> */}
       <ImageWidget
         src={UploadIconImg}
         alt="Upload Icon"
