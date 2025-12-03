@@ -10,7 +10,6 @@ import { Into, Play } from "@/helpers/ImageHelper";
 import type { CampusHeroSectionProps } from "./utils/campus";
 
 const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
-  console.log(data);
   const stopAllVideos = () => {
     const videos = document.querySelectorAll("video");
     videos.forEach((video) => {
@@ -94,14 +93,17 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
                 </DialogClose>
               }
             >
-              <video className="w-full h-auto" controls autoPlay playsInline>
-                <source
+              <div className="relative w-full aspect-video bg-black rounded-lg">
+                <video
                   src={data?.Video?.url ? getS3Url(data.Video.url) : ""}
-                  type="video/mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  controls
+                  className="w-full h-full object-contain rounded-lg"
                 />
-                <track kind="captions" srcLang="en" label="English" />
-                Your browser does not support the video tag.
-              </video>
+              </div>
             </DialogWidget>
           </div>
         </ScrollWidget>
@@ -138,9 +140,10 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
             {data.Description?.map((paragraph, index) => {
               const textContent = paragraph.children?.[0]?.text || "";
               if (!textContent) return null;
+              const uniqueKey = `${index}-${textContent.slice(0, 20)}`;
               return (
                 <p
-                  key={index}
+                  key={uniqueKey}
                   className="text-sm xss:text-[16px] sm:text-base lg:text-[15px] 2xl:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal"
                 >
                   {textContent}
