@@ -6,11 +6,11 @@ const PrivacyPolicySection = () => {
     <section className="relative w-full bg-white py-10 md:py-10">
       <ContainerWidget>
         <div className="max-w-full">
-          <h1 className="font-urbanist font-regular text-[28px] md:text-[32px] lg:text-[36px] xl:text-[40px] 2xl:text-[44px] 3xl:text-[48px] text-black mb-8">
+          <h1 className="font-urbanist font-regular text-[28px] md:text-[32px] lg:text-[36px] xl:text-[40px] 2xl:text-[44px] 3xl:text-[48px] text-black mb-6">
             Privacy Policy
           </h1>
           <div className="mb-10">
-            <h2 className="text-[20px] md:text-[24px] lg:text-[28px] 3xl:text-[32px] font-semibold text-black mb-4">
+            <h2 className="font-mulish font-normal text-[20px] md:text-[22px] lg:text-[24px] xl:text-[26px] 2xl:text-[28px] 3xl:text-[32px]  text-black mb-4">
               Privacy Policy for Light & Life Academy
             </h2>
             <p className="text-[16px] md:text-[14px] lg:text-[14px] xl:text-[14px] 2xl:text-[16px] 3xl:text-[18px] text-black leading-relaxed">
