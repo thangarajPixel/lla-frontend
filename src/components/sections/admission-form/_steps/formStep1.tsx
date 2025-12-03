@@ -220,7 +220,6 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
       step_1: true,
     };
 
-
     try {
       if (admissionData?.id) {
         await updateAdmission(

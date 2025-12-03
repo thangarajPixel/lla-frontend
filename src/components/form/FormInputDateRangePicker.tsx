@@ -25,7 +25,7 @@ const STORE = "yyyy-MM-dd";
 
 function parseDisplay(text: string): Date | null {
   const d = parse(text, DISPLAY, new Date());
-  return isNaN(d.getTime()) ? null : d;
+  return Number.isNaN(d.getTime()) ? null : d;
 }
 
 function toDisplay(date: Date | undefined) {
@@ -96,16 +96,20 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
     });
   };
 
-  const handleCalendarSelect = (r: any) => {
+  const handleCalendarSelect = (r: { from?: Date; to?: Date } | undefined) => {
+    if (!r) return;
+
     setRange(r);
 
-    if (r?.from) {
+    if (r.from) {
       setStart(format(r.from, STORE));
     }
-    if (r?.to) {
+    if (r.to) {
       setEnd(format(r.to, STORE));
 
-      setInputValue(`${toDisplay(r.from!)} to ${toDisplay(r.to)}`);
+      if (r.from) {
+        setInputValue(`${toDisplay(r.from)} to ${toDisplay(r.to)}`);
+      }
 
       setOpen(false);
     }

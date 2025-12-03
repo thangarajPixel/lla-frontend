@@ -31,7 +31,7 @@ function formatDisplay(date: Date | undefined) {
 
 function parseDisplay(text: string): Date | null {
   const date = parse(text, DISPLAY_FORMAT, new Date());
-  return isNaN(date.getTime()) ? null : date;
+  return Number.isNaN(date.getTime()) ? null : date;
 }
 
 type FormDatePickerProps<T extends FieldValues> = {
