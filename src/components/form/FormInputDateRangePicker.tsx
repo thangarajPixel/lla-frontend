@@ -96,16 +96,23 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
     });
   };
 
-  const handleCalendarSelect = (r: any) => {
-    setRange(r);
+  const handleCalendarSelect = (r: { from?: Date; to?: Date } | undefined) => {
+    if (!r) return;
 
-    if (r?.from) {
+    setRange({
+      from: r.from ?? undefined,
+      to: r.to ?? undefined,
+    });
+
+    if (r.from) {
       setStart(format(r.from, STORE));
     }
-    if (r?.to) {
+    if (r.to) {
       setEnd(format(r.to, STORE));
 
-      setInputValue(`${toDisplay(r.from!)} to ${toDisplay(r.to)}`);
+      if (r.from) {
+        setInputValue(`${toDisplay(r.from)} to ${toDisplay(r.to)}`);
+      }
 
       setOpen(false);
     }

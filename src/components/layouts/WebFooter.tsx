@@ -92,7 +92,7 @@ const FooterSection = ({
   className?: string;
 }) => (
   <div className={`flex flex-col items-start justify-start gap-3 ${className}`}>
-    <h6 className={sectionTitleClass}>{title}</h6>
+    <h3 className={sectionTitleClass}>{title}</h3>
     <ul
       className={`flex flex-col items-start justify-start gap-2 ${linkTextClass} leading-7`}
     >
@@ -124,9 +124,9 @@ const WebFooter = () => {
       <BackdropWidget />
       <ContainerWidget>
         <div className="flex flex-col items-start justify-start gap-5 md:gap-6">
-          <h6 className="text-[32px] md:text-[40px] lg:text-[50px] 3xl:text-[56px] font-normal font-urbanist leading-10">
+          <h2 className="text-[32px] md:text-[40px] lg:text-[50px] 3xl:text-[56px] font-normal font-urbanist leading-10">
             Let Your Passion Shine Through
-          </h6>
+          </h2>
           <p className={`${linkTextClass} max-w-full md:max-w-[550px]`}>
             Step into a world where every click, every frame, and every
             flashlight is the path to your creative future.

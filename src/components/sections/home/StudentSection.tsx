@@ -4,7 +4,6 @@ import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import { useEffect, useRef, useState } from "react";
 import { DialogClose } from "@/components/ui/dialog";
-import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import DialogWidget from "@/components/widgets/DialogWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
@@ -159,7 +158,14 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                             playsInline
                             preload="metadata"
                             className="absolute inset-0 w-full h-full object-cover z-0 p-1.5"
-                          />
+                          >
+                            <track
+                              kind="captions"
+                              src="data:text/vtt;charset=utf-8,WEBVTT%0A%0A"
+                              srcLang="en"
+                              label="English captions"
+                            />
+                          </video>
                           <div className="relative z-20 flex items-end justify-between h-full">
                             <div
                               className="flex flex-col justify-end gap-3 bg-[#E97451]/80 w-full h-27 p-4"
@@ -177,7 +183,11 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                             </div>
                             <DialogWidget
                               trigger={
-                                <div className="absolute right-5 bottom-15 w-13 h-13">
+                                <button
+                                  type="button"
+                                  aria-label="Play video"
+                                  className="absolute right-5 bottom-15 w-13 h-13 border-none bg-transparent p-0 cursor-pointer group/play-button"
+                                >
                                   <div className="video-main">
                                     <div className="waves-block">
                                       <div className="waves wave-1" />
@@ -185,17 +195,14 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                                       <div className="waves wave-3" />
                                     </div>
                                   </div>
-                                  <ButtonWidget
-                                    type="button"
-                                    className="relative w-13 h-13 p-0 bg-transparent hover:bg-transparent border-none shadow-none rounded-full group/play-button transition-all duration-300 ease-out z-10"
-                                  >
+                                  <div className="relative w-13 h-13 p-0 bg-transparent hover:bg-transparent border-none shadow-none rounded-full transition-all duration-300 ease-out z-10">
                                     <ImageWidget
                                       src={Play}
                                       alt="play video"
                                       className="w-13 cursor-pointer h-13 text-white group-hover/play-button:text-[#E97451] transition-colors duration-500 ease-in-out relative z-10"
                                     />
-                                  </ButtonWidget>
-                                </div>
+                                  </div>
+                                </button>
                               }
                               contentClassName="sm:max-w-[90vw] lg:max-w-[800px] p-0"
                               showCancel={false}
@@ -226,7 +233,15 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                                   playsInline
                                   controls
                                   className="w-full h-full object-contain rounded-lg"
-                                />
+                                >
+                                  <track
+                                    kind="captions"
+                                    src="data:text/vtt;charset=utf-8,WEBVTT%0A%0A"
+                                    srcLang="en"
+                                    label="English captions"
+                                    default
+                                  />
+                                </video>
                               </div>
                             </DialogWidget>
                           </div>
