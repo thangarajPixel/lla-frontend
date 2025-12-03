@@ -60,3 +60,7 @@ type UploadRes = {
   updatedAt: string;
   publishedAt: string;
 };
+
+type PageProps = {
+  params: Promise<{ id: string }>;
+};

@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import type z from "zod";
 import { FormInput, FormSelectBox } from "@/components/form";
 import FormCheckBox from "@/components/form/FormCheckBox";
 import FormDatePickerWithInput from "@/components/form/FormInputDatePicker";
@@ -16,30 +17,31 @@ import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { encryptId, filteredPayload, notify } from "@/helpers/ConstantHelper";
 import { UploadIconImg } from "@/helpers/ImageHelper";
-import {
-  type ApplicationFormSchema_Step1,
-  applicationFormSchema_Step1,
-} from "@/helpers/ValidationHelper";
+import { personalDetailsSchema } from "@/helpers/ValidationHelper";
 import {
   createAdmission,
   updateAdmission,
 } from "@/store/services/global-services";
 import AddressFields from "../_components/address-fields";
 
-type Step1FormProps = {
+type PersonalDetailsSchema = z.infer<typeof personalDetailsSchema>;
+
+type PersonalDetailsFormProps = {
   admissionData?: AdmissionFormData;
-  onNextStep: (step: number) => void;
-  onPrevStep: () => void;
+  admissionId?: string;
 };
 
-const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
+const PersonalDetailsForm = ({
+  admissionData,
+  admissionId,
+}: PersonalDetailsFormProps) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isRemoved, setIsRemoved] = useState<boolean>(false);
   const router = useRouter();
 
-  const form_step1 = useForm<ApplicationFormSchema_Step1>({
-    resolver: zodResolver(applicationFormSchema_Step1),
+  const form_step1 = useForm<PersonalDetailsSchema>({
+    resolver: zodResolver(personalDetailsSchema),
     mode: "all",
     defaultValues: {
       course_id: admissionData?.course_id ?? 1,
@@ -212,7 +214,7 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
     });
   };
 
-  const onSubmit = async (payload: ApplicationFormSchema_Step1) => {
+  const onSubmit = async (payload: PersonalDetailsSchema) => {
     const filteredData = filteredPayload(payload);
 
     const data = {
@@ -220,19 +222,18 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
       step_1: true,
     };
 
-
     try {
       if (admissionData?.id) {
         await updateAdmission(
           admissionData?.documentId,
-          data as ApplicationFormSchema_Step1,
+          data as PersonalDetailsSchema,
         );
-        onNextStep(2);
+        router.push(`/admission/${admissionId}/education-details`);
       } else {
-        const res = await createAdmission(data as ApplicationFormSchema_Step1);
+        const res = await createAdmission(data as PersonalDetailsSchema);
         notify({ success: true, message: "Admission submitted successfully" });
         const encryptedId = encryptId(res?.data?.id);
-        router.push(`/admission/${encryptedId}`);
+        router.push(`/admission/${encryptedId}/education-details`);
       }
     } catch (error) {
       notify({ success: false, message: error as string });
@@ -284,6 +285,22 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <FormInput
+                  name="mobile_no"
+                  label="Mobile Number"
+                  placeholder="Enter your mobile number"
+                  control={control}
+                />
+
+                <FormInput
+                  name="email"
+                  label="Email Address"
+                  placeholder="Enter your email address"
+                  control={control}
+                />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <FormDatePickerWithInput
                   name="date_of_birth"
                   placeholder="DD/MM/YYYY"
@@ -296,22 +313,6 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
                   name="nationality"
                   label="Nationality"
                   placeholder="Enter your nationality"
-                  control={control}
-                />
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <FormInput
-                  name="mobile_no"
-                  label="Mobile Number"
-                  placeholder="Enter your mobile number"
-                  control={control}
-                />
-
-                <FormInput
-                  name="email"
-                  label="Email Address"
-                  placeholder="Enter your email address"
                   control={control}
                 />
               </div>
@@ -378,7 +379,7 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
               </div>
             </div>
 
-            <div className="lg:pt-7 mb-4">
+            <div className="mb-4">
               <label
                 htmlFor="passport"
                 className="block text-sm font-medium text-foreground mb-2"
@@ -570,7 +571,7 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
         <div className="flex justify-start gap-3 mt-10 pt-6">
           <OrangeButtonWidget
             content="Save & Continue"
-            className="px-6 py-2 bg-chart-1 text-white rounded-full hover:bg-red-700 transition-colors"
+            className="xss:text-[12px] h-9 px-4"
           />
         </div>
       </form>
@@ -578,4 +579,4 @@ const FormStep1 = ({ admissionData, onNextStep }: Step1FormProps) => {
   );
 };
 
-export default FormStep1;
+export default PersonalDetailsForm;

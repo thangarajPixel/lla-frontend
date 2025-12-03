@@ -19,7 +19,7 @@ const FilmmakingFacultySection = ({ data }: FilmmakingFacultySectionProps) => {
                 if (!text) return null;
                 return (
                   <p
-                    key={type}
+                    key={`paragraph-${type + 1}`}
                     className="font-mulish text-black text-[16px] sm:text-[16px] md:text-[14px] lg:text-[12px] xl:text-[12px] 2xl:text-[14px] 3xl:text-[18px] leading-normal"
                   >
                     {text}

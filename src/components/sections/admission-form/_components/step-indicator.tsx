@@ -52,6 +52,7 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
             {index < total_Steps - 1 && (
               <div
                 className={cn(
+                  // "w-32 xs:w-48 sm:w-60 md:w-80 min-w-[900px]:w-96 lg:w-64 xl:w-80 2xl:w-[500px] h-0.5",
                   "w-32 xs:w-48 sm:w-60 md:w-80 min-w-[900px]:w-96 lg:w-64 xl:w-80 2xl:w-[500px] h-0.5",
                   index + 1 < currentStep ? "bg-green-500" : "bg-primary/30",
                 )}

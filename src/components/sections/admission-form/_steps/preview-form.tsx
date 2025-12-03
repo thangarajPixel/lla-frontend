@@ -1,6 +1,7 @@
 "use client";
 import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import type React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -129,15 +130,15 @@ function EducationField({
   );
 }
 
-export default function ReviewApplicationClone({
+const ReviewApplication = ({
   admissionData,
-  onClose,
-  handleStepEditChange,
+  admissionId,
 }: {
   admissionData?: AdmissionFormData;
-  onClose: (preview: boolean) => void;
-  handleStepEditChange: (step: number) => void;
-}) {
+  admissionId?: string;
+}) => {
+  const router = useRouter();
+
   return (
     <div className="w-full min-h-screen flex justify-center">
       <div className="flex flex-col md:flex-row w-full bg-white">
@@ -163,7 +164,7 @@ export default function ReviewApplicationClone({
             <Button
               variant="outline"
               className="rounded-full h-8 xss:text-[12px] bg-chart-1/10 text-chart-1"
-              onClick={() => onClose(false)}
+              onClick={() => router.push(`/admission/${admissionId}/portfolio`)}
             >
               <ArrowLeft className="size-4 text-chart-1 font-light" />
               Back to Edit
@@ -175,13 +176,13 @@ export default function ReviewApplicationClone({
           </div>
         </div>
 
-        {/* RIGHT SIDE */}
         <Card className="bg-chart-1/20 flex-1 backdrop-blur px-6 py-16 border-none shadow-none rounded-none">
           <CardContent className="space-y-8 text-sm lg:max-w-3/4">
-            {/* SECTION */}
             <Section
               title="Personal Details"
-              onEdit={() => handleStepEditChange(1)}
+              onEdit={() =>
+                router.push(`/admission/${admissionId}/personal-details`)
+              }
             >
               <Field label="First Name" value={admissionData?.first_name} />
               <Field label="Last Name" value={admissionData?.last_name} />
@@ -208,7 +209,9 @@ export default function ReviewApplicationClone({
 
             <Section
               title="Parent Details"
-              onEdit={() => handleStepEditChange(1)}
+              onEdit={() =>
+                router.push(`/admission/${admissionId}/personal-details`)
+              }
             >
               <Field
                 label="Name"
@@ -239,7 +242,9 @@ export default function ReviewApplicationClone({
 
             <Section
               title="Education Details"
-              onEdit={() => handleStepEditChange(2)}
+              onEdit={() =>
+                router.push(`/admission/${admissionId}/education-details`)
+              }
             >
               <div className="flex flex-row items-center justify-between">
                 <EducationField
@@ -261,7 +266,9 @@ export default function ReviewApplicationClone({
 
             <Section
               title="Under Graduate"
-              onEdit={() => handleStepEditChange(2)}
+              onEdit={() =>
+                router.push(`/admission/${admissionId}/education-details`)
+              }
             >
               <div className="flex flex-row items-center justify-between">
                 <section>
@@ -300,7 +307,9 @@ export default function ReviewApplicationClone({
 
             <Section
               title="Post Graduate"
-              onEdit={() => handleStepEditChange(2)}
+              onEdit={() =>
+                router.push(`/admission/${admissionId}/education-details`)
+              }
             >
               {admissionData?.Post_Graduate?.map((degree, index) => (
                 <div
@@ -342,7 +351,9 @@ export default function ReviewApplicationClone({
 
             <Section
               title="Work Experience"
-              onEdit={() => handleStepEditChange(2)}
+              onEdit={() =>
+                router.push(`/admission/${admissionId}/education-details`)
+              }
             >
               {admissionData?.Work_Experience?.map((experience, index) => (
                 <div
@@ -381,7 +392,7 @@ export default function ReviewApplicationClone({
 
             <Section
               title="Portfolio Images"
-              onEdit={() => handleStepEditChange(3)}
+              onEdit={() => router.push(`/admission/${admissionId}/portfolio`)}
             >
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {admissionData?.Upload_Your_Portfolio?.images.map(
@@ -403,4 +414,6 @@ export default function ReviewApplicationClone({
       </div>
     </div>
   );
-}
+};
+
+export default ReviewApplication;

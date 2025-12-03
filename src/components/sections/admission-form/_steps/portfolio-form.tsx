@@ -2,19 +2,20 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import type z from "zod";
 import { ImageGrid } from "@/components/sections/admission-form/_components/image-grid";
 import { UploadArea } from "@/components/sections/admission-form/_components/upload-area";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { filteredPayload, notify } from "@/helpers/ConstantHelper";
-import {
-  type ApplicationFormSchema_Step3,
-  applicationFormSchema_Step3,
-} from "@/helpers/ValidationHelper";
+import { portfolioSchema } from "@/helpers/ValidationHelper";
 import { cn } from "@/lib/utils";
 import { updateAdmission } from "@/store/services/global-services";
+
+type PortfolioSchema = z.infer<typeof portfolioSchema>;
 
 export type UploadedImage = {
   id: string;
@@ -22,21 +23,16 @@ export type UploadedImage = {
   file: File | null;
 };
 
-type Step3FormProps = {
+type PortfolioFormProps = {
   admissionData?: AdmissionFormData;
-  onPrevStep: () => void;
-  onPreview: (preview: boolean) => void;
+  admissionId?: string;
 };
 
-const FormStep3 = ({
-  admissionData,
-  onPrevStep,
-  onPreview,
-}: Step3FormProps) => {
+const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
   const [images, setImages] = useState<UploadedImage[]>([]);
 
-  const form_step3 = useForm<ApplicationFormSchema_Step3>({
-    resolver: zodResolver(applicationFormSchema_Step3),
+  const form_step3 = useForm<PortfolioSchema>({
+    resolver: zodResolver(portfolioSchema),
     mode: "all",
     defaultValues: {
       Upload_Your_Portfolio: {
@@ -47,6 +43,7 @@ const FormStep3 = ({
   });
 
   const formRef = useRef(form_step3);
+  const router = useRouter();
 
   const { handleSubmit, formState } = form_step3;
   const { errors } = formState;
@@ -70,7 +67,7 @@ const FormStep3 = ({
   }, [admissionData]);
 
   const handleFilesSelected = async (files: File[]) => {
-    const MAX_SIZE = 1024 * 1024; // 1 MB
+    const MAX_SIZE = 1024 * 1024;
 
     const validFiles = files.filter((file) => {
       if (file.size > MAX_SIZE) {
@@ -122,7 +119,7 @@ const FormStep3 = ({
     setImages(updatedImages);
 
     const hfImages = form_step3.getValues("Upload_Your_Portfolio.images") || [];
-    const updatedHfImages = hfImages.filter((_, i) => i !== index);
+    const updatedHfImages = hfImages.filter((_, i: number) => i !== index);
 
     form_step3.setValue("Upload_Your_Portfolio.images", updatedHfImages, {
       shouldDirty: true,
@@ -130,7 +127,7 @@ const FormStep3 = ({
     });
   };
 
-  const onSubmit = async (payload: ApplicationFormSchema_Step3) => {
+  const onSubmit = async (payload: PortfolioSchema) => {
     const filtered = filteredPayload(payload);
 
     const data = {
@@ -142,9 +139,9 @@ const FormStep3 = ({
     try {
       await updateAdmission(
         admissionData?.documentId as string,
-        data as ApplicationFormSchema_Step3,
+        data as PortfolioSchema,
       );
-      onPreview(true);
+      router.push(`/admission/${admissionId}/preview`);
     } catch (error) {
       notify({ success: false, message: error as string });
     }
@@ -191,17 +188,19 @@ const FormStep3 = ({
           <div className="flex justify-start gap-3 mt-10 pt-6">
             <ButtonWidget
               type="button"
-              onClick={onPrevStep}
+              onClick={() =>
+                router.push(`/admission/${admissionId}/education-details`)
+              }
               className={cn(
-                "px-6 py-2 bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50",
+                "px-6 py-2 text-[12px] bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50",
               )}
             >
               Back
             </ButtonWidget>
 
             <OrangeButtonWidget
-              content="Preview Application"
-              className="px-6 py-2 bg-chart-1 text-white rounded-full hover:bg-red-700 transition-colors"
+              content="Review Application"
+              className="xss:text-[12px] h-9 px-4"
             />
           </div>
         </div>
@@ -210,4 +209,4 @@ const FormStep3 = ({
   );
 };
 
-export default FormStep3;
+export default PortfolioForm;

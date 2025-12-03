@@ -36,7 +36,10 @@ const GallertSection = ({ data }: GallerySectionProps) => {
         setRandomIndices(shuffled.slice(0, 8));
       } else {
         setRandomIndices(
-          Array.from({ length: Math.min(8, galleryImages.length) }, (_, i) => i),
+          Array.from(
+            { length: Math.min(8, galleryImages.length) },
+            (_, i) => i,
+          ),
         );
       }
     };

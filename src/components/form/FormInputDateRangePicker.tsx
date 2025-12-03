@@ -25,7 +25,7 @@ const STORE = "yyyy-MM-dd";
 
 function parseDisplay(text: string): Date | null {
   const d = parse(text, DISPLAY, new Date());
-  return isNaN(d.getTime()) ? null : d;
+  return Number.isNaN(d.getTime()) ? null : d;
 }
 
 function toDisplay(date: Date | undefined) {
