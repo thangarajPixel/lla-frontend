@@ -217,6 +217,8 @@ body {
   top: 50%;
   left: 50%;
   z-index: 0;
+  transform: translate(-50%, -50%) scale(0.4);
+  opacity: 0.9;
   animation: waves 4s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
   pointer-events: none;
   will-change: transform, opacity;

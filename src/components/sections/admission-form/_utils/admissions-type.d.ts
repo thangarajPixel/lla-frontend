@@ -60,7 +60,7 @@ type DocumentFile = {
   mime: string;
   previewUrl: string | null;
   provider: string;
-  provider_metadata: any | null;
+  provider_metadata: Record<string, unknown> | null;
   publishedAt: string;
   size: number;
   updatedAt: string;

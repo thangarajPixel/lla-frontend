@@ -199,8 +199,9 @@ export const filteredPayload = <T>(input: T): T | undefined => {
   return input;
 };
 
-export const encryptId = (id: number): string => {
-  const encoded = btoa(id + "_lla_" + Date.now().toString().slice(-4));
+export const encryptId = (id: string): string => {
+  // Base64 encode with some obfuscation
+  const encoded = btoa(`${id}_lla_${Date.now().toString().slice(-4)}`);
   return encoded.replace(/[+/=]/g, (match) => {
     switch (match) {
       case "+":
