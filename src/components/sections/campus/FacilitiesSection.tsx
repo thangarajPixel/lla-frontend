@@ -51,7 +51,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
                 delay={0.1 * (index + 1)}
               >
                 <div className="flex flex-col items-start">
-                  <div className="relative w-full min-h-[240px] max-h-[280px] 3xl:w-[41px] 3xl:h-[280px] 3xl:aspect-auto overflow-hidden mb-3 sm:mb-4 border border-white">
+                  <div className="relative w-full min-h-[240px] max-h-[280px] 3xl:w-[410px] 3xl:h-[280px] 3xl:aspect-auto overflow-hidden mb-3 sm:mb-4 border border-white">
                     <ImageWidget
                       src={
                         facility?.Image?.url ? getS3Url(facility.Image.url) : ""
