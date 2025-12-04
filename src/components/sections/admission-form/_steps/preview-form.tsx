@@ -39,10 +39,12 @@ function Section({
 }
 
 function Field({ label, value }: { label: string; value?: string }) {
+  const isDob = label.toLowerCase() === "date of birth";
+  const dobValue = value?.split("-").reverse().join("-");
   return (
     <div className="flex items-center justify-between text-sm">
       <span className="text-black/50 w-40">{label}:</span>
-      <span className="text-black">{value ?? "-"}</span>
+      <span className="text-black">{isDob ? dobValue : (value ?? "-")}</span>
     </div>
   );
 }
@@ -65,22 +67,25 @@ function LanguageField({
               <span className="text-xs flex items-center justify-center">
                 <span>Read</span>
                 <CheckboxField
-                  className="ml-2 size-4"
+                  className="ml-2 size-4 border-gray-500"
                   checked={language.read}
+                  readOnly
                 />
               </span>
               <span className="text-xs flex items-center justify-center">
                 <span>Write</span>
                 <CheckboxField
-                  className="ml-2 size-4"
+                  className="ml-2 size-4 border-gray-500"
                   checked={language.write}
+                  readOnly
                 />
               </span>
               <span className="text-xs flex items-center justify-center">
                 <span>Speak</span>
                 <CheckboxField
-                  className="ml-2 size-4"
+                  className="ml-2 size-4 border-gray-500"
                   checked={language.speak}
+                  readOnly
                 />
               </span>
             </section>
@@ -270,7 +275,7 @@ const ReviewApplication = ({
                 router.push(`/admission/${admissionId}/education-details`)
               }
             >
-              <div className="flex flex-row items-center justify-between">
+              <div className="flex flex-row flex-wrap items-center justify-between">
                 <section>
                   <span className="text-black/50">Degree</span>
                   <p>{admissionData?.Under_Graduate?.degree}</p>

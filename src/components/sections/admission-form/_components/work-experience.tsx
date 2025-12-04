@@ -6,11 +6,11 @@ import { FormInput } from "@/components/form";
 import FormFileUploadButton from "@/components/form/FormFileUploadButton";
 import FormDateRangePickerWithInput from "@/components/form/FormInputDateRangePicker";
 import { Button } from "@/components/ui/button";
-import type { ApplicationFormSchema_Step2 } from "@/helpers/ValidationHelper";
+import { EducationDetailsSchema } from "@/components/sections/admission-form/_steps/education-details-form";
 
 type WorkExperienceProps = {
   admissionData?: AdmissionFormData;
-  control: Control<ApplicationFormSchema_Step2>;
+  control: Control<EducationDetailsSchema>;
 };
 
 export function WorkExperience({

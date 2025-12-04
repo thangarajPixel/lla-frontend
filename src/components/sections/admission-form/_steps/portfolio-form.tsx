@@ -15,7 +15,7 @@ import { portfolioSchema } from "@/helpers/ValidationHelper";
 import { cn } from "@/lib/utils";
 import { updateAdmission } from "@/store/services/global-services";
 
-type PortfolioSchema = z.infer<typeof portfolioSchema>;
+export type PortfolioSchema = z.infer<typeof portfolioSchema>;
 
 export type UploadedImage = {
   id: string;
