@@ -1,9 +1,7 @@
+import type { EducationDetailsSchema } from "@/components/sections/admission-form/_steps/education-details-form";
+import type { PersonalDetailsSchema } from "@/components/sections/admission-form/_steps/personal-details-form";
+import type { PortfolioSchema } from "@/components/sections/admission-form/_steps/portfolio-form";
 import { clientAxios } from "@/helpers/AxiosHelper";
-import type {
-  ApplicationFormSchema_Step1,
-  ApplicationFormSchema_Step2,
-  ApplicationFormSchema_Step3,
-} from "@/helpers/ValidationHelper";
 
 export const getStateLists = async (): Promise<StateDataResponse> => {
   const response = await clientAxios.get<StateDataResponse>("/states");
@@ -12,9 +10,9 @@ export const getStateLists = async (): Promise<StateDataResponse> => {
 
 export const createAdmission = async (
   formData:
-    | ApplicationFormSchema_Step1
-    | ApplicationFormSchema_Step2
-    | ApplicationFormSchema_Step3,
+    | PersonalDetailsSchema
+    | EducationDetailsSchema
+    | PortfolioSchema,
 ): Promise<AdmissionFormDataResponse> => {
   const response = await clientAxios.post<AdmissionFormDataResponse>(
     "/admissions",
@@ -26,9 +24,9 @@ export const createAdmission = async (
 export const updateAdmission = async (
   id: string,
   formData:
-    | ApplicationFormSchema_Step1
-    | ApplicationFormSchema_Step2
-    | ApplicationFormSchema_Step3,
+    | PersonalDetailsSchema
+    | EducationDetailsSchema
+    | PortfolioSchema,
 ): Promise<AdmissionFormDataResponse> => {
   const response = await clientAxios.put<AdmissionFormDataResponse>(
     `/admissions/${id}`,

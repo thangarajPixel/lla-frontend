@@ -1,32 +1,33 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
+import type z from "zod";
 import { EducationDetails } from "@/components/sections/admission-form/_components/education-details";
 import { WorkExperience } from "@/components/sections/admission-form/_components/work-experience";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { filteredPayload, notify } from "@/helpers/ConstantHelper";
-import {
-  type ApplicationFormSchema_Step2,
-  applicationFormSchema_Step2,
-} from "@/helpers/ValidationHelper";
+import { educationDetailsSchema } from "@/helpers/ValidationHelper";
 import { cn } from "@/lib/utils";
 import { updateAdmission } from "@/store/services/global-services";
 
-type Step2FormProps = {
+export type EducationDetailsSchema = z.infer<typeof educationDetailsSchema>;
+
+type EducationDetailsFormProps = {
   admissionData?: AdmissionFormData;
-  onNextStep: (step: number) => void;
-  onPrevStep: () => void;
+  admissionId?: string;
 };
 
-const FormStep2 = ({
+const EducationDetailsForm = ({
   admissionData,
-  onNextStep,
-  onPrevStep,
-}: Step2FormProps) => {
-  const form_step2 = useForm<ApplicationFormSchema_Step2>({
-    resolver: zodResolver(applicationFormSchema_Step2),
+  admissionId,
+}: EducationDetailsFormProps) => {
+  const router = useRouter();
+
+  const form_step2 = useForm<EducationDetailsSchema>({
+    resolver: zodResolver(educationDetailsSchema),
     mode: "all",
     defaultValues: {
       Education_Details: {
@@ -79,7 +80,7 @@ const FormStep2 = ({
 
   const { control, handleSubmit } = form_step2;
 
-  const onSubmit = async (payload: ApplicationFormSchema_Step2) => {
+  const onSubmit = async (payload: EducationDetailsSchema) => {
     const filteredData = filteredPayload(payload);
 
     const data = {
@@ -90,9 +91,9 @@ const FormStep2 = ({
     try {
       await updateAdmission(
         admissionData?.documentId as string,
-        data as ApplicationFormSchema_Step2,
+        data as EducationDetailsSchema,
       );
-      onNextStep(3);
+      router.push(`/admission/${admissionId}/portfolio`);
     } catch (error) {
       notify({ success: false, message: error as string });
     }
@@ -111,7 +112,7 @@ const FormStep2 = ({
           <ButtonWidget
             type="button"
             onClick={() => {
-              onPrevStep();
+              router.push(`/admission/${admissionId}/personal-details`);
             }}
             className={cn(
               "px-6 py-2 bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
@@ -122,7 +123,7 @@ const FormStep2 = ({
 
           <OrangeButtonWidget
             content="Save & Continue"
-            className="px-6 py-2 bg-chart-1 text-white rounded-full hover:bg-red-700 transition-colors"
+            className="xss:text-[12px] h-9 px-4"
           />
         </div>
       </form>
@@ -130,4 +131,4 @@ const FormStep2 = ({
   );
 };
 
-export default FormStep2;
+export default EducationDetailsForm;

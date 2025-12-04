@@ -51,3 +51,7 @@ export async function getAdmissionsById(id: number) {
 export async function getCampusPageData() {
   return fetchData("/campus");
 }
+
+export async function getGalleryPageData() {
+  return fetchData("/gallery");
+}
