@@ -224,16 +224,14 @@ const FaqSection = () => {
   };
 
   return (
-    <section className="relative w-full bg-white py-16 md:py-24">
+    <section className="relative w-full bg-white py-10 md:py-15">
       <ContainerWidget>
         <div className="max-w-6xl mx-auto">
-          {/* Header */}
-          <h1 className="font-urbanist font-semibold text-4xl md:text-5xl text-gray-900 mb-12 text-center">
+          <h1 className="font-urbanist font-noraml text-[32px] md:text-[40px] xl:text-[48px] 2xl:text-[56px] 3xl:text-[64px] text-black mb-12 text-left">
             Frequently Asked Questions
           </h1>
 
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            {/* Sidebar Navigation */}
             <div className="lg:col-span-1">
               <nav className="space-y-2 lg:sticky lg:top-24">
                 {faqData.map((category) => (
@@ -241,10 +239,10 @@ const FaqSection = () => {
                     key={category.id}
                     type="button"
                     onClick={() => scrollToCategory(category.id)}
-                    className={`w-full text-left px-4 py-3 rounded-lg transition-colors cursor-pointer ${
+                    className={`w-full text-left px-2 py-2  transition-colors cursor-pointer text-[16px] md:text-[15px] xl:text-[15px] 2xl:text-[16px] 3xl:text-[18px] ${
                       activeCategory === category.id
-                        ? "bg-orange-50 text-orange-600 font-medium"
-                        : "text-gray-600 hover:bg-gray-50"
+                        ? "text-orange-600 font-normal "
+                        : "text-black hover:bg-gray-50 "
                     }`}
                   >
                     {category.title}
@@ -252,8 +250,6 @@ const FaqSection = () => {
                 ))}
               </nav>
             </div>
-
-            {/* FAQ Content - All Categories */}
             <div className="lg:col-span-3 space-y-8">
               {faqData.map((category) => (
                 <div
@@ -263,8 +259,8 @@ const FaqSection = () => {
                   }}
                   className="scroll-mt-24"
                 >
-                  <div className="bg-gray-50 rounded-lg p-6 md:p-8">
-                    <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 mb-6">
+                  <div className="bg-white p-6 md:p-6">
+                    <h2 className="text-2xl md:text-3xl font-semibold text-black mb-6">
                       {category.title}
                     </h2>
 
@@ -273,15 +269,15 @@ const FaqSection = () => {
                         <AccordionItem
                           key={`question-${index + 1}`}
                           value={`${category.id}-item-${index}`}
-                          className="bg-white rounded-lg border border-gray-200"
+                          className="bg-white  border-none "
                         >
-                          <AccordionTrigger className="px-6 py-4 text-left hover:no-underline">
-                            <span className="text-gray-800 font-medium">
+                          <AccordionTrigger className="py-4 text-left hover:no-underline cursor-pointer">
+                            <span className="text-black font-medium">
                               {item.question}
                             </span>
                           </AccordionTrigger>
-                          <AccordionContent className="px-6 pb-4">
-                            <p className="text-gray-600 leading-relaxed whitespace-pre-line">
+                          <AccordionContent className="pb-4">
+                            <p className="text-black leading-relaxed whitespace-pre-line">
                               {item.answer}
                             </p>
                           </AccordionContent>
