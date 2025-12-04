@@ -20,7 +20,6 @@ const parseDuration = (
 };
 
 const CourseContentSection = ({ data }: { data: CourseContentData }) => {
-  console.log(data, "pratheesh");
 
   const durationParts = parseDuration(data.Duration);
   const headerData = {
