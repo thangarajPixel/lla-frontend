@@ -226,7 +226,7 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = ({
         <section id="other-info" className="scroll-mt-[-40px]">
           <OtherInfoSection data={data?.Other_Info} />
         </section>
-        <StudentSection data={studentData} />
+        <StudentSection data={data?.Student_testimonial} />
         <TestimonialSection data={testimonialData} />
         <section id="how-to-apply" className="scroll-mt-[-40px]">
           <HowtoApplySection />

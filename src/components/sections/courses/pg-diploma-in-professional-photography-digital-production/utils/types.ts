@@ -74,7 +74,7 @@ export type StudentTestimonialCard = {
   Title: string;
   Description: string;
   Btn_txt: string | null;
-  Image: ImageData | null;
+  Image: ImageData[];
 };
 
 export type StudentTestimonialData = {
