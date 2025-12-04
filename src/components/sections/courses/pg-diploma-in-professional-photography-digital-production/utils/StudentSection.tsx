@@ -15,7 +15,7 @@ import {
   Into,
   Play,
 } from "@/helpers/ImageHelper";
-import type { StudentTestimonialData, StudentTestimonialCard } from "./types";
+import type { StudentTestimonialCard, StudentTestimonialData } from "./types";
 
 type StudentSectionProps = {
   data: StudentTestimonialData | StudentTestimonialData[];
