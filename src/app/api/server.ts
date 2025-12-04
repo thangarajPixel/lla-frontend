@@ -55,3 +55,7 @@ export async function getCampusPageData() {
 export async function getGalleryPageData() {
   return fetchData("/gallery");
 }
+
+export async function getCoursePageData() {
+  return fetchData("/course");
+}

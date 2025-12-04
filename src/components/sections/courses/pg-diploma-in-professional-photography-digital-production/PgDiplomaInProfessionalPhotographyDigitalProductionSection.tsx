@@ -14,6 +14,7 @@ import HowtoApplySection from "./utils/HowtoApplySection";
 import OtherInfoSection from "./utils/OtherInfoSection";
 import OverviewSection from "./utils/OverviewSection";
 import StudentSection from "./utils/StudentSection";
+import type { PgDiplomaData } from "./utils/types";
 
 const sidebarMenuItems = [
   { href: "#overview", label: "Overview" },
@@ -23,7 +24,12 @@ const sidebarMenuItems = [
   { href: "#faqs", label: "FAQ's" },
 ];
 
-const PgDiplomaInProfessionalPhotographyDigitalProductionSection = () => {
+const PgDiplomaInProfessionalPhotographyDigitalProductionSection = ({
+  data,
+}: {
+  data: PgDiplomaData;
+}) => {
+  console.log(data, "sdf");
   const [activeSection, setActiveSection] = useState<string>("#overview");
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
@@ -209,7 +215,7 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = () => {
 
       <main className="min-h-screen">
         <section id="overview">
-          <OverviewSection />
+          <OverviewSection data={data?.Menu} />
         </section>
         <section id="gallery">
           <GallerySection />

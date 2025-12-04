@@ -10,37 +10,11 @@ import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import { Dummy1 } from "@/helpers/ImageHelper";
+import type { ImageData, MenuData } from "./types";
 
-const staticData = {
-  Heading: "PG Diploma in Professional",
-  SubHeading: "Photography & Digital Production",
-  Description:
-    "The communication landscape has undergone a profound transformation – a surge in visual content - both photography and videography. In this evolving reality, there is a growing need for talent, proficient in both photography and video and capable of creating exceptional communication pieces. Recognising this demand, Light & Life Academy has crafted a course aligned with current industry expectations.",
-  SubDescription:
-    "Graduates of this course will go beyond creating high-end professional images and will be capable of creating an entire gamut of visual assets for different mediums, from still images for various platforms to videos for social media.",
-  Btn_txt: "Get In Touch",
-  Image: [
-    {
-      id: 1,
-      name: "Course Image 1",
-      url: "/uploads/Ajit_SN_1_e1951838fa.png",
-    },
-    {
-      id: 2,
-      name: "Course Image 2",
-      url: "/uploads/Rectangle_47_1_0683982b42.png",
-    },
-    {
-      id: 3,
-      name: "Course Image 3",
-      url: "/uploads/Rectangle_48_f12d80e4ad.png",
-    },
-  ],
-};
-
-const OverviewSection = () => {
-  const data = staticData;
-  const aboutImages = data.Image || [];
+const OverviewSection = ({ data }: { data: MenuData }) => {
+  const descriptionParagraphs = data.Description;
+  const aboutImages: ImageData[] = data.Image ? data.Image : [];
   const [currentIndices, setCurrentIndices] = useState([0, 1, 2]);
   const [variant, setVariant] = useState<"default" | "variant-2" | "variant-3">(
     "default",
@@ -103,29 +77,37 @@ const OverviewSection = () => {
               </ButtonWidget>
             </div>
             <p className="font-urbanist font-normal text-[30px] leading-14 xss:text-[34px] sm:text-5xl 3xl:text-[64px] text-black">
-              {data.Heading}
-              {data.SubHeading && (
+              {data.Title}
+              {data.SubTitle && (
                 <>
                   <br className="hidden sm:block" />
                   <span className="text-[#E97451] ml-2 sm:ml-0">
-                    {data.SubHeading}
+                    {data.SubTitle}
                   </span>
                 </>
               )}
             </p>
-            <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[400px]">
-              {data.Description ||
-                "In thought, in learning, and in spirit, what began as Iqbal Mohamed's dream to establish India's first professional photography institute has grown into a community that continues to explore, question, and create with purpose."}
-            </p>
-            <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[400px]">
-              {data.SubDescription ||
-                "Graduates of this course will go beyond creating high-end professional images and will be capable of creating an entire gamut of visual assets for different mediums, from still images for various platforms to videos for social media."}
-            </p>
-            <div className="self-start">
-              <LinkWidget href="/admission" className="w-full">
-                <OrangeButtonWidget content={data.Btn_txt || "Apply Now"} />
-              </LinkWidget>
-            </div>
+            {descriptionParagraphs?.map((paragraph, index) => {
+              const paragraphText = paragraph.children
+                .map((child) => child.text)
+                .join(" ");
+              const key = `${paragraphText.slice(0, 30)}-${index}`;
+              return (
+                <p
+                  key={key}
+                  className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[400px]"
+                >
+                  {paragraphText}
+                </p>
+              );
+            })}
+            {data.Btn_txt && (
+              <div className="self-start">
+                <LinkWidget href="/admission" className="w-full">
+                  <OrangeButtonWidget content={data.Btn_txt} />
+                </LinkWidget>
+              </div>
+            )}
           </div>
           <ScrollWidget delay={0.1} animation="fadeUp">
             <div className="hidden xl:block 3xl:ml-30">
@@ -144,7 +126,7 @@ const OverviewSection = () => {
                   >
                     <ImageWidget
                       src={getImageUrl(currentIndices[0])}
-                      alt={aboutImages[currentIndices[0]].name || "About"}
+                      alt={aboutImages[currentIndices[0]].name}
                       fill
                       className="object-contain"
                     />
@@ -162,7 +144,7 @@ const OverviewSection = () => {
                   >
                     <ImageWidget
                       src={getImageUrl(currentIndices[1])}
-                      alt={aboutImages[currentIndices[1]].name || "About"}
+                      alt={aboutImages[currentIndices[1]].name}
                       fill
                       className="object-contain"
                     />
@@ -180,7 +162,7 @@ const OverviewSection = () => {
                   >
                     <ImageWidget
                       src={getImageUrl(currentIndices[2])}
-                      alt={aboutImages[currentIndices[2]].name || "About"}
+                      alt={aboutImages[currentIndices[2]].name}
                       fill
                       className="object-contain"
                     />
@@ -202,7 +184,7 @@ const OverviewSection = () => {
                     >
                       <ImageWidget
                         src={getS3Url(image.url)}
-                        alt={image.name || "About"}
+                        alt={image.name}
                         fill
                         className="object-cover"
                       />
