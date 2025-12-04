@@ -24,7 +24,7 @@ import {
 } from "@/store/services/global-services";
 import AddressFields from "../_components/address-fields";
 
-type PersonalDetailsSchema = z.infer<typeof personalDetailsSchema>;
+export type PersonalDetailsSchema = z.infer<typeof personalDetailsSchema>;
 
 type PersonalDetailsFormProps = {
   admissionData?: AdmissionFormData;

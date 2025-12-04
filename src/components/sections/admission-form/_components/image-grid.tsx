@@ -2,8 +2,8 @@
 
 import { X } from "lucide-react";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import type { UploadedImage } from "@/components/sections/admission-form/_steps/portfolio-form";
+import { Button } from "@/components/ui/button";
 
 interface ImageGridProps {
   images: UploadedImage[];

@@ -13,7 +13,7 @@ import { educationDetailsSchema } from "@/helpers/ValidationHelper";
 import { cn } from "@/lib/utils";
 import { updateAdmission } from "@/store/services/global-services";
 
-type EducationDetailsSchema = z.infer<typeof educationDetailsSchema>;
+export type EducationDetailsSchema = z.infer<typeof educationDetailsSchema>;
 
 type EducationDetailsFormProps = {
   admissionData?: AdmissionFormData;

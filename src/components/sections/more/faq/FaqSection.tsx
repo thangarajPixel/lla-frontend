@@ -271,7 +271,7 @@ const FaqSection = () => {
                     <Accordion type="single" collapsible className="space-y-4">
                       {category.questions.map((item, index) => (
                         <AccordionItem
-                          key={index}
+                          key={`question-${index + 1}`}
                           value={`${category.id}-item-${index}`}
                           className="bg-white rounded-lg border border-gray-200"
                         >
