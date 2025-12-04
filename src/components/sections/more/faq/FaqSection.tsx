@@ -241,7 +241,7 @@ const FaqSection = () => {
                     onClick={() => scrollToCategory(category.id)}
                     className={`w-full text-left px-2 py-2  transition-colors cursor-pointer text-[16px] md:text-[15px] xl:text-[15px] 2xl:text-[16px] 3xl:text-[18px] ${
                       activeCategory === category.id
-                        ? "text-orange-600 font-normal "
+                        ? "text-[#E97451] font-normal "
                         : "text-black hover:bg-gray-50 "
                     }`}
                   >
@@ -250,7 +250,7 @@ const FaqSection = () => {
                 ))}
               </nav>
             </div>
-            <div className="lg:col-span-3 space-y-8">
+            <div className="lg:col-span-3">
               {faqData.map((category) => (
                 <div
                   key={category.id}
