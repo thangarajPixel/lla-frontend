@@ -128,7 +128,7 @@ const OverviewSection = () => {
             </div>
           </div>
           <ScrollWidget delay={0.1} animation="fadeUp">
-            <div className="hidden xl:block">
+            <div className="hidden xl:block 3xl:ml-30">
               <div
                 className={`frame-39 property-1-${variant} relative h-[650px] -mt-10 box-border`}
               >
