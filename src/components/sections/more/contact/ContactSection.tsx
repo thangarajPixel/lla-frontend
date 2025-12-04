@@ -56,7 +56,7 @@ export default function ContactSection() {
             <p className="text-lg font-mulish font-normal text-[20px] sm:text-[22px] md:text-[24px] lg:text-[26px] xl:text-[28px] 2xl:text-[30px] 3xl:text-[32px]">
               Let's build this <span className="text-[#FF6B4A]">connection</span>
             </p>
-            <p className=" mt-4">
+            <p className=" mt-4 max-w-[630px]">
               Lorem ipsum dolor sit amet consectetur. Pulvinar nunc rhoncus nibh varius
               faucibus nisi vitae et.
             </p>
@@ -95,7 +95,7 @@ export default function ContactSection() {
                 <Clock className="w-5 h-5 text-[#FF6B4A]" />
               </div>
               <div>
-                <p className="text-foreground font-medium">
+                <p className="text-foreground font-medium text-[16px]  md:text-[16px] lg:text-[16px] xl:text-[16px] 3xl:text-[18px]">
                   Visitors are welcome from 10:00 AM to 4:00 PM, Monday to Friday
                 </p>
                 <p className="text-foreground">
