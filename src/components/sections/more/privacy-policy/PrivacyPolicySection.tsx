@@ -1,5 +1,5 @@
-import ContainerWidget from "@/components/widgets/ContainerWidget";
 import { X } from "lucide-react";
+import ContainerWidget from "@/components/widgets/ContainerWidget";
 
 const PrivacyPolicySection = () => {
   return (
@@ -14,10 +14,14 @@ const PrivacyPolicySection = () => {
               Privacy Policy for Light & Life Academy
             </h2>
             <p className="text-[16px] md:text-[14px] lg:text-[14px] xl:text-[14px] 2xl:text-[16px] 3xl:text-[18px] text-black leading-relaxed">
-              Before embarking on the journey of organizing a photography exhibition, it's essential to clarify the purpose and objectives behind it. Are you aiming to 
-              showcase a particular project or series of work? Do you want to raise awareness about a social issue or share a personal story through your photographs? 
-              Understanding the purpose of the exhibition will guide your decision-making process and help you communicate the significance of your work to potential 
-              venues and collaborators.
+              Before embarking on the journey of organizing a photography
+              exhibition, it's essential to clarify the purpose and objectives
+              behind it. Are you aiming to showcase a particular project or
+              series of work? Do you want to raise awareness about a social
+              issue or share a personal story through your photographs?
+              Understanding the purpose of the exhibition will guide your
+              decision-making process and help you communicate the significance
+              of your work to potential venues and collaborators.
             </p>
           </div>
           <div className="mb-12">
@@ -28,22 +32,40 @@ const PrivacyPolicySection = () => {
               <div className="flex gap-3">
                 <X className="w-5 h-5 text-orange-500 flex-shrink-0 mt-1" />
                 <div>
-                  <span className="font-semibold text-black">Personal Information:</span>
-                  <span className="text-black"> Your name, contact details (email, phone number, address), and other details provided during the application process.</span>
+                  <span className="font-semibold text-black">
+                    Personal Information:
+                  </span>
+                  <span className="text-black">
+                    {" "}
+                    Your name, contact details (email, phone number, address),
+                    and other details provided during the application process.
+                  </span>
                 </div>
               </div>
               <div className="flex gap-3">
                 <X className="w-5 h-5 text-orange-500 flex-shrink-0 mt-1" />
                 <div>
-                  <span className="font-semibold text-black">Payment Information:</span>
-                  <span className="text-black"> Payment details submitted for processing your application fee via secure payment gateways.</span>
+                  <span className="font-semibold text-black">
+                    Payment Information:
+                  </span>
+                  <span className="text-black">
+                    {" "}
+                    Payment details submitted for processing your application
+                    fee via secure payment gateways.
+                  </span>
                 </div>
               </div>
               <div className="flex gap-3">
                 <X className="w-5 h-5 text-orange-500 flex-shrink-0 mt-1" />
                 <div>
-                  <span className="font-semibold text-black">Device and Log Information:</span>
-                  <span className="text-black"> Non-personal data such as IP address, browser type, and usage patterns for website performance and security.</span>
+                  <span className="font-semibold text-black">
+                    Device and Log Information:
+                  </span>
+                  <span className="text-black">
+                    {" "}
+                    Non-personal data such as IP address, browser type, and
+                    usage patterns for website performance and security.
+                  </span>
                 </div>
               </div>
             </div>
@@ -55,19 +77,29 @@ const PrivacyPolicySection = () => {
             <div className="space-y-4">
               <div className="flex gap-3">
                 <X className="w-5 h-5 text-orange-500 flex-shrink-0 mt-1" />
-                <p className="text-black">To process your application and communicate with you about the admission process.</p>
+                <p className="text-black">
+                  To process your application and communicate with you about the
+                  admission process.
+                </p>
               </div>
               <div className="flex gap-3">
                 <X className="w-5 h-5 text-orange-500 flex-shrink-0 mt-1" />
-                <p className="text-black">To securely manage payment transactions for application fees.</p>
+                <p className="text-black">
+                  To securely manage payment transactions for application fees.
+                </p>
               </div>
               <div className="flex gap-3">
                 <X className="w-5 h-5 text-orange-500 flex-shrink-0 mt-1" />
-                <p className="text-black">To send notifications regarding updates to our courses or admissions process.</p>
+                <p className="text-black">
+                  To send notifications regarding updates to our courses or
+                  admissions process.
+                </p>
               </div>
               <div className="flex gap-3">
                 <X className="w-5 h-5 text-orange-500 flex-shrink-0 mt-1" />
-                <p className="text-black">To analyze website usage for improving user experience.</p>
+                <p className="text-black">
+                  To analyze website usage for improving user experience.
+                </p>
               </div>
             </div>
           </div>
@@ -76,8 +108,11 @@ const PrivacyPolicySection = () => {
               Data Security
             </h2>
             <p className="text-base text-black leading-relaxed">
-              We employ industry-standard security measures to protect your personal and payment information from unauthorized access, alteration, or misuse. All 
-              payment transactions are conducted through trusted third-party payment gateways using encryption protocols.
+              We employ industry-standard security measures to protect your
+              personal and payment information from unauthorized access,
+              alteration, or misuse. All payment transactions are conducted
+              through trusted third-party payment gateways using encryption
+              protocols.
             </p>
           </div>
           <div className="mb-12">
@@ -85,16 +120,22 @@ const PrivacyPolicySection = () => {
               Sharing of Information
             </h2>
             <p className="text-base text-black leading-relaxed mb-4">
-              We do not share your personal information with third parties except:
+              We do not share your personal information with third parties
+              except:
             </p>
             <div className="space-y-4">
               <div className="flex gap-3">
                 <X className="w-5 h-5 text-orange-500 flex-shrink-0 mt-1" />
-                <p className="text-black">To comply with legal obligations or regulatory requirements.</p>
+                <p className="text-black">
+                  To comply with legal obligations or regulatory requirements.
+                </p>
               </div>
               <div className="flex gap-3">
                 <X className="w-5 h-5 text-orange-500 flex-shrink-0 mt-1" />
-                <p className="text-black">With secure service providers assisting in managing the application and payment process.</p>
+                <p className="text-black">
+                  With secure service providers assisting in managing the
+                  application and payment process.
+                </p>
               </div>
             </div>
           </div>
@@ -103,8 +144,9 @@ const PrivacyPolicySection = () => {
               Cookies
             </h2>
             <p className="text-base text-black leading-relaxed">
-              Our website may use cookies to enhance your experience and monitor website performance. You can adjust your browser settings to disable 
-              cookies if preferred.
+              Our website may use cookies to enhance your experience and monitor
+              website performance. You can adjust your browser settings to
+              disable cookies if preferred.
             </p>
           </div>
           <div className="mb-12">
@@ -112,7 +154,8 @@ const PrivacyPolicySection = () => {
               Contact Us
             </h2>
             <p className="text-base text-black leading-relaxed mb-4">
-              If you have any questions about this Privacy Policy, please contact us at:
+              If you have any questions about this Privacy Policy, please
+              contact us at:
             </p>
             <div className="space-y-2 text-black">
               <p>Email: admission@llacademy.org</p>
@@ -121,8 +164,9 @@ const PrivacyPolicySection = () => {
           </div>
           <div className="pt-3">
             <p className="text-sm text-black leading-relaxed">
-              By submitting your application and fees, you agree to the terms of this Privacy Policy. We reserve the right to update this policy as needed, 
-              with changes posted on our website.
+              By submitting your application and fees, you agree to the terms of
+              this Privacy Policy. We reserve the right to update this policy as
+              needed, with changes posted on our website.
             </p>
           </div>
         </div>
