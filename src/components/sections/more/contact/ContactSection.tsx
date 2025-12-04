@@ -151,7 +151,7 @@ export default function ContactSection() {
                 rows={6}
                 className="flex w-full rounded-2xl border border-[#BDBDBD] bg-background px-4 py-3 text-base placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-0 focus-visible:border-chart-1/50 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
               />
-              {errors.message && <p className="text-danger">{errors.message.message}</p>}
+              {errors.message && <p className="text-danger text-sm text-red-500">{errors.message.message}</p>}
             </div>
             <OrangeButtonWidget  content="Submit"/>               
           </form>
