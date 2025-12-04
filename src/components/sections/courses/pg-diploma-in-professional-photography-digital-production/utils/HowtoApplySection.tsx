@@ -2,7 +2,7 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import { HowToApplyData } from "./types";
+import type { HowToApplyData } from "./types";
 
 const HowtoApplySection = ({ data }: { data: HowToApplyData }) => {
   return (

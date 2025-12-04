@@ -154,7 +154,7 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = ({
           <HowtoApplySection data={data?.HowToApply} />
         </section>
         <section id="faqs" className="scroll-mt-[-40px]">
-          <FaqSection />
+          <FaqSection data={data?.Faq} />
         </section>
       </main>
     </div>
