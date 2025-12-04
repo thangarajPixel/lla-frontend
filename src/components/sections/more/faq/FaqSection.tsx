@@ -268,7 +268,7 @@ const FaqSection = () => {
                         <AccordionItem
                           key={`question-${index + 1}`}
                           value={`${category.id}-item-${index}`}
-                          className="bg-white  border-none "
+                          className="bg-white border-none"
                         >
                           <AccordionTrigger className="py-4 text-left hover:no-underline cursor-pointer">
                             <span className="text-black font-medium">
