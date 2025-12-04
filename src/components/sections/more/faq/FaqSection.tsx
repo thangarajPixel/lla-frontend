@@ -230,7 +230,6 @@ const FaqSection = () => {
           <h1 className="font-urbanist font-noraml text-[32px] md:text-[40px] xl:text-[48px] 2xl:text-[56px] 3xl:text-[64px] text-black mb-12 text-left">
             Frequently Asked Questions
           </h1>
-
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
            <div className="hidden md:block lg:col-span-1">
               <nav className="space-y-2 lg:sticky lg:top-24">
