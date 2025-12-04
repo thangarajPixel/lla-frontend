@@ -2,6 +2,8 @@ export type ImageData = {
   id: number;
   name: string;
   url: string;
+  width?: number;
+  height?: number;
 };
 
 export type DescriptionText = {
