@@ -15,7 +15,7 @@ const CourseContentSection = () => {
 
   const sectionsData = [
     {
-      type: 2,
+      type: 1,
       section: "A",
       title: "Professional Photography Part 1",
       description: null,
