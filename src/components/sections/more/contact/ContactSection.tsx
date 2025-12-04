@@ -50,13 +50,13 @@ export default function ContactSection() {
       <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
         <div className="space-y-8">
           <div>
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            <h1 className="text-4xl md:text-5xl lg:text-[50px] xl:text-[56px] 2xl:text-[60px] 3xl:text-[64px] font-urbanist font-normal  mb-4">
               Contact Us
             </h1>
-            <p className="text-lg">
+            <p className="text-lg font-mulish font-normal text-[20px] sm:text-[22px] md:text-[24px] lg:text-[26px] xl:text-[28px] 2xl:text-[30px] 3xl:text-[32px]">
               Let's build this <span className="text-[#FF6B4A]">connection</span>
             </p>
-            <p className="text-muted-foreground mt-4">
+            <p className=" mt-4">
               Lorem ipsum dolor sit amet consectetur. Pulvinar nunc rhoncus nibh varius
               faucibus nisi vitae et.
             </p>
@@ -86,7 +86,7 @@ export default function ContactSection() {
               </div>
               <div>
                 <p className="text-foreground font-medium">Lovedale, Ooty – 643 003</p>
-                <p className="text-muted-foreground">Tamil Nadu, India</p>
+                <p className="text-foreground">Tamil Nadu, India</p>
               </div>
             </div>
 
@@ -98,7 +98,7 @@ export default function ContactSection() {
                 <p className="text-foreground font-medium">
                   Visitors are welcome from 10:00 AM to 4:00 PM, Monday to Friday
                 </p>
-                <p className="text-muted-foreground">
+                <p className="text-foreground">
                   except for public holidays. Please call to fix an appointment.
                 </p>
               </div>
