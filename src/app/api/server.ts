@@ -52,8 +52,12 @@ export async function getCampusPageData() {
   return fetchData("/campus");
 }
 
-export async function getGalleryPageData() {
-  return fetchData("/gallery");
+export async function getGalleryPageData(params?: {
+  page?: number;
+  pageSize?: number;
+  type?: string;
+}) {
+  return fetchData("/gallery", params);
 }
 
 export async function getCoursePageData() {
