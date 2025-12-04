@@ -9,13 +9,14 @@ import FormInput from "@/components/form/FormInput";
 import { Button } from "@/components/ui/button";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
+import { clientAxios } from "@/helpers/AxiosHelper";
 
 const contactSchema = z.object({
-  firstName: z.string().min(1, "First name is required"),
-  lastName: z.string().min(1, "Last name is required"),
-  email: z.string().email("Invalid email address"),
-  phone: z.string().min(10, "Phone number must be at least 10 digits"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
+  FirstName: z.string().min(1, "First name is required"),
+  LastName: z.string().min(0, "Last name is required"),
+  Email: z.string().email("Invalid email address"),
+  Mobile: z.string().min(10, "Phone number must be at least 10 digits"),
+  Message: z.string().min(0, "Message must be at least 10 characters"),
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
@@ -24,20 +25,23 @@ export default function ContactSection() {
   const { control, handleSubmit, reset, register, formState: { errors } } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      message: "",
+      FirstName: "",
+      LastName: "",
+      Email: "",
+      Mobile: "",
+      Message: "",
     },
   });
   console.log(errors,'asfddfdsf');
 
   const onSubmit = async (data: ContactFormData) => {
     try {
-      // TODO: Replace with actual API call
-      console.log("Form data:", data);
-      toast.success("Message sent successfully!");
+       const response = await clientAxios.post<ContactFormData>(
+          "/contacts",
+          { data: data },
+        );
+      console.log("Form data:", response);
+      toast.success("Contact sent successfully!");
       reset();
     } catch (error) {
       toast.error("Failed to send message. Please try again.");
@@ -109,14 +113,14 @@ export default function ContactSection() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div className="grid grid-cols-2 gap-4">
               <FormInput
-                name="firstName"
+                name="FirstName"
                 control={control}
                 placeholder="First Name"
                 label="Name"
                 className="col-span-1"
               />
               <FormInput
-                name="lastName"
+                name="LastName"
                 control={control}
                 placeholder="Last Name"
                 notRequired
@@ -126,14 +130,14 @@ export default function ContactSection() {
 
             <div className="grid grid-cols-2 gap-4">
               <FormInput
-                name="email"
+                name="Email"
                 control={control}
                 type="email"
                 placeholder="Enter your email"
                 label="Email"
               />
               <FormInput
-                name="phone"
+                name="Mobile"
                 control={control}
                 type="tel"
                 placeholder="Enter your phone number"
@@ -143,15 +147,15 @@ export default function ContactSection() {
 
             <div>
               <label className="block text-sm font-medium text-foreground font-mulish mb-1">
-                Message<span className="text-chart-1">*</span>
+                Message<span className="text-chart-1"></span>
               </label>
               <textarea
-                {...register("message")}
+                {...register("Message")}
                 placeholder="Message"
                 rows={6}
                 className="flex w-full rounded-2xl border border-[#BDBDBD] bg-background px-4 py-3 text-base placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-0 focus-visible:border-chart-1/50 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
               />
-              {errors.message && <p className="text-danger text-sm text-red-500">{errors.message.message}</p>}
+              {errors.Message && <p className="text-danger text-sm text-red-500">{errors.Message.message}</p>}
             </div>
             <OrangeButtonWidget  content="Submit"/>               
           </form>
