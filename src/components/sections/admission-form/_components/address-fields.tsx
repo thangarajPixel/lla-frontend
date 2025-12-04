@@ -2,11 +2,11 @@
 
 import type { Control } from "react-hook-form";
 import { FormInput, FormSelectBox } from "@/components/form";
-import type { ApplicationFormSchema_Step1 } from "@/helpers/ValidationHelper";
 import { useGetStateLists } from "@/store/hooks/global-hooks";
+import { PersonalDetailsSchema } from "@/components/sections/admission-form/_steps/personal-details-form";
 
 type AddressFieldsProps = {
-  control: Control<ApplicationFormSchema_Step1>;
+  control: Control<PersonalDetailsSchema>;
   name?: string;
 };
 

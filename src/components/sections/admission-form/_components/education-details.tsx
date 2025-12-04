@@ -6,11 +6,11 @@ import { FormInput } from "@/components/form";
 import FormFileUploadButton from "@/components/form/FormFileUploadButton";
 import FormRadioGroup from "@/components/form/FormRadioGroup";
 import { Button } from "@/components/ui/button";
-import type { ApplicationFormSchema_Step2 } from "@/helpers/ValidationHelper";
+import { EducationDetailsSchema } from "@/components/sections/admission-form/_steps/education-details-form";
 
 type EducationDetailsProps = {
   admissionData?: AdmissionFormData;
-  control: Control<ApplicationFormSchema_Step2>;
+  control: Control<EducationDetailsSchema>;
 };
 
 export function EducationDetails({

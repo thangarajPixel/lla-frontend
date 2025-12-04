@@ -28,7 +28,7 @@ const GallertSection = ({ data }: GallerySectionProps) => {
   });
 
   useEffect(() => {
-    const shuffleIndices = () => {
+    const initializeIndices = () => {
       if (galleryImages.length > 8) {
         const shuffled = [...galleryImages]
           .map((_, index) => index)
@@ -44,9 +44,23 @@ const GallertSection = ({ data }: GallerySectionProps) => {
       }
     };
 
-    shuffleIndices();
+    initializeIndices();
 
-    const interval = setInterval(shuffleIndices, 3000);
+    const changeOneImage = () => {
+      if (galleryImages.length === 0) return;
+
+      setRandomIndices((prevIndices) => {
+        const newIndices = [...prevIndices];
+        const randomPosition = Math.floor(Math.random() * 8);
+        const randomImageIndex = Math.floor(
+          Math.random() * galleryImages.length,
+        );
+        newIndices[randomPosition] = randomImageIndex;
+        return newIndices;
+      });
+    };
+
+    const interval = setInterval(changeOneImage, 1500);
 
     return () => clearInterval(interval);
   }, [galleryImages]);

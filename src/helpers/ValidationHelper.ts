@@ -8,11 +8,11 @@ export const languageSchema = z.object({
 });
 
 const addressSchema = z.object({
-  type: z.literal("paragraph"), // or z.string() if Strapi may return other types
+  type: z.literal("paragraph"),
   children: z.array(
     z.object({
       text: z.string(),
-      type: z.string().optional(), // Strapi usually returns "text"
+      type: z.string().min(1, "Address is required"),
     }),
   ),
 });
@@ -64,7 +64,7 @@ export const postGraduate = z.object({
   marksheet: z.number().optional(),
 });
 
-export const applicationFormSchema_Step1 = z.object({
+export const personalDetailsSchema = z.object({
   course_id: z.number().optional(),
   name_title: z.string().optional(),
 
@@ -81,7 +81,7 @@ export const applicationFormSchema_Step1 = z.object({
     .array(languageSchema)
     .min(1, "Add at least one language")
     .optional(),
-  address: z.array(addressSchema).min(1, "Address is required").optional(),
+  address: z.array(addressSchema).min(1, "Address is required"),
   city: z.string().optional(),
   district: z.string().optional(),
   state: z.string().optional(),
@@ -104,7 +104,7 @@ export const applicationFormSchema_Step1 = z.object({
   step_1: z.boolean().optional(),
 });
 
-export const applicationFormSchema_Step2 = z.object({
+export const educationDetailsSchema = z.object({
   Education_Details: z.object({
     Education_Details_12th_std: z.number().min(1, "MarkSheet is required"),
     Education_Details_10th_std: z.number().min(1, "MarkSheet is required"),
@@ -125,7 +125,7 @@ export const applicationFormSchema_Step2 = z.object({
   step_2: z.boolean().optional(),
 });
 
-export const applicationFormSchema_Step3 = z.object({
+export const portfolioSchema = z.object({
   Upload_Your_Portfolio: z.object({
     images: z
       .array(
@@ -137,13 +137,3 @@ export const applicationFormSchema_Step3 = z.object({
   }),
   step_3: z.boolean().optional(),
 });
-
-export type ApplicationFormSchema_Step1 = z.infer<
-  typeof applicationFormSchema_Step1
->;
-export type ApplicationFormSchema_Step2 = z.infer<
-  typeof applicationFormSchema_Step2
->;
-export type ApplicationFormSchema_Step3 = z.infer<
-  typeof applicationFormSchema_Step3
->;
