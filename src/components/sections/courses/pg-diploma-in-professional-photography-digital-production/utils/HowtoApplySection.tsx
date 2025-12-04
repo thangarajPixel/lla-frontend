@@ -8,9 +8,9 @@ const HowtoApplySection = ({ data }: { data: HowToApplyData }) => {
   return (
     <section className="w-full bg-white py-10 sm:py-16 lg:py-20 3xl:py-24">
       <ContainerWidget>
-        <div className="flex flex-col items-center gap-8 md:gap-12 lg:gap-16">
+        <div className="flex flex-col items-start md:items-center gap-8 md:gap-12 lg:gap-16">
           <ScrollWidget delay={0.1} animation="fadeUp">
-            <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
+            <h2 className="text-3xl font-urbanist font-normal xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] md:font-normal text-black font-urbanist text-left md:text-center">
               {data.Title}
             </h2>
           </ScrollWidget>
@@ -37,16 +37,16 @@ const HowtoApplySection = ({ data }: { data: HowToApplyData }) => {
                           alt={card.Heading}
                           width={card.Icon.width || 80}
                           height={card.Icon.height || 80}
-                          className="w-[60px] h-[60px] 3xl:min-w-[80px] 3xl:min-h-[80px] object-contain"
+                          className="w-[60px] h-[60px] xss:w-[80px] xss:h-[80px] 3xl:min-w-[80px] 3xl:min-h-[80px] object-contain"
                         />
                       </div>
                     )}
 
-                    <h3 className="text-[#E97451] font-urbanist text-lg sm:text-[18px] xl:text-[14px] 2xl:text-[18px] 3xl:text-[24px] font-normal mb-3 pr-16 lg:pr-20">
+                    <h3 className="text-[#E97451] font-urbanist text-lg xss:text-[24px] sm:text-[18px] xl:text-[14px] 2xl:text-[18px] 3xl:text-[24px] font-normal mb-3 pr-16 lg:pr-20">
                       {card.Heading}
                     </h3>
 
-                    <p className="text-[16px] lg:text-[15px] xl:text-[14px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[760px]">
+                    <p className="font-mulish text-[16px] xss:text-[16px] lg:text-[15px] xl:text-[14px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[760px]">
                       {card.Description}
                     </p>
                   </div>

@@ -92,7 +92,7 @@ const AccordionWidget = ({
               <AccordionItem key={item.value} value={item.value}>
                 <AccordionTrigger
                   className={cn(
-                    "text-black bg-white cursor-pointer 3xl:text-[24px] text-[17px] px-4 py-3 data-[state=closed]:mb-5 transition-all duration-200 hover:no-underline data-[state=open]:text-[#E97451] [&>svg]:text-[#E97451] [&>svg]:transition-transform",
+                    "text-black bg-white font-urbanist cursor-pointer 3xl:text-[24px] text-[17px] xss:text-[20px] px-4 py-3 data-[state=closed]:mb-5 transition-all duration-200 hover:no-underline data-[state=open]:text-[#E97451] [&>svg]:text-[#E97451] [&>svg]:transition-transform",
                     item.triggerClassName,
                   )}
                 >
@@ -100,7 +100,7 @@ const AccordionWidget = ({
                 </AccordionTrigger>
                 <AccordionContent
                   className={cn(
-                    "text-black bg-white mb-5 px-4 pb-3 pt-1",
+                    "text-black bg-white text-[16px] mb-5 px-4 pb-3 pt-1",
                     item.contentClassName,
                   )}
                 >
@@ -116,7 +116,7 @@ const AccordionWidget = ({
               <AccordionItem key={item.value} value={item.value}>
                 <AccordionTrigger
                   className={cn(
-                    "text-black bg-white cursor-pointer 3xl:text-[24px] text-[17px] px-4 py-3 data-[state=closed]:mb-5 transition-all duration-200 hover:no-underline data-[state=open]:text-[#E97451] [&>svg]:text-[#E97451] [&>svg]:transition-transform",
+                    "text-black bg-white font-urbanist cursor-pointer xss:text-[20px] 3xl:text-[24px] text-[17px] px-4 py-3 data-[state=closed]:mb-5 transition-all duration-200 hover:no-underline data-[state=open]:text-[#E97451] [&>svg]:text-[#E97451] [&>svg]:transition-transform",
                     item.triggerClassName,
                   )}
                 >
@@ -124,7 +124,7 @@ const AccordionWidget = ({
                 </AccordionTrigger>
                 <AccordionContent
                   className={cn(
-                    "text-black bg-white mb-5 px-4 pb-3 pt-1",
+                    "text-black bg-white text-[16px] mb-5 px-4 pb-3 pt-1",
                     item.contentClassName,
                   )}
                 >

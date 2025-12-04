@@ -29,7 +29,7 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = ({
 }: {
   data: PgDiplomaData;
 }) => {
-  console.log(data, "sdf");
+
   const [activeSection, setActiveSection] = useState<string>("#overview");
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
@@ -114,7 +114,7 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = ({
         </div>
       </aside>
 
-      <div className="xl:hidden fixed top-18 left-0 right-0 z-50 bg-white border-b border-gray-200 px-4 py-3">
+      <div className="hidden xss:hidden xl:hidden fixed top-18 left-0 right-0 z-50 bg-white border-b border-gray-200 px-4 py-3">
         <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
           <SheetTrigger asChild>
             <ButtonWidget
@@ -143,7 +143,7 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = ({
           <GallerySection data={data?.Overview} />
         </section>
         <section id="course-content" className="scroll-mt-[-40px]">
-          <CourseContentSection />
+          <CourseContentSection data={data?.Course_content} />
         </section>
         <section id="other-info" className="scroll-mt-[-40px]">
           <OtherInfoSection data={data?.Other_Info} />

@@ -99,10 +99,10 @@ const StudentSection = ({ data }: StudentSectionProps) => {
     <section className="w-full py-10 md:py-10 lg:py-12 xl:py-16 2xl:py-20 3xl:py-24 bg-[#f6f6f6] mx-auto max-w-[1920px]">
       <ScrollWidget animation="fadeUp" delay={0.1}>
         <div className="flex flex-col w-[90vw] mx-auto justify-start md:justify-center items-start md:items-center text-left md:text-center gap-2.5 md:gap-4.5">
-          <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
+          <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-normal md:font-normal text-black font-urbanist">
             {sectionData?.Title}
           </h2>
-          <p className="font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl 3xl:text-[40px] text-black">
+          <p className="font-mulish font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl 3xl:text-[40px] text-black">
             {sectionData?.Heading}
             {sectionData?.SubHeading && (
               <span className="text-[#E97451] pl-2">
@@ -110,7 +110,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
               </span>
             )}
           </p>
-          <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[760px]">
+          <p className="font-mulish text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[760px]">
             {sectionData?.Description}
           </p>
         </div>

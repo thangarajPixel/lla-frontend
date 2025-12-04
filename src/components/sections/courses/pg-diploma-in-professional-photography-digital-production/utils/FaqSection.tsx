@@ -15,7 +15,7 @@ const FaqSection = ({ data }: { data: FaqData }) => {
       <ContainerWidget>
         <ScrollWidget animation="fadeUp">
           <div className="space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12 2xl:space-y-14 3xl:space-y-16">
-            <h3 className="text-center 3xl:text-[64px] text-3xl 2xl:text-[50px] leading-5 font-semibold md:font-normal text-black font-urbanist">
+            <h3 className="text-left md:text-center 3xl:text-[64px] text-3xl 2xl:text-[50px] md:leading-5 font-normal md:font-normal text-black font-urbanist">
               {data.Title}
             </h3>
             {items.length > 0 && (
