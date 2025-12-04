@@ -15,7 +15,7 @@ const CourseContentSection = () => {
 
   const sectionsData = [
     {
-      type: 1,
+      type: 2,
       section: "A",
       title: "Professional Photography Part 1",
       description: null,
@@ -390,6 +390,50 @@ const CourseContentSection = () => {
       gridBreakpoint: "lg",
       delay: 0.4,
     },
+    {
+      type: 10,
+      section: "J",
+      title: "Professional Photography Part 2",
+      description:
+        "This section will give students an in-depth and conceptual understanding of artificial light sources and their applications.",
+      listItems: [
+        {
+          label: "Portable Flash (Basic and Advanced): ",
+          text: "Exploring the technical and creative possibilities with portable flash.",
+        },
+        {
+          label: "Studio Part 1 (Introduction): ",
+          text: "Understanding technical aspects and usage of Studio Lights, Light Modifying Accessories & Grip Equipment.",
+        },
+        {
+          label: "Studio Part 2 (Advanced): ",
+          text: "An in-depth exploration of lighting concepts used in still life, product and people photography.",
+        },
+        {
+          label: "Studio Part 3 (Conceptual Photography): ",
+          text: "Conceptualising and executing images, keeping the brand/narrative in mind.",
+        },
+        {
+          label: "Post Production Part 2: ",
+          text: "Image editing, compositing and basics of retouching.",
+        },
+        "Every topic (above) will be covered through lectures, visual presentations, and demos, followed by time-bound assignments with critique and grading.",
+        {
+          label: "Medium format cameras: ",
+          text: "Understanding the possibilities and limitations offered by medium format cameras through hands-on experience.",
+        },
+        {
+          label: "Tilt-Shift lenses: ",
+          text: "Understanding the different movements possible with tilt-shift lenses and their applications in various areas of photography. (A workshop)",
+        },
+        {
+          label: "Aerial & Drone Photography: ",
+          text: "Understanding the techniques of photographing subjects from an aerial point of view. (A workshop)",
+        },
+      ],
+      gridBreakpoint: "lg",
+      delay: 0.4,
+    },
   ];
 
   return (
@@ -457,7 +501,8 @@ const CourseContentSection = () => {
                   section.type === 2 ||
                   section.type === 4 ||
                   section.type === 5 ||
-                  section.type === 9
+                  section.type === 9 ||
+                  section.type === 10
                     ? "relative"
                     : ""
                 }

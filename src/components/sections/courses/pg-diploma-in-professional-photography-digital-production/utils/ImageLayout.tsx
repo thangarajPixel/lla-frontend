@@ -331,6 +331,39 @@ const ImageLayout = ({ type }: ImageLayoutProps) => {
         </>
       );
 
+    case 10:
+      return (
+        <>
+          <MobileImageLayout numberOfImages={3} breakpoint="lg" />
+          <div className="hidden lg:block relative w-full">
+            <div className="absolute top-0 left-10 3xl:left-[60px] w-full aspect-300/199 max-w-45 xl:max-w-[200px] 2xl:max-w-[260px] 3xl:max-w-[300px] overflow-hidden z-20">
+              <ImageWidget
+                src={Dummy1}
+                alt="Course Content"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="absolute top-[51px] 3xl:top-[61px] left-[136px] lg:left-[165px] 2xl:left-[220px] 3xl:left-[255px] w-full aspect-225/282 max-w-35 2xl:max-w-[175px] 3xl:max-w-[225px] overflow-hidden z-10">
+              <ImageWidget
+                src={Dummy1}
+                alt="Course Content"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="absolute top-[150px] xl:top-[165px] 2xl:top-[195px] 3xl:top-[245px] left-0 w-full aspect-300/205 max-w-[180px] xl:max-w-55 2xl:max-w-[260px] 3xl:max-w-[300px] overflow-hidden">
+              <ImageWidget
+                src={Dummy1}
+                alt="Course Content"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </div>
+        </>
+      );
+
     default:
       return null;
   }
