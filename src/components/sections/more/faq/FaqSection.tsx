@@ -232,7 +232,7 @@ const FaqSection = () => {
           </h1>
 
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            <div className="lg:col-span-1">
+           <div className="hidden md:block lg:col-span-1">
               <nav className="space-y-2 lg:sticky lg:top-24">
                 {faqData.map((category) => (
                   <button
@@ -259,12 +259,11 @@ const FaqSection = () => {
                   }}
                   className="scroll-mt-24"
                 >
-                  <div className="bg-white p-6 md:p-6">
+                  <div className="bg-white p-0 md:p-6">
                     <h2 className="text-2xl md:text-3xl font-semibold text-black mb-6">
                       {category.title}
                     </h2>
-
-                    <Accordion type="single" collapsible className="space-y-4">
+                    <Accordion type="single" collapsible className="space-y-2">
                       {category.questions.map((item, index) => (
                         <AccordionItem
                           key={`question-${index + 1}`}
