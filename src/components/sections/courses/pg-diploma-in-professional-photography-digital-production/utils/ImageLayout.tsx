@@ -72,10 +72,10 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
         <>
           <MobileImageLayout
             numberOfImages={2}
-            breakpoint="md"
+            breakpoint="lg"
             images={images}
           />
-          <div className="hidden md:block relative w-full md:min-h-[440px]">
+          <div className="hidden lg:block relative w-full md:min-h-[440px]">
             <div className="absolute top-0 right-10 w-full aspect-231/347 max-w-[231px]">
               <div className="relative w-full h-full overflow-hidden">
                 <ImageWidget
