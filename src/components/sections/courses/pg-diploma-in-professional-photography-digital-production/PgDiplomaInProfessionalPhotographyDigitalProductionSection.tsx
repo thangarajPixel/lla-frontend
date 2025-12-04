@@ -140,7 +140,7 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = ({
           <OverviewSection data={data?.Menu} />
         </section>
         <section id="gallery">
-          <GallerySection />
+          <GallerySection data={data?.Overview} />
         </section>
         <section id="course-content" className="scroll-mt-[-40px]">
           <CourseContentSection />
