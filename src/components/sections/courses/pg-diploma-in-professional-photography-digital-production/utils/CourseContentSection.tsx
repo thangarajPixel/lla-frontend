@@ -482,18 +482,24 @@ const CourseContentSection = () => {
                   </p>
                 )}
                 <ul className="text-[16px] flex flex-col gap-2.5 lg:text-[13px] 3xl:text-[18px] font-normal text-black w-full">
-                  {section.listItems.map((item, itemIndex) => (
-                    <li key={itemIndex}>
-                      {typeof item === "string" ? (
-                        item
-                      ) : (
-                        <>
-                          <span className="text-[#E97451]">{item.label}</span>
-                          {item.text}
-                        </>
-                      )}
-                    </li>
-                  ))}
+                  {section.listItems.map((item) => {
+                    const key =
+                      typeof item === "string"
+                        ? `${section.section}-${item.slice(0, 50)}`
+                        : `${section.section}-${item.label}${item.text.slice(0, 30)}`;
+                    return (
+                      <li key={key}>
+                        {typeof item === "string" ? (
+                          item
+                        ) : (
+                          <>
+                            <span className="text-[#E97451]">{item.label}</span>
+                            {item.text}
+                          </>
+                        )}
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
               <div
