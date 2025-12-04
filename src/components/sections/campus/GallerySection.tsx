@@ -166,7 +166,7 @@ const GallertSection = ({ data }: GallerySectionProps) => {
               <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist mb-6">
                 {data.Title || "Gallery"}
               </h2>
-              <p className="font-mulish font-normal text-base xss:text-[24px] md:text-lg lg:text-xl xl:text-[14px] 2xl:text-[14px] 3xl:text-[40px] text-black text-center relative min-w-[500px]">
+              <p className="font-mulish font-normal text-base xss:text-[24px] md:text-lg lg:text-xl xl:text-[14px] 2xl:text-[14px] 3xl:text-[18px] text-black text-center relative min-w-[500px]">
                 {data.Heading}
               </p>
               <div className="mt-6 text-left lg:text-center">
