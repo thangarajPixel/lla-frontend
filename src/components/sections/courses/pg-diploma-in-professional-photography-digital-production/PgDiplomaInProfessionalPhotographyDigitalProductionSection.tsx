@@ -29,7 +29,6 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = ({
 }: {
   data: PgDiplomaData;
 }) => {
-
   const [activeSection, setActiveSection] = useState<string>("#overview");
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
