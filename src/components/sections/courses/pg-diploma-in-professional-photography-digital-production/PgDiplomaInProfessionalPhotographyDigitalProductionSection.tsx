@@ -14,6 +14,7 @@ import HowtoApplySection from "./utils/HowtoApplySection";
 import OtherInfoSection from "./utils/OtherInfoSection";
 import OverviewSection from "./utils/OverviewSection";
 import StudentSection from "./utils/StudentSection";
+import type { PgDiplomaData } from "./utils/types";
 
 const sidebarMenuItems = [
   { href: "#overview", label: "Overview" },
@@ -23,7 +24,11 @@ const sidebarMenuItems = [
   { href: "#faqs", label: "FAQ's" },
 ];
 
-const PgDiplomaInProfessionalPhotographyDigitalProductionSection = () => {
+const PgDiplomaInProfessionalPhotographyDigitalProductionSection = ({
+  data,
+}: {
+  data: PgDiplomaData;
+}) => {
   const [activeSection, setActiveSection] = useState<string>("#overview");
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
@@ -72,84 +77,6 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const studentData = {
-    __component: "student-section",
-    id: 1,
-    Title: "Student Testimonials",
-    Heading: "Hear from",
-    SubHeading: "Our Community",
-    Description:
-      "Over the years, Light & Life Academy has grown into a close-knit community. Here, they share their stories of discovery, growth, and the many ways their time at the Academy shaped who they are today.",
-    Card: [
-      {
-        id: 1,
-        Title: "Ajith S",
-        Description: "Batch - ‘09 - ‘10",
-        Image: [{ id: 1, name: "Student Testimonials", url: "/dummy.mp4" }],
-      },
-      {
-        id: 2,
-        Title: "Rajesh K S",
-        Description: "Batch - ‘09 - ‘10",
-        Image: [{ id: 2, name: "Student Testimonials", url: "/dummy.mp4" }],
-      },
-      {
-        id: 3,
-        Title: "Harshad K S",
-        Description: "Batch - ‘09 - ‘10",
-        Image: [{ id: 3, name: "Student Testimonials", url: "/dummy.mp4" }],
-      },
-    ],
-  };
-
-  const testimonialData = {
-    __component: "home.lla-testimonials",
-    id: 1,
-    Title: "Testimonials",
-    Heading: "25 Years,",
-    Description:
-      "Over the last twenty-five years, LLA has become more than a photography school—it’s a space that has shaped and been shaped by everyone who’s walked through it. Here are words from those who’ve shared this journey with us—friends, mentors, industry voices, and visitors whose encounters with LLA have left a lasting impression.",
-    SubHeading: "Countless Connections",
-    Slider: [
-      {
-        id: 1,
-        Description:
-          "I was awestruck to see the beauty and energy of this place. The campus is like a cultural hub. Nature, the community and the people have merged and come together like a beautiful identity of the Nilgiris. I salute the spirit of this place.",
-        Name: "– Supriya Sahu,",
-        Batch:
-          "Principal Secretary to Government, Department of Health, Government of Tamil Nadu.",
-      },
-      {
-        id: 25,
-        Description:
-          "In a display like this, it’s very difficult to single out any one talent. What I do find amazing is that LLA is one photography institute that has managed to make so many different styles emerge. It takes a lot to impart skill / knowledge without stamping on creativity! Well done.\n",
-        Name: "– Sudha Panchapakesan, ",
-        Batch: "Qube Digital – Chennai",
-      },
-      {
-        id: 124,
-        Description:
-          "For me, Light and Life is home. I always have a great time talking with Iqbal Sir, listening to his array of stories and enjoying his brilliant sense of humour.. I believe every student who goes out of LLA becomes an artist. Thank you LLA for bringing artists to this world.",
-        Name: "– Nachiket Pimprikar, ",
-        Batch: "Alumnus, Batch 12  ",
-      },
-      {
-        id: 128,
-        Description:
-          "It is not often that education rises beyond the boundaries of academics and pushes its students towards the path of self- actualization. This is a rare and commendable effort.",
-        Name: "– Agnello Dias,",
-        Batch: "Advertising Guru, Ex-Chairman and Co-Founder, Taproot India.",
-      },
-      {
-        id: 133,
-        Description:
-          "This has to be a photographer’s dream come true. To find such a well-designed educational facility with such committed individuals; Iqbal and Anuradha you are to be complimented and I’m sure, scores of aspiring photographers will thank you for years to come.\n\n",
-        Name: "– Frans Lanting,",
-        Batch: "Santa Cruz, California",
-      },
-    ],
-  };
-
   const renderMenuItems = () => (
     <>
       <span className="block px-4 py-3 text-[15px] 3xl:text-lg text-[#E97451] font-semibold">
@@ -186,7 +113,7 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = () => {
         </div>
       </aside>
 
-      <div className="xl:hidden fixed top-18 left-0 right-0 z-50 bg-white border-b border-gray-200 px-4 py-3">
+      <div className="hidden xss:hidden xl:hidden fixed top-18 left-0 right-0 z-50 bg-white border-b border-gray-200 px-4 py-3">
         <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
           <SheetTrigger asChild>
             <ButtonWidget
@@ -209,24 +136,24 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = () => {
 
       <main className="min-h-screen">
         <section id="overview">
-          <OverviewSection />
+          <OverviewSection data={data?.Menu} />
         </section>
         <section id="gallery">
-          <GallerySection />
+          <GallerySection data={data?.Overview} />
         </section>
         <section id="course-content" className="scroll-mt-[-40px]">
-          <CourseContentSection />
+          <CourseContentSection data={data?.Course_content} />
         </section>
         <section id="other-info" className="scroll-mt-[-40px]">
-          <OtherInfoSection />
+          <OtherInfoSection data={data?.Other_Info} />
         </section>
-        <StudentSection data={studentData} />
-        <TestimonialSection data={testimonialData} />
+        <StudentSection data={data?.Student_testimonial} />
+        <TestimonialSection data={data?.Testimonial} />
         <section id="how-to-apply" className="scroll-mt-[-40px]">
-          <HowtoApplySection />
+          <HowtoApplySection data={data?.HowToApply} />
         </section>
         <section id="faqs" className="scroll-mt-[-40px]">
-          <FaqSection />
+          <FaqSection data={data?.Faq} />
         </section>
       </main>
     </div>

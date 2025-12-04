@@ -4,8 +4,7 @@ import { getGalleryPageData } from "../api/server";
 const Gallery = async () => {
   const [{ data: response }] = await Promise.all([getGalleryPageData()]);
 
-  console.log(response);
-  return <GallerySection />;
+  if (response) return <GallerySection data={response} />;
 };
 
 export default Gallery;
