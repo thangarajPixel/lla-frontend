@@ -56,7 +56,7 @@ export default function ContactSection() {
             <p className="text-lg font-mulish font-normal text-[20px] sm:text-[22px] md:text-[24px] lg:text-[26px] xl:text-[28px] 2xl:text-[30px] 3xl:text-[32px]">
               Let's build this <span className="text-[#FF6B4A]">connection</span>
             </p>
-            <p className=" mt-4 max-w-[630px]">
+            <p className=" mt-4 max-w-[630px]  text-[18px]">
               Lorem ipsum dolor sit amet consectetur. Pulvinar nunc rhoncus nibh varius
               faucibus nisi vitae et.
             </p>
