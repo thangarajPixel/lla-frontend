@@ -2,8 +2,8 @@
 
 import type { Control } from "react-hook-form";
 import { FormInput, FormSelectBox } from "@/components/form";
+import type { PersonalDetailsSchema } from "@/components/sections/admission-form/_steps/personal-details-form";
 import { useGetStateLists } from "@/store/hooks/global-hooks";
-import { PersonalDetailsSchema } from "@/components/sections/admission-form/_steps/personal-details-form";
 
 type AddressFieldsProps = {
   control: Control<PersonalDetailsSchema>;

@@ -3,7 +3,7 @@
 import { DialogContent, DialogTitle } from "@radix-ui/react-dialog";
 import { Menu } from "lucide-react";
 import { useEffect, useState } from "react";
-import TestimonialSection from "@/components/sections/home/TestimonialSection";
+import TestimonialSection from "@/components/sections/courses/pg-diploma-in-professional-photography-digital-production/utils/TestimonialSection";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import LinkWidget from "@/components/widgets/LinkWidget";
@@ -107,7 +107,7 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = ({
 
   return (
     <div className="bg-white">
-      <aside className="hidden xl:block shadow-lg fixed left-0 top-18 w-54 xl:w-45 2xl:w-54 border-r border-b border-gray-200 z-50 bg-white">
+      <aside className="hidden xl:block shadow-lg fixed left-0 top-18 w-54 xl:w-45 2xl:w-54 border-r border-b border-gray-200 z-30 bg-white">
         <div className="h-full overflow-y-auto">
           <nav className="py-6 px-4">{renderMenuItems()}</nav>
         </div>

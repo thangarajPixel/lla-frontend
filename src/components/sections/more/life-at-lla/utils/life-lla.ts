@@ -5,9 +5,10 @@ export type LifeSectionProps = {
     Heading: string;
     SubHeading: string;
     Description?: string;
-    Card: Array<{
+    LifeCard: Array<{
       id: number;
       Title: string;
+      Slug: string;
       Description: string;
       Btn_txt: string | null;
       Image: Array<{
@@ -30,3 +31,38 @@ export type LifeSectionProps = {
     totalPages: number;
   };
 };
+
+
+export type LifeDetailProps = {
+  data: {
+    card: LifeCard;
+    latest: LifeCard[];
+  };
+};
+
+
+export type LifeCard = {
+  id: number;
+  Title: string;
+  Slug: string;
+  Description: string | null;
+  Btn_txt?: string | null;
+  LongDescription?: string | null;
+  Image: Array<LifeImage>;
+  LifeViewCard: Array<LifeViewCardItem>;
+};
+
+export type LifeImage = {
+  id: number;
+  name: string;
+  url: string;
+};
+
+export type LifeViewCardItem = {
+  id: number;
+  Title: string;
+  Description: string | null;
+  Images: Array<LifeImage>;
+};
+
+

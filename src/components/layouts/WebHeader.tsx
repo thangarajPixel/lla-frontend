@@ -38,7 +38,7 @@ const menuItems: (MenuItem | DropdownMenuType)[] = [
     items: [
       { href: "/more/about-us", label: "About us" },
       { href: "/more/life-at-lla", label: "Life at LLA" },
-      { href: "/more/blog", label: "Blog" },
+      { href: "/more/blogs", label: "Blog" },
       { href: "/more/contact-us", label: "Contact Us" },
       { href: "/more/faq", label: "FAQ" },
     ],
@@ -90,7 +90,8 @@ const WebHeader = () => {
 
   return (
     <header
-      className={`w-full z-90 transition-all duration-300 ${isHomePage
+      className={`w-full z-50 transition-all duration-300 ${
+        isHomePage
           ? isSticky
             ? "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
             : "absolute top-0 left-0 bg-transparent text-white"

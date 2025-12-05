@@ -14,6 +14,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import { ArrowDown, Dummy3 } from "@/helpers/ImageHelper";
 
@@ -138,7 +139,6 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
       setGalleryData(initialData);
     }
   }, [selectedType, initialData, isMounted]);
-
   const loadMore = async () => {
     if (loading || imageCards.length >= total) return;
 
@@ -216,30 +216,47 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
                   }}
                 >
                   <Masonry gutter="20px">
-                    {allImages.map((image) => (
-                      <div
+                    {allImages.map((image, index) => (
+                      <ScrollWidget
                         key={image.id}
-                        className="relative w-full overflow-hidden group cursor-pointer"
-                        style={{ padding: "10px" }}
+                        animation="fadeUp"
+                        delay={index * 0.1}
+                        duration={0.6}
+                        start="top 85%"
+                        once={true}
                       >
-                        <div className="relative w-full overflow-hidden rounded-none">
-                          <ImageWidget
-                            src={image.src}
-                            alt={image.alt}
-                            width={400}
-                            height={600}
-                            className="object-cover w-full h-auto transition-transform duration-300 group-hover:scale-105"
-                            loading="lazy"
-                          />
+                        <div
+                          className="relative w-full overflow-hidden group cursor-pointer"
+                          style={{ padding: "10px" }}
+                        >
+                          <div className="relative w-full overflow-hidden rounded-none">
+                            <ImageWidget
+                              src={image.src}
+                              alt={image.alt}
+                              width={400}
+                              height={600}
+                              className="object-cover w-full h-auto transition-transform duration-300 group-hover:scale-105"
+                              loading="lazy"
+                            />
+                          </div>
                         </div>
-                      </div>
+                      </ScrollWidget>
                     ))}
 
                     {loading &&
-                      skeletonKeys.map((key) => (
-                        <div key={key} style={{ padding: "10px" }}>
-                          <GalleryImageSkeleton />
-                        </div>
+                      skeletonKeys.map((key, index) => (
+                        <ScrollWidget
+                          key={key}
+                          animation="fadeUp"
+                          delay={index * 0.1}
+                          duration={0.6}
+                          start="top 85%"
+                          once={true}
+                        >
+                          <div style={{ padding: "10px" }}>
+                            <GalleryImageSkeleton />
+                          </div>
+                        </ScrollWidget>
                       ))}
                   </Masonry>
                 </ResponsiveMasonry>
@@ -249,22 +266,28 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
                 style={{ gap: "20px" }}
               >
-                {allImages.map((image) => (
-                  <div
+                {allImages.map((image, index) => (
+                  <ScrollWidget
                     key={image.id}
-                    className="relative w-full overflow-hidden group cursor-pointer"
+                    animation="fadeUp"
+                    delay={index * 0.1}
+                    duration={0.6}
+                    start="top 85%"
+                    once={true}
                   >
-                    <div className="relative w-full overflow-hidden rounded-none">
-                      <ImageWidget
-                        src={image.src}
-                        alt={image.alt}
-                        width={400}
-                        height={600}
-                        className="object-cover w-full h-auto transition-transform duration-300 group-hover:scale-105"
-                        loading="lazy"
-                      />
+                    <div className="relative w-full overflow-hidden group cursor-pointer">
+                      <div className="relative w-full overflow-hidden rounded-none">
+                        <ImageWidget
+                          src={image.src}
+                          alt={image.alt}
+                          width={400}
+                          height={600}
+                          className="object-cover w-full h-auto transition-transform duration-300 group-hover:scale-105"
+                          loading="lazy"
+                        />
+                      </div>
                     </div>
-                  </div>
+                  </ScrollWidget>
                 ))}
               </div>
             )}
