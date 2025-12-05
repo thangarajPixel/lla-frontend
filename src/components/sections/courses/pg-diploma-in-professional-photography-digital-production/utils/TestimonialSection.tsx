@@ -3,14 +3,19 @@
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import { useEffect, useState } from "react";
-import type { TestimonialSectionProps } from "@/components/sections/home/utils/home";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { ArrowLeftBlack, ArrowRightBlack, Quote } from "@/helpers/ImageHelper";
+import type { TestimonialData } from "./types";
+
+type TestimonialSectionProps = {
+  data: TestimonialData[] | TestimonialData;
+};
 
 const TestimonialSection = ({ data }: TestimonialSectionProps) => {
-  const testimonials = data.Slider || [];
+  const sectionData = Array.isArray(data) ? data[0] : data;
+  const testimonials = sectionData?.Slider;
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       align: "start",
@@ -51,28 +56,30 @@ const TestimonialSection = ({ data }: TestimonialSectionProps) => {
   const scrollPrev = () => emblaApi?.scrollPrev();
   const scrollNext = () => emblaApi?.scrollNext();
 
+  if (testimonials?.length === 0) return null;
   return (
-    <section className="w-full bg-[#ECECEC] flex flex-col z-10! relative py-10 sm:py-14 md:py-18 lg:py-20 xl:py-20 2xl:py-20 3xl:py-20">
+    <section className="w-full bg-[#ECECEC] flex flex-col  relative py-10 sm:py-14 md:py-18 lg:py-20 xl:py-20 2xl:py-20 3xl:py-20">
       <ContainerWidget>
         <ScrollWidget animation="fadeUp" delay={0.1}>
           <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-10 lg:gap-12 xl:gap-14 2xl:gap-16 items-stretch">
             <div className="space-y-3 md:space-y-3 lg:space-y-4">
-              <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal md:font-normal text-black font-urbanist">
-                {data.Title || "Testimonials"}
+              <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
+                {sectionData?.Title}
               </h3>
-              <p className="font-mulish font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
-                {data.Heading}
-                {data.SubHeading && (
+              <p className="font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
+                {sectionData?.Heading}
+                {sectionData?.SubHeading && (
                   <>
                     <br className="hidden sm:block" />
-                    <span className="text-[#E97451]">{data.SubHeading}</span>
+                    <span className="text-[#E97451]">
+                      {sectionData.SubHeading}
+                    </span>
                   </>
                 )}
               </p>
 
               <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[450px]">
-                {data.Description ||
-                  "Over the last twenty-five years, LLA has become more than a photography school—it's a space that has shaped and been shaped by everyone who's walked through it. Here are words from those who've shared this journey with us—friends, mentors, industry voices, and visitors whose encounters with LLA have left a lasting impression."}
+                {sectionData?.Description}
               </p>
             </div>
             <div className="relative h-full flex flex-col">

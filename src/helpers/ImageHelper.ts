@@ -31,6 +31,7 @@ export { default as ArrowDown } from "@/assets/icons/arrow-down.png";
 export { default as ArrowLeftBlack } from "@/assets/icons/arrow-left-black.png";
 export { default as ArrowRight } from "@/assets/icons/arrow-right.svg";
 export { default as ArrowRightBlack } from "@/assets/icons/arrow-right-black.png";
+export { default as OrangeArrowRight } from "@/assets/icons/arrow-right-orange.svg";
 export { default as CalendarIcon } from "@/assets/icons/calendar-icon.png";
 export { default as DocumentIcon } from "@/assets/icons/document-icon.png";
 export { default as EditIcon } from "@/assets/icons/edit-icon.png";

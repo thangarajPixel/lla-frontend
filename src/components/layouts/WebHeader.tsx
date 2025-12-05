@@ -79,7 +79,7 @@ const WebHeader = () => {
 
   return (
     <header
-      className={`w-full z-90 transition-all duration-300 ${
+      className={`w-full z-50 transition-all duration-300 ${
         isHomePage
           ? isSticky
             ? "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
