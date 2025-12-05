@@ -16,19 +16,19 @@ const FacultyHeroSection = ({ data }: FacultyHeroSectionProps) => {
               </h2>
               <p
                 className="text-[24px] sm:text-[24px] md:text-[20px] lg:text-[22px] xl:text-[24px] 2xl:text-[30px] 3xl:text-[40px]
-               font-regular font-mulish  text-black w-full sm:max-w-[320px] md:max-w-[375px] lg:max-w-[375px] xl:max-w-[550px] 2xl:max-w-[606px] 3xl:max-w-[606px] 3xl:leading-[48px]"
+               font-regular font-mulish  text-black w-full sm:max-w-[320px] md:max-w-[375px] lg:max-w-[375px] xl:max-w-[440px] 2xl:max-w-[550px] 3xl:max-w-[606px] 3xl:leading-[48px]"
               >
                 {data.Heading}
                 <span className="text-[#E97451] ml-2"> {data.SubHeading} </span>
               </p>
-              <p className="text-left  font-mulish text-black text-[18px] sm:text-[14px] md:text-[12px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px] 3xl:text-[18px] w-full sm:max-w-[320px] md:max-w-[375px] lg:max-w-[375px] xl:max-w-[550px] 2xl:max-w-[606px] 3xl:max-w-[606px]">
+              <p className="text-left  font-mulish text-black text-[18px] sm:text-[14px] md:text-[12px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px] 3xl:text-[18px] w-full sm:max-w-[320px] md:max-w-[375px] lg:max-w-[375px] xl:max-w-[430px] 2xl:max-w-[555px] 3xl:max-w-[606px]">
                 {data.Description}
               </p>
             </div>
           </ScrollWidget>
           <ScrollWidget delay={0.4}>
-            <div className="flex flex-row gap-4 xss:gap-8 xs:gap-5 column-gap:2 sm:gap-6 md:gap-8 lg:gap-10 ">
-              <div className="flex flex-col gap-3 pt-25  sm:pt-30 lg:pt-35">
+            <div className="flex flex-row gap-4 xss:gap-8 xs:gap-5 column-gap:2 sm:gap-6 md:gap-5 lg:gap-5 xl:gap-5 2xl:gap-5 3xl:gap-6 ">
+              <div className="flex flex-col gap-3 md:gap-5  lg:gap-5 xl:gap-5 2xl:gap-5 3xl:gap-6 pt-25  sm:pt-30 lg:pt-35">
                 {data.Image?.slice(0, 2).map(({ url }: { url: string }) => (
                   <div
                     key={url}
@@ -44,7 +44,7 @@ const FacultyHeroSection = ({ data }: FacultyHeroSectionProps) => {
                   </div>
                 ))}
               </div>
-              <div className="flex flex-col gap-3 pt-10  sm:pt-15 lg:pt-18">
+              <div className="flex flex-col gap-3 md:gap-5 lg:gap-5 xl:gap-5  2xl:gap-5 3xl:gap-6 pt-10  sm:pt-15 lg:pt-18">
                 {data.Image?.slice(2, 4).map(({ url }: { url: string }) => (
                   <div
                     key={url}
@@ -60,7 +60,7 @@ const FacultyHeroSection = ({ data }: FacultyHeroSectionProps) => {
                   </div>
                 ))}
               </div>
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-3 md:gap-5 lg:gap-5 xl:gap-5 2xl:gap-5 3xl:gap-6">
                 {data.Image?.slice(4, 7).map(({ url }: { url: string }) => (
                   <div
                     key={url}
