@@ -9,7 +9,6 @@ import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import { Dummy1, Dummy2 } from "@/helpers/ImageHelper";
 import type { CourseSectionProps } from "./utils/home";
 
 type AnimationType =
@@ -29,11 +28,11 @@ const CourseSection = ({ data }: CourseSectionProps) => {
   useEffect(() => {
     setImageIndices(
       data?.Card?.map((card) => {
-        const images = card?.Image || [];
-        return images.length > 0
+        const images = card?.Image;
+        return images && images.length > 0
           ? Math.floor(Math.random() * images.length) * 1
           : 0;
-      }) || [],
+      }),
     );
   }, [data?.Card]);
 
@@ -69,13 +68,14 @@ const CourseSection = ({ data }: CourseSectionProps) => {
     "space-y-4 md:space-y-4 lg:space-y-5 xl:space-y-6 md:mt-28 lg:mt-26 xl:mt-16 2xl:mt-34 3xl:mt-44",
   ];
 
+  if (data?.Card?.length === 0) return null;
   return (
     <section className="w-full py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 3xl:py-28 bg-white">
       <ContainerWidget>
         <div className="space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12 2xl:space-y-14 3xl:space-y-16">
           <div className="space-y-2 md:space-y-3 lg:space-y-4">
             <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
-              {data.Title || "Courses"}
+              {data.Title}
             </h2>
             <p className="font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
               {data.Heading}
@@ -84,15 +84,17 @@ const CourseSection = ({ data }: CourseSectionProps) => {
               )}
             </p>
             <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[650px]">
-              {data.Description ||
-                "Here, learning is deliberate and layered, aimed at building strong conceptual foundations."}
+              {data.Description}
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-7 2xl:gap-6">
             {data?.Card?.map((card, index) => {
-              const images = card?.Image || [];
+              const images = card?.Image;
               const imageIndex = imageIndices[index] ?? 0;
-              const primaryImage = images[imageIndex];
+              const primaryImage = images?.[imageIndex] ?? null;
+              const imageUrl = primaryImage?.url
+                ? getS3Url(primaryImage.url)
+                : null;
 
               return (
                 <div
@@ -109,18 +111,14 @@ const CourseSection = ({ data }: CourseSectionProps) => {
                       speed={parallaxSpeeds[index]?.image || 0.4}
                       className="relative w-full aspect-4/3 overflow-hidden"
                     >
-                      <ImageWidget
-                        src={
-                          primaryImage?.url
-                            ? getS3Url(primaryImage.url)
-                            : index === 0
-                              ? Dummy1
-                              : Dummy2
-                        }
-                        alt={card?.Title}
-                        fill
-                        className="object-cover 3xl:max-h-[429px] 3xl:max-w-[630px]"
-                      />
+                      {imageUrl && (
+                        <ImageWidget
+                          src={imageUrl}
+                          alt={card?.Title}
+                          fill
+                          className="object-cover 3xl:max-h-[429px] 3xl:max-w-[630px]"
+                        />
+                      )}
                     </ParallaxWidget>
                   </ScrollWidget>
                   <ScrollWidget
@@ -139,9 +137,7 @@ const CourseSection = ({ data }: CourseSectionProps) => {
                       </p>
                       <div className="self-start flex gap-4">
                         <LinkWidget href="/admission">
-                          <OrangeButtonWidget
-                            content={card.Btn_txt || "Discover Your Frame"}
-                          />
+                          <OrangeButtonWidget content={card.Btn_txt} />
                         </LinkWidget>
                         <LinkWidget href="/">
                           <OrangeBorderButtonWidget content="Course Detail" />

@@ -18,7 +18,7 @@ import {
 import type { StudentSectionProps } from "./utils/home";
 
 const StudentSection = ({ data }: StudentSectionProps) => {
-  const studentData = data.Card || [];
+  const studentData = data.Card;
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       align: "end",
@@ -90,13 +90,14 @@ const StudentSection = ({ data }: StudentSectionProps) => {
     emblaApi?.scrollNext();
   };
 
+  if (data?.Card?.length === 0) return null;
   return (
     <section className="w-full py-10 md:py-10 lg:py-12 xl:py-16 2xl:py-20 3xl:py-24 bg-white mx-auto max-w-[1920px]">
       <ContainerWidget>
         <ScrollWidget animation="fadeUp" delay={0.1}>
           <div className="flex flex-col justify-start md:justify-center items-start md:items-center text-left md:text-center gap-2.5 md:gap-4.5">
             <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
-              {data.Title || "Student Testimonials"}
+              {data.Title}
             </h2>
             <p className="font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl 3xl:text-[40px] text-black">
               {data.Heading}
@@ -105,8 +106,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
               )}
             </p>
             <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[760px]">
-              {data.Description ||
-                "Over the years, Light & Life Academy has grown into a close-knit community. Here, they share their stories of discovery, growth, and the many ways their time at the Academy shaped who they are today."}
+              {data.Description}
             </p>
           </div>
         </ScrollWidget>
@@ -120,8 +120,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
             >
               <div className="flex w-full justify-start md:justify-center gap-4 sm:gap-6">
                 {studentData.map((student, index) => {
-                  const videoUrl =
-                    getS3Url(student.Image?.[0]?.url) || "/dummy.mp4";
+                  const videoUrl = getS3Url(student.Image?.[0]?.url);
                   return (
                     <ScrollWidget
                       key={student.id}

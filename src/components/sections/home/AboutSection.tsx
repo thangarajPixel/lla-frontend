@@ -8,11 +8,10 @@ import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import { Dummy1 } from "@/helpers/ImageHelper";
 import type { AboutSectionProps } from "./utils/home";
 
 const AboutSection = ({ data }: AboutSectionProps) => {
-  const aboutImages = data.Image || [];
+  const aboutImages = data?.Image;
   const [currentIndices, setCurrentIndices] = useState([0, 1, 2]);
   const [variant, setVariant] = useState<"default" | "variant-2" | "variant-3">(
     "default",
@@ -46,7 +45,7 @@ const AboutSection = ({ data }: AboutSectionProps) => {
     if (aboutImages[index]) {
       return getS3Url(aboutImages[index].url);
     }
-    return Dummy1;
+    return "";
   };
   const [emblaRef] = useEmblaCarousel(
     {
@@ -64,13 +63,14 @@ const AboutSection = ({ data }: AboutSectionProps) => {
     ],
   );
 
+  if (data?.Image?.length === 0) return null;
   return (
     <section className="w-full bg-[#ECECEC] flex flex-col items-center justify-center z-40 relative py-10 sm:pt-20 3xl:h-[1048px]">
       <ContainerWidget>
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 xl:gap-0">
           <div className="flex flex-col gap-4.5 justify-center md:-mt-15">
             <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
-              {data.Title || "About LLA"}
+              {data.Title}
             </h3>
             <p className="font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
               {data.Heading}
@@ -82,14 +82,11 @@ const AboutSection = ({ data }: AboutSectionProps) => {
               )}
             </p>
             <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[400px]">
-              {data.Description ||
-                "In thought, in learning, and in spirit, what began as Iqbal Mohamed's dream to establish India's first professional photography institute has grown into a community that continues to explore, question, and create with purpose."}
+              {data.Description}
             </p>
             <div className="self-start">
               <LinkWidget href="/more/life-at-lla" className="w-full">
-                <OrangeButtonWidget
-                  content={data.Btn_txt || "Step into the LLA"}
-                />
+                <OrangeButtonWidget content={data.Btn_txt} />
               </LinkWidget>
             </div>
           </div>
@@ -110,7 +107,7 @@ const AboutSection = ({ data }: AboutSectionProps) => {
                   >
                     <ImageWidget
                       src={getImageUrl(currentIndices[0])}
-                      alt={aboutImages[currentIndices[0]].name || "About"}
+                      alt={aboutImages[currentIndices[0]].name}
                       fill
                       className="object-contain"
                     />
@@ -128,7 +125,7 @@ const AboutSection = ({ data }: AboutSectionProps) => {
                   >
                     <ImageWidget
                       src={getImageUrl(currentIndices[1])}
-                      alt={aboutImages[currentIndices[1]].name || "About"}
+                      alt={aboutImages[currentIndices[1]].name}
                       fill
                       className="object-contain"
                     />
@@ -146,7 +143,7 @@ const AboutSection = ({ data }: AboutSectionProps) => {
                   >
                     <ImageWidget
                       src={getImageUrl(currentIndices[2])}
-                      alt={aboutImages[currentIndices[2]].name || "About"}
+                      alt={aboutImages[currentIndices[2]].name}
                       fill
                       className="object-contain"
                     />
@@ -168,7 +165,7 @@ const AboutSection = ({ data }: AboutSectionProps) => {
                     >
                       <ImageWidget
                         src={getS3Url(image.url)}
-                        alt={image.name || "About"}
+                        alt={image.name}
                         fill
                         className="object-cover"
                       />

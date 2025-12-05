@@ -8,20 +8,10 @@ import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import {
-  Dummy3,
-  Dummy4,
-  Dummy5,
-  Dummy6,
-  Dummy7,
-  Dummy8,
-  Dummy9,
-  Dummy10,
-} from "@/helpers/ImageHelper";
 import type { GallerySectionProps } from "./utils/home";
 
 const GallertSection = ({ data }: GallerySectionProps) => {
-  const galleryImages = data.Image || [];
+  const galleryImages = data.Image;
 
   const [randomIndices, setRandomIndices] = useState<number[]>(() => {
     return Array.from({ length: 8 }, (_, i) => i);
@@ -70,17 +60,7 @@ const GallertSection = ({ data }: GallerySectionProps) => {
     if (galleryImages[actualIndex]) {
       return getS3Url(galleryImages[actualIndex].url);
     }
-    const fallbackImages = [
-      Dummy3,
-      Dummy4,
-      Dummy5,
-      Dummy6,
-      Dummy7,
-      Dummy8,
-      Dummy9,
-      Dummy10,
-    ];
-    return fallbackImages[position % fallbackImages.length];
+    return "";
   };
 
   const [emblaRef1] = useEmblaCarousel(
@@ -117,11 +97,12 @@ const GallertSection = ({ data }: GallerySectionProps) => {
     ],
   );
 
+  if (data?.Image?.length === 0) return null;
   return (
     <section className="w-full py-8 md:py-12 lg:py-16 xl:py-24 2xl:py-24 3xl:py-38 max-w-[1920px] mx-auto lg:w-[90vw]">
       <div className="mb-6 md:hidden text-left pl-5 lg:text-center lg:pl-0">
         <h2 className="text-3xl xss:text-[32px] font-normal text-black font-urbanist mb-2">
-          {data.Title || "Gallery"}
+          {data.Title}
         </h2>
         <p className="font-area-variable font-semibold text-base xss:text-[24px] text-black">
           {data.Heading}
@@ -131,7 +112,7 @@ const GallertSection = ({ data }: GallerySectionProps) => {
         </p>
         <div className="mt-6 text-left lg:text-center md:hidden">
           <LinkWidget href="/gallery" className="w-full">
-            <OrangeButtonWidget content={data.Btn_txt || "View More"} />
+            <OrangeButtonWidget content={data.Btn_txt} />
           </LinkWidget>
         </div>
       </div>
@@ -180,7 +161,7 @@ const GallertSection = ({ data }: GallerySectionProps) => {
         <div className="flex flex-col gap-6">
           <div className="flex flex-col justify-end  items-center gap-2">
             <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
-              {data.Title || "Gallery"}
+              {data.Title}
             </h2>
             <p className="font-area-variable font-semibold text-base xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black text-center">
               {data.Heading}
@@ -192,7 +173,7 @@ const GallertSection = ({ data }: GallerySectionProps) => {
             )}
             <div className="mt-6 text-left lg:text-center">
               <LinkWidget href="/gallery" className="w-full">
-                <OrangeButtonWidget content={data.Btn_txt || "View More"} />
+                <OrangeButtonWidget content={data.Btn_txt} />
               </LinkWidget>
             </div>
           </div>
@@ -262,7 +243,7 @@ const GallertSection = ({ data }: GallerySectionProps) => {
                 >
                   <ImageWidget
                     src={getS3Url(image.url)}
-                    alt={image.name || "Gallery"}
+                    alt={image.name}
                     fill
                     className="object-cover 3xl:max-w-[300px] 3xl:max-h-[300px] 3xl:min-w-[300px] 3xl:min-h-[300px]"
                   />
@@ -286,7 +267,7 @@ const GallertSection = ({ data }: GallerySectionProps) => {
                 >
                   <ImageWidget
                     src={getS3Url(image.url)}
-                    alt={image.name || "Gallery"}
+                    alt={image.name}
                     fill
                     className="object-cover 3xl:max-w-[300px] 3xl:max-h-[300px] 3xl:min-w-[300px] 3xl:min-h-[300px]"
                   />

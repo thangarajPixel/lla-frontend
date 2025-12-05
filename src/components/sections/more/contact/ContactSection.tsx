@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import FormInput from "@/components/form/FormInput";
-import { Button } from "@/components/ui/button";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 
@@ -45,7 +44,7 @@ export default function ContactSection() {
       console.log("Form data:", data);
       toast.success("Message sent successfully!");
       reset();
-    } catch (error) {
+    } catch (_error) {
       toast.error("Failed to send message. Please try again.");
     }
   };
@@ -155,7 +154,10 @@ export default function ContactSection() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-foreground font-mulish mb-1">
+                <label
+                  htmlFor="message"
+                  className="block text-sm font-medium text-foreground font-mulish mb-1"
+                >
                   Message<span className="text-chart-1">*</span>
                 </label>
                 <textarea

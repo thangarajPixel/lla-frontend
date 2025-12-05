@@ -14,7 +14,7 @@ type TestimonialSectionProps = {
 
 const TestimonialSection = ({ data }: TestimonialSectionProps) => {
   const sectionData = Array.isArray(data) ? data[0] : data;
-  const testimonials = sectionData?.Slider ?? [];
+  const testimonials = sectionData?.Slider;
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
     slidesToScroll: 1,
@@ -46,6 +46,7 @@ const TestimonialSection = ({ data }: TestimonialSectionProps) => {
   const scrollPrev = () => emblaApi?.scrollPrev();
   const scrollNext = () => emblaApi?.scrollNext();
 
+  if (testimonials?.length === 0) return null;
   return (
     <section className="w-full bg-[#ECECEC] flex flex-col z-40 relative py-10 sm:py-14 md:py-18 lg:py-20 xl:py-20 2xl:py-20 3xl:py-20">
       <ContainerWidget>
