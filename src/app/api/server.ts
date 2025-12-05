@@ -63,3 +63,7 @@ export async function getGalleryPageData(params?: {
 export async function getCoursePageData() {
   return fetchData("/course");
 }
+
+export async function getEssentialsData() {
+  return fetchData("/essential");
+}

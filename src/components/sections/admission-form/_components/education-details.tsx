@@ -1,7 +1,7 @@
 "use client";
 
 import { Plus, X } from "lucide-react";
-import { type Control, useFieldArray } from "react-hook-form";
+import { type Control, useFieldArray, UseFormWatch } from "react-hook-form";
 import { FormInput } from "@/components/form";
 import FormFileUploadButton from "@/components/form/FormFileUploadButton";
 import FormRadioGroup from "@/components/form/FormRadioGroup";
@@ -11,11 +11,13 @@ import { EducationDetailsSchema } from "@/components/sections/admission-form/_st
 type EducationDetailsProps = {
   admissionData?: AdmissionFormData;
   control: Control<EducationDetailsSchema>;
+  ugStatus?: string;
 };
 
 export function EducationDetails({
   admissionData,
   control,
+  ugStatus,
 }: EducationDetailsProps) {
   const {
     fields: pgDegrees,
@@ -32,7 +34,7 @@ export function EducationDetails({
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl text-[#E97451] font-urbanist">
+      <h2 className="text-2xl 3xl:text-3xl text-[#E97451] font-urbanist">
         Education Details
       </h2>
 
@@ -59,7 +61,7 @@ export function EducationDetails({
       </div>
 
       <div className="space-y-3">
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4 items-end">
           <FormInput
             name="Under_Graduate.degree"
             label="Under Graduate"
@@ -74,27 +76,33 @@ export function EducationDetails({
               { value: "In-Progress", label: "In-Progress" },
             ]}
           />
-          <FormFileUploadButton
-            name="Under_Graduate.marksheet"
-            control={control}
-            placeholder="Upload your MarkSheet"
-            notRequired={true}
-            defaultValue={admissionData?.Under_Graduate?.marksheet ?? null}
-          />
+
+          {
+            ugStatus === "Finished" && (
+              <FormFileUploadButton
+                name="Under_Graduate.marksheet"
+                control={control}
+                placeholder="Upload your MarkSheet"
+                notRequired={true}
+                defaultValue={admissionData?.Under_Graduate?.marksheet ?? null}
+              />
+            )
+          }
         </div>
       </div>
 
       {pgDegrees?.map((degree, index) => (
         <div
           key={degree.id ?? index}
-          className="grid grid-cols-1 md:grid-cols-[1fr_auto_auto] gap-4 items-center space-y-3"
+          className="grid grid-cols-1 md:grid-cols-[1fr_auto_auto] gap-4 items-end space-y-3"
         >
           <FormInput
             name={`Post_Graduate.${index}.degree`}
             label={index > 0 ? `Additional Degree ${index}` : "Post Graduate"}
             placeholder="Enter your post graduation degree"
             control={control}
-            notRequired={index > 0}
+            // notRequired={index > 0}
+            notRequired={true}
           />
           <FormRadioGroup
             name={`Post_Graduate.${index}.pg_status`}

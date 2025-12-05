@@ -11,6 +11,8 @@ import DropdownMenu from "./utils/DropdownMenu";
 import MobileMenu from "./utils/MobileMenu";
 import NavLink from "./utils/NavLink";
 import type { DropdownMenu as DropdownMenuType, MenuItem } from "./utils/types";
+import { getEssentialsData } from "@/app/api/server";
+import AdmissionRequestButton from "./utils/AdmissionRequestButton";
 
 const menuItems: (MenuItem | DropdownMenuType)[] = [
   {
@@ -48,6 +50,7 @@ const WebHeader = () => {
   const isHomePage = pathname === "/";
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [isSticky, setIsSticky] = useState(false);
+  const [isAdmissionOpen, setIsAdmissionOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (!isHomePage) {
@@ -73,19 +76,26 @@ const WebHeader = () => {
     }
   }, [pathname]);
 
+  useEffect(() => {
+    const getAdmissionData = async () => {
+      const { data: res } = await getEssentialsData();
+      setIsAdmissionOpen(res?.isAdmission);
+    };
+    getAdmissionData();
+  }, []);
+
   const isDropdown = (
     item: MenuItem | DropdownMenuType,
   ): item is DropdownMenuType => "items" in item;
 
   return (
     <header
-      className={`w-full z-90 transition-all duration-300 ${
-        isHomePage
+      className={`w-full z-90 transition-all duration-300 ${isHomePage
           ? isSticky
             ? "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
             : "absolute top-0 left-0 bg-transparent text-white"
           : "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
-      }`}
+        }`}
     >
       <nav>
         <ContainerWidget>
@@ -124,7 +134,7 @@ const WebHeader = () => {
                 );
               })}
               <li>
-                <AdmissionButton />
+                {!isAdmissionOpen ? <AdmissionButton /> : <AdmissionRequestButton /> }
               </li>
             </ul>
             <MobileMenu

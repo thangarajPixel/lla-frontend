@@ -31,7 +31,7 @@ export const ImageGrid = ({ images, onRemove }: ImageGridProps) => {
             type="button"
             size="icon"
             onClick={() => onRemove(index)}
-            className="absolute -top-2 -right-2 h-6 w-6 rounded-full bg-destructive text-white shadow-md"
+            className="absolute -top-2 -right-2 h-6 w-6 rounded-full bg-chart-1 text-white shadow-md hover:bg-chart-1"
           >
             <X className="h-4 w-4" />
           </Button>

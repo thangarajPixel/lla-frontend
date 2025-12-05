@@ -78,7 +78,9 @@ const EducationDetailsForm = ({
     },
   });
 
-  const { control, handleSubmit } = form_step2;
+  const { control, handleSubmit, watch } = form_step2;
+
+  const ugStatus = watch("Under_Graduate.ug_status");
 
   const onSubmit = async (payload: EducationDetailsSchema) => {
     const filteredData = filteredPayload(payload);
@@ -103,9 +105,9 @@ const EducationDetailsForm = ({
     <FormProvider {...form_step2}>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="space-y-12 py-8 px-4 md:px-8 bg-background max-w-4xl mx-auto"
+        className="space-y-12 py-8 md:px-8 bg-background max-w-4xl mx-auto"
       >
-        <EducationDetails admissionData={admissionData} control={control} />
+        <EducationDetails admissionData={admissionData} control={control} ugStatus={ugStatus} />
         <WorkExperience admissionData={admissionData} control={control} />
 
         <div className="flex justify-start gap-3 mt-10 pt-6">
@@ -115,7 +117,7 @@ const EducationDetailsForm = ({
               router.push(`/admission/${admissionId}/personal-details`);
             }}
             className={cn(
-              "px-6 py-2 bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
+              "px-6 py-2 3xl:px-12 3xl:py-6 3xl:h-12 bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
             )}
           >
             Back

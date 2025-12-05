@@ -128,8 +128,7 @@ const PersonalDetailsForm = ({
     handleSubmit,
     formState: { errors },
   } = form_step1;
-
-  console.log(form_step1.formState.errors, "errors");
+  
 
   const {
     fields: languageFields,
@@ -244,7 +243,7 @@ const PersonalDetailsForm = ({
     <FormProvider {...form_step1}>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
         <div className="max-w-5xl mx-auto">
-          <h1 className="text-2xl md:text-3xl text-[#E97451] mb-8 font-urbanist">
+          <h1 className="text-2xl 3xl:text-3xl text-[#E97451] mb-8 font-urbanist">
             Personal Details
           </h1>
 
@@ -253,12 +252,12 @@ const PersonalDetailsForm = ({
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium text-foreground mb-2 font-mulish"
+                  className="block text-base 3xl:text-lg text-foreground mb-2 font-mulish"
                 >
                   Full Name (As in Certificate)
                   <span className="text-chart-1">*</span>
                 </label>
-                <div className="grid grid-cols-[80px_1fr_1fr] gap-3">
+                <div className="grid grid-cols-[80px_1fr] sm:grid-cols-[80px_1fr_1fr] gap-3">
                   <FormSelectBox
                     control={control}
                     name="name_title"
@@ -275,11 +274,14 @@ const PersonalDetailsForm = ({
                     name="first_name"
                     placeholder="First Name"
                     control={control}
+                    restrictionType="number"
                   />
                   <FormInput
                     name="last_name"
                     placeholder="Last Name"
                     control={control}
+                    className="col-span-2 sm:col-span-1"
+                    restrictionType="number"
                   />
                 </div>
               </div>
@@ -290,6 +292,7 @@ const PersonalDetailsForm = ({
                   label="Mobile Number"
                   placeholder="Enter your mobile number"
                   control={control}
+                  restrictionType="text"
                 />
 
                 <FormInput
@@ -303,7 +306,7 @@ const PersonalDetailsForm = ({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <FormDatePickerWithInput
                   name="date_of_birth"
-                  placeholder="DD/MM/YYYY"
+                  placeholder="DD-MM-YYYY"
                   label="Date of Birth"
                   control={control}
                   required
@@ -314,13 +317,14 @@ const PersonalDetailsForm = ({
                   label="Nationality"
                   placeholder="Enter your nationality"
                   control={control}
+                  restrictionType="number"
                 />
               </div>
 
               <div>
                 <label
                   htmlFor="Language_Proficiency"
-                  className="block text-sm font-medium text-foreground mb-2"
+                  className="block text-base 3xl:text-lg text-foreground mb-2"
                 >
                   Language & Proficiency<span className="text-chart-1">*</span>
                 </label>
@@ -335,6 +339,7 @@ const PersonalDetailsForm = ({
                         name={`Language_Proficiency.${index}.language`}
                         placeholder={`Language Known-${index + 1}`}
                         control={control}
+                        restrictionType="number"
                       />
                     </div>
                     <div className="flex items-center gap-6">
@@ -382,7 +387,7 @@ const PersonalDetailsForm = ({
             <div className="mb-4">
               <label
                 htmlFor="passport"
-                className="block text-sm font-medium text-foreground mb-2"
+                className="block text-base 3xl:text-lg text-foreground mb-2"
               >
                 Passport size Image<span className="text-chart-1">*</span>
               </label>
@@ -471,6 +476,8 @@ const PersonalDetailsForm = ({
               label="Hobbies / Talent(s)"
               placeholder="Enter your Hobbies / Talent(s)"
               control={control}
+              notRequired={true}
+              restrictionType="number"
             />
 
             <FormInput
@@ -478,6 +485,8 @@ const PersonalDetailsForm = ({
               label="Photography Club"
               placeholder="Enter your Photography Club"
               control={control}
+              notRequired={true}
+              restrictionType="number"
             />
 
             <FormInput
@@ -485,13 +494,14 @@ const PersonalDetailsForm = ({
               label="Blood Group"
               placeholder="Enter your bloodGroup"
               control={control}
+              restrictionType="number"
             />
           </div>
         </div>
 
         <div className="max-w-5xl mx-auto mt-12">
-          <h1 className="text-2xl md:text-3xl text-[#E97451] mb-8">
-            Parent/Guardian/Souse Details
+          <h1 className="text-2xl 3xl:text-3xl text-[#E97451] mb-8">
+            Parent/Guardian/Spouse Details
           </h1>
 
           <div className="grid grid-cols-1">
@@ -499,12 +509,12 @@ const PersonalDetailsForm = ({
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium text-foreground mb-2"
+                  className="block text-base 3xl:text-lg text-foreground mb-2 font-mulish"
                 >
                   Full Name (As in Certificate)
                   <span className="text-chart-1">*</span>
                 </label>
-                <div className="grid grid-cols-[80px_1fr_1fr] gap-3">
+                <div className="grid grid-cols-[80px_1fr] sm:grid-cols-[80px_1fr_1fr] gap-3">
                   <FormSelectBox
                     control={control}
                     name="Parent_Guardian_Spouse_Details.title"
@@ -521,11 +531,14 @@ const PersonalDetailsForm = ({
                     name="Parent_Guardian_Spouse_Details.first_name"
                     placeholder="First Name"
                     control={control}
+                    restrictionType="number"
                   />
                   <FormInput
                     name="Parent_Guardian_Spouse_Details.last_name"
                     placeholder="Last Name"
                     control={control}
+                    className="col-span-2 sm:col-span-1"
+                    restrictionType="number"
                   />
                 </div>
               </div>
@@ -536,6 +549,7 @@ const PersonalDetailsForm = ({
                   label="Mobile Number"
                   placeholder="Enter your mobile number"
                   control={control}
+                  restrictionType="text"
                 />
                 <FormInput
                   name="Parent_Guardian_Spouse_Details.email"
@@ -551,12 +565,14 @@ const PersonalDetailsForm = ({
                   label="Profession"
                   placeholder="Profession/Occupation/Designation"
                   control={control}
+                  restrictionType="number"
                 />
                 <FormInput
                   name="Parent_Guardian_Spouse_Details.nationality"
                   label="Nationality"
                   placeholder="Enter your nationality"
                   control={control}
+                  restrictionType="number"
                 />
               </div>
 

@@ -54,7 +54,7 @@ const FormSelectBox = <T extends FieldValues>({
       {label && (
         <label
           htmlFor={label}
-          className="block text-sm font-medium text-foreground font-mulish"
+          className="block text-sm 3xl:text-lg font-medium text-foreground font-mulish"
         >
           {label}
           {!notRequired && <span className="text-danger">*</span>}
@@ -65,9 +65,10 @@ const FormSelectBox = <T extends FieldValues>({
         onValueChange={field.onChange}
         disabled={options.length === 0 || disabled}
       >
-        <SelectTrigger className="flex h-10 w-full rounded-full border border-[#BDBDBD] bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm">
+        <SelectTrigger className="flex h-10 w-full rounded-full border border-[#BDBDBD] bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
           <SelectValue
             placeholder={options.length === 0 ? noDataMessage : placeholder}
+            className="data-placeholder:text-muted-foreground/80 data-placeholder:text-sm"
           />
         </SelectTrigger>
         {options.length > 0 ? (

@@ -21,6 +21,7 @@ type InputProps<T extends FieldValues> = UseControllerProps<T> & {
   labelClassName?: string;
   inputClassName?: string;
   errorClassName?: string;
+  restrictionType?: string;
 } & React.ComponentProps<"input">;
 
 const FormInput = <T extends FieldValues>({
@@ -30,6 +31,7 @@ const FormInput = <T extends FieldValues>({
   notRequired,
   defaultValue,
   errorMessage,
+  restrictionType,
   ...props
 }: InputProps<T>) => {
   const {
@@ -56,6 +58,7 @@ const FormInput = <T extends FieldValues>({
       {...field}
       {...props}
       value={safeValue}
+      restrictionType={restrictionType}
     />
   );
 };

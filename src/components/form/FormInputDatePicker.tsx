@@ -21,7 +21,6 @@ import {
 } from "@/components/ui/popover";
 
 const DISPLAY_FORMAT = "dd-MM-yyyy";
-
 const STORE_FORMAT = "yyyy-MM-dd";
 
 function formatDisplay(date: Date | undefined) {
@@ -56,10 +55,7 @@ const FormDatePickerWithInput = <T extends FieldValues>({
   const {
     field: { value, onChange },
     fieldState: { error },
-  } = useController({
-    name,
-    control,
-  });
+  } = useController({ name, control });
 
   const parsedStoredDate: Date | undefined = value
     ? parse(value as string, STORE_FORMAT, new Date())
@@ -72,10 +68,20 @@ const FormDatePickerWithInput = <T extends FieldValues>({
 
   const id = `date-${name.replace(/\./g, "-")}`;
 
+  const formatTypedDate = (raw: string) => {
+    let digits = raw.replace(/[^0-9]/g, "");
+
+    if (digits.length > 2) digits = digits.slice(0, 2) + "-" + digits.slice(2);
+    if (digits.length > 5) digits = digits.slice(0, 5) + "-" + digits.slice(5);
+    if (digits.length > 10) digits = digits.slice(0, 10);
+
+    return digits;
+  };
+
   return (
     <div className="w-full space-y-2">
       {label && (
-        <Label className="px-1 gap-0" htmlFor={id}>
+        <Label className="px-1 text-base 3xl:text-lg" htmlFor={id}>
           {label}
           {required && <span className="text-chart-1">*</span>}
         </Label>
@@ -83,17 +89,20 @@ const FormDatePickerWithInput = <T extends FieldValues>({
 
       <div className="relative flex gap-2">
         <Input
+          type="text"
           id={id}
           value={inputValue}
           placeholder={placeholder}
           disabled={disabled}
           className={`${className} bg-background pr-0 w-full`}
           inputClassName="w-full flex-1"
+          maxLength={10}
           onChange={(e) => {
-            const text = e.target.value;
-            setInputValue(text);
+            const formatted = formatTypedDate(e.target.value);
+            setInputValue(formatted);
 
-            const parsed = parseDisplay(text);
+            const parsed = parseDisplay(formatted);
+
             if (parsed) {
               onChange(format(parsed, STORE_FORMAT));
               setMonth(parsed);
