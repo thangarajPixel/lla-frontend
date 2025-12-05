@@ -37,6 +37,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
 
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
 
   const stopAllVideos = () => {
@@ -48,6 +49,15 @@ const StudentSection = ({ data }: StudentSectionProps) => {
       });
     }
   };
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -81,6 +91,15 @@ const StudentSection = ({ data }: StudentSectionProps) => {
       emblaApi.reInit();
     }
   }, [emblaApi]);
+
+  useEffect(() => {
+    if (isMobile && carouselRef.current) {
+      const videos = carouselRef.current.querySelectorAll("video");
+      videos.forEach((video) => {
+        video.play().catch(() => {});
+      });
+    }
+  }, [isMobile]);
 
   const scrollPrev = () => {
     emblaApi?.scrollPrev();
@@ -136,17 +155,30 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                         <div
                           className="group relative flex flex-col gap-4 overflow-hidden transition-all duration-500 ease-in-out delay-75 p-3 sm:p-4 lg:p-5 aspect-3/4 min-h-[380px] sm:min-h-[480px] sm:max-w-[330px] bg-[#F6F6F6] hover:bg-[#E97451]/80 3xl:min-w-[410px] 3xl:h-[651px]"
                           onMouseEnter={(e) => {
-                            const video =
-                              e.currentTarget.querySelector("video");
-                            if (video) {
-                              video.play().catch(() => {});
+                            if (!isMobile) {
+                              const video =
+                                e.currentTarget.querySelector("video");
+                              if (video) {
+                                video.play().catch(() => {});
+                              }
                             }
                           }}
                           onMouseLeave={(e) => {
-                            const video =
-                              e.currentTarget.querySelector("video");
-                            if (video) {
-                              video.pause();
+                            if (!isMobile) {
+                              const video =
+                                e.currentTarget.querySelector("video");
+                              if (video) {
+                                video.pause();
+                              }
+                            }
+                          }}
+                          onTouchStart={(e) => {
+                            if (isMobile) {
+                              const video =
+                                e.currentTarget.querySelector("video");
+                              if (video) {
+                                video.play().catch(() => {});
+                              }
                             }
                           }}
                         >
@@ -156,6 +188,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                             muted
                             playsInline
                             preload="metadata"
+                            autoPlay={isMobile}
                             className="absolute inset-0 w-full h-full object-cover z-0 p-1.5"
                           >
                             <track

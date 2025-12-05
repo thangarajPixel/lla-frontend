@@ -2,16 +2,20 @@
 
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
-import { getS3Url } from "@/helpers/ConstantHelper";
+import { getS3Url, splitIntoTwoArrays } from "@/helpers/ConstantHelper";
 import type { GallerySectionProps } from "./utils/home";
 
 const GallertSection = ({ data }: GallerySectionProps) => {
   const galleryImages = data.Image;
+
+  const imageChunks = useMemo(() => {
+    return splitIntoTwoArrays(galleryImages);
+  }, [galleryImages]);
 
   const [randomIndices, setRandomIndices] = useState<number[]>(() => {
     return Array.from({ length: 8 }, (_, i) => i);
@@ -236,7 +240,7 @@ const GallertSection = ({ data }: GallerySectionProps) => {
             dir="rtl"
           >
             <div className="flex gap-4 touch-pan-x pl-5 pr-5">
-              {galleryImages.map((image) => (
+              {imageChunks[0]?.map((image) => (
                 <div
                   key={`row1-${image.id}`}
                   className="relative flex-[0_0_45vw] aspect-square overflow-hidden min-w-0"
@@ -260,7 +264,7 @@ const GallertSection = ({ data }: GallerySectionProps) => {
             dir="ltr"
           >
             <div className="flex gap-4 touch-pan-x pl-5 pr-5">
-              {galleryImages.map((image) => (
+              {imageChunks[1]?.map((image) => (
                 <div
                   key={`row2-${image.id}`}
                   className="relative flex-[0_0_45vw] aspect-square overflow-hidden min-w-0"
