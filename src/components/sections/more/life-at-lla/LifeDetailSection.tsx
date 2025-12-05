@@ -3,10 +3,42 @@
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
-import { Dummy10 } from "@/helpers/ImageHelper";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { LifeDetailProps } from "./utils/life-lla";
 import { getS3Url } from "@/helpers/ConstantHelper";
+import { Facebook, Twitter, Instagram, LinkedInBlack, WhatsappBlack } from "@/helpers/ImageHelper";
+
+const SOCIAL_LINKS = [
+   {
+    id: "linkedin",
+    icon: LinkedInBlack,
+    alt: "LinkedIn",
+    getShareUrl: (url: string) => `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
+  },
+   {
+    id: "twitter",
+    icon: Twitter,
+    alt: "Twitter",
+    getShareUrl: (url: string, title: string) => `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`,
+  },
+  {
+    id: "instagram",
+    icon: Instagram,
+    alt: "Instagram",
+    getShareUrl: () => "https://www.instagram.com/lightandlifeacademy",
+  },
+  {
+    id: "facebook",
+    icon: Facebook,
+    alt: "Facebook",
+    getShareUrl: (url: string) => `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
+  },{
+  id:"whatsapp",
+  icon:WhatsappBlack,
+  alt:"whatsapp",
+  getShareUrl: (url: string) => `https://wa.me/?text=${encodeURIComponent(url)}`,
+  }
+];
 
 
 const LifeDetailSection = ({ data }: LifeDetailProps) => {
@@ -50,6 +82,38 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                     )}
                   </div>
                 ))}
+                
+                <div className="mt-8 pt-8 border-t border-black">
+                  <h3 className="text-[16px] md:text-[18px] lg:text-[18px] xl:text-[20px] 2xl:text-[20px] 3xl:text-[24px] font-normal text-[#082326] font-mulish mb-6">
+                    Share with
+                  </h3>
+                  <div className="flex gap-8 items-center">
+                    {SOCIAL_LINKS.map((social) => {
+                      const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
+                      const shareUrl = social.id === 'twitter' 
+                        ? social.getShareUrl(currentUrl, card.Title)
+                        : social.getShareUrl(currentUrl, card.Title);
+                      
+                      return (
+                        <a 
+                          key={social.id}
+                          href={shareUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="transition-opacity hover:opacity-70 "
+                        >
+                          <ImageWidget
+                            src={social.icon.src}
+                            alt={social.alt}
+                            width={40}
+                            height={40}
+                            className="object-contain h-[27px] w-[27px]"
+                          />
+                        </a>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
             </ScrollWidget>
           </div>
