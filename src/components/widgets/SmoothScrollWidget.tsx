@@ -20,7 +20,22 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
     if (typeof window === "undefined") return;
     if (!gsap || !ScrollTrigger) return;
 
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+
+    const initialHash = window.location.hash;
+    if (initialHash) {
+      window.history.replaceState(
+        window.history.state,
+        "",
+        window.location.pathname + window.location.search
+      );
+    }
+
     window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
 
     const checkIsMobile = () => {
       if (typeof window === "undefined") return false;
@@ -53,10 +68,6 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
       if (!gsap || !ScrollTrigger) return;
 
       cleanupSmoothScroll();
-
-      if ("scrollRestoration" in window.history) {
-        window.history.scrollRestoration = "manual";
-      }
 
       const lenis = new Lenis({
         duration: 1.5,
@@ -123,15 +134,38 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
 
       rafIdRef.current = requestAnimationFrame(raf);
 
+      const resetScroll = () => {
+        if (window.location.hash) {
+          window.history.replaceState(
+            window.history.state,
+            "",
+            window.location.pathname + window.location.search
+          );
+        }
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        if (lenis) {
+          lenis.scrollTo(0, { immediate: true });
+        }
+      };
+
       requestAnimationFrame(() => {
-        lenis.scrollTo(0, { immediate: true });
+        resetScroll();
         setTimeout(() => {
+          resetScroll();
           if (ScrollTrigger && typeof ScrollTrigger.refresh === "function") {
             try {
               ScrollTrigger.refresh();
             } catch (_error) {}
           }
         }, 100);
+        setTimeout(() => {
+          resetScroll();
+        }, 300);
+        setTimeout(() => {
+          resetScroll();
+        }, 500);
       });
 
       const observer = new MutationObserver(() => {
