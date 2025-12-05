@@ -58,18 +58,22 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                 </p>
               </div>
               <div className="flex flex-col gap-4 md:gap-6">
-                <p className="text-[16px] md:text-[16px] lg:text-[16px] xl:text-[16px] 2xl:text-[16px] 3xl:text-[18px] text-black leading-normal font-mulish"
-                 dangerouslySetInnerHTML={{ __html: card.LongDescription || '' }}>
-                </p>
+                {card.LongDescription && (
+                  <p className="text-[16px] md:text-[16px] lg:text-[16px] xl:text-[16px] 2xl:text-[16px] 3xl:text-[18px] text-black leading-normal font-mulish"
+                   dangerouslySetInnerHTML={{ __html: card.LongDescription }}>
+                  </p>
+                )}
                 {card.LifeViewCard?.map((viewCard) => (
                   <div key={viewCard.id} className="flex flex-col gap-4">
                     <h3 className="text-[24px] md:text-[26px] lg:text-[26px] xl:text-[28px] 2xl:text-[30px] 3xl:text-[32px] font-normal text-black font-urbanist">
                       {viewCard.Title}
                     </h3>
-                    <div 
-                      className="text-[16px] md:text-[16px] lg:text-[16px] xl:text-[16px] 2xl:text-[16px] 3xl:text-[18px] text-black leading-normal font-mulish"
-                      dangerouslySetInnerHTML={{ __html: viewCard.Description || '' }}
-                    />
+                    {viewCard.Description && (
+                      <div 
+                        className="text-[16px] md:text-[16px] lg:text-[16px] xl:text-[16px] 2xl:text-[16px] 3xl:text-[18px] text-black leading-normal font-mulish"
+                        dangerouslySetInnerHTML={{ __html: viewCard.Description }}
+                      />
+                    )}
                     {viewCard.Images?.[0]?.url && (
                       <div className="relative w-full aspect-video overflow-hidden">
                         <ImageWidget
@@ -130,14 +134,16 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                       className="group"
                     >
                       <div className="flex flex-col gap-2">
-                        <div className="relative w-full aspect-video overflow-hidden">
-                          <ImageWidget
-                            src={getS3Url(post.Image[0].url)}
-                            alt={post.Title}
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
+                        {post.Image?.[0]?.url && (
+                          <div className="relative w-full aspect-video overflow-hidden">
+                            <ImageWidget
+                              src={getS3Url(post.Image[0].url)}
+                              alt={post.Title}
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
+                        )}
                         <h4 className="text-[16px] font-semibold text-black font-mulish">
                           {post.Title}
                         </h4>
