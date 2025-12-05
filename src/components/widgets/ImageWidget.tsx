@@ -3,12 +3,7 @@ import type { ImageWidgetProps } from "./utils/widget";
 
 const ImageWidget = ({ src, alt, ...props }: ImageWidgetProps) => {
   return (
-    <Image
-      src={src}
-      alt={alt}
-      {...props}
-      sizes="(max-width: 640px) 100vw, 50vw"
-    />
+     <Image src={src} alt={alt} {...props} sizes="100vw" />
   );
 };
 
