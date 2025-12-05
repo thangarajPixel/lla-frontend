@@ -1,5 +1,6 @@
 "use client";
 
+import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import { useEffect, useState } from "react";
 import type { TestimonialSectionProps } from "@/components/sections/home/utils/home";
@@ -10,12 +11,21 @@ import { ArrowLeftBlack, ArrowRightBlack, Quote } from "@/helpers/ImageHelper";
 
 const TestimonialSection = ({ data }: TestimonialSectionProps) => {
   const testimonials = data.Slider || [];
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: "start",
-    slidesToScroll: 1,
-    loop: false,
-    dragFree: false,
-  });
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      align: "start",
+      slidesToScroll: 1,
+      loop: true,
+      dragFree: false,
+    },
+    [
+      Autoplay({
+        delay: 3000,
+        stopOnInteraction: false,
+        stopOnMouseEnter: true,
+      }),
+    ],
+  );
 
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
