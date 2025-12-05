@@ -18,7 +18,7 @@ const LifeCard = ({ card }: LifeCardProps) => (
     </h4>
     <div className="relative w-full aspect-4/3 overflow-hidden mb-2 lg:mb-3 3xl:mb-4">
       <ImageWidget
-        src={getS3Url(card.Image?.[0]?.url) || Life}
+        src={getS3Url(card.Image?.[0]?.url) || ""}
         alt={card.Title}
         fill
         className="object-cover 3xl:max-w-[252px] 3xl:max-h-[168.79px]"
@@ -31,7 +31,7 @@ const LifeCard = ({ card }: LifeCardProps) => (
 );
 
 const LifeSection = ({ data }: LifeSectionProps) => {
-  const lifeCardsData = data.Card || [];
+  const lifeCardsData = data.Card;
   const lastCard =
     lifeCardsData.length > 0 ? lifeCardsData[lifeCardsData.length - 1] : null;
   const cardsWithoutLast = lifeCardsData.slice(0, -1);
@@ -52,6 +52,8 @@ const LifeSection = ({ data }: LifeSectionProps) => {
       }),
     ],
   );
+
+  if (data?.Card?.length === 0) return null;
   return (
     <section className="w-full min-h-[1100px] md:min-h-[700px] lg:min-h-[900px] xl:min-h-[1000px] 2xl:min-h-[1100px] 3xl:min-h-[1446px] bg-cover  bg-no-repeat bg-position-[bottom_left_-200px] md:bg-center sm:bg-position-center md:bg-fixed relative bg-[#ECECEC] py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 3xl:py-28">
       <div
@@ -76,7 +78,7 @@ const LifeSection = ({ data }: LifeSectionProps) => {
             <div className="w-full md:w-auto md:min-w-[350px] lg:min-w-[400px] 2xl:min-w-[500px] 3xl:min-w-[550px]">
               <div className="flex flex-col gap-3.5 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-6 2xl:gap-6 3xl:gap-8">
                 <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
-                  {data.Title || "Life at LLA"}
+                  {data.Title}
                 </h3>
                 <p className="font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
                   {data.Heading}
@@ -90,7 +92,7 @@ const LifeSection = ({ data }: LifeSectionProps) => {
                 </p>
                 <div className="self-start">
                   <LinkWidget href="/more/life-at-lla">
-                    <OrangeButtonWidget content={data.Btn_txt || "View More"} />
+                    <OrangeButtonWidget content={data.Btn_txt} />
                   </LinkWidget>
                 </div>
               </div>

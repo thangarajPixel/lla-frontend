@@ -1,12 +1,11 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Mail, MapPin, Phone, Clock } from "lucide-react";
+import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import FormInput from "@/components/form/FormInput";
-import { Button } from "@/components/ui/button";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
@@ -22,7 +21,13 @@ const contactSchema = z.object({
 type ContactFormData = z.infer<typeof contactSchema>;
 
 export default function ContactSection() {
-  const { control, handleSubmit, reset, register, formState: { errors } } = useForm<ContactFormData>({
+  const {
+    control,
+    handleSubmit,
+    reset,
+    register,
+    formState: { errors },
+  } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
       FirstName: "",
@@ -32,7 +37,7 @@ export default function ContactSection() {
       Message: "",
     },
   });
-  console.log(errors,'asfddfdsf');
+  console.log(errors, "asfddfdsf");
 
   const onSubmit = async (data: ContactFormData) => {
     try {
@@ -43,138 +48,152 @@ export default function ContactSection() {
       console.log("Form data:", response);
       toast.success("Contact sent successfully!");
       reset();
-    } catch (error) {
+    } catch (_error) {
       toast.error("Failed to send message. Please try again.");
     }
   };
 
   return (
     <section className="py-16 px-4 md:px-8 lg:px-16 max-w-7xl mx-auto">
-       <ContainerWidget>
-      <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
-        <div className="space-y-8">
-          <div>
-            <h1 className="text-4xl md:text-5xl lg:text-[50px] xl:text-[56px] 2xl:text-[60px] 3xl:text-[64px] font-urbanist font-normal  mb-4">
-              Contact Us
-            </h1>
-            <p className="text-lg font-mulish font-normal text-[20px] sm:text-[22px] md:text-[24px] lg:text-[26px] xl:text-[28px] 2xl:text-[30px] 3xl:text-[32px]">
-              Let's build this <span className="text-[#FF6B4A]">connection</span>
-            </p>
-            <p className=" mt-4 max-w-[630px]  text-[18px]">
-              Lorem ipsum dolor sit amet consectetur. Pulvinar nunc rhoncus nibh varius
-              faucibus nisi vitae et.
-            </p>
-          </div>
-          <div className="space-y-6">
-            <div className="flex items-start gap-4">
-              <div className="p-3 rounded-full bg-[#FF6B4A]/10">
-                <Phone className="w-5 h-5 text-[#FF6B4A]" />
-              </div>
-              <div>
-                <p className="text-foreground font-medium">+91 7598287370</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <div className="p-3 rounded-full bg-[#FF6B4A]/10">
-                <Mail className="w-5 h-5 text-[#FF6B4A]" />
-              </div>
-              <div>
-                <p className="text-foreground font-medium">administration@llacademy.org</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <div className="p-3 rounded-full bg-[#FF6B4A]/10">
-                <MapPin className="w-5 h-5 text-[#FF6B4A]" />
-              </div>
-              <div>
-                <p className="text-foreground font-medium">Lovedale, Ooty – 643 003</p>
-                <p className="text-foreground">Tamil Nadu, India</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <div className="p-3 rounded-full bg-[#FF6B4A]/10">
-                <Clock className="w-5 h-5 text-[#FF6B4A]" />
-              </div>
-              <div>
-                <p className="text-foreground font-medium text-[16px]  md:text-[16px] lg:text-[16px] xl:text-[16px] 3xl:text-[18px]">
-                  Visitors are welcome from 10:00 AM to 4:00 PM, Monday to Friday
-                </p>
-                <p className="text-foreground">
-                  except for public holidays. Please call to fix an appointment.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
-              <FormInput
-                name="FirstName"
-                control={control}
-                placeholder="First Name"
-                label="Name"
-                className="col-span-1"
-              />
-              <FormInput
-                name="LastName"
-                control={control}
-                placeholder="Last Name"
-                notRequired
-                className="col-span-1 mt-6"
-              />
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <FormInput
-                name="Email"
-                control={control}
-                type="email"
-                placeholder="Enter your email"
-                label="Email"
-              />
-              <FormInput
-                name="Mobile"
-                control={control}
-                type="tel"
-                placeholder="Enter your phone number"
-                label="Phone Number"
-              />
-            </div>
-
+      <ContainerWidget>
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+          <div className="space-y-8">
             <div>
-              <label className="block text-sm font-medium text-foreground font-mulish mb-1">
-                Message<span className="text-chart-1"></span>
-              </label>
-              <textarea
-                {...register("Message")}
-                placeholder="Message"
-                rows={6}
-                className="flex w-full rounded-2xl border border-[#BDBDBD] bg-background px-4 py-3 text-base placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-0 focus-visible:border-chart-1/50 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
-              />
-              {errors.Message && <p className="text-danger text-sm text-red-500">{errors.Message.message}</p>}
+              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+                Contact Us
+              </h1>
+              <p className="text-lg">
+                Let's build this{" "}
+                <span className="text-[#FF6B4A]">connection</span>
+              </p>
+              <p className="text-muted-foreground mt-4">
+                Lorem ipsum dolor sit amet consectetur. Pulvinar nunc rhoncus
+                nibh varius faucibus nisi vitae et.
+              </p>
             </div>
-            <OrangeButtonWidget  content="Submit"/>               
-          </form>
+            <div className="space-y-6">
+              <div className="flex items-start gap-4">
+                <div className="p-3 rounded-full bg-[#FF6B4A]/10">
+                  <Phone className="w-5 h-5 text-[#FF6B4A]" />
+                </div>
+                <div>
+                  <p className="text-foreground font-medium">+91 7598287370</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="p-3 rounded-full bg-[#FF6B4A]/10">
+                  <Mail className="w-5 h-5 text-[#FF6B4A]" />
+                </div>
+                <div>
+                  <p className="text-foreground font-medium">
+                    administration@llacademy.org
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="p-3 rounded-full bg-[#FF6B4A]/10">
+                  <MapPin className="w-5 h-5 text-[#FF6B4A]" />
+                </div>
+                <div>
+                  <p className="text-foreground font-medium">
+                    Lovedale, Ooty – 643 003
+                  </p>
+                  <p className="text-muted-foreground">Tamil Nadu, India</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="p-3 rounded-full bg-[#FF6B4A]/10">
+                  <Clock className="w-5 h-5 text-[#FF6B4A]" />
+                </div>
+                <div>
+                  <p className="text-foreground font-medium">
+                    Visitors are welcome from 10:00 AM to 4:00 PM, Monday to
+                    Friday
+                  </p>
+                  <p className="text-muted-foreground">
+                    except for public holidays. Please call to fix an
+                    appointment.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+              <div className="grid grid-cols-2 gap-4">
+                <FormInput
+                  name="FirstName"
+                  control={control}
+                  placeholder="First Name"
+                  label="Name"
+                  className="col-span-1"
+                />
+                <FormInput
+                  name="LastName"
+                  control={control}
+                  placeholder="Last Name"
+                  notRequired
+                  className="col-span-1 mt-6"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <FormInput
+                  name="Email"
+                  control={control}
+                  type="email"
+                  placeholder="Enter your email"
+                  label="Email"
+                />
+                <FormInput
+                  name="Mobile"
+                  control={control}
+                  type="tel"
+                  placeholder="Enter your phone number"
+                  label="Phone Number"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="message"
+                  className="block text-sm font-medium text-foreground font-mulish mb-1"
+                >
+                  Message<span className="text-chart-1">*</span>
+                </label>
+                <textarea
+                  {...register("Message")}
+                  placeholder="Message"
+                  rows={6}
+                  className="flex w-full rounded-2xl border border-[#BDBDBD] bg-background px-4 py-3 text-base placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-0 focus-visible:border-chart-1/50 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
+                />
+                {errors.Message && (
+                  <p className="text-danger text-sm text-red-500">
+                    {errors.Message.message}
+                  </p>
+                )}
+              </div>
+              <OrangeButtonWidget content="Submit" />
+            </form>
+          </div>
         </div>
-      </div>
-      <div className="mt-16">
-        <div className="w-full h-[400px] overflow-hidden border border-[#E97451]">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3911.2345678901234!2d76.7345678!3d11.4012345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDI0JzA0LjQiTiA3NsKwNDQnMDQuNCJF!5e0!3m2!1sen!2sin!4v1234567890123"
-            width="100%"
-            height="100%"
-            style={{ border: 0 }}
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            title="Light & Life Academy Location"
-          />
+        <div className="mt-16">
+          <div className="w-full h-[400px] overflow-hidden border border-[#E97451]">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3911.2345678901234!2d76.7345678!3d11.4012345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDI0JzA0LjQiTiA3NsKwNDQnMDQuNCJF!5e0!3m2!1sen!2sin!4v1234567890123"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Light & Life Academy Location"
+            />
+          </div>
         </div>
-      </div>
       </ContainerWidget>
     </section>
   );

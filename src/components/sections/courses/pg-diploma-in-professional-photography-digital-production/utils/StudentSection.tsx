@@ -3,21 +3,27 @@
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import { useEffect, useRef, useState } from "react";
-import type { StudentSectionProps } from "@/components/sections/home/utils/home";
 import { DialogClose } from "@/components/ui/dialog";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import DialogWidget from "@/components/widgets/DialogWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
+import { getS3Url } from "@/helpers/ConstantHelper";
 import {
   ArrowLeftBlack,
   ArrowRightBlack,
   Into,
   Play,
 } from "@/helpers/ImageHelper";
+import type { StudentTestimonialCard, StudentTestimonialData } from "./types";
+
+type StudentSectionProps = {
+  data: StudentTestimonialData | StudentTestimonialData[];
+};
 
 const StudentSection = ({ data }: StudentSectionProps) => {
-  const studentData = data.Card || [];
+  const sectionData = Array.isArray(data) ? data[0] : data;
+  const studentData = sectionData?.Card ?? [];
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       align: "end",
@@ -93,18 +99,19 @@ const StudentSection = ({ data }: StudentSectionProps) => {
     <section className="w-full py-10 md:py-10 lg:py-12 xl:py-16 2xl:py-20 3xl:py-24 bg-[#f6f6f6] mx-auto max-w-[1920px]">
       <ScrollWidget animation="fadeUp" delay={0.1}>
         <div className="flex flex-col w-[90vw] mx-auto justify-start md:justify-center items-start md:items-center text-left md:text-center gap-2.5 md:gap-4.5">
-          <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
-            {data.Title || "Student Testimonials"}
+          <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-normal md:font-normal text-black font-urbanist">
+            {sectionData?.Title}
           </h2>
-          <p className="font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl 3xl:text-[40px] text-black">
-            {data.Heading}
-            {data.SubHeading && (
-              <span className="text-[#E97451] pl-2">{data.SubHeading}</span>
+          <p className="font-mulish font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl 3xl:text-[40px] text-black">
+            {sectionData?.Heading}
+            {sectionData?.SubHeading && (
+              <span className="text-[#E97451] pl-2">
+                {sectionData.SubHeading}
+              </span>
             )}
           </p>
-          <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[760px]">
-            {data.Description ||
-              "Over the years, Light & Life Academy has grown into a close-knit community. Here, they share their stories of discovery, growth, and the many ways their time at the Academy shaped who they are today."}
+          <p className="font-mulish text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[760px]">
+            {sectionData?.Description}
           </p>
         </div>
       </ScrollWidget>
@@ -116,120 +123,122 @@ const StudentSection = ({ data }: StudentSectionProps) => {
               ref={emblaRef}
             >
               <div className="flex w-full justify-start md:justify-center gap-4 sm:gap-6">
-                {studentData.map((student, index) => {
-                  const videoUrl = student.Image?.[0]?.url || "/dummy.mp4";
-                  return (
-                    <ScrollWidget
-                      key={student.id}
-                      animation={index % 2 === 0 ? "fadeUp" : "fadeDown"}
-                      delay={0.1 + index * 0.15}
-                    >
-                      <div
-                        className={`shrink-0 ${
-                          index % 2 ? "md:mt-30" : "mt-0"
-                        } w-[calc(100%-2rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc((100%-4.5rem)/3.5)] lg:w-[calc((100%-4.5rem)/3.5)] xl:w-[calc((100%-4.5rem)/3.5)] 2xl:w-[calc((100%-4.5rem)/3.5)]`}
+                {studentData.map(
+                  (student: StudentTestimonialCard, index: number) => {
+                    const videoUrl = getS3Url(student.Image?.[0]?.url);
+                    return (
+                      <ScrollWidget
+                        key={student.id}
+                        animation={index % 2 === 0 ? "fadeUp" : "fadeDown"}
+                        delay={0.1 + index * 0.15}
                       >
-                        {/* biome-ignore lint/a11y/noStaticElementInteractions: Hover-only interaction for video playback, not a clickable element */}
                         <div
-                          className="group relative flex flex-col gap-4 overflow-hidden transition-all duration-500 ease-in-out delay-75 p-3 sm:p-4 lg:p-5 aspect-3/4 min-h-[380px] sm:min-h-[480px] sm:max-w-[330px] bg-[#F6F6F6] hover:bg-[#E97451]/80 3xl:min-w-[410px] 3xl:h-[651px]"
-                          onMouseEnter={(e) => {
-                            const video =
-                              e.currentTarget.querySelector("video");
-                            if (video) {
-                              video.play().catch(() => {});
-                            }
-                          }}
-                          onMouseLeave={(e) => {
-                            const video =
-                              e.currentTarget.querySelector("video");
-                            if (video) {
-                              video.pause();
-                            }
-                          }}
+                          className={`shrink-0 ${
+                            index % 2 ? "md:mt-30" : "mt-0"
+                          } w-[calc(100%-2rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc((100%-4.5rem)/3.5)] lg:w-[calc((100%-4.5rem)/3.5)] xl:w-[calc((100%-4.5rem)/3.5)] 2xl:w-[calc((100%-4.5rem)/3.5)]`}
                         >
-                          <video
-                            src={videoUrl}
-                            loop
-                            muted
-                            playsInline
-                            preload="metadata"
-                            className="absolute inset-0 w-full h-full object-cover z-0 p-1.5"
-                          />
-                          <div className="relative z-20 flex items-end justify-between h-full">
-                            <div
-                              className="flex flex-col justify-end gap-3 bg-[#E97451]/80 w-full h-27 p-4"
-                              style={{
-                                clipPath:
-                                  "polygon(0 0%, 100% 23%, 100% 100%, 0% 100%)",
-                              }}
-                            >
-                              <h3 className="font-mulish text-xl md:text-xl lg:text-2xl xl:text-[20px] 2xl:text-[20px] 3xl:text-[24px] font-bold text-white font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight transition-colors duration-500 ease-in-out delay-150">
-                                {student.Title}
-                              </h3>
-                              <p className="text-xs sm:text-sm md:text-base lg:text-base xl:text-base 2xl:text-base 3xl:text-lg font-normal text-white">
-                                {student.Description}
-                              </p>
-                            </div>
-                            <DialogWidget
-                              trigger={
-                                <div className="absolute right-5 bottom-15 w-13 h-13">
-                                  <div className="video-main">
-                                    <div className="waves-block">
-                                      <div className="waves wave-1" />
-                                      <div className="waves wave-2" />
-                                      <div className="waves wave-3" />
-                                    </div>
-                                  </div>
-                                  <ButtonWidget
-                                    type="button"
-                                    className="relative w-13 h-13 p-0 bg-transparent hover:bg-transparent border-none shadow-none rounded-full group/play-button transition-all duration-300 ease-out z-10"
-                                  >
-                                    <ImageWidget
-                                      src={Play}
-                                      alt="play video"
-                                      className="w-13 cursor-pointer h-13 text-white group-hover/play-button:text-[#E97451] transition-colors duration-500 ease-in-out relative z-10"
-                                    />
-                                  </ButtonWidget>
-                                </div>
+                          {/* biome-ignore lint/a11y/noStaticElementInteractions: Hover-only interaction for video playback, not a clickable element */}
+                          <div
+                            className="group relative flex flex-col gap-4 overflow-hidden transition-all duration-500 ease-in-out delay-75 p-3 sm:p-4 lg:p-5 aspect-3/4 min-h-[380px] sm:min-h-[480px] sm:max-w-[330px] bg-[#F6F6F6] hover:bg-[#E97451]/80 3xl:min-w-[410px] 3xl:h-[651px]"
+                            onMouseEnter={(e) => {
+                              const video =
+                                e.currentTarget.querySelector("video");
+                              if (video) {
+                                video.play().catch(() => {});
                               }
-                              contentClassName="sm:max-w-[90vw] lg:max-w-[800px] p-0"
-                              showCancel={false}
-                              onOpenChange={(open) => {
-                                if (!open) {
-                                  stopAllVideos();
-                                }
-                              }}
-                              showCloseButton={false}
-                              customCloseButton={
-                                <DialogClose asChild>
-                                  <div className="cursor-pointer -mt-[30px] -mr-[30px]">
-                                    <ImageWidget
-                                      src={Into}
-                                      alt="Into"
-                                      className="w-[30px] h-[30px]"
-                                    />
-                                  </div>
-                                </DialogClose>
+                            }}
+                            onMouseLeave={(e) => {
+                              const video =
+                                e.currentTarget.querySelector("video");
+                              if (video) {
+                                video.pause();
                               }
-                            >
-                              <div className="relative w-full aspect-video bg-black rounded-lg">
-                                <video
-                                  src={videoUrl}
-                                  autoPlay
-                                  loop
-                                  muted
-                                  playsInline
-                                  controls
-                                  className="w-full h-full object-contain rounded-lg"
-                                />
+                            }}
+                          >
+                            <video
+                              src={videoUrl}
+                              loop
+                              muted
+                              playsInline
+                              preload="metadata"
+                              className="absolute inset-0 w-full h-full object-cover z-0 p-1.5"
+                            />
+                            <div className="relative z-20 flex items-end justify-between h-full">
+                              <div
+                                className="flex flex-col justify-end gap-3 bg-[#E97451]/80 w-full h-27 p-4"
+                                style={{
+                                  clipPath:
+                                    "polygon(0 0%, 100% 23%, 100% 100%, 0% 100%)",
+                                }}
+                              >
+                                <h3 className="font-mulish text-xl md:text-xl lg:text-2xl xl:text-[20px] 2xl:text-[20px] 3xl:text-[24px] font-bold text-white font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight transition-colors duration-500 ease-in-out delay-150">
+                                  {student.Title}
+                                </h3>
+                                <p className="text-xs sm:text-sm md:text-base lg:text-base xl:text-base 2xl:text-base 3xl:text-lg font-normal text-white">
+                                  {student.Description}
+                                </p>
                               </div>
-                            </DialogWidget>
+                              <DialogWidget
+                                trigger={
+                                  <div className="absolute right-5 bottom-15 w-13 h-13">
+                                    <div className="video-main">
+                                      <div className="waves-block">
+                                        <div className="waves wave-1" />
+                                        <div className="waves wave-2" />
+                                        <div className="waves wave-3" />
+                                      </div>
+                                    </div>
+                                    <ButtonWidget
+                                      type="button"
+                                      className="relative w-13 h-13 p-0 bg-transparent hover:bg-transparent border-none shadow-none rounded-full group/play-button transition-all duration-300 ease-out z-10"
+                                    >
+                                      <ImageWidget
+                                        src={Play}
+                                        alt="play video"
+                                        className="w-13 cursor-pointer h-13 text-white group-hover/play-button:text-[#E97451] transition-colors duration-500 ease-in-out relative z-10"
+                                      />
+                                    </ButtonWidget>
+                                  </div>
+                                }
+                                contentClassName="sm:max-w-[90vw] lg:max-w-[800px] p-0"
+                                showCancel={false}
+                                onOpenChange={(open) => {
+                                  if (!open) {
+                                    stopAllVideos();
+                                  }
+                                }}
+                                showCloseButton={false}
+                                customCloseButton={
+                                  <DialogClose asChild>
+                                    <div className="cursor-pointer -mt-[30px] -mr-[30px]">
+                                      <ImageWidget
+                                        src={Into}
+                                        alt="Into"
+                                        className="w-[30px] h-[30px]"
+                                      />
+                                    </div>
+                                  </DialogClose>
+                                }
+                              >
+                                <div className="relative w-full aspect-video bg-black rounded-lg">
+                                  <video
+                                    src={videoUrl}
+                                    autoPlay
+                                    loop
+                                    muted
+                                    playsInline
+                                    controls
+                                    className="w-full h-full object-contain rounded-lg"
+                                  />
+                                </div>
+                              </DialogWidget>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </ScrollWidget>
-                  );
-                })}
+                      </ScrollWidget>
+                    );
+                  },
+                )}
               </div>
             </div>
             <div className="md:hidden flex gap-2 mt-5 ml-4 justify-start">

@@ -17,10 +17,7 @@ const HeroSection = ({ data }: HeroSectionProps) => {
           playsInline
           className="w-full h-full object-cover"
         >
-          <source
-            src={getS3Url(data?.Video?.url) || "/dummy.mp4"}
-            type="video/mp4"
-          />
+          <source src={getS3Url(data?.Video?.url)} type="video/mp4" />
         </video>
       </ParallaxWidget>
       <div className="absolute inset-0 bg-black/40" />
@@ -32,7 +29,7 @@ const HeroSection = ({ data }: HeroSectionProps) => {
           <div className="flex items-center justify-center mt-44 md:mt-[200px] xl:mt-[170px] 2xl:mt-[160px] 3xl:mt-[170px]">
             <ContainerWidget>
               <h1 className="font-urbanist font-normal mb-6 text-white text-3xl xss:text-[40px] xss:leading-[1.2] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-[85px] 3xl:text-[112px] max-w-[850] 3xl:max-w-[1120px] leading-relaxed xl:leading-[1.2] 2xl:leading-[1.15] 3xl:leading-[1.1]">
-                {data.Title || "Where Light Inspires the Art of Seeing"}
+                {data.Title}
               </h1>
             </ContainerWidget>
           </div>

@@ -8,7 +8,6 @@ import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import { Dummy11 } from "@/helpers/ImageHelper";
 import type { FacultySectionProps } from "./utils/home";
 
 const FacultySection = ({ data }: FacultySectionProps) => {
@@ -27,15 +26,16 @@ const FacultySection = ({ data }: FacultySectionProps) => {
     ],
   );
 
-  const facultyData = data.Card || [];
+  const facultyData = data.Card;
 
+  if (data?.Card?.length === 0) return null;
   return (
     <section className="w-full py-8 md:py-12 lg:pt-16 xl:pt-20 2xl:pt-24 3xl:pt-28 bg-white mx-auto max-w-[1920px]">
       <ContainerWidget>
         <ScrollWidget animation="fadeUp" delay={0.1}>
           <div className="flex flex-col justify-start md:justify-center items-start md:items-center text-left md:text-center gap-3 md:gap-4.5">
             <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
-              {data.Title || "Faculty"}
+              {data.Title}
             </h2>
             <p className="font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
               {data.Heading}
@@ -47,13 +47,10 @@ const FacultySection = ({ data }: FacultySectionProps) => {
               )}
             </p>
             <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[650px]">
-              {data.Description ||
-                "Our faculty foster an environment of collaboration and mentorship. The guidance is personal, conversations are open, and growth happens through shared experience."}
+              {data.Description}
             </p>
             <LinkWidget href="/faculty" className="w-full">
-              <OrangeButtonWidget
-                content={data.Btn_txt || "Know Your Guides"}
-              />
+              <OrangeButtonWidget content={data.Btn_txt} />
             </LinkWidget>
           </div>
         </ScrollWidget>
@@ -70,7 +67,7 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                 <div className="flex flex-col gap-2 sm:gap-3 group">
                   <div className="w-full aspect-square sm:aspect-auto overflow-hidden relative">
                     <ImageWidget
-                      src={getS3Url(faculty?.Image?.[0]?.url) || Dummy11}
+                      src={getS3Url(faculty?.Image?.[0]?.url) || ""}
                       alt={faculty.Title}
                       fill
                       className="object-cover grayscale transition-all duration-500 group-hover:grayscale-0"
@@ -84,9 +81,7 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                   </p>
                   <div className="self-start mt-auto">
                     <LinkWidget href="/faculty" className="w-full">
-                      <OrangeButtonWidget
-                        content={faculty.Btn_txt || "Know More"}
-                      />
+                      <OrangeButtonWidget content={faculty.Btn_txt} />
                     </LinkWidget>
                   </div>
                 </div>
@@ -103,9 +98,7 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                 </h3>
                 <div className="self-start mt-auto">
                   <LinkWidget href="/faculty" className="w-full">
-                    <OrangeButtonWidget
-                      content={data.Btn_txt || "View All Faculty"}
-                    />
+                    <OrangeButtonWidget content={data.Btn_txt} />
                   </LinkWidget>
                 </div>
               </div>
@@ -137,7 +130,7 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                     <div className="group relative flex flex-col gap-3 overflow-hidden transition-all duration-500 ease-in-out delay-75 hover:bg-[#E97451]/20 p-3.5 cursor-pointer">
                       <div className="relative w-full aspect-square overflow-hidden transition-transform duration-500 ease-in-out delay-100 group-hover:scale-[1.02]">
                         <ImageWidget
-                          src={getS3Url(faculty?.Image?.[0]?.url) || Dummy11}
+                          src={getS3Url(faculty?.Image?.[0]?.url) || ""}
                           alt={faculty.Title}
                           fill
                           className="object-cover grayscale transition-all duration-500 group-hover:grayscale-0 3xl:min-w-[299px] 3xl:min-h-[299px]"
@@ -177,9 +170,7 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                     </h3>
                     <div className="self-start mt-3">
                       <LinkWidget href="/faculty" className="w-full">
-                        <OrangeButtonWidget
-                          content={data.Btn_txt || "View All Faculty"}
-                        />
+                        <OrangeButtonWidget content={data.Btn_txt} />
                       </LinkWidget>
                     </div>
                   </div>
