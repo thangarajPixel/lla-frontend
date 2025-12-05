@@ -51,6 +51,12 @@ export const getS3Url = (url: string) => {
   return `https://${process.env.S3_URL}${url}`;
 };
 
+export const splitIntoTwoArrays = <T>(array: T[]): [T[], T[]] => {
+  if (!array || array.length === 0) return [[], []];
+  const midPoint = Math.ceil(array.length / 2);
+  return [array.slice(0, midPoint), array.slice(midPoint)];
+};
+
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
