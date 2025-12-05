@@ -139,7 +139,6 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
       setGalleryData(initialData);
     }
   }, [selectedType, initialData, isMounted]);
-
   const loadMore = async () => {
     if (loading || imageCards.length >= total) return;
 
@@ -172,7 +171,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   };
 
   return (
-    <section className="w-full bg-white py-4 sm:py-6 md:py-8 lg:py-10 xl:py-12 2xl:py-14 3xl:py-20"> 
+    <section className="w-full bg-white py-4 sm:py-6 md:py-8 lg:py-10 xl:py-12 2xl:py-14 3xl:py-20">
       <ContainerWidget>
         <div className="flex flex-col gap-6 md:gap-8 lg:gap-10">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-6">

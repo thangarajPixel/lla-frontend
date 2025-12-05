@@ -9,10 +9,7 @@ export const getStateLists = async (): Promise<StateDataResponse> => {
 };
 
 export const createAdmission = async (
-  formData:
-    | PersonalDetailsSchema
-    | EducationDetailsSchema
-    | PortfolioSchema,
+  formData: PersonalDetailsSchema | EducationDetailsSchema | PortfolioSchema,
 ): Promise<AdmissionFormDataResponse> => {
   const response = await clientAxios.post<AdmissionFormDataResponse>(
     "/admissions",
@@ -23,10 +20,7 @@ export const createAdmission = async (
 
 export const updateAdmission = async (
   id: string,
-  formData:
-    | PersonalDetailsSchema
-    | EducationDetailsSchema
-    | PortfolioSchema,
+  formData: PersonalDetailsSchema | EducationDetailsSchema | PortfolioSchema,
 ): Promise<AdmissionFormDataResponse> => {
   const response = await clientAxios.put<AdmissionFormDataResponse>(
     `/admissions/${id}`,

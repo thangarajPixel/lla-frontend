@@ -29,7 +29,7 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
       window.history.replaceState(
         window.history.state,
         "",
-        window.location.pathname + window.location.search
+        window.location.pathname + window.location.search,
       );
     }
 
@@ -139,7 +139,7 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
           window.history.replaceState(
             window.history.state,
             "",
-            window.location.pathname + window.location.search
+            window.location.pathname + window.location.search,
           );
         }
         window.scrollTo(0, 0);

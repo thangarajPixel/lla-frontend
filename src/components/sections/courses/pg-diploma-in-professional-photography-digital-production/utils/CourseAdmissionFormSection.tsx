@@ -6,13 +6,7 @@ import { type FormEvent, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import { notify } from "@/helpers/ConstantHelper";
-
-type FormData = {
-  name: string;
-  mobile: string;
-  emailAddress: string;
-  message: string;
-};
+import type { FormData } from "./types";
 
 const CourseAdmissionFormSection = () => {
   const router = useRouter();

@@ -141,3 +141,10 @@ export type PgDiplomaData = {
   HowToApply: HowToApplyData;
   Faq: FaqData;
 };
+
+export type FormData = {
+  name: string;
+  mobile: string;
+  emailAddress: string;
+  message: string;
+};

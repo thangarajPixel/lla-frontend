@@ -5,8 +5,8 @@ import { type Control, useFieldArray } from "react-hook-form";
 import { FormInput } from "@/components/form";
 import FormFileUploadButton from "@/components/form/FormFileUploadButton";
 import FormRadioGroup from "@/components/form/FormRadioGroup";
+import type { EducationDetailsSchema } from "@/components/sections/admission-form/_steps/education-details-form";
 import { Button } from "@/components/ui/button";
-import { EducationDetailsSchema } from "@/components/sections/admission-form/_steps/education-details-form";
 
 type EducationDetailsProps = {
   admissionData?: AdmissionFormData;
