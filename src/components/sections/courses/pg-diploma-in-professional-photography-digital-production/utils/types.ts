@@ -142,7 +142,7 @@ export type PgDiplomaData = {
   Faq: FaqData;
 };
 
-export type FormData = {
+export type CourseFormData = {
   name: string;
   mobile: string;
   emailAddress: string;

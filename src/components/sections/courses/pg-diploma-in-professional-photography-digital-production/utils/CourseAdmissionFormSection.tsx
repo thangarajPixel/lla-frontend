@@ -6,13 +6,13 @@ import { type FormEvent, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import { notify } from "@/helpers/ConstantHelper";
-import type { FormData } from "./types";
+import type { CourseFormData } from "./types";
 
 const CourseAdmissionFormSection = () => {
   const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
 
-  const validateForm = (formValues: FormData): string | null => {
+  const validateForm = (formValues: CourseFormData): string | null => {
     if (!formValues.name || formValues.name.trim() === "") {
       return "Name is required";
     }
@@ -42,7 +42,7 @@ const CourseAdmissionFormSection = () => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    const formValues: FormData = {
+    const formValues: CourseFormData = {
       name: (formData.get("name") as string) || "",
       mobile: (formData.get("mobile") as string) || "",
       emailAddress: (formData.get("emailAddress") as string) || "",
