@@ -3,6 +3,7 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 
 if (typeof window !== "undefined") {
@@ -10,6 +11,7 @@ if (typeof window !== "undefined") {
 }
 
 const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
+  const pathname = usePathname();
   const lenisRef = useRef<Lenis | null>(null);
   const rafIdRef = useRef<number | null>(null);
   const observerRef = useRef<MutationObserver | null>(null);
@@ -234,6 +236,30 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
       cleanupSmoothScroll();
     };
   }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (!pathname) return;
+
+    const resetScroll = () => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      if (lenisRef.current) {
+        lenisRef.current.scrollTo(0, { immediate: true });
+      }
+    };
+
+    requestAnimationFrame(() => {
+      resetScroll();
+      setTimeout(() => {
+        resetScroll();
+      }, 100);
+      setTimeout(() => {
+        resetScroll();
+      }, 300);
+    });
+  }, [pathname]);
 
   return <>{children}</>;
 };

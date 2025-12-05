@@ -67,7 +67,7 @@ const OverviewSection = ({ data }: { data: MenuData }) => {
   );
 
   return (
-    <section className="w-full bg-white flex flex-col items-center justify-center z-40 relative  py-10 sm:py-20 sm:pt-30 3xl:h-[1048px]">
+    <section className="w-full bg-white flex flex-col items-center justify-center relative  py-10 sm:py-20 sm:pt-30 3xl:h-[1048px]">
       <ContainerWidget>
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 xl:gap-0">
           <div className="flex flex-col gap-4.5 justify-center md:-mt-15">
