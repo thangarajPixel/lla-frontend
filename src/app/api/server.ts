@@ -37,11 +37,11 @@ export async function getLifePageData(params: {
   page: number;
   per_page: number;
 }) {
-  return fetchData("/life", params);
+  return fetchData("/life-at-lla", params);
 }
 
-export async function getLifeById(id: number) {
-  return fetchData(`/life/${id}`);
+export async function getLifeById(Slug: string) {
+  return fetchData(`/life-at-lla/${Slug}`);
 }
 
 export async function getAdmissionsPageData() {

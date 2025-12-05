@@ -5,9 +5,10 @@ export type LifeSectionProps = {
     Heading: string;
     SubHeading: string;
     Description?: string;
-    Card: Array<{
+    LifeCard: Array<{
       id: number;
       Title: string;
+      Slug: string;
       Description: string;
       Btn_txt: string | null;
       Image: Array<{
@@ -43,6 +44,7 @@ export type LifeDetailProps = {
 export type LifeCard = {
   id: number;
   Title: string;
+  Slug: string;
   Description: string | null;
   Btn_txt?: string | null;
   LongDescription?: string | null;

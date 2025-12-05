@@ -144,7 +144,7 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                         <div className="mt-2">
                           <OrangeButtonWidget 
                             content="Read More"
-                            onClick={() => window.location.href = `/more/life-at-lla/${post.id}`}
+                            onClick={() => window.location.href = `/more/life-at-lla/${post.Slug}`}
                             className="text-sm bg-white text-[#E97451] border border-[#E97451] hover:bg-[#E97451] hover:text-white"
                           /> 
                         </div>
