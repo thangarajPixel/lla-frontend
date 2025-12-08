@@ -75,3 +75,11 @@ export async function getCoursePageData() {
 export async function getEssentialsData() {
   return fetchData("/essential");
 }
+
+export async function getFooterData() {
+  return fetchData("/footer");
+}
+
+export async function getCourseBySlug(slug: string) {
+  return fetchData(`/courses/view/${slug}`);
+}

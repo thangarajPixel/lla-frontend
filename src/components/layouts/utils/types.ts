@@ -53,3 +53,43 @@ export type AdmissionButtonProps = {
   className?: string;
   iconClassName?: string;
 };
+
+export type CourseItem = {
+  id: number;
+  documentId: string;
+  Name: string;
+  Slug: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  locale: string | null;
+};
+
+export type LogoItem = {
+  id: number;
+  name: string;
+  url: string;
+};
+
+export type IconItem = {
+  id: number;
+  name: string;
+  url: string;
+  href?: string;
+};
+
+export type WebHeaderResponse = {
+  id: number;
+  documentId: string;
+  Title: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string | null;
+  Description: string;
+  Btn_txt: string;
+  Copy_right_txt: string;
+  Location: string | null;
+  Logo: LogoItem[] | null;
+  Icon: IconItem[] | null;
+  course: CourseItem[];
+};

@@ -7,7 +7,7 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { ArrowLeftBlack, ArrowRightBlack, Quote } from "@/helpers/ImageHelper";
-import type { TestimonialData } from "../courses/pg-diploma-in-professional-photography-digital-production/utils/types";
+import type { TestimonialData } from "../courses/utils/types";
 
 type TestimonialSectionProps = {
   data: TestimonialData[] | TestimonialData;
