@@ -1,11 +1,14 @@
 "use client";
 
+import { useRef, useState } from "react";
 import Link from "next/link";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import {
+  ArrowLeftBlack,
+  ArrowRightBlack,
   ArrowRightWhite,
   FacebookBlack,
   InstagramBlack,
@@ -63,6 +66,34 @@ const formatDate = (dateString: string): string => {
 
 const LifeDetailSection = ({ data }: LifeDetailProps) => {
   const { card, latest } = data;
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScrollButtons = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+    }
+  };
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollContainerRef.current) {
+      const scrollAmount = scrollContainerRef.current.clientWidth * 0.8;
+      const newScrollLeft = direction === 'left' 
+        ? scrollContainerRef.current.scrollLeft - scrollAmount
+        : scrollContainerRef.current.scrollLeft + scrollAmount;
+      
+      scrollContainerRef.current.scrollTo({
+        left: newScrollLeft,
+        behavior: 'smooth'
+      });
+      
+      setTimeout(checkScrollButtons, 300);
+    }
+  };
+
   return (
     <section className="w-full bg-white min-h-screen py-8 sm:py-10 md:py-12 lg:py-16 xl:py-10 2xl:py-14 3xl:py-18">
       <ContainerWidget>
@@ -148,11 +179,11 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
           </div>
           <aside className="w-full lg:w-[260px] xl:w-[260px] 2xl:w-[280px] 3xl:w-[300px]">
             <ScrollWidget animation="fadeIn" delay={0.2}>
-              <div className="sticky top-8">
+              <div className="lg:sticky lg:top-8">
                 <h3 className="text-[32px] ledding-[40px] font-normal text-black font-urbanist mb-3">
                   Latest Life at LLA
                 </h3>
-                <div className="flex flex-col gap-4">
+                <div className="hidden md:flex flex-col gap-4">
                   {latest.map((post) => (
                     <div key={post.id} className="group">
                       <div className="flex flex-col gap-2">
@@ -185,6 +216,87 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                       </div>
                     </div>
                   ))}
+                </div>
+                <div className="md:hidden relative">
+                  <div 
+                    ref={scrollContainerRef}
+                    onScroll={checkScrollButtons}
+                    className="flex gap-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth"
+                    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                  >
+                    {latest.map((post) => (
+                      <div key={post.id} className="flex-shrink-0 w-[85%] snap-start">
+                        <div className="flex flex-col gap-2">
+                          {post.Image?.[0]?.url && (
+                            <div className="relative w-full aspect-video overflow-hidden">
+                              <ImageWidget
+                                src={getS3Url(post.Image[0].url)}
+                                alt={post.Title}
+                                fill
+                                className="object-cover"
+                              />
+                            </div>
+                          )}
+                          <h4 className="text-[16px] font-semibold text-black font-mulish">
+                            {post.Title}
+                          </h4>
+                          <Link 
+                            href={`/more/life-at-lla/${post.Slug}`}
+                            className="inline-flex items-center gap-2 text-[#E97451] hover:gap-4 transition-all duration-300 mt-2 text-[16px] font-normal font-urbanist group"
+                          >
+                            Read More
+                            <ImageWidget
+                              src={ArrowRightWhite}
+                              alt="Arrow Right"
+                              width={16}
+                              height={16}
+                              className="object-contain"
+                            />
+                          </Link>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex gap-4 mt-6 justify-start">
+                    <button
+                      type="button"
+                      onClick={() => scroll('left')}
+                      disabled={!canScrollLeft}
+                      className={`transition-opacity ${
+                        canScrollLeft 
+                          ? 'opacity-100 hover:opacity-70' 
+                          : 'opacity-30 cursor-not-allowed'
+                      }`}
+                      aria-label="Previous slide"
+                    >
+                      <ImageWidget
+                        src={ArrowLeftBlack}
+                        alt="Previous"
+                        width={40}
+                        height={40}
+                        className="object-contain"
+                      />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => scroll('right')}
+                      disabled={!canScrollRight}
+                      className={`transition-opacity ${
+                        canScrollRight 
+                          ? 'opacity-100 hover:opacity-70' 
+                          : 'opacity-30 cursor-not-allowed'
+                      }`}
+                      aria-label="Next slide"
+                    >
+                      <ImageWidget
+                        src={ArrowRightBlack}
+                        alt="Next"
+                        width={40}
+                        height={40}
+                        className="object-contain"
+                      />
+                    </button>
+                  </div>
                 </div>
               </div>
             </ScrollWidget>
