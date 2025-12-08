@@ -22,6 +22,10 @@ export async function getLandingPageData() {
   return fetchData("/home");
 }
 
+export async function getCoursesListData() {
+  return fetchData("/courses-list");
+}
+
 export async function getLandingpageCourseData() {
   return fetchData("/home/find-cards");
 }
