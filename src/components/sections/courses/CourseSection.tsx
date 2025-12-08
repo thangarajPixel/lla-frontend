@@ -3,7 +3,6 @@
 import { DialogContent, DialogTitle } from "@radix-ui/react-dialog";
 import { Menu } from "lucide-react";
 import { useEffect, useState } from "react";
-import TestimonialSection from "@/components/sections/courses/pg-diploma-in-professional-photography-digital-production/utils/TestimonialSection";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import LinkWidget from "@/components/widgets/LinkWidget";
@@ -14,6 +13,7 @@ import HowtoApplySection from "./utils/HowtoApplySection";
 import OtherInfoSection from "./utils/OtherInfoSection";
 import OverviewSection from "./utils/OverviewSection";
 import StudentSection from "./utils/StudentSection";
+import TestimonialSection from "./utils/TestimonialSection";
 import type { PgDiplomaData } from "./utils/types";
 
 const sidebarMenuItems = [
@@ -24,11 +24,7 @@ const sidebarMenuItems = [
   { href: "#faqs", label: "FAQ's" },
 ];
 
-const PgDiplomaInProfessionalPhotographyDigitalProductionSection = ({
-  data,
-}: {
-  data: PgDiplomaData;
-}) => {
+const CourseSection = ({ data }: { data: PgDiplomaData }) => {
   const [activeSection, setActiveSection] = useState<string>("#overview");
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
@@ -136,28 +132,36 @@ const PgDiplomaInProfessionalPhotographyDigitalProductionSection = ({
 
       <main className="min-h-screen">
         <section id="overview">
-          <OverviewSection data={data?.Menu} />
+          {data?.Menu && <OverviewSection data={data?.Menu} />}
         </section>
-        <section id="gallery">
-          <GallerySection data={data?.Overview} />
-        </section>
+        {data?.Overview && (
+          <section id="gallery">
+            <GallerySection data={data?.Overview} />
+          </section>
+        )}
         <section id="course-content" className="scroll-mt-[-40px]">
-          <CourseContentSection data={data?.Course_content} />
+          {data?.Course_content && (
+            <CourseContentSection data={data?.Course_content} />
+          )}
         </section>
         <section id="other-info" className="scroll-mt-[-40px]">
-          <OtherInfoSection data={data?.Other_Info} />
+          {data?.Other_Info && <OtherInfoSection data={data?.Other_Info} />}
         </section>
-        <StudentSection data={data?.Student_testimonial} />
-        <TestimonialSection data={data?.Testimonial} />
+        {data?.Student_testimonial?.length > 0 && (
+          <StudentSection data={data?.Student_testimonial} />
+        )}
+        {data?.Testimonial?.length > 0 && (
+          <TestimonialSection data={data?.Testimonial} />
+        )}
         <section id="how-to-apply" className="scroll-mt-[-40px]">
-          <HowtoApplySection data={data?.HowToApply} />
+          {data?.HowToApply && <HowtoApplySection data={data?.HowToApply} />}
         </section>
         <section id="faqs" className="scroll-mt-[-40px]">
-          <FaqSection data={data?.Faq} />
+          {data?.Faq && <FaqSection data={data?.Faq} />}
         </section>
       </main>
     </div>
   );
 };
 
-export default PgDiplomaInProfessionalPhotographyDigitalProductionSection;
+export default CourseSection;

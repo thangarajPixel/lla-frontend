@@ -33,6 +33,9 @@ export async function getLandingpageCourseData() {
 export async function getAboutUsPageData() {
   return fetchData("/about");
 }
+export async function getContactPageData() {
+  return fetchData("/contact-page");
+}
 export async function getFacultyPageData() {
   return fetchData("/faculty");
 }
@@ -74,4 +77,12 @@ export async function getCoursePageData() {
 
 export async function getEssentialsData() {
   return fetchData("/essential");
+}
+
+export async function getFooterData() {
+  return fetchData("/footer");
+}
+
+export async function getCourseBySlug(slug: string) {
+  return fetchData(`/courses/view/${slug}`);
 }
