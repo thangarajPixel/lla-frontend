@@ -9,6 +9,7 @@ import FormInput from "@/components/form/FormInput";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
+import type { ContactSectionProps } from "./utils/contact";
 
 const contactSchema = z.object({
   FirstName: z.string().min(1, "First name is required"),
@@ -20,7 +21,7 @@ const contactSchema = z.object({
 
 type ContactFormData = z.infer<typeof contactSchema>;
 
-export default function ContactSection() {
+export default function ContactSection({ data }: ContactSectionProps) {
   const {
     control,
     handleSubmit,
@@ -37,37 +38,34 @@ export default function ContactSection() {
       Message: "",
     },
   });
-  console.log(errors, "asfddfdsf");
 
   const onSubmit = async (data: ContactFormData) => {
     try {
       const response = await clientAxios.post<ContactFormData>("/contacts", {
         data: data,
       });
-      console.log("Form data:", response);
       toast.success("Contact sent successfully!");
       reset();
     } catch (_error) {
       toast.error("Failed to send message. Please try again.");
     }
   };
-
   return (
     <section className="py-16 px-4 md:px-8 lg:px-16 max-w-7xl mx-auto">
       <ContainerWidget>
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
           <div className="space-y-8">
             <div>
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-                Contact Us
+              <h1 className="font-urbanist text-[32px] sm:text-[40px] md:text-[48px] lg:text-[56px] xl:text-[60px] 3xl:text-[64px] font-normal text-foreground mb-4">
+                {data?.Title}
               </h1>
-              <p className="text-lg">
-                Let's build this{" "}
-                <span className="text-[#FF6B4A]">connection</span>
+              <p className="text-lg" 
+               // biome-ignore lint/security/noDangerouslySetInnerHtml: Content is sanitized from trusted CMS source
+                dangerouslySetInnerHTML={{ __html: data.Heading || "" }}
+              >
               </p>
-              <p className="text-muted-foreground mt-4">
-                Lorem ipsum dolor sit amet consectetur. Pulvinar nunc rhoncus
-                nibh varius faucibus nisi vitae et.
+              <p className="text-black mt-4">
+                {data?.Description}
               </p>
             </div>
             <div className="space-y-6">
@@ -76,7 +74,7 @@ export default function ContactSection() {
                   <Phone className="w-5 h-5 text-[#FF6B4A]" />
                 </div>
                 <div>
-                  <p className="text-foreground font-medium">+91 7598287370</p>
+                  <p className="text-foreground font-medium">{data?.MobileNo}</p>
                 </div>
               </div>
 
@@ -97,7 +95,7 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <p className="text-foreground font-medium">
-                    Lovedale, Ooty – 643 003
+                   {data?.Location}
                   </p>
                   <p className="text-muted-foreground">Tamil Nadu, India</p>
                 </div>
@@ -109,12 +107,7 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <p className="text-foreground font-medium">
-                    Visitors are welcome from 10:00 AM to 4:00 PM, Monday to
-                    Friday
-                  </p>
-                  <p className="text-muted-foreground">
-                    except for public holidays. Please call to fix an
-                    appointment.
+                    {data?.VisitorDescription}
                   </p>
                 </div>
               </div>
@@ -175,14 +168,14 @@ export default function ContactSection() {
                   </p>
                 )}
               </div>
-              <OrangeButtonWidget content="Submit" />
+              <OrangeButtonWidget content={data?.BtnText || "Submit"} />
             </form>
           </div>
         </div>
         <div className="mt-16">
           <div className="w-full h-[400px] overflow-hidden border border-[#E97451]">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3911.2345678901234!2d76.7345678!3d11.4012345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDI0JzA0LjQiTiA3NsKwNDQnMDQuNCJF!5e0!3m2!1sen!2sin!4v1234567890123"
+              src={data?.LocationUrl || ""}
               width="100%"
               height="100%"
               style={{ border: 0 }}
