@@ -135,7 +135,7 @@ const WebHeader = () => {
                 );
               })}
               <li>
-                {!isAdmissionOpen ? (
+                {isAdmissionOpen ? (
                   <AdmissionButton />
                 ) : (
                   <AdmissionRequestButton />
