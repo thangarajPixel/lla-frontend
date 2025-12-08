@@ -1,12 +1,12 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
-import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import {
+  ArrowRightWhite,
   FacebookBlack,
   InstagramBlack,
   LinkedInBlack,
@@ -52,9 +52,17 @@ const _SOCIAL_LINKS = [
   },
 ];
 
+const formatDate = (dateString: string): string => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  });
+};
+
 const LifeDetailSection = ({ data }: LifeDetailProps) => {
   const { card, latest } = data;
-  const router = useRouter();
   return (
     <section className="w-full bg-white min-h-screen py-8 sm:py-10 md:py-12 lg:py-16 xl:py-10 2xl:py-14 3xl:py-18">
       <ContainerWidget>
@@ -63,7 +71,7 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
             <ScrollWidget animation="fadeDown" delay={0.1}>
               <div className="flex flex-col">
                 <p className="text-sm md:text-base text-gray-500 font-mulish mb-8">
-                  December 18, 2025
+                  {formatDate(card.CreatedDate)}
                 </p>
                 <p className="mb-1 text-[32px] sm:text-[34px] md:text-[34px] lg:text-[38px] xl:text-[34px] 2xl:text-[38px] 3xl:text-[48px] font-normal text-black font-urbanist leading-tight">
                   {card.Title}
@@ -161,15 +169,19 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                         <h4 className="text-[16px] font-semibold text-black font-mulish">
                           {post.Title}
                         </h4>
-                        <div className="mt-2">
-                          <OrangeButtonWidget
-                            content="Read More"
-                            onClick={() =>
-                              router.push(`/more/life-at-lla/${post.Slug}`)
-                            }
-                            className="text-sm bg-white text-[#E97451] border border-[#E97451] hover:bg-[#E97451] hover:text-white"
+                        <Link 
+                          href={`/more/life-at-lla/${post.Slug}`}
+                          className="inline-flex items-center gap-2 text-[#E97451] hover:gap-4 transition-all duration-300 mt-2 text-[16px] md:text-[16px] lg:text-[16px] font-normal font-urbanist group"
+                        >
+                          Read More
+                          <ImageWidget
+                            src={ArrowRightWhite}
+                            alt="Arrow Right"
+                            width={16}
+                            height={16}
+                            className="object-contain"
                           />
-                        </div>
+                        </Link>
                       </div>
                     </div>
                   ))}
