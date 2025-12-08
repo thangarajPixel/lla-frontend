@@ -23,12 +23,13 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
           return (
             <div
               key={`step-label-${stepNum}`}
-              className={`ml-1 mb-5 text-sm font-medium ${isActive
-                ? "text-[#E97451]"
-                : isCompleted
-                  ? "text-gray-900"
-                  : "text-gray-500"
-                }`}
+              className={`ml-1 mb-5 text-sm font-medium ${
+                isActive
+                  ? "text-[#E97451]"
+                  : isCompleted
+                    ? "text-gray-900"
+                    : "text-gray-500"
+              }`}
             >
               {`Step ${stepNum}`}
             </div>
@@ -51,12 +52,10 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
 
           return (
             <section
-              key={index}
+              key={`step-indicator-${index + 1}`}
               className={cn(
-                isCircle
-                  ? "h-4 w-4 rounded-full"
-                  : "h-0.5 xl:h-1 flex-1",
-                isActive ? "bg-green-500" : "bg-primary/30"
+                isCircle ? "h-4 w-4 rounded-full" : "h-0.5 xl:h-1 flex-1",
+                isActive ? "bg-green-500" : "bg-primary/30",
               )}
             />
           );
@@ -72,19 +71,19 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
           return (
             <div
               key={step}
-              className={`ml-3 mt-5 hidden sm:block text-sm font-medium ${isActive
-                ? "text-[#E97451]"
-                : isCompleted
-                  ? "text-gray-900"
-                  : "text-gray-500"
-                }`}
+              className={`ml-3 mt-5 hidden sm:block text-sm font-medium ${
+                isActive
+                  ? "text-[#E97451]"
+                  : isCompleted
+                    ? "text-gray-900"
+                    : "text-gray-500"
+              }`}
             >
               {step}
             </div>
           );
         })}
       </div>
-
     </section>
   );
 }

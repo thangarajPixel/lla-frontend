@@ -222,10 +222,7 @@ const ReviewApplication = ({
                 value={admissionData?.date_of_birth}
               />
               <Field label="Blood Group" value={admissionData?.blood_group} />
-              <Field
-                label="Address"
-                value={fullAddress}
-              />
+              <Field label="Address" value={fullAddress} />
               <LanguageField
                 label={"Language & Proficiency:"}
                 value={
@@ -259,10 +256,7 @@ const ReviewApplication = ({
                 label="Contact"
                 value={admissionData?.Parent_Guardian_Spouse_Details?.mobile_no}
               />
-              <Field
-                label="Address"
-                value={parentFullAddress}
-              />
+              <Field label="Address" value={parentFullAddress} />
             </Section>
 
             <Section
@@ -296,9 +290,7 @@ const ReviewApplication = ({
               }
               className="text-base 3xl:text-2xl"
             >
-              <div
-                className="grid grid-cols-1 md:grid-cols-4 gap-4"
-              >
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <section className="md:col-span-2">
                   <span className="text-black/50 text-base 3xl:text-2xl">
                     Degree
