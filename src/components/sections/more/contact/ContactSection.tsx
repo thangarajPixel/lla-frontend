@@ -11,6 +11,7 @@ import { clientAxios } from "@/helpers/AxiosHelper";
 import type { ContactSectionProps } from "./utils/contact";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import { Call ,Sms,LocationIcon,StarIcon} from "@/helpers/ImageHelper";
+import HTMLWidget from "@/components/widgets/HTMLWidget";
 
 const contactSchema = z.object({
   FirstName: z.string().min(1, "First name is required"),
@@ -107,9 +108,9 @@ export default function ContactSection({ data }: ContactSectionProps) {
                   />
                 </div>
                 <div>
-                  <p className="text-[16px] 3xl:text-[18px] font-mulish font-normal">
-                   {data?.Location}
-                  </p>
+                   <HTMLWidget  content={data.Location}
+                        className="text-[16px] md:text-[16px] lg:text-[16px] xl:text-[16px] 2xl:text-[16px] 3xl:text-[18px] text-black leading-normal font-mulish"
+                       tag="p"/>
                 </div>
               </div>
 
