@@ -1,7 +1,6 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -10,6 +9,8 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
 import type { ContactSectionProps } from "./utils/contact";
+import ImageWidget from "@/components/widgets/ImageWidget";
+import { Call ,Sms,LocationIcon,StarIcon} from "@/helpers/ImageHelper";
 
 const contactSchema = z.object({
   FirstName: z.string().min(1, "First name is required"),
@@ -51,7 +52,7 @@ export default function ContactSection({ data }: ContactSectionProps) {
     }
   };
   return (
-    <section className="py-16 px-4 md:px-8 lg:px-16 max-w-7xl mx-auto">
+    <section className="py-16 px-4 md:px-8 lg:px-16 xl:px-10 max-w-7xl mx-auto">
       <ContainerWidget>
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
           <div className="space-y-8">
@@ -69,18 +70,26 @@ export default function ContactSection({ data }: ContactSectionProps) {
               </p>
             </div>
             <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <div className="p-3 rounded-full bg-[#FF6B4A]/10">
-                  <Phone className="w-5 h-5 text-[#FF6B4A]" />
+              <div className="flex items-center gap-4">
+                <div className="p-3">
+                  <ImageWidget
+                    src={Call}
+                    alt="Contact Phone"
+                    className="max-w-[32px] max-h-[32px] text-[#FF6B4A]"
+                  />
                 </div>
                 <div>
                   <p className="text-foreground font-medium">{data?.MobileNo}</p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
-                <div className="p-3 rounded-full bg-[#FF6B4A]/10">
-                  <Mail className="w-5 h-5 text-[#FF6B4A]" />
+              <div className="flex items-center gap-4">
+                <div className="p-3 ">
+                  <ImageWidget
+                    src={Sms}
+                    alt="Contact Email"
+                    className="max-w-[32px] max-h-[32px] text-[#FF6B4A]"
+                  />
                 </div>
                 <div>
                   <p className="text-foreground font-medium">
@@ -89,21 +98,28 @@ export default function ContactSection({ data }: ContactSectionProps) {
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
-                <div className="p-3 rounded-full bg-[#FF6B4A]/10">
-                  <MapPin className="w-5 h-5 text-[#FF6B4A]" />
+              <div className="flex items-center gap-4">
+                <div className="p-3">
+                    <ImageWidget
+                    src={LocationIcon}
+                    alt="Contact Location"
+                    className="max-w-[32px] max-h-[32px] text-[#FF6B4A]"
+                  />
                 </div>
                 <div>
                   <p className="text-foreground font-medium">
                    {data?.Location}
                   </p>
-                  <p className="text-muted-foreground">Tamil Nadu, India</p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
-                <div className="p-3 rounded-full bg-[#FF6B4A]/10">
-                  <Clock className="w-5 h-5 text-[#FF6B4A]" />
+              <div className="flex items-center gap-4">
+                <div className="p-3">
+                   <ImageWidget
+                    src={StarIcon}
+                    alt="Contact Visitor"
+                    className="max-w-[32px] max-h-[32px] text-[#FF6B4A]"
+                  />
                 </div>
                 <div>
                   <p className="text-foreground font-medium">

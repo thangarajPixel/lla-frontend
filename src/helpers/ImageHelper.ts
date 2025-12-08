@@ -60,3 +60,7 @@ export { default as LlaOnline } from "@/assets/images/lla-online.svg";
 export { default as LlaOutreach } from "@/assets/images/lla-outreach.svg";
 export { default as LogoBlack } from "@/assets/images/logo-black.svg";
 export { default as Logo } from "@/assets/images/logo-white.svg";
+export { default as Call } from "@/assets/icons/call.png";
+export { default as Sms } from "@/assets/icons/sms-tracking.png";
+export { default as LocationIcon } from "@/assets/icons/location.png";
+export { default as StarIcon } from "@/assets/icons/star.png";
