@@ -13,7 +13,7 @@ import { clientAxios } from "@/helpers/AxiosHelper";
 import { Call, LocationIcon, Sms, StarIcon } from "@/helpers/ImageHelper";
 import type { ContactSectionProps } from "./utils/contact";
 
-const contactSchema = z.object({
+export const contactSchema = z.object({
   FirstName: z.string().min(1, "First name is required"),
   LastName: z.string().min(0, "Last name is required"),
   Email: z.string().email("Invalid email address"),
@@ -21,7 +21,7 @@ const contactSchema = z.object({
   Message: z.string().min(0, "Message must be at least 10 characters"),
 });
 
-type ContactFormData = z.infer<typeof contactSchema>;
+export type ContactFormData = z.infer<typeof contactSchema>;
 
 export default function ContactSection({ data }: ContactSectionProps) {
   const {

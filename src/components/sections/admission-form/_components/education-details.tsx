@@ -84,6 +84,7 @@ export function EducationDetails({
               placeholder="Upload your MarkSheet"
               notRequired={true}
               defaultValue={admissionData?.Under_Graduate?.marksheet ?? null}
+              inputClassName="justify-start pl-4"
             />
           )}
         </div>

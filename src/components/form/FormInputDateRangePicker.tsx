@@ -159,6 +159,7 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
             numberOfMonths={2}
             selected={range}
             onSelect={handleCalendarSelect}
+            captionLayout="dropdown"
             defaultMonth={
               range?.from
                 ? range.from

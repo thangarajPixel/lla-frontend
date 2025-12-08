@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import type z from "zod";
 import { FormInput, FormSelectBox } from "@/components/form";
 import FormCheckBox from "@/components/form/FormCheckBox";
@@ -15,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
+import { clientAxios } from "@/helpers/AxiosHelper";
 import { encryptId, filteredPayload, notify } from "@/helpers/ConstantHelper";
 import { UploadIconImg } from "@/helpers/ImageHelper";
 import { personalDetailsSchema } from "@/helpers/ValidationHelper";
@@ -44,7 +46,7 @@ const PersonalDetailsForm = ({
     resolver: zodResolver(personalDetailsSchema),
     mode: "all",
     defaultValues: {
-      // course_id: admissionData?.course_id ?? 1,
+      Course: admissionData?.Course ?? "",
       name_title: admissionData?.name_title ?? "Mr.",
       first_name: admissionData?.first_name ?? "",
       last_name: admissionData?.last_name ?? "",
@@ -212,6 +214,26 @@ const PersonalDetailsForm = ({
     });
   };
 
+  const handleFieldCheck = async (email: string) => {
+    const isExistingEmailCheck = await clientAxios.post(
+      `/admissions/email/check`,
+      {
+        email: email,
+      },
+    );
+
+    const isExistingEmail = isExistingEmailCheck?.data;
+    if (isExistingEmail?.exists && email !== admissionData?.email) {
+      form_step1?.setError("email", isExistingEmail?.message);
+      toast.error(`${isExistingEmail.message} & please try with new email`, {
+        position: "bottom-right",
+      });
+      return;
+    } else {
+      form_step1?.clearErrors("email");
+    }
+  };
+
   const onSubmit = async (payload: PersonalDetailsSchema) => {
     const filteredData = filteredPayload(payload);
 
@@ -299,6 +321,7 @@ const PersonalDetailsForm = ({
                   label="Email Address"
                   placeholder="Enter your email address"
                   control={control}
+                  onFieldCheck={handleFieldCheck}
                 />
               </div>
 

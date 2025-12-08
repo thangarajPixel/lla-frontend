@@ -11,6 +11,7 @@ type InputFieldProps = React.ComponentProps<"input"> & {
   inputClassName?: string;
   errorClassName?: string;
   restrictionType?: string;
+  onFieldCheck?: (field: string) => void;
 };
 
 const Input = ({
@@ -22,6 +23,7 @@ const Input = ({
   inputClassName,
   errorClassName,
   restrictionType,
+  onFieldCheck,
   ...props
 }: InputFieldProps) => {
   return (
@@ -90,6 +92,10 @@ const Input = ({
           }
 
           props.onPaste?.(e);
+        }}
+        onBlur={(e) => {
+          e.preventDefault();
+          onFieldCheck?.(props?.value as string);
         }}
       />
 

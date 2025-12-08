@@ -94,6 +94,7 @@ export function WorkExperience({
                 admissionData?.Education_Details?.Education_Details_12th_std ??
                 null
               }
+              inputClassName="justify-start pl-4"
             />
           </div>
         </div>

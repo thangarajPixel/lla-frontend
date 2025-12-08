@@ -136,6 +136,7 @@ const FormDatePickerWithInput = <T extends FieldValues>({
           >
             <Calendar
               mode="single"
+              captionLayout="dropdown"
               selected={parsedStoredDate}
               month={month}
               onMonthChange={setMonth}
