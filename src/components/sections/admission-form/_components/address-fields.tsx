@@ -23,7 +23,7 @@ const AddressFields = ({ control, name }: AddressFieldsProps) => {
     <div>
       <label
         htmlFor="address"
-        className="block text-sm font-medium text-foreground mb-2"
+        className="block text-base 3xl:text-lg text-foreground mb-2"
       >
         Address<span className="text-chart-1">*</span>
       </label>
@@ -61,6 +61,7 @@ const AddressFields = ({ control, name }: AddressFieldsProps) => {
           name={name ? "Parent_Guardian_Spouse_Details.pincode" : "pincode"}
           placeholder="Pincode"
           control={control}
+          restrictionType="text"
         />
       </div>
     </div>

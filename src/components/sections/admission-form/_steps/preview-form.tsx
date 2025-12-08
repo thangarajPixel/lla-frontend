@@ -10,26 +10,31 @@ import ImageWidget from "@/components/widgets/ImageWidget";
 import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { DocumentIcon, EditIcon } from "@/helpers/ImageHelper";
+import { cn } from "@/lib/utils";
 
 function Section({
   title,
   children,
   onEdit,
+  className,
 }: {
   title: string;
   children: React.ReactNode;
   onEdit?: () => void;
+  className?: string;
 }) {
   return (
     <div className="space-y-3">
       <section className="flex items-center justify-between">
-        <h3 className="text-xl text-[#E97451]">{title}</h3>
+        <h3 className={cn("text-2xl 3xl:text-3xl text-[#E97451]", className)}>
+          {title}
+        </h3>
         <Image
           src={EditIcon}
-          width={20}
-          height={20}
+          width={24}
+          height={24}
           alt="Edit"
-          className="size-4 rounded-full cursor-pointer"
+          className="size-4 3xl:size-6 rounded-full cursor-pointer"
           onClick={onEdit}
         />
       </section>
@@ -38,13 +43,22 @@ function Section({
   );
 }
 
-function Field({ label, value }: { label: string; value?: string }) {
-  const isDob = label.toLowerCase() === "date of birth";
+function Field({ label, value }: { label?: string; value?: string }) {
+  const isDob = label?.toLowerCase() === "date of birth";
   const dobValue = value?.split("-").reverse().join("-");
   return (
-    <div className="flex items-center justify-between text-sm">
-      <span className="text-black/50 w-40">{label}:</span>
-      <span className="text-black">{isDob ? dobValue : (value ?? "-")}</span>
+    <div
+      className={cn(
+        "flex flex-col items-start md:flex-row md:items-center justify-between text-base 3xl:text-2xl font-mulish",
+        label === "Address" && "md:items-start",
+      )}
+    >
+      <span className="text-black/50 w-full md:w-40">
+        {label ? `${label}` : ""}
+      </span>
+      <span className={cn("text-black text-left md:text-right md:max-w-3xs")}>
+        {isDob ? dobValue : (value ?? "-")}
+      </span>
     </div>
   );
 }
@@ -57,36 +71,43 @@ function LanguageField({
   value?: LanguageProficiency[];
 }) {
   return (
-    <div className="flex items-center justify-between">
-      <span className="text-black/50 text-sm">{label}</span>
+    <div className="flex flex-col md:flex-row items-start mt-4 justify-between">
+      <span className="text-black/50 text-base 3xl:text-2xl mb-3 font-mulish">
+        {label}
+      </span>
       <div className="flex flex-col gap-4">
         {value?.map((language, index) => (
-          <main key={`language-${index + 1}`} className="flex flex-col gap-2">
-            <span className="ml-auto">{language.language}</span>
-            <section className="flex flex-row items-center justify-between gap-10">
-              <span className="text-xs flex items-center justify-center">
-                <span>Read</span>
+          <main
+            key={`language-${index + 1}`}
+            className="flex flex-col gap-2 w-full"
+          >
+            <span className="md:ml-auto text-lg font-mulish 3xl:text-2xl">
+              {language.language}
+            </span>
+            <section className="flex flex-row items-center justify-between gap-4">
+              <span className="text-sm 3xl:text-base gap-2 flex items-center justify-center">
                 <CheckboxField
-                  className="ml-2 size-4 border-gray-500"
+                  className="size-4 border-gray-500"
                   checked={language.read}
                   readOnly
                 />
+                <span>Read</span>
               </span>
-              <span className="text-xs flex items-center justify-center">
-                <span>Write</span>
+              <span className="text-sn 3xl:text-base flex gap-2 items-center justify-center">
                 <CheckboxField
-                  className="ml-2 size-4 border-gray-500"
+                  className="size-4 border-gray-500"
                   checked={language.write}
                   readOnly
                 />
+                <span>Write</span>
               </span>
-              <span className="text-xs flex items-center justify-center">
-                <span>Speak</span>
+              <span className="text-sm 3xl:text-base flex gap-2 items-center justify-center">
                 <CheckboxField
-                  className="ml-2 size-4 border-gray-500"
+                  className="size-4 border-gray-500"
                   checked={language.speak}
                   readOnly
                 />
+                <span>Speak</span>
               </span>
             </section>
           </main>
@@ -107,10 +128,10 @@ function EducationField({
 }) {
   return (
     <div className="flex flex-col items-start justify-start text-gray-700">
-      <span className="w-40 text-chart-1">{label}:</span>
+      <span className="w-40 text-base 3xl:text-2xl text-chart-1">{label}:</span>
       {value && (
         <>
-          <span className="text-black/50">{title}</span>
+          <span className="text-black/50 text-base 3xl:text-2xl">{title}</span>
           <section className="flex flex-row items-center justify-between gap-10 mt-2">
             <span className="text-xs flex items-center justify-center gap-1">
               <ImageWidget
@@ -118,12 +139,12 @@ function EducationField({
                 alt="Document"
                 width={100}
                 height={100}
-                className="size-4 rounded-full"
+                className="size-4 3xl:size-6 rounded-full"
               />
               <LinkWidget
                 href={value?.url}
                 target="_blank"
-                className="text-chart-1/80"
+                className="text-chart-1/80 text-base 3xl:text-lg"
               >
                 View Document
               </LinkWidget>
@@ -143,17 +164,19 @@ const ReviewApplication = ({
   admissionId?: string;
 }) => {
   const router = useRouter();
+  const fullAddress = `${admissionData?.address[0].children[0].text}, ${admissionData?.city}, ${admissionData?.district}, ${admissionData?.state.name}, ${admissionData?.pincode}`;
+  const parentFullAddress = `${admissionData?.Parent_Guardian_Spouse_Details?.address[0].children[0].text}, ${admissionData?.Parent_Guardian_Spouse_Details?.city}, ${admissionData?.Parent_Guardian_Spouse_Details?.district}, ${admissionData?.Parent_Guardian_Spouse_Details?.state.name}, ${admissionData?.Parent_Guardian_Spouse_Details?.pincode}`;
 
   return (
     <div className="w-full min-h-screen flex justify-center">
       <div className="flex flex-col md:flex-row w-full bg-white">
         {/* LEFT SIDE */}
-        <div className="flex lg:ml-48 md:w-2/4 lg:w-1/4 flex-col items-center gap-6 pt-8 mb-8">
+        <div className="flex lg:ml-48 md:w-2/4 lg:w-1/4 flex-col items-center gap-6 pt-8 mb-8 3xl:mt-10">
           <div className="flex flex-col gap-3">
-            <h1 className="text-2xl lg:text-3xl font-urbanist text-[#E97451]">
+            <h1 className="text-2xl 3xl:text-4xl font-urbanist text-[#E97451]">
               Review Application
             </h1>
-            <p className="text-sm">
+            <p className="text-xs 3xl:text-lg">
               Kindly verify the details before submitting.
             </p>
           </div>
@@ -162,13 +185,13 @@ const ReviewApplication = ({
             height={200}
             src={admissionData?.passport_size_image?.url ?? ""}
             alt="profile"
-            className="w-64 h-80 rounded-md shadow-md"
+            className="w-64 h-80 3xl:w-sm 3xl:h-auto rounded-md shadow-md"
           />
 
           <div className="flex flex-row gap-1">
             <Button
               variant="outline"
-              className="rounded-full h-8 xss:text-[12px] bg-chart-1/10 text-chart-1"
+              className="rounded-full h-8 xss:text-xs 3xl:text-lg bg-chart-1/10 text-chart-1 2xl:px-12 3xl:h-12 3xl:py-6"
               onClick={() => router.push(`/admission/${admissionId}/portfolio`)}
             >
               <ArrowLeft className="size-4 text-chart-1 font-light" />
@@ -181,7 +204,7 @@ const ReviewApplication = ({
           </div>
         </div>
 
-        <Card className="bg-chart-1/20 flex-1 backdrop-blur px-6 py-16 border-none shadow-none rounded-none">
+        <Card className="bg-chart-1/20 flex-1 backdrop-blur py-16 3xl:pl-6 border-none shadow-none rounded-none">
           <CardContent className="space-y-8 text-sm lg:max-w-3/4">
             <Section
               title="Personal Details"
@@ -201,7 +224,8 @@ const ReviewApplication = ({
               <Field label="Blood Group" value={admissionData?.blood_group} />
               <Field
                 label="Address"
-                value={admissionData?.address[0]?.children[0]?.text ?? ""}
+                // value={admissionData?.address[0]?.children[0]?.text ?? ""}
+                value={fullAddress}
               />
               <LanguageField
                 label={"Language & Proficiency:"}
@@ -238,10 +262,11 @@ const ReviewApplication = ({
               />
               <Field
                 label="Address"
-                value={
-                  admissionData?.Parent_Guardian_Spouse_Details?.address[0]
-                    ?.children[0]?.text ?? ""
-                }
+                // value={
+                //   admissionData?.Parent_Guardian_Spouse_Details?.address[0]
+                //     ?.children[0]?.text ?? ""
+                // }
+                value={parentFullAddress}
               />
             </Section>
 
@@ -251,7 +276,7 @@ const ReviewApplication = ({
                 router.push(`/admission/${admissionId}/education-details`)
               }
             >
-              <div className="flex flex-row items-center justify-between">
+              <div className="flex flex-col md:flex-row space-y-6 items-start justify-between">
                 <EducationField
                   label="10th Std"
                   title="Document"
@@ -274,33 +299,47 @@ const ReviewApplication = ({
               onEdit={() =>
                 router.push(`/admission/${admissionId}/education-details`)
               }
+              className="text-base 3xl:text-2xl"
             >
-              <div className="flex flex-row flex-wrap items-center justify-between">
-                <section>
-                  <span className="text-black/50">Degree</span>
-                  <p>{admissionData?.Under_Graduate?.degree}</p>
+              <div
+                // className="flex flex-row flex-wrap items-center justify-between"
+                className="grid grid-cols-1 md:grid-cols-4 gap-4"
+              >
+                <section className="md:col-span-2">
+                  <span className="text-black/50 text-base 3xl:text-2xl">
+                    Degree
+                  </span>
+                  <p className="text-black text-base 3xl:text-2xl">
+                    {admissionData?.Under_Graduate?.degree}
+                  </p>
                 </section>
 
-                <section>
-                  <span className="text-black/50">Status</span>
-                  <p>{admissionData?.Under_Graduate?.ug_status}</p>
+                <section className="md:col-span-1">
+                  <span className="text-black/50 text-base 3xl:text-2xl">
+                    Status
+                  </span>
+                  <p className="text-black text-base 3xl:text-2xl">
+                    {admissionData?.Under_Graduate?.ug_status}
+                  </p>
                 </section>
 
                 {admissionData?.Under_Graduate?.marksheet?.url && (
-                  <section>
-                    <span className="text-black/50">Document</span>
-                    <span className="text-xs flex items-center justify-center gap-1">
+                  <section className="flex flex-col justify-start gap-2 items-start md:col-span-1">
+                    <span className="text-black/50 text-base 3xl:text-2x">
+                      Document
+                    </span>
+                    <span className="flex items-center justify-center gap-1">
                       <ImageWidget
                         src={DocumentIcon}
                         alt="Document"
                         width={100}
                         height={100}
-                        className="size-4 rounded-full"
+                        className="size-4 3xl:size-6 rounded-full"
                       />
                       <LinkWidget
                         href={admissionData?.Under_Graduate?.marksheet?.url}
                         target="_blank"
-                        className="text-chart-1/80"
+                        className="text-chart-1/80 text-base md:text-xs lg:text-base text-nowrap 3xl:text-lg"
                       >
                         View Document
                       </LinkWidget>
@@ -315,25 +354,37 @@ const ReviewApplication = ({
               onEdit={() =>
                 router.push(`/admission/${admissionId}/education-details`)
               }
+              className="text-base 3xl:text-2xl"
             >
               {admissionData?.Post_Graduate?.map((degree, index) => (
                 <div
                   key={`post-graduate-${index + 1}`}
-                  className="flex flex-row items-center justify-between"
+                  // className="flex flex-row items-center justify-between"
+                  className="grid grid-cols-1 md:grid-cols-4 gap-4"
                 >
-                  <section>
-                    <span className="text-black/50">Degree</span>
-                    <p>{degree?.degree}</p>
+                  <section className="md:col-span-2">
+                    <span className="text-black/50 text-base 3xl:text-2xl">
+                      Degree
+                    </span>
+                    <p className="text-black text-base 3xl:text-2xl">
+                      {degree?.degree}
+                    </p>
                   </section>
 
-                  <section>
-                    <span className="text-black/50">Status</span>
-                    <p>{degree?.pg_status}</p>
+                  <section className="md:col-span-1">
+                    <span className="text-black/50 text-base 3xl:text-2xl">
+                      Status
+                    </span>
+                    <p className="text-black text-base 3xl:text-2xl">
+                      {degree?.pg_status}
+                    </p>
                   </section>
 
-                  <section className="invisible">
-                    <span className="text-black/50">Document</span>
-                    <span className="text-xs flex items-center justify-center">
+                  <section className="hidden md:invisible md:flex flex-col justify-start gap-2 items-start md:col-span-1">
+                    <span className="text-black/50 text-base 3xl:text-2xl">
+                      Document
+                    </span>
+                    <span className="flex items-center justify-center gap-1">
                       <ImageWidget
                         src={DocumentIcon}
                         alt="Document"
@@ -344,7 +395,7 @@ const ReviewApplication = ({
                       <LinkWidget
                         href={degree?.marksheet?.url ?? ""}
                         target="_blank"
-                        className="text-chart-1/80"
+                        className="text-chart-1/80 text-xs"
                       >
                         View Document
                       </LinkWidget>
@@ -360,36 +411,46 @@ const ReviewApplication = ({
                 router.push(`/admission/${admissionId}/education-details`)
               }
             >
-              {admissionData?.Work_Experience?.map((experience, index) => (
+              {admissionData?.Work_Experience?.map((experience) => (
                 <div
-                  key={`work-experience-${index + 1}`}
-                  className="flex flex-row items-center justify-between"
+                  key={experience?.id}
+                  // className="flex flex-row items-center justify-between"
+                  className="grid grid-cols-1 md:grid-cols-5 gap-2"
                 >
-                  <section>
-                    <span className="text-black/50">Role/Designation</span>
-                    <p>{experience?.designation ?? "-"}</p>
-                  </section>
-
-                  <section>
-                    <span className="text-black/50">Employer</span>
-                    <p>{experience?.employer ?? "-"}</p>
-                  </section>
-
-                  <section>
-                    <span className="text-black/50">Duration</span>
-                    <span className="text-xs flex items-center justify-center">
-                      <span>
-                        {experience?.duration_start} -{" "}
-                        {experience?.duration_end}
-                      </span>
+                  <section className="md:col-span-2">
+                    <span className="text-black/50 text-base 3xl:text-2xl">
+                      Role/Designation
                     </span>
+                    <p className="text-black text-lg  3xl:text-2xl">
+                      {experience?.designation ?? "-"}
+                    </p>
+                  </section>
+
+                  <section className="md:col-span-2">
+                    <span className="text-black/50 text-base 3xl:text-2xl">
+                      Employer
+                    </span>
+                    <p className="text-black text-lg  3xl:text-2xl">
+                      {experience?.employer ?? "-"}
+                    </p>
+                  </section>
+
+                  <section className="md:col-span-1">
+                    <span className="text-black/50 text-base 3xl:text-2xl">
+                      Duration
+                    </span>
+                    {/* <span className="text-xs flex items-center justify-center"> */}
+                    <span className="text-black text-base font-medium md:text-sm flex flex-wrap 3xl:text-[22px]">
+                      {`${experience?.duration_start?.split("-")?.reverse()?.join("-")} to ${experience?.duration_end?.split("-")?.reverse()?.join("-")}`}
+                    </span>
+                    {/* </span> */}
                   </section>
                 </div>
               ))}
             </Section>
 
-            <div className="flex flex-row items-center justify-between">
-              <span className="text-chart-1">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between">
+              <span className="text-chart-1 text-base md:text-sm">
                 Where did you find out about LLA?
               </span>
               <span>Instagram</span>

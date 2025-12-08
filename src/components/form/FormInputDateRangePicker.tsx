@@ -121,7 +121,7 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
   return (
     <div className="space-y-2 w-full">
       {label && (
-        <Label>
+        <Label className="px-1 text-base 3xl:text-lg">
           {label}
           {required && <span className="text-chart-1">*</span>}
         </Label>

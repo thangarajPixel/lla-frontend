@@ -11,8 +11,8 @@ const addressSchema = z.object({
   type: z.literal("paragraph"),
   children: z.array(
     z.object({
-      text: z.string(),
-      type: z.string().min(1, "Address is required"),
+      text: z.string().min(1, "Address is required"),
+      type: z.string(),
     }),
   ),
 });
@@ -28,20 +28,16 @@ export const parentDetails = z.object({
   email: z.email("Enter a valid email address").min(1, "Email is required"),
   profession: z.string().min(1, "Profession is required"),
   nationality: z.string().min(1, "Nationality is required"),
-  address: z.array(addressSchema).min(1, "Address is required").optional(),
+  address: z.array(addressSchema).min(1, "Address is required"),
   city: z.string().optional(),
   district: z.string().optional(),
   state: z.string().optional(),
   pincode: z
     .string()
-    .regex(/^\d{6}$/, "Enter a valid 6-digit pincode")
-    .optional(),
-});
-
-export const uploadMarkSheet = z.object({
-  documentId: z.string().min(1, "Marksheet document is required"),
-  url: z.string().optional(),
-  previewUrl: z.string().optional(),
+    .refine(
+      (val) => val === "" || /^\d{6}$/.test(val),
+      "Enter a valid 6-digit pincode",
+    ),
 });
 
 export const workExperience = z.object({
@@ -59,7 +55,7 @@ export const education = z.object({
 });
 
 export const postGraduate = z.object({
-  degree: z.string().min(1, "Graduation degree is required"),
+  degree: z.string().optional(),
   pg_status: z.string().optional(),
   marksheet: z.number().optional(),
 });
@@ -67,8 +63,10 @@ export const postGraduate = z.object({
 export const personalDetailsSchema = z.object({
   course_id: z.number().optional(),
   name_title: z.string().optional(),
-
-  first_name: z.string().min(1, "First name is required"),
+  first_name: z
+    .string()
+    .min(1, "First name is required")
+    .regex(/^[A-Za-z\s]+$/, "Only alphabets are allowed"),
   last_name: z.string().min(1, "Last name is required"),
   mobile_no: z
     .string()
@@ -76,7 +74,10 @@ export const personalDetailsSchema = z.object({
     .min(1, "Mobile number is required"),
   email: z.email("Enter a valid email address").min(1, "Email is required"),
   nationality: z.string().min(1, "Nationality is required"),
-  date_of_birth: z.string().min(1, "Date of birth is required"),
+  date_of_birth: z
+    .string()
+    .regex(/^[0-9-]+$/, "Only numbers and hyphens (-) are allowed")
+    .min(1, "Date of birth is required"),
   Language_Proficiency: z
     .array(languageSchema)
     .min(1, "Add at least one language")
@@ -87,8 +88,10 @@ export const personalDetailsSchema = z.object({
   state: z.string().optional(),
   pincode: z
     .string()
-    .regex(/^\d{6}$/, "Enter a valid 6-digit pincode")
-    .optional(),
+    .refine(
+      (val) => val === "" || /^\d{6}$/.test(val),
+      "Enter a valid 6-digit pincode",
+    ),
   hobbies: z.string().optional(),
   photography_club: z.string().optional(),
   blood_group: z.string().min(1, "Blood group is required"),

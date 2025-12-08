@@ -2,11 +2,13 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { getEssentialsData } from "@/app/api/server";
 import { Logo, LogoBlack } from "@/helpers/ImageHelper";
 import ContainerWidget from "../widgets/ContainerWidget";
 import ImageWidget from "../widgets/ImageWidget";
 import LinkWidget from "../widgets/LinkWidget";
 import AdmissionButton from "./utils/AdmissionButton";
+import AdmissionRequestButton from "./utils/AdmissionRequestButton";
 import DropdownMenu from "./utils/DropdownMenu";
 import MobileMenu from "./utils/MobileMenu";
 import NavLink from "./utils/NavLink";
@@ -48,6 +50,7 @@ const WebHeader = () => {
   const isHomePage = pathname === "/";
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [isSticky, setIsSticky] = useState(false);
+  const [isAdmissionOpen, setIsAdmissionOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (!isHomePage) {
@@ -72,6 +75,14 @@ const WebHeader = () => {
       setOpenDropdown(null);
     }
   }, [pathname]);
+
+  useEffect(() => {
+    const getAdmissionData = async () => {
+      const { data: res } = await getEssentialsData();
+      setIsAdmissionOpen(res?.isAdmission);
+    };
+    getAdmissionData();
+  }, []);
 
   const isDropdown = (
     item: MenuItem | DropdownMenuType,
@@ -124,7 +135,11 @@ const WebHeader = () => {
                 );
               })}
               <li>
-                <AdmissionButton />
+                {isAdmissionOpen ? (
+                  <AdmissionButton />
+                ) : (
+                  <AdmissionRequestButton />
+                )}
               </li>
             </ul>
             <MobileMenu

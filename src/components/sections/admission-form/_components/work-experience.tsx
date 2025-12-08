@@ -34,7 +34,9 @@ export function WorkExperience({
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl text-[#E97451] font-urbanist">Work Experience</h2>
+      <h2 className="text-2xl 3xl:text-3xl text-[#E97451] font-urbanist">
+        Work Experience
+      </h2>
 
       {fields?.map((experience, index) => (
         <div key={experience.id} className="space-y-6">
@@ -58,7 +60,7 @@ export function WorkExperience({
               <FormInput
                 name={`Work_Experience.${index}.designation`}
                 label="Role / Designation"
-                placeholder="Enter your designation or role in the company"
+                placeholder="Enter your designation in the company"
                 control={control}
               />
             </div>
@@ -67,7 +69,7 @@ export function WorkExperience({
               <FormInput
                 name={`Work_Experience.${index}.employer`}
                 label="Employer"
-                placeholder="Enter your name of the company you worked for"
+                placeholder="Enter your name of the company worked"
                 control={control}
               />
             </div>

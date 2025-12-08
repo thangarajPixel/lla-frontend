@@ -231,7 +231,7 @@ const FaqSection = () => {
             Frequently Asked Questions
           </h1>
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-           <div className="hidden md:block lg:col-span-1">
+            <div className="hidden md:block lg:col-span-1">
               <nav className="space-y-2 lg:sticky lg:top-24">
                 {faqData.map((category) => (
                   <button
