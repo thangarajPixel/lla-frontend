@@ -33,10 +33,24 @@ const HTMLWidget = ({
       "div",
       "blockquote",
       "img",
+      "iframe",
     ],
     allowedAttributes: {
       a: ["href", "target", "rel"],
       img: ["src", "alt", "width", "height"],
+      iframe: [
+        "src",
+        "width",
+        "height",
+        "frameborder",
+        "allow",
+        "allowfullscreen",
+        "title",
+        "loading",
+        "sandbox",
+        "class",
+        "style",
+      ],
       span: ["style", "class"],
       div: ["style", "class"],
       p: ["style", "class"],
@@ -44,7 +58,7 @@ const HTMLWidget = ({
     },
     allowedStyles: {
       "*": {
-        color: [/^#[0-9A-Fa-f]{6}$/, /^rgb/, /^rgba/],
+        color: [/.*/],
         "text-align": [/^left$/, /^right$/, /^center$/, /^justify$/],
         "font-size": [/^\d+(?:px|em|rem|%)$/],
         "font-weight": [/^\d+$/, /^bold$/, /^normal$/],
@@ -52,11 +66,14 @@ const HTMLWidget = ({
         "line-height": [/^\d+(?:\.\d+)?(?:px|em|rem|%)?$/],
         margin: [/^\d+(?:px|em|rem|%)$/],
         padding: [/^\d+(?:px|em|rem|%)$/],
+        "background-color": [/.*/],
+        "border-color": [/.*/],
       },
     },
     allowedSchemes: ["http", "https", "mailto"],
     allowedSchemesByTag: {
       img: ["http", "https", "data"],
+      iframe: ["http", "https"],
     },
   });
 
