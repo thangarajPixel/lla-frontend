@@ -71,11 +71,13 @@ const OverviewSection = ({ data }: { data: MenuData }) => {
       <ContainerWidget>
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 xl:gap-0">
           <div className="flex flex-col gap-4.5 justify-center md:-mt-15">
-            <div className="self-start">
-              <ButtonWidget className="text-[20px] xss:text-[16px] p-5 3xl:text-[24px] font-mulish w-full rounded-full bg-[#E97451]/20 border border-[#E97451] text-black hover:bg-[#E97451]/20">
-                Duration1 Year
-              </ButtonWidget>
-            </div>
+            {data.Duration && (
+              <div className="self-start">
+                <ButtonWidget className="text-[20px] xss:text-[16px] p-5 3xl:text-[24px] font-mulish w-full rounded-full bg-[#E97451]/20 border border-[#E97451] text-black hover:bg-[#E97451]/20">
+                  {data.Duration}
+                </ButtonWidget>
+              </div>
+            )}
             <p className="font-urbanist font-normal text-[23px] sxx:leading-10 xss:text-[32px] md:leading-14 sm:text-5xl 3xl:text-[64px] text-black">
               {data.Title}
               {data.SubTitle && (
