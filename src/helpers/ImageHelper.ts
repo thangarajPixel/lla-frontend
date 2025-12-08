@@ -29,11 +29,12 @@ export { default as Apply2 } from "@/assets/icons/apply-2.svg";
 export { default as Apply3 } from "@/assets/icons/apply-3.svg";
 export { default as ArrowDown } from "@/assets/icons/arrow-down.png";
 export { default as ArrowLeftBlack } from "@/assets/icons/arrow-left-black.png";
+export { default as ArrowRightWhite } from "@/assets/icons/arrow-right.png";
 export { default as ArrowRight } from "@/assets/icons/arrow-right.svg";
 export { default as ArrowRightBlack } from "@/assets/icons/arrow-right-black.png";
 export { default as OrangeArrowRight } from "@/assets/icons/arrow-right-orange.svg";
-export { default as ArrowRightWhite } from "@/assets/icons/arrow-right.png";
 export { default as CalendarIcon } from "@/assets/icons/calendar-icon.png";
+export { default as Call } from "@/assets/icons/call.png";
 export { default as DocumentIcon } from "@/assets/icons/document-icon.png";
 export { default as EditIcon } from "@/assets/icons/edit-icon.png";
 export { default as Facebook } from "@/assets/icons/facebook.svg";
@@ -43,9 +44,12 @@ export { default as InstagramBlack } from "@/assets/icons/instagram-black.png";
 export { default as Into } from "@/assets/icons/into.svg";
 export { default as LinkedInBlack } from "@/assets/icons/linked-in-black.png";
 export { default as LinkedIn } from "@/assets/icons/linkedin.svg";
+export { default as LocationIcon } from "@/assets/icons/location.png";
 export { default as Location } from "@/assets/icons/location.svg";
 export { default as Play } from "@/assets/icons/play.svg";
 export { default as Quote } from "@/assets/icons/quote.png";
+export { default as Sms } from "@/assets/icons/sms-tracking.png";
+export { default as StarIcon } from "@/assets/icons/star.png";
 export { default as TopArrowIcon } from "@/assets/icons/top-arrow.svg";
 export { default as Twitter } from "@/assets/icons/twitter.svg";
 export { default as TwitterBlack } from "@/assets/icons/twitter-black.png";
@@ -58,10 +62,6 @@ export { default as LifeMobile } from "@/assets/images/life-mobile.png";
 export { default as LlaOnline } from "@/assets/images/lla-online.svg";
 export { default as LlaOutreach } from "@/assets/images/lla-outreach.svg";
 export { default as LogoBlack } from "@/assets/images/logo-black.svg";
-export { default as Call } from "@/assets/icons/call.png";
-export { default as Sms } from "@/assets/icons/sms-tracking.png";
-export { default as LocationIcon } from "@/assets/icons/location.png";
-export { default as StarIcon } from "@/assets/icons/star.png";
 export {
   default as FooterLogo,
   default as Logo,

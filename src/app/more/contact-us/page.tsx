@@ -7,9 +7,9 @@ export const metadata = {
     "Get in touch with Light & Life Academy. We're here to help with your queries about our photography courses and admissions.",
 };
 
- const ContactPage = async () => {
-   const { data: response } = await getContactPageData();
+const ContactPage = async () => {
+  const { data: response } = await getContactPageData();
   return <ContactSection data={response} />;
-}
+};
 
 export default ContactPage;

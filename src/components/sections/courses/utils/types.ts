@@ -44,6 +44,8 @@ export type OverviewData = {
 
 export type ContentCard = {
   id: number;
+  OuterTitle: string;
+  OuterDescription: string;
   Section: string;
   Title: string;
   Type: string;

@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
 import Link from "next/link";
+import { useRef, useState } from "react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
@@ -58,10 +58,10 @@ const _SOCIAL_LINKS = [
 
 const formatDate = (dateString: string): string => {
   const date = new Date(dateString);
-  return date.toLocaleDateString('en-US', { 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 };
 
@@ -73,24 +73,26 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
 
   const checkScrollButtons = () => {
     if (scrollContainerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      const { scrollLeft, scrollWidth, clientWidth } =
+        scrollContainerRef.current;
       setCanScrollLeft(scrollLeft > 0);
       setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
     }
   };
 
-  const scroll = (direction: 'left' | 'right') => {
+  const scroll = (direction: "left" | "right") => {
     if (scrollContainerRef.current) {
       const scrollAmount = scrollContainerRef.current.clientWidth * 0.8;
-      const newScrollLeft = direction === 'left' 
-        ? scrollContainerRef.current.scrollLeft - scrollAmount
-        : scrollContainerRef.current.scrollLeft + scrollAmount;
-      
+      const newScrollLeft =
+        direction === "left"
+          ? scrollContainerRef.current.scrollLeft - scrollAmount
+          : scrollContainerRef.current.scrollLeft + scrollAmount;
+
       scrollContainerRef.current.scrollTo({
         left: newScrollLeft,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
-      
+
       setTimeout(checkScrollButtons, 300);
     }
   };
@@ -148,13 +150,17 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                   </h3>
                   <div className="flex gap-8 items-center">
                     {_SOCIAL_LINKS.map((social) => {
-                      const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
-                      const shareUrl = social.id === 'twitter' 
-                        ? social.getShareUrl(currentUrl, card.Title)
-                        : social.getShareUrl(currentUrl, card.Title);
-                      
+                      const currentUrl =
+                        typeof window !== "undefined"
+                          ? window.location.href
+                          : "";
+                      const shareUrl =
+                        social.id === "twitter"
+                          ? social.getShareUrl(currentUrl, card.Title)
+                          : social.getShareUrl(currentUrl, card.Title);
+
                       return (
-                        <a 
+                        <a
                           key={social.id}
                           href={shareUrl}
                           target="_blank"
@@ -199,7 +205,7 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                         <h4 className="text-[16px] font-semibold text-black font-mulish">
                           {post.Title}
                         </h4>
-                        <Link 
+                        <Link
                           href={`/more/life-at-lla/${post.Slug}`}
                           className="inline-flex items-center gap-2 text-[#E97451] hover:gap-4 transition-all duration-300 mt-2 text-[16px] md:text-[16px] lg:text-[16px] font-normal font-urbanist group"
                         >
@@ -217,14 +223,17 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                   ))}
                 </div>
                 <div className="md:hidden relative">
-                  <div 
+                  <div
                     ref={scrollContainerRef}
                     onScroll={checkScrollButtons}
                     className="flex gap-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth"
-                    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                    style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                   >
                     {latest.map((post) => (
-                      <div key={post.id} className="flex-shrink-0 w-[85%] snap-start">
+                      <div
+                        key={post.id}
+                        className="shrink-0 w-[85%] snap-start"
+                      >
                         <div className="flex flex-col gap-2">
                           {post.Image?.[0]?.url && (
                             <div className="relative w-full aspect-video overflow-hidden">
@@ -239,7 +248,7 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                           <h4 className="text-[16px] font-semibold text-black font-mulish">
                             {post.Title}
                           </h4>
-                          <Link 
+                          <Link
                             href={`/more/life-at-lla/${post.Slug}`}
                             className="inline-flex items-center gap-2 text-[#E97451] hover:gap-4 transition-all duration-300 mt-2 text-[16px] font-normal font-urbanist group"
                           >
@@ -259,12 +268,12 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                   <div className="flex gap-4 mt-6 justify-start">
                     <button
                       type="button"
-                      onClick={() => scroll('left')}
+                      onClick={() => scroll("left")}
                       disabled={!canScrollLeft}
                       className={`transition-opacity ${
-                        canScrollLeft 
-                          ? 'opacity-100 hover:opacity-70' 
-                          : 'opacity-30 cursor-not-allowed'
+                        canScrollLeft
+                          ? "opacity-100 hover:opacity-70"
+                          : "opacity-30 cursor-not-allowed"
                       }`}
                       aria-label="Previous slide"
                     >
@@ -278,12 +287,12 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                     </button>
                     <button
                       type="button"
-                      onClick={() => scroll('right')}
+                      onClick={() => scroll("right")}
                       disabled={!canScrollRight}
                       className={`transition-opacity ${
-                        canScrollRight 
-                          ? 'opacity-100 hover:opacity-70' 
-                          : 'opacity-30 cursor-not-allowed'
+                        canScrollRight
+                          ? "opacity-100 hover:opacity-70"
+                          : "opacity-30 cursor-not-allowed"
                       }`}
                       aria-label="Next slide"
                     >

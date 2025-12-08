@@ -12,10 +12,13 @@ This is the frontend application for Light & Life Academy, showcasing their phot
 - **Smooth Scrolling**: Enhanced user experience with Lenis smooth scroll
 - **Parallax Effects**: Engaging visual effects using GSAP and Motion
 - **Dynamic Navigation**: Sticky header with dropdown menus
-- **Multiple Pages**: Home, About Us, Courses, Campus, and Faculty pages
+- **Multiple Pages**: Home, About Us, Courses, Campus, Faculty, Gallery, Admission, Blogs, Contact, FAQ, Life at LLA, and Privacy Policy pages
+- **Admission Form System**: Multi-step admission form with file uploads, education details, portfolio, and preview
 - **Interactive Components**: Custom widgets and UI components
+- **Form Management**: React Hook Form with Zod validation for type-safe forms
 - **Modern Animations**: Framer Motion and GSAP for smooth transitions
 - **Type-Safe**: Full TypeScript implementation
+- **Content Management**: Dynamic content rendering with HTML widgets and sanitization
 
 ## 🚀 Getting Started
 
@@ -76,50 +79,114 @@ lla-frontend/
 │
 ├── src/
 │   ├── app/               # Next.js App Router directory
-│   │   ├── about-us/      # About Us page
+│   │   ├── [page]/        # Dynamic page routes
+│   │   ├── admission/     # Admission form pages
+│   │   │   ├── [id]/      # Admission form steps
+│   │   │   └── layout.tsx
+│   │   ├── api/           # API routes
 │   │   ├── campus/        # Campus page
-│   │   ├── courses/       # Courses page
+│   │   ├── courses/       # Courses pages
+│   │   │   ├── [slug]/    # Individual course pages
+│   │   │   └── layout.tsx
 │   │   ├── faculty/       # Faculty page
+│   │   ├── gallery/       # Gallery page
+│   │   ├── more/          # Additional pages
+│   │   │   ├── about-us/  # About Us page
+│   │   │   ├── blogs/     # Blogs page
+│   │   │   ├── contact-us/# Contact page
+│   │   │   ├── faq/       # FAQ page
+│   │   │   ├── life-at-lla/# Life at LLA pages
+│   │   │   └── privacy-policy/# Privacy Policy page
 │   │   ├── favicon.ico
 │   │   ├── globals.css    # Global styles
 │   │   ├── layout.tsx     # Root layout component
-│   │   └── page.tsx       # Home page
+│   │   ├── not-found.tsx  # 404 page
+│   │   ├── page.tsx       # Home page
+│   │   └── robots.ts      # Robots.txt
 │   │
 │   ├── assets/            # Project assets
 │   │   ├── icons/         # Icon assets (SVG)
 │   │   └── images/        # Image assets (logos, etc.)
 │   │
 │   ├── components/        # React components
+│   │   ├── form/          # Form components
+│   │   │   ├── FormCheckBox.tsx
+│   │   │   ├── FormFileUploadButton.tsx
+│   │   │   ├── FormInput.tsx
+│   │   │   ├── FormInputDatePicker.tsx
+│   │   │   ├── FormInputDateRangePicker.tsx
+│   │   │   ├── FormRadioGroup.tsx
+│   │   │   ├── FormSelectBox.tsx
+│   │   │   └── index.ts
 │   │   ├── layouts/       # Layout components
 │   │   │   ├── utils/     # Layout utilities
+│   │   │   │   ├── AdmissionButton.tsx
+│   │   │   │   ├── AdmissionRequestButton.tsx
 │   │   │   │   ├── DropdownMenu.tsx
+│   │   │   │   ├── MainContent.tsx
 │   │   │   │   ├── MobileMenu.tsx
 │   │   │   │   ├── NavLink.tsx
 │   │   │   │   └── types.ts
 │   │   │   ├── WebFooter.tsx
 │   │   │   └── WebHeader.tsx
 │   │   ├── sections/      # Page section components
-│   │   │   ├── about-us/  # About Us sections
-│   │   │   └── home/      # Home page sections
-│   │   │       ├── AboutSection.tsx
-│   │   │       ├── CampusSection.tsx
-│   │   │       ├── CourseSection.tsx
-│   │   │       ├── FacultySection.tsx
-│   │   │       ├── GallertSection.tsx
-│   │   │       ├── HeroSection.tsx
-│   │   │       ├── LifeSection.tsx
-│   │   │       ├── SponsorsSection.tsx
-│   │   │       ├── StudentSection.tsx
-│   │   │       └── TestimonialSection.tsx
+│   │   │   ├── admission-form/# Admission form sections
+│   │   │   │   ├── _components/# Form components
+│   │   │   │   ├── _steps/    # Form steps
+│   │   │   │   └── _types/    # Type definitions
+│   │   │   ├── campus/    # Campus sections
+│   │   │   ├── courses/   # Course sections
+│   │   │   │   └── utils/ # Course utilities
+│   │   │   ├── faculty/   # Faculty sections
+│   │   │   │   └── utils/ # Faculty utilities
+│   │   │   ├── gallery/   # Gallery sections
+│   │   │   ├── home/      # Home page sections
+│   │   │   │   ├── AboutSection.tsx
+│   │   │   │   ├── CampusSection.tsx
+│   │   │   │   ├── CourseSection.tsx
+│   │   │   │   ├── FacultySection.tsx
+│   │   │   │   ├── GallertSection.tsx
+│   │   │   │   ├── HeroSection.tsx
+│   │   │   │   ├── LifeSection.tsx
+│   │   │   │   ├── SponsorsSection.tsx
+│   │   │   │   ├── StudentSection.tsx
+│   │   │   │   ├── TestimonialSection.tsx
+│   │   │   │   └── utils/
+│   │   │   └── more/      # Additional page sections
+│   │   │       ├── about-us/
+│   │   │       ├── blogs/
+│   │   │       ├── contact/
+│   │   │       ├── faq/
+│   │   │       ├── life-at-lla/
+│   │   │       └── privacy-policy/
 │   │   ├── ui/            # Base UI components
+│   │   │   ├── accordion.tsx
+│   │   │   ├── badge.tsx
 │   │   │   ├── button.tsx
+│   │   │   ├── calendar.tsx
+│   │   │   ├── card.tsx
+│   │   │   ├── checkbox.tsx
+│   │   │   ├── dialog.tsx
+│   │   │   ├── input.tsx
+│   │   │   ├── label.tsx
+│   │   │   ├── popover.tsx
+│   │   │   ├── radio-group.tsx
 │   │   │   ├── ripple-button.tsx
-│   │   │   └── sheet.tsx
+│   │   │   ├── select.tsx
+│   │   │   ├── sheet.tsx
+│   │   │   ├── skeleton.tsx
+│   │   │   └── toast.tsx
 │   │   └── widgets/       # Widget components
+│   │       ├── AccordionWidget.tsx
+│   │       ├── BackdropWidget.tsx
 │   │       ├── ButtonWidget.tsx
 │   │       ├── ContainerWidget.tsx
+│   │       ├── DialogWidget.tsx
+│   │       ├── HTMLWidget.tsx
 │   │       ├── ImageWidget.tsx
 │   │       ├── LinkWidget.tsx
+│   │       ├── OrangeBorderButtonWidget.tsx
+│   │       ├── OrangeButtonWidget.tsx
 │   │       ├── ParallaxWidget.tsx
 │   │       ├── ScrollWidget.tsx
 │   │       ├── SmoothScrollWidget.tsx
@@ -143,58 +210,11 @@ lla-frontend/
 ├── postcss.config.mjs    # PostCSS configuration
 └── tsconfig.json         # TypeScript configuration
 ```
-
-## 📁 Folder Descriptions
-
-### `/src/app`
-Next.js App Router directory containing pages, layouts, and routing configuration. Includes pages for:
-- Home (`/`)
-- About Us (`/about-us`)
-- Courses (`/courses`)
-- Campus (`/campus`)
-- Faculty (`/faculty`)
-
-### `/src/assets`
-Static assets including icons and images used throughout the application:
-- **icons/**: SVG icon files
-- **images/**: Logo files and other image assets
-
-### `/src/components`
-Reusable React components organized by purpose:
-
-- **layouts/**: Layout components including header and footer with navigation
-  - **utils/**: Navigation utilities (dropdown menus, mobile menu, nav links)
-- **sections/**: Page section components organized by page
-  - **home/**: Home page sections (Hero, Courses, Campus, Faculty, etc.)
-  - **about-us/**: About Us page sections
-- **ui/**: Base UI components built with shadcn/ui and Radix UI
-- **widgets/**: Reusable widget components for common functionality
-  - **ButtonWidget.tsx**: Custom button component
-  - **ContainerWidget.tsx**: Responsive container wrapper
-  - **ImageWidget.tsx**: Optimized image component
-  - **LinkWidget.tsx**: Navigation link component
-  - **OrangeButtonWidget.tsx**: Styled orange button component
-  - **ParallaxWidget.tsx**: GSAP-based parallax scrolling effects
-  - **ScrollWidget.tsx**: Scroll-triggered animations (fadeIn, fadeUp, fadeDown, slideLeft, slideRight, scale, rotate)
-  - **SmoothScrollWidget.tsx**: Smooth scrolling implementation
-
-### `/src/helpers`
-Helper modules for common functionality:
-- **AxiosHelper.ts**: HTTP client configuration and utilities
-- **ConstantHelper.ts**: Application constants and configuration values
-- **ImageHelper.ts**: Image processing and optimization utilities
-
-### `/src/lib`
-Library utilities and shared functions, including utility functions like `cn()` for className merging.
-
-### `/src/types`
-TypeScript type definitions and interfaces for type safety across the application.
-
 ## 🛠️ Tech Stack
 
 ### Core
-- **Framework**: [Next.js 16.0.3](https://nextjs.org/) - React framework with App Router
-- **React**: 19.2.0 - UI library
+- **Framework**: [Next.js 16.0.7](https://nextjs.org/) - React framework with App Router
+- **React**: 19.2.1 - UI library
 - **TypeScript**: 5.x - Type safety
 
 ### Styling
@@ -204,33 +224,47 @@ TypeScript type definitions and interfaces for type safety across the applicatio
 
 ### UI Components
 - **Radix UI**: Accessible component primitives
+  - `@radix-ui/react-accordion`
+  - `@radix-ui/react-checkbox`
   - `@radix-ui/react-dialog`
+  - `@radix-ui/react-icons`
+  - `@radix-ui/react-label`
+  - `@radix-ui/react-popover`
+  - `@radix-ui/react-radio-group`
+  - `@radix-ui/react-select`
   - `@radix-ui/react-slot`
+  - `@radix-ui/react-toast`
 - **shadcn/ui**: Pre-built component library
-- **Lucide React**: Icon library
+- **Lucide React**: 0.556.0 - Icon library
 
 ### Animation & Effects
-- **Motion**: 12.23.24 (Framer Motion) - Animation library
+- **Motion**: 12.23.25 (Framer Motion) - Animation library
 - **GSAP**: 3.13.0 - Advanced animation library with ScrollTrigger plugin
 - **Lenis**: 1.3.15 - Smooth scrolling library
-- **Embla Carousel**: Carousel/slider component with autoplay support
+- **Embla Carousel**: 8.6.0 - Carousel/slider component with autoplay support
+- **React Responsive Masonry**: 2.7.1 - Responsive masonry grid layout
 
 ### Data & State Management
-- **TanStack Query**: 5.90.9 - Data fetching and caching
+- **TanStack Query**: 5.90.12 - Data fetching and caching
 - **Axios**: 1.13.2 - HTTP client
-- **React Hook Form**: 7.66.0 - Form management
-- **Zod**: 4.1.12 - Schema validation
+- **React Hook Form**: 7.68.0 - Form management
+- **Zod**: 4.1.13 - Schema validation
+- **Hookform Resolvers**: 5.2.2 - React Hook Form validation resolvers
 
 ### Development Tools
-- **Biome**: 2.3.5 - Fast linter and formatter
+- **Biome**: 2.3.8 - Fast linter and formatter
 - **Babel React Compiler**: 1.0.0 - React compiler plugin
 - **TypeScript**: Type checking
 
 ### Utilities
-- **class-variance-authority**: Component variant management
-- **clsx**: Conditional className utility
-- **tailwind-merge**: Merge Tailwind classes intelligently
-- **tw-animate-css**: Tailwind animation utilities
+- **class-variance-authority**: 0.7.1 - Component variant management
+- **clsx**: 2.1.1 - Conditional className utility
+- **tailwind-merge**: 3.4.0 - Merge Tailwind classes intelligently
+- **tw-animate-css**: 1.4.0 - Tailwind animation utilities
+- **date-fns**: 4.1.0 - Date utility library
+- **sanitize-html**: 2.17.0 - HTML sanitization for safe content rendering
+- **sonner**: 2.0.7 - Toast notification library
+- **react-day-picker**: 9.12.0 - Date picker component
 
 ## 🎨 Key Features Implementation
 
@@ -262,25 +296,6 @@ TypeScript type definitions and interfaces for type safety across the applicatio
 - Page transition effects
 - Responsive animation handling (auto-refresh on resize)
 - Embla Carousel for interactive carousels with autoplay
-
-### Components
-- Reusable widget system for consistent UI patterns
-- Custom button components with ripple effects
-- Responsive image handling
-- Container components for consistent spacing
-- **ParallaxWidget**: Configurable parallax scrolling with speed, start/end points, and scrub options
-- **ScrollWidget**: Multiple animation types (fadeIn, fadeUp, fadeDown, slideLeft, slideRight, scale, rotate) with customizable delays and durations
-- **FacultySection**: Unified data structure for mobile and desktop views with carousel support and static content cards
-
-### Section Implementations
-
-#### FacultySection
-- Single data source for both mobile and desktop views
-- Embla Carousel with autoplay for desktop view
-- Grid layout for mobile view
-- Static "View All Faculty" card with background styling
-- Integrated ParallaxWidget and ScrollWidget for animations
-- Responsive design with different layouts for mobile and desktop
 
 ## 🔧 Configuration
 
