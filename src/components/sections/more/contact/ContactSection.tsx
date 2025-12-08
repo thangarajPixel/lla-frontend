@@ -54,24 +54,24 @@ export default function ContactSection({ data }: ContactSectionProps) {
   return (
     <section className="py-16 px-4 md:px-8 lg:px-16 xl:px-10 max-w-7xl mx-auto">
       <ContainerWidget>
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-10">
           <div className="space-y-8">
             <div>
               <h1 className="font-urbanist text-[32px] sm:text-[40px] md:text-[48px] lg:text-[56px] xl:text-[60px] 3xl:text-[64px] font-normal text-foreground mb-4">
                 {data?.Title}
               </h1>
-              <p className="text-lg" 
+              <p className="text-black text-[16px] sm:text-[18px] md:text-[20px] lg:text-[24px] xl:text-[28px] 3xl:text-[32px] font-mulish" 
                // biome-ignore lint/security/noDangerouslySetInnerHtml: Content is sanitized from trusted CMS source
                 dangerouslySetInnerHTML={{ __html: data.Heading || "" }}
               >
               </p>
-              <p className="text-black mt-4">
+              <p className="max-w-[630px] text-black text-[16px]  3xl:text-[18px] font-mulish  mt-4">
                 {data?.Description}
               </p>
             </div>
-            <div className="space-y-6">
-              <div className="flex items-center gap-4">
-                <div className="p-3">
+            <div className="space-y-7">
+              <div className="flex items-center gap-2">
+                <div>
                   <ImageWidget
                     src={Call}
                     alt="Contact Phone"
@@ -79,12 +79,12 @@ export default function ContactSection({ data }: ContactSectionProps) {
                   />
                 </div>
                 <div>
-                  <p className="text-foreground font-medium">{data?.MobileNo}</p>
+                  <p className="text-[16px] 3xl:text-[18px] font-mulish font-normal">{data?.MobileNo}</p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-4">
-                <div className="p-3 ">
+              <div className="flex items-center gap-2">
+                <div >
                   <ImageWidget
                     src={Sms}
                     alt="Contact Email"
@@ -92,14 +92,14 @@ export default function ContactSection({ data }: ContactSectionProps) {
                   />
                 </div>
                 <div>
-                  <p className="text-foreground font-medium">
-                    administration@llacademy.org
+                  <p className="text-[16px] 3xl:text-[18px] font-mulish font-normal">
+                    {data?.Email}
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-4">
-                <div className="p-3">
+              <div className="flex items-center gap-2">
+                <div>
                     <ImageWidget
                     src={LocationIcon}
                     alt="Contact Location"
@@ -107,22 +107,22 @@ export default function ContactSection({ data }: ContactSectionProps) {
                   />
                 </div>
                 <div>
-                  <p className="text-foreground font-medium">
+                  <p className="text-[16px] 3xl:text-[18px] font-mulish font-normal">
                    {data?.Location}
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-4">
-                <div className="p-3">
+              <div className="flex items-center gap-2">
+                <div>
                    <ImageWidget
                     src={StarIcon}
                     alt="Contact Visitor"
                     className="max-w-[32px] max-h-[32px] text-[#FF6B4A]"
                   />
                 </div>
-                <div>
-                  <p className="text-foreground font-medium">
+                <div className="max-w-[630px]">
+                  <p className="text-[16px] 3xl:text-[18px] font-mulish font-normal">
                     {data?.VisitorDescription}
                   </p>
                 </div>
