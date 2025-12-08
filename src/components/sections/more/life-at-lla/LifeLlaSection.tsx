@@ -53,8 +53,8 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
     const nextPage = page + 1;
     const params = { page: nextPage, per_page: 8 };
     const { data: res } = await getLifePageData(params);
-    if (res?.Card) {
-      setCards((prev) => [...prev, ...res.Card]);
+    if (res?.LifeCard) {
+      setCards((prev) => [...prev, ...res.LifeCard]);
       setPage(nextPage);
     }
     setLoading(false);
