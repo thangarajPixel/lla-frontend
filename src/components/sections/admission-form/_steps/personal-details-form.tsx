@@ -44,7 +44,7 @@ const PersonalDetailsForm = ({
     resolver: zodResolver(personalDetailsSchema),
     mode: "all",
     defaultValues: {
-      course_id: admissionData?.course_id ?? 1,
+      // course_id: admissionData?.course_id ?? 1,
       name_title: admissionData?.name_title ?? "Mr.",
       first_name: admissionData?.first_name ?? "",
       last_name: admissionData?.last_name ?? "",
@@ -128,7 +128,7 @@ const PersonalDetailsForm = ({
     handleSubmit,
     formState: { errors },
   } = form_step1;
-  
+
 
   const {
     fields: languageFields,

@@ -25,13 +25,12 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
           return (
             <div
               key={`step-label-${stepNum}`}
-              className={`ml-1 mb-5 text-sm font-medium ${
-                isActive
-                  ? "text-[#E97451]"
-                  : isCompleted
-                    ? "text-gray-900"
-                    : "text-gray-500"
-              }`}
+              className={`ml-1 mb-5 text-sm font-medium ${isActive
+                ? "text-[#E97451]"
+                : isCompleted
+                  ? "text-gray-900"
+                  : "text-gray-500"
+                }`}
             >
               {`Step ${stepNum}`}
             </div>
@@ -39,7 +38,7 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
         })}
       </div>
 
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-between">
         {Array.from({ length: totalSteps }).map((_, index) => (
           <div key={`step-${index + 1}`} className="flex items-center">
             <div
@@ -52,8 +51,10 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
             {index < total_Steps - 1 && (
               <div
                 className={cn(
-                  // "w-32 xs:w-48 sm:w-60 md:w-80 min-w-[900px]:w-96 lg:w-64 xl:w-80 2xl:w-[500px] h-0.5",
-                  "w-32 s:w-24 xs:w-48 sm:w-60 lg:w-64 h-0.5",
+                  // "w-32 xs:w-48 sm:w-60 md:w-80 min-w-[900px]:w-96 lg:w-64 xl:w-80 2xl:w-[400px] h-0.5",
+                  // "w-32 s:w-24 xs:w-48 sm:w-60 lg:w-80 h-0.5 3xl:w-[380px]",
+                  "w-32 s:w-24 xs:w-48 sm:w-60 lg:w-80 h-0.5 3xl:w-full flex-1",
+                  // "flex flex-1 h-0.5",
                   index + 1 < currentStep ? "bg-green-500" : "bg-primary/30",
                 )}
               />
@@ -61,6 +62,7 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
           </div>
         ))}
       </div>
+
 
       <div className="flex items-center justify-between">
         {steps.map((step, index) => {
@@ -71,19 +73,30 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
           return (
             <div
               key={step}
-              className={`ml-3 mt-5 hidden sm:block text-sm font-medium ${
-                isActive
-                  ? "text-[#E97451]"
-                  : isCompleted
-                    ? "text-gray-900"
-                    : "text-gray-500"
-              }`}
+              className={`ml-3 mt-5 hidden sm:block text-sm font-medium ${isActive
+                ? "text-[#E97451]"
+                : isCompleted
+                  ? "text-gray-900"
+                  : "text-gray-500"
+                }`}
             >
               {step}
             </div>
           );
         })}
       </div>
+
+      {/* <div className="flex flex-row items-center justify-start">
+        <section className="h-4 w-4 bg-red-400"></section>
+        <section
+          className="h-0.5 w-4 bg-red-400 flex-1"
+        >
+        </section>
+        <section className="h-4 w-4 bg-red-400"></section>
+        <section className="h-0.5 bg-red-400 flex-1"></section>
+        <section className="h-4 w-4 bg-red-400"></section>
+      </div> */}
     </section>
+
   );
 }
