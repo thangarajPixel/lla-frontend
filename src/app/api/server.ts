@@ -75,3 +75,7 @@ export async function getCoursePageData() {
 export async function getEssentialsData() {
   return fetchData("/essential");
 }
+
+export async function getFooterData() {
+  return fetchData("/footer");
+}

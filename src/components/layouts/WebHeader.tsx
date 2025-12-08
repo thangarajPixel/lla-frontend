@@ -12,7 +12,11 @@ import AdmissionRequestButton from "./utils/AdmissionRequestButton";
 import DropdownMenu from "./utils/DropdownMenu";
 import MobileMenu from "./utils/MobileMenu";
 import NavLink from "./utils/NavLink";
-import type { DropdownMenu as DropdownMenuType, MenuItem } from "./utils/types";
+import type {
+  DropdownMenu as DropdownMenuType,
+  MenuItem,
+  WebHeaderResponse,
+} from "./utils/types";
 
 const menuItems: (MenuItem | DropdownMenuType)[] = [
   {
@@ -45,7 +49,9 @@ const menuItems: (MenuItem | DropdownMenuType)[] = [
   },
 ];
 
-const WebHeader = () => {
+const WebHeader = ({ response }: { response: WebHeaderResponse }) => {
+
+  console.log(response);
   const pathname = usePathname();
   const isHomePage = pathname === "/";
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);

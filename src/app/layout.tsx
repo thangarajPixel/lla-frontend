@@ -1,14 +1,14 @@
 export const dynamic = "force-dynamic";
 
-import type { Metadata } from "next";
-import { Mulish, Urbanist } from "next/font/google";
-import localFont from "next/font/local";
-import { Toaster } from "sonner";
 import MainContent from "@/components/layouts/utils/MainContent";
 import WebFooter from "@/components/layouts/WebFooter";
 import WebHeader from "@/components/layouts/WebHeader";
 import SmoothScrollWidget from "@/components/widgets/SmoothScrollWidget";
-
+import type { Metadata } from "next";
+import { Mulish, Urbanist } from "next/font/google";
+import localFont from "next/font/local";
+import { Toaster } from "sonner";
+import { getFooterData } from "./api/server";
 import "./globals.css";
 
 const mulish = Mulish({
@@ -34,18 +34,20 @@ export const metadata: Metadata = {
     "Founded in 2001, Light &amp; Life Academy is India’s first and only custom designed Professional Photography Institute. Admissions Open for 2025-26",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const response = await getFooterData();
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${mulish.variable} ${urbanist.variable} ${areaVariable.variable} antialiased flex flex-col min-h-screen`}
       >
         <SmoothScrollWidget>
-          <WebHeader />
+          <WebHeader response={response?.data} />
           <Toaster position="top-right" expand richColors />
           <MainContent>{children}</MainContent>
           <WebFooter />
