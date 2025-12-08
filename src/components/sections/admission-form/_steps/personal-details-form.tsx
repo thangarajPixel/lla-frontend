@@ -129,7 +129,6 @@ const PersonalDetailsForm = ({
     formState: { errors },
   } = form_step1;
 
-
   const {
     fields: languageFields,
     append,

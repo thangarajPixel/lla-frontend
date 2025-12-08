@@ -3,12 +3,12 @@
 import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { type FormEvent, useRef } from "react";
+import { getEssentialsData } from "@/app/api/server";
 import { Input } from "@/components/ui/input";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
+import { clientAxios } from "@/helpers/AxiosHelper";
 import { notify } from "@/helpers/ConstantHelper";
 import type { CourseFormData } from "./types";
-import { clientAxios } from "@/helpers/AxiosHelper";
-import { getEssentialsData } from "@/app/api/server";
 
 const CourseAdmissionFormSection = () => {
   const router = useRouter();
@@ -61,13 +61,13 @@ const CourseAdmissionFormSection = () => {
       email: formValues.emailAddress,
       // message: formValues.message,
       step_0: true,
-    }
+    };
 
     if (isAdmissionOpen?.data?.isAdmission) {
       const res = await clientAxios.post(`/admissions`, { data: data });
       // const res = await createAdmission(data as any);
       const resData = await res?.data;
-      console.log(resData, "step1, response")
+      console.log(resData, "step1, response");
     } else {
       const res = await clientAxios.post(`/contacts`, { data: data });
       const resData = await res?.data;

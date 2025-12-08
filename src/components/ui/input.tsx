@@ -53,7 +53,7 @@ const Input = ({
             "ArrowLeft",
             "ArrowRight",
             "Delete",
-            "Shift"
+            "Shift",
           ];
 
           if (e.ctrlKey || e.metaKey) return;
@@ -74,7 +74,6 @@ const Input = ({
 
           props.onKeyDown?.(e);
         }}
-
         onPaste={(e) => {
           const pasted = e.clipboardData.getData("text");
 
@@ -93,7 +92,6 @@ const Input = ({
           props.onPaste?.(e);
         }}
       />
-
 
       {error && (
         <p className={cn("text-sm text-red-500", errorClassName)}>

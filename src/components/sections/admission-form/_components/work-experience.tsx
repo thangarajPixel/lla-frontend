@@ -34,7 +34,9 @@ export function WorkExperience({
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl 3xl:text-3xl text-[#E97451] font-urbanist">Work Experience</h2>
+      <h2 className="text-2xl 3xl:text-3xl text-[#E97451] font-urbanist">
+        Work Experience
+      </h2>
 
       {fields?.map((experience, index) => (
         <div key={experience.id} className="space-y-6">

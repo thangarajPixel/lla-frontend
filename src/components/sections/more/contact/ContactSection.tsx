@@ -41,10 +41,9 @@ export default function ContactSection() {
 
   const onSubmit = async (data: ContactFormData) => {
     try {
-       const response = await clientAxios.post<ContactFormData>(
-          "/contacts",
-          { data: data },
-        );
+      const response = await clientAxios.post<ContactFormData>("/contacts", {
+        data: data,
+      });
       console.log("Form data:", response);
       toast.success("Contact sent successfully!");
       reset();

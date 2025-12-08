@@ -69,16 +69,16 @@ const AdmissionFormLayout = ({ children }: { children: React.ReactNode }) => {
           >
             <div ref={headerRef} className="mb-8">
               <h1 className="text-2xl font-urbanist leading-tight lg:hidden mb-8">
-                PG Diploma in Documentary & Corporate Filmmaking 2026-2027 - Online
-                Application
+                PG Diploma in Documentary & Corporate Filmmaking 2026-2027 -
+                Online Application
               </h1>
               <h2 className="text-2xl md:text-3xl 3xl:text-4xl text-[#E97451] mb-2 font-urbanist">
                 Application Form
               </h2>
               <p className="text-gray-600 text-base 3xl:text-lg">
                 Do go ahead and complete the application process as detailed
-                below. Use the unique URL sent to your email if you need to check
-                the mail in inbox/spam folder to complete at a later date.
+                below. Use the unique URL sent to your email if you need to
+                check the mail in inbox/spam folder to complete at a later date.
               </p>
             </div>
 

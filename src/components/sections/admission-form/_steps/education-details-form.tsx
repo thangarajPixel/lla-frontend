@@ -107,7 +107,11 @@ const EducationDetailsForm = ({
         onSubmit={handleSubmit(onSubmit)}
         className="space-y-12 py-8 md:px-8 bg-background max-w-4xl mx-auto"
       >
-        <EducationDetails admissionData={admissionData} control={control} ugStatus={ugStatus} />
+        <EducationDetails
+          admissionData={admissionData}
+          control={control}
+          ugStatus={ugStatus}
+        />
         <WorkExperience admissionData={admissionData} control={control} />
 
         <div className="flex justify-start gap-3 mt-10 pt-6">

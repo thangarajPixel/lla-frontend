@@ -1,7 +1,7 @@
 "use client";
 
 import { Plus, X } from "lucide-react";
-import { type Control, useFieldArray, UseFormWatch } from "react-hook-form";
+import { type Control, useFieldArray } from "react-hook-form";
 import { FormInput } from "@/components/form";
 import FormFileUploadButton from "@/components/form/FormFileUploadButton";
 import FormRadioGroup from "@/components/form/FormRadioGroup";
@@ -77,17 +77,15 @@ export function EducationDetails({
             ]}
           />
 
-          {
-            ugStatus === "Finished" && (
-              <FormFileUploadButton
-                name="Under_Graduate.marksheet"
-                control={control}
-                placeholder="Upload your MarkSheet"
-                notRequired={true}
-                defaultValue={admissionData?.Under_Graduate?.marksheet ?? null}
-              />
-            )
-          }
+          {ugStatus === "Finished" && (
+            <FormFileUploadButton
+              name="Under_Graduate.marksheet"
+              control={control}
+              placeholder="Upload your MarkSheet"
+              notRequired={true}
+              defaultValue={admissionData?.Under_Graduate?.marksheet ?? null}
+            />
+          )}
         </div>
       </div>
 

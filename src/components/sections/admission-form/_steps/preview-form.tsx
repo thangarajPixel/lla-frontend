@@ -26,7 +26,9 @@ function Section({
   return (
     <div className="space-y-3">
       <section className="flex items-center justify-between">
-        <h3 className={cn("text-2xl 3xl:text-3xl text-[#E97451]", className)}>{title}</h3>
+        <h3 className={cn("text-2xl 3xl:text-3xl text-[#E97451]", className)}>
+          {title}
+        </h3>
         <Image
           src={EditIcon}
           width={24}
@@ -45,9 +47,18 @@ function Field({ label, value }: { label?: string; value?: string }) {
   const isDob = label?.toLowerCase() === "date of birth";
   const dobValue = value?.split("-").reverse().join("-");
   return (
-    <div className={cn("flex flex-col items-start md:flex-row md:items-center justify-between text-base 3xl:text-2xl font-mulish", label === "Address" && 'md:items-start')}>
-      <span className="text-black/50 w-full md:w-40">{label ? `${label}` : ""}</span>
-      <span className={cn("text-black text-left md:text-right md:max-w-3xs")}>{isDob ? dobValue : (value ?? "-")}</span>
+    <div
+      className={cn(
+        "flex flex-col items-start md:flex-row md:items-center justify-between text-base 3xl:text-2xl font-mulish",
+        label === "Address" && "md:items-start",
+      )}
+    >
+      <span className="text-black/50 w-full md:w-40">
+        {label ? `${label}` : ""}
+      </span>
+      <span className={cn("text-black text-left md:text-right md:max-w-3xs")}>
+        {isDob ? dobValue : (value ?? "-")}
+      </span>
     </div>
   );
 }
@@ -61,11 +72,18 @@ function LanguageField({
 }) {
   return (
     <div className="flex flex-col md:flex-row items-start mt-4 justify-between">
-      <span className="text-black/50 text-base 3xl:text-2xl mb-3 font-mulish">{label}</span>
+      <span className="text-black/50 text-base 3xl:text-2xl mb-3 font-mulish">
+        {label}
+      </span>
       <div className="flex flex-col gap-4">
         {value?.map((language, index) => (
-          <main key={`language-${index + 1}`} className="flex flex-col gap-2 w-full">
-            <span className="md:ml-auto text-lg font-mulish 3xl:text-2xl">{language.language}</span>
+          <main
+            key={`language-${index + 1}`}
+            className="flex flex-col gap-2 w-full"
+          >
+            <span className="md:ml-auto text-lg font-mulish 3xl:text-2xl">
+              {language.language}
+            </span>
             <section className="flex flex-row items-center justify-between gap-4">
               <span className="text-sm 3xl:text-base gap-2 flex items-center justify-center">
                 <CheckboxField
@@ -288,18 +306,28 @@ const ReviewApplication = ({
                 className="grid grid-cols-1 md:grid-cols-4 gap-4"
               >
                 <section className="md:col-span-2">
-                  <span className="text-black/50 text-base 3xl:text-2xl">Degree</span>
-                  <p className="text-black text-base 3xl:text-2xl">{admissionData?.Under_Graduate?.degree}</p>
+                  <span className="text-black/50 text-base 3xl:text-2xl">
+                    Degree
+                  </span>
+                  <p className="text-black text-base 3xl:text-2xl">
+                    {admissionData?.Under_Graduate?.degree}
+                  </p>
                 </section>
 
                 <section className="md:col-span-1">
-                  <span className="text-black/50 text-base 3xl:text-2xl">Status</span>
-                  <p className="text-black text-base 3xl:text-2xl">{admissionData?.Under_Graduate?.ug_status}</p>
+                  <span className="text-black/50 text-base 3xl:text-2xl">
+                    Status
+                  </span>
+                  <p className="text-black text-base 3xl:text-2xl">
+                    {admissionData?.Under_Graduate?.ug_status}
+                  </p>
                 </section>
 
                 {admissionData?.Under_Graduate?.marksheet?.url && (
                   <section className="flex flex-col justify-start gap-2 items-start md:col-span-1">
-                    <span className="text-black/50 text-base 3xl:text-2x">Document</span>
+                    <span className="text-black/50 text-base 3xl:text-2x">
+                      Document
+                    </span>
                     <span className="flex items-center justify-center gap-1">
                       <ImageWidget
                         src={DocumentIcon}
@@ -335,17 +363,27 @@ const ReviewApplication = ({
                   className="grid grid-cols-1 md:grid-cols-4 gap-4"
                 >
                   <section className="md:col-span-2">
-                    <span className="text-black/50 text-base 3xl:text-2xl">Degree</span>
-                    <p className="text-black text-base 3xl:text-2xl">{degree?.degree}</p>
+                    <span className="text-black/50 text-base 3xl:text-2xl">
+                      Degree
+                    </span>
+                    <p className="text-black text-base 3xl:text-2xl">
+                      {degree?.degree}
+                    </p>
                   </section>
 
                   <section className="md:col-span-1">
-                    <span className="text-black/50 text-base 3xl:text-2xl">Status</span>
-                    <p className="text-black text-base 3xl:text-2xl">{degree?.pg_status}</p>
+                    <span className="text-black/50 text-base 3xl:text-2xl">
+                      Status
+                    </span>
+                    <p className="text-black text-base 3xl:text-2xl">
+                      {degree?.pg_status}
+                    </p>
                   </section>
 
                   <section className="hidden md:invisible md:flex flex-col justify-start gap-2 items-start md:col-span-1">
-                    <span className="text-black/50 text-base 3xl:text-2xl">Document</span>
+                    <span className="text-black/50 text-base 3xl:text-2xl">
+                      Document
+                    </span>
                     <span className="flex items-center justify-center gap-1">
                       <ImageWidget
                         src={DocumentIcon}
@@ -380,17 +418,27 @@ const ReviewApplication = ({
                   className="grid grid-cols-1 md:grid-cols-5 gap-2"
                 >
                   <section className="md:col-span-2">
-                    <span className="text-black/50 text-base 3xl:text-2xl">Role/Designation</span>
-                    <p className="text-black text-lg  3xl:text-2xl">{experience?.designation ?? "-"}</p>
+                    <span className="text-black/50 text-base 3xl:text-2xl">
+                      Role/Designation
+                    </span>
+                    <p className="text-black text-lg  3xl:text-2xl">
+                      {experience?.designation ?? "-"}
+                    </p>
                   </section>
 
                   <section className="md:col-span-2">
-                    <span className="text-black/50 text-base 3xl:text-2xl">Employer</span>
-                    <p className="text-black text-lg  3xl:text-2xl">{experience?.employer ?? "-"}</p>
+                    <span className="text-black/50 text-base 3xl:text-2xl">
+                      Employer
+                    </span>
+                    <p className="text-black text-lg  3xl:text-2xl">
+                      {experience?.employer ?? "-"}
+                    </p>
                   </section>
 
                   <section className="md:col-span-1">
-                    <span className="text-black/50 text-base 3xl:text-2xl">Duration</span>
+                    <span className="text-black/50 text-base 3xl:text-2xl">
+                      Duration
+                    </span>
                     {/* <span className="text-xs flex items-center justify-center"> */}
                     <span className="text-black text-base font-medium md:text-sm flex flex-wrap 3xl:text-[22px]">
                       {`${experience?.duration_start?.split("-")?.reverse()?.join("-")} to ${experience?.duration_end?.split("-")?.reverse()?.join("-")}`}

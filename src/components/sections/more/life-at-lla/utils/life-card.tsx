@@ -30,8 +30,10 @@ const LifeCard = ({ card }: LifeCardProps) => (
           />
         </div>
       )}
-      <p className="text-sm sm:text-base md:text-[12px] lg:text-[12px] xl:text-[12px] 2xl:text-[16px] 3xl:text-[18px] font-mulish font-regular text-black overflow-hidden line-clamp-2"  dangerouslySetInnerHTML={{ __html: card.Description || '' }}>
-      </p>
+      <p
+        className="text-sm sm:text-base md:text-[12px] lg:text-[12px] xl:text-[12px] 2xl:text-[16px] 3xl:text-[18px] font-mulish font-regular text-black overflow-hidden line-clamp-2"
+        dangerouslySetInnerHTML={{ __html: card.Description || "" }}
+      ></p>
     </div>
   </Link>
 );

@@ -32,14 +32,12 @@ export type LifeSectionProps = {
   };
 };
 
-
 export type LifeDetailProps = {
   data: {
     card: LifeCard;
     latest: LifeCard[];
   };
 };
-
 
 export type LifeCard = {
   id: number;
@@ -64,5 +62,3 @@ export type LifeViewCardItem = {
   Description: string | null;
   Images: Array<LifeImage>;
 };
-
-
