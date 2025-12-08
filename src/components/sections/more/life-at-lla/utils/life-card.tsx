@@ -21,7 +21,7 @@ const LifeCard = ({ card }: LifeCardProps) => (
         {card.Title}
       </h4>
       {card.Image?.[0]?.url && (
-        <div className="relative w-full aspect-4/3 overflow-hidden mb-2 lg:mb-3 3xl:mb-4 s:w-[260px] s:h-[210px] m:w-[290px] m:h-[210px] xss::w-full xss:h-[210px] xs:w-full xs:h-full sm:w-full sm:h-full md:w-full md:h-full lg:w-full xl:w-full xl:h-full 2xl:w-full 2xl:h-full 3xl:w-[252px] 3xl:h-[168.79px]">
+        <div className="relative w-full aspect-4/3 overflow-hidden mb-2 lg:mb-3 3xl:mb-4 s:w-[260px] s:h-[210px] m:w-[290px] m:h-[210px] xss:w-full xss:h-[210px] xs:w-full xs:h-full sm:w-full sm:h-full md:w-full md:h-full lg:w-full xl:w-full xl:h-full 2xl:w-full 2xl:h-full 3xl:w-[252px] 3xl:h-[168.79px]">
           <ImageWidget
             src={getS3Url(card.Image[0].url)}
             alt={card.Title}

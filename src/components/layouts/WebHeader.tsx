@@ -111,7 +111,7 @@ const WebHeader = ({
         ],
       },
     ];
-  }, [response.course]);
+  }, [response]);
 
   const isDropdown = (
     item: MenuItem | DropdownMenuType,

@@ -8,6 +8,7 @@ import {
 import type { WebHeaderResponse } from "../layouts/utils/types";
 import BackdropWidget from "../widgets/BackdropWidget";
 import ContainerWidget from "../widgets/ContainerWidget";
+import HTMLWidget from "../widgets/HTMLWidget";
 import ImageWidget from "../widgets/ImageWidget";
 import LinkWidget from "../widgets/LinkWidget";
 import OrangeButtonWidget from "../widgets/OrangeButtonWidget";
@@ -153,16 +154,12 @@ const WebFooter = ({
                     alt="Location"
                     className="w-6 h-5 md:w-7 md:h-6"
                   />
-                  {Location && (
-                    <p
-                      suppressHydrationWarning
-                      // biome-ignore lint/security/noDangerouslySetInnerHtml: Content is sanitized from trusted CMS source
-                      dangerouslySetInnerHTML={{
-                        __html: Location || "",
-                      }}
-                      className="mt-[-2px]"
-                    />
-                  )}
+                  <HTMLWidget
+                    content={Location ?? undefined}
+                    tag="div"
+                    className="mt-[-2px]"
+                    suppressHydrationWarning
+                  />
                 </div>
               </div>
 

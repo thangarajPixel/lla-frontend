@@ -31,3 +31,10 @@ export type OrangeButtonWidgetProps = {
   className?: string;
   onClick?: () => void;
 };
+
+export type HTMLWidgetProps = {
+  content: string | null | undefined;
+  className?: string;
+  tag?: keyof React.JSX.IntrinsicElements;
+  suppressHydrationWarning?: boolean;
+} & Omit<React.HTMLAttributes<HTMLElement>, "dangerouslySetInnerHTML">;
