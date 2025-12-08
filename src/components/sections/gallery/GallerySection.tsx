@@ -111,10 +111,9 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
       const fetchFilteredData = async () => {
         setLoading(true);
         try {
-          const pageSize = initialData?.pagination?.pageSize || 10;
           const params = {
             page: 1,
-            pageSize: pageSize,
+            per_page: 9,
             type: selectedType,
           };
 
@@ -147,14 +146,13 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
     await new Promise((res) => setTimeout(res, 500));
 
     const nextPage = page + 1;
-    const pageSize = initialData?.pagination?.pageSize || 10;
     const params: {
       page: number;
-      pageSize: number;
+      per_page: number;
       type?: string;
     } = {
       page: nextPage,
-      pageSize: pageSize,
+      per_page: 9,
     };
 
     if (selectedType !== "all") {
