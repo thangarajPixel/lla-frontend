@@ -2,23 +2,23 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { getLandingPageData } from "@/app/api/server";
+import { getCoursesListData } from "@/app/api/server";
 import { DialogClose } from "@/components/ui/dialog";
 import DialogWidget from "@/components/widgets/DialogWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import { ArrowRight, Dummy1, Dummy2, Into } from "@/helpers/ImageHelper";
+import { ArrowRight, Into } from "@/helpers/ImageHelper";
 import ButtonWidget from "../../widgets/ButtonWidget";
 import ImageWidget from "../../widgets/ImageWidget";
 import LinkWidget from "../../widgets/LinkWidget";
 import OrangeBorderButtonWidget from "../../widgets/OrangeBorderButtonWidget";
-import type { AdmissionButtonProps, CourseSectionData } from "./types";
+import type { AdmissionButtonProps, CourseCard } from "./types";
 
 const AdmissionButton = ({
   className = "",
   iconClassName = "",
 }: AdmissionButtonProps) => {
-  const [data, setData] = useState<CourseSectionData>();
+  const [data, setData] = useState<CourseCard[]>();
   const [isOpen, setIsOpen] = useState(false);
   const [imageIndices, setImageIndices] = useState<number[]>([]);
   const pathname = usePathname();
@@ -35,16 +35,16 @@ const AdmissionButton = ({
 
   useEffect(() => {
     const loadData = async () => {
-      const { data: res } = await getLandingPageData();
-      setData(res?.Home?.[1]);
+      const { data: res } = await getCoursesListData();
+      setData(res);
     };
     loadData();
   }, []);
 
   useEffect(() => {
-    if (data?.Card) {
+    if (data) {
       setImageIndices(
-        data.Card.map((card) => {
+        data.map((card: CourseCard) => {
           const images = card?.Image || [];
           return images.length > 0
             ? Math.floor(Math.random() * images.length)
@@ -52,7 +52,7 @@ const AdmissionButton = ({
         }),
       );
     }
-  }, [data?.Card]);
+  }, [data]);
 
   return (
     <DialogWidget
@@ -82,30 +82,31 @@ const AdmissionButton = ({
       }
     >
       <div className="flex flex-col md:flex-row gap-5 h-[420px] overflow-y-auto md:h-auto">
-        {data?.Card && data.Card.length > 0 ? (
-          data.Card.map((card, index) => {
+        {data &&
+          data.length > 0 &&
+          data.map((card, index) => {
             const images = card?.Image || [];
             const imageIndex = imageIndices[index] ?? 0;
             const selectedImage = images[imageIndex];
             const imageUrl = selectedImage?.url
               ? getS3Url(selectedImage.url)
-              : index === 0
-                ? Dummy1
-                : Dummy2;
+              : undefined;
 
             return (
               <div
                 key={card.id || index}
                 className="flex-1 flex flex-col gap-3 sm:gap-4"
               >
-                <div className="relative w-full aspect-4/3 overflow-hidden">
-                  <ImageWidget
-                    src={imageUrl}
-                    alt={card.Title || `Course ${index + 1}`}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
+                {imageUrl && (
+                  <div className="relative w-full aspect-4/3 overflow-hidden">
+                    <ImageWidget
+                      src={imageUrl}
+                      alt={card.Title || `Course ${index + 1}`}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                )}
                 <h3 className="text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[24px] 3xl:text-[25px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
                   {card.Title}
                 </h3>
@@ -124,61 +125,7 @@ const AdmissionButton = ({
                 </div>
               </div>
             );
-          })
-        ) : (
-          <>
-            <div className="flex-1 flex flex-col gap-3 sm:gap-4">
-              <div className="relative w-full aspect-4/3 overflow-hidden">
-                <ImageWidget
-                  src={Dummy1}
-                  alt="Dummy 1"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <h3 className="text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[24px] 3xl:text-[25px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
-                PG Diploma in Professional Photography & Digital Production
-              </h3>
-              <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt
-              </p>
-              <div className="self-start flex gap-2">
-                <LinkWidget href="/admission">
-                  <OrangeButtonWidget content="Apply now" />
-                </LinkWidget>
-                <LinkWidget href="/">
-                  <OrangeBorderButtonWidget content="Course Detail" />
-                </LinkWidget>
-              </div>
-            </div>
-            <div className="flex-1 flex flex-col gap-3 sm:gap-4">
-              <div className="relative w-full aspect-4/3 overflow-hidden">
-                <ImageWidget
-                  src={Dummy2}
-                  alt="Dummy 2"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <h3 className="text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[24px] 3xl:text-[25px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
-                PG Diploma in Documentary & Corporate Filmmaking
-              </h3>
-              <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt
-              </p>
-              <div className="self-start flex gap-2">
-                <LinkWidget href="/admission">
-                  <OrangeButtonWidget content="Apply now" />
-                </LinkWidget>
-                <LinkWidget href="/">
-                  <OrangeBorderButtonWidget content="Course Detail" />
-                </LinkWidget>
-              </div>
-            </div>
-          </>
-        )}
+          })}
       </div>
     </DialogWidget>
   );
