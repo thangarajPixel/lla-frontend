@@ -1,4 +1,5 @@
 import { getCourseBySlug } from "@/app/api/server";
+import CourseSection from "@/components/sections/courses/CourseSection";
 
 const CourseBySlug = async ({
   params,
@@ -8,8 +9,9 @@ const CourseBySlug = async ({
   const { slug } = await params;
 
   const response = await getCourseBySlug(slug);
-  console.log(response);
-  return <div>CourseBySlug</div>;
+
+  if (!response?.data) return null;
+  return <CourseSection data={response?.data} />;
 };
 
 export default CourseBySlug;
