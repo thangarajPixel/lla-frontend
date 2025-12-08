@@ -7,6 +7,7 @@ import { getLifePageData } from "@/app/api/server";
 import { Skeleton } from "@/components/ui/skeleton";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
+import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
@@ -85,12 +86,12 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
             <h3 className="text-[32px] md:text-[35px] lg:text-[40px] xl:text-[50px] 2xl:text-[60px] 3xl:text-[64px] font-regular text-black font-urbanist">
               {data.Title}
             </h3>
-            <p
+            <HTMLWidget
+              content={data.Heading}
               className="text-[16px] sm:text-[17px] md:text-[18px] lg:text-[20px] xl:text-[25px] 2xl:text-[30px] 3xl:text-[40px] font-regular font-mulish
               text-black w-full md:max-w-[600px] 3xl:max-w-[976px] 3xl:leading-[48px]"
-              // biome-ignore lint/security/noDangerouslySetInnerHtml: Content is sanitized from trusted CMS source
-              dangerouslySetInnerHTML={{ __html: data.Heading }}
-            ></p>
+              tag="p"
+            />
             <p className="text-[12px] lg:text-[14px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[750px] 3xl:max-w-[976px]">
               {data.Description}
             </p>

@@ -1,4 +1,5 @@
 import ContainerWidget from "@/components/widgets/ContainerWidget";
+import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import ImageLayout from "./ImageLayout";
 import type { CourseContentData } from "./types";
@@ -86,10 +87,10 @@ const CourseContentSection = ({ data }: { data: CourseContentData }) => {
                   {section.title}
                 </h2>
                 {section.description && (
-                  <div
+                  <HTMLWidget
+                    content={section.description}
                     className="text-[16px] lg:text-[13px] 3xl:text-[18px] font-normal text-black"
-                    // biome-ignore lint/security/noDangerouslySetInnerHtml: HTML content from trusted CMS source
-                    dangerouslySetInnerHTML={{ __html: section.description }}
+                    tag="div"
                   />
                 )}
               </div>

@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
     S3_URL: process.env.NEXT_APP_S3_URL,
   },
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "http",

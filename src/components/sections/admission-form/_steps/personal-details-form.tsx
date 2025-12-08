@@ -241,7 +241,7 @@ const PersonalDetailsForm = ({
   return (
     <FormProvider {...form_step1}>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
-        <div className="max-w-5xl mx-auto">
+        <div className="mx-auto">
           <h1 className="text-2xl 3xl:text-3xl text-[#E97451] mb-8 font-urbanist">
             Personal Details
           </h1>
@@ -498,7 +498,7 @@ const PersonalDetailsForm = ({
           </div>
         </div>
 
-        <div className="max-w-5xl mx-auto mt-12">
+        <div className="mx-auto mt-12">
           <h1 className="text-2xl 3xl:text-3xl text-[#E97451] mb-8">
             Parent/Guardian/Spouse Details
           </h1>

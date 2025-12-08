@@ -105,7 +105,7 @@ const EducationDetailsForm = ({
     <FormProvider {...form_step2}>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="space-y-12 py-8 md:px-8 bg-background max-w-4xl mx-auto"
+        className="space-y-12 py-8 bg-background mx-auto"
       >
         <EducationDetails
           admissionData={admissionData}

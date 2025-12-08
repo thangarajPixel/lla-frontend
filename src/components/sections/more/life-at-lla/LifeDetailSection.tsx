@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import Link from "next/link";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
+import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
@@ -110,10 +111,11 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
               </div>
               <div className="flex flex-col gap-4 md:gap-6">
                 {card.LongDescription && (
-                  <p
+                  <HTMLWidget
+                    content={card.LongDescription}
                     className="text-[16px] md:text-[16px] lg:text-[16px] xl:text-[16px] 2xl:text-[16px] 3xl:text-[18px] text-black leading-normal font-mulish"
-                    dangerouslySetInnerHTML={{ __html: card.LongDescription }}
-                  ></p>
+                    tag="div"
+                  />
                 )}
                 {card.LifeViewCard?.map((viewCard) => (
                   <div key={viewCard.id} className="flex flex-col gap-4">
@@ -121,12 +123,10 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                       {viewCard.Title}
                     </h3>
                     {viewCard.Description && (
-                      <div
-                        className=" text-[16px] md:text-[16px] lg:text-[16px] xl:text-[16px] 2xl:text-[16px] 3xl:text-[18px] text-black leading-normal font-mulish"
-                        // biome-ignore lint/security/noDangerouslySetInnerHtml: Content is sanitized from trusted CMS source
-                        dangerouslySetInnerHTML={{
-                          __html: viewCard.Description,
-                        }}
+                      <HTMLWidget
+                        content={viewCard.Description}
+                        className="text-[16px] md:text-[16px] lg:text-[16px] xl:text-[16px] 2xl:text-[16px] 3xl:text-[18px] text-black leading-normal font-mulish"
+                        tag="div"
                       />
                     )}
                     {viewCard.Images?.[0]?.url && (
