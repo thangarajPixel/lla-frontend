@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getEssentialsData } from "@/app/api/server";
 import { Logo, LogoBlack } from "@/helpers/ImageHelper";
 import ContainerWidget from "../widgets/ContainerWidget";
@@ -18,39 +18,7 @@ import type {
   WebHeaderResponse,
 } from "./utils/types";
 
-const menuItems: (MenuItem | DropdownMenuType)[] = [
-  {
-    label: "Courses",
-    pathPrefix: "/courses",
-    items: [
-      {
-        href: "/courses/pg-diploma-in-professional-photography-digital-production",
-        label: "PG Diploma in Professional Photography & Digital Production",
-      },
-      {
-        href: "/courses/pg-diploma-in-documentary-corporate-filmmaking",
-        label: "PG Diploma in Documentary & Corporate Filmmaking",
-      },
-    ],
-  },
-  { href: "/campus", label: "Campus" },
-  { href: "/faculty", label: "Faculty" },
-  { href: "/gallery", label: "Gallery" },
-  {
-    label: "More",
-    pathPrefix: "/more",
-    items: [
-      { href: "/more/about-us", label: "About us" },
-      { href: "/more/life-at-lla", label: "Life at LLA" },
-      { href: "/more/blogs", label: "Blog" },
-      { href: "/more/contact-us", label: "Contact Us" },
-      { href: "/more/faq", label: "FAQ" },
-    ],
-  },
-];
-
 const WebHeader = ({ response }: { response: WebHeaderResponse }) => {
-  console.log(response);
   const pathname = usePathname();
   const isHomePage = pathname === "/";
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -88,6 +56,39 @@ const WebHeader = ({ response }: { response: WebHeaderResponse }) => {
     };
     getAdmissionData();
   }, []);
+
+  const menuItems: (MenuItem | DropdownMenuType)[] = useMemo(() => {
+    const courseItems: MenuItem[] = response.course.map((course) => ({
+      href: `/courses/${course.Slug}`,
+      label: course.Name,
+    }));
+
+    return [
+      ...(courseItems.length > 0
+        ? [
+            {
+              label: "Courses",
+              pathPrefix: "/courses",
+              items: courseItems,
+            },
+          ]
+        : []),
+      { href: "/campus", label: "Campus" },
+      { href: "/faculty", label: "Faculty" },
+      { href: "/gallery", label: "Gallery" },
+      {
+        label: "More",
+        pathPrefix: "/more",
+        items: [
+          { href: "/more/about-us", label: "About us" },
+          { href: "/more/life-at-lla", label: "Life at LLA" },
+          { href: "/more/blogs", label: "Blog" },
+          { href: "/more/contact-us", label: "Contact Us" },
+          { href: "/more/faq", label: "FAQ" },
+        ],
+      },
+    ];
+  }, [response.course]);
 
   const isDropdown = (
     item: MenuItem | DropdownMenuType,
