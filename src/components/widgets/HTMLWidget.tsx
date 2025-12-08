@@ -33,9 +33,11 @@ const HTMLWidget = ({
       "div",
       "blockquote",
       "img",
+      "iframe",
     ],
     allowedAttributes: {
       a: ["href", "target", "rel"],
+      iframe: ["src", "width", "height", "frameborder", "allow", "allowfullscreen", "title"],
       img: ["src", "alt", "width", "height"],
       span: ["style", "class"],
       div: ["style", "class"],
