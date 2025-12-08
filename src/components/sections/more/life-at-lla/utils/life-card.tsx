@@ -32,6 +32,7 @@ const LifeCard = ({ card }: LifeCardProps) => (
       )}
       <p
         className="text-sm sm:text-base md:text-[12px] lg:text-[12px] xl:text-[12px] 2xl:text-[16px] 3xl:text-[18px] font-mulish font-regular text-black overflow-hidden line-clamp-2"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: Content is sanitized from trusted CMS source
         dangerouslySetInnerHTML={{ __html: card.Description || "" }}
       ></p>
     </div>

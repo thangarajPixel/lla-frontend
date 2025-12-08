@@ -19,6 +19,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 
 const DISPLAY_FORMAT = "dd-MM-yyyy";
 const STORE_FORMAT = "yyyy-MM-dd";
@@ -71,8 +72,8 @@ const FormDatePickerWithInput = <T extends FieldValues>({
   const formatTypedDate = (raw: string) => {
     let digits = raw.replace(/[^0-9]/g, "");
 
-    if (digits.length > 2) digits = digits.slice(0, 2) + "-" + digits.slice(2);
-    if (digits.length > 5) digits = digits.slice(0, 5) + "-" + digits.slice(5);
+    if (digits.length > 2) digits = `${digits.slice(0, 2)}-${digits.slice(2)}`;
+    if (digits.length > 5) digits = `${digits.slice(0, 5)}-${digits.slice(5)}`;
     if (digits.length > 10) digits = digits.slice(0, 10);
 
     return digits;
@@ -94,7 +95,7 @@ const FormDatePickerWithInput = <T extends FieldValues>({
           value={inputValue}
           placeholder={placeholder}
           disabled={disabled}
-          className={`${className} bg-background pr-0 w-full`}
+          className={cn("bg-background pr-0 w-full", className)}
           inputClassName="w-full flex-1"
           maxLength={10}
           onChange={(e) => {

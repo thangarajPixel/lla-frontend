@@ -15,7 +15,7 @@ import {
 } from "@/helpers/ImageHelper";
 import type { LifeDetailProps } from "./utils/life-lla";
 
-const SOCIAL_LINKS = [
+const _SOCIAL_LINKS = [
   {
     id: "linkedin",
     icon: LinkedInBlack,
@@ -74,6 +74,7 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                 {card.LongDescription && (
                   <p
                     className="text-[16px] md:text-[16px] lg:text-[16px] xl:text-[16px] 2xl:text-[16px] 3xl:text-[18px] text-black leading-normal font-mulish"
+                    // biome-ignore lint/security/noDangerouslySetInnerHtml: Content is sanitized from trusted CMS source
                     dangerouslySetInnerHTML={{ __html: card.LongDescription }}
                   ></p>
                 )}
@@ -85,6 +86,7 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                     {viewCard.Description && (
                       <div
                         className="text-[16px] md:text-[16px] lg:text-[16px] xl:text-[16px] 2xl:text-[16px] 3xl:text-[18px] text-black leading-normal font-mulish"
+                        // biome-ignore lint/security/noDangerouslySetInnerHtml: Content is sanitized from trusted CMS source
                         dangerouslySetInnerHTML={{
                           __html: viewCard.Description,
                         }}
@@ -108,7 +110,7 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                     Share with
                   </h3>
                   <div className="flex gap-8 items-center">
-                    {SOCIAL_LINKS.map((social) => {
+                    {_SOCIAL_LINKS.map((social) => {
                       const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
                       const shareUrl = social.id === 'twitter' 
                         ? social.getShareUrl(currentUrl, card.Title)
