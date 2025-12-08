@@ -65,6 +65,12 @@ export type CourseItem = {
   locale: string | null;
 };
 
+export type LogoItem = {
+  id: number;
+  name: string;
+  url: string;
+};
+
 export type WebHeaderResponse = {
   id: number;
   documentId: string;
@@ -76,7 +82,7 @@ export type WebHeaderResponse = {
   Btn_txt: string;
   Copy_right_txt: string;
   Location: string | null;
-  Logo: unknown | null;
+  Logo: LogoItem[] | null;
   Icon: unknown | null;
   course: CourseItem[];
 };

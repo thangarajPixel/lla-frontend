@@ -18,7 +18,7 @@ import type {
   WebHeaderResponse,
 } from "./utils/types";
 
-const WebHeader = ({ response }: { response: WebHeaderResponse }) => {
+const WebHeader = ({ response }: { response: WebHeaderResponse | undefined }) => {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -58,6 +58,25 @@ const WebHeader = ({ response }: { response: WebHeaderResponse }) => {
   }, []);
 
   const menuItems: (MenuItem | DropdownMenuType)[] = useMemo(() => {
+    if (!response?.course || !Array.isArray(response.course)) {
+      return [
+        { href: "/campus", label: "Campus" },
+        { href: "/faculty", label: "Faculty" },
+        { href: "/gallery", label: "Gallery" },
+        {
+          label: "More",
+          pathPrefix: "/more",
+          items: [
+            { href: "/more/about-us", label: "About us" },
+            { href: "/more/life-at-lla", label: "Life at LLA" },
+            { href: "/more/blogs", label: "Blog" },
+            { href: "/more/contact-us", label: "Contact Us" },
+            { href: "/more/faq", label: "FAQ" },
+          ],
+        },
+      ];
+    }
+
     const courseItems: MenuItem[] = response.course.map((course) => ({
       href: `/courses/${course.Slug}`,
       label: course.Name,

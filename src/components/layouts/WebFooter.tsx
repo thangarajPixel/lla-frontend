@@ -1,20 +1,20 @@
+import { useMemo } from "react";
 import {
   Facebook,
   FooterBg,
   FooterLogo,
   Instagram,
-  IQAC,
   LinkedIn,
-  LlaOnline,
-  LlaOutreach,
   Location,
   Twitter,
 } from "@/helpers/ImageHelper";
+import { getS3Url } from "@/helpers/ConstantHelper";
 import BackdropWidget from "../widgets/BackdropWidget";
 import ContainerWidget from "../widgets/ContainerWidget";
 import ImageWidget from "../widgets/ImageWidget";
 import LinkWidget from "../widgets/LinkWidget";
 import OrangeButtonWidget from "../widgets/OrangeButtonWidget";
+import { WebHeaderResponse } from "../layouts/utils/types";
 
 const SOCIAL_LINKS = [
   {
@@ -50,19 +50,6 @@ const QUICK_LINKS = [
   { id: "faculty", href: "/faculty", label: "Faculty" },
   { id: "gallery", href: "/gallery", label: "Gallery" },
   { id: "contact", href: "/more/contact-us", label: "Contact Us" },
-];
-
-const COURSES = [
-  {
-    id: "photography-diploma",
-    href: "/courses/pg-diploma-in-professional-photography-digital-production",
-    label: "PG Diploma in Professional Photography & Digital Production",
-  },
-  {
-    id: "filmmaking-diploma",
-    href: "/courses/pg-diploma-in-documentary-corporate-filmmaking",
-    label: "PG Diploma in Documentary & Corporate Filmmaking",
-  },
 ];
 
 const RESOURCES = [
@@ -115,7 +102,38 @@ const FooterSection = ({
   </div>
 );
 
-const WebFooter = () => {
+const WebFooter = ({ response }: { response: WebHeaderResponse | undefined }) => {
+  if (!response) return null;
+
+  const {
+    Title,
+    Description,
+    Btn_txt,
+    Copy_right_txt,
+    course,
+    Logo
+  } = response;
+
+  const COURSES = useMemo(() => {
+    if (!course || !Array.isArray(course) || course.length === 0) return [];
+    return course.map((courseItem) => ({
+      id: courseItem.documentId,
+      href: `/courses/${courseItem.Slug}`,
+      label: courseItem.Name,
+    }));
+  }, [course]);
+
+  const logos = useMemo(() => {
+    if (!Logo || !Array.isArray(Logo) || Logo.length === 0) return [];
+    return Logo.map((item) => ({
+      id: item.id,
+      name: item.name,
+      url: getS3Url(item.url),
+    }));
+  }, [Logo]);
+
+  console.log(response);
+
   return (
     <footer
       className="relative z-40  w-full bg-cover bg-bottom bg-no-repeat min-h-[1950px] md:min-h-[1070px] bg-black text-white py-8 md:py-12 lg:py-22"
@@ -125,13 +143,12 @@ const WebFooter = () => {
       <ContainerWidget>
         <div className="flex flex-col items-start justify-start gap-5 md:gap-6">
           <h2 className="text-[32px] md:text-[40px] lg:text-[50px] 3xl:text-[56px] font-normal font-urbanist leading-10">
-            Let Your Passion Shine Through
+            {Title}
           </h2>
           <p className={`${linkTextClass} max-w-full md:max-w-[550px]`}>
-            Step into a world where every click, every frame, and every
-            flashlight is the path to your creative future.
+           {Description}
           </p>
-          <OrangeButtonWidget content="Capture Your Path" />
+          <OrangeButtonWidget content={Btn_txt} />
           <div className={dividerClass} />
 
           <div className="flex flex-col md:flex-row gap-8 md:gap-5 py-3 pb-0 w-full">
@@ -186,11 +203,13 @@ const WebFooter = () => {
                   links={QUICK_LINKS}
                   className="flex-1"
                 />
-                <FooterSection
-                  title="Courses"
-                  links={COURSES}
-                  className="flex-1"
-                />
+                {COURSES.length > 0 && (
+                  <FooterSection
+                    title="Courses"
+                    links={COURSES}
+                    className="flex-1"
+                  />
+                )}
               </div>
             </div>
 
@@ -199,11 +218,13 @@ const WebFooter = () => {
               links={QUICK_LINKS}
               className="hidden md:flex md:min-w-[250px]"
             />
-            <FooterSection
-              title="Courses"
-              links={COURSES}
-              className="hidden md:flex"
-            />
+            {COURSES.length > 0 && (
+              <FooterSection
+                title="Courses"
+                links={COURSES}
+                className="hidden md:flex"
+              />
+            )}
             <FooterSection
               title="Resources"
               links={RESOURCES}
@@ -213,30 +234,20 @@ const WebFooter = () => {
 
           <div className={dividerClass} />
 
-          <div className="flex flex-wrap sm:flex-nowrap items-start sm:items-center justify-center sm:justify-start gap-4 sm:gap-6 md:gap-23 py-3 pb-1 w-full">
-            <ImageWidget
-              src={LlaOutreach}
-              alt="LlaOutreach"
-              className="w-40 md:w-60 3xl:w-[262.46px] 3xl:h-[63.95px] h-auto"
-            />
-            <ImageWidget
-              src={IQAC}
-              alt="IQAC"
-              className="w-24 md:w-30 h-auto 3xl:w-[146.66px] 3xl:h-[74.06px]"
-            />
-            <div className="w-full sm:hidden flex justify-center">
-              <ImageWidget
-                src={LlaOnline}
-                alt="LlaOnline"
-                className="w-36 md:w-50 h-auto 3xl:w-[252.9px] 3xl:h-[74.92px]"
-              />
+          {logos.length > 0 && (
+            <div className="flex flex-wrap sm:flex-nowrap items-start sm:items-center justify-center sm:justify-start gap-4 sm:gap-6 md:gap-23 py-3 pb-1 w-full">
+              {logos.map((logo) => (
+                <ImageWidget
+                  key={logo.id}
+                  src={logo.url}
+                  alt={logo.name}
+                  width={162.46}
+                  height={63.95}
+                  className="w-[200px] h-[68px]"
+                />
+              ))}
             </div>
-            <ImageWidget
-              src={LlaOnline}
-              alt="LlaOnline"
-              className="hidden sm:block w-36 md:w-50 h-auto 3xl:w-[252.9px] 3xl:h-[74.92px]"
-            />
-          </div>
+          )}
 
           <div className="block md:hidden">
             <div className={dividerClass} />
@@ -245,8 +256,7 @@ const WebFooter = () => {
           <p
             className={`text-center md:text-left ${linkTextClass} max-w-full md:max-w-[350px]`}
           >
-            © {new Date().getFullYear()} Light & Life Academy, Premier College
-            for Professional Photography in India. All rights reserved.
+            © {new Date().getFullYear()} {Copy_right_txt}
           </p>
         </div>
       </ContainerWidget>

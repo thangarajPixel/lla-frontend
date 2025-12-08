@@ -49,7 +49,7 @@ export default async function RootLayout({
           <WebHeader response={response?.data} />
           <Toaster position="top-right" expand richColors />
           <MainContent>{children}</MainContent>
-          <WebFooter />
+          <WebFooter response={response?.data} />
         </SmoothScrollWidget>
       </body>
     </html>
