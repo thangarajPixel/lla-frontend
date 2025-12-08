@@ -150,7 +150,7 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
   return (
     <FormProvider {...form_step3}>
       <form onSubmit={handleSubmit(onSubmit)} className="bg-background p-8">
-        <div className="max-w-7xl mx-auto">
+        <div className="mx-auto">
           <h1 className="text-2xl text-[#E97451] font-urbanist mb-8">
             Upload Your Portfolio
           </h1>
@@ -192,7 +192,7 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
                 router.push(`/admission/${admissionId}/education-details`)
               }
               className={cn(
-                "px-6 py-2 text-[12px] bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50",
+                "px-6 py-2 3xl:px-12 3xl:py-6 3xl:h-12 bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
               )}
             >
               Back
