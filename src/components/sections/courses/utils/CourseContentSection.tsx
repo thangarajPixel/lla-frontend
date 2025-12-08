@@ -21,7 +21,7 @@ const parseDuration = (
 };
 
 const CourseContentSection = ({ data }: { data: CourseContentData }) => {
-  console.log(data);
+
   const durationParts = parseDuration(data.Duration ?? "");
   const headerData = {
     __component: "other-info-section",
