@@ -103,7 +103,7 @@ const CourseContentSection = ({ data }: { data: CourseContentData }) => {
                 {section.description && (
                   <HTMLWidget
                     content={section.description}
-                    className="text-[16px] lg:text-[13px] 3xl:text-[18px] font-normal text-black"
+                    className="text-[16px] lg:text-[13px] 3xl:text-[18px] font-normal"
                     tag="div"
                   />
                 )}
