@@ -22,6 +22,7 @@ export type MenuData = {
   Description: DescriptionParagraph[];
   Btn_txt: string | null;
   SubTitle: string | null;
+  Duration: string | null;
   Image: ImageData[] | null;
 };
 
