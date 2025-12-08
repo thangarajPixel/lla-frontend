@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
@@ -53,6 +54,8 @@ const SOCIAL_LINKS = [
 
 const LifeDetailSection = ({ data }: LifeDetailProps) => {
   const { card, latest } = data;
+
+  const router = useRouter();
   return (
     <section className="w-full bg-white min-h-screen py-8 sm:py-10 md:py-12 lg:py-16 xl:py-10 2xl:py-14 3xl:py-18">
       <ContainerWidget>
@@ -161,7 +164,7 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                           <OrangeButtonWidget
                             content="Read More"
                             onClick={() =>
-                              (window.location.href = `/more/life-at-lla/${post.Slug}`)
+                              router.push(`/more/life-at-lla/${post.Slug}`)
                             }
                             className="text-sm bg-white text-[#E97451] border border-[#E97451] hover:bg-[#E97451] hover:text-white"
                           />

@@ -82,50 +82,50 @@ const AdmissionButton = ({
       }
     >
       <div className="flex flex-col md:flex-row gap-5 h-[420px] overflow-y-auto md:h-auto">
-        {data &&
-          data.length > 0 &&
-          data.map((card, index) => {
-            const images = card?.Image || [];
-            const imageIndex = imageIndices[index] ?? 0;
-            const selectedImage = images[imageIndex];
-            const imageUrl = selectedImage?.url
-              ? getS3Url(selectedImage.url)
-              : undefined;
+        {data && data.length > 0
+          ? data.map((card, index) => {
+              const images = card?.Image || [];
+              const imageIndex = imageIndices[index] ?? 0;
+              const selectedImage = images[imageIndex];
+              const imageUrl = selectedImage?.url
+                ? getS3Url(selectedImage.url)
+                : undefined;
 
-            return (
-              <div
-                key={card.id || index}
-                className="flex-1 flex flex-col gap-3 sm:gap-4"
-              >
-                {imageUrl && (
-                  <div className="relative w-full aspect-4/3 overflow-hidden">
-                    <ImageWidget
-                      src={imageUrl}
-                      alt={card.Title || `Course ${index + 1}`}
-                      fill
-                      className="object-cover"
-                    />
+              return (
+                <div
+                  key={card.id || index}
+                  className="flex-1 flex flex-col gap-3 sm:gap-4"
+                >
+                  {imageUrl && (
+                    <div className="relative w-full aspect-4/3 overflow-hidden">
+                      <ImageWidget
+                        src={imageUrl}
+                        alt={card.Title || `Course ${index + 1}`}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
+                  <h3 className="text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[24px] 3xl:text-[25px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
+                    {card.Title}
+                  </h3>
+                  <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
+                    {card.Description}
+                  </p>
+                  <div className="self-start flex gap-2">
+                    <LinkWidget href="/admission">
+                      <OrangeButtonWidget content="Apply now" />
+                    </LinkWidget>
+                    <LinkWidget href="/">
+                      <OrangeBorderButtonWidget
+                        content={card.Btn_txt || "Course Detail"}
+                      />
+                    </LinkWidget>
                   </div>
-                )}
-                <h3 className="text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[24px] 3xl:text-[25px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
-                  {card.Title}
-                </h3>
-                <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
-                  {card.Description}
-                </p>
-                <div className="self-start flex gap-2">
-                  <LinkWidget href="/admission">
-                    <OrangeButtonWidget content="Apply now" />
-                  </LinkWidget>
-                  <LinkWidget href="/">
-                    <OrangeBorderButtonWidget
-                      content={card.Btn_txt || "Course Detail"}
-                    />
-                  </LinkWidget>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })
+          : null}
       </div>
     </DialogWidget>
   );
