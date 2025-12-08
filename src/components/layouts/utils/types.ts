@@ -71,6 +71,13 @@ export type LogoItem = {
   url: string;
 };
 
+export type IconItem = {
+  id: number;
+  name: string;
+  url: string;
+  href?: string;
+};
+
 export type WebHeaderResponse = {
   id: number;
   documentId: string;
@@ -83,6 +90,6 @@ export type WebHeaderResponse = {
   Copy_right_txt: string;
   Location: string | null;
   Logo: LogoItem[] | null;
-  Icon: unknown | null;
+  Icon: IconItem[] | null;
   course: CourseItem[];
 };

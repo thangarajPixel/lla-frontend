@@ -1,47 +1,16 @@
 import { useMemo } from "react";
+import { getS3Url } from "@/helpers/ConstantHelper";
 import {
-  Facebook,
   FooterBg,
   FooterLogo,
-  Instagram,
-  LinkedIn,
-  Location,
-  Twitter,
+  Location as LocationIcon,
 } from "@/helpers/ImageHelper";
-import { getS3Url } from "@/helpers/ConstantHelper";
+import type { WebHeaderResponse } from "../layouts/utils/types";
 import BackdropWidget from "../widgets/BackdropWidget";
 import ContainerWidget from "../widgets/ContainerWidget";
 import ImageWidget from "../widgets/ImageWidget";
 import LinkWidget from "../widgets/LinkWidget";
 import OrangeButtonWidget from "../widgets/OrangeButtonWidget";
-import { WebHeaderResponse } from "../layouts/utils/types";
-
-const SOCIAL_LINKS = [
-  {
-    id: "facebook",
-    href: "https://www.facebook.com/lightandlifeacademy",
-    icon: Facebook,
-    alt: "Facebook",
-  },
-  {
-    id: "twitter",
-    href: "https://www.twitter.com/lightandlifeacademy",
-    icon: Twitter,
-    alt: "Twitter",
-  },
-  {
-    id: "instagram",
-    href: "https://www.instagram.com/lightandlifeacademy",
-    icon: Instagram,
-    alt: "Instagram",
-  },
-  {
-    id: "linkedin",
-    href: "https://www.linkedin.com/company/lightandlifeacademy",
-    icon: LinkedIn,
-    alt: "LinkedIn",
-  },
-];
 
 const QUICK_LINKS = [
   { id: "home", href: "/", label: "Home" },
@@ -55,12 +24,6 @@ const QUICK_LINKS = [
 const RESOURCES = [
   { id: "blog", href: "/", label: "Blog" },
   { id: "faq", href: "/", label: "FAQ's" },
-];
-
-const ADDRESS_LINES = [
-  { id: "address-line-1", text: "Light & Life Academy," },
-  { id: "address-line-2", text: "Lovedale, Ooty," },
-  { id: "address-line-3", text: "Tamil Nadu - 643 003." },
 ];
 
 const linkTextClass =
@@ -102,37 +65,61 @@ const FooterSection = ({
   </div>
 );
 
-const WebFooter = ({ response }: { response: WebHeaderResponse | undefined }) => {
-  if (!response) return null;
-
-  const {
-    Title,
-    Description,
-    Btn_txt,
-    Copy_right_txt,
-    course,
-    Logo
-  } = response;
-
+const WebFooter = ({
+  response,
+}: {
+  response: WebHeaderResponse | undefined;
+}) => {
   const COURSES = useMemo(() => {
-    if (!course || !Array.isArray(course) || course.length === 0) return [];
-    return course.map((courseItem) => ({
+    if (
+      !response?.course ||
+      !Array.isArray(response.course) ||
+      response.course.length === 0
+    )
+      return [];
+    return response.course.map((courseItem) => ({
       id: courseItem.documentId,
       href: `/courses/${courseItem.Slug}`,
       label: courseItem.Name,
     }));
-  }, [course]);
+  }, [response?.course]);
 
   const logos = useMemo(() => {
-    if (!Logo || !Array.isArray(Logo) || Logo.length === 0) return [];
-    return Logo.map((item) => ({
+    if (
+      !response?.Logo ||
+      !Array.isArray(response.Logo) ||
+      response.Logo.length === 0
+    )
+      return [];
+    return response.Logo.map((item) => ({
       id: item.id,
       name: item.name,
       url: getS3Url(item.url),
     }));
-  }, [Logo]);
+  }, [response?.Logo]);
 
-  console.log(response);
+  const socialLinks = useMemo(() => {
+    if (
+      !response?.Icon ||
+      !Array.isArray(response.Icon) ||
+      response.Icon.length === 0
+    )
+      return [];
+    return response.Icon.map((item) => {
+      const iconName = item.name.toLowerCase().replace(".svg", "");
+      return {
+        id: item.id,
+        name: item.name,
+        url: getS3Url(item.url),
+        href: item.href || "#",
+        alt: iconName.charAt(0).toUpperCase() + iconName.slice(1),
+      };
+    });
+  }, [response?.Icon]);
+
+  if (!response) return null;
+
+  const { Title, Description, Btn_txt, Copy_right_txt, Location } = response;
 
   return (
     <footer
@@ -146,7 +133,7 @@ const WebFooter = ({ response }: { response: WebHeaderResponse | undefined }) =>
             {Title}
           </h2>
           <p className={`${linkTextClass} max-w-full md:max-w-[550px]`}>
-           {Description}
+            {Description}
           </p>
           <OrangeButtonWidget content={Btn_txt} />
           <div className={dividerClass} />
@@ -162,22 +149,25 @@ const WebFooter = ({ response }: { response: WebHeaderResponse | undefined }) =>
               <div className="flex flex-row items-start justify-start gap-6">
                 <div className="flex flex-row gap-2">
                   <ImageWidget
-                    src={Location}
+                    src={LocationIcon}
                     alt="Location"
                     className="w-6 h-5 md:w-7 md:h-6"
                   />
-                  <div>
-                    {ADDRESS_LINES.map((addressLine) => (
-                      <p key={addressLine.id} className={linkTextClass}>
-                        {addressLine.text}
-                      </p>
-                    ))}
-                  </div>
+                  {Location && (
+                    <p
+                      suppressHydrationWarning
+                      // biome-ignore lint/security/noDangerouslySetInnerHtml: Content is sanitized from trusted CMS source
+                      dangerouslySetInnerHTML={{
+                        __html: Location || "",
+                      }}
+                      className="mt-[-2px]"
+                    />
+                  )}
                 </div>
               </div>
 
               <ul className="flex items-center justify-start gap-4 md:gap-6">
-                {SOCIAL_LINKS.map((socialLink) => (
+                {socialLinks.map((socialLink) => (
                   <li key={socialLink.id}>
                     <LinkWidget
                       href={socialLink.href}
@@ -185,8 +175,10 @@ const WebFooter = ({ response }: { response: WebHeaderResponse | undefined }) =>
                       className="hover:opacity-70 transition-opacity duration-300"
                     >
                       <ImageWidget
-                        src={socialLink.icon}
+                        src={socialLink.url}
                         alt={socialLink.alt}
+                        width={28}
+                        height={28}
                         className="w-6 h-5 md:w-7 md:h-6"
                       />
                     </LinkWidget>
@@ -243,7 +235,7 @@ const WebFooter = ({ response }: { response: WebHeaderResponse | undefined }) =>
                   alt={logo.name}
                   width={162.46}
                   height={63.95}
-                  className="w-[200px] h-[68px]"
+                  className="w-auto h-[62px] xss:w-[162.46px] xss:h-[63.95px] sm:w-auto sm:h-[62px]"
                 />
               ))}
             </div>

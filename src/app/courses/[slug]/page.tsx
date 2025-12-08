@@ -1,6 +1,10 @@
 import { getCourseBySlug } from "@/app/api/server";
 
-const CourseBySlug = async ({ params }: { params: Promise<{ slug: string }> }) => {
+const CourseBySlug = async ({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) => {
   const { slug } = await params;
 
   const response = await getCourseBySlug(slug);

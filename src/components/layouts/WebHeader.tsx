@@ -18,7 +18,11 @@ import type {
   WebHeaderResponse,
 } from "./utils/types";
 
-const WebHeader = ({ response }: { response: WebHeaderResponse | undefined }) => {
+const WebHeader = ({
+  response,
+}: {
+  response: WebHeaderResponse | undefined;
+}) => {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
