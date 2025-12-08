@@ -222,11 +222,7 @@ const ReviewApplication = ({
                 value={admissionData?.date_of_birth}
               />
               <Field label="Blood Group" value={admissionData?.blood_group} />
-              <Field
-                label="Address"
-                // value={admissionData?.address[0]?.children[0]?.text ?? ""}
-                value={fullAddress}
-              />
+              <Field label="Address" value={fullAddress} />
               <LanguageField
                 label={"Language & Proficiency:"}
                 value={
@@ -260,14 +256,7 @@ const ReviewApplication = ({
                 label="Contact"
                 value={admissionData?.Parent_Guardian_Spouse_Details?.mobile_no}
               />
-              <Field
-                label="Address"
-                // value={
-                //   admissionData?.Parent_Guardian_Spouse_Details?.address[0]
-                //     ?.children[0]?.text ?? ""
-                // }
-                value={parentFullAddress}
-              />
+              <Field label="Address" value={parentFullAddress} />
             </Section>
 
             <Section
@@ -301,10 +290,7 @@ const ReviewApplication = ({
               }
               className="text-base 3xl:text-2xl"
             >
-              <div
-                // className="flex flex-row flex-wrap items-center justify-between"
-                className="grid grid-cols-1 md:grid-cols-4 gap-4"
-              >
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <section className="md:col-span-2">
                   <span className="text-black/50 text-base 3xl:text-2xl">
                     Degree
@@ -359,7 +345,6 @@ const ReviewApplication = ({
               {admissionData?.Post_Graduate?.map((degree, index) => (
                 <div
                   key={`post-graduate-${index + 1}`}
-                  // className="flex flex-row items-center justify-between"
                   className="grid grid-cols-1 md:grid-cols-4 gap-4"
                 >
                   <section className="md:col-span-2">
@@ -414,12 +399,32 @@ const ReviewApplication = ({
               {admissionData?.Work_Experience?.map((experience) => (
                 <div
                   key={experience?.id}
-                  // className="flex flex-row items-center justify-between"
                   className="grid grid-cols-1 md:grid-cols-5 gap-2"
                 >
                   <section className="md:col-span-2">
                     <span className="text-black/50 text-base 3xl:text-2xl">
                       Role/Designation
+                    </span>
+                    <p className="text-black text-lg  3xl:text-2xl">
+                      {experience?.designation ?? "-"}
+                    </p>
+                  </section>
+
+                  <section className="md:col-span-2">
+                    <span className="text-black/50 text-base 3xl:text-2xl">
+                      Employer
+                    </span>
+                    <p className="text-black text-lg  3xl:text-2xl">
+                      {experience?.employer ?? "-"}
+                    </p>
+                  </section>
+
+                  <section className="md:col-span-1">
+                    <span className="text-black/50 text-base 3xl:text-2xl">
+                      Duration
+                    </span>
+                    <span className="text-black text-base font-medium md:text-sm flex flex-wrap 3xl:text-[22px]">
+                      {`${experience?.duration_start?.split("-")?.reverse()?.join("-")} to ${experience?.duration_end?.split("-")?.reverse()?.join("-")}`}
                     </span>
                     <p className="text-black text-lg  3xl:text-2xl">
                       {experience?.designation ?? "-"}

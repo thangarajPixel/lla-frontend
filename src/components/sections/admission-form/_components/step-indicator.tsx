@@ -12,8 +12,6 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
     "Upload Your Portfolio",
   ];
 
-  const total_Steps = 3;
-
   return (
     <section className="mx-auto">
       <div className="flex items-center justify-between">
@@ -39,29 +37,29 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
         })}
       </div>
 
-      <div className="flex items-center justify-between">
-        {Array.from({ length: totalSteps }).map((_, index) => (
-          <div key={`step-${index + 1}`} className="flex items-center">
-            <div
+      <div className="flex items-center justify-start w-full">
+        {Array.from({ length: 5 }).map((_, index) => {
+          const isCircle = index % 2 === 0;
+          const circleNumber = Math.floor(index / 2) + 1;
+
+          let isActive = false;
+
+          if (isCircle) {
+            isActive = currentStep >= circleNumber;
+          } else {
+            isActive = currentStep > circleNumber;
+          }
+
+          return (
+            <section
+              key={`step-indicator-${index + 1}`}
               className={cn(
-                "w-4 h-4 rounded-full transition-all duration-300 ease-in-out",
-                index + 1 <= currentStep ? "bg-green-500" : "bg-primary/30",
-                index + 1 < currentStep && "bg-green-500",
+                isCircle ? "h-4 w-4 rounded-full" : "h-0.5 xl:h-1 flex-1",
+                isActive ? "bg-green-500" : "bg-primary/30",
               )}
             />
-            {index < total_Steps - 1 && (
-              <div
-                className={cn(
-                  // "w-32 xs:w-48 sm:w-60 md:w-80 min-w-[900px]:w-96 lg:w-64 xl:w-80 2xl:w-[400px] h-0.5",
-                  // "w-32 s:w-24 xs:w-48 sm:w-60 lg:w-80 h-0.5 3xl:w-[380px]",
-                  "w-32 s:w-24 xs:w-48 sm:w-60 lg:w-80 h-0.5 3xl:w-full flex-1",
-                  // "flex flex-1 h-0.5",
-                  index + 1 < currentStep ? "bg-green-500" : "bg-primary/30",
-                )}
-              />
-            )}
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <div className="flex items-center justify-between">
@@ -86,17 +84,6 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
           );
         })}
       </div>
-
-      {/* <div className="flex flex-row items-center justify-start">
-        <section className="h-4 w-4 bg-red-400"></section>
-        <section
-          className="h-0.5 w-4 bg-red-400 flex-1"
-        >
-        </section>
-        <section className="h-4 w-4 bg-red-400"></section>
-        <section className="h-0.5 bg-red-400 flex-1"></section>
-        <section className="h-4 w-4 bg-red-400"></section>
-      </div> */}
     </section>
   );
 }
