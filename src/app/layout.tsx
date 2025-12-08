@@ -1,13 +1,13 @@
 export const dynamic = "force-dynamic";
 
-import MainContent from "@/components/layouts/utils/MainContent";
-import WebFooter from "@/components/layouts/WebFooter";
-import WebHeader from "@/components/layouts/WebHeader";
-import SmoothScrollWidget from "@/components/widgets/SmoothScrollWidget";
 import type { Metadata } from "next";
 import { Mulish, Urbanist } from "next/font/google";
 import localFont from "next/font/local";
 import { Toaster } from "sonner";
+import MainContent from "@/components/layouts/utils/MainContent";
+import WebFooter from "@/components/layouts/WebFooter";
+import WebHeader from "@/components/layouts/WebHeader";
+import SmoothScrollWidget from "@/components/widgets/SmoothScrollWidget";
 import { getFooterData } from "./api/server";
 import "./globals.css";
 
@@ -39,7 +39,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   const response = await getFooterData();
   return (
     <html lang="en" suppressHydrationWarning>

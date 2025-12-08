@@ -50,7 +50,6 @@ const menuItems: (MenuItem | DropdownMenuType)[] = [
 ];
 
 const WebHeader = ({ response }: { response: WebHeaderResponse }) => {
-
   console.log(response);
   const pathname = usePathname();
   const isHomePage = pathname === "/";
