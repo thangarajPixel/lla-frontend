@@ -16,16 +16,7 @@ import { ArrowRight, Into } from "@/helpers/ImageHelper";
 import ButtonWidget from "../../widgets/ButtonWidget";
 import ImageWidget from "../../widgets/ImageWidget";
 import type { AdmissionButtonProps } from "./types";
-
-const contactSchema = z.object({
-  firstName: z.string().min(1, "First name is required"),
-  lastName: z.string().optional(),
-  email: z.string().email("Invalid email address"),
-  phone: z.string().min(10, "Phone number must be at least 10 digits"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
-});
-
-type ContactFormData = z.infer<typeof contactSchema>;
+import { ContactFormData, contactSchema } from "@/components/sections/more/contact/ContactSection";
 
 const AdmissionRequestButton = ({
   className = "",
@@ -43,20 +34,33 @@ const AdmissionRequestButton = ({
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      message: "",
+      FirstName: "",
+      LastName: "",
+      Mobile: "",
+      Email: "",
+      Message: "",
     },
   });
 
   const onSubmit = async (payload: ContactFormData) => {
     const filteredData = filteredPayload(payload);
 
+    const isExistingEmailCheck = await clientAxios.post(`/admissions/email/check`, {
+      email: payload.Email,
+    });
+
+    const isExistingEmail = isExistingEmailCheck?.data;
+
+    if (isExistingEmail?.exists) {
+      toast.error(`${isExistingEmail.message} & please try with new email`, {
+        position: "bottom-right",
+      });
+      return;
+    }
+
     const data = {
       ...filteredData,
-      Type: "Contact Us",
+      Type: "Request Information",
     };
     try {
       const res = await clientAxios.post(`/contacts`, { data: data });
@@ -64,6 +68,7 @@ const AdmissionRequestButton = ({
       console.log(resData, "resData");
       toast.success("Message sent successfully!");
       reset();
+      setIsOpen(false);
     } catch (_error) {
       toast.error("Failed to send message. Please try again.");
     }
@@ -113,13 +118,13 @@ const AdmissionRequestButton = ({
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="grid grid-cols-2 gap-4">
             <FormInput
-              name="firstName"
+              name="FirstName"
               control={control}
               placeholder="First Name"
               label="First Name"
             />
             <FormInput
-              name="lastName"
+              name="LastName"
               control={control}
               label="Last Name"
               placeholder="Last Name"
@@ -129,14 +134,14 @@ const AdmissionRequestButton = ({
 
           <div className="grid grid-cols-2 gap-4">
             <FormInput
-              name="email"
+              name="Email"
               control={control}
               type="email"
               placeholder="Enter your email"
               label="Email"
             />
             <FormInput
-              name="phone"
+              name="Mobile"
               control={control}
               type="tel"
               placeholder="Enter your phone number"
@@ -152,14 +157,14 @@ const AdmissionRequestButton = ({
               Message<span className="text-chart-1">*</span>
             </label>
             <textarea
-              {...register("message")}
+              {...register("Message")}
               placeholder="Message"
               rows={6}
               className="flex w-full rounded-2xl border border-[#BDBDBD] bg-background px-4 py-3 text-base placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-0 focus-visible:border-chart-1/50 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
             />
-            {errors.message && (
+            {errors.Message && (
               <p className="text-danger text-sm text-red-500">
-                {errors.message.message}
+                {errors.Message.message}
               </p>
             )}
           </div>

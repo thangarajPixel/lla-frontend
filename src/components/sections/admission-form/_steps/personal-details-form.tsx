@@ -23,6 +23,8 @@ import {
   updateAdmission,
 } from "@/store/services/global-services";
 import AddressFields from "../_components/address-fields";
+import { clientAxios } from "@/helpers/AxiosHelper";
+import { toast } from "sonner";
 
 export type PersonalDetailsSchema = z.infer<typeof personalDetailsSchema>;
 
@@ -62,16 +64,16 @@ const PersonalDetailsForm = ({
           type: child.type,
         })),
       })) ?? [
-        {
-          type: "paragraph",
-          children: [
-            {
-              text: "",
-              type: "text",
-            },
-          ],
-        },
-      ],
+          {
+            type: "paragraph",
+            children: [
+              {
+                text: "",
+                type: "text",
+              },
+            ],
+          },
+        ],
       city: admissionData?.city ?? "",
       district: admissionData?.district ?? "",
       state: admissionData?.state?.documentId ?? "",
@@ -101,16 +103,16 @@ const PersonalDetailsForm = ({
             })),
           }),
         ) ?? [
-          {
-            type: "paragraph",
-            children: [
-              {
-                text: "",
-                type: "text",
-              },
-            ],
-          },
-        ],
+            {
+              type: "paragraph",
+              children: [
+                {
+                  text: "",
+                  type: "text",
+                },
+              ],
+            },
+          ],
         city: admissionData?.Parent_Guardian_Spouse_Details?.city ?? "",
         district: admissionData?.Parent_Guardian_Spouse_Details?.district ?? "",
         state:
@@ -212,6 +214,23 @@ const PersonalDetailsForm = ({
     });
   };
 
+  const handleFieldCheck = async (email: string) => {
+    const isExistingEmailCheck = await clientAxios.post(`/admissions/email/check`, {
+      email: email,
+    });
+
+    const isExistingEmail = isExistingEmailCheck?.data;
+    if (isExistingEmail?.exists) {
+      form_step1?.setError("email", isExistingEmail?.message);
+      toast.error(`${isExistingEmail.message} & please try with new email`, {
+        position: "bottom-right",
+      });
+      return;
+    } else {
+      form_step1?.clearErrors("email");
+    }
+  }
+
   const onSubmit = async (payload: PersonalDetailsSchema) => {
     const filteredData = filteredPayload(payload);
 
@@ -299,6 +318,7 @@ const PersonalDetailsForm = ({
                   label="Email Address"
                   placeholder="Enter your email address"
                   control={control}
+                  onFieldCheck={handleFieldCheck}
                 />
               </div>
 
@@ -397,7 +417,7 @@ const PersonalDetailsForm = ({
                 onClick={handleClick}
               >
                 {(!previewUrl && !admissionData?.passport_size_image) ||
-                isRemoved ? (
+                  isRemoved ? (
                   <>
                     <ImageWidget
                       src={UploadIconImg}
