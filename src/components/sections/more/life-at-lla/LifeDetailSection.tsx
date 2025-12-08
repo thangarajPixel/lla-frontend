@@ -98,7 +98,7 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
     <section className="w-full bg-white min-h-screen py-8 sm:py-10 md:py-12 lg:py-16 xl:py-10 2xl:py-14 3xl:py-18">
       <ContainerWidget>
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 xl:gap-16 3xl:gap-38">
-          <div className="flex-1 max-w-[850px]">
+          <div className="flex-1 max-w-[850px] overflow-hidden">
             <ScrollWidget animation="fadeDown" delay={0.1}>
               <div className="flex flex-col">
                 <p className="text-sm md:text-base text-gray-500 font-mulish mb-8">
@@ -112,7 +112,6 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                 {card.LongDescription && (
                   <p
                     className="text-[16px] md:text-[16px] lg:text-[16px] xl:text-[16px] 2xl:text-[16px] 3xl:text-[18px] text-black leading-normal font-mulish"
-                    // biome-ignore lint/security/noDangerouslySetInnerHtml: Content is sanitized from trusted CMS source
                     dangerouslySetInnerHTML={{ __html: card.LongDescription }}
                   ></p>
                 )}
@@ -123,7 +122,7 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                     </h3>
                     {viewCard.Description && (
                       <div
-                        className="text-[16px] md:text-[16px] lg:text-[16px] xl:text-[16px] 2xl:text-[16px] 3xl:text-[18px] text-black leading-normal font-mulish"
+                        className=" text-[16px] md:text-[16px] lg:text-[16px] xl:text-[16px] 2xl:text-[16px] 3xl:text-[18px] text-black leading-normal font-mulish"
                         // biome-ignore lint/security/noDangerouslySetInnerHtml: Content is sanitized from trusted CMS source
                         dangerouslySetInnerHTML={{
                           __html: viewCard.Description,
