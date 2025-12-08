@@ -3,22 +3,19 @@
 import { ArrowRight } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { type FormEvent, useRef } from "react";
-import { getEssentialsData } from "@/app/api/server";
+import { getCourseBySlug, getEssentialsData } from "@/app/api/server";
 import { Input } from "@/components/ui/input";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
-import { encryptId, notify } from "@/helpers/ConstantHelper";
+import { notify } from "@/helpers/ConstantHelper";
 import type { CourseFormData } from "./types";
 import { toast } from "sonner";
 
 const CourseAdmissionFormSection = () => {
-  const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
-  const params = usePathname();
+  const pathName = usePathname();
 
-  const course = params?.split("/").pop();
-
-  console.log(params, 'params');
+  const courseName = pathName?.split("/").pop();
 
   const validateForm = (formValues: CourseFormData): string | null => {
     if (!formValues.name || formValues.name.trim() === "") {
@@ -66,30 +63,16 @@ const CourseAdmissionFormSection = () => {
       return;
     }
 
-
     const isAdmissionOpen = await getEssentialsData();
 
-    console.log(isAdmissionOpen?.data, "essential data in get in touch");
-
-    const isExistingEmailCheck = await clientAxios.post(`/admissions/email/check`, {
-      email: formValues.emailAddress,
-    });
-
-    const isExistingEmail = isExistingEmailCheck?.data;
-
-
-    if (isExistingEmail?.exists) {
-      toast.error(`${isExistingEmail.message} & please try with new email`, {
-        position: "bottom-right",
-      });
-      return;
-    }
+    const courseData = await getCourseBySlug(courseName ?? "");
 
     const admissionPayload = {
       first_name: formValues.name,
       mobile_no: formValues.mobile,
       email: formValues.emailAddress,
       Message: formValues.message,
+      Course: String(courseData?.data?.id),
       step_0: true,
     };
 
@@ -99,20 +82,27 @@ const CourseAdmissionFormSection = () => {
       Email: formValues.emailAddress,
       Message: formValues.message,
       Type: "Request Information",
-      Course: course,
+      Course: String(courseData?.data?.id),
     };
 
     try {
       if (isAdmissionOpen?.data?.isAdmission) {
-        const res = await clientAxios.post(`/admissions`, { data: admissionPayload });
-        const resData = await res?.data;
-        console.log(resData, "step1, response");
-        const encryptedId = encryptId(res?.data?.id);
-        router.push(`/admission/${encryptedId}`);
+        const isExistingEmailCheck = await clientAxios.post(`/admissions/email/check`, {
+          email: formValues.emailAddress,
+        });
+
+        const isExistingEmail = isExistingEmailCheck?.data;
+
+        if (isExistingEmail?.exists) {
+          toast.error(`${isExistingEmail.message} & please try with new email`, {
+            position: "bottom-right",
+          });
+          return;
+        }
+
+        await clientAxios.post(`/admissions`, { data: admissionPayload });
       } else {
-        const res = await clientAxios.post(`/contacts`, { data: requestPayload });
-        const resData = await res?.data;
-        console.log(resData, "step2 res");
+        await clientAxios.post(`/contacts`, { data: requestPayload });
       }
       toast.success("Request submitted successfully!");
     } catch (_error) {

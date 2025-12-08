@@ -17,7 +17,7 @@ export type EducationDetailsSchema = z.infer<typeof educationDetailsSchema>;
 
 type EducationDetailsFormProps = {
   admissionData?: AdmissionFormData;
-  admissionId?: string;
+  admissionId?: string | null;
 };
 
 const EducationDetailsForm = ({

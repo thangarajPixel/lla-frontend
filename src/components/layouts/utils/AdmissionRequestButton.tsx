@@ -45,27 +45,12 @@ const AdmissionRequestButton = ({
   const onSubmit = async (payload: ContactFormData) => {
     const filteredData = filteredPayload(payload);
 
-    const isExistingEmailCheck = await clientAxios.post(`/admissions/email/check`, {
-      email: payload.Email,
-    });
-
-    const isExistingEmail = isExistingEmailCheck?.data;
-
-    if (isExistingEmail?.exists) {
-      toast.error(`${isExistingEmail.message} & please try with new email`, {
-        position: "bottom-right",
-      });
-      return;
-    }
-
     const data = {
       ...filteredData,
       Type: "Request Information",
     };
     try {
-      const res = await clientAxios.post(`/contacts`, { data: data });
-      const resData = await res?.data;
-      console.log(resData, "resData");
+      await clientAxios.post(`/contacts`, { data: data });
       toast.success("Message sent successfully!");
       reset();
       setIsOpen(false);
@@ -111,7 +96,9 @@ const AdmissionRequestButton = ({
         </DialogClose>
       }
     >
-      <section className="p-4 md:px-8 lg:px-16 max-w-7xl mx-auto">
+      <section
+        className="p-4 mx-auto"
+      >
         <h2 className="mb-4 font-semibold text-base">
           Request Information Form
         </h2>
