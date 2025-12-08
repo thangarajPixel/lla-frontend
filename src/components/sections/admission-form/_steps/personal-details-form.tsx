@@ -46,7 +46,7 @@ const PersonalDetailsForm = ({
     resolver: zodResolver(personalDetailsSchema),
     mode: "all",
     defaultValues: {
-      // course_id: admissionData?.course_id ?? 1,
+      Course: admissionData?.Course ?? "",
       name_title: admissionData?.name_title ?? "Mr.",
       first_name: admissionData?.first_name ?? "",
       last_name: admissionData?.last_name ?? "",
@@ -220,7 +220,7 @@ const PersonalDetailsForm = ({
     });
 
     const isExistingEmail = isExistingEmailCheck?.data;
-    if (isExistingEmail?.exists) {
+    if (isExistingEmail?.exists && email !== admissionData?.email) {
       form_step1?.setError("email", isExistingEmail?.message);
       toast.error(`${isExistingEmail.message} & please try with new email`, {
         position: "bottom-right",

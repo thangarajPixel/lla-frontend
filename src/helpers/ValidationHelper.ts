@@ -61,7 +61,7 @@ export const postGraduate = z.object({
 });
 
 export const personalDetailsSchema = z.object({
-  course_id: z.number().optional(),
+  Course: z.string().optional(),
   name_title: z.string().optional(),
   first_name: z
     .string()

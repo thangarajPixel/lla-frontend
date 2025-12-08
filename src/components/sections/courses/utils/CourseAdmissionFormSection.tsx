@@ -3,7 +3,7 @@
 import { ArrowRight } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { type FormEvent, useRef } from "react";
-import { getCourseBySlug, getEssentialsData } from "@/app/api/server";
+import {  getEssentialsData } from "@/app/api/server";
 import { Input } from "@/components/ui/input";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
@@ -11,11 +11,8 @@ import { notify } from "@/helpers/ConstantHelper";
 import type { CourseFormData } from "./types";
 import { toast } from "sonner";
 
-const CourseAdmissionFormSection = () => {
+const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
   const formRef = useRef<HTMLFormElement>(null);
-  const pathName = usePathname();
-
-  const courseName = pathName?.split("/").pop();
 
   const validateForm = (formValues: CourseFormData): string | null => {
     if (!formValues.name || formValues.name.trim() === "") {
@@ -65,14 +62,12 @@ const CourseAdmissionFormSection = () => {
 
     const isAdmissionOpen = await getEssentialsData();
 
-    const courseData = await getCourseBySlug(courseName ?? "");
-
     const admissionPayload = {
       first_name: formValues.name,
       mobile_no: formValues.mobile,
       email: formValues.emailAddress,
       Message: formValues.message,
-      Course: String(courseData?.data?.id),
+      Course: courseId,
       step_0: true,
     };
 
@@ -82,7 +77,7 @@ const CourseAdmissionFormSection = () => {
       Email: formValues.emailAddress,
       Message: formValues.message,
       Type: "Request Information",
-      Course: String(courseData?.data?.id),
+      Course: courseId,
     };
 
     try {
@@ -108,15 +103,6 @@ const CourseAdmissionFormSection = () => {
     } catch (_error) {
       toast.error("Failed to send message. Please try again.");
     }
-
-    // const queryParams = new URLSearchParams({
-    //   name: formValues.name,
-    //   mobile: formValues.mobile,
-    //   email: formValues.emailAddress,
-    //   message: formValues.message || "",
-    // });
-
-    // router.push(`/admission?${queryParams.toString()}`);
 
     if (formRef.current) {
       formRef.current.reset();

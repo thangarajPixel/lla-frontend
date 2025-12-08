@@ -16,7 +16,7 @@ const CourseBySlug = async ({
   return (
     <Fragment>
       <CourseSection data={response?.data} />
-      <CourseAdmissionFormSection />
+      <CourseAdmissionFormSection courseId={response?.data?.courseList?.documentId} />
     </Fragment>
   );
 };

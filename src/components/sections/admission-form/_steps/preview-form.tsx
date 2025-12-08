@@ -11,6 +11,7 @@ import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { DocumentIcon, EditIcon } from "@/helpers/ImageHelper";
 import { cn } from "@/lib/utils";
+import { calculateDuration } from "@/helpers/ConstantHelper";
 
 function Section({
   title,
@@ -43,7 +44,7 @@ function Section({
   );
 }
 
-function Field({ label, value }: { label?: string; value?: string }) {
+function Field({ label, value, prefix }: { label?: string; value?: string, prefix?: string }) {
   const isDob = label?.toLowerCase() === "date of birth";
   const dobValue = value?.split("-").reverse().join("-");
   return (
@@ -57,7 +58,8 @@ function Field({ label, value }: { label?: string; value?: string }) {
         {label ? `${label}` : ""}
       </span>
       <span className={cn("text-black text-left md:text-right md:max-w-3xs")}>
-        {isDob ? dobValue : (value ?? "-")}
+        {/* {isDob ? dobValue : (value ?? "-")} */}
+        {isDob ? dobValue : (prefix ? `${prefix} ${value}` : value ?? "-")}
       </span>
     </div>
   );
@@ -84,7 +86,7 @@ function LanguageField({
             <span className="md:ml-auto text-lg font-mulish 3xl:text-2xl">
               {language.language}
             </span>
-            <section className="flex flex-row items-center justify-between gap-4">
+            <section className="flex flex-row items-center justify-between gap-8">
               <span className="text-sm 3xl:text-base gap-2 flex items-center justify-center">
                 <CheckboxField
                   className="size-4 border-gray-500"
@@ -212,7 +214,7 @@ const ReviewApplication = ({
                 router.push(`/admission/${admissionId}/personal-details`)
               }
             >
-              <Field label="First Name" value={admissionData?.first_name} />
+              <Field label="First Name" value={admissionData?.first_name} prefix={admissionData?.name_title} />
               <Field label="Last Name" value={admissionData?.last_name} />
               <Field label="Nationality" value={admissionData?.nationality} />
               <Field label="Email" value={admissionData?.email} />
@@ -241,6 +243,7 @@ const ReviewApplication = ({
               <Field
                 label="Name"
                 value={`${admissionData?.Parent_Guardian_Spouse_Details?.first_name} ${admissionData?.Parent_Guardian_Spouse_Details?.last_name}`}
+                prefix={admissionData?.Parent_Guardian_Spouse_Details?.title}
               />
               <Field
                 label="Profession"
@@ -257,6 +260,10 @@ const ReviewApplication = ({
                 value={admissionData?.Parent_Guardian_Spouse_Details?.mobile_no}
               />
               <Field label="Address" value={parentFullAddress} />
+
+              <Field label="Hobbies" value={admissionData?.hobbies} />
+
+              <Field label="Photography Club" value={admissionData?.photography_club} />
             </Section>
 
             <Section
@@ -335,60 +342,64 @@ const ReviewApplication = ({
               </div>
             </Section>
 
-            <Section
-              title="Post Graduate"
-              onEdit={() =>
-                router.push(`/admission/${admissionId}/education-details`)
-              }
-              className="text-base 3xl:text-2xl"
-            >
-              {admissionData?.Post_Graduate?.map((degree, index) => (
-                <div
-                  key={`post-graduate-${index + 1}`}
-                  className="grid grid-cols-1 md:grid-cols-4 gap-4"
+            {
+              admissionData?.Post_Graduate[0]?.degree && (
+                <Section
+                  title="Post Graduate"
+                  onEdit={() =>
+                    router.push(`/admission/${admissionId}/education-details`)
+                  }
+                  className="text-base 3xl:text-2xl"
                 >
-                  <section className="md:col-span-2">
-                    <span className="text-black/50 text-base 3xl:text-2xl">
-                      Degree
-                    </span>
-                    <p className="text-black text-base 3xl:text-2xl">
-                      {degree?.degree}
-                    </p>
-                  </section>
+                  {admissionData?.Post_Graduate?.map((degree, index) => (
+                    <div
+                      key={`post-graduate-${index + 1}`}
+                      className="grid grid-cols-1 md:grid-cols-4 gap-4"
+                    >
+                      <section className="md:col-span-2">
+                        <span className="text-black/50 text-base 3xl:text-2xl">
+                          Degree
+                        </span>
+                        <p className="text-black text-base 3xl:text-2xl">
+                          {degree?.degree}
+                        </p>
+                      </section>
 
-                  <section className="md:col-span-1">
-                    <span className="text-black/50 text-base 3xl:text-2xl">
-                      Status
-                    </span>
-                    <p className="text-black text-base 3xl:text-2xl">
-                      {degree?.pg_status}
-                    </p>
-                  </section>
+                      <section className="md:col-span-1">
+                        <span className="text-black/50 text-base 3xl:text-2xl">
+                          Status
+                        </span>
+                        <p className="text-black text-base 3xl:text-2xl">
+                          {degree?.pg_status}
+                        </p>
+                      </section>
 
-                  <section className="hidden md:invisible md:flex flex-col justify-start gap-2 items-start md:col-span-1">
-                    <span className="text-black/50 text-base 3xl:text-2xl">
-                      Document
-                    </span>
-                    <span className="flex items-center justify-center gap-1">
-                      <ImageWidget
-                        src={DocumentIcon}
-                        alt="Document"
-                        width={100}
-                        height={100}
-                        className="size-4 rounded-full"
-                      />
-                      <LinkWidget
-                        href={degree?.marksheet?.url ?? ""}
-                        target="_blank"
-                        className="text-chart-1/80 text-xs"
-                      >
-                        View Document
-                      </LinkWidget>
-                    </span>
-                  </section>
-                </div>
-              ))}
-            </Section>
+                      <section className="hidden md:invisible md:flex flex-col justify-start gap-2 items-start md:col-span-1">
+                        <span className="text-black/50 text-base 3xl:text-2xl">
+                          Document
+                        </span>
+                        <span className="flex items-center justify-center gap-1">
+                          <ImageWidget
+                            src={DocumentIcon}
+                            alt="Document"
+                            width={100}
+                            height={100}
+                            className="size-4 rounded-full"
+                          />
+                          <LinkWidget
+                            href={degree?.marksheet?.url ?? ""}
+                            target="_blank"
+                            className="text-chart-1/80 text-xs"
+                          >
+                            View Document
+                          </LinkWidget>
+                        </span>
+                      </section>
+                    </div>
+                  ))}
+                </Section>
+              )
+            }
 
             <Section
               title="Work Experience"
@@ -424,38 +435,17 @@ const ReviewApplication = ({
                       Duration
                     </span>
                     <span className="text-black text-base font-medium md:text-sm flex flex-wrap 3xl:text-[22px]">
-                      {`${experience?.duration_start?.split("-")?.reverse()?.join("-")} to ${experience?.duration_end?.split("-")?.reverse()?.join("-")}`}
+                      {/* {`${experience?.duration_start?.split("-")?.reverse()?.join("-")} to ${experience?.duration_end?.split("-")?.reverse()?.join("-")}`} */}
+                      {calculateDuration(experience?.duration_start ?? "", experience?.duration_end ?? "")}
                     </span>
-                    <p className="text-black text-lg  3xl:text-2xl">
-                      {experience?.designation ?? "-"}
-                    </p>
                   </section>
 
-                  <section className="md:col-span-2">
-                    <span className="text-black/50 text-base 3xl:text-2xl">
-                      Employer
-                    </span>
-                    <p className="text-black text-lg  3xl:text-2xl">
-                      {experience?.employer ?? "-"}
-                    </p>
-                  </section>
-
-                  <section className="md:col-span-1">
-                    <span className="text-black/50 text-base 3xl:text-2xl">
-                      Duration
-                    </span>
-                    {/* <span className="text-xs flex items-center justify-center"> */}
-                    <span className="text-black text-base font-medium md:text-sm flex flex-wrap 3xl:text-[22px]">
-                      {`${experience?.duration_start?.split("-")?.reverse()?.join("-")} to ${experience?.duration_end?.split("-")?.reverse()?.join("-")}`}
-                    </span>
-                    {/* </span> */}
-                  </section>
                 </div>
               ))}
             </Section>
 
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between">
-              <span className="text-chart-1 text-base md:text-sm">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between text-base md:text-sm 3xl:text-2xl">
+              <span className="text-chart-1 text-base md:text-sm 3xl:text-2xl">
                 Where did you find out about LLA?
               </span>
               <span>Instagram</span>

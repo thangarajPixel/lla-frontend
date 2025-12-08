@@ -87,7 +87,7 @@ type AddressBlock = {
 };
 
 type AdmissionFormData = {
-  course_id: number;
+  Course: string;
   id: number;
   documentId: string;
   name_title: string;
