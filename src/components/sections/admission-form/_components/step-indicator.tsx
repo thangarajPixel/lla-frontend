@@ -12,8 +12,6 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
     "Upload Your Portfolio",
   ];
 
-  const total_Steps = 3;
-
   return (
     <section className="mx-auto">
       <div className="flex items-center justify-between">

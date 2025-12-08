@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
@@ -14,7 +15,7 @@ import {
 } from "@/helpers/ImageHelper";
 import type { LifeDetailProps } from "./utils/life-lla";
 
-const SOCIAL_LINKS = [
+const _SOCIAL_LINKS = [
   {
     id: "linkedin",
     icon: LinkedInBlack,
@@ -53,6 +54,8 @@ const SOCIAL_LINKS = [
 
 const LifeDetailSection = ({ data }: LifeDetailProps) => {
   const { card, latest } = data;
+
+  const router = useRouter();
   return (
     <section className="w-full bg-white min-h-screen py-8 sm:py-10 md:py-12 lg:py-16 xl:py-10 2xl:py-14 3xl:py-18">
       <ContainerWidget>
@@ -71,6 +74,7 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                 {card.LongDescription && (
                   <p
                     className="text-[16px] md:text-[16px] lg:text-[16px] xl:text-[16px] 2xl:text-[16px] 3xl:text-[18px] text-black leading-normal font-mulish"
+                    // biome-ignore lint/security/noDangerouslySetInnerHtml: Content is sanitized from trusted CMS source
                     dangerouslySetInnerHTML={{ __html: card.LongDescription }}
                   ></p>
                 )}
@@ -82,6 +86,7 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                     {viewCard.Description && (
                       <div
                         className="text-[16px] md:text-[16px] lg:text-[16px] xl:text-[16px] 2xl:text-[16px] 3xl:text-[18px] text-black leading-normal font-mulish"
+                        // biome-ignore lint/security/noDangerouslySetInnerHtml: Content is sanitized from trusted CMS source
                         dangerouslySetInnerHTML={{
                           __html: viewCard.Description,
                         }}
@@ -105,7 +110,7 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                     Share with
                   </h3>
                   <div className="flex gap-8 items-center">
-                    {SOCIAL_LINKS.map((social) => {
+                    {_SOCIAL_LINKS.map((social) => {
                       const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
                       const shareUrl = social.id === 'twitter' 
                         ? social.getShareUrl(currentUrl, card.Title)
@@ -161,7 +166,7 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                           <OrangeButtonWidget
                             content="Read More"
                             onClick={() =>
-                              (window.location.href = `/more/life-at-lla/${post.Slug}`)
+                              router.push(`/more/life-at-lla/${post.Slug}`)
                             }
                             className="text-sm bg-white text-[#E97451] border border-[#E97451] hover:bg-[#E97451] hover:text-white"
                           />

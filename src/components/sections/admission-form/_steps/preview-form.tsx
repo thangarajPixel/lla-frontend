@@ -434,6 +434,29 @@ const ReviewApplication = ({
                     <span className="text-black text-base font-medium md:text-sm flex flex-wrap 3xl:text-[22px]">
                       {`${experience?.duration_start?.split("-")?.reverse()?.join("-")} to ${experience?.duration_end?.split("-")?.reverse()?.join("-")}`}
                     </span>
+                    <p className="text-black text-lg  3xl:text-2xl">
+                      {experience?.designation ?? "-"}
+                    </p>
+                  </section>
+
+                  <section className="md:col-span-2">
+                    <span className="text-black/50 text-base 3xl:text-2xl">
+                      Employer
+                    </span>
+                    <p className="text-black text-lg  3xl:text-2xl">
+                      {experience?.employer ?? "-"}
+                    </p>
+                  </section>
+
+                  <section className="md:col-span-1">
+                    <span className="text-black/50 text-base 3xl:text-2xl">
+                      Duration
+                    </span>
+                    {/* <span className="text-xs flex items-center justify-center"> */}
+                    <span className="text-black text-base font-medium md:text-sm flex flex-wrap 3xl:text-[22px]">
+                      {`${experience?.duration_start?.split("-")?.reverse()?.join("-")} to ${experience?.duration_end?.split("-")?.reverse()?.join("-")}`}
+                    </span>
+                    {/* </span> */}
                   </section>
                 </div>
               ))}

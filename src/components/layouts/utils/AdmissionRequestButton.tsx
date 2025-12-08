@@ -8,7 +8,6 @@ import { toast } from "sonner";
 import z from "zod";
 import FormInput from "@/components/form/FormInput";
 import { DialogClose } from "@/components/ui/dialog";
-import ContainerWidget from "@/components/widgets/ContainerWidget";
 import DialogWidget from "@/components/widgets/DialogWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
@@ -65,7 +64,7 @@ const AdmissionRequestButton = ({
       console.log(resData, "resData");
       toast.success("Message sent successfully!");
       reset();
-    } catch (error) {
+    } catch (_error) {
       toast.error("Failed to send message. Please try again.");
     }
   };
@@ -146,7 +145,10 @@ const AdmissionRequestButton = ({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-foreground font-mulish mb-1">
+            <label
+              htmlFor="message"
+              className="block text-sm font-medium text-foreground font-mulish mb-1"
+            >
               Message<span className="text-chart-1">*</span>
             </label>
             <textarea
