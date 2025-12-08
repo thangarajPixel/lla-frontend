@@ -113,7 +113,6 @@ export default function ContactSection({ data }: ContactSectionProps) {
                        tag="p"/>
                 </div>
               </div>
-
               <div className="flex items-center gap-2">
                 <div>
                    <ImageWidget
