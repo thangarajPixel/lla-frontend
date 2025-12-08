@@ -7,10 +7,10 @@ import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import {
-  Facebook,
-  Instagram,
+  FacebookBlack,
+  InstagramBlack,
   LinkedInBlack,
-  Twitter,
+  TwitterBlack,
   WhatsappBlack,
 } from "@/helpers/ImageHelper";
 import type { LifeDetailProps } from "./utils/life-lla";
@@ -25,20 +25,20 @@ const _SOCIAL_LINKS = [
   },
   {
     id: "twitter",
-    icon: Twitter,
+    icon: TwitterBlack,
     alt: "Twitter",
     getShareUrl: (url: string, title: string) =>
       `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`,
   },
   {
     id: "instagram",
-    icon: Instagram,
+    icon: InstagramBlack,
     alt: "Instagram",
     getShareUrl: () => "https://www.instagram.com/lightandlifeacademy",
   },
   {
     id: "facebook",
-    icon: Facebook,
+    icon: FacebookBlack,
     alt: "Facebook",
     getShareUrl: (url: string) =>
       `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
@@ -54,7 +54,6 @@ const _SOCIAL_LINKS = [
 
 const LifeDetailSection = ({ data }: LifeDetailProps) => {
   const { card, latest } = data;
-
   const router = useRouter();
   return (
     <section className="w-full bg-white min-h-screen py-8 sm:py-10 md:py-12 lg:py-16 xl:py-10 2xl:py-14 3xl:py-18">
@@ -105,7 +104,7 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                   </div>
                 ))}
 
-                {/* <div className="mt-8 pt-8 border-t border-black">
+                <div className="mt-8 pt-8 border-t border-gray-600">
                   <h3 className="text-[16px] md:text-[18px] lg:text-[18px] xl:text-[20px] 2xl:text-[20px] 3xl:text-[24px] font-normal text-[#082326] font-mulish mb-6">
                     Share with
                   </h3>
@@ -127,15 +126,15 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                           <ImageWidget
                             src={social.icon.src}
                             alt={social.alt}
-                            width={40}
-                            height={40}
-                            className="object-contain h-[27px] w-[27px]"
+                            width={20}
+                            height={20}
+                            className="object-contain"
                           />
                         </a>
                       );
                     })}
                   </div>
-                </div> */}
+                </div>
               </div>
             </ScrollWidget>
           </div>
