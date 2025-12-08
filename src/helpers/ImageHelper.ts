@@ -52,15 +52,17 @@ export { default as TwitterBlack } from "@/assets/icons/twitter-black.png";
 export { default as WhatsappBlack } from "@/assets/icons/whatsapp-black.png";
 export { default as Building } from "@/assets/images/building.svg";
 export { default as FooterBg } from "@/assets/images/footer-bg.svg";
-export { default as FooterLogo } from "@/assets/images/footer-logo.svg";
 export { default as IQAC } from "@/assets/images/iqbal-logo.svg";
 export { default as Life } from "@/assets/images/life.png";
 export { default as LifeMobile } from "@/assets/images/life-mobile.png";
 export { default as LlaOnline } from "@/assets/images/lla-online.svg";
 export { default as LlaOutreach } from "@/assets/images/lla-outreach.svg";
 export { default as LogoBlack } from "@/assets/images/logo-black.svg";
-export { default as Logo } from "@/assets/images/logo-white.svg";
 export { default as Call } from "@/assets/icons/call.png";
 export { default as Sms } from "@/assets/icons/sms-tracking.png";
 export { default as LocationIcon } from "@/assets/icons/location.png";
 export { default as StarIcon } from "@/assets/icons/star.png";
+export {
+  default as FooterLogo,
+  default as Logo,
+} from "@/assets/images/logo-white.svg";

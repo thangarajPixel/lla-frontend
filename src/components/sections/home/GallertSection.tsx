@@ -46,9 +46,22 @@ const GallertSection = ({ data }: GallerySectionProps) => {
       setRandomIndices((prevIndices) => {
         const newIndices = [...prevIndices];
         const randomPosition = Math.floor(Math.random() * 8);
-        const randomImageIndex = Math.floor(
-          Math.random() * galleryImages.length,
-        );
+
+        const availableIndices = Array.from(
+          { length: galleryImages.length },
+          (_, i) => i,
+        ).filter((index) => !prevIndices.includes(index));
+
+        let randomImageIndex: number;
+        if (availableIndices.length > 0) {
+          randomImageIndex =
+            availableIndices[
+              Math.floor(Math.random() * availableIndices.length)
+            ];
+        } else {
+          randomImageIndex = Math.floor(Math.random() * galleryImages.length);
+        }
+
         newIndices[randomPosition] = randomImageIndex;
         return newIndices;
       });

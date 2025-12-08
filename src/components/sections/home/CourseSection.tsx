@@ -59,8 +59,8 @@ const CourseSection = ({ data }: CourseSectionProps) => {
   ];
 
   const contentClasses = [
-    "space-y-3 md:space-y-3 lg:space-y-4 md:ml-[-20px] lg:ml-[-35px] xl:ml-[-64px] 3xl:ml-[-78px] md:mt-[-30px] lg:mt-[-45px] xl:mt-[-65px] 3xl:mt-[-79px] relative z-10 w-full md:max-w-[300px] lg:max-w-[340px] xl:max-w-[370px] 2xl:max-w-[370px] 3xl:max-w-[470px]",
-    "space-y-3 md:space-y-3 lg:space-y-4 md:ml-[-20px] lg:ml-[-35px] xl:ml-[-60px] 3xl:ml-[-73px] md:mt-[-30px] lg:mt-[-45px] xl:mt-[-65px] 3xl:mt-[-79px] relative z-10 w-full md:max-w-[320px] lg:max-w-[290px] xl:max-w-[370px] 2xl:max-w-[410px] 3xl:max-w-[500px]",
+    "space-y-3 md:space-y-3 lg:space-y-4 md:ml-[-20px] lg:ml-[-35px] xl:ml-[-64px] 3xl:ml-[-78px] md:mt-[-30px] lg:mt-[-45px] xl:mt-[-65px] 3xl:mt-[-79px] relative z-10 w-full",
+    "space-y-3 md:space-y-3 lg:space-y-4 md:ml-[-20px] lg:ml-[-35px] xl:ml-[-60px] 3xl:ml-[-73px] md:mt-[-30px] lg:mt-[-45px] xl:mt-[-65px] 3xl:mt-[-79px] relative z-10 w-full",
   ];
 
   const cardContainerClasses = [
