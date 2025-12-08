@@ -5,8 +5,11 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import z from "zod";
 import FormInput from "@/components/form/FormInput";
+import {
+  type ContactFormData,
+  contactSchema,
+} from "@/components/sections/more/contact/ContactSection";
 import { DialogClose } from "@/components/ui/dialog";
 import DialogWidget from "@/components/widgets/DialogWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
@@ -16,7 +19,6 @@ import { ArrowRight, Into } from "@/helpers/ImageHelper";
 import ButtonWidget from "../../widgets/ButtonWidget";
 import ImageWidget from "../../widgets/ImageWidget";
 import type { AdmissionButtonProps } from "./types";
-import { ContactFormData, contactSchema } from "@/components/sections/more/contact/ContactSection";
 
 const AdmissionRequestButton = ({
   className = "",
@@ -96,9 +98,7 @@ const AdmissionRequestButton = ({
         </DialogClose>
       }
     >
-      <section
-        className="p-4 mx-auto"
-      >
+      <section className="p-4 mx-auto">
         <h2 className="mb-4 font-semibold text-base">
           Request Information Form
         </h2>

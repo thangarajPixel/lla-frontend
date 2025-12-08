@@ -73,7 +73,7 @@ type NotifyInput = {
 };
 
 export const toastConfig: (
-  position?: ToastPosition
+  position?: ToastPosition,
 ) => ExternalToast | undefined = (position = "bottom-right") => ({
   position,
   duration: 4000,
@@ -130,7 +130,7 @@ export function notify({
     default:
       toast.error(
         message || "Something went wrong",
-        toastConfig("bottom-right")
+        toastConfig("bottom-right"),
       );
       break;
   }
@@ -153,7 +153,7 @@ export const validateDimensions = (file: File): Promise<boolean> => {
 
       if (width > maxWidth || height > maxHeight) {
         alert(
-          `Image must be max 12"x8" (3600x2400 pixels). Your image is ${width}x${height}px.`
+          `Image must be max 12"x8" (3600x2400 pixels). Your image is ${width}x${height}px.`,
         );
         resolve(false);
       } else {
@@ -173,7 +173,7 @@ export const filteredPayload = <T>(input: T): T | undefined => {
     const cleaned = input
       .map((item) => filteredPayload(item))
       .filter(
-        (item): item is Exclude<typeof item, undefined> => item !== undefined
+        (item): item is Exclude<typeof item, undefined> => item !== undefined,
       );
 
     return cleaned.length > 0 ? (cleaned as T) : undefined;
@@ -227,14 +227,13 @@ export const decryptCode = (str: string) => {
   return decoded.split("_")[0];
 };
 
-
 export const calculateDuration = (start?: string, end?: string) => {
   if (!start || !end) return "-";
 
   const startDate = new Date(start);
   const endDate = new Date(end);
 
-  if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+  if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime())) {
     return "-";
   }
 
@@ -245,4 +244,3 @@ export const calculateDuration = (start?: string, end?: string) => {
 
   return duration > 1 ? `${duration} years` : `${duration} year`;
 };
-

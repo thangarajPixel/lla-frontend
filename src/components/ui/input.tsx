@@ -93,7 +93,6 @@ const Input = ({
 
           props.onPaste?.(e);
         }}
-
         onBlur={(e) => {
           e.preventDefault();
           onFieldCheck?.(props?.value as string);

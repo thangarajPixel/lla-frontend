@@ -150,7 +150,6 @@ const FormDatePickerWithInput = <T extends FieldValues>({
                 setOpen(false);
               }}
             />
-
           </PopoverContent>
         </Popover>
       </div>

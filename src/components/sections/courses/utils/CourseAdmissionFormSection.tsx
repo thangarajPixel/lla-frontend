@@ -1,15 +1,14 @@
 "use client";
 
 import { ArrowRight } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
 import { type FormEvent, useRef } from "react";
-import {  getEssentialsData } from "@/app/api/server";
+import { toast } from "sonner";
+import { getEssentialsData } from "@/app/api/server";
 import { Input } from "@/components/ui/input";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
 import { notify } from "@/helpers/ConstantHelper";
 import type { CourseFormData } from "./types";
-import { toast } from "sonner";
 
 const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
   const formRef = useRef<HTMLFormElement>(null);
@@ -82,16 +81,22 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
 
     try {
       if (isAdmissionOpen?.data?.isAdmission) {
-        const isExistingEmailCheck = await clientAxios.post(`/admissions/email/check`, {
-          email: formValues.emailAddress,
-        });
+        const isExistingEmailCheck = await clientAxios.post(
+          `/admissions/email/check`,
+          {
+            email: formValues.emailAddress,
+          },
+        );
 
         const isExistingEmail = isExistingEmailCheck?.data;
 
         if (isExistingEmail?.exists) {
-          toast.error(`${isExistingEmail.message} & please try with new email`, {
-            position: "bottom-right",
-          });
+          toast.error(
+            `${isExistingEmail.message} & please try with new email`,
+            {
+              position: "bottom-right",
+            },
+          );
           return;
         }
 

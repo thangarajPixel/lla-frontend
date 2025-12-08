@@ -14,7 +14,10 @@ const EducationDetails = async (props: PageProps) => {
 
   return (
     <ScrollWidget>
-      <EducationDetailsForm admissionData={admissionData} admissionId={String(id) ?? null} />
+      <EducationDetailsForm
+        admissionData={admissionData}
+        admissionId={String(id) ?? null}
+      />
     </ScrollWidget>
   );
 };
