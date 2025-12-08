@@ -21,6 +21,7 @@ const parseDuration = (
 };
 
 const CourseContentSection = ({ data }: { data: CourseContentData }) => {
+
   const durationParts = parseDuration(data.Duration ?? "");
   const headerData = {
     __component: "other-info-section",
@@ -43,6 +44,8 @@ const CourseContentSection = ({ data }: { data: CourseContentData }) => {
       gridBreakpoint,
       delay,
       images: card.Image,
+      OuterTitle: card.OuterTitle,
+      OuterDescription: card.OuterDescription,
     };
   });
 
@@ -76,6 +79,18 @@ const CourseContentSection = ({ data }: { data: CourseContentData }) => {
             animation="fadeUp"
             delay={section.delay}
           >
+            {section.OuterTitle && (
+              <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-normal md:font-normal text-black font-urbanist">
+                {section.OuterTitle}
+              </h3>
+            )}
+            {section.OuterDescription && (
+              <HTMLWidget
+                content={section.OuterDescription}
+                tag="p"
+                className="mb-7 mt-2"
+              />
+            )}
             <div
               className={`grid grid-cols-1 ${section.gridBreakpoint === "md" ? "md:grid-cols-[58%_40%]" : "lg:grid-cols-[58%_40%]"} gap-6 bg-[#ECECEC] w-full p-8 pb-9 ${index > 0 ? "mt-8" : ""}`}
             >
