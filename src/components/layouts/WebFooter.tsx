@@ -25,6 +25,7 @@ const QUICK_LINKS = [
 const RESOURCES = [
   { id: "blog", href: "/", label: "Blog" },
   { id: "faq", href: "/", label: "FAQ's" },
+  { id: "privacy", href: "/more/privacy-policy", label: "Privacy Policy" },
 ];
 
 const linkTextClass =

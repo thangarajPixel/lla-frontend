@@ -1,7 +1,6 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -10,6 +9,9 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
 import type { ContactSectionProps } from "./utils/contact";
+import ImageWidget from "@/components/widgets/ImageWidget";
+import { Call ,Sms,LocationIcon,StarIcon} from "@/helpers/ImageHelper";
+import HTMLWidget from "@/components/widgets/HTMLWidget";
 
 export const contactSchema = z.object({
   FirstName: z.string().min(1, "First name is required"),
@@ -51,62 +53,76 @@ export default function ContactSection({ data }: ContactSectionProps) {
     }
   };
   return (
-    <section className="py-16 px-4 md:px-8 lg:px-16 max-w-7xl mx-auto">
+    <section className="py-16 px-4 md:px-8 lg:px-16 xl:px-10 max-w-7xl mx-auto">
       <ContainerWidget>
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-10">
           <div className="space-y-8">
             <div>
               <h1 className="font-urbanist text-[32px] sm:text-[40px] md:text-[48px] lg:text-[56px] xl:text-[60px] 3xl:text-[64px] font-normal text-foreground mb-4">
                 {data?.Title}
               </h1>
-              <p className="text-lg" 
+              <p className="text-black text-[16px] sm:text-[18px] md:text-[20px] lg:text-[24px] xl:text-[28px] 3xl:text-[32px] font-mulish" 
                // biome-ignore lint/security/noDangerouslySetInnerHtml: Content is sanitized from trusted CMS source
                 dangerouslySetInnerHTML={{ __html: data.Heading || "" }}
               >
               </p>
-              <p className="text-black mt-4">
+              <p className="max-w-[630px] text-black text-[16px]  3xl:text-[18px] font-mulish  mt-4">
                 {data?.Description}
               </p>
             </div>
-            <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <div className="p-3 rounded-full bg-[#FF6B4A]/10">
-                  <Phone className="w-5 h-5 text-[#FF6B4A]" />
+            <div className="space-y-7">
+              <div className="flex items-center gap-2">
+                <div>
+                  <ImageWidget
+                    src={Call}
+                    alt="Contact Phone"
+                    className="max-w-[32px] max-h-[32px] text-[#FF6B4A]"
+                  />
                 </div>
                 <div>
-                  <p className="text-foreground font-medium">{data?.MobileNo}</p>
+                  <p className="text-[16px] 3xl:text-[18px] font-mulish font-normal">{data?.MobileNo}</p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
-                <div className="p-3 rounded-full bg-[#FF6B4A]/10">
-                  <Mail className="w-5 h-5 text-[#FF6B4A]" />
+              <div className="flex items-center gap-2">
+                <div >
+                  <ImageWidget
+                    src={Sms}
+                    alt="Contact Email"
+                    className="max-w-[32px] max-h-[32px] text-[#FF6B4A]"
+                  />
                 </div>
                 <div>
-                  <p className="text-foreground font-medium">
-                    administration@llacademy.org
+                  <p className="text-[16px] 3xl:text-[18px] font-mulish font-normal">
+                    {data?.Email}
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
-                <div className="p-3 rounded-full bg-[#FF6B4A]/10">
-                  <MapPin className="w-5 h-5 text-[#FF6B4A]" />
+              <div className="flex items-center gap-2">
+                <div>
+                    <ImageWidget
+                    src={LocationIcon}
+                    alt="Contact Location"
+                    className="max-w-[32px] max-h-[32px] text-[#FF6B4A]"
+                  />
                 </div>
                 <div>
-                  <p className="text-foreground font-medium">
-                   {data?.Location}
-                  </p>
-                  <p className="text-muted-foreground">Tamil Nadu, India</p>
+                   <HTMLWidget  content={data.Location}
+                        className="text-[16px] md:text-[16px] lg:text-[16px] xl:text-[16px] 2xl:text-[16px] 3xl:text-[18px] text-black leading-normal font-mulish"
+                       tag="p"/>
                 </div>
               </div>
-
-              <div className="flex items-start gap-4">
-                <div className="p-3 rounded-full bg-[#FF6B4A]/10">
-                  <Clock className="w-5 h-5 text-[#FF6B4A]" />
-                </div>
+              <div className="flex items-center gap-2">
                 <div>
-                  <p className="text-foreground font-medium">
+                   <ImageWidget
+                    src={StarIcon}
+                    alt="Contact Visitor"
+                    className="max-w-[32px] max-h-[32px] text-[#FF6B4A]"
+                  />
+                </div>
+                <div className="max-w-[630px]">
+                  <p className="text-[16px] 3xl:text-[18px] font-mulish font-normal">
                     {data?.VisitorDescription}
                   </p>
                 </div>

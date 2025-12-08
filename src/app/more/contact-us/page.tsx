@@ -9,7 +9,6 @@ export const metadata = {
 
  const ContactPage = async () => {
    const { data: response } = await getContactPageData();
-   console.log("Contact Page Data:", response);
   return <ContactSection data={response} />;
 }
 

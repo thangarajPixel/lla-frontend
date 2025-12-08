@@ -3,10 +3,11 @@ export type ContactSectionProps = {
     id: number;
     documentId: string;
     Title: string;
+    Email: string | null;
     Description: string | null;
     MobileNo: string | null;
     VisitorDescription: string | null;
-    Location: string | null;
+    Location: string;
     LocationUrl: string | null;
     BtnText: string | null;
     Heading: string | null;

@@ -137,7 +137,7 @@ const WebHeader = ({
                 className={
                   isSticky
                     ? "mt-2 md:mt-0 w-60 2xl:w-70 3xl:w-[348px] 3xl:h-[69px] h-auto relative"
-                    : "mt-2 md:mt-0 w-60 2xl:w-70 3xl:w-[348px] 3xl:h-[69px] h-auto relative md:top-[7px]"
+                    : "mt-2 md:mt-0 w-60 2xl:w-70 3xl:w-[348px] 3xl:h-[69px] h-auto relative md:top-0"
                 }
               />
             </LinkWidget>
