@@ -28,6 +28,7 @@ export type ChevronIconProps = {
 };
 
 export type CourseCard = {
+  Slug: string;
   id: number;
   Title: string;
   Description: string;

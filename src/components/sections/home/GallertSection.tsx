@@ -18,20 +18,20 @@ const GallertSection = ({ data }: GallerySectionProps) => {
   }, [galleryImages]);
 
   const [randomIndices, setRandomIndices] = useState<number[]>(() => {
-    return Array.from({ length: 8 }, (_, i) => i);
+    return Array.from({ length: 9 }, (_, i) => i);
   });
 
   useEffect(() => {
     const initializeIndices = () => {
-      if (galleryImages.length > 8) {
+      if (galleryImages.length > 9) {
         const shuffled = [...galleryImages]
           .map((_, index) => index)
           .sort(() => Math.random() - 0.5);
-        setRandomIndices(shuffled.slice(0, 8));
+        setRandomIndices(shuffled.slice(0, 9));
       } else {
         setRandomIndices(
           Array.from(
-            { length: Math.min(8, galleryImages.length) },
+            { length: Math.min(9, galleryImages.length) },
             (_, i) => i,
           ),
         );
@@ -45,7 +45,7 @@ const GallertSection = ({ data }: GallerySectionProps) => {
 
       setRandomIndices((prevIndices) => {
         const newIndices = [...prevIndices];
-        const randomPosition = Math.floor(Math.random() * 8);
+        const randomPosition = Math.floor(Math.random() * 9);
 
         const availableIndices = Array.from(
           { length: galleryImages.length },
@@ -235,7 +235,7 @@ const GallertSection = ({ data }: GallerySectionProps) => {
             </div>
             <div className="relative w-full aspect-4/3 overflow-hidden">
               <ImageWidget
-                src={getImageUrl(0)}
+                src={getImageUrl(8)}
                 alt="Gallery"
                 fill
                 className="object-cover 3xl:max-w-[300px] 3xl:max-h-[300px] 3xl:min-w-[300px] 3xl:min-h-[300px]"

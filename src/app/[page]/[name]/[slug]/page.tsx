@@ -2,6 +2,7 @@
 
 import useEmblaCarousel from "embla-carousel-react";
 import { DribbbleIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
@@ -32,6 +33,7 @@ const sampleBiography = `Taking a stroll through Parry’s Corner in Chennai on 
 const sampleBiography2 = `Aneev Rao is currently a portrait and fashion photographer. Aneev’s work has been featured in Vogue, Cosmopolitan, Marie Claire, Grazia, Harper’s Bazaar, People.`;
 
 const View = () => {
+  const router = useRouter();
   const [isMounted, setIsMounted] = useState(false);
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [canScrollPrev, setCanScrollPrev] = useState(false);
@@ -72,20 +74,19 @@ const View = () => {
     <>
       <div className="hidden md:block">
         <div className="flex justify-end mb-6 fixed top-25 right-5">
-          <LinkWidget href="/">
-            <ButtonWidget
-              type="button"
-              className="orange-button-white flex border-none items-center gap-2 rounded-[60px] px-5 h-10 text-sm md:text-base font-bold transition-colors duration-300 font-mulish text-[15px] 3xl:text-[18px]"
-              aria-label="Go back"
-            >
-              <ImageWidget
-                src={OrangeArrowRight}
-                alt="Back"
-                className="w-5 h-5"
-              />
-              <span className="text-[#E97451]">Back</span>
-            </ButtonWidget>
-          </LinkWidget>
+          <ButtonWidget
+            onClick={() => router.back()}
+            type="button"
+            className="orange-button-white flex border-none items-center gap-2 rounded-[60px] px-5 h-10 text-sm md:text-base font-bold transition-colors duration-300 font-mulish text-[15px] 3xl:text-[18px]"
+            aria-label="Go back"
+          >
+            <ImageWidget
+              src={OrangeArrowRight}
+              alt="Back"
+              className="w-5 h-5"
+            />
+            <span className="text-[#E97451]">Back</span>
+          </ButtonWidget>
         </div>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2">
