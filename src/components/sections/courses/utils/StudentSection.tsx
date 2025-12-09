@@ -3,12 +3,18 @@
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import { useEffect, useRef, useState } from "react";
+import {
+  addAutoplayAndMute,
+  addAutoplayUnmute,
+  disableControls,
+  removeAutoplayAndMute,
+  stopAllVideos,
+  stopHoverVideos,
+} from "@/components/sections/home/utils/videoHelpers";
 import { DialogClose } from "@/components/ui/dialog";
-import ButtonWidget from "@/components/widgets/ButtonWidget";
 import DialogWidget from "@/components/widgets/DialogWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
-import { getS3Url } from "@/helpers/ConstantHelper";
 import {
   ArrowLeftBlack,
   ArrowRightBlack,
@@ -19,6 +25,23 @@ import type { StudentTestimonialCard, StudentTestimonialData } from "./types";
 
 type StudentSectionProps = {
   data: StudentTestimonialData | StudentTestimonialData[];
+};
+
+const DialogVideoIframe = ({ videoUrl }: { videoUrl: string }) => {
+  const [autoplayUrl] = useState(() => addAutoplayUnmute(videoUrl));
+
+  return (
+    <div className="relative w-full aspect-video bg-black rounded-lg">
+      <iframe
+        src={autoplayUrl}
+        className="w-full h-full object-contain rounded-lg"
+        allow="autoplay; encrypted-media; fullscreen"
+        allowFullScreen
+        title="Video player"
+        style={{ border: "none" }}
+      />
+    </div>
+  );
 };
 
 const StudentSection = ({ data }: StudentSectionProps) => {
@@ -42,17 +65,18 @@ const StudentSection = ({ data }: StudentSectionProps) => {
 
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
+  const originalUrlsRef = useRef<Map<HTMLIFrameElement, string>>(new Map());
 
-  const stopAllVideos = () => {
-    if (carouselRef.current) {
-      const videos = carouselRef.current.querySelectorAll("video");
-      videos.forEach((video) => {
-        video.pause();
-        video.currentTime = 0;
-      });
-    }
-  };
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -95,6 +119,8 @@ const StudentSection = ({ data }: StudentSectionProps) => {
     emblaApi?.scrollNext();
   };
 
+  if (studentData.length === 0) return null;
+
   return (
     <section className="w-full py-10 md:py-10 lg:py-12 xl:py-16 2xl:py-20 3xl:py-24 bg-[#f6f6f6] mx-auto max-w-[1920px]">
       <ScrollWidget animation="fadeUp" delay={0.1}>
@@ -125,7 +151,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
               <div className="flex w-full justify-start md:justify-center gap-4 sm:gap-6">
                 {studentData.map(
                   (student: StudentTestimonialCard, index: number) => {
-                    const videoUrl = getS3Url(student.Image?.[0]?.url);
+                    const videoUrl = student.Url;
                     return (
                       <ScrollWidget
                         key={student.id}
@@ -137,31 +163,64 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                             index % 2 ? "md:mt-30" : "mt-0"
                           } w-[calc(100%-2rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc((100%-4.5rem)/3.5)] lg:w-[calc((100%-4.5rem)/3.5)] xl:w-[calc((100%-4.5rem)/3.5)] 2xl:w-[calc((100%-4.5rem)/3.5)]`}
                         >
-                          {/* biome-ignore lint/a11y/noStaticElementInteractions: Hover-only interaction for video playback, not a clickable element */}
+                          {/* biome-ignore lint/a11y/useSemanticElements: Container with hover effects, not a form fieldset */}
                           <div
-                            className="group relative flex flex-col gap-4 overflow-hidden transition-all duration-500 ease-in-out delay-75 p-3 sm:p-4 lg:p-5 aspect-3/4 min-h-[380px] sm:min-h-[480px] sm:max-w-[330px] bg-[#F6F6F6] hover:bg-[#E97451]/80 3xl:min-w-[410px] 3xl:h-[651px]"
+                            className="group relative flex flex-col gap-4 overflow-hidden transition-all duration-500 ease-in-out delay-75 p-3 sm:p-4 lg:p-5 aspect-3/4 min-h-[380px] sm:min-h-[580px] sm:max-w-[330px] bg-[#F6F6F6] hover:bg-[#E97451]/80 3xl:min-w-[410px] 3xl:h-[651px]"
+                            role="group"
                             onMouseEnter={(e) => {
-                              const video =
-                                e.currentTarget.querySelector("video");
-                              if (video) {
-                                video.play().catch(() => {});
+                              if (!isMobile) {
+                                const iframe =
+                                  e.currentTarget.querySelector("iframe");
+                                if (iframe) {
+                                  if (!originalUrlsRef.current.has(iframe)) {
+                                    originalUrlsRef.current.set(
+                                      iframe,
+                                      disableControls(iframe.src),
+                                    );
+                                  }
+
+                                  if (!iframe.src.includes("autoplay=1")) {
+                                    const originalUrl =
+                                      originalUrlsRef.current.get(iframe) ||
+                                      disableControls(iframe.src);
+                                    iframe.src =
+                                      addAutoplayAndMute(originalUrl);
+                                    iframe.setAttribute(
+                                      "allow",
+                                      "autoplay; encrypted-media; muted",
+                                    );
+                                  }
+                                }
                               }
                             }}
                             onMouseLeave={(e) => {
-                              const video =
-                                e.currentTarget.querySelector("video");
-                              if (video) {
-                                video.pause();
+                              if (!isMobile) {
+                                const iframe =
+                                  e.currentTarget.querySelector("iframe");
+                                if (iframe) {
+                                  const originalUrl =
+                                    originalUrlsRef.current.get(iframe);
+                                  if (originalUrl) {
+                                    iframe.src = removeAutoplayAndMute(
+                                      iframe.src,
+                                      originalUrl,
+                                    );
+                                    iframe.setAttribute(
+                                      "allow",
+                                      "autoplay; encrypted-media",
+                                    );
+                                  }
+                                }
                               }
                             }}
                           >
-                            <video
-                              src={videoUrl}
-                              loop
-                              muted
-                              playsInline
-                              preload="metadata"
+                            <iframe
+                              src={disableControls(videoUrl)}
                               className="absolute inset-0 w-full h-full object-cover z-0 p-1.5"
+                              allow="autoplay; encrypted-media"
+                              allowFullScreen
+                              title="Student video"
+                              style={{ border: "none" }}
                             />
                             <div className="relative z-20 flex items-end justify-between h-full">
                               <div
@@ -180,7 +239,11 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                               </div>
                               <DialogWidget
                                 trigger={
-                                  <div className="absolute right-5 bottom-15 w-13 h-13">
+                                  <button
+                                    type="button"
+                                    aria-label="Play video"
+                                    className="absolute right-5 bottom-15 w-13 h-13 border-none bg-transparent p-0 cursor-pointer group/play-button"
+                                  >
                                     <div className="video-main">
                                       <div className="waves-block">
                                         <div className="waves wave-1" />
@@ -188,23 +251,28 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                                         <div className="waves wave-3" />
                                       </div>
                                     </div>
-                                    <ButtonWidget
-                                      type="button"
-                                      className="relative w-13 h-13 p-0 bg-transparent hover:bg-transparent border-none shadow-none rounded-full group/play-button transition-all duration-300 ease-out z-10"
-                                    >
+                                    <div className="relative w-13 h-13 p-0 bg-transparent hover:bg-transparent border-none shadow-none rounded-full transition-all duration-300 ease-out z-10">
                                       <ImageWidget
                                         src={Play}
                                         alt="play video"
                                         className="w-13 cursor-pointer h-13 text-white group-hover/play-button:text-[#E97451] transition-colors duration-500 ease-in-out relative z-10"
                                       />
-                                    </ButtonWidget>
-                                  </div>
+                                    </div>
+                                  </button>
                                 }
                                 contentClassName="sm:max-w-[90vw] lg:max-w-[800px] p-0"
                                 showCancel={false}
                                 onOpenChange={(open) => {
-                                  if (!open) {
-                                    stopAllVideos();
+                                  if (open) {
+                                    stopHoverVideos(
+                                      carouselRef.current,
+                                      originalUrlsRef.current,
+                                    );
+                                  } else {
+                                    stopAllVideos(
+                                      carouselRef.current,
+                                      originalUrlsRef.current,
+                                    );
                                   }
                                 }}
                                 showCloseButton={false}
@@ -220,17 +288,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                                   </DialogClose>
                                 }
                               >
-                                <div className="relative w-full aspect-video bg-black rounded-lg">
-                                  <video
-                                    src={videoUrl}
-                                    autoPlay
-                                    loop
-                                    muted
-                                    playsInline
-                                    controls
-                                    className="w-full h-full object-contain rounded-lg"
-                                  />
-                                </div>
+                                <DialogVideoIframe videoUrl={videoUrl} />
                               </DialogWidget>
                             </div>
                           </div>
