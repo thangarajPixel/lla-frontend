@@ -26,7 +26,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
   const facilitiesData = data?.Card || [];
 
   return (
-    <section className="w-full bg-white py-8 md:py-12 lg:py-16 xl:py-16 2xl:py-16 3xl:py-28 relative z-50">
+    <section className="w-full bg-white py-8 md:py-12 lg:py-16 xl:py-16 2xl:py-16 3xl:py-28 relative z-20">
       <ContainerWidget>
         <div className="space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12 2xl:space-y-14 3xl:space-y-16">
           <ScrollWidget animation="fadeUp" delay={0.1}>
