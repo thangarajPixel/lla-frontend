@@ -59,7 +59,6 @@ const shuffleArray = <T,>(array: T[]): T[] => {
 };
 
 const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
-  console.log(initialData);
   const GalleryImageSkeleton = () => (
     <div className="w-full flex flex-col gap-3 bg-[#FFFFFF4D]">
       <Skeleton className="w-full h-[400px] md:h-[500px] lg:h-[600px]" />
