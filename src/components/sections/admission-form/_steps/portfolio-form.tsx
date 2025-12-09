@@ -133,7 +133,7 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
     const data = {
       ...filtered,
       step_3: true,
-      // Payment_Status: "Paid",
+      Payment_Status: "Paid",
     };
 
     try {

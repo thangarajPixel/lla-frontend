@@ -55,27 +55,27 @@ const AdmissionFormLayout = ({ children }: { children: React.ReactNode }) => {
             backgroundPosition: "bottom",
           }}
         >
-          <h1 className="text-3xl font-light text-white leading-tight">
+          <h1 className="text-[32px] 3xl:text-[56px] text-white leading-tight font-urbanist">
             PG Diploma in Documentary & Corporate Filmmaking 2026-2027 - Online
             Application
           </h1>
         </div>
 
-        <div className="w-full lg:w-3/4 bg-white p-8 lg:p-12 lg:pr-30 ">
+        <div className="w-full lg:w-3/4 bg-white px-4 py-12 lg:p-12 lg:pr-30 ">
           <div
             ref={scrollContainerRef}
             className=" mx-auto h-[550px] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             data-lenis-prevent
           >
             <div ref={headerRef} className="mb-8">
-              <h1 className="text-2xl font-urbanist leading-tight lg:hidden mb-8">
+              <h1 className="text-[32px] 3xl:text-[56px] font-urbanist leading-tight lg:hidden mb-6">
                 PG Diploma in Documentary & Corporate Filmmaking 2026-2027 -
                 Online Application
               </h1>
-              <h2 className="text-2xl md:text-3xl 3xl:text-4xl text-[#E97451] mb-2 font-urbanist">
+              <h2 className="text-2xl md:text-3xl 3xl:text-[40px] text-[#E97451] mb-4 font-urbanist">
                 Application Form
               </h2>
-              <p className="text-gray-600 text-base 3xl:text-lg">
+              <p className="text-black text-base 3xl:text-lg font-mulish">
                 Do go ahead and complete the application process as detailed
                 below. Use the unique URL sent to your email if you need to
                 check the mail in inbox/spam folder to complete at a later date.
