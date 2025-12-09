@@ -3,11 +3,11 @@
 import { useEffect, useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
+import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import { Dummy3 } from "@/helpers/ImageHelper";
-import HTMLWidget from "@/components/widgets/HTMLWidget";
 
 interface BlogImage {
   id: number;
@@ -62,8 +62,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
               {blogData?.Title || ""}
             </h3>
             <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[600px]">
-              {blogData?.Description ||
-                ""}
+              {blogData?.Description || ""}
             </p>
           </div>
 
@@ -115,7 +114,11 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                                     {blog.Title}
                                   </h4>
                                   {blog.Description && (
-                                    <HTMLWidget content={blog.Description} className="text-[15px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal line-clamp-2" tag="p" />
+                                    <HTMLWidget
+                                      content={blog.Description}
+                                      className="text-[15px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal line-clamp-2"
+                                      tag="p"
+                                    />
                                   )}
                                 </div>
                               </div>
@@ -162,7 +165,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                                 {blog.Title}
                               </h4>
                               {blog.Description && (
-                                <HTMLWidget 
+                                <HTMLWidget
                                   content={blog.Description}
                                   className="text-[15px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal line-clamp-2"
                                   tag="p"
