@@ -80,6 +80,7 @@ export type StudentTestimonialCard = {
   Description: string;
   Btn_txt: string | null;
   Image: ImageData[];
+  Url: string;
 };
 
 export type StudentTestimonialData = {
