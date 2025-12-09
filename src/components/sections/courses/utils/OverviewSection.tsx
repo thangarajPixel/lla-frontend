@@ -67,17 +67,15 @@ const OverviewSection = ({ data }: { data: MenuData }) => {
   );
 
   return (
-    <section className="w-full bg-white flex flex-col items-center justify-center relative  py-10 sm:py-20 sm:pt-30 3xl:h-[1048px]">
+    <section className="w-full bg-white flex flex-col items-center justify-center relative  py-10 sm:py-20 sm:pt-30 3xl:pt-50 3xl:h-[1048px]">
       <ContainerWidget>
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 xl:gap-0">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 xl:gap-2.5 2xl:gap-5 3xl:gap-[30px]">
           <div className="flex flex-col gap-4.5 justify-center md:-mt-15">
-            {data.Duration && (
-              <div className="self-start">
-                <ButtonWidget className="text-[20px] xss:text-[16px] p-5 3xl:text-[24px] font-mulish w-full rounded-full bg-[#E97451]/20 border border-[#E97451] text-black hover:bg-[#E97451]/20">
-                  {data.Duration}
-                </ButtonWidget>
-              </div>
-            )}
+            <div className="self-start">
+              <ButtonWidget className="text-[20px] xss:text-[16px] p-5 3xl:text-[24px] font-mulish w-full rounded-full bg-[#E97451]/20 border border-[#E97451] text-black hover:bg-[#E97451]/20">
+                Duration1 Year
+              </ButtonWidget>
+            </div>
             <p className="font-urbanist font-normal text-[23px] sxx:leading-10 xss:text-[32px] md:leading-14 sm:text-5xl 3xl:text-[64px] text-black">
               {data.Title}
               {data.SubTitle && (
@@ -97,7 +95,7 @@ const OverviewSection = ({ data }: { data: MenuData }) => {
               return (
                 <p
                   key={key}
-                  className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[400px]"
+                  className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full "
                 >
                   {paragraphText}
                 </p>
@@ -112,7 +110,7 @@ const OverviewSection = ({ data }: { data: MenuData }) => {
             )}
           </div>
           <ScrollWidget delay={0.1} animation="fadeUp">
-            <div className="hidden xl:block 3xl:ml-30">
+            <div className="hidden xl:block">
               <div
                 className={`frame-39 property-1-${variant} relative h-[650px] -mt-10 box-border`}
               >
@@ -120,17 +118,17 @@ const OverviewSection = ({ data }: { data: MenuData }) => {
                   <div
                     className={`rectangle-79 absolute object-cover transition-all duration-500 ${
                       variant === "variant-2"
-                        ? "opacity-50 xl:w-[250px] xl:h-[250px] xl:left-[280px] 2xl:w-[300px] 2xl:h-[300px] 2xl:left-[330px] top-0 z-10 3xl:w-[410px] 3xl:h-[271px] 3xl:left-[280px]"
+                        ? "opacity-50 xl:w-[250px] xl:h-[270px] xl:left-[360px] 2xl:w-[300px] 2xl:h-[322px] 2xl:left-[440px] top-0 z-10 3xl:w-[396px] 3xl:h-[392px] 3xl:left-[520px] 3xl:top-6"
                         : variant === "variant-3"
-                          ? "xl:w-[420px] xl:h-[420px] 2xl:w-[500px] 2xl:h-[500px] left-0 top-[65px] z-20 3xl:w-[740px] 3xl:h-[493px] 3xl:left-[-140px]"
-                          : "opacity-50 xl:w-[300px] xl:h-[300px] xl:left-[180px] 2xl:w-[350px] 2xl:h-[350px] 2xl:left-[210px] top-[260px] z-10 3xl:w-[541px] 3xl:h-[360px] 3xl:top-[380px]"
+                        ? "xl:w-[400px] xl:h-[390px] xl:top-20 2xl:w-[500px] 2xl:h-[494px] 2xl:top-[90px] left-0 top-[65px] z-20 3xl:w-[630px] 3xl:h-[624px] 3xl:top-[104px]"
+                        : "opacity-50 xl:w-[300px] xl:h-[300px] xl:left-[180px] xl:top-[286px] 2xl:w-[344px] 2xl:h-[340px] 2xl:left-[300px] 2xl:top-[336px] z-10 3xl:w-[444px] 3xl:left-[330px] 3xl:h-[440px] 3xl:top-[436px]"
                     }`}
                   >
                     <ImageWidget
                       src={getImageUrl(currentIndices[0])}
                       alt={aboutImages[currentIndices[0]].name}
                       fill
-                      className="object-contain"
+                      className="object-cover"
                     />
                   </div>
                 )}
@@ -138,17 +136,17 @@ const OverviewSection = ({ data }: { data: MenuData }) => {
                   <div
                     className={`rectangle-80 absolute object-cover transition-all duration-500 ${
                       variant === "variant-2"
-                        ? "xl:w-[420px] xl:h-[420px] 2xl:w-[500px] 2xl:h-[500px] left-0 top-[65px] z-20 3xl:w-[740px] 3xl:h-[493px] 3xl:left-[-140px]"
+                        ? "xl:w-[400px] xl:h-[390px] xl:top-20 2xl:w-[500px] 2xl:h-[494px] 2xl:top-[90px] left-0 top-[65px] z-20 3xl:w-[630px] 3xl:h-[624px] 3xl:top-[104px]"
                         : variant === "variant-3"
-                          ? "opacity-50 xl:w-[300px] xl:h-[300px] xl:left-[180px] 2xl:w-[350px] 2xl:h-[350px] 2xl:left-[210px] top-[260px] z-10 3xl:w-[541px] 3xl:h-[360px] 3xl:top-[380px]"
-                          : "opacity-50 xl:w-[250px] xl:h-[250px] xl:left-[280px] 2xl:w-[300px] 2xl:h-[300px] 2xl:left-[330px] top-0 z-10 3xl:w-[410px] 3xl:h-[271px] 3xl:left-[280px]"
+                        ? "opacity-50 xl:w-[300px] xl:h-[300px] xl:left-[180px] xl:top-[286px] 2xl:w-[344px] 2xl:h-[340px] 2xl:left-[300px] 2xl:top-[336px] z-10 3xl:w-[444px] 3xl:left-[330px] 3xl:h-[440px] 3xl:top-[436px]"
+                        : "opacity-50 xl:w-[250px] xl:h-[270px] xl:left-[360px] 2xl:w-[300px] 2xl:h-[322px] 2xl:left-[440px] top-0 z-10 3xl:w-[396px] 3xl:h-[392px] 3xl:left-[520px] 3xl:top-6"
                     }`}
                   >
                     <ImageWidget
                       src={getImageUrl(currentIndices[1])}
                       alt={aboutImages[currentIndices[1]].name}
                       fill
-                      className="object-contain"
+                      className="object-cover"
                     />
                   </div>
                 )}
@@ -156,17 +154,17 @@ const OverviewSection = ({ data }: { data: MenuData }) => {
                   <div
                     className={`rectangle-78 absolute object-cover transition-all duration-500 ${
                       variant === "variant-2"
-                        ? "opacity-50 xl:w-[300px] xl:h-[300px] xl:left-[180px] 2xl:w-[350px] 2xl:h-[350px] 2xl:left-[210px] top-[260px] z-10 3xl:w-[541px] 3xl:h-[360px] 3xl:top-[380px]"
+                        ? "opacity-50 xl:w-[300px] xl:h-[300px] xl:left-[180px] xl:top-[286px] 2xl:w-[344px] 2xl:h-[340px] 2xl:left-[300px] 2xl:top-[336px] z-10 3xl:w-[444px] 3xl:left-[330px] 3xl:h-[440px] 3xl:top-[436px]"
                         : variant === "variant-3"
-                          ? "opacity-50 xl:w-[250px] xl:h-[250px] xl:left-[280px] 2xl:w-[300px] 2xl:h-[300px] 2xl:left-[330px] top-0 z-10 3xl:w-[410px] 3xl:h-[271px] 3xl:left-[280px]"
-                          : "xl:w-[420px] xl:h-[420px] 2xl:w-[500px] 2xl:h-[500px] left-0 top-[65px] z-20 3xl:w-[740px] 3xl:h-[493px] 3xl:left-[-140px]"
+                        ? "opacity-50 xl:w-[250px] xl:h-[270px] xl:left-[360px] 2xl:w-[300px] 2xl:h-[322px] 2xl:left-[440px] top-0 z-10 3xl:w-[396px] 3xl:h-[392px] 3xl:left-[520px] 3xl:top-6"
+                        : "xl:w-[400px] xl:h-[390px] xl:top-20 2xl:w-[500px] 2xl:h-[494px] 2xl:top-[90px] left-0 top-[65px] z-20 3xl:w-[630px] 3xl:h-[624px] 3xl:top-[104px]"
                     }`}
                   >
                     <ImageWidget
                       src={getImageUrl(currentIndices[2])}
                       alt={aboutImages[currentIndices[2]].name}
                       fill
-                      className="object-contain"
+                      className="object-cover"
                     />
                   </div>
                 )}
