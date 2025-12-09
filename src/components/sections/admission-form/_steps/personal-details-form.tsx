@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { CheckCircle, Plus, X, XCircle } from "lucide-react";
+import { CheckCircle, Plus, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
@@ -65,16 +65,16 @@ const PersonalDetailsForm = ({
           type: child.type,
         })),
       })) ?? [
-          {
-            type: "paragraph",
-            children: [
-              {
-                text: "",
-                type: "text",
-              },
-            ],
-          },
-        ],
+        {
+          type: "paragraph",
+          children: [
+            {
+              text: "",
+              type: "text",
+            },
+          ],
+        },
+      ],
       city: admissionData?.city ?? "",
       district: admissionData?.district ?? "",
       state: admissionData?.state?.documentId ?? "",
@@ -104,16 +104,16 @@ const PersonalDetailsForm = ({
             })),
           }),
         ) ?? [
-            {
-              type: "paragraph",
-              children: [
-                {
-                  text: "",
-                  type: "text",
-                },
-              ],
-            },
-          ],
+          {
+            type: "paragraph",
+            children: [
+              {
+                text: "",
+                type: "text",
+              },
+            ],
+          },
+        ],
         city: admissionData?.Parent_Guardian_Spouse_Details?.city ?? "",
         district: admissionData?.Parent_Guardian_Spouse_Details?.district ?? "",
         state:
@@ -436,7 +436,7 @@ const PersonalDetailsForm = ({
                 onClick={handleClick}
               >
                 {(!previewUrl && !admissionData?.passport_size_image) ||
-                  isRemoved ? (
+                isRemoved ? (
                   <>
                     <ImageWidget
                       src={UploadIconImg}
@@ -498,7 +498,8 @@ const PersonalDetailsForm = ({
                 Max. file size not more than 1MB.
               </p> */}
               <p className="text-xs font-mulish text-muted-foreground mt-2 xs:max-w-[180px]">
-                The size of the images should not be more than 12&quot;x8&quot; size. Max. file size not more than 1MB.
+                The size of the images should not be more than 12&quot;x8&quot;
+                size. Max. file size not more than 1MB.
               </p>
 
               {errors.passport_size_image && (
