@@ -14,7 +14,7 @@ const HTMLWidget = ({
   const sanitizedContent = useMemo(() => {
     const normalizedContent = (content || "").trim();
     if (!normalizedContent) return "";
-    
+
     const sanitized = sanitizeHtml(normalizedContent, {
       allowedTags: [
         "p",
@@ -87,19 +87,19 @@ const HTMLWidget = ({
         iframe: ["http", "https"],
       },
     });
-    
+
     const trimmed = sanitized.trim();
     if (!trimmed) return "";
-    
+
     const textContent = trimmed
       .replace(/<br\s*\/?>/gi, "")
       .replace(/<[^>]*>/g, "")
       .trim();
-    
+
     if (!textContent) {
       return "";
     }
-    
+
     return trimmed;
   }, [content]);
 

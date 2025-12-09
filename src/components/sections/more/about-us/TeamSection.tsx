@@ -87,11 +87,11 @@ const TeamSection = ({ data }: TeamSectionProps) => {
                             hover:bg-[#E97451]/20 cursor-pointer
                             transition-colors duration-500 ease-out
                             px-3 py-3 flex flex-col
-                            h-[300px] xs:h-[310px] sm:h-[310px] md:h-[300px] lg:h-[300px]
-                            xl:h-[340px] 2xl:h-[410px] 3xl:h-[480px] 4xl:h-[500px]`}
+                            min-h-[300px] xs:min-h-[310px] sm:min-h-[310px] md:min-h-[300px] lg:min-h-[300px]
+                            xl:min-h-[340px] 2xl:min-h-[410px] 3xl:min-h-[480px] 4xl:min-h-[500px]`}
                 >
                   <ParallaxWidget speed={-0.1}>
-                    <div className="w-full aspect-square overflow-hidden  w-[170px] h-[171px] md:w-[200px] md:h-[200px] lg:w-[200px] lg:h-[200px] xl:w-[200px] xl:h-[200px] 2xl:w-[300px] 2xl:h-[302px] 3xl:w-[300px] 3xl:h-[302px]">
+                    <div className="aspect-square overflow-hidden  w-[170px] h-[171px] md:w-[200px] md:h-[200px] lg:w-[200px] lg:h-[200px] xl:w-[200px] xl:h-[200px] 2xl:w-[300px] 2xl:h-[302px] 3xl:w-[300px] 3xl:h-[302px]">
                       <ImageWidget
                         src={faculty.imageUrl}
                         alt="Faculty"
@@ -104,23 +104,18 @@ const TeamSection = ({ data }: TeamSectionProps) => {
                     className="
                     font-mulish font-bold text-black 
                     mt-3 leading-6
-                    text-[13px] sm:text-[16px] md:text-xl lg:text-[20px]
-                    xl:text-[18px] 2xl:text-[24px] 3xl:text-[24px] 4xl:text-[24px]"
+                    text-[13px] sm:text-[16px] lg:text-[19px] 2xl:text-[19px] 3xl:text-[24px] 4xl:text-[24px]"
                   >
                     {faculty.name}
                   </h5>
                   <p
                     className="font-mulish text-black font-regular
-                    text-[13px] sm:text-[16px] md:[16px] lg:text-[16px]
-                    xl:text-[14px] 2xl:text-[18px] 3xl:text-[18px] 4xl:text-[18px]"
+                    text-[13px] sm:text-[16px] md:[16px] 3xl:text-[18px] 4xl:text-[18px] my-2"
                   >
                     {faculty.description}
                   </p>
-                  <div className="self-start mt-auto opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out">
-                    <OrangeButtonWidget
-                      className=""
-                      content={faculty.Btn_txt}
-                    />
+                  <div className="mt-2 self-start opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out">
+                    <OrangeButtonWidget content={faculty.Btn_txt} />
                   </div>
                 </div>
               </ScrollWidget>
@@ -151,7 +146,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
               />
             </div>
 
-            <div className="space-y-3 sm:space-y-4 md:space-y-5 py-4">
+            <div className="space-y-3  pt-3">
               <h5
                 className="font-urbanist font-regular text-[#E97451] text-left
                   text-[24px] sm:text-[24px] md:text-[24px] lg:text-[24px] 
@@ -159,12 +154,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
               >
                 {data.Frame.Title}
               </h5>
-              <p
-                className="font-mulish font-regular text-black leading-normal
-                  text-[16px] sm:text-sm md:text-base lg:text-[15px] 
-                  xl:text-[16px] 2xl:text-[18px] 3xl:text-[18px] 4xl:text-[20px]
-                  w-full"
-              >
+              <p className="font-mulish text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
                 {data.Frame.Description}
               </p>
             </div>

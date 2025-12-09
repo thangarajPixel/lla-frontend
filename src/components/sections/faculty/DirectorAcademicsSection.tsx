@@ -14,12 +14,12 @@ const DirectorAcademicsSection = ({ data }: FacultyFounderSectionProps) => {
             {data?.Title}
           </h2>
         </ScrollWidget>
-        <div className="flex flex-col md:flex-row lg:flex-row items-center gap-8 md:gap-10 lg:gap-10 xl:gap-10 2xl:gap-8 3xl:gap-15">
+        <div className="flex flex-col md:flex-row lg:flex-row items-center gap-8 md:gap-20 lg:gap-20 xl:gap-25 2xl:gap-30 3xl:gap-35">
           <ScrollWidget
             delay={0.3}
             className="order-2 md:order-1 w-full md:flex-1"
           >
-            <div className="space-y-3 s:space-y-3 m:space-y-3 xss:space-y-4 xs:space-y-4 sm:space-y-4 md:space-y-3 lg:space-y-4 xl:space-y-2 2xl:space-y-3 3xl:space-y-4 max-w-full md:max-w-[380px] lg:max-w-[420px] xl:max-w-[420px] 2xl:max-w-[460px] 3xl:max-w-[520px]">
+            <div className="space-y-3 s:space-y-3 m:space-y-3 xss:space-y-4 xs:space-y-4 sm:space-y-4 md:space-y-3 lg:space-y-4 xl:space-y-2 2xl:space-y-3 3xl:space-y-4">
               <h3 className="font-urbanist font-normal text-left text-[#E97451] text-[18px] s:text-[19px] m:text-[20px] xss:text-[21px] xs:text-[22px] sm:text-[23px] md:text-[24px] lg:text-[26px] xl:text-[28px] 2xl:text-[30px] 3xl:text-[34px]">
                 {data?.Founder_card[0]?.Heading}
               </h3>

@@ -30,9 +30,9 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
       xs:min-h-[1500px]
       sm:min-h-[1500px]
       md:min-h-[1400px]
-      lg:min-h-[1200px]
-      xl:min-h-[1200px] 
-      2xl:min-h-[1500px]
+      lg:min-h-[1000px]
+      xl:min-h-[1000px] 
+      2xl:min-h-[1300px]
       3xl:min-h-[1500px]"
         >
           <ContainerWidget>
@@ -44,7 +44,7 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
             <div className="flex flex-col items-start justify-start gap-2 md:gap-2">
               <ScrollWidget animation="slideLeft" delay={0.2}>
                 <p
-                  className="font-mulish font-normal font-regular leading-[32px] 3xl:leading-[48px]  text-[24px] md:text-[28px] lg:text-[28px] xl:text-[24px] 
+                  className="mb-3 font-mulish font-normal font-regular leading-[32px] 3xl:leading-[48px]  text-[24px] md:text-[28px] lg:text-[28px] xl:text-[24px] 
                 2xl:text-[30px] 3xl:text-[40px] text-black sm:max-w-[600px] md:max-w-[750px] lg:max-w-[800px] 
                 xl:max-w-[550px] 2xl:max-w-[650px] 3xl:max-w-[852px]"
                 >
@@ -62,11 +62,7 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
                     delay={0.2 + index * 0.1}
                   >
                     <p
-                      className="text-[16px] sm:text-[16px] lg:text-[16px] font-mulish font-normal
-                    xl:text-[16px] 2xl:text-[16px] 3xl:text-[18px]
-                    font-regular text-black leading-6 md:leading-6 
-                    lg:leading-6 xl:leading-[22px] 2xl:leading-[24px] 3xl:leading-[26px]
-                    w-full md:max-w-[650px] xl:max-w-[660px] 2xl:max-w-[850px]
+                      className="font-mulish text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[650px] xl:max-w-[660px] 2xl:max-w-[850px]
                     3xl:max-w-[854px]"
                     >
                       {textContent}
