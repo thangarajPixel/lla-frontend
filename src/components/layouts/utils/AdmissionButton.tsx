@@ -116,7 +116,7 @@ const AdmissionButton = ({
                     <LinkWidget href="/admission">
                       <OrangeButtonWidget content="Apply now" />
                     </LinkWidget>
-                    <LinkWidget href="/">
+                    <LinkWidget href={`/courses/${card.Slug}`}>
                       <OrangeBorderButtonWidget
                         content={card.Btn_txt || "Course Detail"}
                       />
