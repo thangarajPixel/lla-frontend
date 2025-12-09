@@ -86,3 +86,7 @@ export async function getFooterData() {
 export async function getCourseBySlug(slug: string) {
   return fetchData(`/courses/view/${slug}`);
 }
+
+export async function getBlogPageData() {
+  return fetchData("/blog");
+}
