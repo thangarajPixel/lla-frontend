@@ -121,6 +121,7 @@ export type StudentSectionProps = {
       id: number;
       Title: string;
       Description: string;
+      Url: string;
       Image: Array<{
         id: number;
         name: string;
