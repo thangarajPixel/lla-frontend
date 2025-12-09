@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { getGalleryPageData } from "@/app/api/server";
+import { DialogClose } from "@/components/ui/dialog";
 import {
   Select,
   SelectContent,
@@ -11,7 +12,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
-import { DialogClose } from "@/components/ui/dialog";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import DialogWidget from "@/components/widgets/DialogWidget";
@@ -41,8 +41,24 @@ interface GalleryData {
   };
 }
 
-const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
+const isVideoFile = (url: string): boolean => {
+  if (!url) return false;
+  const videoExtensions = [".mp4", ".mov", ".avi", ".webm", ".mkv", ".m4v"];
+  return videoExtensions.some((ext) =>
+    url.toLowerCase().endsWith(ext.toLowerCase()),
+  );
+};
 
+const shuffleArray = <T,>(array: T[]): T[] => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+};
+
+const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   console.log(initialData);
   const GalleryImageSkeleton = () => (
     <div className="w-full flex flex-col gap-3 bg-[#FFFFFF4D]">
@@ -78,23 +94,6 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
     }
     return imageCards.filter((card) => card.Type === selectedType);
   }, [imageCards, selectedType]);
-
-  const isVideoFile = (url: string): boolean => {
-    if (!url) return false;
-    const videoExtensions = [".mp4", ".mov", ".avi", ".webm", ".mkv", ".m4v"];
-    return videoExtensions.some((ext) =>
-      url.toLowerCase().endsWith(ext.toLowerCase()),
-    );
-  };
-
-  const shuffleArray = <T,>(array: T[]): T[] => {
-    const shuffled = [...array];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
-  };
 
   const allImagesUnshuffled = useMemo(() => {
     return filteredImageCards.flatMap((card, cardIndex) =>
@@ -223,7 +222,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
             {uniqueTypes.length > 0 && (
               <div className="relative w-full md:w-auto md:min-w-[200px]">
                 <Select value={selectedType} onValueChange={setSelectedType}>
-                  <SelectTrigger className="w-full md:w-[200px]">
+                  <SelectTrigger className="w-full md:w-[200px] rounded-full border-[#E97451]">
                     <SelectValue placeholder="Filter by type" />
                   </SelectTrigger>
                   <SelectContent>
@@ -310,6 +309,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
                               }
                             >
                               <div className="relative w-full aspect-video bg-black rounded-lg">
+                                {/* biome-ignore lint/a11y/useMediaCaption: Gallery videos may not have captions available */}
                                 <video
                                   src={(image.videoUrl as string) || ""}
                                   controls
@@ -411,6 +411,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
                         }
                       >
                         <div className="relative w-full aspect-video bg-black rounded-lg">
+                          {/* biome-ignore lint/a11y/useMediaCaption: Gallery videos may not have captions available */}
                           <video
                             src={(image.videoUrl as string) || ""}
                             controls
