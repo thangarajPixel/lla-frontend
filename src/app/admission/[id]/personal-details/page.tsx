@@ -11,6 +11,7 @@ const PersonalDetails = async (props: PageProps) => {
   const admissionResponse = await getAdmissionsById(Number(admissionId));
 
   const admissionData = admissionResponse?.data as AdmissionFormData;
+
   return (
     <ScrollWidget>
       <PersonalDetailsForm admissionData={admissionData} admissionId={id} />

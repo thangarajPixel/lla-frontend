@@ -11,6 +11,7 @@ type InputFieldProps = React.ComponentProps<"input"> & {
   inputClassName?: string;
   errorClassName?: string;
   restrictionType?: string;
+  maxLength?: number;
   onFieldCheck?: (field: string) => void;
 };
 
@@ -23,6 +24,7 @@ const Input = ({
   inputClassName,
   errorClassName,
   restrictionType,
+  maxLength,
   onFieldCheck,
   ...props
 }: InputFieldProps) => {
@@ -48,6 +50,7 @@ const Input = ({
           inputClassName,
         )}
         {...props}
+        maxLength={maxLength}
         onKeyDown={(e) => {
           const allowedControlKeys = [
             "Backspace",
@@ -62,6 +65,14 @@ const Input = ({
 
           if (allowedControlKeys.includes(e.key)) return;
 
+          if (
+            e.key === " " &&
+            (!props.value || String(props.value).trim() === "")
+          ) {
+            e.preventDefault();
+            return;
+          }
+
           if (restrictionType === "text") {
             if (!/^[0-9\s-+]$/.test(e.key)) {
               e.preventDefault();
@@ -69,8 +80,14 @@ const Input = ({
           }
 
           if (restrictionType === "number") {
-            if (!/^[a-zA-Z\s]$/.test(e.key)) {
-              e.preventDefault();
+            if (props?.name === "blood_group") {
+              if (!/^[a-zA-Z\s-+]$/.test(e.key)) {
+                e.preventDefault();
+              }
+            } else {
+              if (!/^[a-zA-Z\s]$/.test(e.key)) {
+                e.preventDefault();
+              }
             }
           }
 
@@ -95,7 +112,12 @@ const Input = ({
         }}
         onBlur={(e) => {
           e.preventDefault();
-          onFieldCheck?.(props?.value as string);
+          // onFieldCheck?.(props?.value as string);
+          const trimmed = e.target.value.trim();
+          e.target.value = trimmed;
+
+          onFieldCheck?.(trimmed);
+          props.onBlur?.(e);
         }}
       />
 
