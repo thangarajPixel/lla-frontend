@@ -39,6 +39,9 @@ export async function getContactPageData() {
 export async function getPrivacyPageData() {
   return fetchData("/privacy-policy");
 }
+export async function getTermsPageData() {
+  return fetchData("/terms-and-condition");
+}
 export async function getFacultyPageData() {
   return fetchData("/faculty");
 }
@@ -50,8 +53,8 @@ export async function getLifePageData(params: {
   return fetchData("/life-at-lla", params);
 }
 
-export async function getLifeById(Slug: string) {
-  return fetchData(`/life-at-lla/${Slug}`);
+export async function getLifeById(slug: string) {
+  return fetchData(`/life-at-lla/${slug}`);
 }
 
 export async function getAdmissionsPageData() {
@@ -92,4 +95,8 @@ export async function getCourseBySlug(slug: string) {
 
 export async function getBlogPageData() {
   return fetchData("/blog");
+}
+
+export async function getBlogBySlug(slug: string) {
+  return fetchData(`/blog/${slug}`);
 }
