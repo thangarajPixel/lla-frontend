@@ -17,19 +17,19 @@ const HowtoApplySection = ({ data }: { data: HowToApplyData }) => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
             {data.Card.map((card, index) => {
-              const stepNumber = String(index + 1).padStart(2, "0");
+              // const stepNumber = String(index + 1).padStart(2, "0");
               return (
                 <ScrollWidget
                   key={card.id}
                   delay={0.2 + index * 0.1}
                   animation="fadeUp"
                 >
-                  <div className="relative flex flex-col border border-[#E97451] bg-white px-4 py-2 pb-4 3xl:p-6 min-h-[280px]">
-                    <div className="absolute top-6 right-6 lg:top-6 lg:right-6">
+                  <div className="relative flex flex-col border border-[#E97451] bg-white px-4 py-2 pt-4 pb-4 3xl:p-6 min-h-[280px]">
+                    {/* <div className="absolute top-6 right-6 lg:top-6 lg:right-6">
                       <span className="text-[#E97451]/20 font-urbanist text-5xl sm:text-[60px] 3xl:text-[80px] font-normal leading-none">
                         {stepNumber}
                       </span>
-                    </div>
+                    </div> */}
                     {card.Icon && (
                       <div className="relative mb-4 lg:mb-6 w-18 h-18 flex items-center justify-center">
                         <ImageWidget
