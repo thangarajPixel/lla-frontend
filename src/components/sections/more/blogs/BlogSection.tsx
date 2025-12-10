@@ -7,7 +7,8 @@ import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import { Dummy3 } from "@/helpers/ImageHelper";
+import { ArrowRightWhite, Dummy3 } from "@/helpers/ImageHelper";
+import Link from "next/link";
 
 interface BlogImage {
   id: number;
@@ -18,6 +19,7 @@ interface BlogImage {
 interface BlogCard {
   id: number;
   Title: string;
+  Slug: string;
   Description: string | null;
   Btn_txt: string;
   Image: BlogImage[] | null;
@@ -121,6 +123,19 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                                     />
                                   )}
                                 </div>
+                                <Link
+                                  href={`/more/blogs/${blog.Slug}`}
+                                  className="inline-flex items-center gap-2 text-[#E97451] hover:gap-4 transition-all duration-300 mt-2 text-[16px] md:text-[16px] lg:text-[16px] font-normal font-urbanist group"
+                                >
+                                  {blog.Btn_txt}
+                                  <ImageWidget
+                                    src={ArrowRightWhite}
+                                    alt="Arrow Right"
+                                    width={16}
+                                    height={16}
+                                    className="object-contain"
+                                  />
+                                </Link>
                               </div>
                             </div>
                           </ScrollWidget>
@@ -171,6 +186,18 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                                   tag="p"
                                 />
                               )}
+                               <Link  href={`/more/blogs/${blog.Slug}`}
+                                     className="inline-flex items-center gap-2 text-[#E97451] hover:gap-4 transition-all duration-300 mt-2 text-[16px] md:text-[16px] lg:text-[16px] font-normal font-urbanist group"
+                                    >
+                                   Read More
+                                   <ImageWidget
+                                     src={ArrowRightWhite}
+                                       alt="Arrow Right"
+                                       width={16}
+                                       height={16}
+                                      className="object-contain"
+                                       />
+                                 </Link>
                             </div>
                           </div>
                         </div>
