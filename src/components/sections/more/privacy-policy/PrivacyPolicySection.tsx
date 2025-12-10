@@ -1,28 +1,25 @@
 import { X } from "lucide-react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
+import { PrivacyPolicyProps } from "./utils/privacy-policy";
+import HTMLWidget from "@/components/widgets/HTMLWidget";
 
-const PrivacyPolicySection = () => {
+const PrivacyPolicySection = ({ data }: PrivacyPolicyProps) => {
   return (
     <section className="relative w-full bg-white py-10 md:py-10">
       <ContainerWidget>
         <div className="max-w-full">
           <h1 className="font-urbanist font-regular text-[28px] md:text-[32px] lg:text-[36px] xl:text-[40px] 2xl:text-[44px] 3xl:text-[48px] text-black mb-6">
-            Privacy Policy
+           {data.Title}
           </h1>
           <div className="mb-10">
             <h2 className="font-mulish font-normal text-[20px] md:text-[22px] lg:text-[24px] xl:text-[26px] 2xl:text-[28px] 3xl:text-[32px]  text-black mb-4">
-              Privacy Policy for Light & Life Academy
+             {data.SubTitle}
             </h2>
-            <p className="text-[16px] md:text-[14px] lg:text-[14px] xl:text-[14px] 2xl:text-[16px] 3xl:text-[18px] text-black leading-relaxed">
-              Before embarking on the journey of organizing a photography
-              exhibition, it's essential to clarify the purpose and objectives
-              behind it. Are you aiming to showcase a particular project or
-              series of work? Do you want to raise awareness about a social
-              issue or share a personal story through your photographs?
-              Understanding the purpose of the exhibition will guide your
-              decision-making process and help you communicate the significance
-              of your work to potential venues and collaborators.
-            </p>
+             <HTMLWidget
+              content={data.Description}
+              className="text-[16px] md:text-[14px] lg:text-[14px] xl:text-[14px] 2xl:text-[16px] 3xl:text-[18px] text-black leading-relaxed"
+              tag="p"
+              />
           </div>
           <div className="mb-12">
             <h2 className="text-2xl md:text-3xl font-semibold text-black mb-6">
