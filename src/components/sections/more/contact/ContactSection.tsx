@@ -163,7 +163,7 @@ export default function ContactSection({ data }: ContactSectionProps) {
                 <FormInput
                   name="Mobile"
                   control={control}
-                  type="number"
+                  restrictionType="text"
                   placeholder="Enter your phone number"
                   label="Phone Number"
                 />
