@@ -109,6 +109,7 @@ const AdmissionRequestButton = ({
               control={control}
               placeholder="First Name"
               label="First Name"
+              restrictionType="number"
             />
             <FormInput
               name="LastName"
@@ -116,6 +117,7 @@ const AdmissionRequestButton = ({
               label="Last Name"
               placeholder="Last Name"
               notRequired
+              restrictionType="number"
             />
           </div>
 
@@ -133,6 +135,8 @@ const AdmissionRequestButton = ({
               type="tel"
               placeholder="Enter your phone number"
               label="Phone Number"
+              restrictionType="text"
+              maxLength={10}
             />
           </div>
 
