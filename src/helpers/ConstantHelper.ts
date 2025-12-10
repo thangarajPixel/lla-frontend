@@ -226,3 +226,21 @@ export const decryptCode = (str: string) => {
   const decoded = Buffer.from(padded, "base64").toString();
   return decoded.split("_")[0];
 };
+
+export const calculateDuration = (start?: string, end?: string) => {
+  if (!start || !end) return "-";
+
+  const startDate = new Date(start);
+  const endDate = new Date(end);
+
+  if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime())) {
+    return "-";
+  }
+
+  const diffInMs = endDate.getTime() - startDate.getTime();
+  const diffInYears = diffInMs / (1000 * 60 * 60 * 24 * 365.25);
+
+  const duration = Math.floor(diffInYears);
+
+  return duration > 1 ? `${duration} years` : `${duration} year`;
+};

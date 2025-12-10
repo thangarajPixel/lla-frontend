@@ -24,6 +24,7 @@ export type CourseSectionProps = {
       Title: string;
       Description: string;
       Btn_txt: string;
+      Slug: string;
       Image: Array<{
         id: number;
         name: string;
@@ -121,6 +122,7 @@ export type StudentSectionProps = {
       id: number;
       Title: string;
       Description: string;
+      Url: string;
       Image: Array<{
         id: number;
         name: string;

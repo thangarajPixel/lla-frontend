@@ -1,5 +1,7 @@
+import { Fragment } from "react";
 import { getCourseBySlug } from "@/app/api/server";
 import CourseSection from "@/components/sections/courses/CourseSection";
+import CourseAdmissionFormSection from "@/components/sections/courses/utils/CourseAdmissionFormSection";
 
 const CourseBySlug = async ({
   params,
@@ -11,7 +13,14 @@ const CourseBySlug = async ({
   const response = await getCourseBySlug(slug);
 
   if (!response?.data) return null;
-  return <CourseSection data={response?.data} />;
+  return (
+    <Fragment>
+      <CourseSection data={response?.data} />
+      <CourseAdmissionFormSection
+        courseId={response?.data?.courseList?.documentId}
+      />
+    </Fragment>
+  );
 };
 
 export default CourseBySlug;

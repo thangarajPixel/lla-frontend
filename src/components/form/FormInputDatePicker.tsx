@@ -136,6 +136,7 @@ const FormDatePickerWithInput = <T extends FieldValues>({
           >
             <Calendar
               mode="single"
+              captionLayout="dropdown"
               selected={parsedStoredDate}
               month={month}
               onMonthChange={setMonth}
@@ -153,7 +154,7 @@ const FormDatePickerWithInput = <T extends FieldValues>({
         </Popover>
       </div>
 
-      {error && <p className="text-xs text-red-500 mt-1">{error.message}</p>}
+      {error && <p className="text-sm text-red-500 mt-1">{error.message}</p>}
     </div>
   );
 };

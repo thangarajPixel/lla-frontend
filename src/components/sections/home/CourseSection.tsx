@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import LinkWidget from "@/components/widgets/LinkWidget";
-import OrangeBorderButtonWidget from "@/components/widgets/OrangeBorderButtonWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
@@ -136,11 +135,8 @@ const CourseSection = ({ data }: CourseSectionProps) => {
                         {card.Description}
                       </p>
                       <div className="self-start flex gap-4">
-                        <LinkWidget href="/admission">
+                        <LinkWidget href={`/courses/${card.Slug}`}>
                           <OrangeButtonWidget content={card.Btn_txt} />
-                        </LinkWidget>
-                        <LinkWidget href="/">
-                          <OrangeBorderButtonWidget content="Course Detail" />
                         </LinkWidget>
                       </div>
                     </ParallaxWidget>

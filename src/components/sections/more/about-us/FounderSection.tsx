@@ -27,17 +27,16 @@ const FounderSection = ({ data }: FounderSectionProps) => {
           <div className=" grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-14 lg:gap-16 xl:gap-0 2xl:gap-20 3xl:gap-0 items-center ">
             <ScrollWidget delay={0.2} className="order-2 md:order-1">
               <div className="space-y-3 xs:space-y-4 md:space-y-5 lg:space-y-6 xl:space-y-4 xl:max-w-[400px] 2xl:max-w-[500px] 3xl:max-w-[520px]">
-                <h4 className="font-urbanist  font-normal text-[#E97451] block hidden md:block  text-[24px]  xs:text-[26px] sm:text-[26px] md:text-[28px] lg:text-[28px] xl:text-[32px] 2xl:text-[36px] 3xl:text-[40px] ">
+                <h4 className="font-urbanist  font-normal text-[#E97451]  hidden md:block  text-[24px]  xs:text-[26px] sm:text-[26px] md:text-[28px] lg:text-[28px] xl:text-[32px] 2xl:text-[36px] 3xl:text-[40px] ">
                   {data.Founder_card[0].Heading}
                 </h4>
-                <p className="font-mulish text-black leading-normal text-[13px] xs:text-[16px] sm:text-[16px] lg:text-[16px] xl:text-[14px] 2xl:text-[16px] 3xl:text-[18px]">
+                <p className="font-mulish text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
                   {data.Founder_card[0].Description[0].children[0].text}
                 </p>
-                <p className="font-mulish text-black leading-normal text-[13px] text-[16px] xs:text-[16px]  sm:text-[16px] lg:text-[16px] xl:text-[14px] 2xl:text-[16px] 3xl:text-[18px]">
+                <p className="font-mulish text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
                   {data.Founder_card[0].Description[1].children[0].text ?? ""}
                 </p>
                 <OrangeButtonWidget
-                  className="h-[50px] w-[178px] text-[18px]"
                   content={data.Founder_card[0].Btn_txt ?? ""}
                 />
               </div>
@@ -74,19 +73,16 @@ const FounderSection = ({ data }: FounderSectionProps) => {
             </ScrollWidget>
             <ScrollWidget delay={0.2}>
               <div className="space-y-2 xs:space-y-4  md:space-y-5 lg:space-y-6 xl:space-y-4 xl:max-w-[400px] 2xl:max-w-[500px]    3xl:max-w-[520px]">
-                <h4 className="font-urbanist font-normal text-[#E97451] block hidden md:block text-[24px] xs:text-[26px] sm:text-[26px]  md:text-[28px] lg:text-[28px]  xl:text-[32px] 2xl:text-[36px] 3xl:text-[40px] ">
+                <h4 className="font-urbanist font-normal text-[#E97451]  hidden md:block text-[24px] xs:text-[26px] sm:text-[26px]  md:text-[28px] lg:text-[28px]  xl:text-[32px] 2xl:text-[36px] 3xl:text-[40px] ">
                   {data.Founder_card[1].Heading}
                 </h4>
-                <p className="font-mulish text-black leading-normal text-[13px] xs:text-[16px] sm:text-[16px] lg:text-[16px] xl:text-[14px] 2xl:text-[16px] 3xl:text-[18px]">
+                <p className="font-mulish text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
                   {data.Founder_card[1].Description[0].children[0].text}
                 </p>
-                <p className="font-mulish text-black leading-normal text-[13px] text-[16px] xs:text-[16px]  sm:text-[16px] lg:text-[16px] xl:text-[14px] 2xl:text-[16px] 3xl:text-[18px]">
+                <p className="font-mulish text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
                   {data.Founder_card[1].Description[1].children[0].text ?? ""}
                 </p>
-                <OrangeButtonWidget
-                  className="h-[50px] w-[178px] text-[18px]"
-                  content={data.Founder_card[1].Btn_txt}
-                />
+                <OrangeButtonWidget content={data.Founder_card[1].Btn_txt} />
               </div>
             </ScrollWidget>
           </div>

@@ -5,8 +5,11 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import z from "zod";
 import FormInput from "@/components/form/FormInput";
+import {
+  type ContactFormData,
+  contactSchema,
+} from "@/components/sections/more/contact/ContactSection";
 import { DialogClose } from "@/components/ui/dialog";
 import DialogWidget from "@/components/widgets/DialogWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
@@ -16,16 +19,6 @@ import { ArrowRight, Into } from "@/helpers/ImageHelper";
 import ButtonWidget from "../../widgets/ButtonWidget";
 import ImageWidget from "../../widgets/ImageWidget";
 import type { AdmissionButtonProps } from "./types";
-
-const contactSchema = z.object({
-  firstName: z.string().min(1, "First name is required"),
-  lastName: z.string().optional(),
-  email: z.string().email("Invalid email address"),
-  phone: z.string().min(10, "Phone number must be at least 10 digits"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
-});
-
-type ContactFormData = z.infer<typeof contactSchema>;
 
 const AdmissionRequestButton = ({
   className = "",
@@ -43,11 +36,11 @@ const AdmissionRequestButton = ({
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      message: "",
+      FirstName: "",
+      LastName: "",
+      Mobile: "",
+      Email: "",
+      Message: "",
     },
   });
 
@@ -56,14 +49,13 @@ const AdmissionRequestButton = ({
 
     const data = {
       ...filteredData,
-      Type: "Contact Us",
+      Type: "Request Information",
     };
     try {
-      const res = await clientAxios.post(`/contacts`, { data: data });
-      const resData = await res?.data;
-      console.log(resData, "resData");
+      await clientAxios.post(`/contacts`, { data: data });
       toast.success("Message sent successfully!");
       reset();
+      setIsOpen(false);
     } catch (_error) {
       toast.error("Failed to send message. Please try again.");
     }
@@ -106,20 +98,20 @@ const AdmissionRequestButton = ({
         </DialogClose>
       }
     >
-      <section className="p-4 md:px-8 lg:px-16 max-w-7xl mx-auto">
+      <section className="p-4 mx-auto">
         <h2 className="mb-4 font-semibold text-base">
           Request Information Form
         </h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="grid grid-cols-2 gap-4">
             <FormInput
-              name="firstName"
+              name="FirstName"
               control={control}
               placeholder="First Name"
               label="First Name"
             />
             <FormInput
-              name="lastName"
+              name="LastName"
               control={control}
               label="Last Name"
               placeholder="Last Name"
@@ -129,14 +121,14 @@ const AdmissionRequestButton = ({
 
           <div className="grid grid-cols-2 gap-4">
             <FormInput
-              name="email"
+              name="Email"
               control={control}
               type="email"
               placeholder="Enter your email"
               label="Email"
             />
             <FormInput
-              name="phone"
+              name="Mobile"
               control={control}
               type="tel"
               placeholder="Enter your phone number"
@@ -152,14 +144,14 @@ const AdmissionRequestButton = ({
               Message<span className="text-chart-1">*</span>
             </label>
             <textarea
-              {...register("message")}
+              {...register("Message")}
               placeholder="Message"
               rows={6}
               className="flex w-full rounded-2xl border border-[#BDBDBD] bg-background px-4 py-3 text-base placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-0 focus-visible:border-chart-1/50 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
             />
-            {errors.message && (
+            {errors.Message && (
               <p className="text-danger text-sm text-red-500">
-                {errors.message.message}
+                {errors.Message.message}
               </p>
             )}
           </div>

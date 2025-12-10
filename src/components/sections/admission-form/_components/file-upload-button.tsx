@@ -22,6 +22,7 @@ type FileUploadButtonProps = {
   onUpload?: (file: File) => void;
   onRemove?: () => void;
   defaultValue?: DocumentFile | null;
+  inputClassName?: string;
 };
 
 const generateDocumentPreview = (file: File): string => {
@@ -89,6 +90,7 @@ export function FileUploadButton({
   onUpload,
   onRemove,
   defaultValue,
+  inputClassName,
 }: FileUploadButtonProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -134,14 +136,14 @@ export function FileUploadButton({
           variant === "light"
             ? "border border-border text-muted-foreground hover:bg-muted"
             : "bg-gray-100 border border-[#969696]"
-        }`}
+        } ${inputClassName}`}
       >
         <ImageWidget
           src={UploadIconImg}
           alt="Upload Icon"
           className="h-5 w-5"
         />
-        <span className="text-xs">{placeholder}</span>
+        <span className="text-sm">{placeholder}</span>
       </button>
       <input
         ref={inputRef}

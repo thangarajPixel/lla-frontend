@@ -8,6 +8,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
+import HTMLWidget from "./HTMLWidget";
 
 export type AccordionItemData = {
   value: string;
@@ -71,7 +72,7 @@ const AccordionWidget = ({
             {item.title}
           </AccordionTrigger>
           <AccordionContent className={cn("text-black", item.contentClassName)}>
-            {item.content}
+            <HTMLWidget content={item.content as string} tag="div" />
           </AccordionContent>
         </AccordionItem>
       ))
@@ -104,7 +105,7 @@ const AccordionWidget = ({
                     item.contentClassName,
                   )}
                 >
-                  {item.content}
+                  <HTMLWidget content={item.content as string} tag="div" />
                 </AccordionContent>
               </AccordionItem>
             ))}
@@ -128,7 +129,7 @@ const AccordionWidget = ({
                     item.contentClassName,
                   )}
                 >
-                  {item.content}
+                  <HTMLWidget content={item.content as string} tag="div" />
                 </AccordionContent>
               </AccordionItem>
             ))}

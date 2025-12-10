@@ -106,7 +106,7 @@ const AdmissionButton = ({
                       />
                     </div>
                   )}
-                  <h3 className="text-xl md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[24px] 3xl:text-[25px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
+                  <h3 className="text-xl md:text-xl lg:text-2xl xl:text-[20px] 2xl:text-[24px] 3xl:text-[25px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
                     {card.Title}
                   </h3>
                   <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
@@ -116,7 +116,7 @@ const AdmissionButton = ({
                     <LinkWidget href="/admission">
                       <OrangeButtonWidget content="Apply now" />
                     </LinkWidget>
-                    <LinkWidget href="/">
+                    <LinkWidget href={`/courses/${card.Slug}`}>
                       <OrangeBorderButtonWidget
                         content={card.Btn_txt || "Course Detail"}
                       />

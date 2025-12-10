@@ -2,11 +2,12 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { Plus, X } from "lucide-react";
+import { CheckCircle, Plus, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import type z from "zod";
 import { FormInput, FormSelectBox } from "@/components/form";
 import FormCheckBox from "@/components/form/FormCheckBox";
@@ -15,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
+import { clientAxios } from "@/helpers/AxiosHelper";
 import { encryptId, filteredPayload, notify } from "@/helpers/ConstantHelper";
 import { UploadIconImg } from "@/helpers/ImageHelper";
 import { personalDetailsSchema } from "@/helpers/ValidationHelper";
@@ -38,13 +40,14 @@ const PersonalDetailsForm = ({
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isRemoved, setIsRemoved] = useState<boolean>(false);
+  const [isVerified, setIsVerified] = useState<boolean>(false);
   const router = useRouter();
 
   const form_step1 = useForm<PersonalDetailsSchema>({
     resolver: zodResolver(personalDetailsSchema),
     mode: "all",
     defaultValues: {
-      // course_id: admissionData?.course_id ?? 1,
+      Course: admissionData?.Course ?? "",
       name_title: admissionData?.name_title ?? "Mr.",
       first_name: admissionData?.first_name ?? "",
       last_name: admissionData?.last_name ?? "",
@@ -212,6 +215,29 @@ const PersonalDetailsForm = ({
     });
   };
 
+  const handleFieldCheck = async (email: string) => {
+    const isExistingEmailCheck = await clientAxios.post(
+      `/admissions/email/check`,
+      {
+        email: email,
+      },
+    );
+
+    const isExistingEmail = isExistingEmailCheck?.data;
+    // && email !== admissionData?.email
+    if (isExistingEmail?.exists) {
+      form_step1?.setError("email", { message: "Email already exists" });
+      toast.error(`${isExistingEmail.message} & please try with new email`, {
+        position: "bottom-right",
+      });
+      setIsVerified(false);
+      return;
+    } else {
+      form_step1?.clearErrors("email");
+      setIsVerified(true);
+    }
+  };
+
   const onSubmit = async (payload: PersonalDetailsSchema) => {
     const filteredData = filteredPayload(payload);
 
@@ -242,16 +268,19 @@ const PersonalDetailsForm = ({
     <FormProvider {...form_step1}>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
         <div className="mx-auto">
-          <h1 className="text-2xl 3xl:text-3xl text-[#E97451] mb-8 font-urbanist">
+          <h1 className="text-2xl 3xl:text-[32px] text-[#E97451] mb-8 font-urbanist">
             Personal Details
           </h1>
 
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_220px] gap-8">
+          <div
+            // className="grid grid-cols-1 lg:grid-cols-[1fr_220px] gap-8"
+            className="flex flex-col-reverse xs:flex-col lg:grid lg:grid-cols-[1fr_220px] gap-8"
+          >
             <div className="space-y-6">
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-base 3xl:text-lg text-foreground mb-2 font-mulish"
+                  className="block text-base 3xl:text-lg mb-2 font-mulish"
                 >
                   Full Name (As in Certificate)
                   <span className="text-chart-1">*</span>
@@ -294,12 +323,22 @@ const PersonalDetailsForm = ({
                   restrictionType="text"
                 />
 
-                <FormInput
-                  name="email"
-                  label="Email Address"
-                  placeholder="Enter your email address"
-                  control={control}
-                />
+                <div>
+                  <FormInput
+                    name="email"
+                    label="Email Address"
+                    placeholder="Enter your email address"
+                    control={control}
+                    onFieldCheck={handleFieldCheck}
+                  />
+
+                  {isVerified && (
+                    <div className="flex items-center gap-2 text-green-600 font-medium mt-2">
+                      <CheckCircle className="size-4 3xl:size-4" />
+                      <span className="text-sm">Email Verified</span>
+                    </div>
+                  )}
+                </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -386,14 +425,14 @@ const PersonalDetailsForm = ({
             <div className="mb-4">
               <label
                 htmlFor="passport"
-                className="block text-base 3xl:text-lg text-foreground mb-2"
+                className="block text-base 3xl:text-lg text-foreground mb-2 font-mulish"
               >
                 Passport size Image<span className="text-chart-1">*</span>
               </label>
 
               <div
                 aria-hidden
-                className="border border-dashed border-border rounded-lg max-w-[180px] flex flex-col items-center justify-center min-h-[180px] bg-secondary cursor-pointer hover:bg-accent transition relative overflow-hidden group"
+                className="border border-dashed border-border rounded-lg xs:max-w-[180px] flex flex-col items-center justify-center min-h-[227px] xs:min-h-[227px] bg-secondary cursor-pointer hover:bg-accent transition relative overflow-hidden group" // min-h-180px
                 onClick={handleClick}
               >
                 {(!previewUrl && !admissionData?.passport_size_image) ||
@@ -423,7 +462,7 @@ const PersonalDetailsForm = ({
                       width={100}
                       height={100}
                       alt="Preview"
-                      className="h-[180px] w-full object-cover rounded-md hover:opacity-80 transition-opacity"
+                      className="h-[227px] xs:h-[227px] w-full object-contain rounded-md hover:opacity-80 transition-opacity"
                     />
                     <Button
                       type="button"
@@ -451,16 +490,20 @@ const PersonalDetailsForm = ({
                 className="hidden"
               />
 
-              <p className="text-xs text-muted-foreground mt-2">
+              {/* <p className="text-xs text-muted-foreground mt-2">
                 The size of the images should not
                 <br />
                 be more than 12&quot;x8&quot; size.
                 <br />
                 Max. file size not more than 1MB.
+              </p> */}
+              <p className="text-xs font-mulish text-muted-foreground mt-2 xs:max-w-[180px]">
+                The size of the images should not be more than 12&quot;x8&quot;
+                size. Max. file size not more than 1MB.
               </p>
 
               {errors.passport_size_image && (
-                <p className="text-xs text-red-600 mt-2">
+                <p className="text-sm text-red-600 mt-2">
                   {errors.passport_size_image.message}
                 </p>
               )}

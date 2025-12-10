@@ -17,7 +17,7 @@ export type EducationDetailsSchema = z.infer<typeof educationDetailsSchema>;
 
 type EducationDetailsFormProps = {
   admissionData?: AdmissionFormData;
-  admissionId?: string;
+  admissionId?: string | null;
 };
 
 const EducationDetailsForm = ({
@@ -32,21 +32,21 @@ const EducationDetailsForm = ({
     defaultValues: {
       Education_Details: {
         Education_Details_10th_std:
-          admissionData?.Education_Details?.Education_Details_10th_std.id ?? 0,
+          admissionData?.Education_Details?.Education_Details_10th_std?.id ?? 0,
         Education_Details_12th_std:
-          admissionData?.Education_Details?.Education_Details_12th_std.id ?? 0,
+          admissionData?.Education_Details?.Education_Details_12th_std?.id ?? 0,
       },
       Under_Graduate: {
         degree: admissionData?.Under_Graduate?.degree ?? "",
         ug_status: admissionData?.Under_Graduate?.ug_status ?? "In-Progress",
-        marksheet: admissionData?.Under_Graduate?.marksheet.id ?? 0,
+        marksheet: admissionData?.Under_Graduate?.marksheet?.id ?? 0,
       },
       Post_Graduate:
-        admissionData?.Post_Graduate && admissionData.Post_Graduate.length > 0
-          ? admissionData.Post_Graduate.map((item) => ({
-              degree: item.degree ?? "",
-              pg_status: item.pg_status ?? "In-Progress",
-              marksheet: item.marksheet?.id ?? 0,
+        admissionData?.Post_Graduate && admissionData?.Post_Graduate?.length > 0
+          ? admissionData?.Post_Graduate?.map((item) => ({
+              degree: item?.degree ?? "",
+              pg_status: item?.pg_status ?? "In-Progress",
+              marksheet: item?.marksheet?.id ?? 0,
             }))
           : [
               {
@@ -57,13 +57,13 @@ const EducationDetailsForm = ({
             ],
       Work_Experience:
         admissionData?.Work_Experience &&
-        admissionData.Work_Experience.length > 0
+        admissionData?.Work_Experience?.length > 0
           ? admissionData?.Work_Experience?.map((item) => ({
-              designation: item.designation ?? "",
-              employer: item.employer ?? "",
-              duration_start: item.duration_start ?? "",
-              duration_end: item.duration_end ?? "",
-              reference_letter: item.reference_letter.id ?? 0,
+              designation: item?.designation ?? "",
+              employer: item?.employer ?? "",
+              duration_start: item?.duration_start ?? "",
+              duration_end: item?.duration_end ?? "",
+              reference_letter: item?.reference_letter?.id ?? 0,
             }))
           : [
               {

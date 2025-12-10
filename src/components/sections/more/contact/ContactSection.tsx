@@ -6,14 +6,14 @@ import { toast } from "sonner";
 import { z } from "zod";
 import FormInput from "@/components/form/FormInput";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
+import HTMLWidget from "@/components/widgets/HTMLWidget";
+import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
+import { Call, LocationIcon, Sms, StarIcon } from "@/helpers/ImageHelper";
 import type { ContactSectionProps } from "./utils/contact";
-import ImageWidget from "@/components/widgets/ImageWidget";
-import { Call ,Sms,LocationIcon,StarIcon} from "@/helpers/ImageHelper";
-import HTMLWidget from "@/components/widgets/HTMLWidget";
 
-const contactSchema = z.object({
+export const contactSchema = z.object({
   FirstName: z.string().min(1, "First name is required"),
   LastName: z.string().min(0, "Last name is required"),
   Email: z.string().email("Invalid email address"),
@@ -21,7 +21,7 @@ const contactSchema = z.object({
   Message: z.string().min(0, "Message must be at least 10 characters"),
 });
 
-type ContactFormData = z.infer<typeof contactSchema>;
+export type ContactFormData = z.infer<typeof contactSchema>;
 
 export default function ContactSection({ data }: ContactSectionProps) {
   const {
@@ -43,7 +43,7 @@ export default function ContactSection({ data }: ContactSectionProps) {
 
   const onSubmit = async (data: ContactFormData) => {
     try {
-      const response = await clientAxios.post<ContactFormData>("/contacts", {
+      const _response = await clientAxios.post<ContactFormData>("/contacts", {
         data: data,
       });
       toast.success("Contact sent successfully!");
@@ -61,11 +61,11 @@ export default function ContactSection({ data }: ContactSectionProps) {
               <h1 className="font-urbanist text-[32px] sm:text-[40px] md:text-[48px] lg:text-[56px] xl:text-[60px] 3xl:text-[64px] font-normal text-foreground mb-4">
                 {data?.Title}
               </h1>
-              <p className="text-black text-[16px] sm:text-[18px] md:text-[20px] lg:text-[24px] xl:text-[28px] 3xl:text-[32px] font-mulish" 
-               // biome-ignore lint/security/noDangerouslySetInnerHtml: Content is sanitized from trusted CMS source
+              <p
+                className="text-black text-[16px] sm:text-[18px] md:text-[20px] lg:text-[24px] xl:text-[28px] 3xl:text-[32px] font-mulish"
+                // biome-ignore lint/security/noDangerouslySetInnerHtml: Content is sanitized from trusted CMS source
                 dangerouslySetInnerHTML={{ __html: data.Heading || "" }}
-              >
-              </p>
+              ></p>
               <p className="max-w-[630px] text-black text-[16px]  3xl:text-[18px] font-mulish  mt-4">
                 {data?.Description}
               </p>
@@ -80,12 +80,14 @@ export default function ContactSection({ data }: ContactSectionProps) {
                   />
                 </div>
                 <div>
-                  <p className="text-[16px] 3xl:text-[18px] font-mulish font-normal">{data?.MobileNo}</p>
+                  <p className="text-[16px] 3xl:text-[18px] font-mulish font-normal">
+                    {data?.MobileNo}
+                  </p>
                 </div>
               </div>
 
               <div className="flex items-center gap-2">
-                <div >
+                <div>
                   <ImageWidget
                     src={Sms}
                     alt="Contact Email"
@@ -101,21 +103,23 @@ export default function ContactSection({ data }: ContactSectionProps) {
 
               <div className="flex items-center gap-2">
                 <div>
-                    <ImageWidget
+                  <ImageWidget
                     src={LocationIcon}
                     alt="Contact Location"
                     className="max-w-[32px] max-h-[32px] text-[#FF6B4A]"
                   />
                 </div>
                 <div>
-                   <HTMLWidget  content={data.Location}
-                        className="text-[16px] md:text-[16px] lg:text-[16px] xl:text-[16px] 2xl:text-[16px] 3xl:text-[18px] text-black leading-normal font-mulish"
-                       tag="p"/>
+                  <HTMLWidget
+                    content={data.Location}
+                    className="text-[16px] md:text-[16px] lg:text-[16px] xl:text-[16px] 2xl:text-[16px] 3xl:text-[18px] text-black leading-normal font-mulish"
+                    tag="p"
+                  />
                 </div>
               </div>
               <div className="flex items-center gap-2">
                 <div>
-                   <ImageWidget
+                  <ImageWidget
                     src={StarIcon}
                     alt="Contact Visitor"
                     className="max-w-[32px] max-h-[32px] text-[#FF6B4A]"

@@ -22,6 +22,7 @@ export type MenuData = {
   Description: DescriptionParagraph[];
   Btn_txt: string | null;
   SubTitle: string | null;
+  Duration: string | null;
   Image: ImageData[] | null;
 };
 
@@ -43,6 +44,8 @@ export type OverviewData = {
 
 export type ContentCard = {
   id: number;
+  OuterTitle: string;
+  OuterDescription: string;
   Section: string;
   Title: string;
   Type: string;
@@ -77,6 +80,7 @@ export type StudentTestimonialCard = {
   Description: string;
   Btn_txt: string | null;
   Image: ImageData[];
+  Url: string;
 };
 
 export type StudentTestimonialData = {

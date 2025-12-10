@@ -23,11 +23,11 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
           return (
             <div
               key={`step-label-${stepNum}`}
-              className={`ml-1 mb-5 text-sm font-medium ${
+              className={`ml-1 mb-5 text-base font-medium ${
                 isActive
                   ? "text-[#E97451]"
                   : isCompleted
-                    ? "text-gray-900"
+                    ? "text-black"
                     : "text-gray-500"
               }`}
             >
@@ -62,7 +62,7 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
         })}
       </div>
 
-      <div className="flex items-center justify-between">
+      <div className="flex items-start justify-between">
         {steps.map((step, index) => {
           const stepNum = index + 1;
           const isActive = stepNum === currentStep;
@@ -71,11 +71,11 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
           return (
             <div
               key={step}
-              className={`ml-3 mt-5 hidden sm:block text-sm font-medium ${
+              className={`mt-5 text-xs sm:text-base max-w-12 sm:max-w-fit ${
                 isActive
                   ? "text-[#E97451]"
                   : isCompleted
-                    ? "text-gray-900"
+                    ? "text-black"
                     : "text-gray-500"
               }`}
             >

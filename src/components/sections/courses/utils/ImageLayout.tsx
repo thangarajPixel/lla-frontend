@@ -67,7 +67,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
   const image3 = images?.[2]?.url ? getS3Url(images[2].url) : Dummy1;
 
   switch (type) {
-    case "type-1":
+    case "Type1":
       return (
         <>
           <MobileImageLayout
@@ -100,7 +100,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
         </>
       );
 
-    case "type-2":
+    case "Type2":
       return (
         <>
           <MobileImageLayout
@@ -137,7 +137,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
         </>
       );
 
-    case "type-3":
+    case "Type3":
       return (
         <>
           <MobileImageLayout
@@ -170,7 +170,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
         </>
       );
 
-    case "type-4":
+    case "Type4":
       return (
         <>
           <MobileImageLayout
@@ -207,7 +207,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
         </>
       );
 
-    case "type-5":
+    case "Type5":
       return (
         <>
           <MobileImageLayout
@@ -244,7 +244,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
         </>
       );
 
-    case "type-6":
+    case "Type6":
       return (
         <>
           <MobileImageLayout
@@ -277,7 +277,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
         </>
       );
 
-    case "type-7":
+    case "Type7":
       return (
         <>
           <MobileImageLayout
@@ -310,7 +310,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
         </>
       );
 
-    case "type-8":
+    case "Type8":
       return (
         <>
           <MobileImageLayout
@@ -343,7 +343,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
         </>
       );
 
-    case "type-9":
+    case "Type9":
       return (
         <>
           <MobileImageLayout
@@ -380,7 +380,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
         </>
       );
 
-    case "type-10":
+    case "Type10":
       return (
         <>
           <MobileImageLayout
