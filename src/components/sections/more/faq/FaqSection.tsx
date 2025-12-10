@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -214,6 +214,40 @@ const faqData: FaqCategory[] = [
 const FaqSection = () => {
   const [activeCategory, setActiveCategory] = useState("general");
   const categoryRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  useEffect(() => {
+    // Create intersection observer to detect which section is in view
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const categoryId = entry.target.getAttribute('data-category');
+            if (categoryId) {
+              setActiveCategory(categoryId);
+            }
+          }
+        });
+      },
+      {
+        rootMargin: '-20% 0px -70% 0px', // Trigger when section is 20% from top
+        threshold: 0.1,
+      }
+    );
+
+    // Observe all category sections
+    Object.values(categoryRefs.current).forEach((ref) => {
+      if (ref && observerRef.current) {
+        observerRef.current.observe(ref);
+      }
+    });
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, []);
 
   const scrollToCategory = (categoryId: string) => {
     setActiveCategory(categoryId);
@@ -231,17 +265,32 @@ const FaqSection = () => {
             Frequently Asked Questions
           </h1>
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            {/* Mobile Category Selector */}
+            <div className="md:hidden mb-6">
+              <select
+                value={activeCategory}
+                onChange={(e) => scrollToCategory(e.target.value)}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#E97451] focus:border-transparent"
+              >
+                {faqData.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.title}
+                  </option>
+                ))}
+              </select>
+            </div>
+            
             <div className="hidden md:block lg:col-span-1">
-              <nav className="space-y-2 lg:sticky lg:top-24">
+              <nav className="space-y-1 lg:sticky lg:top-24">
                 {faqData.map((category) => (
                   <button
                     key={category.id}
                     type="button"
                     onClick={() => scrollToCategory(category.id)}
-                    className={`w-full text-left px-2 py-2  transition-colors cursor-pointer text-[16px] md:text-[15px] xl:text-[15px] 2xl:text-[16px] 3xl:text-[18px] ${
+                    className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 cursor-pointer text-[16px] md:text-[15px] xl:text-[15px] 2xl:text-[16px] 3xl:text-[18px] relative ${
                       activeCategory === category.id
-                        ? "text-[#E97451] font-normal "
-                        : "text-black hover:bg-gray-50 "
+                        ? "text-[#E97451] font-semibold "
+                        : "text-gray-700 hover:text-[#E97451] hover:bg-gray-50 font-normal"
                     }`}
                   >
                     {category.title}
@@ -255,11 +304,20 @@ const FaqSection = () => {
                   key={category.id}
                   ref={(el) => {
                     categoryRefs.current[category.id] = el;
+                    // Re-observe when ref changes
+                    if (el && observerRef.current) {
+                      observerRef.current.observe(el);
+                    }
                   }}
+                  data-category={category.id}
                   className="scroll-mt-24"
                 >
                   <div className="bg-white p-0 md:p-6">
-                    <h2 className="text-2xl md:text-3xl font-semibold text-black mb-6">
+                    <h2 className={`text-2xl md:text-3xl font-semibold mb-6 transition-colors duration-300 ${
+                      activeCategory === category.id 
+                        ? "text-[#E97451]" 
+                        : "text-black"
+                    }`}>
                       {category.title}
                     </h2>
                     <Accordion type="single" collapsible className="space-y-2">
