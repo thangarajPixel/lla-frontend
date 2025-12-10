@@ -4,7 +4,7 @@ type CourseState = {
   courseId: string | null;
   setCourseId: (id: string) => void;
   clearCourseId: () => void;
-}
+};
 
 export const useCourseStore = create<CourseState>((set) => ({
   courseId: null,
