@@ -1,11 +1,16 @@
 import { z } from "zod";
 
-export const languageSchema = z.object({
-  language: z.string().min(1, "Language is required"),
-  read: z.boolean().default(false).optional(),
-  write: z.boolean().default(false).optional(),
-  speak: z.boolean().default(false).optional(),
-});
+export const languageSchema = z
+  .object({
+    language: z.string().min(1, "Language is required"),
+    read: z.boolean().default(false).optional(),
+    write: z.boolean().default(false).optional(),
+    speak: z.boolean().default(false).optional(),
+  })
+  .refine((data) => data.read || data.write || data.speak, {
+    message: "Select at least one proficiency level",
+    path: ["language"],
+  });
 
 const addressSchema = z.object({
   type: z.literal("paragraph"),
@@ -29,11 +34,12 @@ export const parentDetails = z.object({
   profession: z.string().min(1, "Profession is required"),
   nationality: z.string().min(1, "Nationality is required"),
   address: z.array(addressSchema).min(1, "Address is required"),
-  city: z.string().optional(),
-  district: z.string().optional(),
-  state: z.string().optional(),
+  city: z.string().min(1, "City is required"),
+  district: z.string().min(1, "District is required"),
+  state: z.string().min(1, "State is required"),
   pincode: z
     .string()
+    .min(1, "Pincode is required")
     .refine(
       (val) => val === "" || /^\d{6}$/.test(val),
       "Enter a valid 6-digit pincode",
@@ -63,10 +69,7 @@ export const postGraduate = z.object({
 export const personalDetailsSchema = z.object({
   Course: z.string().optional(),
   name_title: z.string().optional(),
-  first_name: z
-    .string()
-    .min(1, "First name is required")
-    .regex(/^[A-Za-z\s]+$/, "Only alphabets are allowed"),
+  first_name: z.string().min(1, "First name is required"),
   last_name: z.string().min(1, "Last name is required"),
   mobile_no: z
     .string()
@@ -74,27 +77,23 @@ export const personalDetailsSchema = z.object({
     .min(1, "Mobile number is required"),
   email: z.email("Enter a valid email address").min(1, "Email is required"),
   nationality: z.string().min(1, "Nationality is required"),
-  date_of_birth: z
-    .string()
-    .regex(/^[0-9-]+$/, "Only numbers and hyphens (-) are allowed")
-    .min(1, "Date of birth is required"),
-  Language_Proficiency: z
-    .array(languageSchema)
-    .min(1, "Add at least one language")
-    .optional(),
+  date_of_birth: z.string().min(1, "Date of birth is required"),
+  Language_Proficiency: z.array(languageSchema),
   address: z.array(addressSchema).min(1, "Address is required"),
-  city: z.string().optional(),
-  district: z.string().optional(),
-  state: z.string().optional(),
+  city: z.string().min(1, "City is required"),
+  district: z.string().min(1, "District is required"),
+  state: z.string().min(1, "State is required"),
   pincode: z
     .string()
+    .min(1, "Pincode is required")
     .refine(
       (val) => val === "" || /^\d{6}$/.test(val),
       "Enter a valid 6-digit pincode",
-    ),
+    )
+    .optional(),
   hobbies: z.string().optional(),
   photography_club: z.string().optional(),
-  blood_group: z.string().min(1, "Blood group is required"),
+  blood_group: z.string().optional(),
   Parent_Guardian_Spouse_Details: parentDetails,
 
   profession: z.string().optional(),

@@ -62,6 +62,7 @@ export function WorkExperience({
                 label="Role / Designation"
                 placeholder="Enter your designation in the company"
                 control={control}
+                notRequired={true}
               />
             </div>
 
@@ -71,6 +72,7 @@ export function WorkExperience({
                 label="Employer"
                 placeholder="Enter your name of the company worked"
                 control={control}
+                notRequired={true}
               />
             </div>
           </div>
@@ -81,7 +83,6 @@ export function WorkExperience({
               endName={`Work_Experience.${index}.duration_end`}
               control={control}
               label="Enter Duration"
-              required
             />
 
             <FormFileUploadButton
@@ -89,7 +90,7 @@ export function WorkExperience({
               control={control}
               label="Reference Letter"
               placeholder="Upload your reference Letter"
-              notRequired={false}
+              notRequired={true}
               defaultValue={
                 admissionData?.Education_Details?.Education_Details_12th_std ??
                 null

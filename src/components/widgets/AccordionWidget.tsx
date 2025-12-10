@@ -1,6 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { useState } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -42,20 +43,32 @@ const AccordionWidget = ({
   onValueChange,
   columns = 1,
 }: AccordionWidgetProps) => {
+  const [internalValue, setInternalValue] = useState<
+    string | string[] | undefined
+  >(defaultValue || (type === "single" ? undefined : []));
+
+  const currentValue = value !== undefined ? value : internalValue;
+  const handleValueChange = (newValue: string | string[]) => {
+    if (value === undefined) {
+      setInternalValue(newValue);
+    }
+    onValueChange?.(newValue);
+  };
+
   const accordionProps =
     type === "single"
       ? {
           type: "single" as const,
           collapsible,
-          defaultValue: defaultValue as string | undefined,
-          value: value as string | undefined,
-          onValueChange: onValueChange as ((value: string) => void) | undefined,
+          value: currentValue as string | undefined,
+          onValueChange: handleValueChange as
+            | ((value: string) => void)
+            | undefined,
         }
       : {
           type: "multiple" as const,
-          defaultValue: defaultValue as string[] | undefined,
-          value: value as string[] | undefined,
-          onValueChange: onValueChange as
+          value: currentValue as string[] | undefined,
+          onValueChange: handleValueChange as
             | ((value: string[]) => void)
             | undefined,
         };

@@ -121,7 +121,7 @@ const EducationDetailsForm = ({
               router.push(`/admission/${admissionId}/personal-details`);
             }}
             className={cn(
-              "px-6 py-2 3xl:px-12 3xl:py-6 3xl:h-12 bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
+              "p-6 w-[95px] 3xl:w-[123px] text-lg bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
             )}
           >
             Back
@@ -129,7 +129,7 @@ const EducationDetailsForm = ({
 
           <OrangeButtonWidget
             content="Save & Continue"
-            className="xss:text-[12px] h-9 px-4"
+            className="text-lg 2xl:text-lg h-[50px] px-6 py-3"
           />
         </div>
       </form>

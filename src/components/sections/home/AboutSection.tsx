@@ -65,9 +65,9 @@ const AboutSection = ({ data }: AboutSectionProps) => {
 
   if (data?.Image?.length === 0) return null;
   return (
-    <section className="w-full bg-[#ECECEC] flex flex-col items-center justify-center z-40 relative py-10 sm:pt-20 3xl:h-[1048px]">
+    <section className="w-full bg-[#ECECEC] flex flex-col items-center justify-center z-40 relative py-10 sm:py-30 h-full ">
       <ContainerWidget>
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 xl:gap-0">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 xl:gap-2.5 2xl:gap-5 3xl:gap-[30px]">
           <div className="flex flex-col gap-4.5 justify-center md:-mt-15">
             <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
               {data.Title}
@@ -81,7 +81,7 @@ const AboutSection = ({ data }: AboutSectionProps) => {
                 </>
               )}
             </p>
-            <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[400px]">
+            <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full">
               {data.Description}
             </p>
             <div className="self-start">
@@ -93,23 +93,23 @@ const AboutSection = ({ data }: AboutSectionProps) => {
           <ScrollWidget delay={0.1} animation="fadeUp">
             <div className="hidden xl:block">
               <div
-                className={`frame-39 property-1-${variant} relative h-[650px] -mt-10 box-border`}
+                className={`frame-39 property-1-${variant} relative xl:h-[445px] 2xl:h-[628px] 3xl:h-[808px] -mt-10 box-border`}
               >
                 {aboutImages[currentIndices[0]] && (
                   <div
                     className={`rectangle-79 absolute object-cover transition-all duration-500 ${
                       variant === "variant-2"
-                        ? "opacity-50 xl:w-[250px] xl:h-[250px] xl:left-[280px] 2xl:w-[300px] 2xl:h-[300px] 2xl:left-[330px] top-0 z-10 3xl:w-[410px] 3xl:h-[271px] 3xl:left-[280px]"
+                        ? "opacity-50 xl:w-[230px] xl:h-40 xl:left-60 2xl:w-[310px] 2xl:h-[211px] 2xl:left-[280px] top-0 z-10 3xl:w-[410px] 3xl:h-[271px] 3xl:left-[390px]"
                         : variant === "variant-3"
-                          ? "xl:w-[420px] xl:h-[420px] 2xl:w-[500px] 2xl:h-[500px] left-0 top-[65px] z-20 3xl:w-[740px] 3xl:h-[493px] 3xl:left-[-140px]"
-                          : "opacity-50 xl:w-[300px] xl:h-[300px] xl:left-[180px] 2xl:w-[350px] 2xl:h-[350px] 2xl:left-[210px] top-[260px] z-10 3xl:w-[541px] 3xl:h-[360px] 3xl:top-[380px]"
+                          ? "xl:w-[420px] xl:h-[283px] 2xl:w-[540px] 2xl:h-[393px] 2xl:top-[145px] left-0 top-[115px] z-20 3xl:top-[205px] 3xl:w-[740px] 3xl:h-[493px] "
+                          : "opacity-50 xl:w-[290px] xl:h-[200px] xl:left-[205px] 2xl:w-[381px] 2xl:h-[300px] 2xl:left-[293px] top-[265px]  2xl:top-[342px] z-10 3xl:w-[541px] 3xl:h-[360px] 3xl:top-[448px] 3xl:left-[313px]"
                     }`}
                   >
                     <ImageWidget
                       src={getImageUrl(currentIndices[0])}
                       alt={aboutImages[currentIndices[0]].name}
                       fill
-                      className="object-contain"
+                      className="object-cover"
                     />
                   </div>
                 )}
@@ -117,17 +117,17 @@ const AboutSection = ({ data }: AboutSectionProps) => {
                   <div
                     className={`rectangle-80 absolute object-cover transition-all duration-500 ${
                       variant === "variant-2"
-                        ? "xl:w-[420px] xl:h-[420px] 2xl:w-[500px] 2xl:h-[500px] left-0 top-[65px] z-20 3xl:w-[740px] 3xl:h-[493px] 3xl:left-[-140px]"
+                        ? "xl:w-[420px] xl:h-[283px] 2xl:w-[540px] 2xl:h-[393px] 2xl:top-[145px] left-0 top-[115px] z-20 3xl:top-[205px] 3xl:w-[740px] 3xl:h-[493px] "
                         : variant === "variant-3"
-                          ? "opacity-50 xl:w-[300px] xl:h-[300px] xl:left-[180px] 2xl:w-[350px] 2xl:h-[350px] 2xl:left-[210px] top-[260px] z-10 3xl:w-[541px] 3xl:h-[360px] 3xl:top-[380px]"
-                          : "opacity-50 xl:w-[250px] xl:h-[250px] xl:left-[280px] 2xl:w-[300px] 2xl:h-[300px] 2xl:left-[330px] top-0 z-10 3xl:w-[410px] 3xl:h-[271px] 3xl:left-[280px]"
+                          ? "opacity-50 xl:w-[290px] xl:h-[200px] xl:left-[205px] 2xl:w-[381px] 2xl:h-[300px] 2xl:left-[293px] top-[265px]  2xl:top-[342px] z-10 3xl:w-[541px] 3xl:h-[360px] 3xl:top-[448px] 3xl:left-[313px]"
+                          : "opacity-50 xl:w-[230px] xl:h-40 xl:left-60 2xl:w-[310px] 2xl:h-[211px] 2xl:left-[280px] top-0 z-10 3xl:w-[410px] 3xl:h-[271px] 3xl:left-[390px]"
                     }`}
                   >
                     <ImageWidget
                       src={getImageUrl(currentIndices[1])}
                       alt={aboutImages[currentIndices[1]].name}
                       fill
-                      className="object-contain"
+                      className="object-cover"
                     />
                   </div>
                 )}
@@ -135,17 +135,17 @@ const AboutSection = ({ data }: AboutSectionProps) => {
                   <div
                     className={`rectangle-78 absolute object-cover transition-all duration-500 ${
                       variant === "variant-2"
-                        ? "opacity-50 xl:w-[300px] xl:h-[300px] xl:left-[180px] 2xl:w-[350px] 2xl:h-[350px] 2xl:left-[210px] top-[260px] z-10 3xl:w-[541px] 3xl:h-[360px] 3xl:top-[380px]"
+                        ? "opacity-50 xl:w-[290px] xl:h-[200px] xl:left-[205px] 2xl:w-[381px] 2xl:h-[300px] 2xl:left-[293px] top-[265px]  2xl:top-[342px] z-10 3xl:w-[541px] 3xl:h-[360px] 3xl:top-[448px] 3xl:left-[313px]"
                         : variant === "variant-3"
-                          ? "opacity-50 xl:w-[250px] xl:h-[250px] xl:left-[280px] 2xl:w-[300px] 2xl:h-[300px] 2xl:left-[330px] top-0 z-10 3xl:w-[410px] 3xl:h-[271px] 3xl:left-[280px]"
-                          : "xl:w-[420px] xl:h-[420px] 2xl:w-[500px] 2xl:h-[500px] left-0 top-[65px] z-20 3xl:w-[740px] 3xl:h-[493px] 3xl:left-[-140px]"
+                          ? "opacity-50 xl:w-[230px] xl:h-40 xl:left-60 2xl:w-[310px] 2xl:h-[211px] 2xl:left-[280px] top-0 z-10 3xl:w-[410px] 3xl:h-[271px] 3xl:left-[390px]"
+                          : "xl:w-[420px] xl:h-[283px] 2xl:w-[540px] 2xl:h-[393px] 2xl:top-[145px] left-0 top-[115px] z-20 3xl:top-[205px] 3xl:w-[740px] 3xl:h-[493px] "
                     }`}
                   >
                     <ImageWidget
                       src={getImageUrl(currentIndices[2])}
                       alt={aboutImages[currentIndices[2]].name}
                       fill
-                      className="object-contain"
+                      className="object-cover"
                     />
                   </div>
                 )}

@@ -31,11 +31,13 @@ export type PersonalDetailsSchema = z.infer<typeof personalDetailsSchema>;
 type PersonalDetailsFormProps = {
   admissionData?: AdmissionFormData;
   admissionId?: string;
+  courseId?: string;
 };
 
 const PersonalDetailsForm = ({
   admissionData,
   admissionId,
+  courseId,
 }: PersonalDetailsFormProps) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -47,7 +49,7 @@ const PersonalDetailsForm = ({
     resolver: zodResolver(personalDetailsSchema),
     mode: "all",
     defaultValues: {
-      Course: admissionData?.Course ?? "",
+      Course: admissionData?.Course ?? courseId ?? "",
       name_title: admissionData?.name_title ?? "Mr.",
       first_name: admissionData?.first_name ?? "",
       last_name: admissionData?.last_name ?? "",
@@ -224,8 +226,8 @@ const PersonalDetailsForm = ({
     );
 
     const isExistingEmail = isExistingEmailCheck?.data;
-    // && email !== admissionData?.email
-    if (isExistingEmail?.exists) {
+
+    if (isExistingEmail?.exists && email !== admissionData?.email) {
       form_step1?.setError("email", { message: "Email already exists" });
       toast.error(`${isExistingEmail.message} & please try with new email`, {
         position: "bottom-right",
@@ -321,6 +323,7 @@ const PersonalDetailsForm = ({
                   placeholder="Enter your mobile number"
                   control={control}
                   restrictionType="text"
+                  maxLength={10}
                 />
 
                 <div>
@@ -536,7 +539,9 @@ const PersonalDetailsForm = ({
               label="Blood Group"
               placeholder="Enter your bloodGroup"
               control={control}
+              notRequired={true}
               restrictionType="number"
+              maxLength={3}
             />
           </div>
         </div>
@@ -629,7 +634,8 @@ const PersonalDetailsForm = ({
         <div className="flex justify-start gap-3 mt-10 pt-6">
           <OrangeButtonWidget
             content="Save & Continue"
-            className="xss:text-[12px] h-9 px-4"
+            // className="xss:text-[12px] h-9 px-4"
+            className="text-lg 2xl:text-lg h-[50px] px-6 py-3"
           />
         </div>
       </form>
