@@ -4,6 +4,7 @@ export type PrivacyPolicyProps = {
     SubTitle: string | null;
     Description: string ;
     PrivacyPolicyCard: Array<{
+      id: string;
       Title: string;
       Description: string;
     }>;

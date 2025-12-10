@@ -22,7 +22,7 @@ const PrivacyPolicySection = ({ data }: PrivacyPolicyProps) => {
               />
           </div>
            {data.PrivacyPolicyCard.map((item) => (
-           <div className="mb-12">
+           <div className="mb-12" key={item.id}>
             <h2 className="text-2xl md:text-3xl font-semibold text-black mb-6">
               {item.Title}
             </h2>
