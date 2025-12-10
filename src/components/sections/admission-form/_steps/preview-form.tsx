@@ -181,7 +181,7 @@ const ReviewApplication = ({
     <div className="w-full min-h-screen flex justify-center">
       <div className="flex flex-col md:flex-row w-full bg-white">
         {/* LEFT SIDE */}
-        <div className="flex lg:ml-48 md:w-2/4 lg:w-1/4 flex-col items-center gap-6 pt-8 mb-8 3xl:mt-10">
+        <div className="flex lg:ml-36 md:w-2/4 lg:w-1/4 flex-col items-center gap-6 pt-8 mb-8 3xl:mt-10">
           <div className="flex flex-col gap-3">
             <h1 className="text-2xl 3xl:text-4xl font-urbanist text-[#E97451]">
               Review Application
@@ -195,13 +195,13 @@ const ReviewApplication = ({
             height={200}
             src={admissionData?.passport_size_image?.url ?? ""}
             alt="profile"
-            className="w-64 h-80 3xl:w-sm 3xl:h-auto rounded-md shadow-md"
+            className="w-72 h-80 3xl:w-md 3xl:h-auto rounded-md shadow-md"
           />
 
           <div className="flex flex-row gap-1">
             <Button
               variant="outline"
-              className="rounded-full h-8 xss:text-xs 3xl:text-lg bg-chart-1/10 text-chart-1 2xl:px-12 3xl:h-12 3xl:py-6"
+              className="rounded-full p-6 h-[46px] text-lg bg-chart-1/10 text-chart-1"
               onClick={() => router.push(`/admission/${admissionId}/portfolio`)}
             >
               <ArrowLeft className="size-4 text-chart-1 font-light" />
@@ -209,7 +209,7 @@ const ReviewApplication = ({
             </Button>
             <OrangeButtonWidget
               content="Proceed to Pay"
-              className="xss:text-[12px] h-8 px-4"
+              className="text-lg 2xl:text-lg h-[46px] px-6 py-3"
             />
           </div>
         </div>

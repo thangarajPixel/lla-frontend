@@ -80,9 +80,9 @@ const FormDatePickerWithInput = <T extends FieldValues>({
   };
 
   return (
-    <div className="w-full space-y-2">
+    <div className="w-full space-y-1">
       {label && (
-        <Label className="px-1 text-base 3xl:text-lg" htmlFor={id}>
+        <Label className="block text-base 3xl:text-lg text-foreground font-mulish" htmlFor={id}>
           {label}
           {required && <span className="text-chart-1">*</span>}
         </Label>
@@ -95,7 +95,7 @@ const FormDatePickerWithInput = <T extends FieldValues>({
           value={inputValue}
           placeholder={placeholder}
           disabled={disabled}
-          className={cn("bg-background pr-0 w-full", className)}
+          className={cn("bg-background pr-0 h-[42px] w-full", className)}
           inputClassName="w-full flex-1"
           maxLength={10}
           onChange={(e) => {
