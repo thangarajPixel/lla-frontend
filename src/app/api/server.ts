@@ -39,6 +39,9 @@ export async function getContactPageData() {
 export async function getPrivacyPageData() {
   return fetchData("/privacy-policy");
 }
+export async function getTermsPageData() {
+  return fetchData("/terms-and-condition");
+}
 export async function getFacultyPageData() {
   return fetchData("/faculty");
 }
