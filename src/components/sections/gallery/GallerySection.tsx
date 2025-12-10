@@ -302,14 +302,14 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
     startIndex: number = 0,
     addMarginTop: boolean = false,
   ) => (
-    <div className={`flex flex-wrap gap-4 ${addMarginTop ? "mt-4" : ""}`}>
+    <div className={`flex flex-wrap gap-6 ${addMarginTop ? "mt-6" : ""}`}>
       {columns.map((column, colIndex) => (
         <div key={colIndex + startIndex} className={columnWidth}>
           {column.map((item, itemIndex) => {
             const globalIndex =
               startIndex + colIndex + itemIndex * columns.length;
             return (
-              <div key={item.id} className={itemIndex > 0 ? "mt-4" : ""}>
+              <div key={item.id} className={itemIndex > 0 ? "mt-6" : ""}>
                 {renderGalleryItem(item, globalIndex)}
               </div>
             );
@@ -358,12 +358,12 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
             {images.length > 0 &&
               renderColumns(
                 imageColumns,
-                "w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-10.67px)]",
+                "w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]",
               )}
             {videos.length > 0 &&
               renderColumns(
                 videoColumns,
-                "w-full sm:w-[calc(50%-8px)]",
+                "w-full sm:w-[calc(50%-12px)]",
                 images.length,
                 images.length > 0,
               )}
