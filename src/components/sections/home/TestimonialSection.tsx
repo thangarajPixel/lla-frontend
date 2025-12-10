@@ -99,7 +99,7 @@ const TestimonialSection = ({ data }: TestimonialSectionProps) => {
                             <ImageWidget
                               src={Quote}
                               alt="Quote"
-                              className="object-center w-[70px] h-[70px] opacity-80"
+                              className="object-center w-[70px] h-[70px] xss:w-[40px] xss:h-[40px] opacity-80"
                             />
                           </div>
                           <p className="md:text-center text-[16px] lg:text-[15px] xl:text-[18px] 3xl:text-[24px] font-normal font-mulish  text-black leading-normal w-full md:max-w-[750px]">
