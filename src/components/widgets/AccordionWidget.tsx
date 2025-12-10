@@ -43,9 +43,9 @@ const AccordionWidget = ({
   onValueChange,
   columns = 1,
 }: AccordionWidgetProps) => {
-  const [internalValue, setInternalValue] = useState<string | string[] | undefined>(
-    defaultValue || (type === "single" ? undefined : [])
-  );
+  const [internalValue, setInternalValue] = useState<
+    string | string[] | undefined
+  >(defaultValue || (type === "single" ? undefined : []));
 
   const currentValue = value !== undefined ? value : internalValue;
   const handleValueChange = (newValue: string | string[]) => {
@@ -61,7 +61,9 @@ const AccordionWidget = ({
           type: "single" as const,
           collapsible,
           value: currentValue as string | undefined,
-          onValueChange: handleValueChange as ((value: string) => void) | undefined,
+          onValueChange: handleValueChange as
+            | ((value: string) => void)
+            | undefined,
         }
       : {
           type: "multiple" as const,
