@@ -90,3 +90,7 @@ export async function getCourseBySlug(slug: string) {
 export async function getBlogPageData() {
   return fetchData("/blog");
 }
+
+export async function getFacultyBySlug(slug: string, page: string) {
+  return fetchData(`/faculty/view/${slug}?page=${page}`);
+}
