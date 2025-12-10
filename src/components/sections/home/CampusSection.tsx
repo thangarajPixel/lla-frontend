@@ -24,7 +24,7 @@ const CampusSection = ({ data }: CampusSectionProps) => {
               <p className="font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
                 {data.Heading}
                 {data.SubHeading && (
-                  <span className="text-[#E24313] ml-2">{data.SubHeading}</span>
+                  <span className="text-[#E24313]">{data.SubHeading}</span>
                 )}
               </p>
               <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[600px]">

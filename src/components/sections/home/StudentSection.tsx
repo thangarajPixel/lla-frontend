@@ -127,7 +127,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
             <p className="font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl 3xl:text-[40px] text-black">
               {data.Heading}
               {data.SubHeading && (
-                <span className="text-[#E97451] pl-2">{data.SubHeading}</span>
+                <span className="text-[#E97451]">{data.SubHeading}</span>
               )}
             </p>
             <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[760px]">

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { getGalleryPageData } from "@/app/api/server";
 import { DialogClose } from "@/components/ui/dialog";
 import {
@@ -27,11 +26,18 @@ interface GalleryData {
   ImageCard: Array<{
     id: number;
     Type: string;
-    Image: Array<{
-      id: number;
-      name: string;
-      url: string;
-    }>;
+    Url?: string | null;
+    Image:
+      | {
+          id: number;
+          name: string;
+          url: string;
+        }
+      | Array<{
+          id: number;
+          name: string;
+          url: string;
+        }>;
   }>;
   pagination: {
     page: number;
@@ -58,13 +64,21 @@ const shuffleArray = <T,>(array: T[]): T[] => {
   return shuffled;
 };
 
-const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
-  const GalleryImageSkeleton = () => (
-    <div className="w-full flex flex-col gap-3 bg-[#FFFFFF4D]">
-      <Skeleton className="w-full h-[400px] md:h-[500px] lg:h-[600px]" />
-    </div>
-  );
+const distributeIntoColumns = <T,>(items: T[], columnCount: number): T[][] => {
+  const columns: T[][] = Array.from({ length: columnCount }, () => []);
+  items.forEach((item, index) => {
+    columns[index % columnCount].push(item);
+  });
+  return columns;
+};
 
+const GalleryImageSkeleton = () => (
+  <div className="w-full flex flex-col gap-3 bg-[#FFFFFF4D]">
+    <Skeleton className="w-full h-[400px] md:h-[500px] lg:h-[600px]" />
+  </div>
+);
+
+const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   const [selectedType, setSelectedType] = useState<string>("all");
   const [imageCards, setImageCards] = useState(initialData.ImageCard || []);
   const [page, setPage] = useState(1);
@@ -87,16 +101,22 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
     return types;
   }, [initialData?.ImageCard]);
 
-  const filteredImageCards = useMemo(() => {
-    if (selectedType === "all") {
-      return imageCards;
-    }
-    return imageCards.filter((card) => card.Type === selectedType);
-  }, [imageCards, selectedType]);
+  const filteredImageCards = useMemo(
+    () =>
+      selectedType === "all"
+        ? imageCards
+        : imageCards.filter((card) => card.Type === selectedType),
+    [imageCards, selectedType],
+  );
 
   const allImagesUnshuffled = useMemo(() => {
-    return filteredImageCards.flatMap((card, cardIndex) =>
-      (card.Image || []).map((img, imgIndex) => {
+    return filteredImageCards.flatMap((card, cardIndex) => {
+      const images = Array.isArray(card.Image)
+        ? card.Image
+        : card.Image
+          ? [card.Image]
+          : [];
+      return images.map((img, imgIndex) => {
         const isVideo = isVideoFile(img.url || "");
         const src = img.url ? getS3Url(img.url) : Dummy3;
         const videoUrl = isVideo && img.url ? getS3Url(img.url) : null;
@@ -110,8 +130,8 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
           isVideo,
           videoUrl: typeof videoUrl === "string" ? videoUrl : null,
         };
-      }),
-    );
+      });
+    });
   }, [filteredImageCards]);
 
   const [shuffledImages, setShuffledImages] = useState(allImagesUnshuffled);
@@ -123,20 +143,21 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   }, [allImagesUnshuffled, isMounted]);
 
   const allImages = isMounted ? shuffledImages : allImagesUnshuffled;
+  const images = allImages.filter((img) => !img.isVideo);
+  const videos = allImages.filter((img) => img.isVideo);
+  const imageColumns = distributeIntoColumns(images, 3);
+  const videoColumns = distributeIntoColumns(videos, 2);
 
   const skeletonIdRef = useRef(0);
 
   const skeletonKeys = useMemo(() => {
-    if (loading) {
-      skeletonIdRef.current += 1;
-      const baseId = skeletonIdRef.current;
-      const pageSize = initialData?.pagination?.pageSize || 10;
-      return Array.from({ length: pageSize }, () => {
-        const uniqueId = `${baseId}-${Math.random().toString(36).substring(2, 9)}`;
-        return `skeleton-${uniqueId}`;
-      });
-    }
-    return [];
+    if (!loading) return [];
+    skeletonIdRef.current += 1;
+    const pageSize = initialData?.pagination?.pageSize || 10;
+    return Array.from(
+      { length: pageSize },
+      (_, i) => `skeleton-${skeletonIdRef.current}-${i}`,
+    );
   }, [loading, initialData?.pagination?.pageSize]);
 
   useEffect(() => {
@@ -176,33 +197,127 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   }, [selectedType, initialData, isMounted]);
   const loadMore = async () => {
     if (loading || imageCards.length >= total) return;
-
     setLoading(true);
-
-    await new Promise((res) => setTimeout(res, 500));
-
-    const nextPage = page + 1;
-    const params: {
-      page: number;
-      per_page: number;
-      type?: string;
-    } = {
-      page: nextPage,
-      per_page: 9,
-    };
-
-    if (selectedType !== "all") {
-      params.type = selectedType;
+    try {
+      const nextPage = page + 1;
+      const params: { page: number; per_page: number; type?: string } = {
+        page: nextPage,
+        per_page: 9,
+        ...(selectedType !== "all" && { type: selectedType }),
+      };
+      const { data: res } = await getGalleryPageData(params);
+      if (res?.ImageCard) {
+        setImageCards((prev) => [...prev, ...res.ImageCard]);
+        setGalleryData(res);
+        setPage(nextPage);
+      }
+    } finally {
+      setLoading(false);
     }
-
-    const { data: res } = await getGalleryPageData(params);
-    if (res?.ImageCard) {
-      setImageCards((prev) => [...prev, ...res.ImageCard]);
-      setGalleryData(res);
-      setPage(nextPage);
-    }
-    setLoading(false);
   };
+
+  const renderGalleryItem = (item: (typeof allImages)[0], index: number) => (
+    <ScrollWidget
+      key={item.id}
+      animation="fadeUp"
+      delay={index * 0.1}
+      duration={0.6}
+      start="top 85%"
+      once={true}
+    >
+      <div className="relative w-full overflow-hidden group cursor-pointer">
+        {item.isVideo ? (
+          <DialogWidget
+            trigger={
+              <div className="relative w-full overflow-hidden rounded-none">
+                <video
+                  src={(item.videoUrl as string) || ""}
+                  className="object-cover w-full h-auto transition-transform duration-300 group-hover:scale-105"
+                  muted
+                  playsInline
+                  preload="metadata"
+                />
+                <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
+                  <div className="video-main">
+                    <div className="waves-block">
+                      <div className="waves wave-1" />
+                      <div className="waves wave-2" />
+                      <div className="waves wave-3" />
+                    </div>
+                  </div>
+                  <div className="relative w-13 h-13 p-0 bg-transparent hover:bg-transparent border-none shadow-none rounded-full transition-all duration-300 ease-out z-10">
+                    <ImageWidget
+                      src={Play}
+                      alt="play video"
+                      className="w-13 cursor-pointer h-13 text-white group-hover:text-[#E97451] transition-colors duration-500 ease-in-out relative z-10"
+                    />
+                  </div>
+                </div>
+              </div>
+            }
+            contentClassName="sm:max-w-[90vw] lg:max-w-[800px] p-0"
+            showCancel={false}
+            showCloseButton={false}
+            customCloseButton={
+              <DialogClose asChild>
+                <div className="cursor-pointer -mt-[30px] -mr-[30px]">
+                  <ImageWidget
+                    src={Into}
+                    alt="Close"
+                    className="w-[30px] h-[30px]"
+                  />
+                </div>
+              </DialogClose>
+            }
+          >
+            <div className="relative w-full aspect-video bg-black rounded-lg">
+              {/* biome-ignore lint/a11y/useMediaCaption: Gallery videos may not have captions available */}
+              <video
+                src={(item.videoUrl as string) || ""}
+                controls
+                autoPlay
+                className="w-full h-full object-contain rounded-lg"
+              />
+            </div>
+          </DialogWidget>
+        ) : (
+          <div className="relative w-full overflow-hidden rounded-none">
+            <ImageWidget
+              src={item.src}
+              alt={item.alt}
+              width={400}
+              height={600}
+              className="object-cover w-full h-auto transition-transform duration-300 group-hover:scale-105"
+              loading="lazy"
+            />
+          </div>
+        )}
+      </div>
+    </ScrollWidget>
+  );
+
+  const renderColumns = (
+    columns: typeof imageColumns,
+    columnWidth: string,
+    startIndex: number = 0,
+    addMarginTop: boolean = false,
+  ) => (
+    <div className={`flex flex-wrap gap-6 ${addMarginTop ? "mt-6" : ""}`}>
+      {columns.map((column, colIndex) => (
+        <div key={colIndex + startIndex} className={columnWidth}>
+          {column.map((item, itemIndex) => {
+            const globalIndex =
+              startIndex + colIndex + itemIndex * columns.length;
+            return (
+              <div key={item.id} className={itemIndex > 0 ? "mt-6" : ""}>
+                {renderGalleryItem(item, globalIndex)}
+              </div>
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  );
 
   return (
     <section className="w-full bg-white py-4 sm:py-6 md:py-8 lg:py-10 xl:py-12 2xl:py-14 3xl:py-20">
@@ -240,203 +355,31 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
           </div>
 
           <div className="w-full" suppressHydrationWarning>
-            {isMounted ? (
-              <div style={{ margin: "-10px" }}>
-                <ResponsiveMasonry
-                  columnsCountBreakPoints={{
-                    350: 1,
-                    640: 2,
-                    1024: 3,
-                  }}
+            {images.length > 0 &&
+              renderColumns(
+                imageColumns,
+                "w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]",
+              )}
+            {videos.length > 0 &&
+              renderColumns(
+                videoColumns,
+                "w-full sm:w-[calc(50%-12px)]",
+                images.length,
+                images.length > 0,
+              )}
+            {loading &&
+              skeletonKeys.map((key, index) => (
+                <ScrollWidget
+                  key={key}
+                  animation="fadeUp"
+                  delay={index * 0.1}
+                  duration={0.6}
+                  start="top 85%"
+                  once={true}
                 >
-                  <Masonry gutter="20px">
-                    {allImages.map((image, index) => (
-                      <ScrollWidget
-                        key={image.id}
-                        animation="fadeUp"
-                        delay={index * 0.1}
-                        duration={0.6}
-                        start="top 85%"
-                        once={true}
-                      >
-                        <div
-                          className="relative w-full overflow-hidden group cursor-pointer"
-                          style={{ padding: "10px" }}
-                        >
-                          {image.isVideo ? (
-                            <DialogWidget
-                              trigger={
-                                <div className="relative w-full overflow-hidden rounded-none">
-                                  <video
-                                    src={(image.videoUrl as string) || ""}
-                                    className="object-cover w-full h-auto transition-transform duration-300 group-hover:scale-105"
-                                    muted
-                                    playsInline
-                                    preload="metadata"
-                                  />
-                                  <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
-                                    <div className="video-main">
-                                      <div className="waves-block">
-                                        <div className="waves wave-1" />
-                                        <div className="waves wave-2" />
-                                        <div className="waves wave-3" />
-                                      </div>
-                                    </div>
-                                    <div className="relative w-13 h-13 p-0 bg-transparent hover:bg-transparent border-none shadow-none rounded-full transition-all duration-300 ease-out z-10">
-                                      <ImageWidget
-                                        src={Play}
-                                        alt="play video"
-                                        className="w-13 cursor-pointer h-13 text-white group-hover:text-[#E97451] transition-colors duration-500 ease-in-out relative z-10"
-                                      />
-                                    </div>
-                                  </div>
-                                </div>
-                              }
-                              contentClassName="sm:max-w-[90vw] lg:max-w-[800px] p-0"
-                              showCancel={false}
-                              showCloseButton={false}
-                              customCloseButton={
-                                <DialogClose asChild>
-                                  <div className="cursor-pointer -mt-[30px] -mr-[30px]">
-                                    <ImageWidget
-                                      src={Into}
-                                      alt="Close"
-                                      className="w-[30px] h-[30px]"
-                                    />
-                                  </div>
-                                </DialogClose>
-                              }
-                            >
-                              <div className="relative w-full aspect-video bg-black rounded-lg">
-                                {/* biome-ignore lint/a11y/useMediaCaption: Gallery videos may not have captions available */}
-                                <video
-                                  src={(image.videoUrl as string) || ""}
-                                  controls
-                                  autoPlay
-                                  className="w-full h-full object-contain rounded-lg"
-                                />
-                              </div>
-                            </DialogWidget>
-                          ) : (
-                            <div className="relative w-full overflow-hidden rounded-none">
-                              <ImageWidget
-                                src={image.src}
-                                alt={image.alt}
-                                width={400}
-                                height={600}
-                                className="object-cover w-full h-auto transition-transform duration-300 group-hover:scale-105"
-                                loading="lazy"
-                              />
-                            </div>
-                          )}
-                        </div>
-                      </ScrollWidget>
-                    ))}
-
-                    {loading &&
-                      skeletonKeys.map((key, index) => (
-                        <ScrollWidget
-                          key={key}
-                          animation="fadeUp"
-                          delay={index * 0.1}
-                          duration={0.6}
-                          start="top 85%"
-                          once={true}
-                        >
-                          <div style={{ padding: "10px" }}>
-                            <GalleryImageSkeleton />
-                          </div>
-                        </ScrollWidget>
-                      ))}
-                  </Masonry>
-                </ResponsiveMasonry>
-              </div>
-            ) : (
-              <div
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-                style={{ gap: "20px" }}
-              >
-                {allImages.map((image, index) => (
-                  <ScrollWidget
-                    key={image.id}
-                    animation="fadeUp"
-                    delay={index * 0.1}
-                    duration={0.6}
-                    start="top 85%"
-                    once={true}
-                  >
-                    {image.isVideo ? (
-                      <DialogWidget
-                        trigger={
-                          <div className="relative w-full overflow-hidden group cursor-pointer rounded-none">
-                            <video
-                              src={(image.videoUrl as string) || ""}
-                              className="object-cover w-full h-auto transition-transform duration-300 group-hover:scale-105"
-                              muted
-                              playsInline
-                              preload="metadata"
-                            />
-                            <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
-                              <div className="video-main">
-                                <div className="waves-block">
-                                  <div className="waves wave-1" />
-                                  <div className="waves wave-2" />
-                                  <div className="waves wave-3" />
-                                </div>
-                              </div>
-                              <div className="relative w-13 h-13 p-0 bg-transparent hover:bg-transparent border-none shadow-none rounded-full transition-all duration-300 ease-out z-10">
-                                <ImageWidget
-                                  src={Play}
-                                  alt="play video"
-                                  className="w-13 cursor-pointer h-13 text-white group-hover:text-[#E97451] transition-colors duration-500 ease-in-out relative z-10"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        }
-                        contentClassName="sm:max-w-[90vw] lg:max-w-[800px] p-0"
-                        showCancel={false}
-                        showCloseButton={false}
-                        customCloseButton={
-                          <DialogClose asChild>
-                            <div className="cursor-pointer -mt-[30px] -mr-[30px]">
-                              <ImageWidget
-                                src={Into}
-                                alt="Close"
-                                className="w-[30px] h-[30px]"
-                              />
-                            </div>
-                          </DialogClose>
-                        }
-                      >
-                        <div className="relative w-full aspect-video bg-black rounded-lg">
-                          {/* biome-ignore lint/a11y/useMediaCaption: Gallery videos may not have captions available */}
-                          <video
-                            src={(image.videoUrl as string) || ""}
-                            controls
-                            autoPlay
-                            className="w-full h-full object-contain rounded-lg"
-                          />
-                        </div>
-                      </DialogWidget>
-                    ) : (
-                      <div className="relative w-full overflow-hidden group cursor-pointer">
-                        <div className="relative w-full overflow-hidden rounded-none">
-                          <ImageWidget
-                            src={image.src}
-                            alt={image.alt}
-                            width={400}
-                            height={600}
-                            className="object-cover w-full h-auto transition-transform duration-300 group-hover:scale-105"
-                            loading="lazy"
-                          />
-                        </div>
-                      </div>
-                    )}
-                  </ScrollWidget>
-                ))}
-              </div>
-            )}
+                  <GalleryImageSkeleton />
+                </ScrollWidget>
+              ))}
           </div>
 
           {!loading && imageCards.length < total && (
