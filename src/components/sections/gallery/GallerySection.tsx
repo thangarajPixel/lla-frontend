@@ -55,23 +55,6 @@ const isVideoFile = (url: string): boolean => {
   );
 };
 
-const shuffleArray = <T,>(array: T[]): T[] => {
-  const shuffled = [...array];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled;
-};
-
-const distributeIntoColumns = <T,>(items: T[], columnCount: number): T[][] => {
-  const columns: T[][] = Array.from({ length: columnCount }, () => []);
-  items.forEach((item, index) => {
-    columns[index % columnCount].push(item);
-  });
-  return columns;
-};
-
 const GalleryImageSkeleton = () => (
   <div className="w-full flex flex-col gap-3 bg-[#FFFFFF4D]">
     <Skeleton className="w-full h-[400px] md:h-[500px] lg:h-[600px]" />
@@ -109,7 +92,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
     [imageCards, selectedType],
   );
 
-  const allImagesUnshuffled = useMemo(() => {
+  const allImages = useMemo(() => {
     return filteredImageCards.flatMap((card, cardIndex) => {
       const images = Array.isArray(card.Image)
         ? card.Image
@@ -133,20 +116,6 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
       });
     });
   }, [filteredImageCards]);
-
-  const [shuffledImages, setShuffledImages] = useState(allImagesUnshuffled);
-
-  useEffect(() => {
-    if (isMounted && allImagesUnshuffled.length > 0) {
-      setShuffledImages(shuffleArray(allImagesUnshuffled));
-    }
-  }, [allImagesUnshuffled, isMounted]);
-
-  const allImages = isMounted ? shuffledImages : allImagesUnshuffled;
-  const images = allImages.filter((img) => !img.isVideo);
-  const videos = allImages.filter((img) => img.isVideo);
-  const imageColumns = distributeIntoColumns(images, 3);
-  const videoColumns = distributeIntoColumns(videos, 2);
 
   const skeletonIdRef = useRef(0);
 
@@ -229,10 +198,10 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
         {item.isVideo ? (
           <DialogWidget
             trigger={
-              <div className="relative w-full overflow-hidden rounded-none">
+              <div className="relative w-full h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px] overflow-hidden rounded-none">
                 <video
                   src={(item.videoUrl as string) || ""}
-                  className="object-cover w-full h-auto transition-transform duration-300 group-hover:scale-105"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   muted
                   playsInline
                   preload="metadata"
@@ -281,42 +250,18 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
             </div>
           </DialogWidget>
         ) : (
-          <div className="relative w-full overflow-hidden rounded-none">
+          <div className="relative w-full h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px] overflow-hidden rounded-none">
             <ImageWidget
               src={item.src}
               alt={item.alt}
-              width={400}
-              height={600}
-              className="object-cover w-full h-auto transition-transform duration-300 group-hover:scale-105"
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
               loading="lazy"
             />
           </div>
         )}
       </div>
     </ScrollWidget>
-  );
-
-  const renderColumns = (
-    columns: typeof imageColumns,
-    columnWidth: string,
-    startIndex: number = 0,
-    addMarginTop: boolean = false,
-  ) => (
-    <div className={`flex flex-wrap gap-6 ${addMarginTop ? "mt-6" : ""}`}>
-      {columns.map((column, colIndex) => (
-        <div key={colIndex + startIndex} className={columnWidth}>
-          {column.map((item, itemIndex) => {
-            const globalIndex =
-              startIndex + colIndex + itemIndex * columns.length;
-            return (
-              <div key={item.id} className={itemIndex > 0 ? "mt-6" : ""}>
-                {renderGalleryItem(item, globalIndex)}
-              </div>
-            );
-          })}
-        </div>
-      ))}
-    </div>
   );
 
   return (
@@ -355,18 +300,22 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
           </div>
 
           <div className="w-full" suppressHydrationWarning>
-            {images.length > 0 &&
-              renderColumns(
-                imageColumns,
-                "w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]",
-              )}
-            {videos.length > 0 &&
-              renderColumns(
-                videoColumns,
-                "w-full sm:w-[calc(50%-12px)]",
-                images.length,
-                images.length > 0,
-              )}
+            {allImages.length > 0 && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6">
+                {allImages.map((item, index) => (
+                  <div
+                    key={item.id}
+                    className={
+                      item.isVideo
+                        ? "sm:col-span-1 lg:col-span-3"
+                        : "sm:col-span-1 lg:col-span-2"
+                    }
+                  >
+                    {renderGalleryItem(item, index)}
+                  </div>
+                ))}
+              </div>
+            )}
             {loading &&
               skeletonKeys.map((key, index) => (
                 <ScrollWidget
