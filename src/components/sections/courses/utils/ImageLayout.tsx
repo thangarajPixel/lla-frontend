@@ -74,8 +74,8 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
             numberOfImages={2}
             breakpoint="lg"
             images={images}
-          />
-          <div className="hidden lg:block relative w-full md:min-h-[440px]">
+          /> 
+          <div className="hidden lg:block relative w-full md:min-h-[440px] 3xl:min-h-[495px]">
             <div className="absolute top-0 right-10 w-full aspect-231/347 max-w-[231px]">
               <div className="relative w-full h-full overflow-hidden">
                 <ImageWidget
@@ -108,7 +108,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
             breakpoint="lg"
             images={images}
           />
-          <div className="hidden lg:block relative w-full md:min-h-[560px]">
+          <div className="hidden lg:block relative w-full md:min-h-[560px] 3xl:min-h-[720px]">
             <div className="absolute top-0 left-0 w-full aspect-445/282 max-w-[275px] xl:max-w-[305px] 2xl:max-w-[340px] 3xl:max-w-[445px] overflow-hidden">
               <ImageWidget
                 src={image1}
@@ -145,7 +145,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
             breakpoint="lg"
             images={images}
           />
-          <div className="hidden lg:block relative w-full md:min-h-[370px]">
+          <div className="hidden lg:block relative w-full md:min-h-[370px] 3xl:min-h-[465px]">
             <div className="absolute top-0 left-0 w-full aspect-300/201 max-w-[220px] 2xl:max-w-[300px]">
               <div className="relative w-full h-full overflow-hidden">
                 <ImageWidget
@@ -178,7 +178,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
             breakpoint="lg"
             images={images}
           />
-          <div className="hidden lg:block relative w-full md:min-h-[465px]">
+          <div className="hidden lg:block relative w-full md:min-h-[465px] 3xl:min-h-[595px]">
             <div className="absolute top-0 left-0 w-full aspect-300/204 max-w-45 xl:max-w-[190px] 2xl:max-w-[220px] 3xl:max-w-[300px] overflow-hidden">
               <ImageWidget
                 src={image1}
@@ -318,7 +318,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
             breakpoint="lg"
             images={images}
           />
-          <div className="hidden lg:block relative w-full md:min-h-[330px]">
+          <div className="hidden lg:block relative w-full md:min-h-[330px] 3xl:min-h-[440px]">
             <div className="absolute top-0 left-[140px] xl:left-[151px] 2xl:left-[190px] 3xl:left-[231px] w-full aspect-249/374 max-w-[169px] 2xl:max-w-[199px] 3xl:max-w-[249px]">
               <div className="relative w-full h-full overflow-hidden">
                 <ImageWidget
@@ -351,7 +351,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
             breakpoint="lg"
             images={images}
           />
-          <div className="hidden lg:block relative w-full md:min-h-[370px]">
+          <div className="hidden lg:block relative w-full md:min-h-[370px] 3xl:min-h-[440px]">
             <div className="absolute top-0 left-[155px] 3xl:left-[216px] w-full aspect-264/175 max-w-45 xl:max-w-[190px] 2xl:max-w-[220px] 3xl:max-w-[264px] overflow-hidden">
               <ImageWidget
                 src={image1}
@@ -388,7 +388,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
             breakpoint="lg"
             images={images}
           />
-          <div className="hidden lg:block relative w-full md:min-h-[370px]">
+          <div className="hidden lg:block relative w-full md:min-h-[370px] 3xl:min-h-[450px]">
             <div className="absolute top-0 left-10 3xl:left-[60px] w-full aspect-300/199 max-w-45 xl:max-w-[200px] 2xl:max-w-[260px] 3xl:max-w-[300px] overflow-hidden z-20">
               <ImageWidget
                 src={image1}
