@@ -100,3 +100,6 @@ export async function getBlogPageData() {
 export async function getBlogBySlug(slug: string) {
   return fetchData(`/blog/${slug}`);
 }
+export async function getFacultyBySlug(slug: string, page: string) {
+  return fetchData(`/faculty/view/${slug}?page=${page}`);
+}
