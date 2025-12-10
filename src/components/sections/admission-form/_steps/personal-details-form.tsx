@@ -226,7 +226,7 @@ const PersonalDetailsForm = ({
     );
 
     const isExistingEmail = isExistingEmailCheck?.data;
-    
+
     if (isExistingEmail?.exists && email !== admissionData?.email) {
       form_step1?.setError("email", { message: "Email already exists" });
       toast.error(`${isExistingEmail.message} & please try with new email`, {

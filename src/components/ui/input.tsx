@@ -65,7 +65,10 @@ const Input = ({
 
           if (allowedControlKeys.includes(e.key)) return;
 
-          if (e.key === " " && (!props.value || String(props.value).trim() === "")) {
+          if (
+            e.key === " " &&
+            (!props.value || String(props.value).trim() === "")
+          ) {
             e.preventDefault();
             return;
           }

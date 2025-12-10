@@ -7,14 +7,15 @@ const AdmissionFormPage = async ({
 }: {
   searchParams: Promise<{ course: string }>;
 }) => {
-
   const { course } = await searchParams;
 
-  const response = await getCourseBySlug(course as string ?? "");
+  const response = await getCourseBySlug((course as string) ?? "");
 
   return (
     <ScrollWidget>
-      <PersonalDetailsForm courseId={response?.data?.courseList?.documentId ?? ""} />
+      <PersonalDetailsForm
+        courseId={response?.data?.courseList?.documentId ?? ""}
+      />
     </ScrollWidget>
   );
 };

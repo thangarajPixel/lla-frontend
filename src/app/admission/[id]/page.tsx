@@ -11,11 +11,8 @@ export default async function AdmissionDetails(props: PageProps) {
 
   const admissionData = admissionResponse?.data as AdmissionFormData;
 
-
   if (!admissionData) {
-    return (
-      <div className="text-center mt-10">Admission Not Found</div>
-    )
+    return <div className="text-center mt-10">Admission Not Found</div>;
   }
 
   if (admissionData?.step_3) {

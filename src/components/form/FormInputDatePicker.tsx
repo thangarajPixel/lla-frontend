@@ -82,7 +82,10 @@ const FormDatePickerWithInput = <T extends FieldValues>({
   return (
     <div className="w-full space-y-1">
       {label && (
-        <Label className="block text-base 3xl:text-lg text-foreground font-mulish" htmlFor={id}>
+        <Label
+          className="block text-base 3xl:text-lg text-foreground font-mulish"
+          htmlFor={id}
+        >
           {label}
           {required && <span className="text-chart-1">*</span>}
         </Label>

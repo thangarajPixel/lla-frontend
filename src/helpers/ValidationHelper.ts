@@ -1,18 +1,16 @@
 import { z } from "zod";
 
-export const languageSchema = z.object({
-  language: z.string().min(1, "Language is required"),
-  read: z.boolean().default(false).optional(),
-  write: z.boolean().default(false).optional(),
-  speak: z.boolean().default(false).optional(),
-})
-.refine(
-    (data) => data.read || data.write || data.speak,
-    {
-      message: "Select at least one proficiency level",
-      path: ["language"],
-    }
-  );
+export const languageSchema = z
+  .object({
+    language: z.string().min(1, "Language is required"),
+    read: z.boolean().default(false).optional(),
+    write: z.boolean().default(false).optional(),
+    speak: z.boolean().default(false).optional(),
+  })
+  .refine((data) => data.read || data.write || data.speak, {
+    message: "Select at least one proficiency level",
+    path: ["language"],
+  });
 
 const addressSchema = z.object({
   type: z.literal("paragraph"),
@@ -71,9 +69,7 @@ export const postGraduate = z.object({
 export const personalDetailsSchema = z.object({
   Course: z.string().optional(),
   name_title: z.string().optional(),
-  first_name: z
-    .string()
-    .min(1, "First name is required"),
+  first_name: z.string().min(1, "First name is required"),
   last_name: z.string().min(1, "Last name is required"),
   mobile_no: z
     .string()
@@ -81,11 +77,8 @@ export const personalDetailsSchema = z.object({
     .min(1, "Mobile number is required"),
   email: z.email("Enter a valid email address").min(1, "Email is required"),
   nationality: z.string().min(1, "Nationality is required"),
-  date_of_birth: z
-    .string()
-    .min(1, "Date of birth is required"),
-  Language_Proficiency: z
-    .array(languageSchema),
+  date_of_birth: z.string().min(1, "Date of birth is required"),
+  Language_Proficiency: z.array(languageSchema),
   address: z.array(addressSchema).min(1, "Address is required"),
   city: z.string().min(1, "City is required"),
   district: z.string().min(1, "District is required"),
@@ -96,7 +89,8 @@ export const personalDetailsSchema = z.object({
     .refine(
       (val) => val === "" || /^\d{6}$/.test(val),
       "Enter a valid 6-digit pincode",
-    ).optional(),
+    )
+    .optional(),
   hobbies: z.string().optional(),
   photography_club: z.string().optional(),
   blood_group: z.string().optional(),

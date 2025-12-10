@@ -3,9 +3,9 @@
 import { usePathname, useSearchParams } from "next/navigation";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
+import { getCourseBySlug } from "@/app/api/server";
 import { StepIndicator } from "@/components/sections/admission-form/_components/step-indicator";
 import { ApplicationFormBg } from "@/helpers/ImageHelper";
-import { getCourseBySlug } from "@/app/api/server";
 
 const AdmissionFormLayout = ({ children }: { children: React.ReactNode }) => {
   const [currentStep, setCurrentStep] = useState<number>(1);
@@ -47,11 +47,11 @@ const AdmissionFormLayout = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const getCourseName = async () => {
-      const res = await getCourseBySlug(course as string ?? "");
+      const res = await getCourseBySlug((course as string) ?? "");
       if (res?.data) {
         setCourseName(res?.data?.courseList?.Name);
       }
-    }
+    };
 
     if (course) {
       getCourseName();
