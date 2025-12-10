@@ -135,7 +135,7 @@ const CourseSection = ({ data }: CourseSectionProps) => {
                         {card.Description}
                       </p>
                       <div className="self-start flex gap-4">
-                        <LinkWidget href="/admission">
+                        <LinkWidget href={`/courses/${card.Slug}`}>
                           <OrangeButtonWidget content={card.Btn_txt} />
                         </LinkWidget>
                       </div>

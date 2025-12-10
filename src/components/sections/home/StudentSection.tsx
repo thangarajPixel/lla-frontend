@@ -8,7 +8,6 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import DialogWidget from "@/components/widgets/DialogWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
-import { getS3Url } from "@/helpers/ConstantHelper";
 import {
   ArrowLeftBlack,
   ArrowRightBlack,
@@ -16,6 +15,31 @@ import {
   Play,
 } from "@/helpers/ImageHelper";
 import type { StudentSectionProps } from "./utils/home";
+import {
+  addAutoplayAndMute,
+  addAutoplayUnmute,
+  disableControls,
+  removeAutoplayAndMute,
+  stopAllVideos,
+  stopHoverVideos,
+} from "./utils/videoHelpers";
+
+const DialogVideoIframe = ({ videoUrl }: { videoUrl: string }) => {
+  const [autoplayUrl] = useState(() => addAutoplayUnmute(videoUrl));
+
+  return (
+    <div className="relative w-full aspect-video bg-black rounded-lg">
+      <iframe
+        src={autoplayUrl}
+        className="w-full h-full object-contain rounded-lg"
+        allow="autoplay; encrypted-media; fullscreen"
+        allowFullScreen
+        title="Video player"
+        style={{ border: "none" }}
+      />
+    </div>
+  );
+};
 
 const StudentSection = ({ data }: StudentSectionProps) => {
   const studentData = data.Card;
@@ -39,16 +63,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
   const [canScrollNext, setCanScrollNext] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
-
-  const stopAllVideos = () => {
-    if (carouselRef.current) {
-      const videos = carouselRef.current.querySelectorAll("video");
-      videos.forEach((video) => {
-        video.pause();
-        video.currentTime = 0;
-      });
-    }
-  };
+  const originalUrlsRef = useRef<Map<HTMLIFrameElement, string>>(new Map());
 
   useEffect(() => {
     const checkMobile = () => {
@@ -92,15 +107,6 @@ const StudentSection = ({ data }: StudentSectionProps) => {
     }
   }, [emblaApi]);
 
-  useEffect(() => {
-    if (isMobile && carouselRef.current) {
-      const videos = carouselRef.current.querySelectorAll("video");
-      videos.forEach((video) => {
-        video.play().catch(() => {});
-      });
-    }
-  }, [isMobile]);
-
   const scrollPrev = () => {
     emblaApi?.scrollPrev();
   };
@@ -139,7 +145,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
             >
               <div className="flex w-full justify-start md:justify-center gap-4 sm:gap-6">
                 {studentData.map((student, index) => {
-                  const videoUrl = getS3Url(student.Image?.[0]?.url);
+                  const videoUrl = student.Url;
                   return (
                     <ScrollWidget
                       key={student.id}
@@ -151,53 +157,64 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                           index % 2 ? "md:mt-30" : "mt-0"
                         } w-[calc(100%-2rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc((100%-4.5rem)/3.5)] lg:w-[calc((100%-4.5rem)/3.5)] xl:w-[calc((100%-4.5rem)/3.5)] 2xl:w-[calc((100%-4.5rem)/3.5)]`}
                       >
-                        {/* biome-ignore lint/a11y/noStaticElementInteractions: Hover-only interaction for video playback, not a clickable element */}
+                        {/* biome-ignore lint/a11y/useSemanticElements: Container with hover effects, not a form fieldset */}
                         <div
-                          className="group relative flex flex-col gap-4 overflow-hidden transition-all duration-500 ease-in-out delay-75 p-3 sm:p-4 lg:p-5 aspect-3/4 min-h-[380px] sm:min-h-[480px] sm:max-w-[330px] bg-[#F6F6F6] hover:bg-[#E97451]/80 3xl:min-w-[410px] 3xl:h-[651px]"
+                          className="group relative flex flex-col gap-4 overflow-hidden transition-all duration-500 ease-in-out delay-75 p-3 sm:p-4 lg:p-5 aspect-3/4 min-h-[380px] sm:min-h-[580px] sm:max-w-[330px] bg-[#F6F6F6] hover:bg-[#E97451]/80 3xl:min-w-[410px] 3xl:h-[651px]"
+                          role="group"
                           onMouseEnter={(e) => {
                             if (!isMobile) {
-                              const video =
-                                e.currentTarget.querySelector("video");
-                              if (video) {
-                                video.play().catch(() => {});
+                              const iframe =
+                                e.currentTarget.querySelector("iframe");
+                              if (iframe) {
+                                if (!originalUrlsRef.current.has(iframe)) {
+                                  originalUrlsRef.current.set(
+                                    iframe,
+                                    disableControls(iframe.src),
+                                  );
+                                }
+
+                                if (!iframe.src.includes("autoplay=1")) {
+                                  const originalUrl =
+                                    originalUrlsRef.current.get(iframe) ||
+                                    disableControls(iframe.src);
+                                  iframe.src = addAutoplayAndMute(originalUrl);
+                                  iframe.setAttribute(
+                                    "allow",
+                                    "autoplay; encrypted-media; muted",
+                                  );
+                                }
                               }
                             }
                           }}
                           onMouseLeave={(e) => {
                             if (!isMobile) {
-                              const video =
-                                e.currentTarget.querySelector("video");
-                              if (video) {
-                                video.pause();
-                              }
-                            }
-                          }}
-                          onTouchStart={(e) => {
-                            if (isMobile) {
-                              const video =
-                                e.currentTarget.querySelector("video");
-                              if (video) {
-                                video.play().catch(() => {});
+                              const iframe =
+                                e.currentTarget.querySelector("iframe");
+                              if (iframe) {
+                                const originalUrl =
+                                  originalUrlsRef.current.get(iframe);
+                                if (originalUrl) {
+                                  iframe.src = removeAutoplayAndMute(
+                                    iframe.src,
+                                    originalUrl,
+                                  );
+                                  iframe.setAttribute(
+                                    "allow",
+                                    "autoplay; encrypted-media",
+                                  );
+                                }
                               }
                             }
                           }}
                         >
-                          <video
-                            src={videoUrl}
-                            loop
-                            muted
-                            playsInline
-                            preload="metadata"
-                            autoPlay={isMobile}
+                          <iframe
+                            src={disableControls(videoUrl)}
                             className="absolute inset-0 w-full h-full object-cover z-0 p-1.5"
-                          >
-                            <track
-                              kind="captions"
-                              src="data:text/vtt;charset=utf-8,WEBVTT%0A%0A"
-                              srcLang="en"
-                              label="English captions"
-                            />
-                          </video>
+                            allow="autoplay; encrypted-media"
+                            allowFullScreen
+                            title="Student video"
+                            style={{ border: "none" }}
+                          />
                           <div className="relative z-20 flex items-end justify-between h-full">
                             <div
                               className="flex flex-col justify-end gap-3 bg-[#E97451]/80 w-full h-27 p-4"
@@ -239,8 +256,16 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                               contentClassName="sm:max-w-[90vw] lg:max-w-[800px] p-0"
                               showCancel={false}
                               onOpenChange={(open) => {
-                                if (!open) {
-                                  stopAllVideos();
+                                if (open) {
+                                  stopHoverVideos(
+                                    carouselRef.current,
+                                    originalUrlsRef.current,
+                                  );
+                                } else {
+                                  stopAllVideos(
+                                    carouselRef.current,
+                                    originalUrlsRef.current,
+                                  );
                                 }
                               }}
                               showCloseButton={false}
@@ -256,25 +281,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                                 </DialogClose>
                               }
                             >
-                              <div className="relative w-full aspect-video bg-black rounded-lg">
-                                <video
-                                  src={videoUrl}
-                                  autoPlay
-                                  loop
-                                  muted
-                                  playsInline
-                                  controls
-                                  className="w-full h-full object-contain rounded-lg"
-                                >
-                                  <track
-                                    kind="captions"
-                                    src="data:text/vtt;charset=utf-8,WEBVTT%0A%0A"
-                                    srcLang="en"
-                                    label="English captions"
-                                    default
-                                  />
-                                </video>
-                              </div>
+                              <DialogVideoIframe videoUrl={videoUrl} />
                             </DialogWidget>
                           </div>
                         </div>

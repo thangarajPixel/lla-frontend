@@ -156,6 +156,10 @@ body {
   }
 }
 
+.yarl__container {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
