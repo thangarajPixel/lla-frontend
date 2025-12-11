@@ -14,6 +14,7 @@ import { filteredPayload, notify } from "@/helpers/ConstantHelper";
 import { portfolioSchema } from "@/helpers/ValidationHelper";
 import { cn } from "@/lib/utils";
 import { updateAdmission } from "@/store/services/global-services";
+import { useCourseStore } from "@/store/zustand";
 
 export type PortfolioSchema = z.infer<typeof portfolioSchema>;
 
@@ -64,6 +65,12 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
       apiImages.map((i) => ({ id: Number(i.id) })),
       { shouldValidate: true },
     );
+  }, [admissionData]);
+
+  useEffect(() => {
+    if (admissionData) {
+      useCourseStore.setState({ courseName: admissionData?.Course?.Name });
+    }
   }, [admissionData]);
 
   const handleFilesSelected = async (files: File[]) => {
@@ -171,7 +178,7 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
               </p>
 
               {errors.Upload_Your_Portfolio?.images && (
-                <p className="text-xs text-destructive mt-2">
+                <p className="text-sm text-destructive mt-2">
                   {errors.Upload_Your_Portfolio.images.message}
                 </p>
               )}
@@ -192,7 +199,7 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
                 router.push(`/admission/${admissionId}/education-details`)
               }
               className={cn(
-                "p-6 w-[95px] 3xl:w-[123px] text-lg bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
+                "p-5 w-[95px] 3xl:w-[123px] 3xl:h-[50px] text-lg bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
               )}
             >
               Back

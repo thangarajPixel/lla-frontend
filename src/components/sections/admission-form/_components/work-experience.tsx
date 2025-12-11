@@ -92,8 +92,7 @@ export function WorkExperience({
               placeholder="Upload your reference Letter"
               notRequired={true}
               defaultValue={
-                admissionData?.Education_Details?.Education_Details_12th_std ??
-                null
+                admissionData?.Work_Experience[index]?.reference_letter ?? null
               }
               inputClassName="justify-start pl-4"
             />

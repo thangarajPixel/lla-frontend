@@ -4,7 +4,7 @@ import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { decryptCode } from "@/helpers/ConstantHelper";
 
 const PersonalDetails = async (props: PageProps) => {
-  const params = await props.params;
+  const params = await props?.params;
   const { id } = params;
   const admissionId = params && decryptCode(id);
 

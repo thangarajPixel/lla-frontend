@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
+import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
@@ -9,7 +10,6 @@ import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import type { CourseSectionProps } from "./utils/home";
-import HTMLWidget from "@/components/widgets/HTMLWidget";
 
 type AnimationType =
   | "fadeIn"
@@ -77,9 +77,11 @@ const CourseSection = ({ data }: CourseSectionProps) => {
             <h2 className="text-3xl font-area-variable xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
               {data.Title}
             </h2>
-             <HTMLWidget   content={data.Heading}
-               className="font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black"
-               tag="p"/>
+            <HTMLWidget
+              content={data.Heading}
+              className="font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black"
+              tag="p"
+            />
             <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[650px]">
               {data.Description}
             </p>

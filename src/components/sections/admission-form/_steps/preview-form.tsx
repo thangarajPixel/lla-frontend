@@ -3,15 +3,17 @@ import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import type React from "react";
-import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import CheckboxField from "@/components/ui/checkbox";
+import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { calculateDuration } from "@/helpers/ConstantHelper";
 import { DocumentIcon, EditIcon } from "@/helpers/ImageHelper";
 import { cn } from "@/lib/utils";
+import { useCourseStore } from "@/store/zustand";
 
 function Section({
   title,
@@ -177,6 +179,12 @@ const ReviewApplication = ({
   const fullAddress = `${admissionData?.address[0].children[0].text}, ${admissionData?.city}, ${admissionData?.district}, ${admissionData?.state.name}, ${admissionData?.pincode}`;
   const parentFullAddress = `${admissionData?.Parent_Guardian_Spouse_Details?.address[0].children[0].text}, ${admissionData?.Parent_Guardian_Spouse_Details?.city}, ${admissionData?.Parent_Guardian_Spouse_Details?.district}, ${admissionData?.Parent_Guardian_Spouse_Details?.state.name}, ${admissionData?.Parent_Guardian_Spouse_Details?.pincode}`;
 
+  useEffect(() => {
+    if (admissionData) {
+      useCourseStore.setState({ courseName: admissionData?.Course?.Name });
+    }
+  }, [admissionData]);
+
   return (
     <div className="w-full min-h-screen flex justify-center">
       <div className="flex flex-col md:flex-row w-full bg-white">
@@ -199,17 +207,19 @@ const ReviewApplication = ({
           />
 
           <div className="flex flex-row gap-1">
-            <Button
-              variant="outline"
-              className="rounded-full p-6 h-[46px] text-lg bg-chart-1/10 text-chart-1"
+            <ButtonWidget
+              className={cn(
+                "group bg-chart-1/10 text-chart-1 hover:bg-chart-1/10 rounded-[60px] px-5 h-10 xss:text-[16px] 3xl:h-[50px] text-xs 2xl:text-[14px] 3xl:text-[18px]",
+              )}
               onClick={() => router.push(`/admission/${admissionId}/portfolio`)}
             >
-              <ArrowLeft className="size-4 text-chart-1 font-light" />
+              <ArrowLeft className="size-4 text-chart-1 group-hover:text-chart-1 font-light" />
               Back to Edit
-            </Button>
+            </ButtonWidget>
             <OrangeButtonWidget
               content="Proceed to Pay"
-              className="text-lg 2xl:text-lg h-[46px] px-6 py-3"
+              className="3xl:px-4"
+              // className="text-lg 2xl:text-lg h-[46px] px-6 py-3"
             />
           </div>
         </div>
@@ -238,7 +248,7 @@ const ReviewApplication = ({
               <Field label="Blood Group" value={admissionData?.blood_group} />
               <Field label="Address" value={fullAddress} />
               <LanguageField
-                label={"Language & Proficiency:"}
+                label={"Language & Proficiency"}
                 value={
                   (admissionData?.Language_Proficiency as LanguageProficiency[]) ??
                   []
@@ -414,50 +424,52 @@ const ReviewApplication = ({
               </Section>
             )}
 
-            <Section
-              title="Work Experience"
-              onEdit={() =>
-                router.push(`/admission/${admissionId}/education-details`)
-              }
-            >
-              {admissionData?.Work_Experience?.map((experience) => (
-                <div
-                  key={experience?.id}
-                  className="grid grid-cols-1 md:grid-cols-5 gap-2"
-                >
-                  <section className="md:col-span-2">
-                    <span className="text-black/50 text-base 3xl:text-2xl">
-                      Role/Designation
-                    </span>
-                    <p className="text-black text-lg  3xl:text-2xl">
-                      {experience?.designation ?? "-"}
-                    </p>
-                  </section>
+            {admissionData?.Work_Experience[0]?.designation && (
+              <Section
+                title="Work Experience"
+                onEdit={() =>
+                  router.push(`/admission/${admissionId}/education-details`)
+                }
+              >
+                {admissionData?.Work_Experience?.map((experience) => (
+                  <div
+                    key={experience?.id}
+                    className="grid grid-cols-1 md:grid-cols-5 gap-2"
+                  >
+                    <section className="md:col-span-2">
+                      <span className="text-black/50 text-base 3xl:text-2xl">
+                        Role/Designation
+                      </span>
+                      <p className="text-black text-lg  3xl:text-2xl">
+                        {experience?.designation ?? "-"}
+                      </p>
+                    </section>
 
-                  <section className="md:col-span-2">
-                    <span className="text-black/50 text-base 3xl:text-2xl">
-                      Employer
-                    </span>
-                    <p className="text-black text-lg  3xl:text-2xl">
-                      {experience?.employer ?? "-"}
-                    </p>
-                  </section>
+                    <section className="md:col-span-2">
+                      <span className="text-black/50 text-base 3xl:text-2xl">
+                        Employer
+                      </span>
+                      <p className="text-black text-lg  3xl:text-2xl">
+                        {experience?.employer ?? "-"}
+                      </p>
+                    </section>
 
-                  <section className="md:col-span-1">
-                    <span className="text-black/50 text-base 3xl:text-2xl">
-                      Duration
-                    </span>
-                    <span className="text-black text-base font-medium md:text-sm flex flex-wrap 3xl:text-[22px]">
-                      {/* {`${experience?.duration_start?.split("-")?.reverse()?.join("-")} to ${experience?.duration_end?.split("-")?.reverse()?.join("-")}`} */}
-                      {calculateDuration(
-                        experience?.duration_start ?? "",
-                        experience?.duration_end ?? "",
-                      )}
-                    </span>
-                  </section>
-                </div>
-              ))}
-            </Section>
+                    <section className="md:col-span-1">
+                      <span className="text-black/50 text-base 3xl:text-2xl">
+                        Duration
+                      </span>
+                      <span className="text-black text-base font-medium md:text-sm flex flex-wrap 3xl:text-[22px]">
+                        {/* {`${experience?.duration_start?.split("-")?.reverse()?.join("-")} to ${experience?.duration_end?.split("-")?.reverse()?.join("-")}`} */}
+                        {calculateDuration(
+                          experience?.duration_start ?? "",
+                          experience?.duration_end ?? "",
+                        )}
+                      </span>
+                    </section>
+                  </div>
+                ))}
+              </Section>
+            )}
 
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between text-base md:text-sm 3xl:text-2xl">
               <span className="text-chart-1 text-base md:text-sm 3xl:text-2xl">

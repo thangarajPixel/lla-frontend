@@ -1,13 +1,13 @@
 import { create } from "zustand";
 
 type CourseState = {
-  courseId: string | null;
-  setCourseId: (id: string) => void;
-  clearCourseId: () => void;
+  courseName: string | null;
+  setCourseName: (id: string) => void;
+  clearCourseName: () => void;
 };
 
 export const useCourseStore = create<CourseState>((set) => ({
-  courseId: null,
-  setCourseId: (id) => set({ courseId: id }),
-  clearCourseId: () => set({ courseId: null }),
+  courseName: null,
+  setCourseName: (name) => set({ courseName: name }),
+  clearCourseName: () => set({ courseName: null }),
 }));

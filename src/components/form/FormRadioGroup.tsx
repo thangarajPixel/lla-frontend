@@ -56,24 +56,29 @@ const FormRadioGroup = <T extends FieldValues>({
             onValueChange={handleChange}
             className="flex space-y-2 max-h-[39vh] overflow-y-auto pr-2"
           >
-            {options?.map((option) => (
-              <div
-                key={option.value}
-                className="flex h-fit items-center space-x-3 p-2 rounded-lg cursor-pointer"
-              >
-                <RadioGroupItem
-                  id={option.value}
-                  value={option.value}
-                  className="border-2 border-secondary dark:border-secondary-foreground size-5"
-                />
-                <label
-                  htmlFor={option.value}
-                  className="cursor-pointer text-sm font-medium"
+            {options?.map((option) => {
+              const id = `${name}-${option.value}`;
+              const isSelected = field.value === option.value;
+              return (
+                <div
+                  key={id}
+                  className="flex h-fit items-center space-x-3 p-2 rounded-lg cursor-pointer"
                 >
-                  {option.label}
-                </label>
-              </div>
-            ))}
+                  <RadioGroupItem
+                    id={id}
+                    value={option.value}
+                    className={`border-2 ${isSelected ? "border-chart-1" : "border-gray-300"} dark:border-secondary-foreground size-5`}
+                  />
+
+                  <label
+                    htmlFor={id}
+                    className="cursor-pointer text-sm font-medium"
+                  >
+                    {option.label}
+                  </label>
+                </div>
+              );
+            })}
           </RadioGroup>
 
           {error && (

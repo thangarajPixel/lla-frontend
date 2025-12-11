@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { DialogClose } from "@/components/ui/dialog";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import DialogWidget from "@/components/widgets/DialogWidget";
+import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import {
@@ -23,7 +24,6 @@ import {
   stopAllVideos,
   stopHoverVideos,
 } from "./utils/videoHelpers";
-import HTMLWidget from "@/components/widgets/HTMLWidget";
 
 const DialogVideoIframe = ({ videoUrl }: { videoUrl: string }) => {
   const [autoplayUrl] = useState(() => addAutoplayUnmute(videoUrl));
@@ -125,9 +125,11 @@ const StudentSection = ({ data }: StudentSectionProps) => {
             <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
               {data.Title}
             </h2>
-            <HTMLWidget   content={data.Heading}
-                  className="max-w-[520px] font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black"
-                 tag="p"/>
+            <HTMLWidget
+              content={data.Heading}
+              className="max-w-[520px] font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black"
+              tag="p"
+            />
             <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[760px]">
               {data.Description}
             </p>

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
@@ -8,7 +9,6 @@ import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import { ArrowRightWhite, Dummy3 } from "@/helpers/ImageHelper";
-import Link from "next/link";
 
 interface BlogImage {
   id: number;
@@ -37,8 +37,6 @@ interface BlogPageData {
 }
 
 const BlogSection = ({ data }: { data: BlogPageData }) => {
-  console.log(data);
-
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -186,18 +184,19 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                                   tag="p"
                                 />
                               )}
-                               <Link  href={`/more/blogs/${blog.Slug}`}
-                                     className="inline-flex items-center gap-2 text-[#E97451] hover:gap-4 transition-all duration-300 mt-2 text-[16px] md:text-[16px] lg:text-[16px] font-normal font-urbanist group"
-                                    >
-                                   Read More
-                                   <ImageWidget
-                                     src={ArrowRightWhite}
-                                       alt="Arrow Right"
-                                       width={16}
-                                       height={16}
-                                      className="object-contain"
-                                       />
-                                 </Link>
+                              <Link
+                                href={`/more/blogs/${blog.Slug}`}
+                                className="inline-flex items-center gap-2 text-[#E97451] hover:gap-4 transition-all duration-300 mt-2 text-[16px] md:text-[16px] lg:text-[16px] font-normal font-urbanist group"
+                              >
+                                Read More
+                                <ImageWidget
+                                  src={ArrowRightWhite}
+                                  alt="Arrow Right"
+                                  width={16}
+                                  height={16}
+                                  className="object-contain"
+                                />
+                              </Link>
                             </div>
                           </div>
                         </div>

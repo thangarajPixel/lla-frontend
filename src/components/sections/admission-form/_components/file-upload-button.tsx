@@ -14,6 +14,7 @@ import { useRef, useState } from "react";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import { validateDimensions } from "@/helpers/ConstantHelper";
 import { UploadIconImg } from "@/helpers/ImageHelper";
+import { cn } from "@/lib/utils";
 
 type FileUploadButtonProps = {
   placeholder?: string;
@@ -23,6 +24,7 @@ type FileUploadButtonProps = {
   onRemove?: () => void;
   defaultValue?: DocumentFile | null;
   inputClassName?: string;
+  hideDescription?: boolean;
 };
 
 const generateDocumentPreview = (file: File): string => {
@@ -91,6 +93,7 @@ export function FileUploadButton({
   onRemove,
   defaultValue,
   inputClassName,
+  hideDescription,
 }: FileUploadButtonProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -152,7 +155,12 @@ export function FileUploadButton({
         accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
         onChange={handleFileChange}
       />
-      <p className="text-xs text-muted-foreground">
+      <p
+        className={cn(
+          "text-xs text-muted-foreground",
+          hideDescription && "hidden",
+        )}
+      >
         Max. file size not more than {maxSize}.
       </p>
 
@@ -184,10 +192,10 @@ export function FileUploadButton({
               <span>
                 {formatFileSize(selectedFile?.size ?? defaultValue?.size ?? 0)}
               </span>
-              <span>•</span>
+              {/* <span>•</span>
               <span>
                 {selectedFile?.type || defaultValue?.mime || "unknown type"}
-              </span>
+              </span> */}
               <button
                 type="button"
                 className="text-white bg-red-500 size-5 rounded-full p-1 text-sm flex items-center justify-center hover:bg-red-600 cursor-pointer"

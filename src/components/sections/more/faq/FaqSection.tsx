@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -8,11 +8,12 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
-import { FaqProps } from "./utils/faq";
+import type { FaqProps } from "./utils/faq";
 
-
-const FaqSection = ({ data }: FaqProps ) => {
-  const [activeCategory, setActiveCategory] = useState<number>(data?.faq?.[0]?.id || 1);
+const FaqSection = ({ data }: FaqProps) => {
+  const [activeCategory, setActiveCategory] = useState<number>(
+    data?.faq?.[0]?.id || 1,
+  );
   const categoryRefs = useRef<{ [key: number]: HTMLDivElement | null }>({});
   const observerRef = useRef<IntersectionObserver | null>(null);
 
@@ -21,7 +22,7 @@ const FaqSection = ({ data }: FaqProps ) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const categoryId = entry.target.getAttribute('data-category');
+            const categoryId = entry.target.getAttribute("data-category");
             if (categoryId) {
               setActiveCategory(Number(categoryId));
             }
@@ -29,9 +30,9 @@ const FaqSection = ({ data }: FaqProps ) => {
         });
       },
       {
-        rootMargin: '-20% 0px -70% 0px',
+        rootMargin: "-20% 0px -70% 0px",
         threshold: 0.1,
-      }
+      },
     );
     Object.values(categoryRefs.current).forEach((ref) => {
       if (ref && observerRef.current) {
@@ -44,7 +45,7 @@ const FaqSection = ({ data }: FaqProps ) => {
         observerRef.current.disconnect();
       }
     };
-  }, [data?.faq]);
+  }, []);
 
   const scrollToCategory = (categoryId: number) => {
     setActiveCategory(categoryId);
@@ -62,7 +63,9 @@ const FaqSection = ({ data }: FaqProps ) => {
             <h1 className="font-urbanist font-normal text-[32px] md:text-[40px] xl:text-[48px] 2xl:text-[56px] 3xl:text-[64px] text-black mb-12">
               Frequently Asked Questions
             </h1>
-            <p className="text-gray-600 text-lg">No FAQ data available at the moment.</p>
+            <p className="text-gray-600 text-lg">
+              No FAQ data available at the moment.
+            </p>
           </div>
         </ContainerWidget>
       </section>
@@ -90,7 +93,7 @@ const FaqSection = ({ data }: FaqProps ) => {
                 ))}
               </select>
             </div>
-            
+
             <div className="hidden md:block lg:col-span-1">
               <nav className="space-y-1 lg:sticky lg:top-20">
                 {data.faq.map((category) => (
@@ -123,11 +126,13 @@ const FaqSection = ({ data }: FaqProps ) => {
                   className="scroll-mt-24"
                 >
                   <div className="bg-white p-0 md:p-6">
-                    <h2 className={`text-2xl md:text-3xl font-semibold mb-6 transition-colors duration-300 ${
-                      activeCategory === category.id 
-                        ? "text-[#E97451]" 
-                        : "text-black"
-                    }`}>
+                    <h2
+                      className={`text-2xl md:text-3xl font-semibold mb-6 transition-colors duration-300 ${
+                        activeCategory === category.id
+                          ? "text-[#E97451]"
+                          : "text-black"
+                      }`}
+                    >
                       {category.Title}
                     </h2>
                     <Accordion type="single" collapsible className="space-y-2">

@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { getCourseBySlug } from "@/app/api/server";
 import { StepIndicator } from "@/components/sections/admission-form/_components/step-indicator";
 import { ApplicationFormBg } from "@/helpers/ImageHelper";
+import { useCourseStore } from "@/store/zustand";
 
 const AdmissionFormLayout = ({ children }: { children: React.ReactNode }) => {
   const [currentStep, setCurrentStep] = useState<number>(1);
@@ -14,6 +15,7 @@ const AdmissionFormLayout = ({ children }: { children: React.ReactNode }) => {
   const headerRef = useRef<HTMLDivElement>(null);
   const pathName = usePathname();
   const step = pathName.split("/").pop();
+  const selectedCourseName = useCourseStore((state) => state.courseName);
 
   const searchParams = useSearchParams();
   const course = searchParams.get("course");
@@ -52,6 +54,7 @@ const AdmissionFormLayout = ({ children }: { children: React.ReactNode }) => {
         setCourseName(res?.data?.courseList?.Name);
       }
     };
+    // getCourseName();
 
     if (course) {
       getCourseName();
@@ -66,7 +69,7 @@ const AdmissionFormLayout = ({ children }: { children: React.ReactNode }) => {
     <div className="mx-auto">
       <section className="flex">
         <div
-          className="hidden h-[650px] 3xl:h-[1300px] lg:flex w-1/4 p-12"
+          className="hidden h-[650px] 3xl:h-[1300px] lg:flex w-[35%] p-12 justify-center"
           style={{
             backgroundImage: `url(${ApplicationFormBg.src})`,
             backgroundSize: "cover",
@@ -74,11 +77,11 @@ const AdmissionFormLayout = ({ children }: { children: React.ReactNode }) => {
           }}
         >
           <h1 className="text-[32px] 3xl:text-[56px] 3xl:mt-10 text-white leading-tight font-urbanist">
-            {courseName}
+            {courseName || selectedCourseName}
           </h1>
         </div>
 
-        <div className="w-full lg:w-3/4 bg-white px-4 sm:px-8 py-12 lg:p-12 lg:pr-36 3xl:pr-80 ">
+        <div className="w-full lg:w-[65%] bg-white px-4 sm:px-8 py-12 lg:p-12 lg:pr-36 3xl:pr-80 ">
           <div
             ref={scrollContainerRef}
             className=" mx-auto h-[550px] 3xl:h-[1200px] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
@@ -86,7 +89,7 @@ const AdmissionFormLayout = ({ children }: { children: React.ReactNode }) => {
           >
             <div ref={headerRef} className="mb-8">
               <h1 className="text-[32px] 3xl:text-[56px] font-urbanist leading-tight lg:hidden mb-6">
-                {courseName}
+                {courseName || selectedCourseName}
               </h1>
               <h2 className="text-2xl md:text-3xl 3xl:text-[40px] text-[#E97451] mb-4 font-urbanist">
                 Application Form

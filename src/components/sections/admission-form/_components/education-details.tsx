@@ -12,12 +12,16 @@ type EducationDetailsProps = {
   admissionData?: AdmissionFormData;
   control: Control<EducationDetailsSchema>;
   ugStatus?: string;
+  pgStatus?: string;
+  watchPostGraduate?: string;
 };
 
 export function EducationDetails({
   admissionData,
   control,
   ugStatus,
+  pgStatus,
+  watchPostGraduate,
 }: EducationDetailsProps) {
   const {
     fields: pgDegrees,
@@ -29,7 +33,7 @@ export function EducationDetails({
   });
 
   const addDegree = () => {
-    append({ degree: "", pg_status: "In-Progress" });
+    append({ degree: "", pg_status: "" });
   };
 
   return (
@@ -55,7 +59,7 @@ export function EducationDetails({
           label="10th std"
           placeholder="Upload your MarkSheet"
           defaultValue={
-            admissionData?.Education_Details?.Education_Details_12th_std ?? null
+            admissionData?.Education_Details?.Education_Details_10th_std ?? null
           }
         />
       </div>
@@ -78,14 +82,21 @@ export function EducationDetails({
           />
 
           {ugStatus === "Finished" && (
-            <FormFileUploadButton
-              name="Under_Graduate.marksheet"
-              control={control}
-              placeholder="Upload your MarkSheet"
-              notRequired={true}
-              defaultValue={admissionData?.Under_Graduate?.marksheet ?? null}
-              inputClassName="justify-start pl-4"
-            />
+            <>
+              <FormFileUploadButton
+                name="Under_Graduate.marksheet"
+                control={control}
+                placeholder="Upload your MarkSheet"
+                notRequired={true}
+                defaultValue={admissionData?.Under_Graduate?.marksheet ?? null}
+                inputClassName="justify-start pl-4"
+                hideDescription
+              />
+
+              <p className="text-xs text-muted-foreground relative md:bottom-5">
+                Max. file size not more than 2MB.
+              </p>
+            </>
           )}
         </div>
       </div>
@@ -93,14 +104,13 @@ export function EducationDetails({
       {pgDegrees?.map((degree, index) => (
         <div
           key={degree.id ?? index}
-          className="grid grid-cols-1 md:grid-cols-[1fr_auto_auto] gap-4 items-end space-y-3"
+          className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4 items-end space-y-3"
         >
           <FormInput
             name={`Post_Graduate.${index}.degree`}
             label={index > 0 ? `Additional Degree ${index}` : "Post Graduate"}
             placeholder="Enter your post graduation degree"
             control={control}
-            // notRequired={index > 0}
             notRequired={true}
           />
           <FormRadioGroup
@@ -115,7 +125,7 @@ export function EducationDetails({
             <Button
               type="button"
               onClick={() => removePgDegree(index)}
-              className="flex relative bottom-2 items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
+              className="flex items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
             >
               <X className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
             </Button>
@@ -123,14 +133,16 @@ export function EducationDetails({
         </div>
       ))}
 
-      <Button
-        type="button"
-        onClick={addDegree}
-        className="flex ml-auto items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
-      >
-        <Plus className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
-        <span className="text-chart-1">Add Any Other Degree</span>
-      </Button>
+      {watchPostGraduate !== "" && pgStatus === "Finished" && (
+        <Button
+          type="button"
+          onClick={addDegree}
+          className="flex ml-auto items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
+        >
+          <Plus className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
+          <span className="text-chart-1">Add Any Other Degree</span>
+        </Button>
+      )}
     </div>
   );
 }
