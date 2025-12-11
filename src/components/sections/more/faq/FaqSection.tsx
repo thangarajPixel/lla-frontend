@@ -8,6 +8,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
+import { FaqProps } from "./utils/faq";
 
 type FaqCategory = {
   id: string;
@@ -211,13 +212,12 @@ const faqData: FaqCategory[] = [
   },
 ];
 
-const FaqSection = () => {
+const FaqSection = ({ data }: FaqProps ) => {
   const [activeCategory, setActiveCategory] = useState("general");
   const categoryRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
-    // Create intersection observer to detect which section is in view
     observerRef.current = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -262,19 +262,18 @@ const FaqSection = () => {
       <ContainerWidget>
         <div className="max-w-6xl mx-auto">
           <h1 className="font-urbanist font-noraml text-[32px] md:text-[40px] xl:text-[48px] 2xl:text-[56px] 3xl:text-[64px] text-black mb-12 text-left">
-            Frequently Asked Questions
+            {data.Title}
           </h1>
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            {/* Mobile Category Selector */}
             <div className="md:hidden mb-6">
               <select
                 value={activeCategory}
                 onChange={(e) => scrollToCategory(e.target.value)}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#E97451] focus:border-transparent"
               >
-                {faqData.map((category) => (
+                {data.faq.map((category) => (
                   <option key={category.id} value={category.id}>
-                    {category.title}
+                    {category.Title}
                   </option>
                 ))}
               </select>
@@ -282,7 +281,7 @@ const FaqSection = () => {
             
             <div className="hidden md:block lg:col-span-1">
               <nav className="space-y-1 lg:sticky lg:top-24">
-                {faqData.map((category) => (
+                {data.faq.map((category) => (
                   <button
                     key={category.id}
                     type="button"
@@ -293,13 +292,13 @@ const FaqSection = () => {
                         : "text-gray-700 hover:text-[#E97451] hover:bg-gray-50 font-normal"
                     }`}
                   >
-                    {category.title}
+                    {category.Title}
                   </button>
                 ))}
               </nav>
             </div>
             <div className="lg:col-span-3">
-              {faqData.map((category) => (
+              {data.faq.map((category) => (
                 <div
                   key={category.id}
                   ref={(el) => {
@@ -318,10 +317,10 @@ const FaqSection = () => {
                         ? "text-[#E97451]" 
                         : "text-black"
                     }`}>
-                      {category.title}
+                      {category.Title}
                     </h2>
                     <Accordion type="single" collapsible className="space-y-2">
-                      {category.questions.map((item, index) => (
+                      {category.Qa.map((item, index) => (
                         <AccordionItem
                           key={`question-${index + 1}`}
                           value={`${category.id}-item-${index}`}
@@ -329,12 +328,12 @@ const FaqSection = () => {
                         >
                           <AccordionTrigger className="py-4 text-left hover:no-underline cursor-pointer">
                             <span className="text-black font-medium">
-                              {item.question}
+                              {item.Question}
                             </span>
                           </AccordionTrigger>
                           <AccordionContent className="pb-4">
                             <p className="text-black leading-relaxed whitespace-pre-line">
-                              {item.answer}
+                              {item.Answer}
                             </p>
                           </AccordionContent>
                         </AccordionItem>

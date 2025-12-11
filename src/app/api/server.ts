@@ -36,6 +36,10 @@ export async function getAboutUsPageData() {
 export async function getContactPageData() {
   return fetchData("/contact-page");
 }
+
+export async function getFaqPageData() {
+  return fetchData("/faq");
+}
 export async function getPrivacyPageData() {
   return fetchData("/privacy-policy");
 }
