@@ -8,6 +8,10 @@ import { getS3Url } from "@/helpers/ConstantHelper";
 import type { FounderSectionProps } from "./utils/about-us";
 
 const FounderSection = ({ data }: FounderSectionProps) => {
+  if (!data || !data.Title || !data.Founder_card || data.Founder_card.length < 2) {
+    return null;
+  }
+
   return (
     <section className="3xl:max-h-[1665px] w-full bg-[#ECECEC] py-8 xs:py-10 sm:py-12  md:py-14 lg:py-20 xl:py-14  2xl:py-18 3xl:py-26 4xl:py-30 ">
       <ContainerWidget>

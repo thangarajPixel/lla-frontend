@@ -26,7 +26,7 @@ export type AboutHeroSectionProps = {
 };
 
 export type FounderSectionProps = {
-  data: {
+  data?: {
     __component?: string;
     id?: number;
     Title: string;

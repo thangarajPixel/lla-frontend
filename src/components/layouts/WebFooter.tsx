@@ -142,7 +142,9 @@ const WebFooter = ({
           <p className={`${linkTextClass} max-w-full md:max-w-[550px]`}>
             {Description}
           </p>
+          <LinkWidget href="/more/contact-us">
           <OrangeButtonWidget content={Btn_txt} />
+          </LinkWidget>
           <div className={dividerClass} />
 
           <div className="flex flex-col md:flex-row gap-8 md:gap-5 py-3 pb-0 w-full">
