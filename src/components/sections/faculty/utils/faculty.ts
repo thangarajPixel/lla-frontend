@@ -73,6 +73,7 @@ interface FacultyMember {
     url: string;
     name: string;
   };
+  Slug: string;
 }
 
 export type PhotographyFacultySectionProps = {
