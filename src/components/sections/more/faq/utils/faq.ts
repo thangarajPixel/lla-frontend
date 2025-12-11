@@ -6,7 +6,7 @@ export type FaqProps = {
 };
 
 export type FaqCard = {
-  id: string;
+  id: number;
   Title: string;
  Qa:Array<{
     id: number;
