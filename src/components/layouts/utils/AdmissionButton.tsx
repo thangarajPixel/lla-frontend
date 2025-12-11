@@ -7,7 +7,7 @@ import { DialogClose } from "@/components/ui/dialog";
 import DialogWidget from "@/components/widgets/DialogWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import { ArrowRight, Into } from "@/helpers/ImageHelper";
+import { ArrowRight, ArrowRightWhite, Into } from "@/helpers/ImageHelper";
 import ButtonWidget from "../../widgets/ButtonWidget";
 import ImageWidget from "../../widgets/ImageWidget";
 import LinkWidget from "../../widgets/LinkWidget";
@@ -22,6 +22,9 @@ const AdmissionButton = ({
   const [isOpen, setIsOpen] = useState(false);
   const [imageIndices, setImageIndices] = useState<number[]>([]);
   const pathname = usePathname();
+  
+  // Check if current page is contact-us
+  const isContactUsPage = pathname === "/more/contact-us";
 
   useEffect(() => {
     if (pathname) {
@@ -60,11 +63,15 @@ const AdmissionButton = ({
       onOpenChange={handleOpenChange}
       trigger={
         <ButtonWidget
-          className={`orange-button group rounded-[60px] xss:text-[16px] px-5 h-10 3xl:w-[230px] 3xl:h-[50px]  text-[14px] 2xl:text-[14px] 3xl:text-[18px] ${className}`}
+          className={`${
+            isContactUsPage 
+              ? "orange-button-white border-none" 
+              : "orange-button"
+          } group rounded-[60px] xss:text-[16px] px-5 h-10 3xl:w-[230px] 3xl:h-[50px]  text-[14px] 2xl:text-[14px] 3xl:text-[18px] ${className}`}
         >
           Admission Open
           <ImageWidget
-            src={ArrowRight}
+            src={isContactUsPage ? ArrowRightWhite : ArrowRight}
             alt="Arrow Right"
             className={`lg:w-[18px] lg:h-[18px] 3xl:w-6 3xl:h-6 transition-transform duration-300 group-hover:translate-x-1 ${iconClassName}`}
           />
