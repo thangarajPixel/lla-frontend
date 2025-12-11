@@ -133,7 +133,7 @@ const EducationDetailsForm = ({
               router.push(`/admission/${admissionId}/personal-details`);
             }}
             className={cn(
-              "p-6 w-[95px] 3xl:w-[123px] text-lg bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
+              "p-5 w-[95px] 3xl:w-[123px] 3xl:h-[50px] text-lg bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
             )}
           >
             Back
