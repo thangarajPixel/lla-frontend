@@ -22,7 +22,7 @@ const AdmissionButton = ({
   const [isOpen, setIsOpen] = useState(false);
   const [imageIndices, setImageIndices] = useState<number[]>([]);
   const pathname = usePathname();
-  
+
   // Check if current page is contact-us
   const isContactUsPage = pathname === "/more/contact-us";
 
@@ -64,8 +64,8 @@ const AdmissionButton = ({
       trigger={
         <ButtonWidget
           className={`${
-            isContactUsPage 
-              ? "orange-button-white border-none font-bold leading-[28px]" 
+            isContactUsPage
+              ? "orange-button-white border-none font-bold leading-[28px]"
               : "orange-button"
           } group rounded-[60px] xss:text-[16px] px-5 h-10 3xl:w-[230px] 3xl:h-[50px]  text-[14px] 2xl:text-[14px] 3xl:text-[18px] ${className}`}
         >

@@ -155,7 +155,12 @@ export function FileUploadButton({
         accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
         onChange={handleFileChange}
       />
-      <p className={cn("text-xs text-muted-foreground", hideDescription && "hidden")}>
+      <p
+        className={cn(
+          "text-xs text-muted-foreground",
+          hideDescription && "hidden",
+        )}
+      >
         Max. file size not more than {maxSize}.
       </p>
 

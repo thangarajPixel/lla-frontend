@@ -1,14 +1,14 @@
 export type FaqProps = {
   data: {
     Title: string;
-    faq:FaqCard[];
+    faq: FaqCard[];
   };
 };
 
 export type FaqCard = {
   id: number;
   Title: string;
- Qa:Array<{
+  Qa: Array<{
     id: number;
     Question: string;
     Answer: string;

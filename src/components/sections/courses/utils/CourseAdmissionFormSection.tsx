@@ -1,15 +1,18 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight } from "lucide-react";
 import { useRef } from "react";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { getEssentialsData } from "@/app/api/server";
+import { FormInput } from "@/components/form";
+import {
+  type ContactFormData,
+  contactSchema,
+} from "@/components/sections/more/contact/ContactSection";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
-import { FormInput } from "@/components/form";
-import { useForm } from "react-hook-form";
-import { ContactFormData, contactSchema } from "@/components/sections/more/contact/ContactSection";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
   const formRef = useRef<HTMLFormElement>(null);
@@ -27,7 +30,6 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
   });
 
   const onSubmit = async (payload: ContactFormData) => {
-
     const isAdmissionOpen = await getEssentialsData();
 
     const admissionPayload = {

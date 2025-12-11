@@ -24,8 +24,8 @@ import {
   createAdmission,
   updateAdmission,
 } from "@/store/services/global-services";
-import AddressFields from "../_components/address-fields";
 import { useCourseStore } from "@/store/zustand";
+import AddressFields from "../_components/address-fields";
 
 export type PersonalDetailsSchema = z.infer<typeof personalDetailsSchema>;
 
@@ -61,19 +61,23 @@ const PersonalDetailsForm = ({
       // Language_Proficiency: admissionData?.Language_Proficiency ?? [
       //   { language: "", read: false, write: false, speak: false },
       // ],
-      Language_Proficiency: admissionData?.Language_Proficiency && admissionData?.Language_Proficiency?.length > 0 ? admissionData?.Language_Proficiency?.map((language) => ({
-        language: language?.language ?? "",
-        read: language?.read ?? false,
-        write: language?.write ?? false,
-        speak: language?.speak ?? false,
-      })) : [
-        {
-          language: "",
-          read: false,
-          write: false,
-          speak: false,
-        },
-      ],
+      Language_Proficiency:
+        admissionData?.Language_Proficiency &&
+        admissionData?.Language_Proficiency?.length > 0
+          ? admissionData?.Language_Proficiency?.map((language) => ({
+              language: language?.language ?? "",
+              read: language?.read ?? false,
+              write: language?.write ?? false,
+              speak: language?.speak ?? false,
+            }))
+          : [
+              {
+                language: "",
+                read: false,
+                write: false,
+                speak: false,
+              },
+            ],
       address: admissionData?.address?.map((block) => ({
         type: "paragraph",
         children: block.children.map((child) => ({
@@ -81,16 +85,16 @@ const PersonalDetailsForm = ({
           type: child.type,
         })),
       })) ?? [
-          {
-            type: "paragraph",
-            children: [
-              {
-                text: "",
-                type: "text",
-              },
-            ],
-          },
-        ],
+        {
+          type: "paragraph",
+          children: [
+            {
+              text: "",
+              type: "text",
+            },
+          ],
+        },
+      ],
       city: admissionData?.city ?? "",
       district: admissionData?.district ?? "",
       state: admissionData?.state?.documentId ?? "",
@@ -120,16 +124,16 @@ const PersonalDetailsForm = ({
             })),
           }),
         ) ?? [
-            {
-              type: "paragraph",
-              children: [
-                {
-                  text: "",
-                  type: "text",
-                },
-              ],
-            },
-          ],
+          {
+            type: "paragraph",
+            children: [
+              {
+                text: "",
+                type: "text",
+              },
+            ],
+          },
+        ],
         city: admissionData?.Parent_Guardian_Spouse_Details?.city ?? "",
         district: admissionData?.Parent_Guardian_Spouse_Details?.district ?? "",
         state:
@@ -192,8 +196,8 @@ const PersonalDetailsForm = ({
             `Image must be max 12"x8" (3600x2400 pixels). Your image is ${width}x${height}px.`,
             {
               position: "bottom-right",
-            }
-          )
+            },
+          );
           resolve(false);
         } else {
           resolve(true);
@@ -224,7 +228,9 @@ const PersonalDetailsForm = ({
 
     if (file.size > 1024 * 1024) {
       // alert("File size must be less than 1MB.");
-      toast.error("File size must be less than 1MB.", { position: "bottom-right" });
+      toast.error("File size must be less than 1MB.", {
+        position: "bottom-right",
+      });
       return;
     }
 
@@ -440,18 +446,18 @@ const PersonalDetailsForm = ({
                     </div>
                   </div>
                 ))}
-                {
-                  watch("Language_Proficiency.0.language") !== "" && (
-                    <ButtonWidget
-                      type="button"
-                      onClick={handleAddLanguage}
-                      className="flex relative bottom-5 ml-auto items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
-                    >
-                      <Plus className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
-                      <span className="text-chart-1 font-normal">Add Language</span>
-                    </ButtonWidget>
-                  )
-                }
+                {watch("Language_Proficiency.0.language") !== "" && (
+                  <ButtonWidget
+                    type="button"
+                    onClick={handleAddLanguage}
+                    className="flex relative bottom-5 ml-auto items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
+                  >
+                    <Plus className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
+                    <span className="text-chart-1 font-normal">
+                      Add Language
+                    </span>
+                  </ButtonWidget>
+                )}
               </div>
             </div>
 
@@ -469,7 +475,7 @@ const PersonalDetailsForm = ({
                 onClick={handleClick}
               >
                 {(!previewUrl && !admissionData?.passport_size_image) ||
-                  isRemoved ? (
+                isRemoved ? (
                   <>
                     <ImageWidget
                       src={UploadIconImg}

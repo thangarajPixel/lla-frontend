@@ -56,19 +56,16 @@ const FounderViewSection = ({ data }: FounderViewSectionProps) => {
   const router = useRouter();
   const [isMounted, setIsMounted] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  if (!data || !data.Founder_card || data.Founder_card.length === 0) {
-    return null;
-  }
 
   const founderCard = data.Founder_card[0];
   const founderName = founderCard?.Heading;
   const portraitImage = founderCard?.Image;
   const viewCard = founderCard?.ViewCard;
   const portfolioLink = viewCard?.Link;
-  const biography = founderCard?.Description?.map(block => 
-    block.children?.map(child => child.text).join('')
-  ).join('<br><br>');
-  
+  const biography = founderCard?.Description?.map((block) =>
+    block.children?.map((child) => child.text).join(""),
+  ).join("<br><br>");
+
   const galleryImages: ImageData[] = viewCard?.Image;
 
   useEffect(() => {
@@ -77,21 +74,25 @@ const FounderViewSection = ({ data }: FounderViewSectionProps) => {
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         setSelectedImage(null);
       }
     };
 
     if (selectedImage) {
-      document.addEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'hidden';
+      document.addEventListener("keydown", handleEscape);
+      document.body.style.overflow = "hidden";
     }
 
     return () => {
-      document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'unset';
+      document.removeEventListener("keydown", handleEscape);
+      document.body.style.overflow = "unset";
     };
   }, [selectedImage]);
+
+  if (!data || !data.Founder_card || data.Founder_card.length === 0) {
+    return null;
+  }
 
   return (
     <>
@@ -136,10 +137,14 @@ const FounderViewSection = ({ data }: FounderViewSectionProps) => {
                 </div>
               </div>
             )}
-              {portfolioLink && (
+            {portfolioLink && (
               <div className="mb-8">
                 <a
-                  href={portfolioLink.startsWith('http') ? portfolioLink : `https://${portfolioLink}`}
+                  href={
+                    portfolioLink.startsWith("http")
+                      ? portfolioLink
+                      : `https://${portfolioLink}`
+                  }
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-black hover:opacity-80 transition-opacity"
@@ -177,10 +182,12 @@ const FounderViewSection = ({ data }: FounderViewSectionProps) => {
                       {galleryImages.map((image: ImageData, index: number) => {
                         if (!image?.url) return null;
                         const imageUrl = getS3Url(image.url);
-                        const imageAlt = image?.name || `${founderName} Gallery ${index + 1}`;
+                        const imageAlt =
+                          image?.name || `${founderName} Gallery ${index + 1}`;
                         return (
                           <div
                             key={`gallery-${image.id || index}`}
+                            aria-hidden
                             className="relative w-full overflow-hidden group cursor-pointer"
                             onClick={() => setSelectedImage(imageUrl)}
                           >
@@ -205,10 +212,12 @@ const FounderViewSection = ({ data }: FounderViewSectionProps) => {
                     {galleryImages.map((image: ImageData, index: number) => {
                       if (!image?.url) return null;
                       const imageUrl = getS3Url(image.url);
-                      const imageAlt = image?.name || `${founderName} Gallery ${index + 1}`;
+                      const imageAlt =
+                        image?.name || `${founderName} Gallery ${index + 1}`;
                       return (
                         <div
                           key={`gallery-${image.id || index}`}
+                          aria-hidden
                           className="relative w-full overflow-hidden group cursor-pointer"
                           onClick={() => setSelectedImage(imageUrl)}
                         >
@@ -233,15 +242,17 @@ const FounderViewSection = ({ data }: FounderViewSectionProps) => {
           </div>
         </div>
       </div>
-      
+
       {/* Image Modal/Lightbox */}
       {selectedImage && (
-        <div 
+        <div
+          aria-hidden
           className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4"
           onClick={() => setSelectedImage(null)}
         >
           <div className="relative max-w-7xl max-h-full">
             <button
+              type="button"
               onClick={() => setSelectedImage(null)}
               className="absolute top-4 right-4 text-white text-2xl font-bold z-10 bg-black bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center hover:bg-opacity-70 transition-all"
               aria-label="Close image"

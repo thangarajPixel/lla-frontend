@@ -101,7 +101,6 @@ export function EducationDetails({
         </div>
       </div>
 
-
       {pgDegrees?.map((degree, index) => (
         <div
           key={degree.id ?? index}
@@ -134,18 +133,16 @@ export function EducationDetails({
         </div>
       ))}
 
-      {
-        (watchPostGraduate !== "" && pgStatus === "Finished") && (
-          <Button
-            type="button"
-            onClick={addDegree}
-            className="flex ml-auto items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
-          >
-            <Plus className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
-            <span className="text-chart-1">Add Any Other Degree</span>
-          </Button>
-        )
-      }
+      {watchPostGraduate !== "" && pgStatus === "Finished" && (
+        <Button
+          type="button"
+          onClick={addDegree}
+          className="flex ml-auto items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
+        >
+          <Plus className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
+          <span className="text-chart-1">Add Any Other Degree</span>
+        </Button>
+      )}
     </div>
   );
 }

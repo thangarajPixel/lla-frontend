@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import type z from "zod";
 import { EducationDetails } from "@/components/sections/admission-form/_components/education-details";
@@ -12,7 +13,6 @@ import { filteredPayload, notify } from "@/helpers/ConstantHelper";
 import { educationDetailsSchema } from "@/helpers/ValidationHelper";
 import { cn } from "@/lib/utils";
 import { updateAdmission } from "@/store/services/global-services";
-import { useEffect } from "react";
 import { useCourseStore } from "@/store/zustand";
 
 export type EducationDetailsSchema = z.infer<typeof educationDetailsSchema>;
@@ -87,10 +87,10 @@ const EducationDetailsForm = ({
   const watchPostGraduate = watch("Post_Graduate.0.degree");
 
   useEffect(() => {
-      if (admissionData) {
-        useCourseStore.setState({ courseName: admissionData?.Course?.Name });
-      }
-    }, [admissionData]);
+    if (admissionData) {
+      useCourseStore.setState({ courseName: admissionData?.Course?.Name });
+    }
+  }, [admissionData]);
 
   const onSubmit = async (payload: EducationDetailsSchema) => {
     const filteredData = filteredPayload(payload);

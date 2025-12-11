@@ -41,7 +41,9 @@ const FormRadioGroup = <T extends FieldValues>({
           className="block text-sm font-medium text-foreground mb-1"
         >
           {label}
-          {notRequired !== "true" && <span className="text-destructive">*</span>}
+          {notRequired !== "true" && (
+            <span className="text-destructive">*</span>
+          )}
         </label>
       )}
 
@@ -68,7 +70,10 @@ const FormRadioGroup = <T extends FieldValues>({
                     className={`border-2 ${isSelected ? "border-chart-1" : "border-gray-300"} dark:border-secondary-foreground size-5`}
                   />
 
-                  <label htmlFor={id} className="cursor-pointer text-sm font-medium">
+                  <label
+                    htmlFor={id}
+                    className="cursor-pointer text-sm font-medium"
+                  >
                     {option.label}
                   </label>
                 </div>

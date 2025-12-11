@@ -68,10 +68,10 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
   }, [admissionData]);
 
   useEffect(() => {
-      if (admissionData) {
-        useCourseStore.setState({ courseName: admissionData?.Course?.Name });
-      }
-    }, [admissionData]);
+    if (admissionData) {
+      useCourseStore.setState({ courseName: admissionData?.Course?.Name });
+    }
+  }, [admissionData]);
 
   const handleFilesSelected = async (files: File[]) => {
     const MAX_SIZE = 1024 * 1024;

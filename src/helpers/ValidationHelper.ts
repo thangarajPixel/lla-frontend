@@ -30,7 +30,10 @@ export const parentDetails = z.object({
     .string()
     .min(1, "Mobile number is required")
     .regex(/^[6-9]\d{9}$/, "Enter a valid mobile number"),
-  email: z.string().min(1, "Email is required").email("Enter a valid email address"),
+  email: z
+    .string()
+    .min(1, "Email is required")
+    .email("Enter a valid email address"),
   profession: z.string().min(1, "Profession is required"),
   nationality: z.string().min(1, "Nationality is required"),
   address: z.array(addressSchema).min(1, "Address is required"),
@@ -75,7 +78,10 @@ export const personalDetailsSchema = z.object({
     .string()
     .min(1, "Mobile number is required")
     .regex(/^[6-9]\d{9}$/, "Enter a valid mobile number"),
-  email: z.string().min(1, "Email is required").email({ message: "Enter a valid email" }),
+  email: z
+    .string()
+    .min(1, "Email is required")
+    .email({ message: "Enter a valid email" }),
   nationality: z.string().min(1, "Nationality is required"),
   date_of_birth: z.string().min(1, "Date of birth is required"),
   Language_Proficiency: z.array(languageSchema),

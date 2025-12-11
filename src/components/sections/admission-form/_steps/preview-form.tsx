@@ -3,18 +3,17 @@ import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import type React from "react";
-import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import CheckboxField from "@/components/ui/checkbox";
+import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { calculateDuration } from "@/helpers/ConstantHelper";
 import { DocumentIcon, EditIcon } from "@/helpers/ImageHelper";
 import { cn } from "@/lib/utils";
-import { useEffect } from "react";
 import { useCourseStore } from "@/store/zustand";
-import ButtonWidget from "@/components/widgets/ButtonWidget";
 
 function Section({
   title,
@@ -220,7 +219,7 @@ const ReviewApplication = ({
             <OrangeButtonWidget
               content="Proceed to Pay"
               className="3xl:px-4"
-            // className="text-lg 2xl:text-lg h-[46px] px-6 py-3"
+              // className="text-lg 2xl:text-lg h-[46px] px-6 py-3"
             />
           </div>
         </div>
@@ -425,54 +424,52 @@ const ReviewApplication = ({
               </Section>
             )}
 
-            {
-              admissionData?.Work_Experience[0]?.designation && (
-                <Section
-                  title="Work Experience"
-                  onEdit={() =>
-                    router.push(`/admission/${admissionId}/education-details`)
-                  }
-                >
-                  {admissionData?.Work_Experience?.map((experience) => (
-                    <div
-                      key={experience?.id}
-                      className="grid grid-cols-1 md:grid-cols-5 gap-2"
-                    >
-                      <section className="md:col-span-2">
-                        <span className="text-black/50 text-base 3xl:text-2xl">
-                          Role/Designation
-                        </span>
-                        <p className="text-black text-lg  3xl:text-2xl">
-                          {experience?.designation ?? "-"}
-                        </p>
-                      </section>
+            {admissionData?.Work_Experience[0]?.designation && (
+              <Section
+                title="Work Experience"
+                onEdit={() =>
+                  router.push(`/admission/${admissionId}/education-details`)
+                }
+              >
+                {admissionData?.Work_Experience?.map((experience) => (
+                  <div
+                    key={experience?.id}
+                    className="grid grid-cols-1 md:grid-cols-5 gap-2"
+                  >
+                    <section className="md:col-span-2">
+                      <span className="text-black/50 text-base 3xl:text-2xl">
+                        Role/Designation
+                      </span>
+                      <p className="text-black text-lg  3xl:text-2xl">
+                        {experience?.designation ?? "-"}
+                      </p>
+                    </section>
 
-                      <section className="md:col-span-2">
-                        <span className="text-black/50 text-base 3xl:text-2xl">
-                          Employer
-                        </span>
-                        <p className="text-black text-lg  3xl:text-2xl">
-                          {experience?.employer ?? "-"}
-                        </p>
-                      </section>
+                    <section className="md:col-span-2">
+                      <span className="text-black/50 text-base 3xl:text-2xl">
+                        Employer
+                      </span>
+                      <p className="text-black text-lg  3xl:text-2xl">
+                        {experience?.employer ?? "-"}
+                      </p>
+                    </section>
 
-                      <section className="md:col-span-1">
-                        <span className="text-black/50 text-base 3xl:text-2xl">
-                          Duration
-                        </span>
-                        <span className="text-black text-base font-medium md:text-sm flex flex-wrap 3xl:text-[22px]">
-                          {/* {`${experience?.duration_start?.split("-")?.reverse()?.join("-")} to ${experience?.duration_end?.split("-")?.reverse()?.join("-")}`} */}
-                          {calculateDuration(
-                            experience?.duration_start ?? "",
-                            experience?.duration_end ?? "",
-                          )}
-                        </span>
-                      </section>
-                    </div>
-                  ))}
-                </Section>
-              )
-            }
+                    <section className="md:col-span-1">
+                      <span className="text-black/50 text-base 3xl:text-2xl">
+                        Duration
+                      </span>
+                      <span className="text-black text-base font-medium md:text-sm flex flex-wrap 3xl:text-[22px]">
+                        {/* {`${experience?.duration_start?.split("-")?.reverse()?.join("-")} to ${experience?.duration_end?.split("-")?.reverse()?.join("-")}`} */}
+                        {calculateDuration(
+                          experience?.duration_start ?? "",
+                          experience?.duration_end ?? "",
+                        )}
+                      </span>
+                    </section>
+                  </div>
+                ))}
+              </Section>
+            )}
 
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between text-base md:text-sm 3xl:text-2xl">
               <span className="text-chart-1 text-base md:text-sm 3xl:text-2xl">
