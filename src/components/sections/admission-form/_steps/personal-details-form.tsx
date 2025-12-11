@@ -5,7 +5,7 @@ import axios from "axios";
 import { CheckCircle, Plus, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import type z from "zod";
@@ -25,6 +25,7 @@ import {
   updateAdmission,
 } from "@/store/services/global-services";
 import AddressFields from "../_components/address-fields";
+import { useCourseStore } from "@/store/zustand";
 
 export type PersonalDetailsSchema = z.infer<typeof personalDetailsSchema>;
 
@@ -49,7 +50,7 @@ const PersonalDetailsForm = ({
     resolver: zodResolver(personalDetailsSchema),
     mode: "all",
     defaultValues: {
-      Course: admissionData?.Course ?? courseId ?? "",
+      Course: admissionData?.Course?.documentId ?? courseId ?? "",
       name_title: admissionData?.name_title ?? "Mr.",
       first_name: admissionData?.first_name ?? "",
       last_name: admissionData?.last_name ?? "",
@@ -57,8 +58,21 @@ const PersonalDetailsForm = ({
       mobile_no: admissionData?.mobile_no ?? "",
       email: admissionData?.email ?? "",
       nationality: admissionData?.nationality ?? "",
-      Language_Proficiency: admissionData?.Language_Proficiency ?? [
-        { language: "", read: false, write: false, speak: false },
+      // Language_Proficiency: admissionData?.Language_Proficiency ?? [
+      //   { language: "", read: false, write: false, speak: false },
+      // ],
+      Language_Proficiency: admissionData?.Language_Proficiency && admissionData?.Language_Proficiency?.length > 0 ? admissionData?.Language_Proficiency?.map((language) => ({
+        language: language?.language ?? "",
+        read: language?.read ?? false,
+        write: language?.write ?? false,
+        speak: language?.speak ?? false,
+      })) : [
+        {
+          language: "",
+          read: false,
+          write: false,
+          speak: false,
+        },
       ],
       address: admissionData?.address?.map((block) => ({
         type: "paragraph",
@@ -67,16 +81,16 @@ const PersonalDetailsForm = ({
           type: child.type,
         })),
       })) ?? [
-        {
-          type: "paragraph",
-          children: [
-            {
-              text: "",
-              type: "text",
-            },
-          ],
-        },
-      ],
+          {
+            type: "paragraph",
+            children: [
+              {
+                text: "",
+                type: "text",
+              },
+            ],
+          },
+        ],
       city: admissionData?.city ?? "",
       district: admissionData?.district ?? "",
       state: admissionData?.state?.documentId ?? "",
@@ -106,16 +120,16 @@ const PersonalDetailsForm = ({
             })),
           }),
         ) ?? [
-          {
-            type: "paragraph",
-            children: [
-              {
-                text: "",
-                type: "text",
-              },
-            ],
-          },
-        ],
+            {
+              type: "paragraph",
+              children: [
+                {
+                  text: "",
+                  type: "text",
+                },
+              ],
+            },
+          ],
         city: admissionData?.Parent_Guardian_Spouse_Details?.city ?? "",
         district: admissionData?.Parent_Guardian_Spouse_Details?.district ?? "",
         state:
@@ -132,6 +146,7 @@ const PersonalDetailsForm = ({
     control,
     handleSubmit,
     formState: { errors },
+    watch,
   } = form_step1;
 
   const {
@@ -142,6 +157,12 @@ const PersonalDetailsForm = ({
     control: control,
     name: "Language_Proficiency",
   });
+
+  useEffect(() => {
+    if (admissionData) {
+      useCourseStore.setState({ courseName: admissionData?.Course?.Name });
+    }
+  }, [admissionData]);
 
   const handleAddLanguage = () => {
     append({ language: "", read: false, write: false, speak: false });
@@ -167,9 +188,12 @@ const PersonalDetailsForm = ({
         const maxHeight = 2400;
 
         if (width > maxWidth || height > maxHeight) {
-          alert(
+          toast.error(
             `Image must be max 12"x8" (3600x2400 pixels). Your image is ${width}x${height}px.`,
-          );
+            {
+              position: "bottom-right",
+            }
+          )
           resolve(false);
         } else {
           resolve(true);
@@ -191,6 +215,7 @@ const PersonalDetailsForm = ({
 
     if (!file.type.startsWith("image/")) {
       alert("Please upload a valid image.");
+      toast.error("Please upload a valid image.", { position: "bottom-right" });
       return;
     }
 
@@ -198,7 +223,8 @@ const PersonalDetailsForm = ({
     formData.append("files", file);
 
     if (file.size > 1024 * 1024) {
-      alert("File size must be less than 1MB.");
+      // alert("File size must be less than 1MB.");
+      toast.error("File size must be less than 1MB.", { position: "bottom-right" });
       return;
     }
 
@@ -414,14 +440,18 @@ const PersonalDetailsForm = ({
                     </div>
                   </div>
                 ))}
-                <ButtonWidget
-                  type="button"
-                  onClick={handleAddLanguage}
-                  className="flex relative bottom-5 ml-auto items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
-                >
-                  <Plus className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
-                  <span className="text-chart-1 font-normal">Add Language</span>
-                </ButtonWidget>
+                {
+                  watch("Language_Proficiency.0.language") !== "" && (
+                    <ButtonWidget
+                      type="button"
+                      onClick={handleAddLanguage}
+                      className="flex relative bottom-5 ml-auto items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
+                    >
+                      <Plus className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
+                      <span className="text-chart-1 font-normal">Add Language</span>
+                    </ButtonWidget>
+                  )
+                }
               </div>
             </div>
 
@@ -435,11 +465,11 @@ const PersonalDetailsForm = ({
 
               <div
                 aria-hidden
-                className="border border-dashed border-border rounded-lg xs:max-w-[180px] flex flex-col items-center justify-center min-h-[227px] xs:min-h-[227px] bg-secondary cursor-pointer hover:bg-accent transition relative overflow-hidden group" // min-h-180px
+                className="border border-dashed border-border rounded-lg xs:max-w-[180px] flex flex-col items-center justify-center min-h-[227px] xs:min-h-[227px] bg-secondary cursor-pointer hover:bg-accent transition relative overflow-hidden group lg:max-w-full" // min-h-180px
                 onClick={handleClick}
               >
                 {(!previewUrl && !admissionData?.passport_size_image) ||
-                isRemoved ? (
+                  isRemoved ? (
                   <>
                     <ImageWidget
                       src={UploadIconImg}
@@ -500,7 +530,7 @@ const PersonalDetailsForm = ({
                 <br />
                 Max. file size not more than 1MB.
               </p> */}
-              <p className="text-xs font-mulish text-muted-foreground mt-2 xs:max-w-[180px]">
+              <p className="text-xs font-mulish text-muted-foreground mt-2 xs:max-w-[180px] lg:max-w-full">
                 The size of the images should not be more than 12&quot;x8&quot;
                 size. Max. file size not more than 1MB.
               </p>
@@ -522,7 +552,6 @@ const PersonalDetailsForm = ({
               placeholder="Enter your Hobbies / Talent(s)"
               control={control}
               notRequired={true}
-              restrictionType="number"
             />
 
             <FormInput
@@ -531,7 +560,6 @@ const PersonalDetailsForm = ({
               placeholder="Enter your Photography Club"
               control={control}
               notRequired={true}
-              restrictionType="number"
             />
 
             <FormInput
@@ -597,6 +625,7 @@ const PersonalDetailsForm = ({
                   placeholder="Enter your mobile number"
                   control={control}
                   restrictionType="text"
+                  maxLength={10}
                 />
                 <FormInput
                   name="Parent_Guardian_Spouse_Details.email"

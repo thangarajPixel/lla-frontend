@@ -86,8 +86,19 @@ type AddressBlock = {
   children: AddressChild[];
 };
 
+type course = {
+  id: number;
+  documentId: string;
+  Name: string;
+  Slug: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: null;
+  locale: null;
+};
+
 type AdmissionFormData = {
-  Course: string;
+  Course: course;
   id: number;
   documentId: string;
   name_title: string;

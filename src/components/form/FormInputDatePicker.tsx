@@ -143,6 +143,7 @@ const FormDatePickerWithInput = <T extends FieldValues>({
               selected={parsedStoredDate}
               month={month}
               onMonthChange={setMonth}
+              disabled={{ after: new Date() }}
               onSelect={(date) => {
                 if (!date) return;
 

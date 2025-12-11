@@ -35,7 +35,6 @@ interface BlogPageData {
 }
 
 const BlogSection = ({ data }: { data: BlogPageData }) => {
-  console.log(data);
 
   const [isMounted, setIsMounted] = useState(false);
 

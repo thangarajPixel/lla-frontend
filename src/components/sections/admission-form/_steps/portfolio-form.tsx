@@ -14,6 +14,7 @@ import { filteredPayload, notify } from "@/helpers/ConstantHelper";
 import { portfolioSchema } from "@/helpers/ValidationHelper";
 import { cn } from "@/lib/utils";
 import { updateAdmission } from "@/store/services/global-services";
+import { useCourseStore } from "@/store/zustand";
 
 export type PortfolioSchema = z.infer<typeof portfolioSchema>;
 
@@ -65,6 +66,12 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
       { shouldValidate: true },
     );
   }, [admissionData]);
+
+  useEffect(() => {
+      if (admissionData) {
+        useCourseStore.setState({ courseName: admissionData?.Course?.Name });
+      }
+    }, [admissionData]);
 
   const handleFilesSelected = async (files: File[]) => {
     const MAX_SIZE = 1024 * 1024;
@@ -171,7 +178,7 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
               </p>
 
               {errors.Upload_Your_Portfolio?.images && (
-                <p className="text-xs text-destructive mt-2">
+                <p className="text-sm text-destructive mt-2">
                   {errors.Upload_Your_Portfolio.images.message}
                 </p>
               )}

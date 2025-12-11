@@ -1,80 +1,49 @@
 "use client";
 
 import { ArrowRight } from "lucide-react";
-import { type FormEvent, useRef } from "react";
+import { useRef } from "react";
 import { toast } from "sonner";
 import { getEssentialsData } from "@/app/api/server";
-import { Input } from "@/components/ui/input";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
-import { notify } from "@/helpers/ConstantHelper";
-import type { CourseFormData } from "./types";
+import { FormInput } from "@/components/form";
+import { useForm } from "react-hook-form";
+import { ContactFormData, contactSchema } from "@/components/sections/more/contact/ContactSection";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
   const formRef = useRef<HTMLFormElement>(null);
 
-  const validateForm = (formValues: CourseFormData): string | null => {
-    if (!formValues.name || formValues.name.trim() === "") {
-      return "Name is required";
-    }
+  const form = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+    mode: "all",
+    defaultValues: {
+      FirstName: "",
+      LastName: "",
+      Email: "",
+      Mobile: "",
+      Message: "",
+    },
+  });
 
-    if (!formValues.mobile || formValues.mobile.trim() === "") {
-      return "Mobile number is required";
-    }
-
-    const cleanedMobile = formValues.mobile.replace(/\D/g, "");
-    if (cleanedMobile.length !== 10) {
-      return "Please enter a valid 10-digit mobile number";
-    }
-
-    if (!formValues.emailAddress || formValues.emailAddress.trim() === "") {
-      return "Email address is required";
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formValues.emailAddress)) {
-      return "Please enter a valid email address";
-    }
-
-    return null;
-  };
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const formData = new FormData(e.currentTarget);
-    const formValues: CourseFormData = {
-      name: (formData.get("name") as string) || "",
-      mobile: (formData.get("mobile") as string) || "",
-      emailAddress: (formData.get("emailAddress") as string) || "",
-      message: (formData.get("message") as string) || "",
-    };
-
-    const validationError = validateForm(formValues);
-    if (validationError) {
-      notify({
-        success: false,
-        message: validationError,
-      });
-      return;
-    }
+  const onSubmit = async (payload: ContactFormData) => {
 
     const isAdmissionOpen = await getEssentialsData();
 
     const admissionPayload = {
-      first_name: formValues.name,
-      mobile_no: formValues.mobile,
-      email: formValues.emailAddress,
-      Message: formValues.message,
+      first_name: payload.FirstName,
+      mobile_no: payload.Mobile,
+      email: payload.Email,
+      Message: payload.Message,
       Course: courseId,
       step_0: true,
     };
 
     const requestPayload = {
-      FirstName: formValues.name,
-      Mobile: formValues.mobile,
-      Email: formValues.emailAddress,
-      Message: formValues.message,
+      FirstName: payload.FirstName,
+      Mobile: payload.Mobile,
+      Email: payload.Email,
+      Message: payload.Message,
       Type: "Request Information",
       Course: courseId,
     };
@@ -84,7 +53,7 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
         const isExistingEmailCheck = await clientAxios.post(
           `/admissions/email/check`,
           {
-            email: formValues.emailAddress,
+            email: payload.Email,
           },
         );
 
@@ -104,13 +73,10 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
       } else {
         await clientAxios.post(`/contacts`, { data: requestPayload });
       }
+      form.reset();
       toast.success("Request submitted successfully!");
     } catch (_error) {
       toast.error("Failed to send message. Please try again.");
-    }
-
-    if (formRef.current) {
-      formRef.current.reset();
     }
   };
 
@@ -122,40 +88,42 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
         </h3>
         <form
           ref={formRef}
-          onSubmit={handleSubmit}
+          onSubmit={form.handleSubmit(onSubmit)}
           className="grid grid-cols-2 md:flex font-mulish gap-2 md:gap-3 items-stretch md:items-center md:justify-between"
         >
-          <Input
-            type="text"
-            name="name"
+          <FormInput
+            name="FirstName"
             placeholder="Name*"
-            className="w-full md:flex-1 md:min-w-[120px] space-y-0"
+            control={form.control}
+            restrictionType="number"
             inputClassName="w-full md:flex-1 pl-3 md:pl-4 3xl:text-[18px] md:min-w-[120px] h-9 rounded-full text-[12px] sm:text-[13px] md:text-[14px] lg:text-[13px] 3xl:text-[16px] border border-white bg-white/20 text-white placeholder:text-[#FFFFFF] focus-visible:border-white focus-visible:ring-0 focus-visible:ring-offset-0 outline-none"
-            notRequired={false}
+            errorClassName="text-black"
           />
-          <Input
-            type="tel"
-            name="mobile"
+
+          <FormInput
+            name="Mobile"
             placeholder="Mobile No*"
-            className="w-full md:flex-1 md:min-w-[120px] space-y-0"
+            control={form.control}
+            restrictionType="text"
             inputClassName="w-full md:flex-1 pl-3 md:pl-4 3xl:text-[18px] md:min-w-[120px] h-9 rounded-full text-[12px] sm:text-[13px] md:text-[14px] lg:text-[13px] 3xl:text-[16px] border border-white bg-white/20 text-white placeholder:text-[#FFFFFF] focus-visible:border-white focus-visible:ring-0 focus-visible:ring-offset-0 outline-none"
-            notRequired={false}
+            maxLength={10}
+            errorClassName="text-black"
           />
-          <Input
-            type="email"
-            name="emailAddress"
+
+          <FormInput
+            name="Email"
             placeholder="Email Address*"
-            className="w-full md:flex-1 md:min-w-[120px] space-y-0"
+            control={form.control}
             inputClassName="w-full md:flex-1 pl-3 md:pl-4 3xl:text-[18px] md:min-w-[120px] h-9 rounded-full text-[12px] sm:text-[13px] md:text-[14px] lg:text-[13px] 3xl:text-[16px] border border-white bg-white/20 text-white placeholder:text-[#FFFFFF] focus-visible:border-white focus-visible:ring-0 focus-visible:ring-offset-0 outline-none"
-            notRequired={false}
+            errorClassName="text-black"
           />
-          <Input
-            type="text"
-            name="message"
+
+          <FormInput
+            name="Message"
             placeholder="Message"
-            className="w-full md:flex-1 md:min-w-[120px] space-y-0"
+            control={form.control}
             inputClassName="w-full md:flex-1 pl-3 md:pl-4 3xl:text-[18px] md:min-w-[120px] h-9 rounded-full text-[12px] sm:text-[13px] md:text-[14px] lg:text-[13px] 3xl:text-[16px] border border-white bg-white/20 text-white placeholder:text-[#FFFFFF] focus-visible:border-white focus-visible:ring-0 focus-visible:ring-offset-0 outline-none"
-            notRequired={true}
+            errorClassName="text-black"
           />
           <button
             type="submit"
