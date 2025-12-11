@@ -1,6 +1,10 @@
+import FounderViewSection from "@/components/sections/FounderViewSection";
+
 const FounderSection = () => {
+  const data = {
+  };
   return (
-    <div>Founder Section</div>
+    <FounderViewSection data={data} />
   )
 };
 export default FounderSection;
