@@ -4,10 +4,10 @@ import LifeDetailSection from "@/components/sections/more/life-at-lla/LifeDetail
 const LifeAtLlaDetail = async ({
   params,
 }: {
-  params: Promise<{ Slug: string }>;
+  params: Promise<{ slug: string }>;
 }) => {
-  const { Slug } = await params;
-  const { data: response } = await getLifeById(Slug);
+  const { slug } = await params;
+  const { data: response } = await getLifeById(slug);
   return <LifeDetailSection data={response} />;
 };
 

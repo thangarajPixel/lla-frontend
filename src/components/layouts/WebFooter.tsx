@@ -26,6 +26,7 @@ const RESOURCES = [
   { id: "blog", href: "/", label: "Blog" },
   { id: "faq", href: "/", label: "FAQ's" },
   { id: "privacy", href: "/more/privacy-policy", label: "Privacy Policy" },
+  { id: "terms", href: "/more/terms-and-conditions", label: "Terms & Conditions" },
 ];
 
 const linkTextClass =

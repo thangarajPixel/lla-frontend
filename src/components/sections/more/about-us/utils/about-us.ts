@@ -35,6 +35,7 @@ export type FounderSectionProps = {
     Founder_card: Array<{
       id: number;
       Heading: string;
+      Slug: string;
       Description: Array<{
         type: string;
         children: Array<{

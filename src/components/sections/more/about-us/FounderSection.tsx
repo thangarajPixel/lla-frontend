@@ -5,6 +5,7 @@ import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import type { FounderSectionProps } from "./utils/about-us";
+import LinkWidget from "@/components/widgets/LinkWidget";
 
 const FounderSection = ({ data }: FounderSectionProps) => {
   return (
@@ -36,9 +37,11 @@ const FounderSection = ({ data }: FounderSectionProps) => {
                 <p className="font-mulish text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
                   {data.Founder_card[0].Description[1].children[0].text ?? ""}
                 </p>
+                 <LinkWidget href={`/more/about-us/${data.Founder_card[0].Slug}`}>
                 <OrangeButtonWidget
                   content={data.Founder_card[0].Btn_txt ?? ""}
                 />
+                </LinkWidget>
               </div>
             </ScrollWidget>
             <ScrollWidget delay={0.3} className="order-1 md:order-2">
@@ -82,7 +85,9 @@ const FounderSection = ({ data }: FounderSectionProps) => {
                 <p className="font-mulish text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
                   {data.Founder_card[1].Description[1].children[0].text ?? ""}
                 </p>
+                 <LinkWidget href={`/more/about-us/${data.Founder_card[1].Slug}`}>
                 <OrangeButtonWidget content={data.Founder_card[1].Btn_txt} />
+                </LinkWidget>
               </div>
             </ScrollWidget>
           </div>
