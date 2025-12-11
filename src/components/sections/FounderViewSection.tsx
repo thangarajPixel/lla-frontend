@@ -7,68 +7,91 @@ import ButtonWidget from "@/components/widgets/ButtonWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import { Dummy1, OrangeArrowRight } from "@/helpers/ImageHelper";
+import { OrangeArrowRight } from "@/helpers/ImageHelper";
 
-// TypeScript types based on the API response structure
 interface ImageData {
   id: number;
   name: string;
   url: string;
 }
 
+interface DescriptionBlock {
+  type: string;
+  children: Array<{
+    type: string;
+    text: string;
+  }>;
+}
+
 interface ViewCard {
   id: number;
-  Description: string;
+  Link: string;
   Image: ImageData[];
 }
 
-interface FacultyCard {
+interface FounderCard {
   id: number;
-  Title: string;
+  Heading: string;
+  Description: DescriptionBlock[];
+  Btn_txt: string;
   Slug: string;
   Image: ImageData;
-  ViewCard: ViewCard[];
+  ViewCard: ViewCard;
 }
 
-interface FacultyPhotographyComponent {
-  __component: "faculty.photography";
+interface FounderComponent {
+  __component: "about.founder";
   id: number;
   Title: string;
   Heading: string;
   SubHeading: string;
-  Description: string;
-  Card: FacultyCard[];
+  Founder_card: FounderCard[];
 }
 
-type FacultyViewSectionData =
-  | {
-      Faculty?: FacultyPhotographyComponent[];
-    }
-  | FacultyPhotographyComponent[];
-
-interface FacultyViewSectionProps {
-  data: FacultyViewSectionData;
+interface FounderViewSectionProps {
+  data: FounderComponent;
 }
 
-const FounderViewSection = ({ data }: FacultyViewSectionProps) => {
+const FounderViewSection = ({ data }: FounderViewSectionProps) => {
   const router = useRouter();
   const [isMounted, setIsMounted] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  if (!data || !data.Founder_card || data.Founder_card.length === 0) {
+    return null;
+  }
 
-  const facultyArray = Array.isArray(data) ? data : data.Faculty || [];
-
-  const facultyComponent = facultyArray[0];
-  const facultyCard = facultyComponent?.Card?.[0];
-  const viewCard = facultyCard?.ViewCard?.[0];
-
-  const facultyName = facultyCard?.Title || "Faculty Member";
-  const portraitImage = facultyCard?.Image;
-  const biography =
-    viewCard?.Description || facultyComponent?.Description || "";
-  const galleryImages = viewCard?.Image || [];
+  const founderCard = data.Founder_card[0];
+  const founderName = founderCard?.Heading;
+  const portraitImage = founderCard?.Image;
+  const viewCard = founderCard?.ViewCard;
+  const portfolioLink = viewCard?.Link;
+  const biography = founderCard?.Description?.map(block => 
+    block.children?.map(child => child.text).join('')
+  ).join('<br><br>');
+  
+  const galleryImages: ImageData[] = viewCard?.Image;
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSelectedImage(null);
+      }
+    };
+
+    if (selectedImage) {
+      document.addEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedImage]);
 
   return (
     <>
@@ -92,64 +115,41 @@ const FounderViewSection = ({ data }: FacultyViewSectionProps) => {
       <div className="grid grid-cols-1 lg:grid-cols-2">
         <div className="flex flex-col">
           <div className="flex flex-col sticky top-16 space-y-4  px-4 py-8 pb-0 md:pb-8 md:px-6 lg:px-8 xl:px-12 xl:pl-50 2xl:pl-58 2xl:pr-10 3xl:px-20 3xl:pl-74 pt-13">
-            <h1 className="text-3xl font-urbanist text-[#E97451] xss:text-[24px] lg:text-[30px] 3xl:text-[40px] font-normal mb-6">
-              {facultyName}
-            </h1>
+            {founderName && (
+              <h1 className="text-3xl font-urbanist text-[#E97451] xss:text-[24px] lg:text-[30px] 3xl:text-[40px] font-normal mb-6">
+                {founderName}
+              </h1>
+            )}
 
-            <div className="relative w-full mb-6">
-              <div className="space-y-4">
-                {portraitImage ? (
+            {portraitImage?.url && (
+              <div className="relative w-full mb-6">
+                <div className="space-y-4">
                   <div className="relative w-full overflow-hidden">
                     <ImageWidget
-                      src={
-                        portraitImage.url ? getS3Url(portraitImage.url) : Dummy1
-                      }
-                      alt={portraitImage.name || "Faculty Image"}
-                      width={800}
-                      height={1200}
+                      src={getS3Url(portraitImage.url)}
+                      alt={portraitImage.name || founderName}
+                      width={520}
+                      height={700}
                       className="object-cover w-full h-auto xss:h-[361px] xss:w-[361px] sm:w-full sm:h-auto"
                     />
                   </div>
-                ) : (
-                  <div className="relative w-full overflow-hidden">
-                    <ImageWidget
-                      src={Dummy1}
-                      alt="Faculty Image"
-                      width={800}
-                      height={1200}
-                      className="object-cover w-full h-auto xss:h-[361px] xss:w-[361px] sm:w-full sm:h-auto"
-                    />
-                  </div>
-                )}
+                </div>
               </div>
-            </div>
-            <div className="hidden lg:block">
-              <div className="flex gap-4 w-full bg-[#E97451]/20 rounded-full p-1.5">
-                <button
-                  type="button"
-                  className={`flex items-center rounded-full justify-center h-12 flex-1 border-2 border-[#FFD4CC] bg-white transition-all `}
-                  aria-label="Previous portrait"
+            )}
+              {portfolioLink && (
+              <div className="mb-8">
+                <a
+                  href={portfolioLink.startsWith('http') ? portfolioLink : `https://${portfolioLink}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-black hover:opacity-80 transition-opacity"
                 >
-                  <ImageWidget
-                    src={OrangeArrowRight}
-                    alt="Previous"
-                    className="w-5 h-5"
-                  />
-                </button>
-                <button
-                  type="button"
-                  className={`flex items-center rounded-full justify-center h-12 flex-1 border-2 border-[#FFD4CC] bg-white transition-all
-                    `}
-                  aria-label="Next portrait"
-                >
-                  <ImageWidget
-                    src={OrangeArrowRight}
-                    alt="Next"
-                    className="w-5 h-5 rotate-180"
-                  />
-                </button>
+                  <span className="text-sm md:text-base 3xl:text-[20px] font-urbanist font-normal text-[#E97451]">
+                    {portfolioLink}
+                  </span>
+                </a>
               </div>
-            </div>
+            )}
           </div>
         </div>
 
@@ -163,51 +163,36 @@ const FounderViewSection = ({ data }: FacultyViewSectionProps) => {
                 />
               </div>
             )}
-
-            <div className="mb-8">
-              {/* <LinkWidget
-                href="https://www.behance.net/aneevrao"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-black hover:opacity-80 transition-opacity"
-              >
-                <DribbbleIcon className="w-4 h-4 text-[#E97451]" />
-                <span className="text-sm md:text-base 3xl:text-[20px] font-urbanist font-normal">
-                  https://www.behance.net/aneevrao
-                </span>
-              </LinkWidget> */}
-            </div>
-
-            {galleryImages.length > 0 && (
+            {galleryImages && galleryImages.length > 0 && (
               <div className="mt-auto">
                 {isMounted ? (
                   <ResponsiveMasonry
                     columnsCountBreakPoints={{
                       350: 1,
-                      640: 2,
+                      768: 1,
+                      1024: 2,
                     }}
                   >
-                    <Masonry gutter="24px">
+                    <Masonry gutter="32px">
                       {galleryImages.map((image: ImageData, index: number) => {
-                        const imageUrl = image?.url
-                          ? getS3Url(image.url)
-                          : Dummy1;
-                        const imageAlt = image?.name || `Gallery ${index + 1}`;
+                        if (!image?.url) return null;
+                        const imageUrl = getS3Url(image.url);
+                        const imageAlt = image?.name || `${founderName} Gallery ${index + 1}`;
                         return (
                           <div
                             key={`gallery-${image.id || index}`}
-                            className="relative w-full overflow-hidden group cursor-pointer -mx-0.5"
-                            style={{ padding: "3px" }}
+                            className="relative w-full overflow-hidden group cursor-pointer"
+                            onClick={() => setSelectedImage(imageUrl)}
                           >
-                            <div className="relative w-full overflow-hidden">
+                            <div className="relative w-full aspect-auto overflow-hidden">
                               <ImageWidget
                                 src={imageUrl}
                                 alt={imageAlt}
-                                width={600}
-                                height={800}
+                                width={800}
+                                height={600}
                                 className="object-cover w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                 loading="lazy"
-                                sizes="(max-width: 640px) 100vw, 50vw"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 50vw"
                               />
                             </div>
                           </div>
@@ -216,26 +201,26 @@ const FounderViewSection = ({ data }: FacultyViewSectionProps) => {
                     </Masonry>
                   </ResponsiveMasonry>
                 ) : (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     {galleryImages.map((image: ImageData, index: number) => {
-                      const imageUrl = image?.url
-                        ? getS3Url(image.url)
-                        : Dummy1;
-                      const imageAlt = image?.name || `Gallery ${index + 1}`;
+                      if (!image?.url) return null;
+                      const imageUrl = getS3Url(image.url);
+                      const imageAlt = image?.name || `${founderName} Gallery ${index + 1}`;
                       return (
                         <div
                           key={`gallery-${image.id || index}`}
                           className="relative w-full overflow-hidden group cursor-pointer"
+                          onClick={() => setSelectedImage(imageUrl)}
                         >
-                          <div className="relative w-full overflow-hidden">
+                          <div className="relative w-full aspect-auto overflow-hidden rounded-lg">
                             <ImageWidget
                               src={imageUrl}
                               alt={imageAlt}
-                              width={600}
-                              height={800}
+                              width={800}
+                              height={600}
                               className="object-cover w-full h-auto transition-transform duration-300 group-hover:scale-105"
                               loading="lazy"
-                              sizes="(max-width: 640px) 100vw, 50vw"
+                              sizes="(max-width: 768px) 100vw, 50vw"
                             />
                           </div>
                         </div>
@@ -248,6 +233,31 @@ const FounderViewSection = ({ data }: FacultyViewSectionProps) => {
           </div>
         </div>
       </div>
+      
+      {/* Image Modal/Lightbox */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div className="relative max-w-7xl max-h-full">
+            <button
+              onClick={() => setSelectedImage(null)}
+              className="absolute top-4 right-4 text-white text-2xl font-bold z-10 bg-black bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center hover:bg-opacity-70 transition-all"
+              aria-label="Close image"
+            >
+              ×
+            </button>
+            <ImageWidget
+              src={selectedImage}
+              alt="Full size gallery image"
+              width={1200}
+              height={800}
+              className="object-contain max-w-full max-h-[90vh] w-auto h-auto"
+            />
+          </div>
+        </div>
+      )}
     </>
   );
 };

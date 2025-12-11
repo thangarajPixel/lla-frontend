@@ -1,10 +1,15 @@
+import { getFounderBySlug } from "@/app/api/server";
 import FounderViewSection from "@/components/sections/FounderViewSection";
 
-const FounderSection = () => {
-  const data = {
-  };
+  const FounderDetail = async ({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) => {
+    const { slug } = await params;
+  const { data: response } = await getFounderBySlug(slug);
   return (
-    <FounderViewSection data={data} />
+    <FounderViewSection data={response} />
   )
 };
-export default FounderSection;
+export default FounderDetail;
