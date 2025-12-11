@@ -92,7 +92,7 @@ const FaqSection = ({ data }: FaqProps ) => {
             </div>
             
             <div className="hidden md:block lg:col-span-1">
-              <nav className="space-y-1 lg:sticky lg:top-24">
+              <nav className="space-y-1 lg:sticky lg:top-20">
                 {data.faq.map((category) => (
                   <button
                     key={category.id}
@@ -115,7 +115,6 @@ const FaqSection = ({ data }: FaqProps ) => {
                   key={category.id}
                   ref={(el) => {
                     categoryRefs.current[category.id] = el;
-                    // Re-observe when ref changes
                     if (el && observerRef.current) {
                       observerRef.current.observe(el);
                     }
