@@ -9,6 +9,7 @@ import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import { getS3Url, splitIntoTwoArrays } from "@/helpers/ConstantHelper";
 import type { GallerySectionProps } from "./utils/home";
+import HTMLWidget from "@/components/widgets/HTMLWidget";
 
 const GallertSection = ({ data }: GallerySectionProps) => {
   const galleryImages = data.Image;
@@ -121,12 +122,9 @@ const GallertSection = ({ data }: GallerySectionProps) => {
         <h2 className="text-3xl xss:text-[32px] font-normal text-black font-urbanist mb-2">
           {data.Title}
         </h2>
-        <p className="font-area-variable font-semibold text-base xss:text-[24px] text-black">
-          {data.Heading}
-          {data.SubHeading && (
-            <span className="text-[#E97451] ml-2">{data.SubHeading}</span>
-          )}
-        </p>
+           <HTMLWidget   content={data.Heading}
+                          className="font-area-variable font-semibold text-base xss:text-[24px] text-black"
+                         tag="p"/>
         <div className="mt-6 text-left lg:text-center md:hidden">
           <LinkWidget href="/gallery" className="w-full">
             <OrangeButtonWidget content={data.Btn_txt} />
@@ -180,14 +178,10 @@ const GallertSection = ({ data }: GallerySectionProps) => {
             <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
               {data.Title}
             </h2>
-            <p className="font-area-variable font-semibold text-base xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black text-center">
-              {data.Heading}
-            </p>
-            {data.SubHeading && (
-              <p className="font-area-variable font-semibold text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
-                <span className="text-[#E97451] ml-2">{data.SubHeading}</span>
-              </p>
-            )}
+             <HTMLWidget   content={data.Heading}
+                          className="font-area-variable font-semibold text-base xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black text-center"
+                         tag="p"/>
+            
             <div className="mt-6 text-left lg:text-center">
               <LinkWidget href="/gallery" className="w-full">
                 <OrangeButtonWidget content={data.Btn_txt} />

@@ -8,6 +8,7 @@ import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { ArrowLeftBlack, ArrowRightBlack, Quote } from "@/helpers/ImageHelper";
 import type { TestimonialData } from "../courses/utils/types";
+import HTMLWidget from "@/components/widgets/HTMLWidget";
 
 type TestimonialSectionProps = {
   data: TestimonialData[] | TestimonialData;
@@ -66,17 +67,9 @@ const TestimonialSection = ({ data }: TestimonialSectionProps) => {
               <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
                 {sectionData?.Title}
               </h3>
-              <p className="font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black">
-                {sectionData?.Heading}
-                {sectionData?.SubHeading && (
-                  <>
-                    <br className="hidden sm:block" />
-                    <span className="text-[#E97451]">
-                      {sectionData.SubHeading}
-                    </span>
-                  </>
-                )}
-              </p>
+              <HTMLWidget   content={sectionData.Heading}
+                  className="max-w-[520px] font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black"
+                 tag="p"/>
 
               <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[450px]">
                 {sectionData?.Description}
