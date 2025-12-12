@@ -65,7 +65,7 @@ const CourseContentSection = ({ data }: { data: CourseContentData }) => {
                   </span>
                 )}
               </p>
-              <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[660px]">
+              <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full">
                 {headerData.Description}
               </p>
             </div>
