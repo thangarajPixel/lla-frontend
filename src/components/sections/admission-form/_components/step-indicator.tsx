@@ -23,7 +23,7 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
           return (
             <div
               key={`step-label-${stepNum}`}
-              className={`ml-1 mb-5 text-base font-medium ${
+              className={`ml-1 mb-2 text-base xl:text-sm 2xl:text-base font-medium ${
                 isActive
                   ? "text-[#E97451]"
                   : isCompleted
@@ -54,7 +54,7 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
             <section
               key={`step-indicator-${index + 1}`}
               className={cn(
-                isCircle ? "h-4 w-4 rounded-full" : "h-0.5 3xl:h-1 flex-1",
+                isCircle ? "h-4 w-4 rounded-full" : "h-0.5 flex-1",
                 isActive ? "bg-green-500" : "bg-primary/30",
               )}
             />
@@ -71,7 +71,7 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
           return (
             <div
               key={step}
-              className={`mt-5 text-xs sm:text-base max-w-12 sm:max-w-fit ${
+              className={`mt-3 text-sm sm:text-base xl:text-sm 2xl:text-base max-w-12 sm:max-w-fit ${
                 isActive
                   ? "text-[#E97451]"
                   : isCompleted

@@ -83,7 +83,18 @@ export const personalDetailsSchema = z.object({
     .min(1, "Email is required")
     .email({ message: "Enter a valid email" }),
   nationality: z.string().min(1, "Nationality is required"),
-  date_of_birth: z.string().min(1, "Date of birth is required"),
+  date_of_birth: z
+    .string()
+    .min(1, "Date of birth is required")
+    .refine((value) => {
+      const inputDate = new Date(value);
+      const today = new Date();
+
+      inputDate.setHours(0, 0, 0, 0);
+      today.setHours(0, 0, 0, 0);
+
+      return inputDate <= today;
+    }, "Cannot select future date"),
   Language_Proficiency: z.array(languageSchema),
   address: z.array(addressSchema).min(1, "Address is required"),
   city: z.string().min(1, "City is required"),
@@ -145,4 +156,12 @@ export const portfolioSchema = z.object({
       .min(1, "At least one image is required"),
   }),
   step_3: z.boolean().optional(),
+});
+
+export const admissionRequestSchema = z.object({
+  FirstName: z.string(),
+  LastName: z.string(),
+  Email: z.string(),
+  Mobile: z.string(),
+  Message: z.string(),
 });

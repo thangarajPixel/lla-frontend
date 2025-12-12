@@ -124,7 +124,23 @@ const EducationDetailsForm = ({
           pgStatus={pgStatus}
           watchPostGraduate={watchPostGraduate}
         />
+
+        <p className="text-base text-muted-foreground mt-2">
+          <span className="font-bold text-black">
+            Educational Certificates :{" "}
+          </span>{" "}
+          Digital copies (PDF/JPEG) of your 10th and 12th standard certificates,
+          along with UG and PG certificates, if applicable.
+        </p>
+
         <WorkExperience admissionData={admissionData} control={control} />
+
+        <p className="text-base text-muted-foreground mt-2">
+          <span className="font-bold text-black">
+            Reference Letters (Optional) :{" "}
+          </span>{" "}
+          You may upload any reference letters that support your application.
+        </p>
 
         <div className="flex justify-start gap-3 mt-10 pt-6">
           <ButtonWidget

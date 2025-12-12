@@ -99,6 +99,7 @@ type course = {
 
 type AdmissionFormData = {
   Course: course;
+  Message: string;
   id: number;
   documentId: string;
   name_title: string;

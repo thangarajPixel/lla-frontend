@@ -41,7 +41,7 @@ function Section({
           onClick={onEdit}
         />
       </section>
-      <div className="space-y-2">{children}</div>
+      <div className="space-y-2 3xl:space-y-5">{children}</div>
     </div>
   );
 }
@@ -64,11 +64,10 @@ function Field({
         label === "Address" && "md:items-start",
       )}
     >
-      <span className="text-black/50 w-full md:w-40">
+      <span className="text-black/50 w-full md:w-40 3xl:w-fit">
         {label ? `${label}` : ""}
       </span>
       <span className={cn("text-black text-left md:text-right md:max-w-3xs")}>
-        {/* {isDob ? dobValue : (value ?? "-")} */}
         {isDob ? dobValue : prefix ? `${prefix} ${value}` : (value ?? "-")}
       </span>
     </div>
@@ -138,6 +137,21 @@ function EducationField({
   title: string;
   value?: DocumentFile;
 }) {
+  const handleDownload = async (url: string, fileName: string) => {
+    window.open(url, "_blank");
+
+    const res = await fetch(url);
+    const blob = await res.blob();
+    const blobUrl = window.URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = blobUrl;
+    a.download = fileName;
+    a.click();
+
+    window.URL.revokeObjectURL(blobUrl);
+  };
+
   return (
     <div className="flex flex-col items-start justify-start text-gray-700">
       <span className="w-40 text-base 3xl:text-2xl text-chart-1">{label}:</span>
@@ -154,9 +168,12 @@ function EducationField({
                 className="size-4 3xl:size-6 rounded-full"
               />
               <LinkWidget
-                href={value?.url}
-                target="_blank"
+                href="#"
                 className="text-chart-1/80 text-base 3xl:text-lg"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleDownload(value?.url, value?.name);
+                }}
               >
                 View Document
               </LinkWidget>
@@ -459,7 +476,6 @@ const ReviewApplication = ({
                         Duration
                       </span>
                       <span className="text-black text-base font-medium md:text-sm flex flex-wrap 3xl:text-[22px]">
-                        {/* {`${experience?.duration_start?.split("-")?.reverse()?.join("-")} to ${experience?.duration_end?.split("-")?.reverse()?.join("-")}`} */}
                         {calculateDuration(
                           experience?.duration_start ?? "",
                           experience?.duration_end ?? "",
@@ -471,12 +487,14 @@ const ReviewApplication = ({
               </Section>
             )}
 
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between text-base md:text-sm 3xl:text-2xl">
-              <span className="text-chart-1 text-base md:text-sm 3xl:text-2xl">
-                Where did you find out about LLA?
-              </span>
-              <span>Instagram</span>
-            </div>
+            {admissionData?.Message && (
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between text-base md:text-sm 3xl:text-2xl">
+                <span className="text-[#E97451] text-base 3xl:text-2xl">
+                  Where did you find out about LLA?
+                </span>
+                <span>{admissionData?.Message}</span>
+              </div>
+            )}
 
             <Section
               title="Portfolio Images"

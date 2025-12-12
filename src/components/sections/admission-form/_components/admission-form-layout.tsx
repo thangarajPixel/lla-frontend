@@ -67,34 +67,34 @@ const AdmissionFormLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="mx-auto">
-      <section className="flex">
+      <section className="flex min-h-screen">
         <div
-          className="hidden h-[650px] 3xl:h-[1300px] lg:flex w-[35%] p-12 justify-center"
+          className="hidden h-screen lg:flex w-[35%] p-12 justify-center"
           style={{
             backgroundImage: `url(${ApplicationFormBg.src})`,
             backgroundSize: "cover",
             backgroundPosition: "bottom",
           }}
         >
-          <h1 className="text-[32px] 3xl:text-[56px] 3xl:mt-10 text-white leading-tight font-urbanist">
+          <h1 className="text-[32px] 2xl:text-[40px]  3xl:text-[56px] 3xl:mt-10 text-white leading-tight font-urbanist">
             {courseName || selectedCourseName}
           </h1>
         </div>
 
-        <div className="w-full lg:w-[65%] bg-white px-4 sm:px-8 py-12 lg:p-12 lg:pr-36 3xl:pr-80 ">
+        <div className="w-full lg:w-[65%] bg-white px-4 sm:px-8 py-12 lg:pr-36 3xl:pr-80 ">
           <div
             ref={scrollContainerRef}
-            className=" mx-auto h-[550px] 3xl:h-[1200px] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className=" mx-auto h-[calc(100vh-6rem)] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             data-lenis-prevent
           >
             <div ref={headerRef} className="mb-8">
               <h1 className="text-[32px] 3xl:text-[56px] font-urbanist leading-tight lg:hidden mb-6">
                 {courseName || selectedCourseName}
               </h1>
-              <h2 className="text-2xl md:text-3xl 3xl:text-[40px] text-[#E97451] mb-4 font-urbanist">
+              <h2 className="text-2xl 3xl:text-[40px] text-[#E97451] mb-4 font-urbanist">
                 Application Form
               </h2>
-              <p className="text-black text-base 3xl:text-lg font-mulish">
+              <p className="text-black text-base xl:text-sm 3xl:text-lg font-mulish">
                 Do go ahead and complete the application process as detailed
                 below. Use the unique URL sent to your email if you need to
                 check the mail in inbox/spam folder to complete at a later date.

@@ -5,20 +5,21 @@ import { ArrowRight } from "lucide-react";
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import type z from "zod";
 import { getEssentialsData } from "@/app/api/server";
 import { FormInput } from "@/components/form";
-import {
-  type ContactFormData,
-  contactSchema,
-} from "@/components/sections/more/contact/ContactSection";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
+import { notify } from "@/helpers/ConstantHelper";
+import { admissionRequestSchema } from "@/helpers/ValidationHelper";
+
+type RequestFormData = z.infer<typeof admissionRequestSchema>;
 
 const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
   const formRef = useRef<HTMLFormElement>(null);
 
-  const form = useForm<ContactFormData>({
-    resolver: zodResolver(contactSchema),
+  const form = useForm<RequestFormData>({
+    resolver: zodResolver(admissionRequestSchema),
     mode: "all",
     defaultValues: {
       FirstName: "",
@@ -29,7 +30,42 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
     },
   });
 
-  const onSubmit = async (payload: ContactFormData) => {
+  const validateForm = (formValues: RequestFormData): string | null => {
+    if (!formValues.FirstName || formValues.FirstName.trim() === "") {
+      return "Name is required";
+    }
+
+    if (!formValues.Mobile || formValues.Mobile.trim() === "") {
+      return "Mobile number is required";
+    }
+
+    const cleanedMobile = formValues.Mobile.replace(/\D/g, "");
+    if (cleanedMobile.length !== 10) {
+      return "Please enter a valid 10-digit mobile number";
+    }
+
+    if (!formValues.Email || formValues.Email.trim() === "") {
+      return "Email address is required";
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formValues.Email)) {
+      return "Please enter a valid email address";
+    }
+
+    return null;
+  };
+
+  const onSubmit = async (payload: RequestFormData) => {
+    const validationError = validateForm(payload);
+
+    if (validationError) {
+      notify({
+        success: false,
+        message: validationError,
+      });
+      return;
+    }
     const isAdmissionOpen = await getEssentialsData();
 
     const admissionPayload = {
@@ -98,6 +134,7 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
             placeholder="Name*"
             control={form.control}
             restrictionType="number"
+            className="w-full md:flex-1 md:min-w-[120px] space-y-0"
             inputClassName="w-full md:flex-1 pl-3 md:pl-4 3xl:text-[18px] md:min-w-[120px] h-9 rounded-full text-[12px] sm:text-[13px] md:text-[14px] lg:text-[13px] 3xl:text-[16px] border border-white bg-white/20 text-white placeholder:text-[#FFFFFF] focus-visible:border-white focus-visible:ring-0 focus-visible:ring-offset-0 outline-none"
             errorClassName="text-black"
           />
@@ -107,6 +144,7 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
             placeholder="Mobile No*"
             control={form.control}
             restrictionType="text"
+            className="w-full md:flex-1 md:min-w-[120px] space-y-0"
             inputClassName="w-full md:flex-1 pl-3 md:pl-4 3xl:text-[18px] md:min-w-[120px] h-9 rounded-full text-[12px] sm:text-[13px] md:text-[14px] lg:text-[13px] 3xl:text-[16px] border border-white bg-white/20 text-white placeholder:text-[#FFFFFF] focus-visible:border-white focus-visible:ring-0 focus-visible:ring-offset-0 outline-none"
             maxLength={10}
             errorClassName="text-black"
@@ -116,6 +154,7 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
             name="Email"
             placeholder="Email Address*"
             control={form.control}
+            className="w-full md:flex-1 md:min-w-[120px] space-y-0"
             inputClassName="w-full md:flex-1 pl-3 md:pl-4 3xl:text-[18px] md:min-w-[120px] h-9 rounded-full text-[12px] sm:text-[13px] md:text-[14px] lg:text-[13px] 3xl:text-[16px] border border-white bg-white/20 text-white placeholder:text-[#FFFFFF] focus-visible:border-white focus-visible:ring-0 focus-visible:ring-offset-0 outline-none"
             errorClassName="text-black"
           />
@@ -124,6 +163,7 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
             name="Message"
             placeholder="Message"
             control={form.control}
+            className="w-full md:flex-1 md:min-w-[120px] space-y-0"
             inputClassName="w-full md:flex-1 pl-3 md:pl-4 3xl:text-[18px] md:min-w-[120px] h-9 rounded-full text-[12px] sm:text-[13px] md:text-[14px] lg:text-[13px] 3xl:text-[16px] border border-white bg-white/20 text-white placeholder:text-[#FFFFFF] focus-visible:border-white focus-visible:ring-0 focus-visible:ring-offset-0 outline-none"
             errorClassName="text-black"
           />
