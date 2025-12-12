@@ -10,7 +10,7 @@ const FilmmakingFacultySection = ({ data }: FilmmakingFacultySectionProps) => {
       <ContainerWidget>
         <ScrollWidget delay={0.2}>
           <div className="text-left md:text-center mb-8 sm:mb-10 md:mb-12 lg:mb-14 xl:mb-16 2xl:mb-18 3xl:mb-20">
-            <h2 className="font-urbanist font-normal text-black text-[28px] sm:text-[32px] md:text-[36px] lg:text-[42px] xl:text-[48px] 2xl:text-[52px] 3xl:text-[64px] mb-6 sm:mb-7 md:mb-8 lg:mb-9 xl:mb-10 2xl:mb-11 3xl:mb-12">
+            <h2 className="font-urbanist font-normal text-black text-[28px] sm:text-[32px] md:text-[36px] lg:text-[42px] xl:text-[48px] 2xl:text-[52px] 3xl:text-[64px] mb-6 md:mb-6 lg:mb-6 xl:mb-6 2xl:mb-8 3xl:mb-10">
               {data?.Title}
             </h2>
             <div className="space-y-3 sm:space-y-4 md:space-y-4 lg:space-y-5 xl:space-y-5 2xl:space-y-5 3xl:space-y-6 max-w-[280px] s:max-w-[320px] m:max-w-[350px] xss:max-w-[370px] xs:max-w-[450px] sm:max-w-[600px] md:max-w-[750px] lg:max-w-[900px] xl:max-w-[1000px] 2xl:max-w-[1100px] 3xl:max-w-[1290px] mx-auto">
@@ -20,7 +20,7 @@ const FilmmakingFacultySection = ({ data }: FilmmakingFacultySectionProps) => {
                 return (
                   <p
                     key={text}
-                    className="font-mulish text-black text-[16px] sm:text-[16px] md:text-[14px] lg:text-[12px] xl:text-[12px] 2xl:text-[14px] 3xl:text-[18px] leading-normal"
+                    className="font-mulish text-black text-[16px] sm:text-[16px] md:text-[14px] lg:text-[12px] xl:text-[14px] 2xl:text-[14px] 3xl:text-[18px] leading-normal"
                   >
                     {text}
                   </p>
