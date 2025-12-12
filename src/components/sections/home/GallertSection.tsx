@@ -19,7 +19,7 @@ const GallertSection = ({ data }: GallerySectionProps) => {
   }, [galleryImages]);
 
   const [randomIndices, setRandomIndices] = useState<number[]>(() => {
-    return Array.from({ length: 9 }, (_, i) => i);
+    return Array.from({ length: 9 }, (_, i) => i + 1);
   });
 
   useEffect(() => {
@@ -68,7 +68,7 @@ const GallertSection = ({ data }: GallerySectionProps) => {
       });
     };
 
-    const interval = setInterval(changeOneImage, 1500);
+    const interval = setInterval(changeOneImage, 1000);
 
     return () => clearInterval(interval);
   }, [galleryImages]);
