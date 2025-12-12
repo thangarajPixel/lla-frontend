@@ -23,8 +23,8 @@ const QUICK_LINKS = [
 ];
 
 const RESOURCES = [
-  { id: "blog", href: "/", label: "Blog" },
-  { id: "faq", href: "/", label: "FAQ's" },
+  { id: "blog", href: "/more/blogs", label: "Blog" },
+  { id: "faq", href: "/more/faq", label: "FAQ's" },
   { id: "privacy", href: "/more/privacy-policy", label: "Privacy Policy" },
   {
     id: "terms",
