@@ -8,7 +8,12 @@ import { getS3Url } from "@/helpers/ConstantHelper";
 import type { FounderSectionProps } from "./utils/about-us";
 
 const FounderSection = ({ data }: FounderSectionProps) => {
-  if (!data || !data.Title || !data.Founder_card || data.Founder_card.length < 2) {
+  if (
+    !data ||
+    !data.Title ||
+    !data.Founder_card ||
+    data.Founder_card.length < 2
+  ) {
     return null;
   }
 

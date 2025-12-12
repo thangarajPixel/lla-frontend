@@ -143,7 +143,7 @@ const WebFooter = ({
             {Description}
           </p>
           <LinkWidget href="/more/contact-us">
-          <OrangeButtonWidget content={Btn_txt} />
+            <OrangeButtonWidget content={Btn_txt} />
           </LinkWidget>
           <div className={dividerClass} />
 
