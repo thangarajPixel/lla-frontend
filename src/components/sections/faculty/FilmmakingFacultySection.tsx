@@ -33,7 +33,7 @@ const FilmmakingFacultySection = ({ data }: FilmmakingFacultySectionProps) => {
         <div className="grid grid-cols-1 s:grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 3xl:grid-cols-4 gap-4 s:gap-4 m:gap-4 xss:gap-4 xs:gap-5 sm:gap-5 md:gap-5 lg:gap-6 xl:gap-5 2xl:gap-8 3xl:gap-8.5">
           {data?.Card?.map((member, index) => (
             <ScrollWidget key={member.id} delay={0.1 * (index + 1)}>
-              <div className="flex flex-col items-left group">
+              <div className="flex flex-col items-left group cursor-pointer">
                 <div className="relative w-full aspect-square overflow-hidden mb-3 sm:mb-4 3xl:mb-5 transition-transform duration-300 group-hover:scale-105">
                   <ImageWidget
                     src={getS3Url(member.Image.url)}
