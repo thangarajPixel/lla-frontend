@@ -7,7 +7,7 @@ import ButtonWidget from "@/components/widgets/ButtonWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import { OrangeArrowRight } from "@/helpers/ImageHelper";
+import { OrangeArrowRight, Website } from "@/helpers/ImageHelper";
 
 interface ImageData {
   id: number;
@@ -138,7 +138,15 @@ const FounderViewSection = ({ data }: FounderViewSectionProps) => {
               </div>
             )}
             {portfolioLink && (
-              <div className="mb-8">
+              
+              <div className="mb-8 flex items-center gap-2">
+                    <ImageWidget
+                      src={Website}
+                      alt='Icon'
+                      width={30}
+                      height={30}
+                      className="object-cover "
+                    />
                 <a
                   href={
                     portfolioLink.startsWith("http")
