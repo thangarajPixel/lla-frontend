@@ -53,6 +53,7 @@ export { default as StarIcon } from "@/assets/icons/star.png";
 export { default as TopArrowIcon } from "@/assets/icons/top-arrow.svg";
 export { default as Twitter } from "@/assets/icons/twitter.svg";
 export { default as TwitterBlack } from "@/assets/icons/twitter-black.png";
+export { default as Website } from "@/assets/icons/website.png";
 export { default as WhatsappBlack } from "@/assets/icons/whatsapp-black.png";
 export { default as Building } from "@/assets/images/building.svg";
 export { default as FooterBg } from "@/assets/images/footer-bg.svg";

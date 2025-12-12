@@ -7,7 +7,7 @@ import ButtonWidget from "@/components/widgets/ButtonWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import { OrangeArrowRight } from "@/helpers/ImageHelper";
+import { OrangeArrowRight, Website } from "@/helpers/ImageHelper";
 
 interface ImageData {
   id: number;
@@ -115,7 +115,7 @@ const FounderViewSection = ({ data }: FounderViewSectionProps) => {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2">
         <div className="flex flex-col">
-          <div className="flex flex-col sticky top-16 space-y-4  px-4 py-8 pb-0 md:pb-8 md:px-6 lg:px-8 xl:px-12 xl:pl-50 2xl:pl-58 2xl:pr-10 3xl:px-20 3xl:pl-74 pt-13">
+          <div className="flex flex-col sticky top-16 space-y-4  px-4 py-8 pb-0 md:pb-8 md:px-6 lg:px-8 xl:px-12 xl:pl-52 2xl:pl-58 2xl:pr-10 3xl:px-20 3xl:pl-74 pt-13">
             {founderName && (
               <h1 className="text-3xl font-urbanist text-[#E97451] xss:text-[24px] lg:text-[30px] 3xl:text-[40px] font-normal mb-6">
                 {founderName}
@@ -131,14 +131,21 @@ const FounderViewSection = ({ data }: FounderViewSectionProps) => {
                       alt={portraitImage.name || founderName}
                       width={520}
                       height={700}
-                      className="object-cover w-full h-auto xss:h-[361px] xss:w-[361px] sm:w-full sm:h-auto"
+                      className="object-cover w-[360px] h-[480px] xs:w-[420px] xs:h-[530px] sm:w-[400px] sm:h-[500px] md:w-[340px] md:h-[460px]  lg:w-[361px] lg:h-[484px]  xl:w-[361px] xl:h-[484px]  2xl:w-[420px] 2xl:h-[560px] 3xl:w-[410px] 3xl:h-[549px] 4xl:w-[450px] 4xl:h-[600px] "
                     />
                   </div>
                 </div>
               </div>
             )}
             {portfolioLink && (
-              <div className="mb-8">
+              <div className="mb-8 flex items-center gap-2">
+                <ImageWidget
+                  src={Website}
+                  alt="Icon"
+                  width={30}
+                  height={30}
+                  className="object-cover "
+                />
                 <a
                   href={
                     portfolioLink.startsWith("http")

@@ -56,9 +56,11 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
     return null;
   };
 
-  const onSubmit = async (payload: RequestFormData) => {
+    
 
+  const onSubmit = async (payload: RequestFormData) => {
     const validationError = validateForm(payload);
+    
     if (validationError) {
       notify({
         success: false,
@@ -66,7 +68,6 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
       });
       return;
     }
-
     const isAdmissionOpen = await getEssentialsData();
 
     const admissionPayload = {

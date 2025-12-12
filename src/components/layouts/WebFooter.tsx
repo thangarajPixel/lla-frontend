@@ -23,8 +23,8 @@ const QUICK_LINKS = [
 ];
 
 const RESOURCES = [
-  { id: "blog", href: "/", label: "Blog" },
-  { id: "faq", href: "/", label: "FAQ's" },
+  { id: "blog", href: "/more/blogs", label: "Blog" },
+  { id: "faq", href: "/more/faq", label: "FAQ's" },
   { id: "privacy", href: "/more/privacy-policy", label: "Privacy Policy" },
   {
     id: "terms",
@@ -142,7 +142,9 @@ const WebFooter = ({
           <p className={`${linkTextClass} max-w-full md:max-w-[550px]`}>
             {Description}
           </p>
-          <OrangeButtonWidget content={Btn_txt} />
+          <LinkWidget href="/more/contact-us">
+            <OrangeButtonWidget content={Btn_txt} />
+          </LinkWidget>
           <div className={dividerClass} />
 
           <div className="flex flex-col md:flex-row gap-8 md:gap-5 py-3 pb-0 w-full">

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
@@ -70,6 +70,11 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [currentUrl, setCurrentUrl] = useState("");
+
+  useEffect(() => {
+    setCurrentUrl(window.location.href);
+  }, []);
 
   const checkScrollButtons = () => {
     if (scrollContainerRef.current) {
@@ -150,10 +155,6 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                   </h3>
                   <div className="flex gap-8 items-center">
                     {_SOCIAL_LINKS.map((social) => {
-                      const currentUrl =
-                        typeof window !== "undefined"
-                          ? window.location.href
-                          : "";
                       const shareUrl =
                         social.id === "twitter"
                           ? social.getShareUrl(currentUrl, card.Title)

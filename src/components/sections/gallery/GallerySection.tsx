@@ -1,15 +1,11 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { getGalleryPageData } from "@/app/api/server";
 import { DialogClose } from "@/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Skeleton } from "@/components/ui/skeleton";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
@@ -62,10 +58,18 @@ const GalleryImageSkeleton = () => (
 );
 
 const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
-  const [selectedType, setSelectedType] = useState<string>("all");
+  const uniqueTypesInitial = useMemo(() => {
+    if (!initialData?.ImageCard) return [];
+    return Array.from(new Set(initialData.ImageCard.map((card) => card.Type)));
+  }, [initialData?.ImageCard]);
+
+  const [selectedType, setSelectedType] = useState<string>(
+    uniqueTypesInitial.length > 0 ? uniqueTypesInitial[0] : "",
+  );
   const [imageCards, setImageCards] = useState(initialData.ImageCard || []);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [galleryData, setGalleryData] = useState<GalleryData>(initialData);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -85,10 +89,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   }, [initialData?.ImageCard]);
 
   const filteredImageCards = useMemo(
-    () =>
-      selectedType === "all"
-        ? imageCards
-        : imageCards.filter((card) => card.Type === selectedType),
+    () => imageCards.filter((card) => card.Type === selectedType),
     [imageCards, selectedType],
   );
 
@@ -120,59 +121,56 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   const skeletonIdRef = useRef(0);
 
   const skeletonKeys = useMemo(() => {
-    if (!loading) return [];
+    if (!loadingMore) return [];
     skeletonIdRef.current += 1;
-    const pageSize = initialData?.pagination?.pageSize || 10;
+    const perPage = 9;
     return Array.from(
-      { length: pageSize },
+      { length: perPage },
       (_, i) => `skeleton-${skeletonIdRef.current}-${i}`,
     );
-  }, [loading, initialData?.pagination?.pageSize]);
+  }, [loadingMore]);
 
   useEffect(() => {
-    if (selectedType !== "all") {
-      setPage(1);
-      setImageCards([]);
+    if (!selectedType) return;
 
-      const fetchFilteredData = async () => {
-        setLoading(true);
-        try {
-          const params = {
-            page: 1,
-            per_page: 9,
-            type: selectedType,
-          };
+    setPage(1);
+    setImageCards([]);
 
-          const { data: res } = await getGalleryPageData(params);
-          if (res?.ImageCard) {
-            setImageCards(res.ImageCard);
-            setGalleryData(res);
-          }
-        } catch (error) {
-          console.error("Error fetching filtered gallery data:", error);
-        } finally {
-          setLoading(false);
+    const fetchFilteredData = async () => {
+      setLoading(true);
+      try {
+        const params = {
+          page: 1,
+          per_page: 9,
+          type: selectedType,
+        };
+
+        const { data: res } = await getGalleryPageData(params);
+        if (res?.ImageCard) {
+          setImageCards(res.ImageCard);
+          setGalleryData(res);
         }
-      };
-
-      if (isMounted) {
-        fetchFilteredData();
+      } catch (error) {
+        console.error("Error fetching filtered gallery data:", error);
+      } finally {
+        setLoading(false);
       }
-    } else {
-      setPage(1);
-      setImageCards(initialData.ImageCard || []);
-      setGalleryData(initialData);
+    };
+
+    if (isMounted) {
+      fetchFilteredData();
     }
-  }, [selectedType, initialData, isMounted]);
+  }, [selectedType, isMounted]);
   const loadMore = async () => {
-    if (loading || imageCards.length >= total) return;
-    setLoading(true);
+    if (loading || loadingMore || imageCards.length >= total || !selectedType)
+      return;
+    setLoadingMore(true);
     try {
       const nextPage = page + 1;
-      const params: { page: number; per_page: number; type?: string } = {
+      const params: { page: number; per_page: number; type: string } = {
         page: nextPage,
         per_page: 9,
-        ...(selectedType !== "all" && { type: selectedType }),
+        type: selectedType,
       };
       const { data: res } = await getGalleryPageData(params);
       if (res?.ImageCard) {
@@ -181,7 +179,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
         setPage(nextPage);
       }
     } finally {
-      setLoading(false);
+      setLoadingMore(false);
     }
   };
 
@@ -198,10 +196,10 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
         {item.isVideo ? (
           <DialogWidget
             trigger={
-              <div className="relative w-full h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px] overflow-hidden rounded-none">
+              <div className="relative w-full overflow-hidden rounded-none">
                 <video
                   src={(item.videoUrl as string) || ""}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
                   muted
                   playsInline
                   preload="metadata"
@@ -250,12 +248,14 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
             </div>
           </DialogWidget>
         ) : (
-          <div className="relative w-full h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px] overflow-hidden rounded-none">
+          <div className="relative w-full overflow-hidden rounded-none">
             <ImageWidget
               src={item.src}
               alt={item.alt}
-              fill
-              className="object-cover transition-transform duration-300 group-hover:scale-105"
+              width={600}
+              height={800}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
               loading="lazy"
             />
           </div>
@@ -273,65 +273,105 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
               <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
                 {galleryData?.Title || initialData?.Title || "Gallery"}
               </h3>
-              <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[600px]">
+              <p className="text-[16px] lg:text-[16px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[600px]">
                 {galleryData?.Description || initialData?.Description || ""}
               </p>
             </div>
 
             {uniqueTypes.length > 0 && (
-              <div className="relative w-full md:w-auto md:min-w-[200px]">
-                <Select value={selectedType} onValueChange={setSelectedType}>
-                  <SelectTrigger className="w-full md:w-[200px] rounded-full border-[#E97451]">
-                    <SelectValue placeholder="Filter by type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Types</SelectItem>
-                    {uniqueTypes.map((type) => (
-                      <SelectItem key={type} value={type}>
-                        {type
-                          .replace(/-/g, " ")
-                          .replace(/\b\w/g, (l) => l.toUpperCase())}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+              <RadioGroup
+                value={selectedType}
+                onValueChange={setSelectedType}
+                className="flex flex-wrap items-center gap-4 md:gap-6"
+              >
+                {uniqueTypes.map((type) => {
+                  const formattedType = type
+                    .replace(/-/g, " ")
+                    .replace(/\b\w/g, (l) => l.toUpperCase());
+                  const radioId = `filter-${type}`;
+                  return (
+                    <div
+                      key={type}
+                      className="flex items-center gap-2 cursor-pointer"
+                    >
+                      <RadioGroupItem
+                        value={type}
+                        id={radioId}
+                        className="border-[#E97451] data-[state=checked]:border-[#E97451]"
+                      />
+                      <Label
+                        htmlFor={radioId}
+                        className="text-[16px] font-normal text-black cursor-pointer"
+                      >
+                        {formattedType}
+                      </Label>
+                    </div>
+                  );
+                })}
+              </RadioGroup>
             )}
           </div>
 
           <div className="w-full" suppressHydrationWarning>
-            {allImages.length > 0 && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6">
-                {allImages.map((item, index) => (
-                  <div
-                    key={item.id}
-                    className={
-                      item.isVideo
-                        ? "sm:col-span-1 lg:col-span-3"
-                        : "sm:col-span-1 lg:col-span-2"
-                    }
+            {allImages.length > 0 &&
+              (isMounted ? (
+                <div className="-m-3">
+                  <ResponsiveMasonry
+                    columnsCountBreakPoints={{
+                      350: 1,
+                      640: 2,
+                      1024: allImages.some((item) => item.isVideo) ? 2 : 3,
+                    }}
                   >
-                    {renderGalleryItem(item, index)}
-                  </div>
-                ))}
-              </div>
-            )}
-            {loading &&
-              skeletonKeys.map((key, index) => (
-                <ScrollWidget
-                  key={key}
-                  animation="fadeUp"
-                  delay={index * 0.1}
-                  duration={0.6}
-                  start="top 85%"
-                  once={true}
-                >
-                  <GalleryImageSkeleton />
-                </ScrollWidget>
+                    <Masonry gutter="24px">
+                      {allImages.map((item, index) => (
+                        <div key={item.id} className="w-full p-3">
+                          {renderGalleryItem(item, index)}
+                        </div>
+                      ))}
+                      {loadingMore &&
+                        skeletonKeys.length > 0 &&
+                        skeletonKeys.map((key, index) => (
+                          <div key={key} className="w-full p-3">
+                            <ScrollWidget
+                              animation="fadeUp"
+                              delay={(allImages.length + index) * 0.1}
+                              duration={0.6}
+                              start="top 85%"
+                              once={true}
+                            >
+                              <GalleryImageSkeleton />
+                            </ScrollWidget>
+                          </div>
+                        ))}
+                    </Masonry>
+                  </ResponsiveMasonry>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {allImages.map((item, index) => (
+                    <div key={item.id}>{renderGalleryItem(item, index)}</div>
+                  ))}
+                  {loadingMore &&
+                    skeletonKeys.length > 0 &&
+                    skeletonKeys.map((key, index) => (
+                      <div key={key}>
+                        <ScrollWidget
+                          animation="fadeUp"
+                          delay={(allImages.length + index) * 0.1}
+                          duration={0.6}
+                          start="top 85%"
+                          once={true}
+                        >
+                          <GalleryImageSkeleton />
+                        </ScrollWidget>
+                      </div>
+                    ))}
+                </div>
               ))}
           </div>
 
-          {!loading && imageCards.length < total && (
+          {!loading && !loadingMore && imageCards.length < total && (
             <div className="flex justify-center items-center mt-6">
               <ButtonWidget
                 className="orange-button-white group rounded-[60px] px-6 h-10 xss:text-[16px] 3xl:h-[50px] text-xs 2xl:text-[14px] 3xl:text-[18px] flex items-center justify-center gap-2"

@@ -73,7 +73,7 @@ const TestimonialSection = ({ data }: TestimonialSectionProps) => {
                 tag="p"
               />
 
-              <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[450px]">
+              <p className="text-[16px] lg:text-[16px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[450px]">
                 {sectionData?.Description}
               </p>
             </div>
@@ -94,7 +94,7 @@ const TestimonialSection = ({ data }: TestimonialSectionProps) => {
                             <ImageWidget
                               src={Quote}
                               alt="Quote"
-                              className="object-center w-[70px] h-[70px] xss:w-[40px] xss:h-[40px] opacity-80"
+                              className="object-center w-[40px] h-[40px] xss:w-[40px] xss:h-[40px] opacity-80"
                             />
                           </div>
                           <p className="md:text-center text-[16px] lg:text-[15px] xl:text-[18px] 3xl:text-[24px] font-normal font-mulish  text-black leading-normal w-full md:max-w-[750px]">

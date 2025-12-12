@@ -40,10 +40,10 @@ const FacultySection = ({ data }: FacultySectionProps) => {
             </h2>
             <HTMLWidget
               content={data.Heading}
-              className="max-w-[600px] font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black"
+              className="max-w-[700px] font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black"
               tag="p"
             />
-            <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[650px]">
+            <p className="text-[16px] lg:text-[16px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[700px]">
               {data.Description}
             </p>
             <LinkWidget href="/faculty" className="w-full">
@@ -90,7 +90,7 @@ const FacultySection = ({ data }: FacultySectionProps) => {
               delay={0.1 + Math.min(facultyData.length, 6) * 0.1}
             >
               <div className="min-h-[200px] flex flex-col justify-center items-center gap-2 sm:gap-3 bg-[#E97451]/20 p-3 sm:p-4">
-                <div className="self-end">
+                <div className="self-center">
                   <LinkWidget href="/faculty" className="w-full">
                     <OrangeButtonWidget content={data.Btn_txt} />
                   </LinkWidget>
@@ -162,7 +162,7 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                     <h3 className="font-mulish text-xl md:text-xl lg:text-2xl xl:text-[20px] 2xl:text-[20px] 3xl:text-[24px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight transition-colors duration-500 ease-in-out delay-150">
                       {" "}
                     </h3>
-                    <div className="self-end">
+                    <div className="self-left text-center -mt-4">
                       <LinkWidget href="/faculty" className="w-full">
                         <OrangeButtonWidget content={data.Btn_txt} />
                       </LinkWidget>

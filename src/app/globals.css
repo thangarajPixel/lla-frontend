@@ -241,3 +241,26 @@ body {
 .wave-3 {
   animation-delay: 2s;
 }
+
+.ul-image ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.ul-image ul li {
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.ul-image ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 2px;
+  width: 1rem;
+  height: 1rem;
+  background-image: url("/star.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}

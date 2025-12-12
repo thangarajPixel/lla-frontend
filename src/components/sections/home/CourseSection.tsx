@@ -82,7 +82,7 @@ const CourseSection = ({ data }: CourseSectionProps) => {
               className="font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black"
               tag="p"
             />
-            <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[650px]">
+            <p className="text-[16px] lg:text-[16px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[700px]">
               {data.Description}
             </p>
           </div>
@@ -134,11 +134,13 @@ const CourseSection = ({ data }: CourseSectionProps) => {
                       <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
                         {card.Description}
                       </p>
-                      <div className="self-start flex gap-4">
-                        <LinkWidget href={`/courses/${card.Slug}`}>
-                          <OrangeButtonWidget content={card.Btn_txt} />
-                        </LinkWidget>
-                      </div>
+                      {card.Btn_txt !== null && (
+                        <div className="self-start flex gap-4">
+                          <LinkWidget href={`/courses/${card.Slug}`}>
+                            <OrangeButtonWidget content={card.Btn_txt} />
+                          </LinkWidget>
+                        </div>
+                      )}
                     </ParallaxWidget>
                   </ScrollWidget>
                 </div>
