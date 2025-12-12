@@ -119,7 +119,7 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
                     tag="div"
                   />
                 )}
-                {card.BlogViewCard?.map((viewCard) => (
+                {card.ViewCard?.map((viewCard) => (
                   <div key={viewCard.id} className="flex flex-col gap-4">
                     <h3 className="text-[24px] md:text-[26px] lg:text-[26px] xl:text-[28px] 2xl:text-[30px] 3xl:text-[32px] font-normal text-black font-urbanist">
                       {viewCard.Title}
@@ -131,10 +131,10 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
                         tag="div"
                       />
                     )}
-                    {viewCard.Images?.[0]?.url && (
+                    {viewCard.Image?.[0]?.url && (
                       <div className="relative w-full aspect-video overflow-hidden">
                         <ImageWidget
-                          src={getS3Url(viewCard.Images[0].url)}
+                          src={getS3Url(viewCard.Image[0].url)}
                           alt={viewCard.Title}
                           fill
                           className="object-cover"
