@@ -65,9 +65,7 @@ const GalleryImageSkeleton = () => (
 const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   const uniqueTypesInitial = useMemo(() => {
     if (!initialData?.ImageCard) return [];
-    return Array.from(
-      new Set(initialData.ImageCard.map((card) => card.Type)),
-    );
+    return Array.from(new Set(initialData.ImageCard.map((card) => card.Type)));
   }, [initialData?.ImageCard]);
 
   const [selectedType, setSelectedType] = useState<string>(
@@ -129,16 +127,16 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   const skeletonKeys = useMemo(() => {
     if (!loading) return [];
     skeletonIdRef.current += 1;
-    const pageSize = initialData?.pagination?.pageSize || 10;
+    const perPage = 9;
     return Array.from(
-      { length: pageSize },
+      { length: perPage },
       (_, i) => `skeleton-${skeletonIdRef.current}-${i}`,
     );
-  }, [loading, initialData?.pagination?.pageSize]);
+  }, [loading]);
 
   useEffect(() => {
     if (!selectedType) return;
-    
+
     setPage(1);
     setImageCards([]);
 
@@ -166,7 +164,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
     if (isMounted) {
       fetchFilteredData();
     }
-  }, [selectedType, initialData, isMounted]);
+  }, [selectedType, isMounted]);
   const loadMore = async () => {
     if (loading || imageCards.length >= total || !selectedType) return;
     setLoading(true);
@@ -304,69 +302,62 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
           </div>
 
           <div className="w-full" suppressHydrationWarning>
-            {(allImages.length > 0 || loading) && (
-              <>
-                {isMounted ? (
-                  <div style={{ margin: "-12px" }}>
-                    <ResponsiveMasonry
-                      columnsCountBreakPoints={{
-                        350: 1,
-                        640: 2,
-                        1024: allImages.some((item) => item.isVideo) ? 2 : 3,
-                      }}
-                    >
-                      <Masonry gutter="24px">
-                        {allImages.map((item, index) => (
-                          <div
-                            key={item.id}
-                            className="w-full"
-                            style={{ padding: "12px" }}
-                          >
-                            {renderGalleryItem(item, index)}
-                          </div>
-                        ))}
-                        {loading &&
-                          skeletonKeys.map((key, index) => (
-                            <div key={key} style={{ padding: "12px" }}>
-                              <ScrollWidget
-                                animation="fadeUp"
-                                delay={(allImages.length + index) * 0.1}
-                                duration={0.6}
-                                start="top 85%"
-                                once={true}
-                              >
-                                <GalleryImageSkeleton />
-                              </ScrollWidget>
-                            </div>
-                          ))}
-                      </Masonry>
-                    </ResponsiveMasonry>
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {allImages.map((item, index) => (
-                      <div key={item.id}>
-                        {renderGalleryItem(item, index)}
-                      </div>
-                    ))}
-                    {loading &&
-                      skeletonKeys.map((key, index) => (
-                        <div key={key}>
-                          <ScrollWidget
-                            animation="fadeUp"
-                            delay={(allImages.length + index) * 0.1}
-                            duration={0.6}
-                            start="top 85%"
-                            once={true}
-                          >
-                            <GalleryImageSkeleton />
-                          </ScrollWidget>
+            {(allImages.length > 0 || loading) &&
+              (isMounted ? (
+                <div className="-m-3">
+                  <ResponsiveMasonry
+                    columnsCountBreakPoints={{
+                      350: 1,
+                      640: 2,
+                      1024: allImages.some((item) => item.isVideo) ? 2 : 3,
+                    }}
+                  >
+                    <Masonry gutter="24px">
+                      {allImages.map((item, index) => (
+                        <div key={item.id} className="w-full p-3">
+                          {renderGalleryItem(item, index)}
                         </div>
                       ))}
-                  </div>
-                )}
-              </>
-            )}
+                      {loading &&
+                        skeletonKeys.length > 0 &&
+                        skeletonKeys.map((key, index) => (
+                          <div key={key} className="w-full p-3">
+                            <ScrollWidget
+                              animation="fadeUp"
+                              delay={(allImages.length + index) * 0.1}
+                              duration={0.6}
+                              start="top 85%"
+                              once={true}
+                            >
+                              <GalleryImageSkeleton />
+                            </ScrollWidget>
+                          </div>
+                        ))}
+                    </Masonry>
+                  </ResponsiveMasonry>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {allImages.map((item, index) => (
+                    <div key={item.id}>{renderGalleryItem(item, index)}</div>
+                  ))}
+                  {loading &&
+                    skeletonKeys.length > 0 &&
+                    skeletonKeys.map((key, index) => (
+                      <div key={key}>
+                        <ScrollWidget
+                          animation="fadeUp"
+                          delay={(allImages.length + index) * 0.1}
+                          duration={0.6}
+                          start="top 85%"
+                          once={true}
+                        >
+                          <GalleryImageSkeleton />
+                        </ScrollWidget>
+                      </div>
+                    ))}
+                </div>
+              ))}
           </div>
 
           {!loading && imageCards.length < total && (
