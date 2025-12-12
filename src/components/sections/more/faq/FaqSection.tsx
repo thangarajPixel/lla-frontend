@@ -101,9 +101,9 @@ const FaqSection = ({ data }: FaqProps) => {
                     key={category.id}
                     type="button"
                     onClick={() => scrollToCategory(category.id)}
-                    className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 cursor-pointer text-[16px] md:text-[15px] xl:text-[15px] 2xl:text-[16px] 3xl:text-[18px] relative ${
+                    className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 cursor-pointer text-[16px] md:text-[15px] xl:text-[18px] 2xl:text-[20px] 3xl:text-[20px] relative ${
                       activeCategory === category.id
-                        ? "text-[#E97451] font-semibold bg-[#E97451]/5 border-l-4 border-[#E97451]"
+                        ? "text-[#E97451] font-semibold"
                         : "text-gray-700 hover:text-[#E97451] hover:bg-gray-50 font-normal"
                     }`}
                   >
