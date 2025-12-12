@@ -134,11 +134,13 @@ const CourseSection = ({ data }: CourseSectionProps) => {
                       <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
                         {card.Description}
                       </p>
-                      <div className="self-start flex gap-4">
-                        <LinkWidget href={`/courses/${card.Slug}`}>
-                          <OrangeButtonWidget content={card.Btn_txt} />
-                        </LinkWidget>
-                      </div>
+                      {card.Btn_txt !== null && (
+                        <div className="self-start flex gap-4">
+                          <LinkWidget href={`/courses/${card.Slug}`}>
+                            <OrangeButtonWidget content={card.Btn_txt} />
+                          </LinkWidget>
+                        </div>
+                      )}
                     </ParallaxWidget>
                   </ScrollWidget>
                 </div>
