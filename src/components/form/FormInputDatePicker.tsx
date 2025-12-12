@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 
-const DISPLAY_FORMAT = "dd-MM-yyyy";
+const DISPLAY_FORMAT = "dd/MM/yyyy";
 const STORE_FORMAT = "yyyy-MM-dd";
 
 function formatDisplay(date: Date | undefined) {
@@ -67,13 +67,13 @@ const FormDatePickerWithInput = <T extends FieldValues>({
 
   const [inputValue, setInputValue] = useState(formatDisplay(parsedStoredDate));
 
-  const id = `date-${name.replace(/\./g, "-")}`;
+  const id = `date-${name.replace(/\./g, "/")}`;
 
   const formatTypedDate = (raw: string) => {
     let digits = raw.replace(/[^0-9]/g, "");
 
-    if (digits.length > 2) digits = `${digits.slice(0, 2)}-${digits.slice(2)}`;
-    if (digits.length > 5) digits = `${digits.slice(0, 5)}-${digits.slice(5)}`;
+    if (digits.length > 2) digits = `${digits.slice(0, 2)}/${digits.slice(2)}`;
+    if (digits.length > 5) digits = `${digits.slice(0, 5)}/${digits.slice(5)}`;
     if (digits.length > 10) digits = digits.slice(0, 10);
 
     return digits;
@@ -101,17 +101,44 @@ const FormDatePickerWithInput = <T extends FieldValues>({
           className={cn("bg-background pr-0 h-[42px] w-full", className)}
           inputClassName="w-full flex-1"
           maxLength={10}
+
           onChange={(e) => {
-            const formatted = formatTypedDate(e.target.value);
+            const { value: raw, selectionStart } = e.target;
+
+            const isMiddleDelete =
+              raw.length < inputValue.length && (selectionStart ?? 0) < 10;
+
+            if (isMiddleDelete) {
+              setInputValue(raw);
+
+              if (raw.trim() === "" || raw.length < 10) {
+                onChange("");
+                setMonth(undefined);
+              }
+
+              return;
+            }
+
+            const formatted = formatTypedDate(raw);
             setInputValue(formatted);
 
             const parsed = parseDisplay(formatted);
 
             if (parsed) {
+              const today = new Date();
+              today.setHours(0, 0, 0, 0);
+
               onChange(format(parsed, STORE_FORMAT));
               setMonth(parsed);
+            } else {
+              onChange("");
+              setMonth(undefined);
             }
           }}
+
+
+
+
           onKeyDown={(e) => {
             if (e.key === "ArrowDown") {
               e.preventDefault();

@@ -58,9 +58,6 @@ const PersonalDetailsForm = ({
       mobile_no: admissionData?.mobile_no ?? "",
       email: admissionData?.email ?? "",
       nationality: admissionData?.nationality ?? "",
-      // Language_Proficiency: admissionData?.Language_Proficiency ?? [
-      //   { language: "", read: false, write: false, speak: false },
-      // ],
       Language_Proficiency:
         admissionData?.Language_Proficiency &&
         admissionData?.Language_Proficiency?.length > 0
@@ -218,7 +215,6 @@ const PersonalDetailsForm = ({
     setIsRemoved(false);
 
     if (!file.type.startsWith("image/")) {
-      alert("Please upload a valid image.");
       toast.error("Please upload a valid image.", { position: "bottom-right" });
       return;
     }
@@ -227,7 +223,6 @@ const PersonalDetailsForm = ({
     formData.append("files", file);
 
     if (file.size > 1024 * 1024) {
-      // alert("File size must be less than 1MB.");
       toast.error("File size must be less than 1MB.", {
         position: "bottom-right",
       });
@@ -307,14 +302,13 @@ const PersonalDetailsForm = ({
           </h1>
 
           <div
-            // className="grid grid-cols-1 lg:grid-cols-[1fr_220px] gap-8"
-            className="flex flex-col-reverse xs:flex-col lg:grid lg:grid-cols-[1fr_220px] gap-8"
+            className="flex flex-col-reverse xs:flex-col lg:grid lg:grid-cols-[1fr_180px] gap-8"
           >
             <div className="space-y-6">
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-base 3xl:text-lg mb-2 font-mulish"
+                  className="block text-base xl:text-sm 2xl:text-lg mb-2 font-mulish"
                 >
                   Full Name (As in Certificate)
                   <span className="text-chart-1">*</span>

@@ -46,36 +46,36 @@ const EducationDetailsForm = ({
       Post_Graduate:
         admissionData?.Post_Graduate && admissionData?.Post_Graduate?.length > 0
           ? admissionData?.Post_Graduate?.map((item) => ({
-              degree: item?.degree ?? "",
-              pg_status: item?.pg_status ?? "",
-              marksheet: item?.marksheet?.id ?? 0,
-            }))
+            degree: item?.degree ?? "",
+            pg_status: item?.pg_status ?? "",
+            marksheet: item?.marksheet?.id ?? 0,
+          }))
           : [
-              {
-                degree: "",
-                pg_status: "",
-                marksheet: 0,
-              },
-            ],
+            {
+              degree: "",
+              pg_status: "",
+              marksheet: 0,
+            },
+          ],
       Work_Experience:
         admissionData?.Work_Experience &&
-        admissionData?.Work_Experience?.length > 0
+          admissionData?.Work_Experience?.length > 0
           ? admissionData?.Work_Experience?.map((item) => ({
-              designation: item?.designation ?? "",
-              employer: item?.employer ?? "",
-              duration_start: item?.duration_start ?? "",
-              duration_end: item?.duration_end ?? "",
-              reference_letter: item?.reference_letter?.id ?? 0,
-            }))
+            designation: item?.designation ?? "",
+            employer: item?.employer ?? "",
+            duration_start: item?.duration_start ?? "",
+            duration_end: item?.duration_end ?? "",
+            reference_letter: item?.reference_letter?.id ?? 0,
+          }))
           : [
-              {
-                designation: "",
-                employer: "",
-                duration_start: "",
-                duration_end: "",
-                reference_letter: 0,
-              },
-            ],
+            {
+              designation: "",
+              employer: "",
+              duration_start: "",
+              duration_end: "",
+              reference_letter: 0,
+            },
+          ],
       step_2: admissionData?.step_2 ?? false,
     },
   });
@@ -124,7 +124,16 @@ const EducationDetailsForm = ({
           pgStatus={pgStatus}
           watchPostGraduate={watchPostGraduate}
         />
+
+        <p className="text-base text-muted-foreground mt-2">
+          <span className="font-bold text-black">Educational Certificates : </span> Digital copies (PDF/JPEG) of your 10th and 12th standard certificates, along with UG and PG certificates, if applicable.
+        </p>
+
         <WorkExperience admissionData={admissionData} control={control} />
+
+         <p className="text-base text-muted-foreground mt-2">
+          <span className="font-bold text-black">Reference Letters (Optional) : </span> You may upload any reference letters that support your application.
+        </p>
 
         <div className="flex justify-start gap-3 mt-10 pt-6">
           <ButtonWidget

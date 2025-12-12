@@ -240,7 +240,11 @@ export const calculateDuration = (start?: string, end?: string) => {
   const diffInMs = endDate.getTime() - startDate.getTime();
   const diffInYears = diffInMs / (1000 * 60 * 60 * 24 * 365.25);
 
-  const duration = Math.floor(diffInYears);
+  if (diffInYears < 1) {
+    return `${diffInYears.toFixed(1)} year`;
+  }
 
-  return duration > 1 ? `${duration} years` : `${duration} year`;
+  const duration = Math.floor(diffInYears);
+  return duration === 1 ? "1 year" : `${duration} years`;
 };
+

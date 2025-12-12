@@ -76,6 +76,13 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
   const handleFilesSelected = async (files: File[]) => {
     const MAX_SIZE = 1024 * 1024;
 
+    if (images?.length > 20) {
+      return notify({
+        success: false,
+        message: "You can upload a maximum of 20 images",
+      })
+    }
+
     const validFiles = files.filter((file) => {
       if (file.size > MAX_SIZE) {
         notify({ success: false, message: `${file.name} exceeds 1MB limit` });
@@ -172,6 +179,10 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
               </label>
 
               <UploadArea onFilesSelected={handleFilesSelected} />
+
+              <p className="text-xs text-muted-foreground mt-2">
+                20 of your best images showcasing your work and creativity. Please note that the objective is to assess your photography vision. We are not looking for technically advanced images. Please include a variety of subjects.
+              </p>
 
               <p className="text-xs text-muted-foreground mt-2">
                 Max. file size not more than 1MB.
