@@ -21,7 +21,7 @@ const FilmmakingFacultySection = ({ data }: FilmmakingFacultySectionProps) => {
                 return (
                   <p
                     key={text}
-                    className="font-mulish text-black text-[16px] sm:text-[16px] md:text-[14px] lg:text-[12px] xl:text-[14px] 2xl:text-[14px] 3xl:text-[18px] leading-normal"
+                    className="font-mulish text-black text-[16px] sm:text-[17px] 3xl:text-[18px] leading-normal"
                   >
                     {text}
                   </p>

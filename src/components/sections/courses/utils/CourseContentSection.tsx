@@ -65,7 +65,7 @@ const CourseContentSection = ({ data }: { data: CourseContentData }) => {
                   </span>
                 )}
               </p>
-              <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full">
+              <p className="text-[16px] lg:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full">
                 {headerData.Description}
               </p>
             </div>
@@ -75,11 +75,11 @@ const CourseContentSection = ({ data }: { data: CourseContentData }) => {
         {sectionsData.map((section, index) => (
           <div
             key={`section-${data.Content_card[index]?.id || index}`}
-            className="sticky top-8 self-start"
+            className="sticky top-20 self-start bg-white"
           >
             {section.OuterTitle && (
               <h3
-                className={`text-3xl ${!section.OuterDescription && "mb-6"} xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-normal md:font-normal text-black font-urbanist`}
+                className={`text-3xl ${!section.OuterDescription && "mb-6"} xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-normal md:font-normal text-black font-urbanist pt-6`}
               >
                 {section.OuterTitle}
               </h3>

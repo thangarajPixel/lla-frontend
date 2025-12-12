@@ -144,7 +144,7 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
               return (
                 <p
                   key={uniqueKey}
-                  className="text-sm xss:text-[16px] sm:text-base lg:text-[15px] 2xl:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal"
+                  className="text-sm xss:text-[16px] sm:text-base lg:text-[17px] 2xl:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal"
                 >
                   {textContent}
                 </p>

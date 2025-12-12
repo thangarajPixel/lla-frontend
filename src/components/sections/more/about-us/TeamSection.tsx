@@ -110,7 +110,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
                   </h5>
                   <p
                     className="font-mulish text-black font-regular
-                    text-[13px] sm:text-[16px] md:[16px] 3xl:text-[18px] 4xl:text-[18px] my-2"
+                    text-[13px] md:text-[17px] 3xl:text-[18px] 4xl:text-[18px] my-2"
                   >
                     {faculty.description}
                   </p>
@@ -154,7 +154,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
               >
                 {data.Frame.Title}
               </h5>
-              <p className="font-mulish text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
+              <p className="font-mulish text-[16px] md:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal">
                 {data.Frame.Description}
               </p>
             </div>

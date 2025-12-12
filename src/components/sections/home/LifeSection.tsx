@@ -86,7 +86,7 @@ const LifeSection = ({ data }: LifeSectionProps) => {
                   className="max-w-[520px] font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black"
                   tag="p"
                 />
-                <p className="text-[16px] lg:text-[16px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[650px]">
+                <p className="text-[16px] lg:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[650px]">
                   {data.Description}
                 </p>
                 <div className="self-start">

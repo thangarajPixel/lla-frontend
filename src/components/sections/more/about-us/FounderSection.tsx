@@ -40,10 +40,10 @@ const FounderSection = ({ data }: FounderSectionProps) => {
                 <h4 className="font-urbanist  font-normal text-[#E97451]  hidden md:block  text-[24px]  xs:text-[26px] sm:text-[26px] md:text-[28px] lg:text-[28px] xl:text-[32px] 2xl:text-[36px] 3xl:text-[40px] ">
                   {data.Founder_card[0].Heading}
                 </h4>
-                <p className="font-mulish text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
+                <p className="font-mulish text-[16px] md:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal">
                   {data.Founder_card[0].Description[0].children[0].text}
                 </p>
-                <p className="font-mulish text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
+                <p className="font-mulish text-[16px] md:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal">
                   {data.Founder_card[0].Description[1].children[0].text ?? ""}
                 </p>
                 <LinkWidget
@@ -90,10 +90,10 @@ const FounderSection = ({ data }: FounderSectionProps) => {
                 <h4 className="font-urbanist font-normal text-[#E97451]  hidden md:block text-[24px] xs:text-[26px] sm:text-[26px]  md:text-[28px] lg:text-[28px]  xl:text-[32px] 2xl:text-[36px] 3xl:text-[40px] ">
                   {data.Founder_card[1].Heading}
                 </h4>
-                <p className="font-mulish text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
+                <p className="font-mulish text-[16px] md:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal">
                   {data.Founder_card[1].Description[0].children[0].text}
                 </p>
-                <p className="font-mulish text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
+                <p className="font-mulish text-[16px] md:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal">
                   {data.Founder_card[1].Description[1].children[0].text ?? ""}
                 </p>
                 <LinkWidget
