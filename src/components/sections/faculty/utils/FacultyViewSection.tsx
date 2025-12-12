@@ -143,7 +143,7 @@ const FacultyViewSection = ({ data }: FacultyViewSectionProps) => {
           </ButtonWidget>
         </div>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2">
+      <div className="grid grid-cols-1  md:grid-cols-[2.5fr_3fr]">
         <div className="flex flex-col">
           <div className="flex flex-col sticky top-16 space-y-4  px-4 py-8 pb-0 md:pb-8 md:px-6 lg:px-8 xl:px-12 xl:pl-50 2xl:pl-58 2xl:pr-10 3xl:px-20 3xl:pl-74 pt-13">
             <ScrollWidget
