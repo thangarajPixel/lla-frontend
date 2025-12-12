@@ -21,7 +21,7 @@ const FacultyHeroSection = ({ data }: FacultyHeroSectionProps) => {
                 {data.Heading}
                 <span className="text-[#E97451] ml-2"> {data.SubHeading} </span>
               </p>
-              <p className="text-left  font-mulish text-black text-[18px] sm:text-[14px] md:text-[12px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px] 3xl:text-[18px] w-full sm:max-w-[320px] md:max-w-[375px] lg:max-w-[375px] xl:max-w-[430px] 2xl:max-w-[555px] 3xl:max-w-[606px]">
+              <p className="text-left mt-4  font-mulish text-black text-[18px] sm:text-[14px] md:text-[17px] 3xl:text-[18px] w-full sm:max-w-[320px] md:max-w-[375px] lg:max-w-[375px] xl:max-w-[430px] 2xl:max-w-[555px] 3xl:max-w-[606px]">
                 {data.Description}
               </p>
             </div>

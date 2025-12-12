@@ -92,7 +92,7 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
               text-black w-full md:max-w-[600px] 3xl:max-w-[976px] 3xl:leading-[48px]"
               tag="p"
             />
-            <p className="text-[12px] lg:text-[14px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[750px] 3xl:max-w-[976px]">
+            <p className="text-[12px] md:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[750px] 3xl:max-w-[976px]">
               {data.Description}
             </p>
           </div>

@@ -73,7 +73,7 @@ const TestimonialSection = ({ data }: TestimonialSectionProps) => {
                 tag="p"
               />
 
-              <p className="text-[16px] lg:text-[16px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[450px]">
+              <p className="text-[16px] lg:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[450px]">
                 {sectionData?.Description}
               </p>
             </div>

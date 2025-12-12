@@ -46,7 +46,7 @@ const HowtoApplySection = ({ data }: { data: HowToApplyData }) => {
                       {card.Heading}
                     </h3>
 
-                    <p className="font-mulish text-[16px] xss:text-[16px] lg:text-[15px] xl:text-[14px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[760px]">
+                    <p className="font-mulish text-[16px] xss:text-[16px] lg:text-[17px] xl:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[760px]">
                       {card.Description}
                     </p>
                   </div>
