@@ -80,7 +80,7 @@ const CourseContentSection = ({ data }: { data: CourseContentData }) => {
           >
             {section.OuterTitle && (
               <h3
-                className={`text-3xl ${index === 0 ? "" : "mt-10"} xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-normal md:font-normal text-black font-urbanist`}
+                className={`text-3xl ${!section.OuterDescription && "mb-6"} xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-normal md:font-normal text-black font-urbanist`}
               >
                 {section.OuterTitle}
               </h3>
