@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { getGalleryPageData } from "@/app/api/server";
 import { DialogClose } from "@/components/ui/dialog";
 import {
@@ -62,7 +63,16 @@ const GalleryImageSkeleton = () => (
 );
 
 const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
-  const [selectedType, setSelectedType] = useState<string>("all");
+  const uniqueTypesInitial = useMemo(() => {
+    if (!initialData?.ImageCard) return [];
+    return Array.from(
+      new Set(initialData.ImageCard.map((card) => card.Type)),
+    );
+  }, [initialData?.ImageCard]);
+
+  const [selectedType, setSelectedType] = useState<string>(
+    uniqueTypesInitial.length > 0 ? uniqueTypesInitial[0] : "",
+  );
   const [imageCards, setImageCards] = useState(initialData.ImageCard || []);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -85,10 +95,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   }, [initialData?.ImageCard]);
 
   const filteredImageCards = useMemo(
-    () =>
-      selectedType === "all"
-        ? imageCards
-        : imageCards.filter((card) => card.Type === selectedType),
+    () => imageCards.filter((card) => card.Type === selectedType),
     [imageCards, selectedType],
   );
 
@@ -130,49 +137,45 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   }, [loading, initialData?.pagination?.pageSize]);
 
   useEffect(() => {
-    if (selectedType !== "all") {
-      setPage(1);
-      setImageCards([]);
+    if (!selectedType) return;
+    
+    setPage(1);
+    setImageCards([]);
 
-      const fetchFilteredData = async () => {
-        setLoading(true);
-        try {
-          const params = {
-            page: 1,
-            per_page: 9,
-            type: selectedType,
-          };
+    const fetchFilteredData = async () => {
+      setLoading(true);
+      try {
+        const params = {
+          page: 1,
+          per_page: 9,
+          type: selectedType,
+        };
 
-          const { data: res } = await getGalleryPageData(params);
-          if (res?.ImageCard) {
-            setImageCards(res.ImageCard);
-            setGalleryData(res);
-          }
-        } catch (error) {
-          console.error("Error fetching filtered gallery data:", error);
-        } finally {
-          setLoading(false);
+        const { data: res } = await getGalleryPageData(params);
+        if (res?.ImageCard) {
+          setImageCards(res.ImageCard);
+          setGalleryData(res);
         }
-      };
-
-      if (isMounted) {
-        fetchFilteredData();
+      } catch (error) {
+        console.error("Error fetching filtered gallery data:", error);
+      } finally {
+        setLoading(false);
       }
-    } else {
-      setPage(1);
-      setImageCards(initialData.ImageCard || []);
-      setGalleryData(initialData);
+    };
+
+    if (isMounted) {
+      fetchFilteredData();
     }
   }, [selectedType, initialData, isMounted]);
   const loadMore = async () => {
-    if (loading || imageCards.length >= total) return;
+    if (loading || imageCards.length >= total || !selectedType) return;
     setLoading(true);
     try {
       const nextPage = page + 1;
-      const params: { page: number; per_page: number; type?: string } = {
+      const params: { page: number; per_page: number; type: string } = {
         page: nextPage,
         per_page: 9,
-        ...(selectedType !== "all" && { type: selectedType }),
+        type: selectedType,
       };
       const { data: res } = await getGalleryPageData(params);
       if (res?.ImageCard) {
@@ -198,10 +201,10 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
         {item.isVideo ? (
           <DialogWidget
             trigger={
-              <div className="relative w-full h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px] overflow-hidden rounded-none">
+              <div className="relative w-full overflow-hidden rounded-none">
                 <video
                   src={(item.videoUrl as string) || ""}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
                   muted
                   playsInline
                   preload="metadata"
@@ -250,12 +253,14 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
             </div>
           </DialogWidget>
         ) : (
-          <div className="relative w-full h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px] overflow-hidden rounded-none">
+          <div className="relative w-full overflow-hidden rounded-none">
             <ImageWidget
               src={item.src}
               alt={item.alt}
-              fill
-              className="object-cover transition-transform duration-300 group-hover:scale-105"
+              width={600}
+              height={800}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
               loading="lazy"
             />
           </div>
@@ -285,7 +290,6 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
                     <SelectValue placeholder="Filter by type" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All Types</SelectItem>
                     {uniqueTypes.map((type) => (
                       <SelectItem key={type} value={type}>
                         {type
@@ -300,35 +304,69 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
           </div>
 
           <div className="w-full" suppressHydrationWarning>
-            {allImages.length > 0 && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6">
-                {allImages.map((item, index) => (
-                  <div
-                    key={item.id}
-                    className={
-                      item.isVideo
-                        ? "sm:col-span-1 lg:col-span-3"
-                        : "sm:col-span-1 lg:col-span-2"
-                    }
-                  >
-                    {renderGalleryItem(item, index)}
+            {(allImages.length > 0 || loading) && (
+              <>
+                {isMounted ? (
+                  <div style={{ margin: "-12px" }}>
+                    <ResponsiveMasonry
+                      columnsCountBreakPoints={{
+                        350: 1,
+                        640: 2,
+                        1024: allImages.some((item) => item.isVideo) ? 2 : 3,
+                      }}
+                    >
+                      <Masonry gutter="24px">
+                        {allImages.map((item, index) => (
+                          <div
+                            key={item.id}
+                            className="w-full"
+                            style={{ padding: "12px" }}
+                          >
+                            {renderGalleryItem(item, index)}
+                          </div>
+                        ))}
+                        {loading &&
+                          skeletonKeys.map((key, index) => (
+                            <div key={key} style={{ padding: "12px" }}>
+                              <ScrollWidget
+                                animation="fadeUp"
+                                delay={(allImages.length + index) * 0.1}
+                                duration={0.6}
+                                start="top 85%"
+                                once={true}
+                              >
+                                <GalleryImageSkeleton />
+                              </ScrollWidget>
+                            </div>
+                          ))}
+                      </Masonry>
+                    </ResponsiveMasonry>
                   </div>
-                ))}
-              </div>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {allImages.map((item, index) => (
+                      <div key={item.id}>
+                        {renderGalleryItem(item, index)}
+                      </div>
+                    ))}
+                    {loading &&
+                      skeletonKeys.map((key, index) => (
+                        <div key={key}>
+                          <ScrollWidget
+                            animation="fadeUp"
+                            delay={(allImages.length + index) * 0.1}
+                            duration={0.6}
+                            start="top 85%"
+                            once={true}
+                          >
+                            <GalleryImageSkeleton />
+                          </ScrollWidget>
+                        </div>
+                      ))}
+                  </div>
+                )}
+              </>
             )}
-            {loading &&
-              skeletonKeys.map((key, index) => (
-                <ScrollWidget
-                  key={key}
-                  animation="fadeUp"
-                  delay={index * 0.1}
-                  duration={0.6}
-                  start="top 85%"
-                  once={true}
-                >
-                  <GalleryImageSkeleton />
-                </ScrollWidget>
-              ))}
           </div>
 
           {!loading && imageCards.length < total && (
