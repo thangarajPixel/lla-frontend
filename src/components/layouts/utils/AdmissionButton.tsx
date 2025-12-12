@@ -121,7 +121,7 @@ const AdmissionButton = ({
                   </p>
                   <div className="self-start flex gap-2">
                     <LinkWidget
-                      href={`/admission?course=${card?.Slug}`}
+                      href={`/admission?course=${encodeURIComponent(card?.Slug)}`}
                       onClick={() => setIsOpen(false)}
                     >
                       <OrangeButtonWidget content="Apply now" />
