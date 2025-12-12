@@ -4,8 +4,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { getGalleryPageData } from "@/app/api/server";
 import { DialogClose } from "@/components/ui/dialog";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Skeleton } from "@/components/ui/skeleton";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
@@ -162,7 +162,8 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
     }
   }, [selectedType, isMounted]);
   const loadMore = async () => {
-    if (loading || loadingMore || imageCards.length >= total || !selectedType) return;
+    if (loading || loadingMore || imageCards.length >= total || !selectedType)
+      return;
     setLoadingMore(true);
     try {
       const nextPage = page + 1;
