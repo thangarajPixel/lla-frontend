@@ -138,15 +138,14 @@ const FounderViewSection = ({ data }: FounderViewSectionProps) => {
               </div>
             )}
             {portfolioLink && (
-              
               <div className="mb-8 flex items-center gap-2">
-                    <ImageWidget
-                      src={Website}
-                      alt='Icon'
-                      width={30}
-                      height={30}
-                      className="object-cover "
-                    />
+                <ImageWidget
+                  src={Website}
+                  alt="Icon"
+                  width={30}
+                  height={30}
+                  className="object-cover "
+                />
                 <a
                   href={
                     portfolioLink.startsWith("http")

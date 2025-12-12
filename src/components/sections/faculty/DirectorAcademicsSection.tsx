@@ -1,10 +1,10 @@
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import type { FacultyFounderSectionProps } from "./utils/faculty";
-import LinkWidget from "@/components/widgets/LinkWidget";
 
 const DirectorAcademicsSection = ({ data }: FacultyFounderSectionProps) => {
   return (
@@ -34,10 +34,10 @@ const DirectorAcademicsSection = ({ data }: FacultyFounderSectionProps) => {
                 {data?.Founder_card[0]?.Description[2]?.children[0]?.text}
               </p>
               <div className="pt-2 s:pt-2 m:pt-2 xss:pt-2 xs:pt-2 sm:pt-2 md:pt-3 lg:pt-3 xl:pt-3 2xl:pt-3 3xl:pt-4">
-                   <LinkWidget href={`/faculty/${data.Founder_card[0].Slug}`}>
-                <OrangeButtonWidget
-                  content={data.Founder_card[0].Btn_txt ?? ""}
-                />
+                <LinkWidget href={`/faculty/${data.Founder_card[0].Slug}`}>
+                  <OrangeButtonWidget
+                    content={data.Founder_card[0].Btn_txt ?? ""}
+                  />
                 </LinkWidget>
               </div>
             </div>
