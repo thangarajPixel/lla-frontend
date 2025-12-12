@@ -1,5 +1,6 @@
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import LinkWidget from "@/components/widgets/LinkWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import type { FilmmakingFacultySectionProps } from "./utils/faculty";
@@ -33,19 +34,21 @@ const FilmmakingFacultySection = ({ data }: FilmmakingFacultySectionProps) => {
         <div className="grid grid-cols-1 s:grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 3xl:grid-cols-4 gap-4 s:gap-4 m:gap-4 xss:gap-4 xs:gap-5 sm:gap-5 md:gap-5 lg:gap-6 xl:gap-5 2xl:gap-8 3xl:gap-8.5">
           {data?.Card?.map((member, index) => (
             <ScrollWidget key={member.id} delay={0.1 * (index + 1)}>
-              <div className="flex flex-col items-left group cursor-pointer">
-                <div className="relative w-full aspect-square overflow-hidden mb-3 sm:mb-4 3xl:mb-5 transition-transform duration-300 group-hover:scale-105">
-                  <ImageWidget
-                    src={getS3Url(member.Image.url)}
-                    alt={member.Image.name}
-                    fill
-                    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
-                  />
+              <LinkWidget href={`/filmmaking/${member.Slug}`}>
+                <div className="flex flex-col items-left group">
+                  <div className="relative w-full aspect-square overflow-hidden mb-3 sm:mb-4 3xl:mb-5 transition-transform duration-300 group-hover:scale-105">
+                    <ImageWidget
+                      src={getS3Url(member.Image.url)}
+                      alt={member.Image.name}
+                      fill
+                      className="object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
+                    />
+                  </div>
+                  <h3 className="font-mulish font-bold text-black text-[13px] s:text-[14px] m:text-[14px] xss:text-[15px] xs:text-[15px] sm:text-[16px] md:text-[16px] lg:text-[14px] xl:text-[14px] 2xl:text-[16px] 3xl:text-[23px]">
+                    {member.Title}
+                  </h3>
                 </div>
-                <h3 className="font-mulish font-bold text-black text-[13px] s:text-[14px] m:text-[14px] xss:text-[15px] xs:text-[15px] sm:text-[16px] md:text-[16px] lg:text-[14px] xl:text-[14px] 2xl:text-[16px] 3xl:text-[23px]">
-                  {member.Title}
-                </h3>
-              </div>
+              </LinkWidget>
             </ScrollWidget>
           ))}
         </div>
