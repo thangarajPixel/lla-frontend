@@ -73,10 +73,9 @@ const CourseContentSection = ({ data }: { data: CourseContentData }) => {
         </ScrollWidget>
 
         {sectionsData.map((section, index) => (
-          <ScrollWidget
+          <div
             key={`section-${data.Content_card[index]?.id || index}`}
-            animation="fadeUp"
-            delay={section.delay}
+            className="sticky top-8 self-start"
           >
             {section.OuterTitle && (
               <h3
@@ -93,6 +92,7 @@ const CourseContentSection = ({ data }: { data: CourseContentData }) => {
               />
             )}
             <div
+              id={`course-content-${data.Content_card[index]?.id || index}`}
               className={`grid grid-cols-1 ${section.gridBreakpoint === "md" ? "md:grid-cols-[58%_40%]" : "lg:grid-cols-[58%_40%]"} gap-6 bg-[#ECECEC] w-full p-8 pb-9 ${index > 0 ? "mt-8" : ""}`}
             >
               <div className="flex flex-col gap-4 w-full">
@@ -114,7 +114,7 @@ const CourseContentSection = ({ data }: { data: CourseContentData }) => {
                 <ImageLayout type={section.type} images={section.images} />
               </div>
             </div>
-          </ScrollWidget>
+          </div>
         ))}
       </ContainerWidget>
     </section>

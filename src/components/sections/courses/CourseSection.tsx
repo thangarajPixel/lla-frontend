@@ -14,7 +14,7 @@ import OtherInfoSection from "./utils/OtherInfoSection";
 import OverviewSection from "./utils/OverviewSection";
 import StudentSection from "./utils/StudentSection";
 import TestimonialSection from "./utils/TestimonialSection";
-import type { PgDiplomaData } from "./utils/types";
+import type { ContentCard, PgDiplomaData } from "./utils/types";
 
 const sidebarMenuItems = [
   { href: "#overview", label: "Overview" },
@@ -53,6 +53,30 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
     }
   };
 
+  const handleOuterTitleScroll = (
+    e: React.MouseEvent<HTMLElement>,
+    cardId: number,
+  ) => {
+    e.preventDefault();
+    const targetElement = document.getElementById(`course-content-${cardId}`);
+
+    if (targetElement) {
+      const headerOffset = 100;
+      const elementPosition = targetElement.getBoundingClientRect().top;
+      const scrollMarginTop = parseFloat(
+        window.getComputedStyle(targetElement).scrollMarginTop || "96",
+      );
+      const offsetPosition =
+        elementPosition + window.pageYOffset - headerOffset - scrollMarginTop;
+
+      window.scrollTo({
+        top: Math.max(0, offsetPosition - 100),
+        behavior: "smooth",
+      });
+      setIsSheetOpen(false);
+    }
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       const sections = sidebarMenuItems.map((item) => item.href.substring(1));
@@ -73,33 +97,73 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const renderMenuItems = () => (
-    <>
-      <span className="block px-4 py-3 text-[15px] 3xl:text-lg text-[#E97451] font-semibold">
-        Menu
-      </span>
-      <ul>
-        {sidebarMenuItems.map((item) => {
-          const isActive = activeSection === item.href;
-          return (
-            <li key={item.href}>
-              <LinkWidget
-                href={item.href}
-                onClick={(e) => handleSmoothScroll(e, item.href)}
-                className={`block px-4 py-3 text-[15px] 3xl:text-lg transition-colors duration-200 cursor-pointer ${
-                  isActive
-                    ? "text-[#E97451] font-semibold"
-                    : "hover:text-[#E97451]"
-                }`}
-              >
-                {item.label}
-              </LinkWidget>
-            </li>
-          );
-        })}
-      </ul>
-    </>
-  );
+  const renderMenuItems = () => {
+    const groupedByOuterTitle =
+      data?.Course_content?.Content_card?.reduce(
+        (acc, card) => {
+          const outerTitle = card.OuterTitle || "";
+          if (!acc[outerTitle]) {
+            acc[outerTitle] = [];
+          }
+          acc[outerTitle].push(card);
+          return acc;
+        },
+        {} as Record<string, ContentCard[]>,
+      ) || {};
+
+    return (
+      <>
+        <span className="block px-4 py-3 text-[15px] 3xl:text-lg text-[#E97451] font-semibold">
+          Menu
+        </span>
+        <ul>
+          {sidebarMenuItems.map((item) => {
+            const isActive = activeSection === item.href;
+            const isCourseContent = item.href === "#course-content";
+
+            return (
+              <li key={item.href}>
+                <LinkWidget
+                  href={item.href}
+                  onClick={(e) => handleSmoothScroll(e, item.href)}
+                  className={`block px-4 py-3 text-[15px] 3xl:text-lg transition-colors duration-200 cursor-pointer ${
+                    isActive
+                      ? "text-[#E97451] font-semibold"
+                      : "hover:text-[#E97451]"
+                  }`}
+                >
+                  {item.label}
+                </LinkWidget>
+                {isCourseContent &&
+                  Object.keys(groupedByOuterTitle).length > 0 && (
+                    <ul className="ml-4">
+                      {Object.entries(groupedByOuterTitle).map(
+                        ([outerTitle, cards]) =>
+                          outerTitle !== "" && (
+                            <li key={outerTitle}>
+                              <LinkWidget
+                                href={`#course-content-${cards[0]?.id}`}
+                                onClick={(e) => {
+                                  if (cards[0]?.id) {
+                                    handleOuterTitleScroll(e, cards[0].id);
+                                  }
+                                }}
+                                className="block px-4 py-2 text-[14px] 3xl:text-[17px] text-gray-700 font-medium transition-colors duration-200 cursor-pointer hover:text-[#E97451]"
+                              >
+                                {outerTitle}
+                              </LinkWidget>
+                            </li>
+                          ),
+                      )}
+                    </ul>
+                  )}
+              </li>
+            );
+          })}
+        </ul>
+      </>
+    );
+  };
 
   return (
     <div className="bg-white">
