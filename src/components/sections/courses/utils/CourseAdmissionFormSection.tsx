@@ -5,12 +5,12 @@ import { ArrowRight } from "lucide-react";
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import type z from "zod";
 import { getEssentialsData } from "@/app/api/server";
 import { FormInput } from "@/components/form";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
 import { notify } from "@/helpers/ConstantHelper";
-import z from "zod";
 import { admissionRequestSchema } from "@/helpers/ValidationHelper";
 
 type RequestFormData = z.infer<typeof admissionRequestSchema>;
@@ -56,11 +56,9 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
     return null;
   };
 
-    
-
   const onSubmit = async (payload: RequestFormData) => {
     const validationError = validateForm(payload);
-    
+
     if (validationError) {
       notify({
         success: false,

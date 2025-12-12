@@ -18,7 +18,7 @@ const addressSchema = z.object({
     z.object({
       text: z.string().min(1, "Address is required"),
       type: z.string(),
-    })
+    }),
   ),
 });
 
@@ -45,7 +45,7 @@ export const parentDetails = z.object({
     .min(1, "Pincode is required")
     .refine(
       (val) => val === "" || /^\d{6}$/.test(val),
-      "Enter a valid 6-digit pincode"
+      "Enter a valid 6-digit pincode",
     ),
 });
 
@@ -105,7 +105,7 @@ export const personalDetailsSchema = z.object({
     .min(1, "Pincode is required")
     .refine(
       (val) => val === "" || /^\d{6}$/.test(val),
-      "Enter a valid 6-digit pincode"
+      "Enter a valid 6-digit pincode",
     )
     .optional(),
   hobbies: z.string().optional(),
@@ -151,14 +151,12 @@ export const portfolioSchema = z.object({
       .array(
         z.object({
           id: z.number().min(1, "Image ID is required"),
-        })
+        }),
       )
       .min(1, "At least one image is required"),
   }),
   step_3: z.boolean().optional(),
 });
-
-
 
 export const admissionRequestSchema = z.object({
   FirstName: z.string(),

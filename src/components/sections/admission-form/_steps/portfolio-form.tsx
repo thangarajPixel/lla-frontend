@@ -80,7 +80,7 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
       return notify({
         success: false,
         message: "You can upload a maximum of 20 images",
-      })
+      });
     }
 
     const validFiles = files.filter((file) => {
@@ -181,7 +181,10 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
               <UploadArea onFilesSelected={handleFilesSelected} />
 
               <p className="text-xs text-muted-foreground mt-2">
-                20 of your best images showcasing your work and creativity. Please note that the objective is to assess your photography vision. We are not looking for technically advanced images. Please include a variety of subjects.
+                20 of your best images showcasing your work and creativity.
+                Please note that the objective is to assess your photography
+                vision. We are not looking for technically advanced images.
+                Please include a variety of subjects.
               </p>
 
               <p className="text-xs text-muted-foreground mt-2">

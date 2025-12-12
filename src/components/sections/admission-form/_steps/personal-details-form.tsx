@@ -301,9 +301,7 @@ const PersonalDetailsForm = ({
             Personal Details
           </h1>
 
-          <div
-            className="flex flex-col-reverse xs:flex-col lg:grid lg:grid-cols-[1fr_180px] gap-8"
-          >
+          <div className="flex flex-col-reverse xs:flex-col lg:grid lg:grid-cols-[1fr_180px] gap-8">
             <div className="space-y-6">
               <div>
                 <label

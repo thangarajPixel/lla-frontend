@@ -101,7 +101,6 @@ const FormDatePickerWithInput = <T extends FieldValues>({
           className={cn("bg-background pr-0 h-[42px] w-full", className)}
           inputClassName="w-full flex-1"
           maxLength={10}
-
           onChange={(e) => {
             const { value: raw, selectionStart } = e.target;
 
@@ -135,10 +134,6 @@ const FormDatePickerWithInput = <T extends FieldValues>({
               setMonth(undefined);
             }
           }}
-
-
-
-
           onKeyDown={(e) => {
             if (e.key === "ArrowDown") {
               e.preventDefault();

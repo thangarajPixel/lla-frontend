@@ -247,4 +247,3 @@ export const calculateDuration = (start?: string, end?: string) => {
   const duration = Math.floor(diffInYears);
   return duration === 1 ? "1 year" : `${duration} years`;
 };
-

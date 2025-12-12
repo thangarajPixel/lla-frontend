@@ -137,7 +137,6 @@ function EducationField({
   title: string;
   value?: DocumentFile;
 }) {
-
   const handleDownload = async (url: string, fileName: string) => {
     window.open(url, "_blank");
 
@@ -152,8 +151,6 @@ function EducationField({
 
     window.URL.revokeObjectURL(blobUrl);
   };
-
-
 
   return (
     <div className="flex flex-col items-start justify-start text-gray-700">
@@ -239,7 +236,7 @@ const ReviewApplication = ({
             <OrangeButtonWidget
               content="Proceed to Pay"
               className="3xl:px-4"
-            // className="text-lg 2xl:text-lg h-[46px] px-6 py-3"
+              // className="text-lg 2xl:text-lg h-[46px] px-6 py-3"
             />
           </div>
         </div>
@@ -387,7 +384,7 @@ const ReviewApplication = ({
               </div>
             </Section>
 
-            {admissionData?.Post_Graduate && admissionData?.Post_Graduate[0]?.degree && (
+            {admissionData?.Post_Graduate[0]?.degree && (
               <Section
                 title="Post Graduate"
                 onEdit={() =>
@@ -444,7 +441,7 @@ const ReviewApplication = ({
               </Section>
             )}
 
-            {admissionData?.Work_Experience && admissionData?.Work_Experience[0]?.designation && (
+            {admissionData?.Work_Experience[0]?.designation && (
               <Section
                 title="Work Experience"
                 onEdit={() =>
@@ -490,16 +487,14 @@ const ReviewApplication = ({
               </Section>
             )}
 
-            {
-              admissionData?.Message && (
-                <div className="flex flex-col md:flex-row items-start md:items-center justify-between text-base md:text-sm 3xl:text-2xl">
-                  <span className="text-[#E97451] text-base 3xl:text-2xl">
-                    Where did you find out about LLA?
-                  </span>
-                  <span>{admissionData?.Message}</span>
-                </div>
-              )
-            }
+            {admissionData?.Message && (
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between text-base md:text-sm 3xl:text-2xl">
+                <span className="text-[#E97451] text-base 3xl:text-2xl">
+                  Where did you find out about LLA?
+                </span>
+                <span>{admissionData?.Message}</span>
+              </div>
+            )}
 
             <Section
               title="Portfolio Images"

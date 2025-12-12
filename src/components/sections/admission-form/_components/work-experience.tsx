@@ -84,7 +84,7 @@ export function WorkExperience({
               control={control}
               label="Enter Duration"
             />
-           
+
             <FormFileUploadButton
               name={`Work_Experience.${index}.reference_letter`}
               control={control}
