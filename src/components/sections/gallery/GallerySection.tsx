@@ -4,13 +4,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { getGalleryPageData } from "@/app/api/server";
 import { DialogClose } from "@/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Skeleton } from "@/components/ui/skeleton";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
@@ -74,6 +69,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   const [imageCards, setImageCards] = useState(initialData.ImageCard || []);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [galleryData, setGalleryData] = useState<GalleryData>(initialData);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -125,14 +121,14 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   const skeletonIdRef = useRef(0);
 
   const skeletonKeys = useMemo(() => {
-    if (!loading) return [];
+    if (!loadingMore) return [];
     skeletonIdRef.current += 1;
     const perPage = 9;
     return Array.from(
       { length: perPage },
       (_, i) => `skeleton-${skeletonIdRef.current}-${i}`,
     );
-  }, [loading]);
+  }, [loadingMore]);
 
   useEffect(() => {
     if (!selectedType) return;
@@ -166,8 +162,9 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
     }
   }, [selectedType, isMounted]);
   const loadMore = async () => {
-    if (loading || imageCards.length >= total || !selectedType) return;
-    setLoading(true);
+    if (loading || loadingMore || imageCards.length >= total || !selectedType)
+      return;
+    setLoadingMore(true);
     try {
       const nextPage = page + 1;
       const params: { page: number; per_page: number; type: string } = {
@@ -182,7 +179,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
         setPage(nextPage);
       }
     } finally {
-      setLoading(false);
+      setLoadingMore(false);
     }
   };
 
@@ -282,27 +279,41 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
             </div>
 
             {uniqueTypes.length > 0 && (
-              <div className="relative w-full md:w-auto md:min-w-[200px]">
-                <Select value={selectedType} onValueChange={setSelectedType}>
-                  <SelectTrigger className="w-full md:w-[200px] rounded-full border-[#E97451]">
-                    <SelectValue placeholder="Filter by type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {uniqueTypes.map((type) => (
-                      <SelectItem key={type} value={type}>
-                        {type
-                          .replace(/-/g, " ")
-                          .replace(/\b\w/g, (l) => l.toUpperCase())}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+              <RadioGroup
+                value={selectedType}
+                onValueChange={setSelectedType}
+                className="flex flex-wrap items-center gap-4 md:gap-6"
+              >
+                {uniqueTypes.map((type) => {
+                  const formattedType = type
+                    .replace(/-/g, " ")
+                    .replace(/\b\w/g, (l) => l.toUpperCase());
+                  const radioId = `filter-${type}`;
+                  return (
+                    <div
+                      key={type}
+                      className="flex items-center gap-2 cursor-pointer"
+                    >
+                      <RadioGroupItem
+                        value={type}
+                        id={radioId}
+                        className="border-[#E97451] data-[state=checked]:border-[#E97451]"
+                      />
+                      <Label
+                        htmlFor={radioId}
+                        className="text-[16px] font-normal text-black cursor-pointer"
+                      >
+                        {formattedType}
+                      </Label>
+                    </div>
+                  );
+                })}
+              </RadioGroup>
             )}
           </div>
 
           <div className="w-full" suppressHydrationWarning>
-            {(allImages.length > 0 || loading) &&
+            {allImages.length > 0 &&
               (isMounted ? (
                 <div className="-m-3">
                   <ResponsiveMasonry
@@ -318,7 +329,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
                           {renderGalleryItem(item, index)}
                         </div>
                       ))}
-                      {loading &&
+                      {loadingMore &&
                         skeletonKeys.length > 0 &&
                         skeletonKeys.map((key, index) => (
                           <div key={key} className="w-full p-3">
@@ -341,7 +352,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
                   {allImages.map((item, index) => (
                     <div key={item.id}>{renderGalleryItem(item, index)}</div>
                   ))}
-                  {loading &&
+                  {loadingMore &&
                     skeletonKeys.length > 0 &&
                     skeletonKeys.map((key, index) => (
                       <div key={key}>
@@ -360,7 +371,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
               ))}
           </div>
 
-          {!loading && imageCards.length < total && (
+          {!loading && !loadingMore && imageCards.length < total && (
             <div className="flex justify-center items-center mt-6">
               <ButtonWidget
                 className="orange-button-white group rounded-[60px] px-6 h-10 xss:text-[16px] 3xl:h-[50px] text-xs 2xl:text-[14px] 3xl:text-[18px] flex items-center justify-center gap-2"
