@@ -273,7 +273,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
               <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
                 {galleryData?.Title || initialData?.Title || "Gallery"}
               </h3>
-              <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[600px]">
+              <p className="text-[16px] lg:text-[16px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[600px]">
                 {galleryData?.Description || initialData?.Description || ""}
               </p>
             </div>

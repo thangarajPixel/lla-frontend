@@ -95,7 +95,7 @@ const OverviewSection = ({ data }: { data: MenuData }) => {
               return (
                 <p
                   key={key}
-                  className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal w-full "
+                  className="text-[16px] lg:text-[16px] 3xl:text-[18px] font-normal text-black leading-normal w-full "
                 >
                   {paragraphText}
                 </p>
