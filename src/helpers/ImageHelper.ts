@@ -66,3 +66,5 @@ export {
   default as FooterLogo,
   default as Logo,
 } from "@/assets/images/logo-white.svg";
+
+export { default as Website } from "@/assets/icons/website.png";
