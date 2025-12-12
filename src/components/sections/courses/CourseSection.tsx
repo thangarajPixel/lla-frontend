@@ -53,7 +53,7 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
     }
   };
 
-  const handleOuterTitleScroll = (
+  const _handleOuterTitleScroll = (
     e: React.MouseEvent<HTMLElement>,
     cardId: number,
   ) => {
@@ -138,10 +138,13 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
                   Object.keys(groupedByOuterTitle).length > 0 && (
                     <ul className="ml-4">
                       {Object.entries(groupedByOuterTitle).map(
-                        ([outerTitle, cards]) =>
+                        ([outerTitle]) =>
                           outerTitle !== "" && (
-                            <li key={outerTitle}>
-                              <LinkWidget
+                            <li
+                              key={outerTitle}
+                              className="block px-4 py-2 text-[14px] 3xl:text-[17px] text-gray-700 font-medium transition-colors duration-200 cursor-pointer hover:text-[#E97451]"
+                            >
+                              {/* <LinkWidget
                                 href={`#course-content-${cards[0]?.id}`}
                                 onClick={(e) => {
                                   if (cards[0]?.id) {
@@ -149,9 +152,9 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
                                   }
                                 }}
                                 className="block px-4 py-2 text-[14px] 3xl:text-[17px] text-gray-700 font-medium transition-colors duration-200 cursor-pointer hover:text-[#E97451]"
-                              >
-                                {outerTitle}
-                              </LinkWidget>
+                              > */}
+                              {outerTitle}
+                              {/* </LinkWidget> */}
                             </li>
                           ),
                       )}
