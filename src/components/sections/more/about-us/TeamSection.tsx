@@ -5,6 +5,7 @@ import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import type { TeamSectionProps } from "./utils/about-us";
+import HTMLWidget from "@/components/widgets/HTMLWidget";
 
 const TeamSection = ({ data }: TeamSectionProps) => {
   const facultyData = [
@@ -57,20 +58,15 @@ const TeamSection = ({ data }: TeamSectionProps) => {
             >
               {data.Title}
             </h3>
-          </ScrollWidget>
-          <ScrollWidget delay={0.15}>
-            <p
-              className="
-              font-area-variable font-semibold text-black 
+             <HTMLWidget
+                  content={data.Heading}
+                   className=" font-area-variable font-semibold text-black 
               text-left sm:text-center
               text-base sm:text-lg md:text-xl lg:text-2xl 
               xl:text-3xl 2xl:text-[32px] 3xl:text-[40px] 4xl:text-[45px]
-              max-w-[1100px] mx-auto
-            "
-            >
-              {data.Heading}
-              <span className="text-[#E97451] ml-2">{data.SubHeading}</span>
-            </p>
+              max-w-[1100px] mx-auto"
+                     tag="p"
+                  />
           </ScrollWidget>
         </div>
         <div className="py-7 pb-9 sm sm:py-8 md:py-14 lg:py-12 xl:py-12 2xl:py-16 3xl:py-20 4xl:py-15">
@@ -86,7 +82,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
                   className={`${faculty.className} group min-w-[171px] max-w-[360px]  bg-white
                             hover:bg-[#E97451]/20 cursor-pointer
                             transition-colors duration-500 ease-out
-                            px-3 py-3 flex flex-col
+                            px-2 py-2 flex flex-col
                             min-h-[300px] xs:min-h-[310px] sm:min-h-[310px] md:min-h-[300px] lg:min-h-[300px]
                             xl:min-h-[340px] 2xl:min-h-[410px] 3xl:min-h-[480px] 4xl:min-h-[500px]`}
                 >

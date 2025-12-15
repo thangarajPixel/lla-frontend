@@ -3,6 +3,7 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import type { AboutHeroSectionProps } from "./utils/about-us";
+import HTMLWidget from "@/components/widgets/HTMLWidget";
 
 const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
   return (
@@ -43,14 +44,14 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
             </ScrollWidget>
             <div className="flex flex-col items-start justify-start gap-2 md:gap-2">
               <ScrollWidget animation="slideLeft" delay={0.2}>
-                <p
-                  className="mb-3 font-mulish font-normal font-regular leading-[32px] 3xl:leading-[48px]  text-[24px] md:text-[28px] lg:text-[28px] xl:text-[24px] 
-                2xl:text-[30px] 3xl:text-[40px] text-black sm:max-w-[600px] md:max-w-[750px] lg:max-w-[800px] 
-                xl:max-w-[550px] 2xl:max-w-[650px] 3xl:max-w-[852px]"
-                >
-                  {data.Heading}
-                  <span className="text-[#E97451] ml-2">{data.SubHeading}</span>
-                </p>
+                <HTMLWidget
+                  content={data.Heading}
+                      className="mb-3 font-mulish font-normal font-regular leading-[32px] 3xl:leading-[48px]  text-[24px] md:text-[28px] lg:text-[28px] xl:text-[24px] 
+                       2xl:text-[30px] 3xl:text-[40px] text-black sm:max-w-[600px] md:max-w-[750px] lg:max-w-[800px] 
+                      xl:max-w-[550px] 2xl:max-w-[650px] 3xl:max-w-[852px]"
+                     tag="p"
+                   />
+
               </ScrollWidget>
               {data.Description?.map((item, index) => {
                 const textContent = item.children?.[0]?.text || "";
