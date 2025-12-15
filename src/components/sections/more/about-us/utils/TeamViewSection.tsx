@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
@@ -68,11 +68,12 @@ const TeamViewSection = ({ data }: TeamViewSectionProps) => {
   const [isMounted, setIsMounted] = useState(false);
 
   // Helper function to extract data from either format
-  const extractData = (
-    inputData: TeamViewSectionData | ApiResponse,
-  ): TeamViewSectionData => {
-    return "data" in inputData ? inputData.data : inputData;
-  };
+  const extractData = useCallback(
+    (inputData: TeamViewSectionData | ApiResponse): TeamViewSectionData => {
+      return "data" in inputData ? inputData.data : inputData;
+    },
+    [],
+  );
 
   const [currentData, setCurrentData] = useState<TeamViewSectionData>(
     extractData(data),
