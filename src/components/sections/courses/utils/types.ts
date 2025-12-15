@@ -11,15 +11,10 @@ export type DescriptionText = {
   text: string;
 };
 
-export type DescriptionParagraph = {
-  type: "paragraph";
-  children: DescriptionText[];
-};
-
 export type MenuData = {
   id: number;
   Title: string;
-  Description: DescriptionParagraph[];
+  Description: string | null;
   Btn_txt: string | null;
   SubTitle: string | null;
   Duration: string | null;

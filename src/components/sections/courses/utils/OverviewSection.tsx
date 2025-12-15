@@ -1,19 +1,19 @@
 "use client";
+import Autoplay from "embla-carousel-autoplay";
+import useEmblaCarousel from "embla-carousel-react";
+import { useEffect, useState } from "react";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
+import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import { Dummy1 } from "@/helpers/ImageHelper";
-import Autoplay from "embla-carousel-autoplay";
-import useEmblaCarousel from "embla-carousel-react";
-import { useEffect, useState } from "react";
 import type { ImageData, MenuData } from "./types";
 
 const OverviewSection = ({ data }: { data: MenuData }) => {
-   
   const aboutImages: ImageData[] = data.Image ? data.Image : [];
   const [currentIndices, setCurrentIndices] = useState([0, 1, 2]);
   const [variant, setVariant] = useState<"default" | "variant-2" | "variant-3">(
@@ -87,7 +87,9 @@ const OverviewSection = ({ data }: { data: MenuData }) => {
                 </>
               )}
             </p>
-            <p dangerouslySetInnerHTML={{ __html: data?.Description }}></p>
+            {data?.Description && (
+              <HTMLWidget content={data.Description} tag="p" />
+            )}
             {data.Btn_txt && (
               <div className="self-start">
                 <LinkWidget href="/admission" className="w-full">
