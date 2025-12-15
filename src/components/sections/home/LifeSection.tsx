@@ -13,6 +13,7 @@ import { Life, LifeMobile } from "@/helpers/ImageHelper";
 import type { LifeCardProps, LifeSectionProps } from "./utils/home";
 
 const LifeCard = ({ card }: LifeCardProps) => (
+   <LinkWidget href={`/more/life-at-lla/${card.Slug}`}>
   <div className="bg-white/30 p-3 sm:p-4 lg:p-4 xl:p-5 3xl:p-6 hover:bg-white transition-all duration-300 cursor-pointer 3xl:w-[300px] 3xl:min-w-[300px] 3xl:max-w-[300px]">
     <h4 className="text-base xss:text-[24px] sm:text-lg md:text-xl lg:text-[18px] 2xl:text-[18px] 3xl:text-[24px] font-bold text-black font-mulish leading-tight mb-2 lg:mb-3 3xl:mb-4">
       {card.Title}
@@ -29,6 +30,7 @@ const LifeCard = ({ card }: LifeCardProps) => (
       {card.Description}
     </p>
   </div>
+  </LinkWidget>
 );
 
 const LifeSection = ({ data }: LifeSectionProps) => {

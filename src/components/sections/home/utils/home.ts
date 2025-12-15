@@ -62,6 +62,7 @@ export type FacultySectionProps = {
     Btn_txt: string;
     Card: Array<{
       id: number;
+      Slug: string;
       Title: string;
       Description: string;
       Btn_txt: string;
@@ -85,6 +86,7 @@ export type LifeSectionProps = {
     Btn_txt: string;
     Card: Array<{
       id: number;
+      Slug: string;
       Title: string;
       Description: string;
       Btn_txt: string | null;
@@ -100,6 +102,7 @@ export type LifeSectionProps = {
 export type LifeCardProps = {
   card: {
     id: number;
+    Slug: string;
     Title: string;
     Description: string;
     Image: Array<{
