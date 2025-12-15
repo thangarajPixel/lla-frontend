@@ -62,6 +62,7 @@ export type TeamSectionProps = {
     SubHeading: string;
     Card: Array<{
       id: number;
+      Slug: string;
       Title: string;
       Description: string;
       Btn_txt: string;

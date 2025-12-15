@@ -6,6 +6,7 @@ import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import type { TeamSectionProps } from "./utils/about-us";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
+import LinkWidget from "@/components/widgets/LinkWidget";
 
 const TeamSection = ({ data }: TeamSectionProps) => {
   const facultyData = [
@@ -15,6 +16,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
       description: data?.Card[0]?.Description,
       imageUrl: getS3Url(data?.Card[0]?.Image[0]?.url),
       Btn_txt: data?.Card[0]?.Btn_txt,
+      Slug: data?.Card[0]?.Slug,
       className: "mt-0 md:mt-0 lg:mt-15 xl:mt-15 2xl:mt-15 3xl:mt-20 4xl:mt-25",
     },
     {
@@ -23,6 +25,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
       description: data?.Card[1]?.Description,
       imageUrl: getS3Url(data?.Card[1]?.Image[0]?.url),
       Btn_txt: data?.Card[1]?.Btn_txt,
+      Slug: data?.Card[1]?.Slug,
       className: "mt-0 md:mt-0 lg:mt-45 xl:mt-45 2xl:mt-45 3xl:mt-50 4xl:mt-55",
     },
     {
@@ -30,6 +33,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
       name: data?.Card[2]?.Title,
       description: data?.Card[2]?.Description,
       imageUrl: getS3Url(data?.Card[2]?.Image[0]?.url),
+      Slug: data?.Card[2]?.Slug,
       Btn_txt: data?.Card[2]?.Btn_txt,
     },
     {
@@ -38,8 +42,8 @@ const TeamSection = ({ data }: TeamSectionProps) => {
       description: data?.Card[3]?.Description,
       imageUrl: getS3Url(data?.Card[3]?.Image[0]?.url),
       Btn_txt: data?.Card[3]?.Btn_txt,
-      className:
-        " mt-0 md:mt-0 lg:mt-15 xl:mt-15 2xl:mt-15 3xl:mt-20 4xl:mt-25",
+      Slug: data?.Card[3]?.Slug,
+      className:" mt-0 md:mt-0 lg:mt-15 xl:mt-15 2xl:mt-15 3xl:mt-20 4xl:mt-25",
     },
   ];
 
@@ -78,6 +82,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
           >
             {facultyData.map((faculty) => (
               <ScrollWidget key={faculty.id} animation="scale" delay={0.1}>
+                
                 <div
                   className={`${faculty.className} group min-w-[171px] max-w-[360px]  bg-white
                             hover:bg-[#E97451]/20 cursor-pointer
@@ -111,7 +116,9 @@ const TeamSection = ({ data }: TeamSectionProps) => {
                     {faculty.description}
                   </p>
                   <div className="mt-2 self-start opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out">
+                    <LinkWidget   href={`/more/about-us/team/${faculty.Slug}`}>
                     <OrangeButtonWidget content={faculty.Btn_txt} />
+                    </LinkWidget>
                   </div>
                 </div>
               </ScrollWidget>
