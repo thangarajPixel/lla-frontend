@@ -113,6 +113,6 @@ export async function getFacultyBySlug(slug: string, page: string) {
   return fetchData(`/faculty/view/${slug}?page=${page}`);
 }
 
-export async function getTeamBySlug(slug: string,page: string) {
+export async function getTeamBySlug(slug: string, page: string) {
   return fetchData(`/about/team/${slug}?page=${page}`);
 }

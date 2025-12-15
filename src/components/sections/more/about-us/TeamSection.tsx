@@ -1,12 +1,11 @@
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import type { TeamSectionProps } from "./utils/about-us";
-import HTMLWidget from "@/components/widgets/HTMLWidget";
-import LinkWidget from "@/components/widgets/LinkWidget";
 
 const TeamSection = ({ data }: TeamSectionProps) => {
   const facultyData = [
@@ -43,7 +42,8 @@ const TeamSection = ({ data }: TeamSectionProps) => {
       imageUrl: getS3Url(data?.Card[3]?.Image[0]?.url),
       Btn_txt: data?.Card[3]?.Btn_txt,
       Slug: data?.Card[3]?.Slug,
-      className:" mt-0 md:mt-0 lg:mt-15 xl:mt-15 2xl:mt-15 3xl:mt-20 4xl:mt-25",
+      className:
+        " mt-0 md:mt-0 lg:mt-15 xl:mt-15 2xl:mt-15 3xl:mt-20 4xl:mt-25",
     },
   ];
 
@@ -62,7 +62,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
             >
               {data.Title}
             </h3>
-             {/* <HTMLWidget
+            {/* <HTMLWidget
                   content={data.Heading}
                    className=" font-area-variable font-semibold text-black 
               text-left sm:text-center
@@ -82,7 +82,6 @@ const TeamSection = ({ data }: TeamSectionProps) => {
           >
             {facultyData.map((faculty) => (
               <ScrollWidget key={faculty.id} animation="scale" delay={0.1}>
-                
                 <div
                   className={`${faculty.className} group min-w-[171px] max-w-[360px]  bg-white
                             hover:bg-[#E97451]/20 cursor-pointer
@@ -116,8 +115,8 @@ const TeamSection = ({ data }: TeamSectionProps) => {
                     {faculty.description}
                   </p>
                   <div className="mt-2 self-start opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out">
-                    <LinkWidget   href={`/more/about-us/team/${faculty.Slug}`}>
-                    <OrangeButtonWidget content={faculty.Btn_txt} />
+                    <LinkWidget href={`/more/about-us/team/${faculty.Slug}`}>
+                      <OrangeButtonWidget content={faculty.Btn_txt} />
                     </LinkWidget>
                   </div>
                 </div>

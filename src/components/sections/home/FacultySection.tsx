@@ -77,7 +77,10 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                     {faculty.Description}
                   </p>
                   <div className="self-start mt-auto">
-                    <LinkWidget href={`/faculty/${faculty.Slug}`} className="w-full">
+                    <LinkWidget
+                      href={`/faculty/${faculty.Slug}`}
+                      className="w-full"
+                    >
                       <OrangeButtonWidget content={faculty.Btn_txt} />
                     </LinkWidget>
                   </div>
@@ -138,7 +141,10 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                           {faculty.Description}
                         </p>
                         <div className="self-start mt-3">
-                            <LinkWidget href={`/faculty/filmmaking/${faculty.Slug}`} className="w-full">
+                          <LinkWidget
+                            href={`/faculty/filmmaking/${faculty.Slug}`}
+                            className="w-full"
+                          >
                             <OrangeButtonWidget
                               content={faculty.Btn_txt || "Know More"}
                             />
