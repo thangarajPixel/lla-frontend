@@ -12,7 +12,6 @@ import { getS3Url, splitIntoTwoArrays } from "@/helpers/ConstantHelper";
 import type { GallerySectionProps } from "./utils/home";
 
 const GallertSection = ({ data }: GallerySectionProps) => {
-
   console.log(data);
   const verticalImages = data.Vertical_Image;
   const galleryImages = data.Image;
@@ -25,7 +24,8 @@ const GallertSection = ({ data }: GallerySectionProps) => {
     return Array.from({ length: 9 }, (_, i) => i + 1);
   });
 
-  const [randomVerticalImageIndex, setRandomVerticalImageIndex] = useState<number>(0);
+  const [randomVerticalImageIndex, setRandomVerticalImageIndex] =
+    useState<number>(0);
 
   useEffect(() => {
     const initializeIndices = () => {
