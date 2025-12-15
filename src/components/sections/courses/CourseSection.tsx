@@ -53,28 +53,64 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
     }
   };
 
-  const _handleOuterTitleScroll = (
+  const handleOuterTitleScroll = (
     e: React.MouseEvent<HTMLElement>,
     cardId: number,
   ) => {
     e.preventDefault();
     const targetElement = document.getElementById(`course-content-${cardId}`);
 
-    if (targetElement) {
-      const headerOffset = 100;
-      const elementPosition = targetElement.getBoundingClientRect().top;
+    if (!targetElement) {
+      setIsSheetOpen(false);
+      return;
+    }
+
+    let stickyContainer = targetElement.parentElement;
+    while (
+      stickyContainer &&
+      !stickyContainer.classList.contains("sticky")
+    ) {
+      stickyContainer = stickyContainer.parentElement;
+    }
+
+    const elementToScroll = stickyContainer || targetElement;
+    const headerOffset = 100;
+
+    if (stickyContainer) {
+      const originalClass = stickyContainer.className;
+      stickyContainer.className = originalClass.replace(/\bsticky\b/g, "").trim();
+      
+      void stickyContainer.offsetHeight;
+      
+      const rect = stickyContainer.getBoundingClientRect();
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const absoluteTop = rect.top + scrollTop;
+      
+      stickyContainer.className = originalClass;
+      
       const scrollMarginTop = parseFloat(
-        window.getComputedStyle(targetElement).scrollMarginTop || "96",
+        window.getComputedStyle(stickyContainer).scrollMarginTop || "0",
+      );
+      const offsetPosition = absoluteTop - headerOffset - scrollMarginTop;
+
+      window.scrollTo({
+        top: Math.max(0, offsetPosition),
+        behavior: "smooth",
+      });
+    } else {
+      const elementPosition = elementToScroll.getBoundingClientRect().top;
+      const scrollMarginTop = parseFloat(
+        window.getComputedStyle(elementToScroll).scrollMarginTop || "0",
       );
       const offsetPosition =
         elementPosition + window.pageYOffset - headerOffset - scrollMarginTop;
 
       window.scrollTo({
-        top: Math.max(0, offsetPosition - 100),
+        top: Math.max(0, offsetPosition),
         behavior: "smooth",
       });
-      setIsSheetOpen(false);
     }
+    setIsSheetOpen(false);
   };
 
   useEffect(() => {
@@ -138,23 +174,20 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
                   Object.keys(groupedByOuterTitle).length > 0 && (
                     <ul className="ml-4">
                       {Object.entries(groupedByOuterTitle).map(
-                        ([outerTitle]) =>
+                        ([outerTitle, cards]) =>
                           outerTitle !== "" && (
-                            <li
-                              key={outerTitle}
-                              className="block px-4 py-2 text-[14px] 3xl:text-[17px] text-gray-700 font-medium transition-colors duration-200 cursor-pointer hover:text-[#E97451]"
-                            >
-                              {/* <LinkWidget
-                                href={`#course-content-${cards[0]?.id}`}
+                            <li key={outerTitle}>
+                              <LinkWidget
+                                href={`#course-content-${cards[0]?.id || 0}`}
                                 onClick={(e) => {
                                   if (cards[0]?.id) {
                                     handleOuterTitleScroll(e, cards[0].id);
                                   }
                                 }}
                                 className="block px-4 py-2 text-[14px] 3xl:text-[17px] text-gray-700 font-medium transition-colors duration-200 cursor-pointer hover:text-[#E97451]"
-                              > */}
-                              {outerTitle}
-                              {/* </LinkWidget> */}
+                              >
+                                {outerTitle}
+                              </LinkWidget>
                             </li>
                           ),
                       )}
