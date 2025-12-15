@@ -66,10 +66,7 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
     }
 
     let stickyContainer = targetElement.parentElement;
-    while (
-      stickyContainer &&
-      !stickyContainer.classList.contains("sticky")
-    ) {
+    while (stickyContainer && !stickyContainer.classList.contains("sticky")) {
       stickyContainer = stickyContainer.parentElement;
     }
 
@@ -78,16 +75,19 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
 
     if (stickyContainer) {
       const originalClass = stickyContainer.className;
-      stickyContainer.className = originalClass.replace(/\bsticky\b/g, "").trim();
-      
+      stickyContainer.className = originalClass
+        .replace(/\bsticky\b/g, "")
+        .trim();
+
       void stickyContainer.offsetHeight;
-      
+
       const rect = stickyContainer.getBoundingClientRect();
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
       const absoluteTop = rect.top + scrollTop;
-      
+
       stickyContainer.className = originalClass;
-      
+
       const scrollMarginTop = parseFloat(
         window.getComputedStyle(stickyContainer).scrollMarginTop || "0",
       );
