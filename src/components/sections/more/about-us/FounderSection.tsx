@@ -26,11 +26,11 @@ const FounderSection = ({ data }: FounderSectionProps) => {
             <h3 className="font-urbanist font-regular text-black text-left xs:text-left md:text-center text-[32px] xs:text-[34px] sm:text-[36px] md:text-[40px] lg:text-[48px] xl:text-[56px] 2xl:text-[64px] 3xl:text-[64px] 4xl:text-[64px]">
               {data.Title}
             </h3>
-              <HTMLWidget
+              {/* <HTMLWidget
                   content={data.Heading}
                    className="font-mulish font-regular text-black text-left xs:text-left md:text-center text-[24px] xs:text-[25px] sm:text-[26px] md:text-[28px] lg:text-[28px] xl:text-[30px] 2xl:text-[35px] 3xl:text-[40px] 4xl:text-[45px] mx-auto max-w-[500px] xs:max-w-[600px] sm:max-w-[650px] md:max-w-[700px] lg:max-w-[850px] xl:max-w-[600px]"
                      tag="p"
-                  />
+                  /> */}
           </ScrollWidget>
         </div>
         <div className="mt-2 xs:mt-6 sm:mt-12 md:mt-10 space-y-3 sm:space-y-10 md:space-y-12 ">
