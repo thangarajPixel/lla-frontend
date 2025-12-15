@@ -15,7 +15,7 @@ const AboutSection = ({ data }: AboutSectionProps) => {
   const aboutImages = data?.Image;
   const [currentIndices, setCurrentIndices] = useState([0, 1, 2]);
   const [variant, setVariant] = useState<"default" | "variant-2" | "variant-3">(
-    "default",
+    "default"
   );
 
   useEffect(() => {
@@ -61,15 +61,15 @@ const AboutSection = ({ data }: AboutSectionProps) => {
         stopOnInteraction: false,
         stopOnMouseEnter: true,
       }),
-    ],
+    ]
   );
 
   if (data?.Image?.length === 0) return null;
   return (
     <section className="w-full bg-[#ECECEC] flex flex-col items-center justify-center z-40 relative py-10 sm:py-30 h-full ">
       <ContainerWidget>
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 xl:gap-2.5 2xl:gap-5 3xl:gap-[30px]">
-          <div className="flex flex-col gap-4.5 justify-center md:-mt-15">
+        <div className="flex flex-col xl:flex-row gap-6 xl:gap-5 3xl:gap-[30px]">
+          <div className="flex flex-col gap-4.5 justify-center md:-mt-15 w-full xl:w-[420px] 2xl:w-[460px] 3xl:w-[520px]">
             <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
               {data.Title}
             </h3>
@@ -88,7 +88,7 @@ const AboutSection = ({ data }: AboutSectionProps) => {
             </div>
           </div>
           <ScrollWidget delay={0.1} animation="fadeUp">
-            <div className="hidden xl:block">
+            <div className="hidden xl:block ">
               <div
                 className={`frame-39 property-1-${variant} relative xl:h-[445px] 2xl:h-[628px] 3xl:h-[808px] -mt-10 box-border`}
               >
@@ -98,8 +98,8 @@ const AboutSection = ({ data }: AboutSectionProps) => {
                       variant === "variant-2"
                         ? "opacity-50 xl:w-[230px] xl:h-40 xl:left-60 2xl:w-[310px] 2xl:h-[211px] 2xl:left-[280px] top-0 z-10 3xl:w-[410px] 3xl:h-[271px] 3xl:left-[390px]"
                         : variant === "variant-3"
-                          ? "xl:w-[420px] xl:h-[283px] 2xl:w-[540px] 2xl:h-[393px] 2xl:top-[145px] left-0 top-[115px] z-20 3xl:top-[205px] 3xl:w-[740px] 3xl:h-[493px] "
-                          : "opacity-50 xl:w-[290px] xl:h-[200px] xl:left-[205px] 2xl:w-[381px] 2xl:h-[300px] 2xl:left-[293px] top-[265px]  2xl:top-[342px] z-10 3xl:w-[541px] 3xl:h-[360px] 3xl:top-[448px] 3xl:left-[313px]"
+                        ? "xl:w-[420px] xl:h-[283px] 2xl:w-[540px] 2xl:h-[393px] 2xl:top-[145px] left-0 top-[115px] z-20 3xl:top-[205px] 3xl:w-[740px] 3xl:h-[493px] "
+                        : "opacity-50 xl:w-[290px] xl:h-[200px] xl:left-[205px] 2xl:w-[381px] 2xl:h-[300px] 2xl:left-[293px] top-[265px]  2xl:top-[342px] z-10 3xl:w-[541px] 3xl:h-[360px] 3xl:top-[448px] 3xl:left-[313px]"
                     }`}
                   >
                     <ImageWidget
@@ -116,8 +116,8 @@ const AboutSection = ({ data }: AboutSectionProps) => {
                       variant === "variant-2"
                         ? "xl:w-[420px] xl:h-[283px] 2xl:w-[540px] 2xl:h-[393px] 2xl:top-[145px] left-0 top-[115px] z-20 3xl:top-[205px] 3xl:w-[740px] 3xl:h-[493px] "
                         : variant === "variant-3"
-                          ? "opacity-50 xl:w-[290px] xl:h-[200px] xl:left-[205px] 2xl:w-[381px] 2xl:h-[300px] 2xl:left-[293px] top-[265px]  2xl:top-[342px] z-10 3xl:w-[541px] 3xl:h-[360px] 3xl:top-[448px] 3xl:left-[313px]"
-                          : "opacity-50 xl:w-[230px] xl:h-40 xl:left-60 2xl:w-[310px] 2xl:h-[211px] 2xl:left-[280px] top-0 z-10 3xl:w-[410px] 3xl:h-[271px] 3xl:left-[390px]"
+                        ? "opacity-50 xl:w-[290px] xl:h-[200px] xl:left-[205px] 2xl:w-[381px] 2xl:h-[300px] 2xl:left-[293px] top-[265px]  2xl:top-[342px] z-10 3xl:w-[541px] 3xl:h-[360px] 3xl:top-[448px] 3xl:left-[313px]"
+                        : "opacity-50 xl:w-[230px] xl:h-40 xl:left-60 2xl:w-[310px] 2xl:h-[211px] 2xl:left-[280px] top-0 z-10 3xl:w-[410px] 3xl:h-[271px] 3xl:left-[390px]"
                     }`}
                   >
                     <ImageWidget
@@ -134,8 +134,8 @@ const AboutSection = ({ data }: AboutSectionProps) => {
                       variant === "variant-2"
                         ? "opacity-50 xl:w-[290px] xl:h-[200px] xl:left-[205px] 2xl:w-[381px] 2xl:h-[300px] 2xl:left-[293px] top-[265px]  2xl:top-[342px] z-10 3xl:w-[541px] 3xl:h-[360px] 3xl:top-[448px] 3xl:left-[313px]"
                         : variant === "variant-3"
-                          ? "opacity-50 xl:w-[230px] xl:h-40 xl:left-60 2xl:w-[310px] 2xl:h-[211px] 2xl:left-[280px] top-0 z-10 3xl:w-[410px] 3xl:h-[271px] 3xl:left-[390px]"
-                          : "xl:w-[420px] xl:h-[283px] 2xl:w-[540px] 2xl:h-[393px] 2xl:top-[145px] left-0 top-[115px] z-20 3xl:top-[205px] 3xl:w-[740px] 3xl:h-[493px] "
+                        ? "opacity-50 xl:w-[230px] xl:h-40 xl:left-60 2xl:w-[310px] 2xl:h-[211px] 2xl:left-[280px] top-0 z-10 3xl:w-[410px] 3xl:h-[271px] 3xl:left-[390px]"
+                        : "xl:w-[420px] xl:h-[283px] 2xl:w-[540px] 2xl:h-[393px] 2xl:top-[145px] left-0 top-[115px] z-20 3xl:top-[205px] 3xl:w-[740px] 3xl:h-[493px] "
                     }`}
                   >
                     <ImageWidget
