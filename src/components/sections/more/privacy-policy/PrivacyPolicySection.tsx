@@ -25,11 +25,11 @@ const PrivacyPolicySection = ({ data }: PrivacyPolicyProps) => {
               <h2 className="text-2xl md:text-3xl font-semibold text-black mb-6">
                 {item.Title}
               </h2>
-              <div className="space-y-4 pl-4">
+              <div className="space-y-4">
                 <div className="flex gap-3">
                   <HTMLWidget
                     content={item.Description}
-                    className="text-[16px] md:text-[14px] lg:text-[14px] xl:text-[14px] 2xl:text-[16px] 3xl:text-[18px] text-black leading-relaxed"
+                    className="ul-image text-[16px] md:text-[14px] lg:text-[14px] xl:text-[14px] 2xl:text-[16px] 3xl:text-[18px] text-black leading-relaxed"
                     tag="p"
                   />
                 </div>
