@@ -58,7 +58,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
             >
               {data.Title}
             </h3>
-             <HTMLWidget
+             {/* <HTMLWidget
                   content={data.Heading}
                    className=" font-area-variable font-semibold text-black 
               text-left sm:text-center
@@ -66,7 +66,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
               xl:text-3xl 2xl:text-[32px] 3xl:text-[40px] 4xl:text-[45px]
               max-w-[1100px] mx-auto"
                      tag="p"
-                  />
+                  /> */}
           </ScrollWidget>
         </div>
         <div className="py-7 pb-9 sm sm:py-8 md:py-14 lg:py-12 xl:py-12 2xl:py-16 3xl:py-20 4xl:py-15">
