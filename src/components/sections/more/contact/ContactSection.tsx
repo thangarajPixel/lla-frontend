@@ -66,9 +66,6 @@ export default function ContactSection({ data }: ContactSectionProps) {
                 // biome-ignore lint/security/noDangerouslySetInnerHtml: Content is sanitized from trusted CMS source
                 dangerouslySetInnerHTML={{ __html: data.Heading || "" }}
               ></p>
-              <p className="max-w-[630px] text-black text-[16px]  3xl:text-[18px] font-mulish  mt-4">
-                {data?.Description}
-              </p>
             </div>
             <div className="space-y-7">
               <div className="flex items-center gap-2">
