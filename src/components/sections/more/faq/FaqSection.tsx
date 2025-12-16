@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/accordion";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import type { FaqProps } from "./utils/faq";
+import HTMLWidget from "@/components/widgets/HTMLWidget";
 
 const FaqSection = ({ data }: FaqProps) => {
   const [activeCategory, setActiveCategory] = useState<number>(
@@ -143,14 +144,16 @@ const FaqSection = ({ data }: FaqProps) => {
                           className="bg-white border-none"
                         >
                           <AccordionTrigger className="py-4 text-left hover:no-underline cursor-pointer">
-                            <span className="text-black font-medium">
+                            <span className="text-[16px] sm:text-base md:text-[12px] lg:text-[12px] xl:text-[15px] 2xl:text-[15px] 3xl:text-[16px] font-mulish font-regular text-black">
                               {item.Question}
                             </span>
                           </AccordionTrigger>
                           <AccordionContent className="pb-4">
-                            <p className="text-black leading-relaxed whitespace-pre-line">
-                              {item.Answer}
-                            </p>
+                               <HTMLWidget
+                            content={item.Answer}
+                            className="text-[16px] sm:text-base md:text-[12px] lg:text-[12px] xl:text-[15px] 2xl:text-[15px] 3xl:text-[16px] font-mulish font-regular text-black"
+                            tag="p"
+                          />
                           </AccordionContent>
                         </AccordionItem>
                       ))}
