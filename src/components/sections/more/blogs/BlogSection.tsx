@@ -8,7 +8,7 @@ import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import { ArrowRightWhite, Dummy3 } from "@/helpers/ImageHelper";
+import { ArrowRightWhite } from "@/helpers/ImageHelper";
 
 interface BlogImage {
   id: number;
@@ -50,7 +50,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
     if (image && Array.isArray(image) && image.length > 0 && image[0]?.url) {
       return getS3Url(image[0].url);
     }
-    return Dummy3.src;
+    return "";
   };
 
   return (
@@ -58,7 +58,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
       <ContainerWidget>
         <div className="flex flex-col gap-6 md:gap-8 lg:gap-10">
           <div className="flex flex-col gap-2 md:gap-3">
-            <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
+            <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[64px] font-semibold md:font-normal text-black font-urbanist">
               {blogData?.Title || ""}
             </h3>
             <p className="text-[16px] md:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[600px]">
