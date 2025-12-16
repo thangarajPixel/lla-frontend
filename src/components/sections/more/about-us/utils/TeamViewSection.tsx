@@ -85,7 +85,6 @@ const TeamViewSection = ({ data }: TeamViewSectionProps) => {
   const teamComponent = currentData?.about?.[0];
   const teamCard = teamComponent?.Card?.[0];
   const currentPage = currentData?.pagination?.page || 1;
-  const totalPages = currentData?.pagination?.totalPages || 1;
 
   const memberName = teamCard?.Title || "Team Member";
   const portraitImage = teamCard?.Image?.[0];
@@ -122,7 +121,7 @@ const TeamViewSection = ({ data }: TeamViewSectionProps) => {
         setAnimationKey((prev) => prev + 1);
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
-    } catch (error) {
+    } catch (_error) {
     } finally {
       setIsLoading(false);
     }

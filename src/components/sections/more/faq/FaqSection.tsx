@@ -8,8 +8,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
-import type { FaqProps } from "./utils/faq";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
+import type { FaqProps } from "./utils/faq";
 
 const FaqSection = ({ data }: FaqProps) => {
   const [activeCategory, setActiveCategory] = useState<number>(
@@ -149,11 +149,11 @@ const FaqSection = ({ data }: FaqProps) => {
                             </span>
                           </AccordionTrigger>
                           <AccordionContent className="pb-4">
-                               <HTMLWidget
-                            content={item.Answer}
-                            className="text-[16px] sm:text-base md:text-[12px] lg:text-[12px] xl:text-[15px] 2xl:text-[15px] 3xl:text-[16px] font-mulish font-regular text-black"
-                            tag="p"
-                          />
+                            <HTMLWidget
+                              content={item.Answer}
+                              className="text-[16px] sm:text-base md:text-[12px] lg:text-[12px] xl:text-[15px] 2xl:text-[15px] 3xl:text-[16px] font-mulish font-regular text-black"
+                              tag="p"
+                            />
                           </AccordionContent>
                         </AccordionItem>
                       ))}
