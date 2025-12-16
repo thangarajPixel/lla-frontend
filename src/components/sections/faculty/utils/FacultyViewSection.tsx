@@ -32,27 +32,22 @@ interface FacultyCard {
   ViewCard: ViewCard[];
 }
 
-interface FacultyPhotographyComponent {
-  __component: "faculty.photography";
-  id: number;
-  Title: string;
-  Heading: string;
-  SubHeading: string;
-  Description: string;
+type FacultyViewSectionData = {
   Card: FacultyCard[];
-}
-
-type FacultyViewSectionData =
-  | {
-      Faculty?: FacultyPhotographyComponent[];
-    }
-  | FacultyPhotographyComponent[];
+  pagination: {
+    page: number;
+    pageSize: number;
+    total: number;
+    totalPages: number;
+  };
+};
 
 interface FacultyViewSectionProps {
   data: FacultyViewSectionData;
+  type: string;
 }
 
-const FacultyViewSection = ({ data }: FacultyViewSectionProps) => {
+const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
   const router = useRouter();
   const pathname = usePathname();
   const [isMounted, setIsMounted] = useState(false);
@@ -63,12 +58,7 @@ const FacultyViewSection = ({ data }: FacultyViewSectionProps) => {
 
   const slug = pathname.split("/").pop() || "";
 
-  const facultyArray = Array.isArray(currentData)
-    ? currentData
-    : currentData.Faculty || [];
-
-  const facultyComponent = facultyArray[0];
-  const facultyCard = facultyComponent?.Card?.[0];
+  const facultyCard = currentData?.Card?.[0];
   const viewCard = facultyCard?.ViewCard?.[0];
 
   const facultyName = facultyCard?.Title || "Faculty Member";
@@ -97,7 +87,7 @@ const FacultyViewSection = ({ data }: FacultyViewSectionProps) => {
     setIsLoading(true);
     try {
       const response = await clientAxios.get(
-        `/faculty/view/${slug}?page=${page}`,
+        `/faculty/view/${type}/${slug}?page=${page}`,
       );
       const responseData = response.data.data;
       if (responseData) {
