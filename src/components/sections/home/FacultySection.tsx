@@ -142,7 +142,7 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                         </p>
                         <div className="self-start mt-3">
                           <LinkWidget
-                            href={`/filmmaking/${faculty.Slug}`}
+                            href={`/photography/${faculty.Slug}`}
                             className="w-full"
                           >
                             <OrangeButtonWidget
