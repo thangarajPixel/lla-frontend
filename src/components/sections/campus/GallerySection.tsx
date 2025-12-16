@@ -175,9 +175,12 @@ const GallertSection = ({ data }: GallerySectionProps) => {
           <h2 className="text-3xl xss:text-[32px] font-normal text-black font-urbanist mb-2">
             {data.Title}
           </h2>
-          <p className="text-sm xss:text-[16px] sm:text-base lg:text-[15px] 2xl:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
-            {data.Heading}
-          </p>
+          {data?.Heading && (
+            <HTMLWidget
+              content={data?.Heading}
+              tag="p"
+            />
+          )}
           <div className="mt-6 text-left lg:text-center md:hidden">
             <LinkWidget href="/gallery" className="w-full">
               <OrangeButtonWidget content={data.Btn_txt || "View More"} />
