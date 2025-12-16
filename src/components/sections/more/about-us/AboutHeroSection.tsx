@@ -1,6 +1,10 @@
+"use client";
+
 import { Fragment } from "react/jsx-runtime";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
+import ImageWidget from "@/components/widgets/ImageWidget";
+import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import type { AboutHeroSectionProps } from "./utils/about-us";
@@ -8,24 +12,40 @@ import type { AboutHeroSectionProps } from "./utils/about-us";
 const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
   return (
     <Fragment>
-      <section className="relative z-40 max-w-[2560px] text-white bg-white py-6 md:py-6">
-        {/* Mobile BG (<md) */}
-        <div
-          className="absolute inset-0 md:hidden bg-cover bg-bottom bg-no-repeat"
-          style={{
-            backgroundImage: `url(${getS3Url(data?.Mobile_image?.url)})`,
-          }}
-        />
+      <section className="relative z-40 max-w-[2560px] text-white bg-white py-6 md:py-6 overflow-hidden">
+        <ParallaxWidget
+          speed={1.5}
+          start="top bottom"
+          end="bottom center"
+          className="absolute inset-0 md:hidden z-0"
+        >
+          <div className="absolute inset-0 w-full h-full">
+            <ImageWidget
+              src={getS3Url(data?.Mobile_image?.url)}
+              alt={data?.Mobile_image?.name || "About Us Mobile"}
+              fill
+              className="object-cover object-bottom"
+            />
+          </div>
+        </ParallaxWidget>
 
-        {/* Desktop BG (md and above) */}
+        <ParallaxWidget
+          speed={1.5}
+          start="top bottom"
+          end="bottom center"
+          className="absolute inset-0 hidden md:block z-0"
+        >
+          <div className="absolute inset-0 w-full h-full">
+            <ImageWidget
+              src={getS3Url(data?.Image?.url)}
+              alt={data?.Image?.name || "About Us"}
+              fill
+              className="object-cover object-bottom"
+            />
+          </div>
+        </ParallaxWidget>
         <div
-          className="absolute inset-0 hidden md:block bg-cover bg-bottom bg-no-repeat"
-          style={{
-            backgroundImage: `url(${getS3Url(data?.Image?.url)})`,
-          }}
-        />
-        <div
-          className="relative
+          className="relative z-10
       min-h-[1650px] 
       m:min-h-[1500px]
       xs:min-h-[1500px]
