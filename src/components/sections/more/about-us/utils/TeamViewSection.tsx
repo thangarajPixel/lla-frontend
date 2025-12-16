@@ -62,7 +62,6 @@ interface TeamViewSectionProps {
 }
 
 const TeamViewSection = ({ data }: TeamViewSectionProps) => {
-  console.log("TeamViewSection data:", data);
   const router = useRouter();
   const pathname = usePathname();
   const [isMounted, setIsMounted] = useState(false);
@@ -88,13 +87,6 @@ const TeamViewSection = ({ data }: TeamViewSectionProps) => {
   const biography = teamCard?.LongDescription || teamCard?.Description || "";
   const galleryImages = teamCard?.Image || [];
 
-  console.log("Team Component:", teamComponent);
-  console.log("Team Card:", teamCard);
-  console.log("Member Name:", memberName);
-  console.log("Portrait Image:", portraitImage);
-  console.log("Current Page:", currentPage);
-  console.log("Total Pages:", totalPages);
-
   const lightboxImages = galleryImages
     .filter((image) => image?.url)
     .map((image) => ({
@@ -119,7 +111,6 @@ const TeamViewSection = ({ data }: TeamViewSectionProps) => {
         `/about/team/${slug}?page=${page}`,
       );
       const responseData = response.data;
-      console.log("API Response:", responseData);
       if (responseData) {
         const extractedData = extractData(responseData);
         setCurrentData(extractedData);
@@ -127,7 +118,6 @@ const TeamViewSection = ({ data }: TeamViewSectionProps) => {
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
     } catch (error) {
-      console.error("Error fetching team data:", error);
     } finally {
       setIsLoading(false);
     }
