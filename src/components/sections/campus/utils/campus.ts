@@ -48,5 +48,10 @@ export type GallerySectionProps = {
       name: string;
       url: string;
     }>;
+    Vertical_Image?: Array<{
+      id: number;
+      name: string;
+      url: string;
+    }>;
   };
 };

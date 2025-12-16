@@ -3,6 +3,7 @@
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import { useEffect, useMemo, useState } from "react";
+import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
@@ -21,6 +22,7 @@ import {
 import type { GallerySectionProps } from "./utils/campus";
 
 const GallertSection = ({ data }: GallerySectionProps) => {
+  const verticalImages = data.Vertical_Image || [];
   const galleryImages = data.Image || [];
 
   const imageChunks = useMemo(() => {
@@ -28,32 +30,83 @@ const GallertSection = ({ data }: GallerySectionProps) => {
   }, [galleryImages]);
 
   const [randomIndices, setRandomIndices] = useState<number[]>(() => {
-    return Array.from({ length: 8 }, (_, i) => i);
+    return Array.from({ length: 9 }, (_, i) => i);
   });
 
+  const [randomVerticalImageIndex, setRandomVerticalImageIndex] =
+    useState<number>(0);
+
   useEffect(() => {
-    const shuffleIndices = () => {
-      if (galleryImages.length > 8) {
+    const initializeIndices = () => {
+      if (galleryImages.length > 9) {
         const shuffled = [...galleryImages]
           .map((_, index) => index)
           .sort(() => Math.random() - 0.5);
-        setRandomIndices(shuffled.slice(0, 8));
+        setRandomIndices(shuffled.slice(0, 9));
       } else {
         setRandomIndices(
           Array.from(
-            { length: Math.min(8, galleryImages.length) },
+            { length: Math.min(9, galleryImages.length) },
             (_, i) => i,
           ),
         );
       }
     };
 
-    shuffleIndices();
+    initializeIndices();
 
-    const interval = setInterval(shuffleIndices, 3000);
+    const changeOneImage = () => {
+      if (galleryImages.length === 0) return;
+
+      setRandomIndices((prevIndices) => {
+        const newIndices = [...prevIndices];
+        const randomPosition = Math.floor(Math.random() * 9);
+
+        const availableIndices = Array.from(
+          { length: galleryImages.length },
+          (_, i) => i,
+        ).filter((index) => !prevIndices.includes(index));
+
+        let randomImageIndex: number;
+        if (availableIndices.length > 0) {
+          randomImageIndex =
+            availableIndices[
+              Math.floor(Math.random() * availableIndices.length)
+            ];
+        } else {
+          randomImageIndex = Math.floor(Math.random() * galleryImages.length);
+        }
+
+        newIndices[randomPosition] = randomImageIndex;
+        return newIndices;
+      });
+    };
+
+    const interval = setInterval(changeOneImage, 1000);
 
     return () => clearInterval(interval);
   }, [galleryImages]);
+
+  useEffect(() => {
+    if (verticalImages.length === 0) return;
+
+    const initializeVerticalImage = () => {
+      const randomIndex = Math.floor(Math.random() * verticalImages.length);
+      setRandomVerticalImageIndex(randomIndex);
+    };
+
+    initializeVerticalImage();
+
+    const changeVerticalImage = () => {
+      if (verticalImages.length === 0) return;
+      const randomIndex = Math.floor(Math.random() * verticalImages.length);
+      setRandomVerticalImageIndex(randomIndex);
+    };
+
+    const interval = setInterval(changeVerticalImage, 2000);
+
+    return () => clearInterval(interval);
+  }, [verticalImages]);
 
   const getImageUrl = (position: number) => {
     const actualIndex = randomIndices[position] ?? position;
@@ -71,6 +124,13 @@ const GallertSection = ({ data }: GallerySectionProps) => {
       Dummy10,
     ];
     return fallbackImages[position % fallbackImages.length];
+  };
+
+  const getVerticalImageUrl = () => {
+    if (verticalImages[randomVerticalImageIndex]) {
+      return getS3Url(verticalImages[randomVerticalImageIndex].url);
+    }
+    return "";
   };
 
   const [emblaRef1] = useEmblaCarousel(
@@ -107,12 +167,13 @@ const GallertSection = ({ data }: GallerySectionProps) => {
     ],
   );
 
+  if (data?.Image?.length === 0) return null;
   return (
     <section className="bg-[#ECECEC]">
       <div className="w-full py-8 md:py-12 lg:py-16 xl:py-24 2xl:py-24 3xl:py-38 max-w-[1920px] mx-auto lg:w-[90vw]">
         <div className="mb-6 md:hidden text-left px-5 lg:text-center lg:pl-0">
           <h2 className="text-3xl xss:text-[32px] font-normal text-black font-urbanist mb-2">
-            {data.Title || "Gallery"}
+            {data.Title}
           </h2>
           <p className="text-sm xss:text-[16px] sm:text-base lg:text-[15px] 2xl:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
             {data.Heading}
@@ -170,9 +231,13 @@ const GallertSection = ({ data }: GallerySectionProps) => {
               <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist mb-6">
                 {data.Title || "Gallery"}
               </h2>
-              <p className="font-mulish font-normal text-base xss:text-[24px] md:text-lg lg:text-xl xl:text-[14px] 2xl:text-[14px] 3xl:text-[18px] text-black text-center relative min-w-[500px]">
-                {data.Heading}
-              </p>
+              {data?.Heading && (
+                <HTMLWidget
+                  content={data?.Heading}
+                  tag="p"
+                  className="font-mulish text-center relative min-w-[500px]"
+                />
+              )}
               <div className="mt-6 text-left lg:text-center">
                 <LinkWidget href="/gallery" className="w-full">
                   <OrangeButtonWidget content={data.Btn_txt || "View More"} />
@@ -181,7 +246,7 @@ const GallertSection = ({ data }: GallerySectionProps) => {
             </div>
             <div className="relative w-full aspect-2/3 mt-20 overflow-hidden">
               <ImageWidget
-                src={getImageUrl(7)}
+                src={getVerticalImageUrl()}
                 alt="Gallery"
                 fill
                 className="object-cover 3xl:max-w-[300px] 3xl:max-h-[300px] 3xl:min-w-[300px] 3xl:min-h-[300px]"
@@ -220,7 +285,7 @@ const GallertSection = ({ data }: GallerySectionProps) => {
               </div>
               <div className="relative w-full aspect-4/3 overflow-hidden">
                 <ImageWidget
-                  src={getImageUrl(0)}
+                  src={getImageUrl(8)}
                   alt="Gallery"
                   fill
                   className="object-cover 3xl:max-w-[300px] 3xl:max-h-[300px] 3xl:min-w-[300px] 3xl:min-h-[300px]"
