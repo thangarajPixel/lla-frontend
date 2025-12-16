@@ -239,7 +239,7 @@ const GallertSection = ({ data }: GallerySectionProps) => {
                 />
               )}
               <div className="mt-6 text-left lg:text-center">
-                <LinkWidget href="/gallery" className="w-full">
+                <LinkWidget href="/nilgiris" className="w-full">
                   <OrangeButtonWidget content={data.Btn_txt || "View More"} />
                 </LinkWidget>
               </div>

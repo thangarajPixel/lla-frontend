@@ -81,6 +81,14 @@ export async function getGalleryPageData(params?: {
   return fetchData("/gallery", params);
 }
 
+export async function getNilgirisPageData(params?: {
+  page?: number;
+  pageSize?: number;
+  type?: string;
+}) {
+  return fetchData("/nilgiris", params);
+}
+
 export async function getCoursePageData() {
   return fetchData("/course");
 }

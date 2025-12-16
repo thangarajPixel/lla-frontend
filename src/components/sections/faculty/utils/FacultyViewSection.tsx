@@ -53,7 +53,6 @@ interface FacultyViewSectionProps {
 }
 
 const FacultyViewSection = ({ data }: FacultyViewSectionProps) => {
-  
   const router = useRouter();
   const pathname = usePathname();
   const [isMounted, setIsMounted] = useState(false);
@@ -74,8 +73,7 @@ const FacultyViewSection = ({ data }: FacultyViewSectionProps) => {
 
   const facultyName = facultyCard?.Title || "Faculty Member";
   const portraitImage = facultyCard?.Image;
-  const biography =
-    viewCard?.Description || "";
+  const biography = viewCard?.Description || "";
   const galleryImages = viewCard?.Image || [];
 
   const lightboxImages = galleryImages
