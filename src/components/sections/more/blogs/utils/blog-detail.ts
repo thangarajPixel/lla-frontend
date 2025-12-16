@@ -9,6 +9,7 @@ export type BlogCard = {
   id: number;
   Title: string;
   Slug: string;
+  ImageUrl: string;
   CreatedDate: string;
   Description: string | null;
   Btn_txt?: string | null;
