@@ -8,7 +8,7 @@ import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import { ArrowRightWhite, Dummy3 } from "@/helpers/ImageHelper";
+import { ArrowRightWhite } from "@/helpers/ImageHelper";
 
 interface BlogImage {
   id: number;
@@ -50,7 +50,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
     if (image && Array.isArray(image) && image.length > 0 && image[0]?.url) {
       return getS3Url(image[0].url);
     }
-    return Dummy3.src;
+    return "";
   };
 
   return (
@@ -100,14 +100,16 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                             >
                               <div className="flex flex-col gap-4 h-full">
                                 <div className="relative w-full overflow-hidden rounded-none aspect-video">
-                                  <ImageWidget
-                                    src={imageUrl}
-                                    alt={imageAlt}
-                                    width={410}
-                                    height={272}
-                                    className="object-cover w-full h-auto 3xl:min-w-[410px] 3xl:min-h-[272px] transition-transform duration-300 group-hover:scale-105"
-                                    loading="lazy"
-                                  />
+                                  {imageUrl && (
+                                    <ImageWidget
+                                      src={imageUrl}
+                                      alt={imageAlt}
+                                      width={410}
+                                      height={272}
+                                      className="object-cover w-full h-auto 3xl:min-w-[410px] 3xl:min-h-[272px] transition-transform duration-300 group-hover:scale-105"
+                                      loading="lazy"
+                                    />
+                                  )}
                                 </div>
                                 <div className="flex flex-col gap-2">
                                   <h4 className="font-mulish  3xl:text-[24px] 2xl:text-[20px] xl:text-[18px] lg:text-[16px] md:text-[14px] text-[16px] font-bold text-black leading-tight">
