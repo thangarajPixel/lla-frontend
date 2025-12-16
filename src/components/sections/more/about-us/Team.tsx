@@ -86,7 +86,7 @@ export default function TeamMemberPopup({ cards }: TeamMemberPopupProps) {
 
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
-  }, [selected]);
+  }, []);
 
   if (!cards?.length) return null;
 
@@ -255,7 +255,7 @@ export default function TeamMemberPopup({ cards }: TeamMemberPopupProps) {
                                         `${selected.name} Gallery ${index + 1}`;
                                       return (
                                         <motion.div
-                                          key={`gallery-${index}`}
+                                          key={imageAlt}
                                           initial={{ opacity: 0, y: 10 }}
                                           animate={{ opacity: 1, y: 0 }}
                                           exit={{ opacity: 0, y: 10 }}
@@ -303,7 +303,7 @@ export default function TeamMemberPopup({ cards }: TeamMemberPopupProps) {
                                       `${selected.name} Gallery ${index + 1}`;
                                     return (
                                       <motion.div
-                                        key={`gallery-${index}`}
+                                        key={imageAlt}
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: 10 }}
