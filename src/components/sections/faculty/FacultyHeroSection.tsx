@@ -15,12 +15,14 @@ const FacultyHeroSection = ({ data }: FacultyHeroSectionProps) => {
               <h2 className="font-urbanist  font-regular font-normal text-black text-[32px] sm:text-[36px] md:text-[36px] lg:text-[48px] xl:text-[48px] 2xl:text-[60px] 3xl:text-[64px]">
                 {data.Title}
               </h2>
-              <HTMLWidget
-                content={data.Heading}
-                className="text-[24px] sm:text-[24px] md:text-[20px] lg:text-[22px] xl:text-[24px] 2xl:text-[30px] 3xl:text-[40px]
+              {data?.Heading && (
+                <HTMLWidget
+                  content={data.Heading}
+                  className="text-[24px] sm:text-[24px] md:text-[20px] lg:text-[22px] xl:text-[24px] 2xl:text-[30px] 3xl:text-[40px]
                font-regular font-mulish  text-black w-full sm:max-w-[320px] md:max-w-[375px] lg:max-w-[375px] xl:max-w-[440px] 2xl:max-w-[550px] 3xl:max-w-[606px] 3xl:leading-[48px]"
-                tag="p"
-              />
+                  tag="p"
+                />
+              )}
               <p className="text-left mt-4  font-mulish text-black text-[18px] sm:text-[14px] md:text-[17px] 3xl:text-[18px] w-full sm:max-w-[320px] md:max-w-[375px] lg:max-w-[375px] xl:max-w-[430px] 2xl:max-w-[555px] 3xl:max-w-[606px]">
                 {data.Description}
               </p>
