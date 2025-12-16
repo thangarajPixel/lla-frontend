@@ -8,7 +8,7 @@ import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import { ArrowRightWhite } from "@/helpers/ImageHelper";
+import { ArrowRightWhite, Dummy3 } from "@/helpers/ImageHelper";
 
 interface BlogImage {
   id: number;
@@ -50,7 +50,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
     if (image && Array.isArray(image) && image.length > 0 && image[0]?.url) {
       return getS3Url(image[0].url);
     }
-    return "";
+    return Dummy3.src;
   };
 
   return (
