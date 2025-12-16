@@ -83,8 +83,6 @@ const CourseContentSection = ({ data }: { data: CourseContentData }) => {
     }>,
   );
 
-  console.log(groupedSections);
-
   return (
     <section className="w-full py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 3xl:py-28">
       <ContainerWidget>
@@ -117,9 +115,9 @@ const CourseContentSection = ({ data }: { data: CourseContentData }) => {
             className="w-full"
           >
             {group.OuterTitle && (
-              <div className="bg-white pb-1 pt-6 sticky top-18 z-30">
+              <div className="bg-white pb-1 pt-10 sticky top-18 z-30">
                 <h3
-                  className={`text-3xl ${!group.OuterDescription && "mb-6"} xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-normal md:font-normal text-black font-urbanist`}
+                  className={`text-3xl ${!group.OuterDescription && "mb-6"} xss:text-[32px] md:text-[40px] font-normal md:font-normal text-black font-urbanist`}
                 >
                   {group.OuterTitle}
                 </h3>

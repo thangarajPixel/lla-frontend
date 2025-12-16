@@ -73,8 +73,7 @@ const FacultyViewSection = ({ data }: FacultyViewSectionProps) => {
 
   const facultyName = facultyCard?.Title || "Faculty Member";
   const portraitImage = facultyCard?.Image;
-  const biography =
-    viewCard?.Description || facultyComponent?.Description || "";
+  const biography = viewCard?.Description || "";
   const galleryImages = viewCard?.Image || [];
 
   const lightboxImages = galleryImages

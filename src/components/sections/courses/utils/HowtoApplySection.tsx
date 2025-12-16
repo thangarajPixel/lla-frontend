@@ -1,4 +1,5 @@
 import ContainerWidget from "@/components/widgets/ContainerWidget";
+import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
@@ -46,9 +47,13 @@ const HowtoApplySection = ({ data }: { data: HowToApplyData }) => {
                       {card.Heading}
                     </h3>
 
-                    <p className="font-mulish text-[16px] xss:text-[16px] lg:text-[17px] xl:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[760px]">
-                      {card.Description}
-                    </p>
+                    {card.Description && (
+                      <HTMLWidget
+                        content={card.Description}
+                        tag="p"
+                        className="font-mulish text-[16px] xss:text-[16px] lg:text-[17px] xl:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[760px]"
+                      />
+                    )}
                   </div>
                 </ScrollWidget>
               );
