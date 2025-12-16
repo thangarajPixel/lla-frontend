@@ -12,7 +12,6 @@ import { getS3Url, splitIntoTwoArrays } from "@/helpers/ConstantHelper";
 import type { GallerySectionProps } from "./utils/home";
 
 const GallertSection = ({ data }: GallerySectionProps) => {
-  console.log(data);
   const verticalImages = data.Vertical_Image;
   const galleryImages = data.Image;
 

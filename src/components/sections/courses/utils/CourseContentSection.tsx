@@ -83,8 +83,6 @@ const CourseContentSection = ({ data }: { data: CourseContentData }) => {
     }>,
   );
 
-  console.log(groupedSections);
-
   return (
     <section className="w-full py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 3xl:py-28">
       <ContainerWidget>
