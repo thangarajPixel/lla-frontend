@@ -19,8 +19,10 @@ import {
   Dummy10,
 } from "@/helpers/ImageHelper";
 import type { GallerySectionProps } from "./utils/campus";
+import HTMLWidget from "@/components/widgets/HTMLWidget";
 
 const GallertSection = ({ data }: GallerySectionProps) => {
+
   const galleryImages = data.Image || [];
 
   const imageChunks = useMemo(() => {
@@ -112,7 +114,7 @@ const GallertSection = ({ data }: GallerySectionProps) => {
       <div className="w-full py-8 md:py-12 lg:py-16 xl:py-24 2xl:py-24 3xl:py-38 max-w-[1920px] mx-auto lg:w-[90vw]">
         <div className="mb-6 md:hidden text-left px-5 lg:text-center lg:pl-0">
           <h2 className="text-3xl xss:text-[32px] font-normal text-black font-urbanist mb-2">
-            {data.Title || "Gallery"}
+            {data.Title}
           </h2>
           <p className="text-sm xss:text-[16px] sm:text-base lg:text-[15px] 2xl:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
             {data.Heading}
@@ -170,9 +172,9 @@ const GallertSection = ({ data }: GallerySectionProps) => {
               <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist mb-6">
                 {data.Title || "Gallery"}
               </h2>
-              <p className="font-mulish font-normal text-base xss:text-[24px] md:text-lg lg:text-xl xl:text-[14px] 2xl:text-[14px] 3xl:text-[18px] text-black text-center relative min-w-[500px]">
-                {data.Heading}
-              </p>
+              {data?.Heading && (
+                <HTMLWidget content={data?.Heading} tag="p" className="font-mulish text-center relative min-w-[500px]"/>
+              )}
               <div className="mt-6 text-left lg:text-center">
                 <LinkWidget href="/gallery" className="w-full">
                   <OrangeButtonWidget content={data.Btn_txt || "View More"} />
