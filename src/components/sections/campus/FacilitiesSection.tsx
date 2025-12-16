@@ -19,6 +19,11 @@ type FacilitiesSectionProps = {
         name: string;
         url: string;
       };
+      Thumbnail?: {
+        id: number;
+        name: string;
+        url: string;
+      } | null;
     }>;
   };
 };
@@ -41,6 +46,18 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
       lightboxIndex++;
     }
   });
+
+  const getDisplayImageUrl = (
+    facility: FacilitiesSectionProps["data"]["Card"][0],
+  ) => {
+    if (facility?.Thumbnail?.url) {
+      return getS3Url(facility.Thumbnail.url);
+    }
+    if (facility?.Image?.url) {
+      return getS3Url(facility.Image.url);
+    }
+    return "";
+  };
 
   return (
     <section className="w-full bg-white py-8 md:py-12 lg:py-16 xl:py-16 2xl:py-16 3xl:py-28 relative z-20">
@@ -111,12 +128,13 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
                           }`}
                         >
                           <ImageWidget
-                            src={
-                              facility?.Image?.url
-                                ? getS3Url(facility.Image.url)
-                                : ""
+                            src={getDisplayImageUrl(facility)}
+                            alt={
+                              facility?.Thumbnail?.name ||
+                              facility?.Image?.name ||
+                              facility?.Title ||
+                              ""
                             }
-                            alt={facility?.Image?.name || facility?.Title || ""}
                             fill
                             className="object-cover"
                           />
