@@ -9,7 +9,7 @@ const View = async ({
   const { page, slug } = await params;
   const response = await getFacultyBySlug(page, slug, "1");
   if (!response?.data) return null;
-  return <FacultyViewSection data={response?.data} />;
+  return <FacultyViewSection data={response?.data} type={page} />;
 };
 
 export default View;
