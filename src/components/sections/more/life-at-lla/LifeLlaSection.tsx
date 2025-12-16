@@ -97,7 +97,10 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
             </p>
           </div>
         </ScrollWidget>
-        <div className="py-8 md:py-8 lg:py-12 xl:py-10 2xl:py-10 3xl:py-10" suppressHydrationWarning>
+        <div
+          className="py-8 md:py-8 lg:py-12 xl:py-10 2xl:py-10 3xl:py-10"
+          suppressHydrationWarning
+        >
           <ResponsiveMasonry
             columnsCountBreakPoints={{
               350: 1,

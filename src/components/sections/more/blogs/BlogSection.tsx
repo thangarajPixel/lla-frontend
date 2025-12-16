@@ -80,7 +80,8 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                   >
                     <Masonry gutter="20px">
                       {blogCards.map((blog, index) => {
-                        const imageUrl = blog.ImageUrl || getImageUrl(blog.Image);
+                        const imageUrl =
+                          blog.ImageUrl || getImageUrl(blog.Image);
                         const imageAlt =
                           blog.Image?.[0]?.name ||
                           blog.Title ||
