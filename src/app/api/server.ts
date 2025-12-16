@@ -117,8 +117,12 @@ export async function getFounderBySlug(slug: string) {
   return fetchData(`/about/founder/${slug}`);
 }
 
-export async function getFacultyBySlug(slug: string, page: string) {
-  return fetchData(`/faculty/view/${slug}?page=${page}`);
+export async function getFacultyBySlug(
+  name: string,
+  slug: string,
+  page: string,
+) {
+  return fetchData(`/faculty/view/${name}/${slug}?page=${page}`);
 }
 
 export async function getTeamBySlug(slug: string, page: string) {
