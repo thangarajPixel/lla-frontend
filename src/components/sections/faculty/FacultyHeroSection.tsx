@@ -34,14 +34,14 @@ const FacultyHeroSection = ({ data }: FacultyHeroSectionProps) => {
                 ({ url }: { url: string }, index: number) => (
                   <ScrollWidget key={url} delay={0.4 + index * 0.3}>
                     <div
-                      className="relative  h-[110px] w-[110px] s:h-[85px] s:w-[85px] xss:h-[100px] xss:w-[100px] xs:h-[130px] xs:w-[130px]  sm:h-[140px] sm:w-[140px] md:h-[100px] md:w-[100px] lg:h-[140px] lg:w-[120px] xl:h-[150px] xl:w-[150px]
-                        2xl:h-[170px] 2xl:w-[170px] 3xl:h-[190px] 3xl:w-[190px]  overflow-hidden"
+                      className="relative group h-[110px] w-[110px] s:h-[85px] s:w-[85px] xss:h-[100px] xss:w-[100px] xs:h-[130px] xs:w-[130px]  sm:h-[140px] sm:w-[140px] md:h-[100px] md:w-[100px] lg:h-[140px] lg:w-[120px] xl:h-[150px] xl:w-[150px]
+                        2xl:h-[170px] 2xl:w-[170px] 3xl:h-[190px] 3xl:w-[190px]  overflow-hidden cursor-pointer"
                     >
                       <ImageWidget
                         src={getS3Url(url)}
                         alt="Faculty"
                         fill
-                        className="object-cover"
+                        className="object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
                       />
                     </div>
                   </ScrollWidget>
@@ -53,14 +53,14 @@ const FacultyHeroSection = ({ data }: FacultyHeroSectionProps) => {
                 ({ url }: { url: string }, index: number) => (
                   <ScrollWidget key={url} delay={0.5 + index * 0.3}>
                     <div
-                      className="relative h-[100px] w-[100px] s:h-[85px] s:w-[85px] xss:h-[100px] xss:w-[100px] xs:h-[130px] xs:w-[130px]  sm:h-[140px] sm:w-[140px] md:h-[100px] md:w-[100px] lg:h-[140px] lg:w-[120px] xl:h-[150px] xl:w-[150px]
-                        2xl:h-[170px] 2xl:w-[170px] 3xl:h-[190px] 3xl:w-[190px]  overflow-hidden"
+                      className="relative group h-[100px] w-[100px] s:h-[85px] s:w-[85px] xss:h-[100px] xss:w-[100px] xs:h-[130px] xs:w-[130px]  sm:h-[140px] sm:w-[140px] md:h-[100px] md:w-[100px] lg:h-[140px] lg:w-[120px] xl:h-[150px] xl:w-[150px]
+                        2xl:h-[170px] 2xl:w-[170px] 3xl:h-[190px] 3xl:w-[190px]  overflow-hidden cursor-pointer"
                     >
                       <ImageWidget
                         src={getS3Url(url)}
                         alt="Faculty"
                         fill
-                        className="object-cover"
+                        className="object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
                       />
                     </div>
                   </ScrollWidget>
@@ -72,14 +72,14 @@ const FacultyHeroSection = ({ data }: FacultyHeroSectionProps) => {
                 ({ url }: { url: string }, index: number) => (
                   <ScrollWidget key={url} delay={0.6 + index * 0.3}>
                     <div
-                      className="relative h-[100px] w-[100px] s:h-[85px] s:w-[85px] xss:h-[100px] xss:w-[100px]  xs:h-[130px] xs:w-[130px] sm:h-[140px] sm:w-[140px] md:h-[100px] md:w-[100px] lg:h-[140px] lg:w-[120px] xl:h-[150px] xl:w-[150px]
-                        2xl:h-[170px] 2xl:w-[170px] 3xl:h-[190px] 3xl:w-[190px]  overflow-hidden"
+                      className="relative group h-[100px] w-[100px] s:h-[85px] s:w-[85px] xss:h-[100px] xss:w-[100px]  xs:h-[130px] xs:w-[130px] sm:h-[140px] sm:w-[140px] md:h-[100px] md:w-[100px] lg:h-[140px] lg:w-[120px] xl:h-[150px] xl:w-[150px]
+                        2xl:h-[170px] 2xl:w-[170px] 3xl:h-[190px] 3xl:w-[190px]  overflow-hidden cursor-pointer"
                     >
                       <ImageWidget
                         src={getS3Url(url)}
                         alt="Faculty"
                         fill
-                        className="object-cover"
+                        className="object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
                       />
                     </div>
                   </ScrollWidget>
