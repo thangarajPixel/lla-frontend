@@ -13,23 +13,23 @@ import { Life, LifeMobile } from "@/helpers/ImageHelper";
 import type { LifeCardProps, LifeSectionProps } from "./utils/home";
 
 const LifeCard = ({ card }: LifeCardProps) => (
-   <LinkWidget href={`/more/life-at-lla/${card.Slug}`}>
-  <div className="bg-white/30 p-3 sm:p-4 lg:p-4 xl:p-5 3xl:p-6 hover:bg-white transition-all duration-300 cursor-pointer 3xl:w-[300px] 3xl:min-w-[300px] 3xl:max-w-[300px]">
-    <h4 className="text-base xss:text-[24px] sm:text-lg md:text-xl lg:text-[18px] 2xl:text-[18px] 3xl:text-[24px] font-bold text-black font-mulish leading-tight mb-2 lg:mb-3 3xl:mb-4">
-      {card.Title}
-    </h4>
-    <div className="relative w-full aspect-4/3 overflow-hidden mb-2 lg:mb-3 3xl:mb-1">
-      <ImageWidget
-        src={getS3Url(card.Image?.[0]?.url) || ""}
-        alt={card.Title}
-        fill
-        className="object-cover 3xl:max-w-[252px] 3xl:max-h-[168.79px]"
-      />
+  <LinkWidget href={`/more/life-at-lla/${card.Slug}`}>
+    <div className="bg-white/30 p-3 sm:p-4 lg:p-4 xl:p-5 3xl:p-6 hover:bg-white transition-all duration-300 cursor-pointer 3xl:w-[300px] 3xl:min-w-[300px] 3xl:max-w-[300px]">
+      <h4 className="text-base xss:text-[24px] sm:text-lg md:text-xl lg:text-[18px] 2xl:text-[18px] 3xl:text-[24px] font-bold text-black font-mulish leading-tight mb-2 lg:mb-3 3xl:mb-4">
+        {card.Title}
+      </h4>
+      <div className="relative w-full aspect-4/3 overflow-hidden mb-2 lg:mb-3 3xl:mb-1">
+        <ImageWidget
+          src={getS3Url(card.Image?.[0]?.url) || ""}
+          alt={card.Title}
+          fill
+          className="object-cover 3xl:max-w-[252px] 3xl:max-h-[168.79px]"
+        />
+      </div>
+      <p className="text-sm xss:text-[16px] sm:text-base lg:text-[15px] 2xl:text-[16px] 3xl:text-[18px] font-normal text-black leading-normal">
+        {card.Description}
+      </p>
     </div>
-    <p className="text-sm xss:text-[16px] sm:text-base lg:text-[15px] 2xl:text-[16px] 3xl:text-[18px] font-normal text-black leading-normal">
-      {card.Description}
-    </p>
-  </div>
   </LinkWidget>
 );
 
