@@ -11,9 +11,10 @@ import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import DialogWidget from "@/components/widgets/DialogWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import LightboxWidget from "@/components/widgets/LightboxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import { ArrowDown, Dummy3, Into, Play } from "@/helpers/ImageHelper";
+import { ArrowDown, Into, Play } from "@/helpers/ImageHelper";
 import type { NilgirisData } from "./utils/nilgiris";
 
 const isVideoFile = (url: string): boolean => {
@@ -73,23 +74,46 @@ const NilgirisSection = ({ data: initialData }: { data: NilgirisData }) => {
         : card.Image
           ? [card.Image]
           : [];
-      return images.map((img, imgIndex) => {
-        const isVideo = isVideoFile(img.url || "");
-        const src = img.url ? getS3Url(img.url) : Dummy3;
-        const videoUrl = isVideo && img.url ? getS3Url(img.url) : null;
-        return {
-          id: `nilgiris-${card.id}-${img.id}-${cardIndex}-${imgIndex}`,
-          imageId: img.id,
-          cardId: card.id,
-          src,
-          alt: img.name || "Nilgiris image",
-          type: card.Type,
-          isVideo,
-          videoUrl: typeof videoUrl === "string" ? videoUrl : null,
-        };
-      });
+      return images
+        .filter((img) => img?.url)
+        .map((img, imgIndex) => {
+          const isVideo = isVideoFile(img.url || "");
+          const src = getS3Url(img.url);
+          const videoUrl = isVideo && img.url ? getS3Url(img.url) : null;
+          return {
+            id: `nilgiris-${card.id}-${img.id}-${cardIndex}-${imgIndex}`,
+            imageId: img.id,
+            cardId: card.id,
+            src,
+            alt: img.name || "Nilgiris image",
+            type: card.Type,
+            isVideo,
+            videoUrl: typeof videoUrl === "string" ? videoUrl : null,
+          };
+        });
     });
   }, [filteredImageCards]);
+
+  const lightboxImages = useMemo(() => {
+    return allImages
+      .filter((item) => !item.isVideo)
+      .map((item) => ({
+        src: item.src,
+        alt: item.alt,
+      }));
+  }, [allImages]);
+
+  const imageToLightboxIndex = useMemo(() => {
+    const map = new Map<string, number>();
+    let lightboxIndex = 0;
+    allImages.forEach((item) => {
+      if (!item.isVideo) {
+        map.set(item.id, lightboxIndex);
+        lightboxIndex += 1;
+      }
+    });
+    return map;
+  }, [allImages]);
 
   const skeletonIdRef = useRef(0);
 
@@ -156,86 +180,102 @@ const NilgirisSection = ({ data: initialData }: { data: NilgirisData }) => {
     }
   };
 
-  const renderGalleryItem = (item: (typeof allImages)[0], index: number) => (
-    <ScrollWidget
-      key={item.id}
-      animation="fadeUp"
-      delay={index * 0.1}
-      duration={0.6}
-      start="top 85%"
-      once={true}
-    >
-      <div className="relative w-full overflow-hidden group cursor-pointer">
-        {item.isVideo ? (
-          <DialogWidget
-            trigger={
-              <div className="relative w-full overflow-hidden rounded-none">
-                <video
-                  src={(item.videoUrl as string) || ""}
-                  className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
-                  muted
-                  playsInline
-                  preload="metadata"
-                />
-                <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
-                  <div className="video-main">
-                    <div className="waves-block">
-                      <div className="waves wave-1" />
-                      <div className="waves wave-2" />
-                      <div className="waves wave-3" />
+  const renderGalleryItem = (
+    item: (typeof allImages)[0],
+    index: number,
+    openLightbox?: (index: number) => void,
+  ) => {
+    const lightboxIndex = imageToLightboxIndex.get(item.id);
+
+    return (
+      <ScrollWidget
+        key={item.id}
+        animation="fadeUp"
+        delay={index * 0.1}
+        duration={0.6}
+        start="top 85%"
+        once={true}
+      >
+        <div className="relative w-full overflow-hidden group cursor-pointer">
+          {item.isVideo ? (
+            <DialogWidget
+              trigger={
+                <div className="relative w-full overflow-hidden rounded-none">
+                  <video
+                    src={(item.videoUrl as string) || ""}
+                    className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+                    muted
+                    playsInline
+                    preload="metadata"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
+                    <div className="video-main">
+                      <div className="waves-block">
+                        <div className="waves wave-1" />
+                        <div className="waves wave-2" />
+                        <div className="waves wave-3" />
+                      </div>
+                    </div>
+                    <div className="relative w-13 h-13 p-0 bg-transparent hover:bg-transparent border-none shadow-none rounded-full transition-all duration-300 ease-out z-10">
+                      <ImageWidget
+                        src={Play}
+                        alt="play video"
+                        className="w-13 cursor-pointer h-13 text-white group-hover:text-[#E97451] transition-colors duration-500 ease-in-out relative z-10"
+                      />
                     </div>
                   </div>
-                  <div className="relative w-13 h-13 p-0 bg-transparent hover:bg-transparent border-none shadow-none rounded-full transition-all duration-300 ease-out z-10">
+                </div>
+              }
+              contentClassName="sm:max-w-[90vw] lg:max-w-[800px] p-0"
+              showCancel={false}
+              showCloseButton={false}
+              customCloseButton={
+                <DialogClose asChild>
+                  <div className="cursor-pointer -mt-[30px] -mr-[30px]">
                     <ImageWidget
-                      src={Play}
-                      alt="play video"
-                      className="w-13 cursor-pointer h-13 text-white group-hover:text-[#E97451] transition-colors duration-500 ease-in-out relative z-10"
+                      src={Into}
+                      alt="Close"
+                      className="w-[30px] h-[30px]"
                     />
                   </div>
-                </div>
+                </DialogClose>
+              }
+            >
+              <div className="relative w-full aspect-video bg-black rounded-lg">
+                {/* biome-ignore lint/a11y/useMediaCaption: Gallery videos may not have captions available */}
+                <video
+                  src={(item.videoUrl as string) || ""}
+                  controls
+                  autoPlay
+                  className="w-full h-full object-contain rounded-lg"
+                />
               </div>
-            }
-            contentClassName="sm:max-w-[90vw] lg:max-w-[800px] p-0"
-            showCancel={false}
-            showCloseButton={false}
-            customCloseButton={
-              <DialogClose asChild>
-                <div className="cursor-pointer -mt-[30px] -mr-[30px]">
-                  <ImageWidget
-                    src={Into}
-                    alt="Close"
-                    className="w-[30px] h-[30px]"
-                  />
-                </div>
-              </DialogClose>
-            }
-          >
-            <div className="relative w-full aspect-video bg-black rounded-lg">
-              {/* biome-ignore lint/a11y/useMediaCaption: Gallery videos may not have captions available */}
-              <video
-                src={(item.videoUrl as string) || ""}
-                controls
-                autoPlay
-                className="w-full h-full object-contain rounded-lg"
+            </DialogWidget>
+          ) : (
+            <button
+              type="button"
+              onClick={() => {
+                if (openLightbox && lightboxIndex !== undefined) {
+                  openLightbox(lightboxIndex);
+                }
+              }}
+              className="relative w-full overflow-hidden rounded-none border-none bg-transparent p-0 cursor-pointer"
+            >
+              <ImageWidget
+                src={item.src}
+                alt={item.alt}
+                width={600}
+                height={800}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+                loading="lazy"
               />
-            </div>
-          </DialogWidget>
-        ) : (
-          <div className="relative w-full overflow-hidden rounded-none">
-            <ImageWidget
-              src={item.src}
-              alt={item.alt}
-              width={600}
-              height={800}
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
-              loading="lazy"
-            />
-          </div>
-        )}
-      </div>
-    </ScrollWidget>
-  );
+            </button>
+          )}
+        </div>
+      </ScrollWidget>
+    );
+  };
 
   return (
     <section className="w-full bg-white py-4 sm:py-6 md:py-8 lg:py-10 xl:py-12 2xl:py-14 3xl:py-20">
@@ -286,26 +326,53 @@ const NilgirisSection = ({ data: initialData }: { data: NilgirisData }) => {
           </div>
 
           <div className="w-full" suppressHydrationWarning>
-            {allImages.length > 0 &&
-              (isMounted ? (
-                <div className="-m-3">
-                  <ResponsiveMasonry
-                    columnsCountBreakPoints={{
-                      350: 1,
-                      640: 2,
-                      1024: allImages.some((item) => item.isVideo) ? 2 : 3,
-                    }}
-                  >
-                    <Masonry gutter="24px">
+            {allImages.length > 0 && (
+              <LightboxWidget images={lightboxImages}>
+                {(openLightbox) =>
+                  isMounted ? (
+                    <div className="-m-3">
+                      <ResponsiveMasonry
+                        columnsCountBreakPoints={{
+                          350: 1,
+                          640: 2,
+                          1024: allImages.some((item) => item.isVideo) ? 2 : 3,
+                        }}
+                      >
+                        <Masonry gutter="24px">
+                          {allImages.map((item, index) => (
+                            <div key={item.id} className="w-full p-3">
+                              {renderGalleryItem(item, index, openLightbox)}
+                            </div>
+                          ))}
+                          {loadingMore &&
+                            skeletonKeys.length > 0 &&
+                            skeletonKeys.map((key, index) => (
+                              <div key={key} className="w-full p-3">
+                                <ScrollWidget
+                                  animation="fadeUp"
+                                  delay={(allImages.length + index) * 0.1}
+                                  duration={0.6}
+                                  start="top 85%"
+                                  once={true}
+                                >
+                                  <NilgirisImageSkeleton />
+                                </ScrollWidget>
+                              </div>
+                            ))}
+                        </Masonry>
+                      </ResponsiveMasonry>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                       {allImages.map((item, index) => (
-                        <div key={item.id} className="w-full p-3">
-                          {renderGalleryItem(item, index)}
+                        <div key={item.id}>
+                          {renderGalleryItem(item, index, openLightbox)}
                         </div>
                       ))}
                       {loadingMore &&
                         skeletonKeys.length > 0 &&
                         skeletonKeys.map((key, index) => (
-                          <div key={key} className="w-full p-3">
+                          <div key={key}>
                             <ScrollWidget
                               animation="fadeUp"
                               delay={(allImages.length + index) * 0.1}
@@ -317,31 +384,11 @@ const NilgirisSection = ({ data: initialData }: { data: NilgirisData }) => {
                             </ScrollWidget>
                           </div>
                         ))}
-                    </Masonry>
-                  </ResponsiveMasonry>
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {allImages.map((item, index) => (
-                    <div key={item.id}>{renderGalleryItem(item, index)}</div>
-                  ))}
-                  {loadingMore &&
-                    skeletonKeys.length > 0 &&
-                    skeletonKeys.map((key, index) => (
-                      <div key={key}>
-                        <ScrollWidget
-                          animation="fadeUp"
-                          delay={(allImages.length + index) * 0.1}
-                          duration={0.6}
-                          start="top 85%"
-                          once={true}
-                        >
-                          <NilgirisImageSkeleton />
-                        </ScrollWidget>
-                      </div>
-                    ))}
-                </div>
-              ))}
+                    </div>
+                  )
+                }
+              </LightboxWidget>
+            )}
           </div>
 
           {!loading && !loadingMore && imageCards.length < total && (
