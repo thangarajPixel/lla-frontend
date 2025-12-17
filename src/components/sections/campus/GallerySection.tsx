@@ -41,7 +41,7 @@ const GallertSection = ({ data }: GallerySectionProps) => {
           </div>
           <div className="space-y-6 overflow-hidden">
             {imageChunks[0] && imageChunks[0].length > 0 && (
-              <Marquee direction="right" speed={50} pauseOnHover>
+              <Marquee direction="right" speed={30} pauseOnHover>
                 {imageChunks[0].map((image) => (
                   <div
                     key={`row1-${image.id}`}
@@ -58,7 +58,7 @@ const GallertSection = ({ data }: GallerySectionProps) => {
               </Marquee>
             )}
             {imageChunks[1] && imageChunks[1].length > 0 && (
-              <Marquee direction="left" speed={50} pauseOnHover>
+              <Marquee direction="left" speed={30} pauseOnHover>
                 {imageChunks[1].map((image) => (
                   <div
                     key={`row2-${image.id}`}
