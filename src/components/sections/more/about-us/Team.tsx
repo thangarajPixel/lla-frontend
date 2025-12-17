@@ -1,76 +1,82 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
-import type { StaticImageData } from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import LightboxWidget from "@/components/widgets/LightboxWidget";
-import {
-  Dummy1,
-  Dummy2,
-  Dummy3,
-  OrangeArrowRight,
-  Website,
-} from "@/helpers/ImageHelper";
+import { OrangeArrowRight, Website } from "@/helpers/ImageHelper";
+import type { Card, TeamMemberPopupProps } from "./utils/about-us";
 
-type Card = {
-  id: number;
-  name: string;
-  role?: string;
-  gallery?: StaticImageData[];
-  thumbnail: StaticImageData;
-};
-
-type TeamMemberPopupProps = {
-  cards: Card[];
-};
-
-export default function TeamMemberPopup({ cards }: TeamMemberPopupProps) {
+export default function TeamMemberPopup({
+  cards,
+  selectedCardId,
+  onClose,
+  hideGrid = false,
+}: TeamMemberPopupProps) {
   const [selected, setSelected] = useState<Card | null>(null);
   const [isMounted, setIsMounted] = useState(false);
   const bodyOverflowRef = useRef<string | null>(null);
+  const scrollPositionRef = useRef<number>(0);
 
-  const sampleBiography = `Taking a stroll through Parry’s Corner in Chennai on his 16th birthday, Aneev chanced upon an antique camera store. A couple of tantrums later, and with the promise of better exam results, he walked out with an old Olympus OM 10 and a slightly disgruntled father in tow. Three years later he enrolled into Light & Life Academy. After graduating in 2007, he spent some time working as a photo-editor in Bangalore and then decided to move to Mumbai.<br><br>Aneev Rao is currently a portrait and fashion photographer. Aneev’s work has been featured in Vogue, Cosmopolitan, Marie Claire, Grazia, Harper’s Bazaar, People.`;
-
-  const portfolioLink = "https://www.behance.net/aneevrao";
-
-  const sampleGalleryImages = [
-    { src: Dummy3, alt: "Gallery 1" },
-    { src: Dummy1, alt: "Gallery 2" },
-    { src: Dummy2, alt: "Gallery 3" },
-    { src: Dummy1, alt: "Gallery 4" },
-    { src: Dummy1, alt: "Gallery 5" },
-    { src: Dummy3, alt: "Gallery 6" },
-    { src: Dummy1, alt: "Gallery 7" },
-    { src: Dummy1, alt: "Gallery 8" },
-    { src: Dummy1, alt: "Gallery 9" },
-  ];
+  const handleClose = useCallback(() => {
+    setSelected(null);
+    if (onClose) {
+      onClose();
+    }
+  }, [onClose]);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
   useEffect(() => {
+    if (selectedCardId !== undefined) {
+      if (selectedCardId !== null) {
+        const card = cards.find((c) => c.id === selectedCardId);
+        setSelected(card || null);
+      } else {
+        setSelected(null);
+      }
+    }
+  }, [selectedCardId, cards]);
+
+  useEffect(() => {
     if (selected) {
+      scrollPositionRef.current = window.scrollY;
       bodyOverflowRef.current = window.getComputedStyle(document.body).overflow;
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollPositionRef.current}px`;
+      document.body.style.width = "100%";
       document.body.style.overflow = "hidden";
       document.documentElement.style.overflow = "hidden";
     } else {
       if (bodyOverflowRef.current !== null) {
+        document.body.style.position = "";
+        document.body.style.top = "";
+        document.body.style.width = "";
         document.body.style.overflow = bodyOverflowRef.current;
         document.documentElement.style.overflow = bodyOverflowRef.current;
+        window.scrollTo(0, scrollPositionRef.current);
         bodyOverflowRef.current = null;
       }
     }
 
     return () => {
       if (bodyOverflowRef.current !== null) {
+        document.body.style.position = "";
+        document.body.style.top = "";
+        document.body.style.width = "";
         document.body.style.overflow = bodyOverflowRef.current;
         document.documentElement.style.overflow = bodyOverflowRef.current;
+        window.scrollTo(0, scrollPositionRef.current);
+        bodyOverflowRef.current = null;
       } else {
+        document.body.style.position = "";
+        document.body.style.top = "";
+        document.body.style.width = "";
         document.body.style.overflow = "";
         document.documentElement.style.overflow = "";
       }
@@ -80,36 +86,49 @@ export default function TeamMemberPopup({ cards }: TeamMemberPopupProps) {
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        setSelected(null);
+        handleClose();
       }
     };
 
-    document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
-  }, []);
+    if (selected) {
+      document.addEventListener("keydown", handleEscape);
+      return () => document.removeEventListener("keydown", handleEscape);
+    }
+  }, [selected, handleClose]);
 
   if (!cards?.length) return null;
 
+  const selectedBiography = selected?.biography || "";
+  const selectedPortfolioLink = selected?.portfolioLink;
+
   return (
-    <div className="w-full h-full p-10 grid grid-cols-1 md:grid-cols-3 max-w-7xl mx-auto gap-4 relative">
-      {cards.map((card) => (
-        <motion.div
-          key={card.id}
-          layoutId={`card-${card.id}`}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          transition={{ duration: 0.22, ease: "easeOut" }}
-          onClick={() => setSelected(card)}
-          className="relative cursor-pointer overflow-hidden rounded-xl bg-white shadow-md hover:shadow-lg transition"
-          aria-label={`Open ${card.name} details`}
-        >
-          <ImageWidget
-            src={card.thumbnail}
-            alt={card.name}
-            className="object-cover object-center w-full h-full"
-          />
-        </motion.div>
-      ))}
+    <>
+      {!hideGrid && (
+        <div className="w-full h-full p-10 grid grid-cols-1 md:grid-cols-3 max-w-7xl mx-auto gap-4 relative">
+          {cards.map((card) => (
+            <motion.div
+              key={card.id}
+              layoutId={`card-${card.id}`}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ duration: 0.22, ease: "easeOut" }}
+              onClick={() => setSelected(card)}
+              className="relative cursor-pointer overflow-hidden rounded-xl bg-white shadow-md hover:shadow-lg transition"
+              aria-label={`Open ${card.name} details`}
+            >
+              <ImageWidget
+                src={
+                  typeof card.thumbnail === "string"
+                    ? card.thumbnail
+                    : card.thumbnail
+                }
+                alt={card.name}
+                className="object-cover object-center w-full h-full"
+              />
+            </motion.div>
+          ))}
+        </div>
+      )}
 
       <AnimatePresence>
         {selected && (
@@ -119,8 +138,8 @@ export default function TeamMemberPopup({ cards }: TeamMemberPopupProps) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
-              className="fixed inset-0 bg-white backdrop-blur-sm z-15"
-              onClick={() => setSelected(null)}
+              className="fixed inset-0 bg-white backdrop-blur-sm z-15 overflow-hidden"
+              onClick={handleClose}
             />
 
             <motion.div
@@ -136,9 +155,9 @@ export default function TeamMemberPopup({ cards }: TeamMemberPopupProps) {
               <div className="hidden md:block">
                 <div className="flex justify-end mb-6 fixed top-25 right-10 z-10">
                   <ButtonWidget
-                    onClick={() => setSelected(null)}
+                    onClick={handleClose}
                     type="button"
-                    className="orange-button-white flex border-none items-center gap-2 rounded-[60px] px-5 h-10 text-sm md:text-base font-bold transition-colors duration-300 font-mulish text-[15px] 3xl:text-[18px]"
+                    className="orange-button-white flex border-none items-center gap-2 rounded-[60px] px-5 h-10 text-sm md:text-base font-bold transition-colors duration-300 font-mulish text-[15px] 3xl:text-[18px] 3xl:mt-5"
                     aria-label="Go back"
                   >
                     <ImageWidget
@@ -150,9 +169,9 @@ export default function TeamMemberPopup({ cards }: TeamMemberPopupProps) {
                   </ButtonWidget>
                 </div>
               </div>
-              <div className="grid grid-cols-1 lg:grid-cols-2">
+              <div className="grid grid-cols-1 lg:grid-cols-2 h-screen pt-20">
                 <div className="flex flex-col">
-                  <div className="flex flex-col sticky top-16 space-y-4  px-4 py-8 pb-0 md:pb-8 md:px-6 lg:px-8 xl:px-12 xl:pl-52 2xl:pl-58 2xl:pr-10 3xl:px-20 3xl:pl-74 pt-13">
+                  <div className="flex flex-col sticky top-16 space-y-4  px-4 py-8 pb-0 md:pb-8 md:px-6 lg:px-8 xl:px-12 xl:pl-52 2xl:pl-58 2xl:pr-10 3xl:px-20 3xl:pl-74">
                     {selected.name && (
                       <motion.h1
                         initial={{ opacity: 0, y: -20 }}
@@ -179,13 +198,15 @@ export default function TeamMemberPopup({ cards }: TeamMemberPopupProps) {
                             <ImageWidget
                               src={selected.thumbnail}
                               alt={selected.name}
-                              className="object-cover"
+                              width={800}
+                              height={1000}
+                              className="object-cover w-full h-auto"
                             />
                           </div>
                         </div>
                       </motion.div>
                     )}
-                    {portfolioLink && (
+                    {selectedPortfolioLink && (
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -202,16 +223,16 @@ export default function TeamMemberPopup({ cards }: TeamMemberPopupProps) {
                         />
                         <a
                           href={
-                            portfolioLink.startsWith("http")
-                              ? portfolioLink
-                              : `https://${portfolioLink}`
+                            selectedPortfolioLink.startsWith("http")
+                              ? selectedPortfolioLink
+                              : `https://${selectedPortfolioLink}`
                           }
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-2 text-black hover:opacity-80 transition-opacity"
                         >
                           <span className="text-sm md:text-base 3xl:text-[20px] font-urbanist font-normal text-[#E97451]">
-                            {portfolioLink}
+                            {selectedPortfolioLink}
                           </span>
                         </a>
                       </motion.div>
@@ -219,36 +240,90 @@ export default function TeamMemberPopup({ cards }: TeamMemberPopupProps) {
                   </div>
                 </div>
 
-                <div className="flex flex-col bg-[#E97451]/20 md:pt-13 ">
-                  <div className="flex flex-col justify-center px-4 py-8 pb-4 md:pb-8 md:px-4 md:py-12 lg:px-6 lg:py-15 xl:px-10 xl:pr-50 2xl:pr-58 3xl:pr-74 3xl:py-15">
-                    {sampleBiography && (
-                      <div className="mb-8 mt-16">
+                <div className="flex flex-col bg-[#E97451]/20">
+                  <div className="flex flex-col px-4 py-8 pb-4 md:pb-8 md:px-4 md:py-12 lg:px-6 lg:py-15 xl:px-10 xl:pr-50 2xl:pr-58 3xl:pr-74 3xl:py-15">
+                    {selectedBiography && (
+                      <div className="mb-8">
                         <HTMLWidget
-                          content={sampleBiography}
-                          className="prose prose-sm md:prose-base max-w-none font-mulish text-sm xss:text-[16px] sm:text-base lg:text-[15px] 2xl:text-[14px] 3xl:text-[18px] font-normal text-black leading-normal"
+                          content={selectedBiography}
+                          className="prose prose-sm md:prose-base max-w-none font-mulish text-sm xss:text-[16px] sm:text-base lg:text-[16px] 3xl:text-[18px] font-normal text-black leading-normal mt-8"
                         />
                       </div>
                     )}
-                    {sampleGalleryImages && sampleGalleryImages.length > 0 && (
+                    {selected.gallery && selected.gallery.length > 0 && (
                       <div className="mt-auto">
                         <LightboxWidget
-                          images={sampleGalleryImages.map((image) => ({
-                            src: image.src,
+                          images={selected.gallery.map((image) => ({
+                            src:
+                              typeof image.src === "string"
+                                ? image.src
+                                : image.src,
                             alt: image.alt || `${selected.name} Gallery`,
                           }))}
                         >
-                          {(openLightbox) => (
-                            <>
-                              {isMounted ? (
-                                <ResponsiveMasonry
-                                  columnsCountBreakPoints={{
-                                    350: 1,
-                                    768: 1,
-                                    1024: 2,
-                                  }}
-                                >
-                                  <Masonry gutter="32px">
-                                    {sampleGalleryImages.map((image, index) => {
+                          {(openLightbox) => {
+                            if (!selected.gallery) return null;
+                            const gallery = selected.gallery;
+                            return (
+                              <>
+                                {isMounted ? (
+                                  <ResponsiveMasonry
+                                    columnsCountBreakPoints={{
+                                      350: 1,
+                                      768: 1,
+                                      1024: 2,
+                                    }}
+                                  >
+                                    <Masonry gutter="32px">
+                                      {gallery.map((image, index) => {
+                                        if (!image?.src) return null;
+                                        const imageAlt =
+                                          image?.alt ||
+                                          `${selected.name} Gallery ${index + 1}`;
+                                        return (
+                                          <motion.div
+                                            key={imageAlt}
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: 10 }}
+                                            transition={{
+                                              delay: 0.22 + index * 0.05,
+                                              duration: 0.35,
+                                            }}
+                                            role="button"
+                                            tabIndex={0}
+                                            onClick={() => openLightbox(index)}
+                                            onKeyDown={(e) => {
+                                              if (
+                                                e.key === "Enter" ||
+                                                e.key === " "
+                                              ) {
+                                                e.preventDefault();
+                                                openLightbox(index);
+                                              }
+                                            }}
+                                            className="relative w-full overflow-hidden group cursor-pointer -mx-0.5"
+                                            style={{ padding: "3px" }}
+                                          >
+                                            <div className="relative w-full aspect-auto overflow-hidden">
+                                              <ImageWidget
+                                                src={image.src}
+                                                alt={imageAlt}
+                                                width={800}
+                                                height={600}
+                                                className="object-cover w-full h-auto transition-transform duration-300 group-hover:scale-105"
+                                                loading="lazy"
+                                                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 50vw"
+                                              />
+                                            </div>
+                                          </motion.div>
+                                        );
+                                      })}
+                                    </Masonry>
+                                  </ResponsiveMasonry>
+                                ) : (
+                                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                    {gallery.map((image, index) => {
                                       if (!image?.src) return null;
                                       const imageAlt =
                                         image?.alt ||
@@ -275,10 +350,9 @@ export default function TeamMemberPopup({ cards }: TeamMemberPopupProps) {
                                               openLightbox(index);
                                             }
                                           }}
-                                          className="relative w-full overflow-hidden group cursor-pointer -mx-0.5"
-                                          style={{ padding: "3px" }}
+                                          className="relative w-full overflow-hidden group cursor-pointer"
                                         >
-                                          <div className="relative w-full aspect-auto overflow-hidden">
+                                          <div className="relative w-full aspect-auto overflow-hidden rounded-lg">
                                             <ImageWidget
                                               src={image.src}
                                               alt={imageAlt}
@@ -286,63 +360,17 @@ export default function TeamMemberPopup({ cards }: TeamMemberPopupProps) {
                                               height={600}
                                               className="object-cover w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                               loading="lazy"
-                                              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 50vw"
+                                              sizes="(max-width: 768px) 100vw, 50vw"
                                             />
                                           </div>
                                         </motion.div>
                                       );
                                     })}
-                                  </Masonry>
-                                </ResponsiveMasonry>
-                              ) : (
-                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                                  {sampleGalleryImages.map((image, index) => {
-                                    if (!image?.src) return null;
-                                    const imageAlt =
-                                      image?.alt ||
-                                      `${selected.name} Gallery ${index + 1}`;
-                                    return (
-                                      <motion.div
-                                        key={imageAlt}
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: 10 }}
-                                        transition={{
-                                          delay: 0.22 + index * 0.05,
-                                          duration: 0.35,
-                                        }}
-                                        role="button"
-                                        tabIndex={0}
-                                        onClick={() => openLightbox(index)}
-                                        onKeyDown={(e) => {
-                                          if (
-                                            e.key === "Enter" ||
-                                            e.key === " "
-                                          ) {
-                                            e.preventDefault();
-                                            openLightbox(index);
-                                          }
-                                        }}
-                                        className="relative w-full overflow-hidden group cursor-pointer"
-                                      >
-                                        <div className="relative w-full aspect-auto overflow-hidden rounded-lg">
-                                          <ImageWidget
-                                            src={image.src}
-                                            alt={imageAlt}
-                                            width={800}
-                                            height={600}
-                                            className="object-cover w-full h-auto transition-transform duration-300 group-hover:scale-105"
-                                            loading="lazy"
-                                            sizes="(max-width: 768px) 100vw, 50vw"
-                                          />
-                                        </div>
-                                      </motion.div>
-                                    );
-                                  })}
-                                </div>
-                              )}
-                            </>
-                          )}
+                                  </div>
+                                )}
+                              </>
+                            );
+                          }}
                         </LightboxWidget>
                       </div>
                     )}
@@ -353,6 +381,6 @@ export default function TeamMemberPopup({ cards }: TeamMemberPopupProps) {
           </>
         )}
       </AnimatePresence>
-    </div>
+    </>
   );
 }
