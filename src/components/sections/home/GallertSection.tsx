@@ -12,6 +12,7 @@ import { getS3Url, splitIntoTwoArrays } from "@/helpers/ConstantHelper";
 import type { GallerySectionProps } from "./utils/home";
 
 const GallertSection = ({ data }: GallerySectionProps) => {
+  const verticalImages = data.Vertical_Image;
   const galleryImages = data.Image;
 
   const imageChunks = useMemo(() => {
@@ -19,8 +20,11 @@ const GallertSection = ({ data }: GallerySectionProps) => {
   }, [galleryImages]);
 
   const [randomIndices, setRandomIndices] = useState<number[]>(() => {
-    return Array.from({ length: 9 }, (_, i) => i);
+    return Array.from({ length: 9 }, (_, i) => i + 1);
   });
+
+  const [randomVerticalImageIndex, setRandomVerticalImageIndex] =
+    useState<number>(0);
 
   useEffect(() => {
     const initializeIndices = () => {
@@ -68,15 +72,43 @@ const GallertSection = ({ data }: GallerySectionProps) => {
       });
     };
 
-    const interval = setInterval(changeOneImage, 1500);
+    const interval = setInterval(changeOneImage, 1000);
 
     return () => clearInterval(interval);
   }, [galleryImages]);
+
+  useEffect(() => {
+    if (verticalImages.length === 0) return;
+
+    const initializeVerticalImage = () => {
+      const randomIndex = Math.floor(Math.random() * verticalImages.length);
+      setRandomVerticalImageIndex(randomIndex);
+    };
+
+    initializeVerticalImage();
+
+    const changeVerticalImage = () => {
+      if (verticalImages.length === 0) return;
+      const randomIndex = Math.floor(Math.random() * verticalImages.length);
+      setRandomVerticalImageIndex(randomIndex);
+    };
+
+    const interval = setInterval(changeVerticalImage, 2000);
+
+    return () => clearInterval(interval);
+  }, [verticalImages]);
 
   const getImageUrl = (position: number) => {
     const actualIndex = randomIndices[position] ?? position;
     if (galleryImages[actualIndex]) {
       return getS3Url(galleryImages[actualIndex].url);
+    }
+    return "";
+  };
+
+  const getVerticalImageUrl = () => {
+    if (verticalImages[randomVerticalImageIndex]) {
+      return getS3Url(verticalImages[randomVerticalImageIndex].url);
     }
     return "";
   };
@@ -194,7 +226,7 @@ const GallertSection = ({ data }: GallerySectionProps) => {
           </div>
           <div className="relative w-full aspect-2/3 mt-20 overflow-hidden">
             <ImageWidget
-              src={getImageUrl(7)}
+              src={getVerticalImageUrl()}
               alt="Gallery"
               fill
               className="object-cover 3xl:max-w-[300px] 3xl:max-h-[300px] 3xl:min-w-[300px] 3xl:min-h-[300px]"

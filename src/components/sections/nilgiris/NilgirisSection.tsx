@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import { getGalleryPageData } from "@/app/api/server";
+import { getNilgirisPageData } from "@/app/api/server";
 import { DialogClose } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Skeleton } from "@/components/ui/skeleton";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import DialogWidget from "@/components/widgets/DialogWidget";
@@ -13,8 +14,8 @@ import ImageWidget from "@/components/widgets/ImageWidget";
 import LightboxWidget from "@/components/widgets/LightboxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import { ArrowDown, Dummy3, Into, Play } from "@/helpers/ImageHelper";
-import type { GalleryData } from "./utils/gallery";
+import { ArrowDown, Into, Play } from "@/helpers/ImageHelper";
+import type { NilgirisData } from "./utils/nilgiris";
 
 const isVideoFile = (url: string): boolean => {
   if (!url) return false;
@@ -24,7 +25,13 @@ const isVideoFile = (url: string): boolean => {
   );
 };
 
-const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
+const NilgirisImageSkeleton = () => (
+  <div className="w-full flex flex-col gap-3 bg-[#FFFFFF4D]">
+    <Skeleton className="w-full h-[400px] md:h-[500px] lg:h-[600px]" />
+  </div>
+);
+
+const NilgirisSection = ({ data: initialData }: { data: NilgirisData }) => {
   const uniqueTypesInitial = useMemo(() => {
     if (!initialData?.ImageCard) return [];
     return Array.from(new Set(initialData.ImageCard.map((card) => card.Type)));
@@ -37,11 +44,11 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
-  const [galleryData, setGalleryData] = useState<GalleryData>(initialData);
+  const [nilgirisData, setNilgirisData] = useState<NilgirisData>(initialData);
   const [isMounted, setIsMounted] = useState(false);
 
   const total =
-    galleryData?.pagination?.total || initialData?.pagination?.total || 0;
+    nilgirisData?.pagination?.total || initialData?.pagination?.total || 0;
 
   useEffect(() => {
     setIsMounted(true);
@@ -67,21 +74,23 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
         : card.Image
           ? [card.Image]
           : [];
-      return images.map((img, imgIndex) => {
-        const isVideo = isVideoFile(img.url || "");
-        const src = img.url ? getS3Url(img.url) : Dummy3;
-        const videoUrl = isVideo && img.url ? getS3Url(img.url) : null;
-        return {
-          id: `gallery-${card.id}-${img.id}-${cardIndex}-${imgIndex}`,
-          imageId: img.id,
-          cardId: card.id,
-          src,
-          alt: img.name || "Gallery image",
-          type: card.Type,
-          isVideo,
-          videoUrl: typeof videoUrl === "string" ? videoUrl : null,
-        };
-      });
+      return images
+        .filter((img) => img?.url)
+        .map((img, imgIndex) => {
+          const isVideo = isVideoFile(img.url || "");
+          const src = getS3Url(img.url);
+          const videoUrl = isVideo && img.url ? getS3Url(img.url) : null;
+          return {
+            id: `nilgiris-${card.id}-${img.id}-${cardIndex}-${imgIndex}`,
+            imageId: img.id,
+            cardId: card.id,
+            src,
+            alt: img.name || "Nilgiris image",
+            type: card.Type,
+            isVideo,
+            videoUrl: typeof videoUrl === "string" ? videoUrl : null,
+          };
+        });
     });
   }, [filteredImageCards]);
 
@@ -106,6 +115,18 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
     return map;
   }, [allImages]);
 
+  const skeletonIdRef = useRef(0);
+
+  const skeletonKeys = useMemo(() => {
+    if (!loadingMore) return [];
+    skeletonIdRef.current += 1;
+    const perPage = 9;
+    return Array.from(
+      { length: perPage },
+      (_, i) => `skeleton-${skeletonIdRef.current}-${i}`,
+    );
+  }, [loadingMore]);
+
   useEffect(() => {
     if (!selectedType) return;
 
@@ -121,13 +142,13 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
           type: selectedType,
         };
 
-        const { data: res } = await getGalleryPageData(params);
+        const { data: res } = await getNilgirisPageData(params);
         if (res?.ImageCard) {
           setImageCards(res.ImageCard);
-          setGalleryData(res);
+          setNilgirisData(res);
         }
       } catch (error) {
-        console.error("Error fetching filtered gallery data:", error);
+        console.error("Error fetching filtered nilgiris data:", error);
       } finally {
         setLoading(false);
       }
@@ -148,10 +169,10 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
         per_page: 9,
         type: selectedType,
       };
-      const { data: res } = await getGalleryPageData(params);
+      const { data: res } = await getNilgirisPageData(params);
       if (res?.ImageCard) {
         setImageCards((prev) => [...prev, ...res.ImageCard]);
-        setGalleryData(res);
+        setNilgirisData(res);
         setPage(nextPage);
       }
     } finally {
@@ -263,10 +284,10 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-6">
             <div className="flex flex-col gap-2 md:gap-3">
               <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
-                {galleryData?.Title || initialData?.Title || "Gallery"}
+                {nilgirisData?.Title || initialData?.Title || "Nilgiris"}
               </h3>
               <p className="text-[16px] md:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[600px]">
-                {galleryData?.Description || initialData?.Description || ""}
+                {nilgirisData?.Description || initialData?.Description || ""}
               </p>
             </div>
 
@@ -323,6 +344,21 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
                               {renderGalleryItem(item, index, openLightbox)}
                             </div>
                           ))}
+                          {loadingMore &&
+                            skeletonKeys.length > 0 &&
+                            skeletonKeys.map((key, index) => (
+                              <div key={key} className="w-full p-3">
+                                <ScrollWidget
+                                  animation="fadeUp"
+                                  delay={(allImages.length + index) * 0.1}
+                                  duration={0.6}
+                                  start="top 85%"
+                                  once={true}
+                                >
+                                  <NilgirisImageSkeleton />
+                                </ScrollWidget>
+                              </div>
+                            ))}
                         </Masonry>
                       </ResponsiveMasonry>
                     </div>
@@ -333,6 +369,21 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
                           {renderGalleryItem(item, index, openLightbox)}
                         </div>
                       ))}
+                      {loadingMore &&
+                        skeletonKeys.length > 0 &&
+                        skeletonKeys.map((key, index) => (
+                          <div key={key}>
+                            <ScrollWidget
+                              animation="fadeUp"
+                              delay={(allImages.length + index) * 0.1}
+                              duration={0.6}
+                              start="top 85%"
+                              once={true}
+                            >
+                              <NilgirisImageSkeleton />
+                            </ScrollWidget>
+                          </div>
+                        ))}
                     </div>
                   )
                 }
@@ -363,4 +414,4 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   );
 };
 
-export default GallerySection;
+export default NilgirisSection;

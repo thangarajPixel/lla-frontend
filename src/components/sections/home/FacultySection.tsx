@@ -43,7 +43,7 @@ const FacultySection = ({ data }: FacultySectionProps) => {
               className="max-w-[700px] font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black"
               tag="p"
             />
-            <p className="text-[16px] lg:text-[16px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[700px]">
+            <p className="text-[16px] lg:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[700px]">
               {data.Description}
             </p>
             <LinkWidget href="/faculty" className="w-full">
@@ -77,7 +77,10 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                     {faculty.Description}
                   </p>
                   <div className="self-start mt-auto">
-                    <LinkWidget href="/faculty" className="w-full">
+                    <LinkWidget
+                      href={`/faculty/${faculty.Slug}`}
+                      className="w-full"
+                    >
                       <OrangeButtonWidget content={faculty.Btn_txt} />
                     </LinkWidget>
                   </div>
@@ -138,7 +141,10 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                           {faculty.Description}
                         </p>
                         <div className="self-start mt-3">
-                          <LinkWidget href="/faculty" className="w-full">
+                          <LinkWidget
+                            href={`/photography/${faculty.Slug}`}
+                            className="w-full"
+                          >
                             <OrangeButtonWidget
                               content={faculty.Btn_txt || "Know More"}
                             />

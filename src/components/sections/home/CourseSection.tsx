@@ -59,8 +59,8 @@ const CourseSection = ({ data }: CourseSectionProps) => {
   ];
 
   const contentClasses = [
-    "space-y-3 md:space-y-3 lg:space-y-4 md:ml-[-20px] lg:ml-[-35px] xl:ml-[-64px] 3xl:ml-[-78px] md:mt-[-30px] lg:mt-[-45px] xl:mt-[-65px] 3xl:mt-[-79px] relative z-10 w-full",
-    "space-y-3 md:space-y-3 lg:space-y-4 md:ml-[-20px] lg:ml-[-35px] xl:ml-[-60px] 3xl:ml-[-73px] md:mt-[-30px] lg:mt-[-45px] xl:mt-[-65px] 3xl:mt-[-79px] relative z-10 w-full",
+    "space-y-3 md:space-y-3 lg:space-y-4 md:ml-[-20px] lg:ml-[-35px] xl:ml-[-64px] 3xl:ml-[-78px] relative z-10 w-full",
+    "space-y-3 md:space-y-3 lg:space-y-4 md:ml-[-20px] lg:ml-[-35px] xl:ml-[-60px] 3xl:ml-[-73px] relative z-10 w-full",
   ];
 
   const cardContainerClasses = [
@@ -82,7 +82,7 @@ const CourseSection = ({ data }: CourseSectionProps) => {
               className="font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black"
               tag="p"
             />
-            <p className="text-[16px] lg:text-[16px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[700px]">
+            <p className="text-[16px] lg:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[700px]">
               {data.Description}
             </p>
           </div>

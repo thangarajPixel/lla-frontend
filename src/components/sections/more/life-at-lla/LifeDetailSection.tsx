@@ -193,10 +193,13 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                   {latest.map((post) => (
                     <div key={post.id} className="group">
                       <div className="flex flex-col gap-2">
-                        {post.Image?.[0]?.url && (
+                        {(post.ImageUrl || post.Image?.[0]?.url) && (
                           <div className="relative w-full aspect-video overflow-hidden">
                             <ImageWidget
-                              src={getS3Url(post.Image[0].url)}
+                              src={
+                                post.ImageUrl?.trim() ||
+                                getS3Url(post.Image?.[0]?.url || "")
+                              }
                               alt={post.Title}
                               fill
                               className="object-cover"

@@ -1,5 +1,6 @@
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
@@ -14,6 +15,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
       description: data?.Card[0]?.Description,
       imageUrl: getS3Url(data?.Card[0]?.Image[0]?.url),
       Btn_txt: data?.Card[0]?.Btn_txt,
+      Slug: data?.Card[0]?.Slug,
       className: "mt-0 md:mt-0 lg:mt-15 xl:mt-15 2xl:mt-15 3xl:mt-20 4xl:mt-25",
     },
     {
@@ -22,6 +24,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
       description: data?.Card[1]?.Description,
       imageUrl: getS3Url(data?.Card[1]?.Image[0]?.url),
       Btn_txt: data?.Card[1]?.Btn_txt,
+      Slug: data?.Card[1]?.Slug,
       className: "mt-0 md:mt-0 lg:mt-45 xl:mt-45 2xl:mt-45 3xl:mt-50 4xl:mt-55",
     },
     {
@@ -29,6 +32,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
       name: data?.Card[2]?.Title,
       description: data?.Card[2]?.Description,
       imageUrl: getS3Url(data?.Card[2]?.Image[0]?.url),
+      Slug: data?.Card[2]?.Slug,
       Btn_txt: data?.Card[2]?.Btn_txt,
     },
     {
@@ -37,6 +41,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
       description: data?.Card[3]?.Description,
       imageUrl: getS3Url(data?.Card[3]?.Image[0]?.url),
       Btn_txt: data?.Card[3]?.Btn_txt,
+      Slug: data?.Card[3]?.Slug,
       className:
         " mt-0 md:mt-0 lg:mt-15 xl:mt-15 2xl:mt-15 3xl:mt-20 4xl:mt-25",
     },
@@ -57,20 +62,15 @@ const TeamSection = ({ data }: TeamSectionProps) => {
             >
               {data.Title}
             </h3>
-          </ScrollWidget>
-          <ScrollWidget delay={0.15}>
-            <p
-              className="
-              font-area-variable font-semibold text-black 
+            {/* <HTMLWidget
+                  content={data.Heading}
+                   className=" font-area-variable font-semibold text-black 
               text-left sm:text-center
               text-base sm:text-lg md:text-xl lg:text-2xl 
               xl:text-3xl 2xl:text-[32px] 3xl:text-[40px] 4xl:text-[45px]
-              max-w-[1100px] mx-auto
-            "
-            >
-              {data.Heading}
-              <span className="text-[#E97451] ml-2">{data.SubHeading}</span>
-            </p>
+              max-w-[1100px] mx-auto"
+                     tag="p"
+                  /> */}
           </ScrollWidget>
         </div>
         <div className="py-7 pb-9 sm sm:py-8 md:py-14 lg:py-12 xl:py-12 2xl:py-16 3xl:py-20 4xl:py-15">
@@ -86,7 +86,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
                   className={`${faculty.className} group min-w-[171px] max-w-[360px]  bg-white
                             hover:bg-[#E97451]/20 cursor-pointer
                             transition-colors duration-500 ease-out
-                            px-3 py-3 flex flex-col
+                            px-2 py-2 flex flex-col
                             min-h-[300px] xs:min-h-[310px] sm:min-h-[310px] md:min-h-[300px] lg:min-h-[300px]
                             xl:min-h-[340px] 2xl:min-h-[410px] 3xl:min-h-[480px] 4xl:min-h-[500px]`}
                 >
@@ -110,12 +110,14 @@ const TeamSection = ({ data }: TeamSectionProps) => {
                   </h5>
                   <p
                     className="font-mulish text-black font-regular
-                    text-[13px] sm:text-[16px] md:[16px] 3xl:text-[18px] 4xl:text-[18px] my-2"
+                    text-[13px] md:text-[17px] 3xl:text-[18px] 4xl:text-[18px] my-2"
                   >
                     {faculty.description}
                   </p>
                   <div className="mt-2 self-start opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out">
-                    <OrangeButtonWidget content={faculty.Btn_txt} />
+                    <LinkWidget href={`/more/about-us/team/${faculty.Slug}`}>
+                      <OrangeButtonWidget content={faculty.Btn_txt} />
+                    </LinkWidget>
                   </div>
                 </div>
               </ScrollWidget>
@@ -154,7 +156,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
               >
                 {data.Frame.Title}
               </h5>
-              <p className="font-mulish text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
+              <p className="font-mulish text-[16px] md:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal">
                 {data.Frame.Description}
               </p>
             </div>

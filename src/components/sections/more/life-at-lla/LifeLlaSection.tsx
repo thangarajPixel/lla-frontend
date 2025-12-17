@@ -92,12 +92,15 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
               text-black w-full md:max-w-[600px] 3xl:max-w-[976px] 3xl:leading-[48px]"
               tag="p"
             />
-            <p className="text-[12px] lg:text-[14px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[750px] 3xl:max-w-[976px]">
+            <p className="text-[12px] md:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[750px] 3xl:max-w-[976px]">
               {data.Description}
             </p>
           </div>
         </ScrollWidget>
-        <div className="py-8 md:py-8 lg:py-12 xl:py-10 2xl:py-10 3xl:py-10">
+        <div
+          className="py-8 md:py-8 lg:py-12 xl:py-10 2xl:py-10 3xl:py-10"
+          suppressHydrationWarning
+        >
           <ResponsiveMasonry
             columnsCountBreakPoints={{
               350: 1,
@@ -118,7 +121,7 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
             >
               {cards.map((card, index) => (
                 <div
-                  className="gap-20 xs:min-w-[270px] xss:w-full sm:min-w-[290px] md:min-w-[240px] lg:min-w-[180px] xl:min-w-[200px] 2xl:min-w-[220px] 3xl:min-w-[300px]"
+                  className="gap-20 max-w-[270px] xs:min-w-[270px] xss:w-full sm:min-w-[290px] md:min-w-[240px] lg:min-w-[180px] xl:min-w-[200px] 2xl:min-w-[220px] 3xl:min-w-[300px]"
                   key={card.id}
                   style={{ marginBottom: "6px" }}
                   ref={(el) => {

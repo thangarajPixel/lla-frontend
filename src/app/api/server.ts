@@ -81,6 +81,14 @@ export async function getGalleryPageData(params?: {
   return fetchData("/gallery", params);
 }
 
+export async function getNilgirisPageData(params?: {
+  page?: number;
+  pageSize?: number;
+  type?: string;
+}) {
+  return fetchData("/nilgiris", params);
+}
+
 export async function getCoursePageData() {
   return fetchData("/course");
 }
@@ -109,6 +117,14 @@ export async function getFounderBySlug(slug: string) {
   return fetchData(`/about/founder/${slug}`);
 }
 
-export async function getFacultyBySlug(slug: string, page: string) {
-  return fetchData(`/faculty/view/${slug}?page=${page}`);
+export async function getFacultyBySlug(
+  name: string,
+  slug: string,
+  page: string,
+) {
+  return fetchData(`/faculty/view/${name}/${slug}?page=${page}`);
+}
+
+export async function getTeamBySlug(slug: string, page: string) {
+  return fetchData(`/about/team/${slug}?page=${page}`);
 }

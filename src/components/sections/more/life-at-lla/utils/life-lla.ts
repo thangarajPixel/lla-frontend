@@ -9,6 +9,7 @@ export type LifeSectionProps = {
       id: number;
       Title: string;
       Slug: string;
+      ImageUrl: string;
       Description: string;
       Btn_txt: string | null;
       Image: Array<{
@@ -43,6 +44,7 @@ export type LifeCard = {
   id: number;
   Title: string;
   Slug: string;
+  ImageUrl: string;
   CreatedDate: string;
   Description: string | null;
   Btn_txt?: string | null;

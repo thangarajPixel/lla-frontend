@@ -1,3 +1,5 @@
+import type { StaticImageData } from "next/image";
+
 export type AboutHeroSectionProps = {
   data: {
     __component?: string;
@@ -49,6 +51,15 @@ export type FounderSectionProps = {
         name: string;
         url: string;
       };
+      ViewCard?: {
+        id: number;
+        Link: string;
+        Image: Array<{
+          id: number;
+          name: string;
+          url: string;
+        }>;
+      } | null;
     }>;
   };
 };
@@ -62,6 +73,7 @@ export type TeamSectionProps = {
     SubHeading: string;
     Card: Array<{
       id: number;
+      Slug: string;
       Title: string;
       Description: string;
       Btn_txt: string;
@@ -83,4 +95,21 @@ export type TeamSectionProps = {
       }>;
     };
   };
+};
+
+export type Card = {
+  id: number;
+  name: string;
+  role?: string;
+  gallery?: Array<{ src: StaticImageData | string; alt: string }>;
+  thumbnail: StaticImageData | string;
+  biography?: string;
+  portfolioLink?: string;
+};
+
+export type TeamMemberPopupProps = {
+  cards: Card[];
+  selectedCardId?: number | null;
+  onClose?: () => void;
+  hideGrid?: boolean;
 };

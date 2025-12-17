@@ -8,7 +8,7 @@ import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import { ArrowRightWhite, Dummy3 } from "@/helpers/ImageHelper";
+import { ArrowRightWhite } from "@/helpers/ImageHelper";
 
 interface BlogImage {
   id: number;
@@ -20,6 +20,7 @@ interface BlogCard {
   id: number;
   Title: string;
   Slug: string;
+  ImageUrl: string;
   Description: string | null;
   Btn_txt: string;
   Image: BlogImage[] | null;
@@ -50,7 +51,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
     if (image && Array.isArray(image) && image.length > 0 && image[0]?.url) {
       return getS3Url(image[0].url);
     }
-    return Dummy3.src;
+    return "";
   };
 
   return (
@@ -58,10 +59,10 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
       <ContainerWidget>
         <div className="flex flex-col gap-6 md:gap-8 lg:gap-10">
           <div className="flex flex-col gap-2 md:gap-3">
-            <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
+            <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[64px] font-semibold md:font-normal text-black font-urbanist">
               {blogData?.Title || ""}
             </h3>
-            <p className="text-[16px] lg:text-[16px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[600px]">
+            <p className="text-[16px] md:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[600px]">
               {blogData?.Description || ""}
             </p>
           </div>
@@ -79,7 +80,8 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                   >
                     <Masonry gutter="20px">
                       {blogCards.map((blog, index) => {
-                        const imageUrl = getImageUrl(blog.Image);
+                        const imageUrl =
+                          blog.ImageUrl || getImageUrl(blog.Image);
                         const imageAlt =
                           blog.Image?.[0]?.name ||
                           blog.Title ||
@@ -100,14 +102,16 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                             >
                               <div className="flex flex-col gap-4 h-full">
                                 <div className="relative w-full overflow-hidden rounded-none aspect-video">
-                                  <ImageWidget
-                                    src={imageUrl}
-                                    alt={imageAlt}
-                                    width={410}
-                                    height={272}
-                                    className="object-cover w-full h-auto 3xl:min-w-[410px] 3xl:min-h-[272px] transition-transform duration-300 group-hover:scale-105"
-                                    loading="lazy"
-                                  />
+                                  {imageUrl && (
+                                    <ImageWidget
+                                      src={imageUrl}
+                                      alt={imageAlt}
+                                      width={410}
+                                      height={272}
+                                      className="object-cover w-full h-auto 3xl:min-w-[410px] 3xl:min-h-[272px] transition-transform duration-300 group-hover:scale-105"
+                                      loading="lazy"
+                                    />
+                                  )}
                                 </div>
                                 <div className="flex flex-col gap-2">
                                   <h4 className="font-mulish  3xl:text-[24px] 2xl:text-[20px] xl:text-[18px] lg:text-[16px] md:text-[14px] text-[16px] font-bold text-black leading-tight">
@@ -148,7 +152,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                   style={{ gap: "20px" }}
                 >
                   {blogCards.map((blog, index) => {
-                    const imageUrl = getImageUrl(blog.Image);
+                    const imageUrl = blog.ImageUrl || getImageUrl(blog.Image);
                     const imageAlt =
                       blog.Image?.[0]?.name || blog.Title || "Blog post image";
 

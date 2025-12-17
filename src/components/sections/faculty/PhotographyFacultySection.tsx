@@ -16,11 +16,7 @@ const PhotographyFacultySection = ({
             <h2 className=" text-left md:text-center font-urbanist font-normal text-black text-[28px] sm:text-[32px] md:text-[36px] lg:text-[42px] xl:text-[48px] 2xl:text-[52px] 3xl:text-[58px] mb-2 3xl:mb-4">
               {data?.Title}
             </h2>
-            <p className="font-mulish text-left md:text-center ledding-normal text-[24px] sm:text-[24px] md:text-[20px] lg:text-[22px] xl:text-[24px] 2xl:text-[30px] 3xl:text-[40px] mb-2 sm:mb-4 3xl:mb-4">
-              {data?.Heading}{" "}
-              <span className="text-[#E97451]">{data?.SubHeading}</span>
-            </p>
-            <p className=" text-left md:text-center font-mulish text-black text-[16px] sm:text-[14px] md:text-[12px] lg:text-[12px] xl:text-[14px] 2xl:text-[14px] 3xl:text-[18px] max-w-[280px] s:max-w-[320px] m:max-w-[350px] xss:max-w-[370px] xs:max-w-[450px] sm:max-w-[500px] md:max-w-[600px] lg:max-w-[650px] xl:max-w-[700px] 2xl:max-w-[750px] 3xl:max-w-[770px] mx-auto">
+            <p className=" text-left md:text-center font-mulish text-black text-[16px] sm:text-[17px] 3xl:text-[18px] max-w-[280px] s:max-w-[320px] m:max-w-[350px] xss:max-w-[370px] xs:max-w-[450px] sm:max-w-[500px] md:max-w-[600px] lg:max-w-[650px] xl:max-w-[700px] 2xl:max-w-[750px] 3xl:max-w-[770px] mx-auto">
               {data?.Description}
             </p>
           </div>

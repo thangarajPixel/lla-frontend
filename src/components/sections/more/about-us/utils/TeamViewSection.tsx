@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
@@ -18,59 +18,84 @@ interface ImageData {
   url: string;
 }
 
-interface ViewCard {
+interface TeamCard {
   id: number;
+  Title: string;
   Description: string;
+  Btn_txt: string;
+  LongDescription: string | null;
+  Btn_txt2: string | null;
+  Url: string | null;
+  Slug: string;
   Image: ImageData[];
 }
 
-interface FacultyCard {
+interface TeamComponent {
+  __component: "about.team";
   id: number;
   Title: string;
-  Slug: string;
-  Image: ImageData;
-  ViewCard: ViewCard[];
+  Heading: string;
+  Card: TeamCard[];
 }
 
-type FacultyViewSectionData = {
-  Card: FacultyCard[];
+interface TeamViewSectionData {
+  id: number;
+  documentId: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string | null;
+  about: TeamComponent[];
   pagination: {
     page: number;
     pageSize: number;
-    total: number;
+    totalCards: number;
     totalPages: number;
   };
-};
-
-interface FacultyViewSectionProps {
-  data: FacultyViewSectionData;
-  type: string;
 }
 
-const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
+interface ApiResponse {
+  data: TeamViewSectionData;
+}
+
+interface TeamViewSectionProps {
+  data: TeamViewSectionData | ApiResponse;
+}
+
+const TeamViewSection = ({ data }: TeamViewSectionProps) => {
   const router = useRouter();
   const pathname = usePathname();
   const [isMounted, setIsMounted] = useState(false);
-  const [currentData, setCurrentData] = useState<FacultyViewSectionData>(data);
+
+  // Helper function to extract data from either format
+  const extractData = useCallback(
+    (inputData: TeamViewSectionData | ApiResponse): TeamViewSectionData => {
+      return "data" in inputData ? inputData.data : inputData;
+    },
+    [],
+  );
+
+  const [currentData, setCurrentData] = useState<TeamViewSectionData>(
+    extractData(data),
+  );
   const [isLoading, setIsLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
   const [animationKey, setAnimationKey] = useState(0);
 
   const slug = pathname.split("/").pop() || "";
 
-  const facultyCard = currentData?.Card?.[0];
-  const viewCard = facultyCard?.ViewCard?.[0];
+  const teamComponent = currentData?.about?.[0];
+  const teamCard = teamComponent?.Card?.[0];
+  const currentPage = currentData?.pagination?.page || 1;
 
-  const facultyName = facultyCard?.Title || "Faculty Member";
-  const portraitImage = facultyCard?.Image;
-  const biography = viewCard?.Description || "";
-  const galleryImages = viewCard?.Image || [];
+  const memberName = teamCard?.Title || "Team Member";
+  const portraitImage = teamCard?.Image?.[0];
+  const biography = teamCard?.LongDescription || teamCard?.Description || "";
+  const galleryImages = teamCard?.Image || [];
 
   const lightboxImages = galleryImages
     .filter((image) => image?.url)
     .map((image) => ({
       src: getS3Url(image.url),
-      alt: image?.name || "Gallery Image",
+      alt: image?.name || "Team Member Image",
     }));
 
   useEffect(() => {
@@ -78,26 +103,25 @@ const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
   }, []);
 
   useEffect(() => {
-    setCurrentData(data);
-  }, [data]);
+    setCurrentData(extractData(data));
+  }, [data, extractData]);
 
-  const fetchFacultyData = async (page: number) => {
+  const fetchTeamData = async (page: number) => {
     if (!slug || isLoading) return;
 
     setIsLoading(true);
     try {
       const response = await clientAxios.get(
-        `/faculty/view/${type}/${slug}?page=${page}`,
+        `/about/team/${slug}?page=${page}`,
       );
-      const responseData = response.data.data;
+      const responseData = response.data;
       if (responseData) {
-        setCurrentData(responseData);
-        setCurrentPage(page);
+        const extractedData = extractData(responseData);
+        setCurrentData(extractedData);
         setAnimationKey((prev) => prev + 1);
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
-    } catch (error) {
-      console.error("Error fetching faculty data:", error);
+    } catch (_error) {
     } finally {
       setIsLoading(false);
     }
@@ -105,12 +129,12 @@ const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
 
   const handlePrev = () => {
     if (currentPage > 1) {
-      fetchFacultyData(currentPage - 1);
+      fetchTeamData(currentPage - 1);
     }
   };
 
   const handleNext = () => {
-    fetchFacultyData(currentPage + 1);
+    fetchTeamData(currentPage + 1);
   };
 
   return (
@@ -141,7 +165,7 @@ const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
               delay={0.1}
             >
               <h1 className="text-3xl font-urbanist text-[#E97451] xss:text-[24px] lg:text-[30px] 3xl:text-[40px] font-normal mb-6">
-                {facultyName}
+                {memberName}
               </h1>
             </ScrollWidget>
 
@@ -156,7 +180,7 @@ const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
                     <div className="relative w-full overflow-hidden">
                       <ImageWidget
                         src={getS3Url(portraitImage.url)}
-                        alt={portraitImage.name || "Faculty Image"}
+                        alt={portraitImage.name || "Team Member Image"}
                         width={800}
                         height={1200}
                         className="object-cover w-full h-auto xss:h-[361px] xss:w-[361px] sm:w-full sm:h-auto"
@@ -188,9 +212,9 @@ const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
                 <button
                   type="button"
                   onClick={handleNext}
-                  disabled={isLoading}
+                  disabled={currentPage >= 4 || isLoading}
                   className={`flex items-center rounded-full justify-center h-12 flex-1 border-2 border-[#FFD4CC] bg-white transition-all ${
-                    isLoading
+                    currentPage >= 4 || isLoading
                       ? "opacity-50 cursor-not-allowed"
                       : "cursor-pointer hover:bg-[#FFD4CC]"
                   }`}
@@ -206,9 +230,23 @@ const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
             </div>
           </div>
         </div>
-
         <div className="flex flex-col bg-[#E97451]/20 md:pt-13 ">
           <div className="flex flex-col justify-center px-4 py-8 pb-4 md:pb-8 md:px-4 md:py-12 lg:px-6 lg:py-15 xl:px-10 xl:pr-50 2xl:pr-58 3xl:pr-74 3xl:py-15">
+            {/* {teamCard.Description && (
+              <ScrollWidget
+                key={`description-${animationKey}`}
+                animation="fadeUp"
+                delay={0.4}
+              >
+                <div className="mb-8">
+                  <HTMLWidget
+                    content={teamCard?.Description || ""}
+                    className="prose prose-sm md:prose-base max-w-none font-mulish text-sm xss:text-[16px] sm:text-base lg:text-[32px] 2xl:text-[32px] 3xl:text-[32px] font-normal text-black leading-normal"
+                  />
+                </div>
+              </ScrollWidget>
+            )} */}
+
             {biography && (
               <ScrollWidget
                 key={`biography-${animationKey}`}
@@ -335,4 +373,4 @@ const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
   );
 };
 
-export default FacultyViewSection;
+export default TeamViewSection;

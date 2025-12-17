@@ -129,7 +129,7 @@ const WebHeader = ({
     >
       <nav>
         <ContainerWidget>
-          <div className="flex items-center justify-between py-3 pt-2!">
+          <div className="flex items-center justify-between py-5 pt-3.5!">
             <LinkWidget href="/">
               <ImageWidget
                 src={isHomePage ? (isSticky ? LogoBlack : Logo) : LogoBlack}

@@ -21,7 +21,7 @@ const FilmmakingFacultySection = ({ data }: FilmmakingFacultySectionProps) => {
                 return (
                   <p
                     key={text}
-                    className="font-mulish text-black text-[16px] sm:text-[16px] md:text-[14px] lg:text-[12px] xl:text-[14px] 2xl:text-[14px] 3xl:text-[18px] leading-normal"
+                    className="font-mulish text-black text-[16px] sm:text-[17px] 3xl:text-[18px] leading-normal"
                   >
                     {text}
                   </p>
@@ -31,7 +31,7 @@ const FilmmakingFacultySection = ({ data }: FilmmakingFacultySectionProps) => {
           </div>
         </ScrollWidget>
 
-        <div className="grid grid-cols-1 s:grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 3xl:grid-cols-4 gap-4 s:gap-4 m:gap-4 xss:gap-4 xs:gap-5 sm:gap-5 md:gap-5 lg:gap-6 xl:gap-5 2xl:gap-8 3xl:gap-8.5">
+        <div className="grid grid-cols-1 s:grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 3xl:grid-cols-4 gap-2 s:gap-2 m:gap-2 xss:gap-2 xs:gap-3 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-5 2xl:gap-8 3xl:gap-8.5">
           {data?.Card?.map((member, index) => (
             <ScrollWidget key={member.id} delay={0.1 * (index + 1)}>
               <LinkWidget href={`/filmmaking/${member.Slug}`}>

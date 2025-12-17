@@ -2,7 +2,7 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import ImageLayout from "./ImageLayout";
-import type { CourseContentData } from "./types";
+import type { CourseContentData, ImageData } from "./types";
 
 const parseDuration = (
   duration: string,
@@ -31,22 +31,57 @@ const CourseContentSection = ({ data }: { data: CourseContentData }) => {
     Description: data.Description,
   };
 
-  const sectionsData = data.Content_card.map((card) => {
-    const gridBreakpoint = "lg";
-    const delay = 0.2;
+  const groupedSections = data.Content_card.reduce(
+    (groups, card) => {
+      const gridBreakpoint = "lg";
+      const delay = 0.2;
 
-    return {
-      type: card.Type,
-      section: card.Section,
-      title: card.Title,
-      description: card.Description,
-      gridBreakpoint,
-      delay,
-      images: card.Image,
-      OuterTitle: card.OuterTitle,
-      OuterDescription: card.OuterDescription,
-    };
-  });
+      const sectionData = {
+        id: card.id,
+        type: card.Type,
+        section: card.Section,
+        title: card.Title,
+        description: card.Description,
+        gridBreakpoint,
+        delay,
+        images: card.Image,
+      };
+
+      if (card.OuterTitle) {
+        groups.push({
+          OuterTitle: card.OuterTitle,
+          OuterDescription: card.OuterDescription,
+          sections: [sectionData],
+        });
+      } else {
+        if (groups.length === 0) {
+          groups.push({
+            OuterTitle: null,
+            OuterDescription: null,
+            sections: [sectionData],
+          });
+        } else {
+          groups[groups.length - 1].sections.push(sectionData);
+        }
+      }
+
+      return groups;
+    },
+    [] as Array<{
+      OuterTitle: string | null;
+      OuterDescription: string | null;
+      sections: Array<{
+        id: number;
+        type: string;
+        section: string | null;
+        title: string | null;
+        description: string;
+        gridBreakpoint: string;
+        delay: number;
+        images: ImageData[] | null;
+      }>;
+    }>,
+  );
 
   return (
     <section className="w-full py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 3xl:py-28">
@@ -65,55 +100,73 @@ const CourseContentSection = ({ data }: { data: CourseContentData }) => {
                   </span>
                 )}
               </p>
-              <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full">
+              <p className="text-[16px] lg:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full">
                 {headerData.Description}
               </p>
             </div>
           </div>
         </ScrollWidget>
 
-        {sectionsData.map((section, index) => (
+        {groupedSections.map((group, groupIndex) => (
           <div
-            key={`section-${data.Content_card[index]?.id || index}`}
-            className="sticky top-8 self-start"
+            key={
+              group.OuterTitle || `group-${group.sections[0]?.id ?? groupIndex}`
+            }
+            className="w-full"
           >
-            {section.OuterTitle && (
-              <h3
-                className={`text-3xl ${!section.OuterDescription && "mb-6"} xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-normal md:font-normal text-black font-urbanist`}
-              >
-                {section.OuterTitle}
-              </h3>
-            )}
-            {section.OuterDescription && (
-              <HTMLWidget
-                content={section.OuterDescription}
-                tag="p"
-                className="mb-7 mt-2"
-              />
-            )}
-            <div
-              id={`course-content-${data.Content_card[index]?.id || index}`}
-              className={`grid grid-cols-1 ${section.gridBreakpoint === "md" ? "md:grid-cols-[58%_40%]" : "lg:grid-cols-[58%_40%]"} gap-6 bg-[#ECECEC] w-full p-8 pb-9 ${index > 0 ? "mt-8" : ""}`}
-            >
-              <div className="flex flex-col gap-4 w-full">
-                <h3 className="font-mulish text-xl xss:text-[16px] text-[#E97451] font-normal 3xl:text-[24px]">
-                  {section.section}
+            {group.OuterTitle && (
+              <div className="bg-white pb-1 pt-10 sticky top-18 z-30">
+                <h3
+                  className={`text-3xl ${!group.OuterDescription && "mb-6"} xss:text-[32px] md:text-[40px] font-normal md:font-normal text-black font-urbanist`}
+                >
+                  {group.OuterTitle}
                 </h3>
-                <h2 className="font-urbanist text-[37px] xss:text-[24px] xl:text-[25px] 2xl:text-[37px] 3xl:text-[40px] font-normal text-black mt-[-10px]">
-                  {section.title}
-                </h2>
-                {section.description && (
+                {group.OuterDescription && (
                   <HTMLWidget
-                    content={section.description}
-                    className="text-[16px] lg:text-[13px] 3xl:text-[18px] font-normal font-mulish ul-image"
-                    tag="div"
+                    content={group.OuterDescription}
+                    tag="p"
+                    className="mb-7 mt-2"
                   />
                 )}
               </div>
-              <div className="relative">
-                <ImageLayout type={section.type} images={section.images} />
+            )}
+            {group.sections.map((section, sectionIndex) => (
+              <div
+                key={`section-${section.id || sectionIndex}`}
+                className={`w-full sticky ${group.OuterDescription ? "top-66" : "top-47"} z-10`}
+              >
+                <div
+                  id={`course-content-${section.id || sectionIndex}`}
+                  className={`sticky ${group.OuterDescription ? "top-32" : "top-20"} z-10 grid grid-cols-1 ${section.gridBreakpoint === "md" ? "md:grid-cols-[58%_40%]" : "lg:grid-cols-[58%_40%]"} gap-6 bg-[#ECECEC] min-h-[600px] 3xl:min-h-[750px] w-full p-8 pb-9 ${sectionIndex > 0 ? "mt-8" : ""}`}
+                >
+                  <div className="flex flex-col gap-4 w-full">
+                    {section.section && (
+                      <h3 className="font-mulish text-xl xss:text-[16px] text-[#E97451] font-normal 3xl:text-[24px]">
+                        {section.section}
+                      </h3>
+                    )}
+                    {section.title && (
+                      <h2 className="font-urbanist text-[37px] leading-11 xss:text-[24px] xl:text-[25px] 2xl:text-[37px] 3xl:text-[40px] font-normal text-black mt-[-10px]">
+                        {section.title}
+                      </h2>
+                    )}
+                    {section.description && (
+                      <HTMLWidget
+                        content={section.description}
+                        className="font-normal font-mulish ul-image"
+                        tag="div"
+                      />
+                    )}
+                  </div>
+                  <div className="relative">
+                    <ImageLayout
+                      type={section.type}
+                      images={section.images ?? undefined}
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         ))}
       </ContainerWidget>

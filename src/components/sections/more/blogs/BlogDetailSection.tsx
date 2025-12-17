@@ -119,6 +119,13 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
                     tag="div"
                   />
                 )}
+                {card.LongDescription && (
+                  <HTMLWidget
+                    content={card.LongDescription}
+                    className="text-[16px] md:text-[16px] lg:text-[16px] xl:text-[16px] 2xl:text-[16px] 3xl:text-[18px] text-black leading-normal font-mulish"
+                    tag="div"
+                  />
+                )}
                 {card.ViewCard?.map((viewCard) => (
                   <div key={viewCard.id} className="flex flex-col gap-4">
                     <h3 className="text-[24px] md:text-[26px] lg:text-[26px] xl:text-[28px] 2xl:text-[30px] 3xl:text-[32px] font-normal text-black font-urbanist">
@@ -192,10 +199,13 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
                   {latest.map((post) => (
                     <div key={post.id} className="group">
                       <div className="flex flex-col gap-2">
-                        {post.Image?.[0]?.url && (
+                        {(post.ImageUrl || post.Image?.[0]?.url) && (
                           <div className="relative w-full aspect-video overflow-hidden">
                             <ImageWidget
-                              src={getS3Url(post.Image[0].url)}
+                              src={
+                                post.ImageUrl?.trim() ||
+                                getS3Url(post.Image?.[0]?.url || "")
+                              }
                               alt={post.Title}
                               fill
                               className="object-cover"

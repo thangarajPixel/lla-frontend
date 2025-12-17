@@ -11,7 +11,7 @@ const DirectorAcademicsSection = ({ data }: FacultyFounderSectionProps) => {
     <section className="w-full bg-white py-8 sm:py-12 md:py-16 lg:py-20 xl:py-20 2xl:py-20">
       <ContainerWidget>
         <ScrollWidget delay={0.2}>
-          <h2 className="font-urbanist font-normal text-left md:text-center text-black text-[28px] sm:text-[32px] md:text-[36px] lg:text-[42px] xl:text-[48px] 2xl:text-[52px] mb-8 sm:mb-10 md:mb-12 lg:mb-16">
+          <h2 className="font-urbanist font-normal text-left md:text-center text-black text-[28px] sm:text-[32px] md:text-[36px] lg:text-[42px] xl:text-[48px] 2xl:text-[52px] 3xl:text-[64px] mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             {data?.Title}
           </h2>
         </ScrollWidget>
@@ -21,16 +21,16 @@ const DirectorAcademicsSection = ({ data }: FacultyFounderSectionProps) => {
             className="order-2 md:order-1 w-full md:flex-1"
           >
             <div className="space-y-3 s:space-y-3 m:space-y-3 xss:space-y-4 xs:space-y-4 sm:space-y-4 md:space-y-3 lg:space-y-4 xl:space-y-2 2xl:space-y-3 3xl:space-y-4">
-              <h3 className="font-urbanist font-normal text-left text-[#E97451] text-[18px] s:text-[19px] m:text-[20px] xss:text-[21px] xs:text-[22px] sm:text-[23px] md:text-[24px] lg:text-[26px] xl:text-[28px] 2xl:text-[30px] 3xl:text-[34px]">
+              <h3 className="font-urbanist font-normal text-left text-[#E97451] text-[18px] s:text-[19px] m:text-[20px] xss:text-[21px] xs:text-[22px] sm:text-[23px] md:text-[24px] lg:text-[26px] xl:text-[30px] 2xl:text-[34px] 3xl:text-[40px]">
                 {data?.Founder_card[0]?.Heading}
               </h3>
-              <p className="text-left font-mulish text-black text-[14px] s:text-[14px] m:text-[14px] xss:text-[15px] xs:text-[15px] sm:text-[15px] md:text-[13px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px] 3xl:text-[18px] leading-relaxed">
+              <p className="text-left font-mulish text-black text-[14px]  xss:text-[15px] xs:text-[15px] sm:text-[17px] 2xl:text-[17px] 3xl:text-[18px] leading-relaxed">
                 {data?.Founder_card[0]?.Description[0]?.children[0]?.text}
               </p>
-              <p className="text-left font-mulish text-black text-[14px] s:text-[14px] m:text-[14px] xss:text-[15px] xs:text-[15px] sm:text-[15px] md:text-[13px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px] 3xl:text-[18px] leading-relaxed">
+              <p className="text-left font-mulish text-black text-[14px]  xss:text-[15px] xs:text-[15px] sm:text-[17px] 2xl:text-[17px] 3xl:text-[18px] leading-relaxed">
                 {data?.Founder_card[0]?.Description[1]?.children[0]?.text}
               </p>
-              <p className="text-left font-mulish text-black text-[14px] s:text-[14px] m:text-[14px] xss:text-[15px] xs:text-[15px] sm:text-[15px] md:text-[13px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px] 3xl:text-[18px] leading-relaxed">
+              <p className="text-left font-mulish text-black text-[14px]  xss:text-[15px] xs:text-[15px] sm:text-[17px] 2xl:text-[17px] 3xl:text-[18px] leading-relaxed">
                 {data?.Founder_card[0]?.Description[2]?.children[0]?.text}
               </p>
               <div className="pt-2 s:pt-2 m:pt-2 xss:pt-2 xs:pt-2 sm:pt-2 md:pt-3 lg:pt-3 xl:pt-3 2xl:pt-3 3xl:pt-4">

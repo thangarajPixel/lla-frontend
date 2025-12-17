@@ -53,25 +53,31 @@ const ParallaxWidget = ({
     if (!elementRef?.current) return;
     if (!gsap || !ScrollTrigger) return;
 
+    const element = elementRef.current;
     let scrollTrigger: ScrollTrigger | null = null;
 
     try {
       const endValue = end || "bottom top";
       const startValue = start || "top bottom";
 
+      gsap.set(element, {
+        force3D: true,
+        willChange: "transform",
+      });
+
       scrollTrigger = ScrollTrigger.create({
-        trigger: elementRef.current,
+        trigger: element,
         start: startValue,
         end: endValue,
         scrub: scrub || 1,
         onUpdate: (self) => {
-          if (!self || !elementRef.current) return;
+          if (!self || !element) return;
           try {
             const progress = self.progress ?? 0;
             const yPos = (progress - 0.5) * 200 * speed;
-            gsap.set(elementRef.current, {
+            gsap.set(element, {
               y: yPos,
-              ease: "power2.out",
+              force3D: true,
             });
           } catch (_error) {}
         },
@@ -92,11 +98,20 @@ const ParallaxWidget = ({
           scrollTrigger.kill();
         } catch (_error) {}
       }
+      if (element) {
+        gsap.set(element, {
+          clearProps: "all",
+        });
+      }
     };
   }, [isReady, speed, start, end, scrub]);
 
   return (
-    <div ref={elementRef} className={className}>
+    <div
+      ref={elementRef}
+      className={className}
+      style={{ willChange: "transform" }}
+    >
       {children}
     </div>
   );

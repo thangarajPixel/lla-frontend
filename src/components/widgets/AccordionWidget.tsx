@@ -114,7 +114,7 @@ const AccordionWidget = ({
                 </AccordionTrigger>
                 <AccordionContent
                   className={cn(
-                    "text-black bg-white text-[16px] mb-5 px-4 pb-3 pt-1",
+                    "text-black bg-white text-[17px] mb-5 px-4 pb-3 pt-1",
                     item.contentClassName,
                   )}
                 >
@@ -138,7 +138,7 @@ const AccordionWidget = ({
                 </AccordionTrigger>
                 <AccordionContent
                   className={cn(
-                    "text-black bg-white text-[16px] mb-5 px-4 pb-3 pt-1",
+                    "text-black bg-white text-[17px] mb-5 px-4 pb-3 pt-1",
                     item.contentClassName,
                   )}
                 >
