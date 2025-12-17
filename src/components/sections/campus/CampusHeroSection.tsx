@@ -1,24 +1,12 @@
 "use client";
 
-import { DialogClose } from "@/components/ui/dialog";
-import ButtonWidget from "@/components/widgets/ButtonWidget";
-import DialogWidget from "@/components/widgets/DialogWidget";
-import ImageWidget from "@/components/widgets/ImageWidget";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
-import { getS3Url } from "@/helpers/ConstantHelper";
-import { Into, Play } from "@/helpers/ImageHelper";
-import type { CampusHeroSectionProps } from "./utils/campus";
-import ScrollWidget from "@/components/widgets/ScrollWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
+import ScrollWidget from "@/components/widgets/ScrollWidget";
+import { getS3Url } from "@/helpers/ConstantHelper";
+import type { CampusHeroSectionProps } from "./utils/campus";
 
 const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
-  const stopAllVideos = () => {
-    const videos = document.querySelectorAll("video");
-    videos.forEach((video) => {
-      video.pause();
-      video.currentTime = 0;
-    });
-  };
   return (
     <section className="relative w-full h-[1050px] overflow-hidden">
       <div className="absolute inset-0 w-full h-[1050px] z-0">
@@ -36,7 +24,7 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
           <track kind="captions" srcLang="en" label="English" />
         </video>
       </div>
-      <ContainerWidget >
+      <ContainerWidget>
         <ScrollWidget animation="fadeUp" delay={0.1}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0 py-20 xl:py-40 2xl:py-50 3xl:py-60 relative z-10">
             <div className="flex flex-col items-start bg-black/40 p-4  backdrop-blur-none w-full 3xl:max-w-[740px] 3xl:max-h-[662px] ">
@@ -49,7 +37,7 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
                 <HTMLWidget
                   content={data.Heading}
                   tag="p"
-                  className="text-white  xl:leading-[30px]  3xl:leading-[48px] text-base sm:text-lg lg:text-[28px] xl:text-[28px] 2xl:text-[32px] 3xl:text-[40px] font-mulish xl:max-w-[300px] 3xl:max-w-[500px]"
+                  className="text-white text-base sm:text-lg lg:text-[28px] xl:text-[28px] 2xl:text-[32px] 3xl:text-[40px] font-mulish"
                 />
               )}
               <DialogWidget trigger={<div className="absolute inset-0 flex items-center justify-center z-10 ">
