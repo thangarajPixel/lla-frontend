@@ -13,6 +13,7 @@ const Campus = async () => {
         <FacilitiesSection data={response?.campus?.[1]} />
         <GallerySection data={response?.campus?.[2]} />
       </Fragment>
+      
     );
 };
 export default Campus;

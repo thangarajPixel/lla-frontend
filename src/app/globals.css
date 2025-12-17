@@ -178,12 +178,31 @@ body {
   height: 72px;
   pointer-events: none;
 }
+.video-main1 {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 72px;
+  height: 72px;
+  pointer-events: none;
+}
+@media (max-width: 767px) {
+  .video-main1 {
+    top: 88%;    
+    left: 50%;
+    width: 56px;  
+    height: 56px;
+  }
+}
+
 
 .waves-block {
   position: relative;
   width: 100%;
   height: 100%;
 }
+
 
 @keyframes waves {
   0% {
