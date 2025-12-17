@@ -12,6 +12,13 @@ import { Into, Play } from "@/helpers/ImageHelper";
 import { DialogClose } from "@/components/ui/dialog";
 
 const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
+   const stopAllVideos = () => {
+    const videos = document.querySelectorAll("video");
+    videos.forEach((video) => {
+      video.pause();
+      video.currentTime = 0;
+    });
+  };
   return (
     <section className="relative w-full h-[1050px] overflow-hidden">
       <div className="absolute inset-0 w-full h-[1050px] z-0">
@@ -64,7 +71,7 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
                 showCancel={false}
                 showCloseButton={false}
                 onOpenChange={(open) => {
-                  // if (!open) stopAllVideos();
+                   if (!open) stopAllVideos();
                 }}
                 customCloseButton={
                   <DialogClose asChild>
