@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import Marquee from "react-fast-marquee";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import LightboxWidget from "@/components/widgets/LightboxWidget";
 import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { getS3Url, splitIntoTwoArrays } from "@/helpers/ConstantHelper";
@@ -14,6 +15,21 @@ const GallertSection = ({ data }: GallerySectionProps) => {
 
   const imageChunks = useMemo(() => {
     return splitIntoTwoArrays(galleryImages);
+  }, [galleryImages]);
+
+  const lightboxImages = useMemo(() => {
+    return galleryImages.map((image) => ({
+      src: getS3Url(image.url),
+      alt: image.name || "Gallery",
+    }));
+  }, [galleryImages]);
+
+  const imageToLightboxIndex = useMemo(() => {
+    const map = new Map<number, number>();
+    galleryImages.forEach((image, index) => {
+      map.set(image.id, index);
+    });
+    return map;
   }, [galleryImages]);
 
   if (galleryImages.length === 0) return null;
@@ -39,42 +55,86 @@ const GallertSection = ({ data }: GallerySectionProps) => {
               </LinkWidget>
             </div>
           </div>
-          <div className="space-y-6 overflow-hidden">
-            {imageChunks[0] && imageChunks[0].length > 0 && (
-              <Marquee direction="right" speed={30} pauseOnHover>
-                {imageChunks[0].map((image) => (
-                  <div
-                    key={`row1-${image.id}`}
-                    className="relative min-w-[250px] max-w-[250px] 3xl:min-w-[300px] 3xl:max-w-[300px] aspect-square overflow-hidden mx-3 shrink-0"
-                  >
-                    <ImageWidget
-                      src={getS3Url(image.url)}
-                      alt={image.name || "Gallery"}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                ))}
-              </Marquee>
+          <LightboxWidget images={lightboxImages}>
+            {(openLightbox) => (
+              <div className="space-y-6 overflow-hidden">
+                {imageChunks[0] && imageChunks[0].length > 0 && (
+                  <Marquee direction="right" speed={50} pauseOnHover>
+                    {imageChunks[0].map((image) => {
+                      const lightboxIndex = imageToLightboxIndex.get(image.id);
+                      return (
+                        // biome-ignore lint/a11y/useSemanticElements: div is needed for ImageWidget with fill prop
+                        <div
+                          key={`row1-${image.id}`}
+                          role="button"
+                          tabIndex={0}
+                          onClick={() => {
+                            if (lightboxIndex !== undefined) {
+                              openLightbox(lightboxIndex);
+                            }
+                          }}
+                          onKeyDown={(e) => {
+                            if (
+                              (e.key === "Enter" || e.key === " ") &&
+                              lightboxIndex !== undefined
+                            ) {
+                              e.preventDefault();
+                              openLightbox(lightboxIndex);
+                            }
+                          }}
+                          className="relative min-w-[250px] max-w-[250px] 3xl:min-w-[300px] 3xl:max-w-[300px] aspect-square overflow-hidden mx-3 shrink-0 cursor-pointer"
+                        >
+                          <ImageWidget
+                            src={getS3Url(image.url)}
+                            alt={image.name || "Gallery"}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      );
+                    })}
+                  </Marquee>
+                )}
+                {imageChunks[1] && imageChunks[1].length > 0 && (
+                  <Marquee direction="left" speed={50} pauseOnHover>
+                    {imageChunks[1].map((image) => {
+                      const lightboxIndex = imageToLightboxIndex.get(image.id);
+                      return (
+                        // biome-ignore lint/a11y/useSemanticElements: div is needed for ImageWidget with fill prop
+                        <div
+                          key={`row2-${image.id}`}
+                          role="button"
+                          tabIndex={0}
+                          onClick={() => {
+                            if (lightboxIndex !== undefined) {
+                              openLightbox(lightboxIndex);
+                            }
+                          }}
+                          onKeyDown={(e) => {
+                            if (
+                              (e.key === "Enter" || e.key === " ") &&
+                              lightboxIndex !== undefined
+                            ) {
+                              e.preventDefault();
+                              openLightbox(lightboxIndex);
+                            }
+                          }}
+                          className="relative min-w-[250px] max-w-[250px] 3xl:min-w-[300px] 3xl:max-w-[300px] aspect-square overflow-hidden mx-3 shrink-0 cursor-pointer"
+                        >
+                          <ImageWidget
+                            src={getS3Url(image.url)}
+                            alt={image.name || "Gallery"}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      );
+                    })}
+                  </Marquee>
+                )}
+              </div>
             )}
-            {imageChunks[1] && imageChunks[1].length > 0 && (
-              <Marquee direction="left" speed={30} pauseOnHover>
-                {imageChunks[1].map((image) => (
-                  <div
-                    key={`row2-${image.id}`}
-                    className="relative min-w-[250px] max-w-[250px] 3xl:min-w-[300px] 3xl:max-w-[300px] aspect-square overflow-hidden mx-3 shrink-0"
-                  >
-                    <ImageWidget
-                      src={getS3Url(image.url)}
-                      alt={image.name || "Gallery"}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                ))}
-              </Marquee>
-            )}
-          </div>
+          </LightboxWidget>
         </div>
       </div>
     </section>
