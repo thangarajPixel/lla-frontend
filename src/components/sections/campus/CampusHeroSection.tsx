@@ -5,6 +5,11 @@ import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import type { CampusHeroSectionProps } from "./utils/campus";
+import DialogWidget from "@/components/widgets/DialogWidget";
+import ButtonWidget from "@/components/widgets/ButtonWidget";
+import ImageWidget from "@/components/widgets/ImageWidget";
+import { Into, Play } from "@/helpers/ImageHelper";
+import { DialogClose } from "@/components/ui/dialog";
 
 const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
   return (
@@ -59,7 +64,7 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
                 showCancel={false}
                 showCloseButton={false}
                 onOpenChange={(open) => {
-                  if (!open) stopAllVideos();
+                  // if (!open) stopAllVideos();
                 }}
                 customCloseButton={
                   <DialogClose asChild>
