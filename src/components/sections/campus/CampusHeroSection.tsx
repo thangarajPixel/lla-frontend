@@ -1,24 +1,12 @@
 "use client";
 
-import { DialogClose } from "@/components/ui/dialog";
-import ButtonWidget from "@/components/widgets/ButtonWidget";
-import DialogWidget from "@/components/widgets/DialogWidget";
-import ImageWidget from "@/components/widgets/ImageWidget";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
-import { getS3Url } from "@/helpers/ConstantHelper";
-import { Into, Play } from "@/helpers/ImageHelper";
-import type { CampusHeroSectionProps } from "./utils/campus";
-import ScrollWidget from "@/components/widgets/ScrollWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
+import ScrollWidget from "@/components/widgets/ScrollWidget";
+import { getS3Url } from "@/helpers/ConstantHelper";
+import type { CampusHeroSectionProps } from "./utils/campus";
 
 const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
-  const stopAllVideos = () => {
-    const videos = document.querySelectorAll("video");
-    videos.forEach((video) => {
-      video.pause();
-      video.currentTime = 0;
-    });
-  };
   return (
     <section className="relative w-full h-[1050px] overflow-hidden">
       <div className="absolute inset-0 w-full h-[1050px] z-0">
@@ -36,7 +24,7 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
           <track kind="captions" srcLang="en" label="English" />
         </video>
       </div>
-      <ContainerWidget >
+      <ContainerWidget>
         <ScrollWidget animation="fadeUp" delay={0.1}>
           <div className="grid grid-cols-1  gap-0 py-20 xl:py-40 3xl:py-40 relative z-10">
             <div className="flex flex-col items-start bg-black/30 p-4  backdrop-blur-none md:max-w-[500px] lg:max-w-[500px] xl:max-w-[550px] 2xl:max-w-[640px] 3xl:max-w-[740px] 3xl:max-h-[662px] ">
