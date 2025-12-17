@@ -6,7 +6,6 @@ import { getCampusPageData } from "../api/server";
 
 const Campus = async () => {
   const [{ data: response }] = await Promise.all([getCampusPageData()]);
-
   if (response?.campus)
     return (
       <Fragment>
@@ -16,5 +15,4 @@ const Campus = async () => {
       </Fragment>
     );
 };
-
 export default Campus;

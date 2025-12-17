@@ -85,6 +85,7 @@ const TeamViewSection = ({ data }: TeamViewSectionProps) => {
   const teamComponent = currentData?.about?.[0];
   const teamCard = teamComponent?.Card?.[0];
   const currentPage = currentData?.pagination?.page || 1;
+  const totalPages = currentData?.pagination?.totalPages || 1;
 
   const memberName = teamCard?.Title || "Team Member";
   const portraitImage = teamCard?.Image?.[0];
@@ -212,9 +213,9 @@ const TeamViewSection = ({ data }: TeamViewSectionProps) => {
                 <button
                   type="button"
                   onClick={handleNext}
-                  disabled={currentPage >= 4 || isLoading}
+                  disabled={currentPage >= totalPages || isLoading}
                   className={`flex items-center rounded-full justify-center h-12 flex-1 border-2 border-[#FFD4CC] bg-white transition-all ${
-                    currentPage >= 4 || isLoading
+                    currentPage >= totalPages || isLoading
                       ? "opacity-50 cursor-not-allowed"
                       : "cursor-pointer hover:bg-[#FFD4CC]"
                   }`}
