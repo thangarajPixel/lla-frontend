@@ -1,13 +1,16 @@
 "use client";
+import { useState } from "react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
-import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
+import TeamMemberPopup from "./Team";
 import type { FounderSectionProps } from "./utils/about-us";
 
 const FounderSection = ({ data }: FounderSectionProps) => {
+  const [selectedCardId, setSelectedCardId] = useState<number | null>(null);
+
   if (
     !data ||
     !data.Title ||
@@ -17,19 +20,57 @@ const FounderSection = ({ data }: FounderSectionProps) => {
     return null;
   }
 
+  const founderCards = data.Founder_card.map((founder) => {
+    const biography = founder.Description.map((desc) => {
+      const text = desc.children.map((child) => child.text).join("");
+      return `<p>${text}</p>`;
+    }).join("");
+
+    const gallery = founder.ViewCard?.Image
+      ? founder.ViewCard.Image.map(
+          (img: { id: number; name: string; url: string }) => ({
+            src: getS3Url(img.url),
+            alt: img.name || `${founder.Heading} Gallery`,
+          }),
+        )
+      : [];
+
+    return {
+      id: founder.id,
+      name: founder.Heading,
+      thumbnail: getS3Url(founder.Image.url),
+      biography: biography,
+      portfolioLink: founder.ViewCard?.Link || undefined,
+      gallery: gallery,
+    };
+  });
+
+  const handleImageClick = (founderId: number) => {
+    setSelectedCardId(founderId);
+  };
+
+  const handleKnowMore = (founderId: number) => {
+    setSelectedCardId(founderId);
+  };
+
+  const handleClosePopup = () => {
+    setSelectedCardId(null);
+  };
+
   return (
     <section className="3xl:max-h-[1665px] w-full bg-[#ECECEC] py-8 xs:py-10 sm:py-12  md:py-14 lg:py-20 xl:py-14  2xl:py-18 3xl:py-26 4xl:py-30 ">
       <ContainerWidget>
+        <TeamMemberPopup
+          cards={founderCards}
+          selectedCardId={selectedCardId}
+          onClose={handleClosePopup}
+          hideGrid={true}
+        />
         <div className="text-center space-y-1  xs:space-y-2 sm:space-y-3 md:space-y-5 lg:space-y-6 xl:space-y-4  2xl:space-y-4  3xl:space-y-2 4xl:space-y-3">
           <ScrollWidget delay={0.1}>
             <h3 className="font-urbanist font-regular text-black text-left xs:text-left md:text-center text-[32px] xs:text-[34px] sm:text-[36px] md:text-[40px] lg:text-[48px] xl:text-[56px] 2xl:text-[64px] 3xl:text-[64px] 4xl:text-[64px]">
               {data.Title}
             </h3>
-            {/* <HTMLWidget
-                  content={data.Heading}
-                   className="font-mulish font-regular text-black text-left xs:text-left md:text-center text-[24px] xs:text-[25px] sm:text-[26px] md:text-[28px] lg:text-[28px] xl:text-[30px] 2xl:text-[35px] 3xl:text-[40px] 4xl:text-[45px] mx-auto max-w-[500px] xs:max-w-[600px] sm:max-w-[650px] md:max-w-[700px] lg:max-w-[850px] xl:max-w-[600px]"
-                     tag="p"
-                  /> */}
           </ScrollWidget>
         </div>
         <div className="mt-2 xs:mt-6 sm:mt-12 md:mt-10 space-y-3 sm:space-y-10 md:space-y-12 ">
@@ -45,13 +86,10 @@ const FounderSection = ({ data }: FounderSectionProps) => {
                 <p className="font-mulish text-[16px] md:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal">
                   {data.Founder_card[0].Description[1].children[0].text ?? ""}
                 </p>
-                <LinkWidget
-                  href={`/more/about-us/${data.Founder_card[0].Slug}`}
-                >
-                  <OrangeButtonWidget
-                    content={data.Founder_card[0].Btn_txt ?? ""}
-                  />
-                </LinkWidget>
+                <OrangeButtonWidget
+                  content={data.Founder_card[0].Btn_txt ?? ""}
+                  onClick={() => handleKnowMore(data.Founder_card[0].id)}
+                />
               </div>
             </ScrollWidget>
             <ScrollWidget delay={0.3} className="order-1 md:order-2">
@@ -59,13 +97,19 @@ const FounderSection = ({ data }: FounderSectionProps) => {
                 {data.Founder_card[0].Heading}
               </h4>
               <div className="flex justify-center md:justify-start w-full">
-                <ImageWidget
-                  src={getS3Url(data.Founder_card[0].Image.url)}
-                  alt="Founder"
-                  width={500}
-                  height={600}
-                  className="object-cover w-[360px] h-[480px] xs:w-[420px] xs:h-[530px] sm:w-[400px] sm:h-[500px] md:w-[340px] md:h-[460px]  lg:w-[361px] lg:h-[484px]  xl:w-[361px] xl:h-[484px]  2xl:w-[420px] 2xl:h-[560px] 3xl:w-[410px] 3xl:h-[549px] 4xl:w-[450px] 4xl:h-[600px] "
-                />
+                <button
+                  type="button"
+                  onClick={() => handleImageClick(data.Founder_card[0].id)}
+                  className="cursor-pointer border-none bg-transparent p-0"
+                >
+                  <ImageWidget
+                    src={getS3Url(data.Founder_card[0].Image.url)}
+                    alt="Founder"
+                    width={500}
+                    height={600}
+                    className="object-cover w-[360px] h-[480px] xs:w-[420px] xs:h-[530px] sm:w-[400px] sm:h-[500px] md:w-[340px] md:h-[460px]  lg:w-[361px] lg:h-[484px]  xl:w-[361px] xl:h-[484px]  2xl:w-[420px] 2xl:h-[560px] 3xl:w-[410px] 3xl:h-[549px] 4xl:w-[450px] 4xl:h-[600px] "
+                  />
+                </button>
               </div>
             </ScrollWidget>
           </div>
@@ -75,13 +119,19 @@ const FounderSection = ({ data }: FounderSectionProps) => {
                 {data.Founder_card[1].Heading}
               </h4>
               <div className="flex justify-center md:justify-end w-full">
-                <ImageWidget
-                  src={getS3Url(data.Founder_card[1].Image.url)}
-                  alt="Founder"
-                  width={500}
-                  height={600}
-                  className="object-cover w-[360px] h-[480px] xs:w-[420px] xs:h-[530px]  sm:w-[420px] sm:h-[380px]  md:w-[340px] md:h-[440px]  lg:w-[361px] lg:h-[484px]  xl:w-[361px] xl:h-[484px]  2xl:w-[410px] 2xl:h-[549px]  3xl:w-[410px] 3xl:h-[549px] 4xl:w-[450px] 4xl:h-[590px] "
-                />
+                <button
+                  type="button"
+                  onClick={() => handleImageClick(data.Founder_card[1].id)}
+                  className="cursor-pointer border-none bg-transparent p-0"
+                >
+                  <ImageWidget
+                    src={getS3Url(data.Founder_card[1].Image.url)}
+                    alt="Founder"
+                    width={500}
+                    height={600}
+                    className="object-cover w-[360px] h-[480px] xs:w-[420px] xs:h-[530px]  sm:w-[420px] sm:h-[380px]  md:w-[340px] md:h-[440px]  lg:w-[361px] lg:h-[484px]  xl:w-[361px] xl:h-[484px]  2xl:w-[410px] 2xl:h-[549px]  3xl:w-[410px] 3xl:h-[549px] 4xl:w-[450px] 4xl:h-[590px] "
+                  />
+                </button>
               </div>
             </ScrollWidget>
             <ScrollWidget delay={0.2}>
@@ -95,11 +145,10 @@ const FounderSection = ({ data }: FounderSectionProps) => {
                 <p className="font-mulish text-[16px] md:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal">
                   {data.Founder_card[1].Description[1].children[0].text ?? ""}
                 </p>
-                <LinkWidget
-                  href={`/more/about-us/${data.Founder_card[1].Slug}`}
-                >
-                  <OrangeButtonWidget content={data.Founder_card[1].Btn_txt} />
-                </LinkWidget>
+                <OrangeButtonWidget
+                  content={data.Founder_card[1].Btn_txt}
+                  onClick={() => handleKnowMore(data.Founder_card[1].id)}
+                />
               </div>
             </ScrollWidget>
           </div>

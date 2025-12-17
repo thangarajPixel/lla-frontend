@@ -145,7 +145,7 @@ lla-frontend/
 │   │   │   │   ├── CampusSection.tsx
 │   │   │   │   ├── CourseSection.tsx
 │   │   │   │   ├── FacultySection.tsx
-│   │   │   │   ├── GallertSection.tsx
+│   │   │   │   ├── GallerySection.tsx
 │   │   │   │   ├── HeroSection.tsx
 │   │   │   │   ├── LifeSection.tsx
 │   │   │   │   ├── SponsorsSection.tsx
@@ -213,8 +213,8 @@ lla-frontend/
 ## 🛠️ Tech Stack
 
 ### Core
-- **Framework**: [Next.js 16.0.7](https://nextjs.org/) - React framework with App Router
-- **React**: 19.2.1 - UI library
+- **Framework**: [Next.js 16.0.10](https://nextjs.org/) - React framework with App Router
+- **React**: 19.2.3 - UI library
 - **TypeScript**: 5.x - Type safety
 
 ### Styling
@@ -235,24 +235,26 @@ lla-frontend/
   - `@radix-ui/react-slot`
   - `@radix-ui/react-toast`
 - **shadcn/ui**: Pre-built component library
-- **Lucide React**: 0.556.0 - Icon library
+- **Lucide React**: 0.561.0 - Icon library
 
 ### Animation & Effects
-- **Motion**: 12.23.25 (Framer Motion) - Animation library
-- **GSAP**: 3.13.0 - Advanced animation library with ScrollTrigger plugin
-- **Lenis**: 1.3.15 - Smooth scrolling library
+- **Motion**: 12.23.26 (Framer Motion) - Animation library
+- **GSAP**: 3.14.2 - Advanced animation library with ScrollTrigger plugin
+- **Lenis**: 1.3.16 - Smooth scrolling library
 - **Embla Carousel**: 8.6.0 - Carousel/slider component with autoplay support
 - **React Responsive Masonry**: 2.7.1 - Responsive masonry grid layout
+- **Yet Another React Lightbox**: 3.27.0 - Lightbox component for images
 
 ### Data & State Management
 - **TanStack Query**: 5.90.12 - Data fetching and caching
 - **Axios**: 1.13.2 - HTTP client
 - **React Hook Form**: 7.68.0 - Form management
-- **Zod**: 4.1.13 - Schema validation
+- **Zod**: 4.2.1 - Schema validation
 - **Hookform Resolvers**: 5.2.2 - React Hook Form validation resolvers
+- **Zustand**: 5.0.9 - Lightweight state management
 
 ### Development Tools
-- **Biome**: 2.3.8 - Fast linter and formatter
+- **Biome**: 2.3.9 - Fast linter and formatter
 - **Babel React Compiler**: 1.0.0 - React compiler plugin
 - **TypeScript**: Type checking
 
