@@ -37,7 +37,7 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
                 <HTMLWidget
                   content={data.Heading}
                   tag="p"
-                  className="text-white  xl:leading-[30px]  3xl:leading-[48px] text-base sm:text-lg lg:text-[28px] xl:text-[28px] 2xl:text-[32px] 3xl:text-[40px] font-mulish xl:max-w-[300px] 3xl:max-w-[500px]"
+                  className="text-white text-base sm:text-lg lg:text-[28px] xl:text-[28px] 2xl:text-[32px] 3xl:text-[40px] font-mulish"
                 />
               )}
               <div className="flex flex-col gap-4 mt-6 max-w-[692px]">
