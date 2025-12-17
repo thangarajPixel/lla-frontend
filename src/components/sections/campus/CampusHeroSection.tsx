@@ -39,7 +39,7 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
       <ContainerWidget >
         <ScrollWidget animation="fadeUp" delay={0.1}>
           <div className="grid grid-cols-1  gap-0 py-20 xl:py-40 3xl:py-40 relative z-10">
-            <div className="flex flex-col items-start bg-black/30 p-4  backdrop-blur-none md:max-w-[500px] lg:max-w-[500px] xl:max-w-[550px] 2xl:max-w-[640px] 3xl:max-w-[740px] 3xl:max-h-[662px] ">
+            <div className="flex flex-col items-start bg-black/40 p-4  backdrop-blur-none md:max-w-[500px] lg:max-w-[500px] xl:max-w-[550px] 2xl:max-w-[640px] 3xl:max-w-[740px] 3xl:max-h-[662px] ">
               {data?.Title && (
                 <h1 className="text-white text-4xl sm:text-5xl lg:text-6xl xl:text-[50px] 2xl:text-[60px] 3xl:text-[64px] font-urbanist  font-normal mb-3 xl:max-w-[300px] 3xl:max-w-[500px]">
                   {data.Title}
