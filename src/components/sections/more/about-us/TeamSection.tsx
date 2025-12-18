@@ -1,13 +1,121 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
-import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
+import { clientAxios } from "@/helpers/AxiosHelper";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import type { TeamSectionProps } from "./utils/about-us";
+import TeamMemberPopup from "./Team";
+import type { Card, TeamSectionProps } from "./utils/about-us";
 
 const TeamSection = ({ data }: TeamSectionProps) => {
+  const [selectedCardId, setSelectedCardId] = useState<number | null>(null);
+  const [cards, setCards] = useState<Card[]>([]);
+  const [loadingCards, setLoadingCards] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [currentSlug, setCurrentSlug] = useState<string>("");
+
+  useEffect(() => {
+    const transformCardToPopupFormat = (
+      card: TeamSectionProps["data"]["Card"][0],
+    ): Card => {
+      return {
+        id: card.id,
+        name: card.Title,
+        role: card.Description,
+        thumbnail: card.Image?.[0]?.url ? getS3Url(card.Image[0].url) : "",
+        biography: card.LongDescription || card.Description || "",
+        gallery:
+          card.Image?.slice(1).map((img: { url: string; name?: string }) => ({
+            src: getS3Url(img.url),
+            alt: img.name || card.Title,
+          })) || [],
+      };
+    };
+
+    const initialCards: Card[] = data.Card.filter(Boolean).map(
+      transformCardToPopupFormat,
+    );
+    setCards(initialCards);
+  }, [data]);
+
+  const fetchTeamData = async (slug: string, page: number) => {
+    if (!slug || loadingCards) return;
+
+    setLoadingCards(true);
+    try {
+      const response = await clientAxios.get(
+        `/about/team/${slug}?page=${page}`,
+      );
+      const responseData = response.data?.data || response.data;
+      const teamComponent = responseData?.about?.[0];
+      const teamCard = teamComponent?.Card?.[0];
+      const pagination = responseData?.pagination;
+
+      if (teamCard) {
+        const updatedCard: Card = {
+          id: teamCard.id,
+          name: teamCard.Title,
+          role: teamCard.Description,
+          thumbnail: teamCard.Image?.[0]?.url
+            ? getS3Url(teamCard.Image[0].url)
+            : "",
+          biography:
+            (teamCard as { LongDescription?: string })?.LongDescription ||
+            teamCard.Description ||
+            "",
+          gallery:
+            teamCard.Image?.slice(1).map(
+              (img: { url: string; name?: string }) => ({
+                src: getS3Url(img.url),
+                alt: img.name || teamCard.Title,
+              }),
+            ) || [],
+        };
+
+        setCards((prev) => {
+          const existingIndex = prev.findIndex((c) => c.id === teamCard.id);
+          if (existingIndex >= 0) {
+            const updated = [...prev];
+            updated[existingIndex] = updatedCard;
+            return updated;
+          }
+          return [...prev, updatedCard];
+        });
+        setSelectedCardId(teamCard.id);
+        setCurrentPage(pagination?.page || page);
+        setTotalPages(pagination?.totalPages || 1);
+        setCurrentSlug(slug);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    } catch (error) {
+      console.error("Error fetching team data:", error);
+    } finally {
+      setLoadingCards(false);
+    }
+  };
+
+  const handleCardClick = async (_cardId: number, slug: string) => {
+    setCurrentSlug(slug);
+    await fetchTeamData(slug, 1);
+  };
+
+  const handlePrev = () => {
+    if (currentPage > 1 && currentSlug) {
+      fetchTeamData(currentSlug, currentPage - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages && currentSlug) {
+      fetchTeamData(currentSlug, currentPage + 1);
+    }
+  };
+
   const facultyData = [
     {
       id: data?.Card[0]?.id,
@@ -115,9 +223,18 @@ const TeamSection = ({ data }: TeamSectionProps) => {
                     {faculty.description}
                   </p>
                   <div className="mt-2 self-start opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out">
-                    <LinkWidget href={`/more/about-us/team/${faculty.Slug}`}>
-                      <OrangeButtonWidget content={faculty.Btn_txt} />
-                    </LinkWidget>
+                    <OrangeButtonWidget
+                      content={faculty.Btn_txt}
+                      onClick={() => {
+                        if (faculty.id && faculty.Slug && !loadingCards) {
+                          handleCardClick(faculty.id, faculty.Slug);
+                        }
+                      }}
+                      disabled={loadingCards}
+                      className={
+                        loadingCards ? "opacity-50 cursor-not-allowed" : ""
+                      }
+                    />
                   </div>
                 </div>
               </ScrollWidget>
@@ -163,6 +280,23 @@ const TeamSection = ({ data }: TeamSectionProps) => {
           </ScrollWidget>
         </div>
       </ContainerWidget>
+      <TeamMemberPopup
+        cards={cards}
+        selectedCardId={selectedCardId}
+        onClose={() => {
+          setSelectedCardId(null);
+          setCurrentPage(1);
+          setTotalPages(1);
+          setCurrentSlug("");
+        }}
+        hideGrid={true}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        isLoading={loadingCards}
+        onPrev={handlePrev}
+        onNext={handleNext}
+        currentSlug={currentSlug}
+      />
     </section>
   );
 };

@@ -15,9 +15,15 @@ export default function TeamMemberPopup({
   selectedCardId,
   onClose,
   hideGrid = false,
+  currentPage = 1,
+  totalPages = 1,
+  isLoading = false,
+  onPrev,
+  onNext,
 }: TeamMemberPopupProps) {
   const [selected, setSelected] = useState<Card | null>(null);
   const [isMounted, setIsMounted] = useState(false);
+  const [animationKey, setAnimationKey] = useState(0);
   const bodyOverflowRef = useRef<string | null>(null);
   const scrollPositionRef = useRef<number>(0);
 
@@ -37,6 +43,7 @@ export default function TeamMemberPopup({
       if (selectedCardId !== null) {
         const card = cards.find((c) => c.id === selectedCardId);
         setSelected(card || null);
+        setAnimationKey((prev) => prev + 1);
       } else {
         setSelected(null);
       }
@@ -174,6 +181,7 @@ export default function TeamMemberPopup({
                   <div className="flex flex-col sticky top-16 space-y-4  px-4 py-8 pb-0 md:pb-8 md:px-6 lg:px-8 xl:px-12 xl:pl-52 2xl:pl-58 2xl:pr-10 3xl:px-20 3xl:pl-74">
                     {selected.name && (
                       <motion.h1
+                        key={`title-${animationKey}`}
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
@@ -186,6 +194,7 @@ export default function TeamMemberPopup({
 
                     {selected.thumbnail && (
                       <motion.div
+                        key={`image-${animationKey}`}
                         layoutId={`card-${selected.id}`}
                         initial={{ x: 120, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
@@ -205,6 +214,46 @@ export default function TeamMemberPopup({
                           </div>
                         </div>
                       </motion.div>
+                    )}
+                    {onPrev && onNext && totalPages > 1 && (
+                      <div className="hidden lg:block">
+                        <div className="flex gap-4 w-full bg-[#E97451]/20 rounded-full p-1.5">
+                          <button
+                            type="button"
+                            onClick={onPrev}
+                            disabled={currentPage <= 1 || isLoading}
+                            className={`flex items-center rounded-full justify-center h-12 flex-1 border-2 border-[#FFD4CC] bg-white transition-all ${
+                              currentPage <= 1 || isLoading
+                                ? "opacity-50 cursor-not-allowed"
+                                : "cursor-pointer hover:bg-[#FFD4CC]"
+                            }`}
+                            aria-label="Previous team member"
+                          >
+                            <ImageWidget
+                              src={OrangeArrowRight}
+                              alt="Previous"
+                              className="w-5 h-5"
+                            />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={onNext}
+                            disabled={currentPage >= totalPages || isLoading}
+                            className={`flex items-center rounded-full justify-center h-12 flex-1 border-2 border-[#FFD4CC] bg-white transition-all ${
+                              currentPage >= totalPages || isLoading
+                                ? "opacity-50 cursor-not-allowed"
+                                : "cursor-pointer hover:bg-[#FFD4CC]"
+                            }`}
+                            aria-label="Next team member"
+                          >
+                            <ImageWidget
+                              src={OrangeArrowRight}
+                              alt="Next"
+                              className="w-5 h-5 rotate-180"
+                            />
+                          </button>
+                        </div>
+                      </div>
                     )}
                     {selectedPortfolioLink && (
                       <motion.div
@@ -243,15 +292,29 @@ export default function TeamMemberPopup({
                 <div className="flex flex-col bg-[#E97451]/20">
                   <div className="flex flex-col px-4 py-8 pb-4 md:pb-8 md:px-4 md:py-12 lg:px-6 lg:py-15 xl:px-10 xl:pr-50 2xl:pr-58 3xl:pr-74 3xl:py-15">
                     {selectedBiography && (
-                      <div className="mb-8">
+                      <motion.div
+                        key={`biography-${animationKey}`}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        transition={{ delay: 0.3, duration: 0.35 }}
+                        className="mb-8"
+                      >
                         <HTMLWidget
                           content={selectedBiography}
                           className="font-mulish mt-8"
                         />
-                      </div>
+                      </motion.div>
                     )}
                     {selected.gallery && selected.gallery.length > 0 && (
-                      <div className="mt-auto">
+                      <motion.div
+                        key={`gallery-${animationKey}`}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        transition={{ delay: 0.5, duration: 0.35 }}
+                        className="mt-auto"
+                      >
                         <LightboxWidget
                           images={selected.gallery.map((image) => ({
                             src:
@@ -280,9 +343,13 @@ export default function TeamMemberPopup({
                                         const imageAlt =
                                           image?.alt ||
                                           `${selected.name} Gallery ${index + 1}`;
+                                        const imageSrc =
+                                          typeof image.src === "string"
+                                            ? image.src
+                                            : "";
                                         return (
                                           <motion.div
-                                            key={imageAlt}
+                                            key={`${animationKey}-${imageSrc}-${imageAlt}`}
                                             initial={{ opacity: 0, y: 10 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             exit={{ opacity: 0, y: 10 }}
@@ -328,9 +395,13 @@ export default function TeamMemberPopup({
                                       const imageAlt =
                                         image?.alt ||
                                         `${selected.name} Gallery ${index + 1}`;
+                                      const imageSrc =
+                                        typeof image.src === "string"
+                                          ? image.src
+                                          : "";
                                       return (
                                         <motion.div
-                                          key={imageAlt}
+                                          key={`${animationKey}-${imageSrc}-${imageAlt}`}
                                           initial={{ opacity: 0, y: 10 }}
                                           animate={{ opacity: 1, y: 0 }}
                                           exit={{ opacity: 0, y: 10 }}
@@ -372,7 +443,7 @@ export default function TeamMemberPopup({
                             );
                           }}
                         </LightboxWidget>
-                      </div>
+                      </motion.div>
                     )}
                   </div>
                 </div>

@@ -2,8 +2,10 @@ import { ArrowRight } from "@/helpers/ImageHelper";
 import { cn } from "@/lib/utils";
 import ButtonWidget from "./ButtonWidget";
 import ImageWidget from "./ImageWidget";
-import type { ButtonWidgetProps } from "./utils/widget";
-import type { OrangeButtonWidgetProps } from "./utils/widget";
+import type {
+  ButtonWidgetProps,
+  OrangeButtonWidgetProps,
+} from "./utils/widget";
 
 const OrangeButtonWidget = ({
   content,
