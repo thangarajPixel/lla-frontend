@@ -216,10 +216,7 @@ const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
                 delay={0.5}
               >
                 <div className="mb-8">
-                  <HTMLWidget
-                    content={biography}
-                    className="font-mulish"
-                  />
+                  <HTMLWidget content={biography} className="font-mulish" />
                 </div>
               </ScrollWidget>
             )}
