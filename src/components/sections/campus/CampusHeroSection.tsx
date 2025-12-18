@@ -59,7 +59,7 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
                       aria-label="Play video"
                       className="absolute -right-7 top-1/2 -translate-y-1/2 flex items-center justify-center border-none bg-transparent p-0 cursor-pointer group/play-button z-10"
                     >
-                      <div className="video-main1 -ml-1">
+                      <div className="video-main1 -ml-0.5 -mt-0.7">
                         <div className="waves-block">
                           <div className="waves wave-1" />
                           <div className="waves wave-2" />

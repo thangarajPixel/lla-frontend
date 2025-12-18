@@ -215,9 +215,10 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                             title="Student video"
                             style={{ border: "none" }}
                           />
+                          <div className="bg-[#F6F6F6] bottom-[-2px] z-10 w-full h-3 left-0 right-0 absolute block md:hidden"/>
                           <div className="relative z-20 flex items-end justify-between h-full">
                             <div
-                              className="flex flex-col justify-end gap-3 bg-[#E97451]/80 w-full h-27 p-4"
+                              className="flex flex-col justify-end gap-3 bg-[#E97451]/80 w-full h-27 p-4 m-2"
                               style={{
                                 clipPath:
                                   "polygon(0 0%, 100% 23%, 100% 100%, 0% 100%)",
