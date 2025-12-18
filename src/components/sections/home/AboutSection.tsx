@@ -75,7 +75,7 @@ const AboutSection = ({ data }: AboutSectionProps) => {
             </h3>
             <HTMLWidget
               content={data.Heading}
-              className="font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xxl 2xxl:text-[40px] text-black"
+              className="font-mulish font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xxl 2xxl:text-[40px] text-black"
               tag="p"
             />
             <p className="text-[16px] lg:text-[17px] 2xxl:text-[18px] font-normal text-black leading-normal w-full">
