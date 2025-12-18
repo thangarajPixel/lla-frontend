@@ -69,7 +69,7 @@ const AboutSection = ({ data }: AboutSectionProps) => {
     <section className="w-full bg-[#ECECEC] flex flex-col items-center justify-center z-40 relative py-10 sm:py-30 h-full ">
       <ContainerWidget>
         <div className="flex flex-col xl:flex-row gap-6 xl:gap-5 3xl:gap-[30px]">
-          <div className="flex flex-col gap-4.5 justify-center md:-mt-15 w-full xl:w-[420px] 2xl:w-[460px] 3xl:w-[520px]">
+          <div className="flex flex-col gap-4.5 justify-center md:-mt-15 w-full xl:w-[420px] 2xl:w-[420px] 3xl:w-[520px]">
             <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
               {data.Title}
             </h3>
