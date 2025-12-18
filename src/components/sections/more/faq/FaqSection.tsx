@@ -80,7 +80,7 @@ const FaqSection = ({ data }: FaqProps) => {
           <h1 className="font-urbanist font-normal text-[32px] md:text-[32px]  xl:text-[48px] 2xl:text-[56px] 3xl:text-[64px] text-black mb-6 md:mb-12 text-left">
             {data.Title || "Frequently Asked Questions"}
           </h1>
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-14">
             <div className="hidden md:block lg:col-span-1 shadow-xl ">
               <nav className="space-y-1 lg:sticky lg:top-30">
                 {data.faq.map((category) => (
