@@ -81,7 +81,7 @@ const FaqSection = ({ data }: FaqProps) => {
             {data.Title || "Frequently Asked Questions"}
           </h1>
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-14">
-            <div className="hidden md:block lg:col-span-1 shadow-xl ">
+            <div className="hidden md:block lg:col-span-1 shadow-lg self-start">
               <nav className="space-y-1 lg:sticky lg:top-30">
                 {data.faq.map((category) => (
                   <button
