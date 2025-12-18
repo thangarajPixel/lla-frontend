@@ -6,7 +6,7 @@ import { CheckCircle, Plus, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import { FormProvider, useFieldArray, useForm, useWatch } from "react-hook-form";
 import { toast } from "sonner";
 import type z from "zod";
 import { FormInput, FormSelectBox } from "@/components/form";
@@ -49,6 +49,7 @@ const PersonalDetailsForm = ({
   const form_step1 = useForm<PersonalDetailsSchema>({
     resolver: zodResolver(personalDetailsSchema),
     mode: "all",
+    reValidateMode: "onChange",
     defaultValues: {
       Course: admissionData?.Course?.documentId ?? courseId ?? "",
       name_title: admissionData?.name_title ?? "Mr.",
@@ -147,7 +148,6 @@ const PersonalDetailsForm = ({
     control,
     handleSubmit,
     formState: { errors },
-    watch,
   } = form_step1;
 
   const {
@@ -158,6 +158,13 @@ const PersonalDetailsForm = ({
     control: control,
     name: "Language_Proficiency",
   });
+
+  const languageProficiency= useWatch({
+      control,
+      name: "Language_Proficiency",
+    });
+  
+    const lastLanguage = languageProficiency?.[languageProficiency.length - 1]?.language?.trim();
 
   useEffect(() => {
     if (admissionData) {
@@ -438,7 +445,7 @@ const PersonalDetailsForm = ({
                     </div>
                   </div>
                 ))}
-                {watch("Language_Proficiency.0.language") !== "" && (
+                {lastLanguage !== "" && (
                   <ButtonWidget
                     type="button"
                     onClick={handleAddLanguage}
@@ -521,13 +528,6 @@ const PersonalDetailsForm = ({
                 className="hidden"
               />
 
-              {/* <p className="text-xs text-muted-foreground mt-2">
-                The size of the images should not
-                <br />
-                be more than 12&quot;x8&quot; size.
-                <br />
-                Max. file size not more than 1MB.
-              </p> */}
               <p className="text-xs font-mulish text-muted-foreground mt-2 xs:max-w-[180px] lg:max-w-full">
                 The size of the images should not be more than 12&quot;x8&quot;
                 size. Max. file size not more than 1MB.
@@ -662,7 +662,8 @@ const PersonalDetailsForm = ({
           <OrangeButtonWidget
             content="Save & Continue"
             // className="xss:text-[12px] h-9 px-4"
-            className="text-lg 2xl:text-lg h-[50px] px-6 py-3"
+            // className="text-lg 2xl:text-lg h-[50px] px-6 py-3"
+            className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-xs 2xl:text-[18px] 3xl:text-[18px]"
           />
         </div>
       </form>

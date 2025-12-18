@@ -18,7 +18,7 @@ const addressSchema = z.object({
     z.object({
       text: z.string().min(1, "Address is required"),
       type: z.string(),
-    }),
+    })
   ),
 });
 
@@ -45,15 +45,33 @@ export const parentDetails = z.object({
     .min(1, "Pincode is required")
     .refine(
       (val) => val === "" || /^\d{6}$/.test(val),
-      "Enter a valid 6-digit pincode",
+      "Enter a valid 6-digit pincode"
     ),
 });
 
 export const workExperience = z.object({
   designation: z.string().optional(),
   employer: z.string().optional(),
-  duration_start: z.string().optional(),
-  duration_end: z.string().optional(),
+  // duration_start: z.string().optional(),
+  duration_start: z.string().refine((value) => {
+    const inputDate = new Date(value);
+    const today = new Date();
+
+    inputDate.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+
+    return inputDate <= today;
+  }, "Cannot select future date"),
+  // duration_end: z.string().optional(),
+  duration_end: z.string().refine((value) => {
+    const inputDate = new Date(value);
+    const today = new Date();
+
+    inputDate.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+
+    return inputDate <= today;
+  }, "Cannot select future date"),
   reference_letter: z.number().optional(),
 });
 
@@ -95,6 +113,7 @@ export const personalDetailsSchema = z.object({
 
       return inputDate <= today;
     }, "Cannot select future date"),
+
   Language_Proficiency: z.array(languageSchema),
   address: z.array(addressSchema).min(1, "Address is required"),
   city: z.string().min(1, "City is required"),
@@ -105,7 +124,7 @@ export const personalDetailsSchema = z.object({
     .min(1, "Pincode is required")
     .refine(
       (val) => val === "" || /^\d{6}$/.test(val),
-      "Enter a valid 6-digit pincode",
+      "Enter a valid 6-digit pincode"
     )
     .optional(),
   hobbies: z.string().optional(),
@@ -132,8 +151,8 @@ export const educationDetailsSchema = z.object({
   Under_Graduate: z
     .object({
       degree: z.string().min(1, "Graduation degree is required"),
-      ug_status: z.string().optional(),
-      marksheet: z.number().optional(),
+      ug_status: z.string().min(1, "Graduation status is required"),
+      marksheet: z.number().min(1, "UG Marksheet is required"),
     })
     .optional(),
   Post_Graduate: z.array(postGraduate).optional(),
@@ -151,7 +170,7 @@ export const portfolioSchema = z.object({
       .array(
         z.object({
           id: z.number().min(1, "Image ID is required"),
-        }),
+        })
       )
       .min(1, "At least one image is required"),
   }),
@@ -159,9 +178,9 @@ export const portfolioSchema = z.object({
 });
 
 export const admissionRequestSchema = z.object({
-  FirstName: z.string(),
+  FirstName: z.string().min(1, "Name is required"),
   LastName: z.string(),
-  Email: z.string(),
-  Mobile: z.string(),
+  Email: z.string().min(1, "Email is required"),
+  Mobile: z.string().min(1, "Mobile Number is required"),
   Message: z.string(),
 });

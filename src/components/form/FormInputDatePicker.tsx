@@ -1,7 +1,7 @@
 "use client";
 
 import { format, parse } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon } from "@/helpers/ImageHelper";
 import { useState } from "react";
 import {
   type Control,
@@ -20,6 +20,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import ImageWidget from "@/components/widgets/ImageWidget";
 
 const DISPLAY_FORMAT = "dd/MM/yyyy";
 const STORE_FORMAT = "yyyy-MM-dd";
@@ -146,10 +147,13 @@ const FormDatePickerWithInput = <T extends FieldValues>({
           <PopoverTrigger asChild>
             <Button
               variant="ghost"
-              className="absolute top-1/2 right-3 size-6 -translate-y-1/2"
-              disabled={disabled}
+              className="absolute right-2 top-1/2 -translate-y-1/2"
             >
-              <CalendarIcon className="size-3.5 text-chart-1" />
+              <ImageWidget
+                src={CalendarIcon}
+                alt="calendar"
+                className="size-6 transition-transform duration-300 group-hover:translate-x-1"
+              />
             </Button>
           </PopoverTrigger>
 

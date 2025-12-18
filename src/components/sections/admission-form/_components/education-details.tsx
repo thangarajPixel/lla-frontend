@@ -1,7 +1,7 @@
 "use client";
 
 import { Plus, X } from "lucide-react";
-import { type Control, useFieldArray } from "react-hook-form";
+import { type Control, useFieldArray, useWatch } from "react-hook-form";
 import { FormInput } from "@/components/form";
 import FormFileUploadButton from "@/components/form/FormFileUploadButton";
 import FormRadioGroup from "@/components/form/FormRadioGroup";
@@ -11,17 +11,11 @@ import { Button } from "@/components/ui/button";
 type EducationDetailsProps = {
   admissionData?: AdmissionFormData;
   control: Control<EducationDetailsSchema>;
-  ugStatus?: string;
-  pgStatus?: string;
-  watchPostGraduate?: string;
 };
 
 export function EducationDetails({
   admissionData,
   control,
-  ugStatus,
-  pgStatus,
-  watchPostGraduate,
 }: EducationDetailsProps) {
   const {
     fields: pgDegrees,
@@ -31,6 +25,20 @@ export function EducationDetails({
     control: control,
     name: "Post_Graduate",
   });
+
+  const postGraduate = useWatch({
+    control,
+    name: "Post_Graduate",
+  });
+
+  const underGraduate = useWatch({
+    control,
+    name: "Under_Graduate",
+  });
+
+  const lastDegree = postGraduate?.[postGraduate.length - 1]?.degree?.trim();
+  const lastPgStatus = postGraduate?.[postGraduate.length - 1]?.pg_status?.trim();
+  const ugStatus = underGraduate?.ug_status?.trim();
 
   const addDegree = () => {
     append({ degree: "", pg_status: "" });
@@ -64,8 +72,8 @@ export function EducationDetails({
         />
       </div>
 
-      <div className="space-y-3">
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2 items-end">
+      <div className="space-y-3 hidden">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] lg:gap-2 items-end">
           <FormInput
             name="Under_Graduate.degree"
             label="Under Graduate"
@@ -100,11 +108,57 @@ export function EducationDetails({
           )}
         </div>
       </div>
+      {/*  */}
+      <div className="space-y-3">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] lg:gap-2 items-start">
+          <div>
+            <FormInput
+              name="Under_Graduate.degree"
+              label="Under Graduate"
+              placeholder="Enter your graduation degree"
+              control={control}
+            />
+
+            <div className="h-5" />
+          </div>
+
+          <div className="lg:pt-7">
+            <FormRadioGroup
+              name="Under_Graduate.ug_status"
+              control={control}
+              options={[
+                { value: "Finished", label: "Finished" },
+                { value: "In-Progress", label: "In-Progress" },
+              ]}
+              errorClassName="lg:-mt-4"
+            />
+          </div>
+
+          {ugStatus === "Finished" && (
+            <>
+              <FormFileUploadButton
+                name="Under_Graduate.marksheet"
+                control={control}
+                placeholder="Upload your MarkSheet"
+                notRequired
+                defaultValue={admissionData?.Under_Graduate?.marksheet ?? null}
+                inputClassName="justify-start pl-4"
+                hideDescription
+              />
+
+              <p className="text-xs text-muted-foreground">
+                Max. file size not more than 2MB.
+              </p>
+            </>
+          )}
+        </div>
+      </div>
+
 
       {pgDegrees?.map((degree, index) => (
         <div
           key={degree.id ?? index}
-          className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4 items-end space-y-3"
+          className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2 items-end"
         >
           <FormInput
             name={`Post_Graduate.${index}.degree`}
@@ -133,7 +187,7 @@ export function EducationDetails({
         </div>
       ))}
 
-      {watchPostGraduate !== "" && pgStatus === "Finished" && (
+      {lastDegree !== "" && lastPgStatus === "Finished" && (
         <Button
           type="button"
           onClick={addDegree}

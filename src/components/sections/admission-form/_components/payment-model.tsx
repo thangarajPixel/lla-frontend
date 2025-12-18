@@ -9,6 +9,7 @@ import type {
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
+import { useRouter } from "next/navigation";
 
 type PaymentPopupProps = {
   isOpen: boolean;
@@ -25,24 +26,27 @@ const PaymentModel = ({
   amount,
   gstRate,
   total,
-  paymentDetails,
+  // paymentDetails,
 }: PaymentPopupProps) => {
+  const router = useRouter();
   const handlePayment = async () => {
-    const formData = new FormData();
+    // const formData = new FormData();
 
-    Object.entries(paymentDetails?.data as PaymentData).forEach(
-      ([key, value]) => {
-        if (value !== undefined && value !== null) {
-          formData.append(key, String(value));
-        }
-      },
-    );
+    // Object.entries(paymentDetails?.data as PaymentData).forEach(
+    //   ([key, value]) => {
+    //     if (value !== undefined && value !== null) {
+    //       formData.append(key, String(value));
+    //     }
+    //   },
+    // );
 
-    await clientAxios.post(paymentDetails?.checkoutUrl ?? "", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    // await clientAxios.post(paymentDetails?.checkoutUrl ?? "", formData, {
+    //   headers: {
+    //     "Content-Type": "multipart/form-data",
+    //   },
+    // });
+
+    router.push("https://apitest.payu.in/public/#/80bd38f784d1eedd4df21105f729f5d5b4d09c6eba0b0feb3b2dd2573bf12cd7/paymentoptions");
   };
 
   return (

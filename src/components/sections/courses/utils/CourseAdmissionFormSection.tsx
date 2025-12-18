@@ -32,7 +32,7 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
     },
   });
 
-  const validateForm = (formValues: RequestFormData): string | null => {
+  const _validateForm = (formValues: RequestFormData): string | null => {
     if (!formValues.FirstName || formValues.FirstName.trim() === "") {
       return "Name is required";
     }
@@ -59,15 +59,15 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
   };
 
   const onSubmit = async (payload: RequestFormData) => {
-    const validationError = validateForm(payload);
+    // const validationError = validateForm(payload);
 
-    if (validationError) {
-      notify({
-        success: false,
-        message: validationError,
-      });
-      return;
-    }
+    // if (validationError) {
+    //   notify({
+    //     success: false,
+    //     message: validationError,
+    //   });
+    //   return;
+    // }
     const isAdmissionOpen = await getEssentialsData();
 
     const admissionPayload = {
@@ -142,7 +142,7 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
             restrictionType="number"
             className="w-full md:flex-1 md:min-w-[120px] space-y-0"
             inputClassName="w-full md:flex-1 pl-3 md:pl-4 3xl:text-[18px] md:min-w-[120px] h-9 rounded-full text-[12px] sm:text-[13px] md:text-[14px] lg:text-[13px] 3xl:text-[16px] border border-white bg-white/20 text-white placeholder:text-[#FFFFFF] focus-visible:border-white focus-visible:ring-0 focus-visible:ring-offset-0 outline-none"
-            errorClassName="text-black"
+            errorClassName="text-black ml-2"
           />
 
           <FormInput
@@ -153,7 +153,7 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
             className="w-full md:flex-1 md:min-w-[120px] space-y-0"
             inputClassName="w-full md:flex-1 pl-3 md:pl-4 3xl:text-[18px] md:min-w-[120px] h-9 rounded-full text-[12px] sm:text-[13px] md:text-[14px] lg:text-[13px] 3xl:text-[16px] border border-white bg-white/20 text-white placeholder:text-[#FFFFFF] focus-visible:border-white focus-visible:ring-0 focus-visible:ring-offset-0 outline-none"
             maxLength={10}
-            errorClassName="text-black"
+            errorClassName="text-black ml-2"
           />
 
           <FormInput
@@ -162,7 +162,7 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
             control={form.control}
             className="w-full md:flex-1 md:min-w-[120px] space-y-0"
             inputClassName="w-full md:flex-1 pl-3 md:pl-4 3xl:text-[18px] md:min-w-[120px] h-9 rounded-full text-[12px] sm:text-[13px] md:text-[14px] lg:text-[13px] 3xl:text-[16px] border border-white bg-white/20 text-white placeholder:text-[#FFFFFF] focus-visible:border-white focus-visible:ring-0 focus-visible:ring-offset-0 outline-none"
-            errorClassName="text-black"
+            errorClassName="text-black ml-2"
           />
 
           <FormInput
@@ -171,7 +171,7 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
             control={form.control}
             className="w-full md:flex-1 md:min-w-[120px] space-y-0"
             inputClassName="w-full md:flex-1 pl-3 md:pl-4 3xl:text-[18px] md:min-w-[120px] h-9 rounded-full text-[12px] sm:text-[13px] md:text-[14px] lg:text-[13px] 3xl:text-[16px] border border-white bg-white/20 text-white placeholder:text-[#FFFFFF] focus-visible:border-white focus-visible:ring-0 focus-visible:ring-offset-0 outline-none"
-            errorClassName="text-black"
+            errorClassName="text-black ml-2"
           />
           <button
             type="submit"

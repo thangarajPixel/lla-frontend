@@ -78,7 +78,7 @@ function Section({
           width={24}
           height={24}
           alt="Edit"
-          className="size-4 3xl:size-6 rounded-full cursor-pointer"
+          className="size-6 rounded-full cursor-pointer"
           onClick={onEdit}
         />
       </section>
@@ -101,15 +101,22 @@ function Field({
   return (
     <div
       className={cn(
-        "flex flex-col items-start md:flex-row md:items-center justify-between text-base 3xl:text-2xl font-mulish",
+        "flex flex-col items-start md:flex-row md:items-center gap-3 lg:gap-0 justify-between text-base 3xl:text-2xl font-mulish",
         label === "Address" && "md:items-start",
       )}
     >
       <span className="text-black/50 w-full md:w-40 3xl:w-fit">
         {label ? `${label}` : ""}
       </span>
-      <span className={cn("text-black text-left md:text-right md:max-w-3xs")}>
-        {isDob ? dobValue : prefix ? `${prefix} ${value}` : (value ?? "-")}
+      <span
+        className={cn(
+          "text-black text-left w-full",
+          "wrap-break-word whitespace-normal overflow-hidden",
+          "md:text-right md:max-w-3xs",
+          label === "Email" && "md:max-w-fit"
+        )}
+      >
+        {isDob ? dobValue : prefix ? `${prefix} ${value}` : value ?? "-"}
       </span>
     </div>
   );
@@ -263,6 +270,12 @@ const ReviewApplication = ({
     }
   };
 
+  if (!admissionData?.first_name) {
+    return (
+      <div>No Admission Found</div>
+    )
+  }
+
   return (
     <div className="w-full min-h-screen flex justify-center">
       <div
@@ -272,12 +285,15 @@ const ReviewApplication = ({
         )}
       >
         {/* LEFT SIDE */}
-        <div className="flex lg:ml-36 md:w-2/4 lg:w-1/4 flex-col items-center gap-6 pt-8 mb-8 3xl:py-16 3xl:mt-10">
-          <div className="flex flex-col gap-3">
-            <h1 className="text-2xl 3xl:text-4xl font-urbanist text-[#E97451]">
+        <div className="flex lg:ml-36 md:w-2/4 lg:w-1/4 flex-col lg:items-center gap-6 pt-8 mb-8 3xl:py-16 3xl:mt-10">
+          <h1 className="text-[32px] px-4 font-urbanist leading-tight lg:hidden">
+            {admissionData?.Course?.Name}
+          </h1>
+          <div className="flex flex-col gap-3 px-4 lg:px-0">
+            <h1 className="text-[32px] 3xl:text-[40px] font-urbanist text-[#E97451]">
               Review Application
             </h1>
-            <p className="text-xs 3xl:text-lg">
+            <p className="text-base 3xl:text-lg">
               Kindly verify the details before submitting.
             </p>
           </div>
@@ -286,10 +302,10 @@ const ReviewApplication = ({
             height={200}
             src={admissionData?.passport_size_image?.url ?? ""}
             alt="profile"
-            className="w-72 h-80 3xl:w-md 3xl:h-auto rounded-md shadow-md"
+            className="w-72 h-80 3xl:w-md 3xl:h-auto ml-4 lg:ml-0 rounded-md shadow-md"
           />
 
-          <div className="flex flex-row items-center justify-between gap-1 3xl:w-md">
+          <div className="flex flex-row items-center justify-between gap-1 3xl:w-md px-4 lg:px-0">
             <ButtonWidget
               className={cn(
                 "group bg-chart-1/10 text-chart-1 hover:bg-chart-1/10 rounded-[60px] px-5 w-2/4 h-10 xss:text-[16px] 3xl:h-[50px] text-xs 2xl:text-[14px] 3xl:text-[18px]",
@@ -301,7 +317,7 @@ const ReviewApplication = ({
             </ButtonWidget>
             <OrangeButtonWidget
               content="Proceed to Pay"
-              className="3xl:px-4 w-2/4"
+              className="xss:text-[16px] xss:h-10 w-2/4 3xl:h-12.5 text-xs 2xl:text-[14px] 3xl:text-[18px]"
               onClick={() =>
                 handleOpenPayment(admissionData?.documentId as string)
               }
@@ -309,7 +325,7 @@ const ReviewApplication = ({
           </div>
         </div>
 
-        <Card className="bg-chart-1/20 flex-1 backdrop-blur py-16 3xl:py-32 3xl:pl-6 border-none shadow-none rounded-none">
+        <Card className="bg-chart-1/20 flex-1 backdrop-blur lg:py-16 3xl:py-32 3xl:pl-6 border-none shadow-none rounded-none">
           <CardContent className="space-y-8 text-sm lg:max-w-3/4">
             <Section
               title="Personal Details"
@@ -349,7 +365,7 @@ const ReviewApplication = ({
             </Section>
 
             <Section
-              title="Parent Details"
+              title="Parental Details"
               onEdit={() =>
                 router.push(`/admission/${admissionId}/personal-details`)
               }
@@ -382,7 +398,7 @@ const ReviewApplication = ({
                 router.push(`/admission/${admissionId}/education-details`)
               }
             >
-              <div className="flex flex-col md:flex-row space-y-6 items-start justify-between">
+              <div className="flex flex-col md:flex-row items-start justify-between">
                 <EducationField
                   label="10th Std"
                   title="Document"
@@ -428,7 +444,7 @@ const ReviewApplication = ({
 
                 {admissionData?.Under_Graduate?.marksheet?.url && (
                   <section className="flex flex-col justify-start gap-2 items-start md:col-span-1">
-                    <span className="text-black/50 text-base 3xl:text-2x">
+                    <span className="text-black/50 text-base 3xl:text-2xl">
                       Document
                     </span>
                     <span className="flex items-center justify-center gap-1">
@@ -460,7 +476,64 @@ const ReviewApplication = ({
                 }
                 className="text-base 3xl:text-2xl"
               >
-                {admissionData?.Post_Graduate?.map((degree, index) => (
+                {admissionData?.Post_Graduate?.slice(0, 1).map((degree, index) => (
+                  <div
+                    key={`post-graduate-${index + 1}`}
+                    className="grid grid-cols-1 md:grid-cols-4 gap-4"
+                  >
+                    <section className="md:col-span-2">
+                      <span className="text-black/50 text-base 3xl:text-2xl">
+                        Degree
+                      </span>
+                      <p className="text-black text-base 3xl:text-2xl">
+                        {degree?.degree}
+                      </p>
+                    </section>
+
+                    <section className="md:col-span-1">
+                      <span className="text-black/50 text-base 3xl:text-2xl">
+                        Status
+                      </span>
+                      <p className="text-black text-base 3xl:text-2xl">
+                        {degree?.pg_status}
+                      </p>
+                    </section>
+
+                    <section className="hidden md:invisible md:flex flex-col justify-start gap-2 items-start md:col-span-1">
+                      <span className="text-black/50 text-base 3xl:text-2xl">
+                        Document
+                      </span>
+                      <span className="flex items-center justify-center gap-1">
+                        <ImageWidget
+                          src={DocumentIcon}
+                          alt="Document"
+                          width={100}
+                          height={100}
+                          className="size-4 rounded-full"
+                        />
+                        <LinkWidget
+                          href={degree?.marksheet?.url ?? ""}
+                          target="_blank"
+                          className="text-chart-1/80 text-xs"
+                        >
+                          View Document
+                        </LinkWidget>
+                      </span>
+                    </section>
+                  </div>
+                ))}
+              </Section>
+            )}
+
+            {admissionData?.Post_Graduate[1]?.degree && (
+              <Section
+                title="Additional Degree"
+                onEdit={() =>
+                  router.push(`/admission/${admissionId}/education-details`)
+                }
+                className="text-base 3xl:text-2xl"
+              >
+                {admissionData?.Post_Graduate?.slice(1).map((degree, index) => (
                   <div
                     key={`post-graduate-${index + 1}`}
                     className="grid grid-cols-1 md:grid-cols-4 gap-4"

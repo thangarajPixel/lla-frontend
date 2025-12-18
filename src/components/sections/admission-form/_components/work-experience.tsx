@@ -1,7 +1,7 @@
 "use client";
 
 import { Plus, X } from "lucide-react";
-import { type Control, useFieldArray } from "react-hook-form";
+import { type Control, useFieldArray, UseFormWatch, useWatch } from "react-hook-form";
 import { FormInput } from "@/components/form";
 import FormFileUploadButton from "@/components/form/FormFileUploadButton";
 import FormDateRangePickerWithInput from "@/components/form/FormInputDateRangePicker";
@@ -11,18 +11,24 @@ import { Button } from "@/components/ui/button";
 type WorkExperienceProps = {
   admissionData?: AdmissionFormData;
   control: Control<EducationDetailsSchema>;
-  watchWorkExperience?: string;
 };
 
 export function WorkExperience({
   admissionData,
   control,
-  watchWorkExperience,
 }: WorkExperienceProps) {
   const { fields, append, remove } = useFieldArray({
     control: control,
     name: "Work_Experience",
   });
+
+  const workExperience = useWatch({
+  control,
+  name: "Work_Experience",
+});
+
+const lastExperience = workExperience?.[workExperience.length - 1]?.designation?.trim();
+
 
   const handleAddExperience = () => {
     append({
@@ -102,7 +108,7 @@ export function WorkExperience({
         </div>
       ))}
 
-      {watchWorkExperience && (
+      {lastExperience && (
         <button
           type="button"
           onClick={handleAddExperience}

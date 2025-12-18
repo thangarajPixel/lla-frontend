@@ -38,7 +38,9 @@ function FormCheckBox<T extends FieldValues>({
       <Checkbox
         id={id}
         checked={!!value}
-        onCheckedChange={(checked) => onChange(!!checked)}
+        onCheckedChange={(checked) => {
+          onChange(!!checked);
+        }}
         disabled={disabled}
         className={className}
       />

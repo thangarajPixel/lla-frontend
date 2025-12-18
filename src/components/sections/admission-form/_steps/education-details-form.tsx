@@ -80,12 +80,7 @@ const EducationDetailsForm = ({
     },
   });
 
-  const { control, handleSubmit, watch } = form_step2;
-
-  const ugStatus = watch("Under_Graduate.ug_status");
-  const pgStatus = watch("Post_Graduate.0.pg_status");
-  const watchPostGraduate = watch("Post_Graduate.0.degree");
-  const watchWorkExperience = watch("Work_Experience.0.designation");
+  const { control, handleSubmit } = form_step2;
 
   useEffect(() => {
     if (admissionData) {
@@ -121,9 +116,6 @@ const EducationDetailsForm = ({
         <EducationDetails
           admissionData={admissionData}
           control={control}
-          ugStatus={ugStatus}
-          pgStatus={pgStatus}
-          watchPostGraduate={watchPostGraduate}
         />
 
         <p className="text-base text-muted-foreground mt-2">
@@ -137,7 +129,6 @@ const EducationDetailsForm = ({
         <WorkExperience
           admissionData={admissionData}
           control={control}
-          watchWorkExperience={watchWorkExperience}
         />
 
         <p className="text-base text-muted-foreground mt-2">
@@ -162,7 +153,8 @@ const EducationDetailsForm = ({
 
           <OrangeButtonWidget
             content="Save & Continue"
-            className="text-lg 2xl:text-lg h-[50px] px-6 py-3"
+            // className="text-lg 2xl:text-lg h-[50px] px-6 py-3"
+            className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-xs 2xl:text-[18px] 3xl:text-[18px]"
           />
         </div>
       </form>

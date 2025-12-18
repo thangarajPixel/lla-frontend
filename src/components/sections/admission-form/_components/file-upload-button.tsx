@@ -146,7 +146,7 @@ export function FileUploadButton({
           alt="Upload Icon"
           className="h-5 w-5"
         />
-        <span className="text-sm">{placeholder}</span>
+        <span className="text-sm font-light lg:font-normal">{placeholder}</span>
       </button>
       <input
         ref={inputRef}
@@ -157,7 +157,7 @@ export function FileUploadButton({
       />
       <p
         className={cn(
-          "text-xs text-muted-foreground",
+          "text-xs text-muted-foreground mt-2",
           hideDescription && "hidden",
         )}
       >
@@ -177,7 +177,7 @@ export function FileUploadButton({
               />
             </div>
           ) : (
-            <div className="text-muted-foreground">
+            <div className="text-muted-foreground mt-2">
               {(selectedFile || defaultValue) &&
                 getFileIcon(selectedFile?.type ?? defaultValue?.mime ?? "")}
             </div>
