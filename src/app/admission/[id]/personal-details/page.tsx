@@ -1,6 +1,5 @@
 import { getAdmissionsById } from "@/app/api/server";
 import PersonalDetailsForm from "@/components/sections/admission-form/_steps/personal-details-form";
-import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { decryptCode } from "@/helpers/ConstantHelper";
 
 const PersonalDetails = async (props: PageProps) => {
@@ -12,11 +11,7 @@ const PersonalDetails = async (props: PageProps) => {
 
   const admissionData = admissionResponse?.data as AdmissionFormData;
 
-  return (
-    <ScrollWidget>
-      <PersonalDetailsForm admissionData={admissionData} admissionId={id} />
-    </ScrollWidget>
-  );
+  return <PersonalDetailsForm admissionData={admissionData} admissionId={id} />;
 };
 
 export default PersonalDetails;

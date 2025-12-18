@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -10,13 +11,14 @@ import { getEssentialsData } from "@/app/api/server";
 import { FormInput } from "@/components/form";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
-import { notify } from "@/helpers/ConstantHelper";
+import { encryptId, notify } from "@/helpers/ConstantHelper";
 import { admissionRequestSchema } from "@/helpers/ValidationHelper";
 
 type RequestFormData = z.infer<typeof admissionRequestSchema>;
 
 const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
   const formRef = useRef<HTMLFormElement>(null);
+  const router = useRouter();
 
   const form = useForm<RequestFormData>({
     resolver: zodResolver(admissionRequestSchema),
@@ -107,7 +109,11 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
           return;
         }
 
-        await clientAxios.post(`/admissions`, { data: admissionPayload });
+        const res = await clientAxios.post(`/admissions`, {
+          data: admissionPayload,
+        });
+        const encryptedId = encryptId(res?.data?.data?.id);
+        router.push(`/admission/${encryptedId}/personal-details`);
       } else {
         await clientAxios.post(`/contacts`, { data: requestPayload });
       }

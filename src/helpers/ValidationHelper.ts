@@ -80,7 +80,7 @@ export const personalDetailsSchema = z.object({
     .regex(/^[6-9]\d{9}$/, "Enter a valid mobile number"),
   email: z
     .string()
-    .min(1, "Email is required")
+    .min(1, "Email Address is required")
     .email({ message: "Enter a valid email" }),
   nationality: z.string().min(1, "Nationality is required"),
   date_of_birth: z
@@ -118,7 +118,7 @@ export const personalDetailsSchema = z.object({
 
   passport_size_image: z
     .number()
-    .min(1, "Passport image is required")
+    .min(1, "Passport size image is required")
     .optional(),
 
   step_1: z.boolean().optional(),
@@ -126,8 +126,8 @@ export const personalDetailsSchema = z.object({
 
 export const educationDetailsSchema = z.object({
   Education_Details: z.object({
-    Education_Details_12th_std: z.number().min(1, "MarkSheet is required"),
-    Education_Details_10th_std: z.number().min(1, "MarkSheet is required"),
+    Education_Details_12th_std: z.number().min(1, "12th MarkSheet is required"),
+    Education_Details_10th_std: z.number().min(1, "10th MarkSheet is required"),
   }),
   Under_Graduate: z
     .object({

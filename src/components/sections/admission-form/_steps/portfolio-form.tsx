@@ -147,7 +147,7 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
     const data = {
       ...filtered,
       step_3: true,
-      Payment_Status: "Paid",
+      Payment_Status: "Pending",
     };
 
     try {
@@ -163,7 +163,10 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
 
   return (
     <FormProvider {...form_step3}>
-      <form onSubmit={handleSubmit(onSubmit)} className="bg-background p-8">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="bg-background py-8 px-2"
+      >
         <div className="mx-auto">
           <h1 className="text-2xl text-[#E97451] font-urbanist mb-8">
             Upload Your Portfolio

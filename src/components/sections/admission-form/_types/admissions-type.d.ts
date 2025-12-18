@@ -95,6 +95,10 @@ type course = {
   updatedAt: string;
   publishedAt: null;
   locale: null;
+  Amount: number;
+  GstAmount: number;
+  TotalAmount: number;
+  GstPercentage: number;
 };
 
 type AdmissionFormData = {
@@ -207,3 +211,39 @@ type AdmissionListResponse = {
 type AdmissionResponse = {
   data: AdmissionFormData;
 };
+
+// type PaymentData = {
+//   key: string;
+//   amount: string;
+//   productinfo: string;
+//   firstname: string;
+//   lastname: string;
+//   email: string;
+//   phone: string;
+//   txnid: string;
+//   surl: string;
+//   furl: string;
+//   udf1: string;
+//   udf2: string;
+//   udf3: string;
+//   udf4: string;
+//   udf5: string;
+//   hash: string;
+//   [key: string]: string;
+// }
+
+// type AdmissionInfo = {
+//   id: number;
+//   name: string;
+//   email: string;
+// }
+
+// type PaymentResponse = {
+//   success: boolean;
+//   checkoutUrl: string;
+//   method: string;
+//   transactionId: string;
+//   amount: string;
+//   data: PaymentData;
+//   admissionInfo: AdmissionInfo;
+// }

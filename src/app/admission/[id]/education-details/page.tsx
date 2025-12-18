@@ -1,6 +1,5 @@
 import { getAdmissionsById } from "@/app/api/server";
 import EducationDetailsForm from "@/components/sections/admission-form/_steps/education-details-form";
-import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { decryptCode } from "@/helpers/ConstantHelper";
 
 const EducationDetails = async (props: PageProps) => {
@@ -13,12 +12,10 @@ const EducationDetails = async (props: PageProps) => {
   const admissionData = admissionResponse?.data as AdmissionFormData;
 
   return (
-    <ScrollWidget>
-      <EducationDetailsForm
-        admissionData={admissionData}
-        admissionId={String(id) ?? null}
-      />
-    </ScrollWidget>
+    <EducationDetailsForm
+      admissionData={admissionData}
+      admissionId={String(id) ?? null}
+    />
   );
 };
 
