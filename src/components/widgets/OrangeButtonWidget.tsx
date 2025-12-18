@@ -2,6 +2,7 @@ import { ArrowRight } from "@/helpers/ImageHelper";
 import { cn } from "@/lib/utils";
 import ButtonWidget from "./ButtonWidget";
 import ImageWidget from "./ImageWidget";
+import type { ButtonWidgetProps } from "./utils/widget";
 import type { OrangeButtonWidgetProps } from "./utils/widget";
 
 const OrangeButtonWidget = ({
@@ -15,7 +16,7 @@ const OrangeButtonWidget = ({
         "orange-button group rounded-[60px] px-5 h-10 sm:h-10 xss:text-[16px] xss:h-[48px] 3xl:h-[50px] text-xs 2xl:text-[14px] 3xl:text-[18px]",
         className,
       )}
-      {...props}
+      {...(props as ButtonWidgetProps)}
     >
       {content}
       <ImageWidget
