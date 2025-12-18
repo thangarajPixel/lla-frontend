@@ -70,7 +70,7 @@ const AboutSection = ({ data }: AboutSectionProps) => {
       <ContainerWidget>
         <div className="flex flex-col xl:flex-row gap-6 xl:gap-5 2xxl:gap-[30px]">
           <div className="flex flex-col gap-4.5 justify-center md:-mt-15 w-full xl:w-[420px] 2xl:w-[420px] 2xxl:w-[520px]">
-            <h3 className="text-2xxl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 2xxl:text-[80px] font-normal text-black font-urbanist">
+            <h3 className="text-[32px] xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 2xxl:text-[80px] font-normal text-black font-urbanist">
               {data.Title}
             </h3>
             <HTMLWidget
