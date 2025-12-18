@@ -74,6 +74,8 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
   const previousLength = useRef(blogCards.length);
   const skeletonIdRef = useRef(0);
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const isSearchingRef = useRef(false);
+  const lastSearchQueryRef = useRef<string>("");
 
   const skeletonKeys = useMemo(() => {
     if (loading) {
@@ -103,26 +105,38 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
   }, []);
 
   const handleSearch = useCallback(async (query: string) => {
+    const trimmedQuery = query.trim();
+    
+    if (isSearchingRef.current || lastSearchQueryRef.current === trimmedQuery) {
+      return;
+    }
+    
+    isSearchingRef.current = true;
+    lastSearchQueryRef.current = trimmedQuery;
     setSearchLoading(true);
     setPage(1);
     previousLength.current = 0;
     cardsRef.current = [];
 
-    const params = {
-      page: 1,
-      per_page: 9,
-      ...(query.trim() && { search: query.trim() }),
-    };
-    const { data: res } = await getBlogPageData(params);
+    try {
+      const params = {
+        page: 1,
+        per_page: 9,
+        ...(trimmedQuery && { search: trimmedQuery }),
+      };
+      const { data: res } = await getBlogPageData(params);
 
-    if (res?.Blog?.BlogCard) {
-      setBlogCards(res.Blog.BlogCard);
-      setSearchTotal(res.pagination?.total || res.Blog.BlogCard.length);
-    } else {
-      setBlogCards([]);
-      setSearchTotal(0);
+      if (res?.Blog?.BlogCard) {
+        setBlogCards(res.Blog.BlogCard);
+        setSearchTotal(res.pagination?.total || res.Blog.BlogCard.length);
+      } else {
+        setBlogCards([]);
+        setSearchTotal(0);
+      }
+    } finally {
+      setSearchLoading(false);
+      isSearchingRef.current = false;
     }
-    setSearchLoading(false);
   }, []);
 
   const clearSearch = useCallback(() => {
@@ -130,6 +144,8 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
       clearTimeout(searchTimeoutRef.current);
       searchTimeoutRef.current = null;
     }
+    isSearchingRef.current = false;
+    lastSearchQueryRef.current = "";
     setSearchTotal(null);
     setPage(1);
     previousLength.current = 0;
@@ -140,25 +156,35 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
   useEffect(() => {
     if (searchTimeoutRef.current) {
       clearTimeout(searchTimeoutRef.current);
+      searchTimeoutRef.current = null;
     }
 
-    if (searchQuery.trim() === "") {
+    const trimmedQuery = searchQuery.trim();
+
+    if (trimmedQuery === "") {
       if (searchTotal !== null) {
         clearSearch();
       }
       return;
     }
 
+    if (isSearchingRef.current || lastSearchQueryRef.current === trimmedQuery) {
+      return;
+    }
+
     searchTimeoutRef.current = setTimeout(() => {
-      handleSearch(searchQuery);
+      if (!isSearchingRef.current && lastSearchQueryRef.current !== trimmedQuery) {
+        handleSearch(trimmedQuery);
+      }
     }, 500);
 
     return () => {
       if (searchTimeoutRef.current) {
         clearTimeout(searchTimeoutRef.current);
+        searchTimeoutRef.current = null;
       }
     };
-  }, [searchQuery, searchTotal, clearSearch, handleSearch]);
+  }, [searchQuery]);
 
   const loadMore = async () => {
     if (loading || blogCards.length >= total) return;
@@ -185,18 +211,23 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
   };
 
   useEffect(() => {
-    const newItems = cardsRef.current.slice(previousLength.current);
-    gsap.fromTo(
-      newItems,
-      { opacity: 0, y: 30 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        ease: "power2.out",
-        stagger: 0.1,
-      },
-    );
+    const newItems = cardsRef.current
+      .slice(previousLength.current)
+      .filter((el): el is HTMLDivElement => el !== null);
+    
+    if (newItems.length > 0) {
+      gsap.fromTo(
+        newItems,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: "power2.out",
+          stagger: 0.1,
+        },
+      );
+    }
 
     previousLength.current = blogCards.length;
   }, [blogCards]);
@@ -245,8 +276,11 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                       e.preventDefault();
                       if (searchTimeoutRef.current) {
                         clearTimeout(searchTimeoutRef.current);
+                        searchTimeoutRef.current = null;
                       }
-                      handleSearch(searchQuery);
+                      if (!isSearchingRef.current && searchQuery.trim()) {
+                        handleSearch(searchQuery);
+                      }
                     }
                   }}
                   className="w-full h-[45px] pl-4 pb-2.5 pr-10 rounded-full border border-[#E97451] bg-background px-3 py-2 text-base placeholder:text-muted-foreground/80 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-[#E97451]/50 disabled:cursor-not-allowed disabled:opacity-50 placeholder:text-sm placeholder:font-urbanist"
