@@ -1,18 +1,18 @@
 "use client";
 
+import { DialogClose } from "@/components/ui/dialog";
+import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
+import DialogWidget from "@/components/widgets/DialogWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
+import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import type { CampusHeroSectionProps } from "./utils/campus";
-import DialogWidget from "@/components/widgets/DialogWidget";
-import ButtonWidget from "@/components/widgets/ButtonWidget";
-import ImageWidget from "@/components/widgets/ImageWidget";
 import { Into, Play } from "@/helpers/ImageHelper";
-import { DialogClose } from "@/components/ui/dialog";
+import type { CampusHeroSectionProps } from "./utils/campus";
 
 const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
-   const stopAllVideos = () => {
+  const stopAllVideos = () => {
     const videos = document.querySelectorAll("video");
     videos.forEach((video) => {
       video.pause();
@@ -52,38 +52,56 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
                   className="text-white text-base sm:text-lg lg:text-[28px] xl:text-[28px] 2xl:text-[32px] 3xl:text-[40px] font-mulish"
                 />
               )}
-              <DialogWidget trigger={<div className="absolute inset-0 flex items-center justify-center z-10 ">
-                <div className="video-main1">
-                  <div className="waves-block">
-                    <div className="waves wave-1" />
-                    <div className="waves wave-2" />
-                    <div className="waves wave-3" />
+              <DialogWidget
+                trigger={
+                  <div className="absolute inset-0 flex items-center justify-center z-10 ">
+                    <div className="video-main1">
+                      <div className="waves-block">
+                        <div className="waves wave-1" />
+                        <div className="waves wave-2" />
+                        <div className="waves wave-3" />
+                      </div>
+                    </div>
+                    <ButtonWidget
+                      type="button"
+                      className="relative video-main1 w-14 h-15 p-0  bg-transparent hover:bg-transparent border-none shadow-none rounded-full group/play-button z-10"
+                    >
+                      <ImageWidget
+                        src={Play}
+                        alt="play video"
+                        className="w-13 h-13 cursor-pointer transition-colors duration-300 group-hover/play-button:text-[#E97451]"
+                      />
+                    </ButtonWidget>
                   </div>
-                </div>
-                <ButtonWidget type="button"
-                  className="relative video-main1 w-14 h-15 p-0  bg-transparent hover:bg-transparent border-none shadow-none rounded-full group/play-button z-10">
-                  <ImageWidget src={Play} alt="play video"
-                    className="w-13 h-13 cursor-pointer transition-colors duration-300 group-hover/play-button:text-[#E97451]" />
-                </ButtonWidget>
-              </div>
-              }
+                }
                 contentClassName="sm:max-w-[90vw] lg:max-w-[800px] p-0"
                 showCancel={false}
                 showCloseButton={false}
                 onOpenChange={(open) => {
-                   if (!open) stopAllVideos();
+                  if (!open) stopAllVideos();
                 }}
                 customCloseButton={
                   <DialogClose asChild>
                     <div className="cursor-pointer -mt-[30px] -mr-[30px]">
-                      <ImageWidget src={Into} alt="Close" className="w-[30px] h-[30px]" />
+                      <ImageWidget
+                        src={Into}
+                        alt="Close"
+                        className="w-[30px] h-[30px]"
+                      />
                     </div>
                   </DialogClose>
                 }
               >
                 <div className="relative w-full aspect-video bg-black rounded-lg">
-                  <video src={data?.Video?.url ? getS3Url(data.Video.url) : ""} autoPlay loop muted playsInline controls
-                    className="w-full h-full object-contain rounded-lg" />
+                  <video
+                    src={data?.Video?.url ? getS3Url(data.Video.url) : ""}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    controls
+                    className="w-full h-full object-contain rounded-lg"
+                  />
                 </div>
               </DialogWidget>
 
