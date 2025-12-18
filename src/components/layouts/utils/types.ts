@@ -53,6 +53,7 @@ export type CourseSectionData = {
 export type AdmissionButtonProps = {
   className?: string;
   iconClassName?: string;
+  onClick?: () => void;
 };
 
 export type CourseItem = {

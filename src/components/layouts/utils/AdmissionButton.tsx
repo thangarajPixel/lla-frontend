@@ -17,6 +17,7 @@ import type { AdmissionButtonProps, CourseCard } from "./types";
 const AdmissionButton = ({
   className = "",
   iconClassName = "",
+  onClick,
 }: AdmissionButtonProps) => {
   const [data, setData] = useState<CourseCard[]>();
   const [isOpen, setIsOpen] = useState(false);
@@ -122,7 +123,10 @@ const AdmissionButton = ({
                   <div className="self-start flex gap-2">
                     <LinkWidget
                       href={`/admission?course=${encodeURIComponent(card?.Slug)}`}
-                      onClick={() => setIsOpen(false)}
+                      onClick={() => {
+                        setIsOpen(false);
+                        onClick?.();
+                      }}
                     >
                       <OrangeButtonWidget content="Apply now" />
                     </LinkWidget>

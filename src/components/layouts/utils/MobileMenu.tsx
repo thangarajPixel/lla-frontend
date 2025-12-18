@@ -16,6 +16,8 @@ import ImageWidget from "../../widgets/ImageWidget";
 import LinkWidget from "../../widgets/LinkWidget";
 import AdmissionButton from "./AdmissionButton";
 import type { DropdownMenu as DropdownMenuType, MenuItem } from "./types";
+import { getEssentialsData } from "@/app/api/server";
+import AdmissionRequestButton from "@/components/layouts/utils/AdmissionRequestButton";
 
 type MobileMenuProps = {
   menuItems: (MenuItem | DropdownMenuType)[];
@@ -28,6 +30,7 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
     null,
   );
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [isAdmissionOpen, setIsAdmissionOpen] = useState<boolean>(false);
 
   const isDropdown = (
     item: MenuItem | DropdownMenuType,
@@ -43,6 +46,14 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
     }
   }, [isSheetOpen]);
 
+  useEffect(() => {
+    const getAdmissionData = async () => {
+      const { data: res } = await getEssentialsData();
+      setIsAdmissionOpen(res?.isAdmission);
+    };
+    getAdmissionData();
+  }, []);
+
   return (
     <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
       <SheetTrigger asChild className="lg:hidden">
@@ -52,19 +63,16 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
         >
           <div className="flex flex-col gap-1.5 w-6">
             <span
-              className={`block h-0.5 w-full transition-all duration-300 ${
-                isSticky ? "bg-black" : "bg-white"
-              }`}
+              className={`block h-0.5 w-full transition-all duration-300 ${isSticky ? "bg-black" : "bg-white"
+                }`}
             />
             <span
-              className={`block h-0.5 w-full transition-all duration-300 ${
-                isSticky ? "bg-black" : "bg-white"
-              }`}
+              className={`block h-0.5 w-full transition-all duration-300 ${isSticky ? "bg-black" : "bg-white"
+                }`}
             />
             <span
-              className={`block h-0.5 w-full transition-all duration-300 ${
-                isSticky ? "bg-black" : "bg-white"
-              }`}
+              className={`block h-0.5 w-full transition-all duration-300 ${isSticky ? "bg-black" : "bg-white"
+                }`}
             />
           </div>
         </ButtonWidget>
@@ -110,11 +118,10 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
                     <button
                       type="button"
                       onClick={() => toggleMobileDropdown(menuId)}
-                      className={`flex items-center justify-between text-left py-4 transition-all duration-300 ${
-                        isActive
-                          ? "text-[#E97451]"
-                          : "text-black hover:text-[#E97451]"
-                      }`}
+                      className={`flex items-center justify-between text-left py-4 transition-all duration-300 ${isActive
+                        ? "text-[#E97451]"
+                        : "text-black hover:text-[#E97451]"
+                        }`}
                     >
                       <span className="text-base font-medium">
                         {item.label}
@@ -122,15 +129,13 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
                       <ImageWidget
                         src={TopArrowIcon}
                         alt="Arrow"
-                        className={`w-[13px] h-[13px] transition-transform duration-500 ease-out brightness-0 ${
-                          isOpen ? "rotate-180" : "rotate-0"
-                        }`}
+                        className={`w-[13px] h-[13px] transition-transform duration-500 ease-out brightness-0 ${isOpen ? "rotate-180" : "rotate-0"
+                          }`}
                       />
                     </button>
                     <div
-                      className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                        isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-                      }`}
+                      className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                        }`}
                     >
                       <div className="pl-4 pr-2 pb-4 space-y-1">
                         {item.items.map((subItem) => {
@@ -140,11 +145,10 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
                               key={subItem.href}
                               href={subItem.href}
                               onClick={() => setIsSheetOpen(false)}
-                              className={`block py-3 text-sm transition-all duration-300 ${
-                                isSubItemActive
-                                  ? "text-[#E97451]"
-                                  : "text-black/80 hover:text-[#E97451]"
-                              }`}
+                              className={`block py-3 text-sm transition-all duration-300 ${isSubItemActive
+                                ? "text-[#E97451]"
+                                : "text-black/80 hover:text-[#E97451]"
+                                }`}
                             >
                               {subItem.label}
                             </LinkWidget>
@@ -161,11 +165,10 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
                   key={item.href}
                   href={item.href}
                   onClick={() => setIsSheetOpen(false)}
-                  className={`flex items-center py-4 text-base font-medium transition-all duration-300 border-b last:border-0 border-black/10 ${
-                    isItemActive
-                      ? "text-[#E97451]"
-                      : "text-black hover:text-[#E97451]"
-                  }`}
+                  className={`flex items-center py-4 text-base font-medium transition-all duration-300 border-b last:border-0 border-black/10 ${isItemActive
+                    ? "text-[#E97451]"
+                    : "text-black hover:text-[#E97451]"
+                    }`}
                 >
                   {item.label}
                 </LinkWidget>
@@ -174,10 +177,18 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
           </div>
 
           <div className="px-6 pt-6 pb-6 border-t border-black/10">
-            <AdmissionButton
-              className="px-6 py-3.5 h-10 text-sm w-full justify-center font-semibold"
-              iconClassName="w-4 h-4"
-            />
+            {isAdmissionOpen ? (
+              <AdmissionButton
+                className="px-6 py-3.5 h-10 text-sm w-full justify-center font-semibold"
+                iconClassName="w-4 h-4"
+                onClick={() => setIsSheetOpen(false)}
+              />
+            ) : (
+              <AdmissionRequestButton
+                className="px-6 py-3.5 h-10 text-sm w-full justify-center font-semibold"
+                iconClassName="w-4 h-4" 
+              />
+            )}
           </div>
         </div>
       </SheetContent>
