@@ -246,7 +246,7 @@ export default function TeamMemberPopup({
                       <div className="mb-8">
                         <HTMLWidget
                           content={selectedBiography}
-                          className="prose prose-sm md:prose-base max-w-none font-mulish text-sm xss:text-[16px] sm:text-base lg:text-[16px] 3xl:text-[18px] font-normal text-black leading-normal mt-8"
+                          className="font-mulish mt-8"
                         />
                       </div>
                     )}

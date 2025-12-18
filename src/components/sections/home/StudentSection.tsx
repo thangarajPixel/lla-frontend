@@ -209,7 +209,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                         >
                           <iframe
                             src={disableControls(videoUrl)}
-                            className="absolute inset-0 w-full h-full object-cover z-0 p-1.5"
+                            className="absolute inset-0 w-full min-h-[480px] sm:w-full sm:h-full object-cover z-0 p-2.5 sm:p-1.5"
                             allow="autoplay; encrypted-media"
                             allowFullScreen
                             title="Student video"
