@@ -1,7 +1,6 @@
 "use client";
 
 import { format, parse } from "date-fns";
-import { CalendarIcon } from "@/helpers/ImageHelper";
 import { useState } from "react";
 import {
   type Control,
@@ -9,7 +8,6 @@ import {
   type Path,
   useController,
 } from "react-hook-form";
-
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
@@ -20,6 +18,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import { CalendarIcon } from "@/helpers/ImageHelper";
 
 const DISPLAY = "dd/MM/yyyy";
 const STORE = "yyyy-MM-dd";
@@ -49,7 +48,6 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
   label,
   required,
 }: Props<T>) {
-
   const {
     field: { value: startValue, onChange: setStart },
     fieldState: { error: startError },
@@ -181,7 +179,11 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
         </PopoverContent>
       </Popover>
 
-      {(startError || endError) && <p className="text-sm text-red-500 mt-1">{startError?.message || endError?.message}</p>}
+      {(startError || endError) && (
+        <p className="text-sm text-red-500 mt-1">
+          {startError?.message || endError?.message}
+        </p>
+      )}
     </div>
   );
 }

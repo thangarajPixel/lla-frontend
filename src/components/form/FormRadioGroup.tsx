@@ -22,7 +22,7 @@ const FormRadioGroup = <T extends FieldValues>({
   options,
   notRequired,
   isLoading,
-  errorClassName
+  errorClassName,
 }: RadioGroupProps<T>) => {
   const {
     field,

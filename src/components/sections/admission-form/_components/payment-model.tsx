@@ -2,14 +2,15 @@
 
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
+import { useRouter } from "next/navigation";
 import type {
   // PaymentData,
   PaymentResponse,
 } from "@/components/sections/admission-form/_steps/preview-form";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
-import { clientAxios } from "@/helpers/AxiosHelper";
-import { useRouter } from "next/navigation";
+
+// import { clientAxios } from "@/helpers/AxiosHelper";
 
 type PaymentPopupProps = {
   isOpen: boolean;
@@ -46,7 +47,9 @@ const PaymentModel = ({
     //   },
     // });
 
-    router.push("https://apitest.payu.in/public/#/80bd38f784d1eedd4df21105f729f5d5b4d09c6eba0b0feb3b2dd2573bf12cd7/paymentoptions");
+    router.push(
+      "https://apitest.payu.in/public/#/80bd38f784d1eedd4df21105f729f5d5b4d09c6eba0b0feb3b2dd2573bf12cd7/paymentoptions",
+    );
   };
 
   return (

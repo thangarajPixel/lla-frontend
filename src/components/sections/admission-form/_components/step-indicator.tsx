@@ -62,9 +62,7 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
         })}
       </div>
 
-      <div 
-      className="flex items-start justify-between"
-      >
+      <div className="flex items-start justify-between">
         {steps.map((step, index) => {
           const stepNum = index + 1;
           const isActive = stepNum === currentStep;
@@ -73,7 +71,8 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
           return (
             <div
               key={step}
-              className={cn("mt-3 text-sm sm:text-base xl:text-sm 2xl:text-base max-w-24 sm:max-w-fit",
+              className={cn(
+                "mt-3 text-sm sm:text-base xl:text-sm 2xl:text-base max-w-24 sm:max-w-fit",
                 isActive
                   ? "text-[#E97451]"
                   : isCompleted

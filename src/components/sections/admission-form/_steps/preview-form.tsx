@@ -113,10 +113,10 @@ function Field({
           "text-black text-left w-full",
           "wrap-break-word whitespace-normal overflow-hidden",
           "md:text-right md:max-w-3xs",
-          label === "Email" && "md:max-w-fit"
+          label === "Email" && "md:max-w-fit",
         )}
       >
-        {isDob ? dobValue : prefix ? `${prefix} ${value}` : value ?? "-"}
+        {isDob ? dobValue : prefix ? `${prefix} ${value}` : (value ?? "-")}
       </span>
     </div>
   );
@@ -271,9 +271,7 @@ const ReviewApplication = ({
   };
 
   if (!admissionData) {
-    return (
-      <div>No Admission Found</div>
-    )
+    return <div>No Admission Found</div>;
   }
 
   return (
@@ -476,52 +474,54 @@ const ReviewApplication = ({
                 }
                 className="text-base 3xl:text-2xl"
               >
-                {admissionData?.Post_Graduate?.slice(0, 1).map((degree, index) => (
-                  <div
-                    key={`post-graduate-${index + 1}`}
-                    className="grid grid-cols-1 md:grid-cols-4 gap-4"
-                  >
-                    <section className="md:col-span-2">
-                      <span className="text-black/50 text-base 3xl:text-2xl">
-                        Degree
-                      </span>
-                      <p className="text-black text-base 3xl:text-2xl">
-                        {degree?.degree}
-                      </p>
-                    </section>
+                {admissionData?.Post_Graduate?.slice(0, 1).map(
+                  (degree, index) => (
+                    <div
+                      key={`post-graduate-${index + 1}`}
+                      className="grid grid-cols-1 md:grid-cols-4 gap-4"
+                    >
+                      <section className="md:col-span-2">
+                        <span className="text-black/50 text-base 3xl:text-2xl">
+                          Degree
+                        </span>
+                        <p className="text-black text-base 3xl:text-2xl">
+                          {degree?.degree}
+                        </p>
+                      </section>
 
-                    <section className="md:col-span-1">
-                      <span className="text-black/50 text-base 3xl:text-2xl">
-                        Status
-                      </span>
-                      <p className="text-black text-base 3xl:text-2xl">
-                        {degree?.pg_status}
-                      </p>
-                    </section>
+                      <section className="md:col-span-1">
+                        <span className="text-black/50 text-base 3xl:text-2xl">
+                          Status
+                        </span>
+                        <p className="text-black text-base 3xl:text-2xl">
+                          {degree?.pg_status}
+                        </p>
+                      </section>
 
-                    <section className="hidden md:invisible md:flex flex-col justify-start gap-2 items-start md:col-span-1">
-                      <span className="text-black/50 text-base 3xl:text-2xl">
-                        Document
-                      </span>
-                      <span className="flex items-center justify-center gap-1">
-                        <ImageWidget
-                          src={DocumentIcon}
-                          alt="Document"
-                          width={100}
-                          height={100}
-                          className="size-4 rounded-full"
-                        />
-                        <LinkWidget
-                          href={degree?.marksheet?.url ?? ""}
-                          target="_blank"
-                          className="text-chart-1/80 text-xs"
-                        >
-                          View Document
-                        </LinkWidget>
-                      </span>
-                    </section>
-                  </div>
-                ))}
+                      <section className="hidden md:invisible md:flex flex-col justify-start gap-2 items-start md:col-span-1">
+                        <span className="text-black/50 text-base 3xl:text-2xl">
+                          Document
+                        </span>
+                        <span className="flex items-center justify-center gap-1">
+                          <ImageWidget
+                            src={DocumentIcon}
+                            alt="Document"
+                            width={100}
+                            height={100}
+                            className="size-4 rounded-full"
+                          />
+                          <LinkWidget
+                            href={degree?.marksheet?.url ?? ""}
+                            target="_blank"
+                            className="text-chart-1/80 text-xs"
+                          >
+                            View Document
+                          </LinkWidget>
+                        </span>
+                      </section>
+                    </div>
+                  ),
+                )}
               </Section>
             )}
 

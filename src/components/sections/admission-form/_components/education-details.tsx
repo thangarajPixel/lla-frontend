@@ -37,7 +37,8 @@ export function EducationDetails({
   });
 
   const lastDegree = postGraduate?.[postGraduate.length - 1]?.degree?.trim();
-  const lastPgStatus = postGraduate?.[postGraduate.length - 1]?.pg_status?.trim();
+  const lastPgStatus =
+    postGraduate?.[postGraduate.length - 1]?.pg_status?.trim();
   const ugStatus = underGraduate?.ug_status?.trim();
 
   const addDegree = () => {
@@ -116,7 +117,6 @@ export function EducationDetails({
           )}
         </div>
       </div>
-
 
       {pgDegrees?.map((degree, index) => (
         <div

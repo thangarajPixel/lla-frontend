@@ -2,10 +2,10 @@
 
 import { CheckCircle2 } from "lucide-react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { useEffect, useState } from "react";
 
 export type PaymentDetails = {
   transactionId: string;
@@ -18,7 +18,9 @@ export type PaymentDetails = {
 };
 
 export default function PaymentSuccessPage() {
-   const [paymentDetails, setPaymentDetails] = useState<PaymentDetails | null>(null);
+  const [paymentDetails, setPaymentDetails] = useState<PaymentDetails | null>(
+    null,
+  );
 
   useEffect(() => {
     const now = new Date();
@@ -108,7 +110,6 @@ export default function PaymentSuccessPage() {
                   ₹{paymentDetails.gst.toLocaleString()}
                 </span>
               </div>
-
 
               <div className="flex items-center justify-between">
                 <span className="font-semibold">Total Paid</span>

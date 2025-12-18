@@ -11,9 +11,9 @@ const AdmissionFormPage = async ({
   const response = await getCourseBySlug((course as string) ?? "");
 
   return (
-      <PersonalDetailsForm
-        courseId={response?.data?.courseList?.documentId ?? ""}
-      />
+    <PersonalDetailsForm
+      courseId={response?.data?.courseList?.documentId ?? ""}
+    />
   );
 };
 

@@ -113,10 +113,7 @@ const EducationDetailsForm = ({
         onSubmit={handleSubmit(onSubmit)}
         className="space-y-4 py-8 bg-background mx-auto"
       >
-        <EducationDetails
-          admissionData={admissionData}
-          control={control}
-        />
+        <EducationDetails admissionData={admissionData} control={control} />
 
         <p className="text-base text-muted-foreground mt-2">
           <span className="font-bold text-black">
@@ -126,10 +123,7 @@ const EducationDetailsForm = ({
           along with UG and PG certificates, if applicable.
         </p>
 
-        <WorkExperience
-          admissionData={admissionData}
-          control={control}
-        />
+        <WorkExperience admissionData={admissionData} control={control} />
 
         <p className="text-base text-muted-foreground mt-2">
           <span className="font-bold text-black">

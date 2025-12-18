@@ -6,7 +6,12 @@ import { CheckCircle, Plus, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { FormProvider, useFieldArray, useForm, useWatch } from "react-hook-form";
+import {
+  FormProvider,
+  useFieldArray,
+  useForm,
+  useWatch,
+} from "react-hook-form";
 import { toast } from "sonner";
 import type z from "zod";
 import { FormInput, FormSelectBox } from "@/components/form";
@@ -159,12 +164,13 @@ const PersonalDetailsForm = ({
     name: "Language_Proficiency",
   });
 
-  const languageProficiency= useWatch({
-      control,
-      name: "Language_Proficiency",
-    });
-  
-    const lastLanguage = languageProficiency?.[languageProficiency.length - 1]?.language?.trim();
+  const languageProficiency = useWatch({
+    control,
+    name: "Language_Proficiency",
+  });
+
+  const lastLanguage =
+    languageProficiency?.[languageProficiency.length - 1]?.language?.trim();
 
   useEffect(() => {
     if (admissionData) {

@@ -2,17 +2,18 @@
 
 import { XCircle } from "lucide-react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import type { PaymentDetails } from "@/app/admission/payment/success/page";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { useEffect, useState } from "react";
-import { PaymentDetails } from "@/app/admission/payment/success/page";
 
 export default function PaymentFailedPage() {
-  const [paymentDetails, setPaymentDetails] = useState<PaymentDetails | null>(null);
+  const [paymentDetails, setPaymentDetails] = useState<PaymentDetails | null>(
+    null,
+  );
 
   useEffect(() => {
-
     setPaymentDetails({
       transactionId: `TXN${Math.random().toString(36).substring(2, 11).toUpperCase()}`,
       date: new Date().toLocaleDateString("en-US", {

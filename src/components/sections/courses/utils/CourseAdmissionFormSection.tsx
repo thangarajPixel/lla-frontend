@@ -11,7 +11,7 @@ import { getEssentialsData } from "@/app/api/server";
 import { FormInput } from "@/components/form";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
-import { encryptId, notify } from "@/helpers/ConstantHelper";
+import { encryptId } from "@/helpers/ConstantHelper";
 import { admissionRequestSchema } from "@/helpers/ValidationHelper";
 
 type RequestFormData = z.infer<typeof admissionRequestSchema>;
