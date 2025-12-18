@@ -60,6 +60,7 @@ const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
 
   const facultyCard = currentData?.Card?.[0];
   const viewCard = facultyCard?.ViewCard?.[0];
+    const totalPages = currentData?.pagination?.totalPages || 1;
 
   const facultyName = facultyCard?.Title || "Faculty Member";
   const portraitImage = facultyCard?.Image;
@@ -188,9 +189,9 @@ const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
                 <button
                   type="button"
                   onClick={handleNext}
-                  disabled={isLoading}
+                    disabled={currentPage >= totalPages || isLoading}
                   className={`flex items-center rounded-full justify-center h-12 flex-1 border-2 border-[#FFD4CC] bg-white transition-all ${
-                    isLoading
+                    currentPage >= totalPages || isLoading
                       ? "opacity-50 cursor-not-allowed"
                       : "cursor-pointer hover:bg-[#FFD4CC]"
                   }`}
