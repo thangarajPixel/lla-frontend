@@ -122,7 +122,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
   if (studentData.length === 0) return null;
 
   return (
-    <section className="w-full py-10 md:py-10 lg:py-12 xl:py-16 2xl:py-20 3xl:py-24 bg-[#f6f6f6] mx-auto max-w-[1920px]">
+    <section className="w-full py-10 md:py-10 lg:py-12 xl:py-16 2xl:py-20 3xl:py-24 bg-white mx-auto max-w-[1920px]">
       <ScrollWidget animation="fadeUp" delay={0.1}>
         <div className="flex flex-col w-[90vw] mx-auto justify-start md:justify-center items-start md:items-center text-left md:text-center gap-2.5 md:gap-4.5">
           <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-normal md:font-normal text-black font-urbanist">
@@ -216,12 +216,13 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                           >
                             <iframe
                               src={disableControls(videoUrl)}
-                              className="absolute inset-0 w-full h-full object-cover z-0 p-1.5"
+                              className="absolute inset-0 w-full min-h-[480px] sm:w-full sm:h-full object-cover z-0 p-2.5 sm:p-1.5"
                               allow="autoplay; encrypted-media"
                               allowFullScreen
                               title="Student video"
                               style={{ border: "none" }}
                             />
+                            <div className="bg-[#F6F6F6] bottom-[-2px] z-10 w-full h-3 left-0 right-0 absolute block md:hidden"/>
                             <div className="relative z-20 flex items-end justify-between h-full">
                               <div
                                 className="flex flex-col justify-end gap-3 bg-[#E97451]/80 w-full h-27 p-4"
