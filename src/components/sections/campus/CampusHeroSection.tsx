@@ -1,7 +1,6 @@
 "use client";
 
 import { DialogClose } from "@/components/ui/dialog";
-import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import DialogWidget from "@/components/widgets/DialogWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
@@ -39,7 +38,7 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
       <ContainerWidget>
         <ScrollWidget animation="fadeUp" delay={0.1}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0 py-20 xl:py-40 2xl:py-50 3xl:py-60 relative z-10">
-            <div className="flex flex-col items-start bg-black/40 p-4  backdrop-blur-none w-full 3xl:max-w-[740px] 3xl:max-h-[662px] ">
+            <div className="relative flex flex-col items-start bg-black/40 p-7  backdrop-blur-none w-full 3xl:max-w-[740px] 3xl:max-h-[662px] ">
               {data?.Title && (
                 <h1 className="text-white text-4xl sm:text-5xl lg:text-6xl xl:text-[50px] 2xl:text-[60px] 3xl:text-[64px] font-urbanist  font-normal mb-3 xl:max-w-[300px] 3xl:max-w-[500px]">
                   {data.Title}
@@ -52,58 +51,61 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
                   className="text-white text-base sm:text-lg lg:text-[28px] xl:text-[28px] 2xl:text-[32px] 3xl:text-[40px] font-mulish"
                 />
               )}
-              <DialogWidget
-                trigger={
-                  <div className="absolute inset-0 flex items-center justify-center z-10 ">
-                    <div className="video-main1 mt-40 md:mt-0">
-                      <div className="waves-block">
-                        <div className="waves wave-1" />
-                        <div className="waves wave-2" />
-                        <div className="waves wave-3" />
-                      </div>
-                    </div>
-                    <ButtonWidget
+              <div className="hidden md:block">
+                <DialogWidget
+                  trigger={
+                    <button
                       type="button"
-                      className="relative video-main1 w-14 h-15 p-0 mt-40 md:mt-0  bg-transparent hover:bg-transparent border-none shadow-none rounded-full group/play-button z-10"
+                      aria-label="Play video"
+                      className="absolute -right-7 top-1/2 -translate-y-1/2 flex items-center justify-center border-none bg-transparent p-0 cursor-pointer group/play-button z-10"
                     >
-                      <ImageWidget
-                        src={Play}
-                        alt="play video"
-                        className="w-13 h-13 cursor-pointer transition-colors duration-300 group-hover/play-button:text-[#E97451]"
-                      />
-                    </ButtonWidget>
+                      <div className="video-main1 -ml-1">
+                        <div className="waves-block">
+                          <div className="waves wave-1" />
+                          <div className="waves wave-2" />
+                          <div className="waves wave-3" />
+                        </div>
+                      </div>
+                      <div className="relative w-14 h-15 -mt-1 p-0 bg-transparent hover:bg-transparent border-none shadow-none rounded-full transition-all duration-300 ease-out z-10">
+                        <ImageWidget
+                          src={Play}
+                          alt="play video"
+                          className="w-13 h-13 cursor-pointer text-white group-hover/play-button:text-[#E97451] transition-colors duration-500 ease-in-out relative z-10"
+                        />
+                      </div>
+                    </button>
+                  }
+                  contentClassName="sm:max-w-[90vw] lg:max-w-[800px] p-0"
+                  showCancel={false}
+                  showCloseButton={false}
+                  onOpenChange={(open) => {
+                    if (!open) stopAllVideos();
+                  }}
+                  customCloseButton={
+                    <DialogClose asChild>
+                      <div className="cursor-pointer -mt-[30px] -mr-[30px]">
+                        <ImageWidget
+                          src={Into}
+                          alt="Close"
+                          className="w-[30px] h-[30px]"
+                        />
+                      </div>
+                    </DialogClose>
+                  }
+                >
+                  <div className="relative w-full aspect-video bg-black rounded-lg">
+                    <video
+                      src={data?.Video?.url ? getS3Url(data.Video.url) : ""}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      controls
+                      className="w-full h-full object-contain rounded-lg"
+                    />
                   </div>
-                }
-                contentClassName="sm:max-w-[90vw] lg:max-w-[800px] p-0"
-                showCancel={false}
-                showCloseButton={false}
-                onOpenChange={(open) => {
-                  if (!open) stopAllVideos();
-                }}
-                customCloseButton={
-                  <DialogClose asChild>
-                    <div className="cursor-pointer -mt-[30px] -mr-[30px]">
-                      <ImageWidget
-                        src={Into}
-                        alt="Close"
-                        className="w-[30px] h-[30px]"
-                      />
-                    </div>
-                  </DialogClose>
-                }
-              >
-                <div className="relative w-full aspect-video bg-black rounded-lg">
-                  <video
-                    src={data?.Video?.url ? getS3Url(data.Video.url) : ""}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    controls
-                    className="w-full h-full object-contain rounded-lg"
-                  />
-                </div>
-              </DialogWidget>
+                </DialogWidget>
+              </div>
 
               <div className="flex flex-col gap-4 mt-6 max-w-[692px]">
                 {data.Description?.map((paragraph, index) => {
