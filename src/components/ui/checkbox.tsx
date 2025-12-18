@@ -51,26 +51,26 @@ export const Checkbox = ({
       <motion.button
         data-slot="checkbox"
         className={cn(
-          "peer border-input dark:bg-input/30 data-[state=checked]:bg-chart-1 data-[state=checked]:text-primary-foreground dark:data-[state=checked]:bg-primary data-[state=checked]:border-none focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive size-4 shrink-0 rounded-sm border shadow-xs transition-colors duration-500 outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50",
+          "peer border-input dark:bg-input/30 data-[state=checked]:bg-chart-1 data-[state=checked]:text-primary-foreground dark:data-[state=checked]:bg-primary data-[state=checked]:border-none focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive size-4 shrink-0 rounded-xs border shadow-xs transition-colors duration-500 outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50",
           className,
           readOnly && "pointer-events-none opacity-90",
         )}
+
         whileTap={!readOnly ? { scale: 0.95 } : undefined}
         whileHover={!readOnly ? { scale: 1.05 } : undefined}
       >
         <CheckboxPrimitive.Indicator forceMount asChild>
           <motion.svg
-            data-slot="checkbox-indicator"
             xmlns="http://www.w3.org/2000/svg"
-            fill="none"
             viewBox="0 0 24 24"
-            strokeWidth="3.5"
+            fill="none"
             stroke="currentColor"
+            strokeWidth="3"
             className="size-3.5"
             initial="unchecked"
             animate={isChecked ? "checked" : "unchecked"}
-            aria-hidden="true"
           >
+
             <motion.path
               strokeLinecap="round"
               strokeLinejoin="round"

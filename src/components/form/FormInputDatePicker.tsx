@@ -83,7 +83,7 @@ const FormDatePickerWithInput = <T extends FieldValues>({
     <div className="w-full space-y-1">
       {label && (
         <Label
-          className="block text-base 3xl:text-lg text-foreground font-mulish"
+          className="block text-base 3xl:text-lg text-black font-mulish"
           htmlFor={id}
         >
           {label}
@@ -154,7 +154,7 @@ const FormDatePickerWithInput = <T extends FieldValues>({
           </PopoverTrigger>
 
           <PopoverContent
-            className="w-auto overflow-hidden p-0"
+            className="w-auto overflow-hidden p-0 z-0"
             align="end"
             alignOffset={-8}
             sideOffset={10}

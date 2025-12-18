@@ -197,7 +197,6 @@ export const filteredPayload = <T>(input: T): T | undefined => {
     return Object.keys(result).length > 0 ? (result as T) : undefined;
   }
 
-  // Remove empties
   if (input === 0 || input === "" || input === null || input === undefined) {
     return undefined;
   }

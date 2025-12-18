@@ -34,7 +34,7 @@ const Input = ({
         <label
           htmlFor={label}
           className={cn(
-            "block text-base 3xl:text-lg text-foreground font-mulish",
+            "block text-base 3xl:text-lg text-black font-mulish",
             labelClassName,
           )}
         >

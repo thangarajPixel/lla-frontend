@@ -85,6 +85,7 @@ const EducationDetailsForm = ({
   const ugStatus = watch("Under_Graduate.ug_status");
   const pgStatus = watch("Post_Graduate.0.pg_status");
   const watchPostGraduate = watch("Post_Graduate.0.degree");
+  const watchWorkExperience = watch("Work_Experience.0.designation");
 
   useEffect(() => {
     if (admissionData) {
@@ -115,7 +116,7 @@ const EducationDetailsForm = ({
     <FormProvider {...form_step2}>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="space-y-12 py-8 bg-background mx-auto"
+        className="space-y-4 py-8 bg-background mx-auto"
       >
         <EducationDetails
           admissionData={admissionData}
@@ -133,7 +134,7 @@ const EducationDetailsForm = ({
           along with UG and PG certificates, if applicable.
         </p>
 
-        <WorkExperience admissionData={admissionData} control={control} />
+        <WorkExperience admissionData={admissionData} control={control} watchWorkExperience={watchWorkExperience} />
 
         <p className="text-base text-muted-foreground mt-2">
           <span className="font-bold text-black">

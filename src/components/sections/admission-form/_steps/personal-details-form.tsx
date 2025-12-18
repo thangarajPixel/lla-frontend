@@ -311,7 +311,7 @@ const PersonalDetailsForm = ({
                   Full Name (As in Certificate)
                   <span className="text-chart-1">*</span>
                 </label>
-                <div className="grid grid-cols-[80px_1fr] sm:grid-cols-[80px_1fr_1fr] gap-3">
+                <div className="grid grid-cols-[96px_1fr] sm:grid-cols-[96px_1fr_1fr] gap-3">
                   <FormSelectBox
                     control={control}
                     name="name_title"
@@ -321,7 +321,7 @@ const PersonalDetailsForm = ({
                       { value: "Mrs.", label: "Mrs" },
                     ]}
                     placeholder="select title"
-                    className="w-20"
+                    className="w-24"
                   />
 
                   <FormInput
@@ -371,7 +371,7 @@ const PersonalDetailsForm = ({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <FormDatePickerWithInput
                   name="date_of_birth"
-                  placeholder="DD-MM-YYYY"
+                  placeholder="DD/MM/YYYY"
                   label="Date of Birth"
                   control={control}
                   required
@@ -389,7 +389,7 @@ const PersonalDetailsForm = ({
               <div>
                 <label
                   htmlFor="Language_Proficiency"
-                  className="block text-base 3xl:text-lg text-foreground mb-2"
+                  className="block text-base 3xl:text-lg mb-2"
                 >
                   Language & Proficiency<span className="text-chart-1">*</span>
                 </label>
@@ -463,7 +463,7 @@ const PersonalDetailsForm = ({
 
               <div
                 aria-hidden
-                className="border border-dashed border-border rounded-lg xs:max-w-[180px] flex flex-col items-center justify-center min-h-[227px] xs:min-h-[227px] bg-secondary cursor-pointer hover:bg-accent transition relative overflow-hidden group lg:max-w-full" // min-h-180px
+                className="border border-dashed border-border rounded-lg xs:max-w-[190px] flex flex-col items-center justify-center min-h-[227px] xs:min-h-[227px] bg-secondary cursor-pointer hover:bg-accent transition relative overflow-hidden group lg:max-w-full"
                 onClick={handleClick}
               >
                 {(!previewUrl && !admissionData?.passport_size_image) ||
@@ -587,7 +587,7 @@ const PersonalDetailsForm = ({
                   Full Name (As in Certificate)
                   <span className="text-chart-1">*</span>
                 </label>
-                <div className="grid grid-cols-[80px_1fr] sm:grid-cols-[80px_1fr_1fr] gap-3">
+                <div className="grid grid-cols-[96px_1fr] sm:grid-cols-[96px_1fr_1fr] gap-3">
                   <FormSelectBox
                     control={control}
                     name="Parent_Guardian_Spouse_Details.title"
@@ -597,7 +597,7 @@ const PersonalDetailsForm = ({
                       { value: "Mrs.", label: "Mrs" },
                     ]}
                     placeholder="select title"
-                    className="w-20 "
+                    className="w-24"
                   />
 
                   <FormInput
@@ -658,7 +658,7 @@ const PersonalDetailsForm = ({
           </div>
         </div>
 
-        <div className="flex justify-start gap-3 mt-10 pt-6">
+        <div className="flex justify-start gap-3 lg:mt-10 pt-6">
           <OrangeButtonWidget
             content="Save & Continue"
             // className="xss:text-[12px] h-9 px-4"

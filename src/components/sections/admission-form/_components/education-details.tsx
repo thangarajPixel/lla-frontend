@@ -65,7 +65,7 @@ export function EducationDetails({
       </div>
 
       <div className="space-y-3">
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4 items-end">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2 items-end">
           <FormInput
             name="Under_Graduate.degree"
             label="Under Graduate"

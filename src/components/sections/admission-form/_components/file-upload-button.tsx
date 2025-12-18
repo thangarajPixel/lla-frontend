@@ -188,7 +188,7 @@ export function FileUploadButton({
             <p className="text-sm font-medium truncate text-foreground">
               {selectedFile?.name ?? defaultValue?.name ?? ""}
             </p>
-            <div className="flex gap-2 text-xs text-muted-foreground mt-1">
+            <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1">
               <span>
                 {formatFileSize(selectedFile?.size ?? defaultValue?.size ?? 0)}
               </span>
