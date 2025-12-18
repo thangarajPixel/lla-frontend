@@ -108,6 +108,7 @@ export async function getCourseBySlug(slug: string) {
 export async function getBlogPageData(params: {
   page: number;
   per_page: number;
+  search?: string;
 }) {
   return fetchData("/blog", params);
 }
