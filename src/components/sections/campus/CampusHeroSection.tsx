@@ -53,7 +53,7 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
                 />
               )}
               <DialogWidget trigger={<div className="absolute inset-0 flex items-center justify-center z-10 ">
-                <div className="video-main1">
+                <div className="video-main1 mt-40 md:mt-0">
                   <div className="waves-block">
                     <div className="waves wave-1" />
                     <div className="waves wave-2" />
@@ -61,7 +61,7 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
                   </div>
                 </div>
                 <ButtonWidget type="button"
-                  className="relative video-main1 w-14 h-15 p-0  bg-transparent hover:bg-transparent border-none shadow-none rounded-full group/play-button z-10">
+                  className="relative video-main1 w-14 h-15 p-0 mt-40 md:mt-0  bg-transparent hover:bg-transparent border-none shadow-none rounded-full group/play-button z-10">
                   <ImageWidget src={Play} alt="play video"
                     className="w-13 h-13 cursor-pointer transition-colors duration-300 group-hover/play-button:text-[#E97451]" />
                 </ButtonWidget>

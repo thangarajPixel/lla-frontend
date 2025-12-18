@@ -92,7 +92,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
     const nextPage = page + 1;
     const params = { page: nextPage, per_page: 9 };
     const { data: res } = await getBlogPageData(params);
-    
+
     if (res?.Blog?.BlogCard) {
       setBlogCards((prev) => [...prev, ...res.Blog.BlogCard]);
       setPage(nextPage);
@@ -245,7 +245,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                         start="top 85%"
                         once={true}
                       >
-                        <div 
+                        <div
                           className="relative w-full overflow-hidden group cursor-pointer bg-white p-3"
                           ref={(el) => {
                             cardsRef.current[index] = el;

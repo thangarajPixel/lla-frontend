@@ -189,20 +189,18 @@ body {
 }
 @media (max-width: 767px) {
   .video-main1 {
-    top: 88%;    
+    top: 88%;
     left: 50%;
-    width: 56px;  
+    width: 56px;
     height: 56px;
   }
 }
-
 
 .waves-block {
   position: relative;
   width: 100%;
   height: 100%;
 }
-
 
 @keyframes waves {
   0% {
