@@ -106,11 +106,11 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
 
   const handleSearch = useCallback(async (query: string) => {
     const trimmedQuery = query.trim();
-    
+
     if (isSearchingRef.current || lastSearchQueryRef.current === trimmedQuery) {
       return;
     }
-    
+
     isSearchingRef.current = true;
     lastSearchQueryRef.current = trimmedQuery;
     setSearchLoading(true);
@@ -173,7 +173,10 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
     }
 
     searchTimeoutRef.current = setTimeout(() => {
-      if (!isSearchingRef.current && lastSearchQueryRef.current !== trimmedQuery) {
+      if (
+        !isSearchingRef.current &&
+        lastSearchQueryRef.current !== trimmedQuery
+      ) {
         handleSearch(trimmedQuery);
       }
     }, 500);
@@ -184,7 +187,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
         searchTimeoutRef.current = null;
       }
     };
-  }, [searchQuery]);
+  }, [searchQuery, searchTotal, handleSearch, clearSearch]);
 
   const loadMore = async () => {
     if (loading || blogCards.length >= total) return;
@@ -214,7 +217,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
     const newItems = cardsRef.current
       .slice(previousLength.current)
       .filter((el): el is HTMLDivElement => el !== null);
-    
+
     if (newItems.length > 0) {
       gsap.fromTo(
         newItems,

@@ -4,20 +4,19 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import type React from "react";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import { Card, CardContent } from "@/components/ui/card";
 import CheckboxField from "@/components/ui/checkbox";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
+import { clientAxios } from "@/helpers/AxiosHelper";
 import { calculateDuration } from "@/helpers/ConstantHelper";
 import { DocumentIcon, EditIcon } from "@/helpers/ImageHelper";
 import { cn } from "@/lib/utils";
 import { useCourseStore } from "@/store/zustand";
 import PaymentModel from "../_components/payment-model";
-import { updateAdmission } from "@/store/services/global-services";
-import { clientAxios } from "@/helpers/AxiosHelper";
-import { toast } from "sonner";
 
 export type PaymentData = {
   key: string;
@@ -37,13 +36,13 @@ export type PaymentData = {
   udf5: string;
   hash: string;
   [key: string]: string;
-}
+};
 
 type AdmissionInfo = {
   id: number;
   name: string;
   email: string;
-}
+};
 
 export type PaymentResponse = {
   success: boolean;
@@ -53,7 +52,7 @@ export type PaymentResponse = {
   amount: string;
   data: PaymentData;
   admissionInfo: AdmissionInfo;
-}
+};
 
 function Section({
   title,
@@ -69,7 +68,9 @@ function Section({
   return (
     <div className="space-y-3">
       <section className="flex items-center justify-between">
-        <h3 className={cn("text-2xl 3xl:text-[32px] text-[#E97451]", className)}>
+        <h3
+          className={cn("text-2xl 3xl:text-[32px] text-[#E97451]", className)}
+        >
           {title}
         </h3>
         <Image
@@ -178,7 +179,6 @@ function EducationField({
   value?: DocumentFile;
 }) {
   const handleDownload = async (url: string, fileName: string) => {
-
     const res = await fetch(url);
     const blob = await res.blob();
     const blobUrl = window.URL.createObjectURL(blob);
@@ -194,7 +194,9 @@ function EducationField({
 
   return (
     <div className="flex flex-col items-start justify-start text-gray-700">
-      <span className="w-40 text-base 3xl:text-2xl text-[#E97451]">{label}:</span>
+      <span className="w-40 text-base 3xl:text-2xl text-[#E97451]">
+        {label}:
+      </span>
       {value && (
         <>
           <span className="text-black/50 text-base 3xl:text-2xl">{title}</span>
@@ -233,7 +235,9 @@ const ReviewApplication = ({
   admissionId?: string;
 }) => {
   const [isPaymentOpen, setIsPaymentOpen] = useState<boolean>(false);
-  const [paymentDetails, setPaymentDetails] = useState<PaymentResponse | null>(null);
+  const [paymentDetails, setPaymentDetails] = useState<PaymentResponse | null>(
+    null,
+  );
   const router = useRouter();
   const fullAddress = `${admissionData?.address[0].children[0].text}, ${admissionData?.city}, ${admissionData?.district}, ${admissionData?.state.name}, ${admissionData?.pincode}`;
   const parentFullAddress = `${admissionData?.Parent_Guardian_Spouse_Details?.address[0].children[0].text}, ${admissionData?.Parent_Guardian_Spouse_Details?.city}, ${admissionData?.Parent_Guardian_Spouse_Details?.district}, ${admissionData?.Parent_Guardian_Spouse_Details?.state.name}, ${admissionData?.Parent_Guardian_Spouse_Details?.pincode}`;
@@ -245,7 +249,6 @@ const ReviewApplication = ({
   }, [admissionData]);
 
   const handleOpenPayment = async (admissionId: string) => {
-
     const data = {
       step_3: true,
       Payment_Status: "Completed",
@@ -254,15 +257,20 @@ const ReviewApplication = ({
     try {
       const res = await clientAxios.put(`/admissions/${admissionId}`, { data });
       setPaymentDetails(res?.data?.checkoutLink);
-      setIsPaymentOpen(true)
-    } catch (error) {
+      setIsPaymentOpen(true);
+    } catch (_error) {
       toast.error("Something went wrong");
     }
-  }
+  };
 
   return (
     <div className="w-full min-h-screen flex justify-center">
-      <div className={cn("flex flex-col md:flex-row w-full bg-white", isPaymentOpen && "blur-xl")}>
+      <div
+        className={cn(
+          "flex flex-col md:flex-row w-full bg-white",
+          isPaymentOpen && "blur-xl",
+        )}
+      >
         {/* LEFT SIDE */}
         <div className="flex lg:ml-36 md:w-2/4 lg:w-1/4 flex-col items-center gap-6 pt-8 mb-8 3xl:py-16 3xl:mt-10">
           <div className="flex flex-col gap-3">
@@ -294,7 +302,9 @@ const ReviewApplication = ({
             <OrangeButtonWidget
               content="Proceed to Pay"
               className="3xl:px-4 w-2/4"
-              onClick={() => handleOpenPayment(admissionData?.documentId as string)}
+              onClick={() =>
+                handleOpenPayment(admissionData?.documentId as string)
+              }
             />
           </div>
         </div>
@@ -577,11 +587,16 @@ const ReviewApplication = ({
         </Card>
       </div>
 
-      {
-        isPaymentOpen && (
-          <PaymentModel isOpen={isPaymentOpen} onClose={() => setIsPaymentOpen(false)} amount={admissionData?.Course?.Amount  ?? 0} gstRate={admissionData?.Course?.GstPercentage  ?? 18} total={admissionData?.Course?.TotalAmount  ?? 0} paymentDetails={paymentDetails ?? null}/>
-        )
-      }
+      {isPaymentOpen && (
+        <PaymentModel
+          isOpen={isPaymentOpen}
+          onClose={() => setIsPaymentOpen(false)}
+          amount={admissionData?.Course?.Amount ?? 0}
+          gstRate={admissionData?.Course?.GstPercentage ?? 18}
+          total={admissionData?.Course?.TotalAmount ?? 0}
+          paymentDetails={paymentDetails ?? null}
+        />
+      )}
     </div>
   );
 };

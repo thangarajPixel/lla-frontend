@@ -134,7 +134,11 @@ const EducationDetailsForm = ({
           along with UG and PG certificates, if applicable.
         </p>
 
-        <WorkExperience admissionData={admissionData} control={control} watchWorkExperience={watchWorkExperience} />
+        <WorkExperience
+          admissionData={admissionData}
+          control={control}
+          watchWorkExperience={watchWorkExperience}
+        />
 
         <p className="text-base text-muted-foreground mt-2">
           <span className="font-bold text-black">

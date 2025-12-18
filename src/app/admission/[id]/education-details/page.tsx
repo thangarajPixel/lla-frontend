@@ -12,10 +12,10 @@ const EducationDetails = async (props: PageProps) => {
   const admissionData = admissionResponse?.data as AdmissionFormData;
 
   return (
-      <EducationDetailsForm
-        admissionData={admissionData}
-        admissionId={String(id) ?? null}
-      />
+    <EducationDetailsForm
+      admissionData={admissionData}
+      admissionId={String(id) ?? null}
+    />
   );
 };
 

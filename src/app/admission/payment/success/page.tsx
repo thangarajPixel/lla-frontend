@@ -1,15 +1,15 @@
-"use client"
+"use client";
 
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 // import { Separator } from "@/components/ui/separator"
-import { CheckCircle2 } from "lucide-react"
-import Link from "next/link"
+import { CheckCircle2 } from "lucide-react";
+import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function PaymentSuccessPage() {
   const paymentDetails = {
-    transactionId: "TXN" + Math.random().toString(36).substring(2, 11).toUpperCase(),
+    transactionId: `TXN${Math.random().toString(36).substring(2, 11).toUpperCase()}`,
     date: new Date().toLocaleDateString("en-US", {
       month: "long",
       day: "numeric",
@@ -22,7 +22,7 @@ export default function PaymentSuccessPage() {
     amount: 1500,
     gst: 270,
     total: 1770,
-  }
+  };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-background to-muted p-4">
@@ -37,8 +37,12 @@ export default function PaymentSuccessPage() {
 
           {/* Success Message */}
           <div className="text-center mb-6">
-            <h1 className="text-2xl font-semibold text-foreground mb-2">Payment Successful!</h1>
-            <p className="text-muted-foreground">Your payment has been processed successfully</p>
+            <h1 className="text-2xl font-semibold text-foreground mb-2">
+              Payment Successful!
+            </h1>
+            <p className="text-muted-foreground">
+              Your payment has been processed successfully
+            </p>
           </div>
 
           {/* <Separator className="my-6" /> */}
@@ -47,14 +51,21 @@ export default function PaymentSuccessPage() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground">Status</span>
-              <Badge variant="default" className="bg-green-600 hover:bg-green-700">
+              <Badge
+                variant="default"
+                className="bg-green-600 hover:bg-green-700"
+              >
                 Completed
               </Badge>
             </div>
 
             <div className="flex items-center justify-between">
-              <span className="text-sm text-muted-foreground">Transaction ID</span>
-              <span className="text-sm font-mono font-medium">{paymentDetails.transactionId}</span>
+              <span className="text-sm text-muted-foreground">
+                Transaction ID
+              </span>
+              <span className="text-sm font-mono font-medium">
+                {paymentDetails.transactionId}
+              </span>
             </div>
 
             <div className="flex items-center justify-between">
@@ -73,19 +84,25 @@ export default function PaymentSuccessPage() {
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <span className="text-sm text-muted-foreground">Amount</span>
-                <span className="text-sm font-medium">₹{paymentDetails.amount.toLocaleString()}</span>
+                <span className="text-sm font-medium">
+                  ₹{paymentDetails.amount.toLocaleString()}
+                </span>
               </div>
 
               <div className="flex items-center justify-between">
                 <span className="text-sm text-muted-foreground">GST (18%)</span>
-                <span className="text-sm font-medium">₹{paymentDetails.gst.toLocaleString()}</span>
+                <span className="text-sm font-medium">
+                  ₹{paymentDetails.gst.toLocaleString()}
+                </span>
               </div>
 
               {/* <Separator className="my-3" /> */}
 
               <div className="flex items-center justify-between">
                 <span className="font-semibold">Total Paid</span>
-                <span className="text-lg font-bold text-primary">₹{paymentDetails.total.toLocaleString()}</span>
+                <span className="text-lg font-bold text-primary">
+                  ₹{paymentDetails.total.toLocaleString()}
+                </span>
               </div>
             </div>
           </div>
@@ -96,7 +113,11 @@ export default function PaymentSuccessPage() {
               Download Receipt
             </Button>
             <Link href="/" className="w-full">
-              <Button variant="outline" size="lg" className="w-full bg-transparent">
+              <Button
+                variant="outline"
+                size="lg"
+                className="w-full bg-transparent"
+              >
                 Back to Home
               </Button>
             </Link>
@@ -104,5 +125,5 @@ export default function PaymentSuccessPage() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

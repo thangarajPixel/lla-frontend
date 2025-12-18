@@ -17,7 +17,7 @@ type WorkExperienceProps = {
 export function WorkExperience({
   admissionData,
   control,
-  watchWorkExperience
+  watchWorkExperience,
 }: WorkExperienceProps) {
   const { fields, append, remove } = useFieldArray({
     control: control,
@@ -102,18 +102,16 @@ export function WorkExperience({
         </div>
       ))}
 
-      {
-        watchWorkExperience && (
-          <button
-            type="button"
-            onClick={handleAddExperience}
-            className="flex ml-auto items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity"
-          >
-            <Plus className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
-            <span className="text-chart-1">Add More Work Experience</span>
-          </button>
-        )
-      }
+      {watchWorkExperience && (
+        <button
+          type="button"
+          onClick={handleAddExperience}
+          className="flex ml-auto items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity"
+        >
+          <Plus className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
+          <span className="text-chart-1">Add More Work Experience</span>
+        </button>
+      )}
     </div>
   );
 }

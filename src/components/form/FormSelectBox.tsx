@@ -65,9 +65,7 @@ const FormSelectBox = <T extends FieldValues>({
         onValueChange={field.onChange}
         disabled={options.length === 0 || disabled}
       >
-        <SelectTrigger 
-        className="flex h-[42px] w-full rounded-full border border-[#BDBDBD] bg-background px-4 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground/80 focus-visible:outline-none focus-visible:border-chart-1 focus-visible:ring-0 focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50"
-        >
+        <SelectTrigger className="flex h-[42px] w-full rounded-full border border-[#BDBDBD] bg-background px-4 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground/80 focus-visible:outline-none focus-visible:border-chart-1 focus-visible:ring-0 focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50">
           <SelectValue
             placeholder={options.length === 0 ? noDataMessage : placeholder}
             className="data-placeholder:text-muted-foreground/80"

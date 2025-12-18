@@ -11,9 +11,7 @@ const PersonalDetails = async (props: PageProps) => {
 
   const admissionData = admissionResponse?.data as AdmissionFormData;
 
-  return (
-      <PersonalDetailsForm admissionData={admissionData} admissionId={id} />
-  );
+  return <PersonalDetailsForm admissionData={admissionData} admissionId={id} />;
 };
 
 export default PersonalDetails;

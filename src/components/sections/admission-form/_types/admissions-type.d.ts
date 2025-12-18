@@ -212,7 +212,6 @@ type AdmissionResponse = {
   data: AdmissionFormData;
 };
 
-
 // type PaymentData = {
 //   key: string;
 //   amount: string;

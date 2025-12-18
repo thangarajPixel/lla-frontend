@@ -55,7 +55,6 @@ export const Checkbox = ({
           className,
           readOnly && "pointer-events-none opacity-90",
         )}
-
         whileTap={!readOnly ? { scale: 0.95 } : undefined}
         whileHover={!readOnly ? { scale: 1.05 } : undefined}
       >
@@ -69,8 +68,9 @@ export const Checkbox = ({
             className="size-3.5"
             initial="unchecked"
             animate={isChecked ? "checked" : "unchecked"}
+            aria-hidden="true"
+            focusable="false"
           >
-
             <motion.path
               strokeLinecap="round"
               strokeLinejoin="round"
