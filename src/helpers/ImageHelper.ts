@@ -48,6 +48,7 @@ export { default as LocationIcon } from "@/assets/icons/location.png";
 export { default as Location } from "@/assets/icons/location.svg";
 export { default as Play } from "@/assets/icons/play.svg";
 export { default as Quote } from "@/assets/icons/quote.png";
+export { default as SearchIcon } from "@/assets/icons/search-normal.svg";
 export { default as Sms } from "@/assets/icons/sms-tracking.png";
 export { default as StarIcon } from "@/assets/icons/star.png";
 export { default as TopArrowIcon } from "@/assets/icons/top-arrow.svg";

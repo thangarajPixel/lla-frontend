@@ -17,8 +17,10 @@ import type { LifeSectionProps } from "./utils/life-lla";
 
 const LifeLlaSection = ({ data }: LifeSectionProps) => {
   const LifeCardSkeleton = () => (
-    <div className="w-full flex flex-col gap-3 bg-[#FFFFFF4D]">
-      <Skeleton className="w-full h-[200px] md:h-[220px] lg:h-[230px]" />
+    <div className="w-full h-full flex flex-col bg-[#ECECEC] p-3 sm:p-4 lg:p-4 xl:p-5 3xl:p-6">
+      <Skeleton className="w-full h-[200px] md:h-[220px] lg:h-[230px] mb-2 lg:mb-3 3xl:mb-4" />
+      <Skeleton className="w-3/4 h-6 mb-2" />
+      <Skeleton className="w-full h-4" />
     </div>
   );
 
@@ -101,56 +103,48 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
           className="py-8 md:py-8 lg:py-12 xl:py-10 2xl:py-10 3xl:py-10"
           suppressHydrationWarning
         >
-          <ResponsiveMasonry
-            columnsCountBreakPoints={{
-              350: 1,
-              400: 1,
-              500: 1,
-              600: 2,
-              630: 2,
-              660: 2,
-              700: 2,
-              768: 3,
-              1024: 4,
-            }}
-          >
-            <Masonry
-              style={{
-                gap: "20px",
-              }}
-            >
-              {cards.map((card, index) => (
-                <div
-                  className="gap-20 max-w-[270px] xs:min-w-[270px] xss:w-full sm:min-w-[290px] md:min-w-[240px] lg:min-w-[180px] xl:min-w-[200px] 2xl:min-w-[220px] 3xl:min-w-[300px]"
-                  key={card.id}
-                  style={{ marginBottom: "6px" }}
-                  ref={(el) => {
-                    cardsRef.current[index] = el;
-                  }}
-                >
-                  <ScrollWidget animation="fadeIn" delay={-0.1}>
-                    <ParallaxWidget speed={-0.1}>
-                      <LifeCard card={card} />
-                    </ParallaxWidget>
-                  </ScrollWidget>
-                </div>
-              ))}
+          <div className="w-full" suppressHydrationWarning>
+            <div className="-m-3">
+              <ResponsiveMasonry
+                columnsCountBreakPoints={{
+                  350: 1,
+                  400: 1,
+                  500: 1,
+                  600: 2,
+                  630: 2,
+                  660: 2,
+                  700: 2,
+                  768: 3,
+                  1024: 4,
+                }}
+              >
+                <Masonry gutter="24px">
+                  {cards.map((card, index) => (
+                    <div
+                      key={card.id}
+                      className="w-full p-3 m-0"
+                      ref={(el) => {
+                        cardsRef.current[index] = el;
+                      }}
+                    >
+                      <ScrollWidget animation="fadeIn" delay={-0.1}>
+                        <ParallaxWidget speed={-0.1}>
+                          <LifeCard card={card} />
+                        </ParallaxWidget>
+                      </ScrollWidget>
+                    </div>
+                  ))}
 
-              {loading &&
-                skeletonKeys.map((key) => (
-                  <div key={key}>
-                    <LifeCardSkeleton />
-                  </div>
-                ))}
-            </Masonry>
-          </ResponsiveMasonry>
-
-          {loading &&
-            skeletonKeys.map((key) => (
-              <div key={key}>
-                <LifeCardSkeleton />
-              </div>
-            ))}
+                  {loading &&
+                    skeletonKeys.map((key) => (
+                      <div key={key} className="w-full p-3 m-0">
+                        <LifeCardSkeleton />
+                      </div>
+                    ))}
+                </Masonry>
+              </ResponsiveMasonry>
+            </div>
+          </div>
 
           {!loading && cards.length < total && (
             <ScrollWidget animation="fadeIn" delay={0.1}>

@@ -26,10 +26,8 @@ export type DialogWidgetProps = {
   contentClassName?: string;
 };
 
-export type OrangeButtonWidgetProps = {
+export type OrangeButtonWidgetProps = Omit<ButtonWidgetProps, "children"> & {
   content: string;
-  className?: string;
-  onClick?: () => void;
 };
 
 export type HTMLWidgetProps = {
