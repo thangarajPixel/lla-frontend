@@ -72,43 +72,6 @@ export function EducationDetails({
         />
       </div>
 
-      <div className="space-y-3 hidden">
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] lg:gap-2 items-end">
-          <FormInput
-            name="Under_Graduate.degree"
-            label="Under Graduate"
-            placeholder="Enter your graduation  degree"
-            control={control}
-          />
-          <FormRadioGroup
-            name="Under_Graduate.ug_status"
-            control={control}
-            options={[
-              { value: "Finished", label: "Finished" },
-              { value: "In-Progress", label: "In-Progress" },
-            ]}
-          />
-
-          {ugStatus === "Finished" && (
-            <>
-              <FormFileUploadButton
-                name="Under_Graduate.marksheet"
-                control={control}
-                placeholder="Upload your MarkSheet"
-                notRequired={true}
-                defaultValue={admissionData?.Under_Graduate?.marksheet ?? null}
-                inputClassName="justify-start pl-4"
-                hideDescription
-              />
-
-              <p className="text-xs text-muted-foreground relative md:bottom-5">
-                Max. file size not more than 2MB.
-              </p>
-            </>
-          )}
-        </div>
-      </div>
-      {/*  */}
       <div className="space-y-3">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] lg:gap-2 items-start">
           <div>

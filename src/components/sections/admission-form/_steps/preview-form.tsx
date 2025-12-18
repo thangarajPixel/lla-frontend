@@ -270,7 +270,7 @@ const ReviewApplication = ({
     }
   };
 
-  if (!admissionData?.first_name) {
+  if (!admissionData) {
     return (
       <div>No Admission Found</div>
     )

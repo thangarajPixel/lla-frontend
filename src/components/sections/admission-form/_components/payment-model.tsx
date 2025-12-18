@@ -3,7 +3,7 @@
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 import type {
-  PaymentData,
+  // PaymentData,
   PaymentResponse,
 } from "@/components/sections/admission-form/_steps/preview-form";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
