@@ -1,14 +1,18 @@
 "use client";
 
+import gsap from "gsap";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import { getBlogPageData } from "@/app/api/server";
+import { Skeleton } from "@/components/ui/skeleton";
+import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import { ArrowRightWhite } from "@/helpers/ImageHelper";
+import { ArrowDown, ArrowRightWhite } from "@/helpers/ImageHelper";
 
 interface BlogImage {
   id: number;
@@ -35,17 +39,83 @@ interface BlogData {
 
 interface BlogPageData {
   Blog: BlogData;
+  pagination?: {
+    total: number;
+    page: number;
+    per_page: number;
+  };
 }
 
 const BlogSection = ({ data }: { data: BlogPageData }) => {
+  const BlogCardSkeleton = () => (
+    <div className="w-full flex flex-col gap-3 bg-white p-3">
+      <Skeleton className="w-full h-[200px] md:h-[220px] lg:h-[230px]" />
+      <Skeleton className="w-3/4 h-6" />
+      <Skeleton className="w-full h-4" />
+      <Skeleton className="w-1/2 h-4" />
+    </div>
+  );
+
   const [isMounted, setIsMounted] = useState(false);
+  const blogData = data?.Blog;
+  const [blogCards, setBlogCards] = useState(blogData?.BlogCard || []);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const total = data?.pagination?.total || blogCards.length;
+
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const previousLength = useRef(blogCards.length);
+  const skeletonIdRef = useRef(0);
+
+  const skeletonKeys = useMemo(() => {
+    if (loading) {
+      skeletonIdRef.current += 1;
+      const baseId = skeletonIdRef.current;
+      return Array.from({ length: 6 }, () => {
+        const uniqueId = `${baseId}-${Math.random().toString(36).substring(2, 9)}`;
+        return `skeleton-${uniqueId}`;
+      });
+    }
+    return [];
+  }, [loading]);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  const blogData = data?.Blog;
-  const blogCards = blogData?.BlogCard || [];
+  const loadMore = async () => {
+    if (loading || blogCards.length >= total) return;
+
+    setLoading(true);
+    await new Promise((res) => setTimeout(res, 500));
+
+    const nextPage = page + 1;
+    const params = { page: nextPage, per_page: 9 };
+    const { data: res } = await getBlogPageData(params);
+    
+    if (res?.Blog?.BlogCard) {
+      setBlogCards((prev) => [...prev, ...res.Blog.BlogCard]);
+      setPage(nextPage);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    const newItems = cardsRef.current.slice(previousLength.current);
+    gsap.fromTo(
+      newItems,
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: "power2.out",
+        stagger: 0.1,
+      },
+    );
+
+    previousLength.current = blogCards.length;
+  }, [blogCards]);
 
   const getImageUrl = (image: BlogImage[] | null): string => {
     if (image && Array.isArray(image) && image.length > 0 && image[0]?.url) {
@@ -99,6 +169,9 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                             <div
                               className="relative w-full overflow-hidden group cursor-pointer bg-white"
                               style={{ padding: "10px" }}
+                              ref={(el) => {
+                                cardsRef.current[index] = el;
+                              }}
                             >
                               <div className="flex flex-col gap-4 h-full">
                                 <div className="relative w-full overflow-hidden rounded-none aspect-video">
@@ -143,6 +216,13 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                           </ScrollWidget>
                         );
                       })}
+
+                      {loading &&
+                        skeletonKeys.map((key) => (
+                          <div key={key}>
+                            <BlogCardSkeleton />
+                          </div>
+                        ))}
                     </Masonry>
                   </ResponsiveMasonry>
                 </div>
@@ -165,7 +245,12 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                         start="top 85%"
                         once={true}
                       >
-                        <div className="relative w-full overflow-hidden group cursor-pointer bg-white p-3">
+                        <div 
+                          className="relative w-full overflow-hidden group cursor-pointer bg-white p-3"
+                          ref={(el) => {
+                            cardsRef.current[index] = el;
+                          }}
+                        >
                           <div className="flex flex-col gap-4 h-full">
                             <div className="relative w-full overflow-hidden rounded-none aspect-video">
                               <ImageWidget
@@ -207,9 +292,36 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                       </ScrollWidget>
                     );
                   })}
+
+                  {loading &&
+                    skeletonKeys.map((key) => (
+                      <div key={key}>
+                        <BlogCardSkeleton />
+                      </div>
+                    ))}
                 </div>
               )}
             </div>
+          )}
+
+          {!loading && blogCards.length < total && (
+            <ScrollWidget animation="fadeIn" delay={0.1}>
+              <div className="flex justify-center items-center mt-8">
+                <ButtonWidget
+                  onClick={loadMore}
+                  className="h-[50px] w-[172px] font-mulish hover:bg-white font-bold bg-white border border-[#E97451] rounded-[60px] text-[#E97451] px-5 text-xs xl:text-[14px] 2xl:text-[14px] 3xl:text-[18px]"
+                >
+                  Load More
+                  <ImageWidget
+                    src={ArrowDown}
+                    alt="Arrow Down"
+                    height={24}
+                    width={24}
+                    className="object-cover"
+                  />
+                </ButtonWidget>
+              </div>
+            </ScrollWidget>
           )}
         </div>
       </ContainerWidget>
