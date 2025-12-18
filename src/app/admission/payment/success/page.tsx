@@ -1,41 +1,62 @@
 "use client";
 
-// import { Separator } from "@/components/ui/separator"
 import { CheckCircle2 } from "lucide-react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
+export type PaymentDetails = {
+  transactionId: string;
+  date: string;
+  time: string;
+  amount: number;
+  gst: number;
+  total: number;
+  reason?: string;
+};
+
 export default function PaymentSuccessPage() {
-  const paymentDetails = {
-    transactionId: `TXN${Math.random().toString(36).substring(2, 11).toUpperCase()}`,
-    date: new Date().toLocaleDateString("en-US", {
-      month: "long",
-      day: "numeric",
-      year: "numeric",
-    }),
-    time: new Date().toLocaleTimeString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-    }),
-    amount: 1500,
-    gst: 270,
-    total: 1770,
-  };
+  const [paymentDetails, setPaymentDetails] = useState<PaymentDetails | null>(
+    null,
+  );
+
+  useEffect(() => {
+    const now = new Date();
+
+    setPaymentDetails({
+      transactionId: `TXN${Math.random()
+        .toString(36)
+        .substring(2, 11)
+        .toUpperCase()}`,
+      date: now.toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      }),
+      time: now.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+      amount: 1500,
+      gst: 270,
+      total: 1770,
+    });
+  }, []);
+
+  if (!paymentDetails) return null;
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-background to-muted p-4">
       <Card className="w-full max-w-md shadow-lg">
         <CardContent className="pt-6">
-          {/* Success Icon */}
           <div className="flex justify-center mb-6">
             <div className="rounded-full bg-green-50 p-3">
               <CheckCircle2 className="h-16 w-16 text-green-600" />
             </div>
           </div>
 
-          {/* Success Message */}
           <div className="text-center mb-6">
             <h1 className="text-2xl font-semibold text-foreground mb-2">
               Payment Successful!
@@ -45,9 +66,6 @@ export default function PaymentSuccessPage() {
             </p>
           </div>
 
-          {/* <Separator className="my-6" /> */}
-
-          {/* Payment Details */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground">Status</span>
@@ -78,9 +96,6 @@ export default function PaymentSuccessPage() {
               <span className="text-sm font-medium">{paymentDetails.time}</span>
             </div>
 
-            {/* <Separator className="my-4" /> */}
-
-            {/* Amount Breakdown */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <span className="text-sm text-muted-foreground">Amount</span>
@@ -96,8 +111,6 @@ export default function PaymentSuccessPage() {
                 </span>
               </div>
 
-              {/* <Separator className="my-3" /> */}
-
               <div className="flex items-center justify-between">
                 <span className="font-semibold">Total Paid</span>
                 <span className="text-lg font-bold text-primary">
@@ -107,11 +120,7 @@ export default function PaymentSuccessPage() {
             </div>
           </div>
 
-          {/* Action Buttons */}
           <div className="flex flex-col gap-3 mt-8">
-            <Button size="lg" className="w-full">
-              Download Receipt
-            </Button>
             <Link href="/" className="w-full">
               <Button
                 variant="outline"

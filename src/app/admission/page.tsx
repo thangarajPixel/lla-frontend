@@ -1,5 +1,4 @@
 import PersonalDetailsForm from "@/components/sections/admission-form/_steps/personal-details-form";
-import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getCourseBySlug } from "../api/server";
 
 const AdmissionFormPage = async ({
@@ -12,11 +11,9 @@ const AdmissionFormPage = async ({
   const response = await getCourseBySlug((course as string) ?? "");
 
   return (
-    <ScrollWidget>
-      <PersonalDetailsForm
-        courseId={response?.data?.courseList?.documentId ?? ""}
-      />
-    </ScrollWidget>
+    <PersonalDetailsForm
+      courseId={response?.data?.courseList?.documentId ?? ""}
+    />
   );
 };
 

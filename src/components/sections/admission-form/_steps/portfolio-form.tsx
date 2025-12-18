@@ -224,7 +224,8 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
 
             <OrangeButtonWidget
               content="Review Application"
-              className="text-lg 2xl:text-lg h-[50px] px-6 py-3"
+              // className="text-lg 2xl:text-lg h-[50px] px-6 py-3"
+              className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-xs 2xl:text-[14px] 3xl:text-[18px]"
             />
           </div>
         </div>
