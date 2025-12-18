@@ -61,6 +61,8 @@ export type LifeImage = {
 
 export type LifeViewCardItem = {
   id: number;
+  Type: string;
+  Url: string | null;
   Title: string;
   Description: string | null;
   Images: Array<LifeImage>;

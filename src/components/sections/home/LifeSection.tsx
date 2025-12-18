@@ -14,8 +14,8 @@ import type { LifeCardProps, LifeSectionProps } from "./utils/home";
 
 const LifeCard = ({ card }: LifeCardProps) => (
   <LinkWidget href={`/more/life-at-lla/${card.Slug}`}>
-    <div className="bg-white/30 p-3 sm:p-4 lg:p-4 xl:p-5 3xl:p-6 hover:bg-white transition-all duration-300 cursor-pointer 3xl:w-[300px] 3xl:min-w-[300px] 3xl:max-w-[300px]">
-      <h4 className="text-base xss:text-[24px] sm:text-lg md:text-xl lg:text-[18px] 2xl:text-[18px] 3xl:text-[24px] font-bold text-black font-mulish leading-tight mb-2 lg:mb-3 3xl:mb-4">
+    <div className="bg-white/30 p-5 sm:p-4 lg:p-4 xl:p-5 3xl:p-6 hover:bg-white transition-all duration-300 cursor-pointer 3xl:w-[300px] 3xl:min-w-[300px] 3xl:max-w-[300px]">
+      <h4 className="text-base xss:text-[24px] sm:text-lg md:text-xl lg:text-[18px] 2xl:text-[18px] 3xl:text-[24px] font-bold text-black font-mulish leading-tight mb-2 lg:mb-3 3xl:mb-4 line-clamp-2">
         {card.Title}
       </h4>
       <div className="relative w-full aspect-4/3 overflow-hidden mb-2 lg:mb-3 3xl:mb-1">
@@ -26,7 +26,7 @@ const LifeCard = ({ card }: LifeCardProps) => (
           className="object-cover 3xl:max-w-[252px] 3xl:max-h-[168.79px]"
         />
       </div>
-      <p className="text-sm xss:text-[16px] sm:text-base lg:text-[15px] 2xl:text-[16px] 3xl:text-[18px] font-normal text-black leading-normal">
+      <p className="text-sm xss:text-[16px] sm:text-base lg:text-[15px] 2xl:text-[16px] 3xl:text-[18px] font-normal text-black leading-normal line-clamp-2">
         {card.Description}
       </p>
     </div>
@@ -98,7 +98,7 @@ const LifeSection = ({ data }: LifeSectionProps) => {
                 </div>
               </div>
               <div className="flex justify-end items-end mt-8 sm:mt-10 md:mt-12 lg:mt-12 xl:mt-14 2xl:mt-16 3xl:mt-20 relative left-1.5 3xl:left-[-45px]">
-                <div className="w-full max-w-[200px] sm:max-w-[220px] md:max-w-[220px] lg:max-w-[230px] xl:max-w-[180px] 2xl:max-w-[220px] 3xl:w-[300px] hidden md:block">
+                <div className="w-full max-w-[200px] sm:max-w-[220px] md:max-w-[220px] lg:max-w-[220px] xl:max-w-[210px] 2xl:max-w-[220px] 3xl:w-[300px] hidden md:block">
                   <ScrollWidget
                     animation="fadeUp"
                     delay={0.1}

@@ -1,5 +1,5 @@
 import { getFounderBySlug } from "@/app/api/server";
-import FounderViewSection from "@/components/sections/FounderViewSection";
+import FounderViewSection from "@/components/sections/faculty/utils/FounderViewSection";
 
 const FounderDetail = async ({
   params,

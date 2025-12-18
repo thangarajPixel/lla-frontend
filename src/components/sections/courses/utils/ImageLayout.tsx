@@ -1,3 +1,7 @@
+"use client";
+
+import Autoplay from "embla-carousel-autoplay";
+import useEmblaCarousel from "embla-carousel-react";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
@@ -9,72 +13,70 @@ interface ImageLayoutProps {
 }
 
 interface MobileImageLayoutProps {
-  numberOfImages: 2 | 3;
   breakpoint: "md" | "lg";
   images?: ImageData[];
 }
 
-const MobileImageLayout = ({
-  numberOfImages,
-  breakpoint,
-  images,
-}: MobileImageLayoutProps) => {
-  const image1 = images?.[0]?.url ? getS3Url(images[0].url) : undefined;
-  const image2 = images?.[1]?.url ? getS3Url(images[1].url) : undefined;
-  const image3 = images?.[2]?.url ? getS3Url(images[2].url) : undefined;
+const MobileImageLayout = ({ breakpoint, images }: MobileImageLayoutProps) => {
+  const [emblaRef] = useEmblaCarousel(
+    {
+      align: "start",
+      slidesToScroll: 1,
+      loop: false,
+      dragFree: false,
+    },
+    [
+      Autoplay({
+        delay: 3000,
+        stopOnInteraction: false,
+        stopOnMouseEnter: true,
+      }),
+    ],
+  );
+
+  if (!images || images.length === 0) return null;
 
   return (
-    <div className={`flex flex-row gap-4 ${breakpoint}:hidden`}>
-      {image1 && (
-        <ScrollWidget
-          animation="slideLeft"
-          delay={0.1}
-          className="flex-1 min-w-0"
-        >
-          <div className="relative w-full aspect-231/347">
-            <div className="relative w-full h-full overflow-hidden">
-              <ImageWidget
-                src={image1}
-                alt="Course Content"
-                fill
-                className="object-cover"
-              />
-            </div>
-          </div>
-        </ScrollWidget>
-      )}
-      {image2 && (
-        <ScrollWidget
-          animation="slideRight"
-          delay={0.2}
-          className="flex-1 min-w-0"
-        >
-          <div className="relative w-full aspect-480/282">
-            <div className="relative w-full h-full overflow-hidden">
-              <ImageWidget
-                src={image2}
-                alt="Course Content"
-                fill
-                className="object-cover"
-              />
-            </div>
-          </div>
-        </ScrollWidget>
-      )}
-      {numberOfImages === 3 && image3 && (
-        <ScrollWidget animation="fadeUp" delay={0.3} className="flex-1 min-w-0">
-          <div className="relative w-full aspect-480/282">
-            <div className="relative w-full h-full overflow-hidden">
-              <ImageWidget
-                src={image3}
-                alt="Course Content"
-                fill
-                className="object-cover"
-              />
-            </div>
-          </div>
-        </ScrollWidget>
-      )}
+    <div className={`w-full overflow-hidden mt-4 sm:mt-6 ${breakpoint}:hidden`}>
+      <div
+        ref={emblaRef}
+        className="overflow-hidden cursor-grab active:cursor-grabbing"
+      >
+        <div className="flex gap-3 sm:gap-4 touch-pan-x">
+          {images.map((image, index) => {
+            const imageUrl = image?.url ? getS3Url(image.url) : undefined;
+            if (!imageUrl) return null;
+
+            return (
+              <div
+                key={image.id || index}
+                className="relative flex-[0_0_80vw] sm:flex-[0_0_75vw] min-w-0 overflow-hidden"
+              >
+                <div
+                  className="relative w-full overflow-hidden"
+                  style={{
+                    minHeight: "200px",
+                    maxHeight: "300px",
+                    height: "auto",
+                  }}
+                >
+                  <ImageWidget
+                    src={imageUrl}
+                    alt={image.name || "Course Content"}
+                    fill
+                    className="object-cover"
+                    style={{
+                      objectFit: "cover",
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 };
@@ -88,12 +90,8 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
     case "Type1":
       return (
         <>
-          <MobileImageLayout
-            numberOfImages={2}
-            breakpoint="lg"
-            images={images}
-          />
-          <div className="hidden lg:block relative w-full md:min-h-[440px] 3xl:min-h-[495px]">
+          <MobileImageLayout breakpoint="lg" images={images} />
+          <div className="hidden lg:block relative w-full md:min-h-[440px] 3xl:min-h-[495px] overflow-hidden">
             {image1 && (
               <ScrollWidget animation="slideRight" delay={0.1}>
                 <div className="absolute top-0 right-10 w-full aspect-231/347 max-w-[231px]">
@@ -129,12 +127,8 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
     case "Type2":
       return (
         <>
-          <MobileImageLayout
-            numberOfImages={3}
-            breakpoint="lg"
-            images={images}
-          />
-          <div className="hidden lg:block relative w-full md:min-h-[560px] 3xl:min-h-[720px]">
+          <MobileImageLayout breakpoint="lg" images={images} />
+          <div className="hidden lg:block relative w-full md:min-h-[560px] 3xl:min-h-[720px] overflow-hidden">
             {image1 && (
               <ScrollWidget animation="fadeDown" delay={0.1}>
                 <div className="absolute top-0 left-0 w-full aspect-445/282 max-w-[275px] xl:max-w-[305px] 2xl:max-w-[340px] 3xl:max-w-[445px] group">
@@ -178,12 +172,8 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
     case "Type3":
       return (
         <>
-          <MobileImageLayout
-            numberOfImages={2}
-            breakpoint="lg"
-            images={images}
-          />
-          <div className="hidden lg:block relative w-full md:min-h-[370px] 3xl:min-h-[465px]">
+          <MobileImageLayout breakpoint="lg" images={images} />
+          <div className="hidden lg:block relative w-full md:min-h-[370px] 3xl:min-h-[465px] overflow-hidden">
             {image1 && (
               <ScrollWidget animation="slideLeft" delay={0.1}>
                 <div className="absolute top-0 left-0 w-full aspect-300/201 max-w-[220px] 2xl:max-w-[300px]">
@@ -219,12 +209,8 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
     case "Type4":
       return (
         <>
-          <MobileImageLayout
-            numberOfImages={3}
-            breakpoint="lg"
-            images={images}
-          />
-          <div className="hidden lg:block relative w-full md:min-h-[465px] 3xl:min-h-[595px]">
+          <MobileImageLayout breakpoint="lg" images={images} />
+          <div className="hidden lg:block relative w-full md:min-h-[465px] 3xl:min-h-[595px] overflow-hidden">
             {image1 && (
               <ScrollWidget animation="fadeUp" delay={0.1}>
                 <div className="absolute top-0 left-0 w-full aspect-300/204 max-w-45 xl:max-w-[190px] 2xl:max-w-[220px] 3xl:max-w-[300px] group">
@@ -268,12 +254,8 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
     case "Type5":
       return (
         <>
-          <MobileImageLayout
-            numberOfImages={3}
-            breakpoint="lg"
-            images={images}
-          />
-          <div className="hidden lg:block relative w-full md:min-h-[430px]">
+          <MobileImageLayout breakpoint="lg" images={images} />
+          <div className="hidden lg:block relative w-full md:min-h-[430px] overflow-hidden">
             {image1 && (
               <ScrollWidget animation="slideRight" delay={0.1}>
                 <div className="absolute top-0 left-[125px] 3xl:left-[185px] w-full aspect-300/203 max-w-45 xl:max-w-[190px] 2xl:max-w-[260px] 3xl:max-w-[300px] group">
@@ -317,12 +299,8 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
     case "Type6":
       return (
         <>
-          <MobileImageLayout
-            numberOfImages={2}
-            breakpoint="lg"
-            images={images}
-          />
-          <div className="hidden lg:block relative w-full md:min-h-[370px]">
+          <MobileImageLayout breakpoint="lg" images={images} />
+          <div className="hidden lg:block relative w-full md:min-h-[370px] overflow-hidden">
             {image1 && (
               <ScrollWidget animation="fadeDown" delay={0.1}>
                 <div className="absolute top-0 left-0 w-full aspect-300/201 max-w-[220px] 2xl:max-w-[300px]">
@@ -358,12 +336,8 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
     case "Type7":
       return (
         <>
-          <MobileImageLayout
-            numberOfImages={2}
-            breakpoint="lg"
-            images={images}
-          />
-          <div className="hidden lg:block relative w-full md:min-h-[350px]">
+          <MobileImageLayout breakpoint="lg" images={images} />
+          <div className="hidden lg:block relative w-full md:min-h-[350px] overflow-hidden">
             {image1 && (
               <ScrollWidget animation="fadeUp" delay={0.1}>
                 <div className="absolute top-0 left-[81px] w-full aspect-387/269 max-w-60 2xl:max-w-[310px] 3xl:max-w-[387px]">
@@ -399,12 +373,8 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
     case "Type8":
       return (
         <>
-          <MobileImageLayout
-            numberOfImages={2}
-            breakpoint="lg"
-            images={images}
-          />
-          <div className="hidden lg:block relative w-full md:min-h-[330px] 3xl:min-h-[440px]">
+          <MobileImageLayout breakpoint="lg" images={images} />
+          <div className="hidden lg:block relative w-full md:min-h-[330px] 3xl:min-h-[440px] overflow-hidden">
             {image1 && (
               <ScrollWidget animation="fadeDown" delay={0.1}>
                 <div className="absolute top-0 left-[140px] xl:left-[151px] 2xl:left-[190px] 3xl:left-[231px] w-full aspect-249/374 max-w-[169px] 2xl:max-w-[199px] 3xl:max-w-[249px]">
@@ -440,12 +410,8 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
     case "Type9":
       return (
         <>
-          <MobileImageLayout
-            numberOfImages={3}
-            breakpoint="lg"
-            images={images}
-          />
-          <div className="hidden lg:block relative w-full md:min-h-[370px] 3xl:min-h-[440px]">
+          <MobileImageLayout breakpoint="lg" images={images} />
+          <div className="hidden lg:block relative w-full md:min-h-[370px] 3xl:min-h-[440px] overflow-hidden">
             {image1 && (
               <ScrollWidget animation="slideRight" delay={0.1}>
                 <div className="absolute top-0 left-[155px] 3xl:left-[216px] w-full aspect-264/175 max-w-45 xl:max-w-[190px] 2xl:max-w-[220px] 3xl:max-w-[264px] group">
@@ -489,12 +455,8 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
     case "Type10":
       return (
         <>
-          <MobileImageLayout
-            numberOfImages={3}
-            breakpoint="lg"
-            images={images}
-          />
-          <div className="hidden lg:block relative w-full md:min-h-[370px] 3xl:min-h-[450px]">
+          <MobileImageLayout breakpoint="lg" images={images} />
+          <div className="hidden lg:block relative w-full md:min-h-[370px] 3xl:min-h-[450px] overflow-hidden">
             {image1 && (
               <ScrollWidget animation="fadeUp" delay={0.1}>
                 <div className="absolute top-0 left-10 3xl:left-[60px] w-full aspect-300/199 max-w-45 xl:max-w-[200px] 2xl:max-w-[260px] 3xl:max-w-[300px] overflow-hidden z-20">

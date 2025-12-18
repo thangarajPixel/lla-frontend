@@ -77,6 +77,7 @@ export type TeamSectionProps = {
       Title: string;
       Description: string;
       Btn_txt: string;
+      LongDescription?: string;
       Image: Array<{
         id: number;
         name: string;
@@ -112,4 +113,10 @@ export type TeamMemberPopupProps = {
   selectedCardId?: number | null;
   onClose?: () => void;
   hideGrid?: boolean;
+  currentPage?: number;
+  totalPages?: number;
+  isLoading?: boolean;
+  onPrev?: () => void;
+  onNext?: () => void;
+  currentSlug?: string;
 };
