@@ -93,7 +93,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
             breakpoint="lg"
             images={images}
           />
-          <div className="hidden lg:block relative w-full md:min-h-[440px] 3xl:min-h-[495px]">
+          <div className="hidden lg:block relative w-full md:min-h-[440px] 3xl:min-h-[495px] overflow-hidden">
             {image1 && (
               <ScrollWidget animation="slideRight" delay={0.1}>
                 <div className="absolute top-0 right-10 w-full aspect-231/347 max-w-[231px]">
@@ -134,7 +134,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
             breakpoint="lg"
             images={images}
           />
-          <div className="hidden lg:block relative w-full md:min-h-[560px] 3xl:min-h-[720px]">
+          <div className="hidden lg:block relative w-full md:min-h-[560px] 3xl:min-h-[720px] overflow-hidden">
             {image1 && (
               <ScrollWidget animation="fadeDown" delay={0.1}>
                 <div className="absolute top-0 left-0 w-full aspect-445/282 max-w-[275px] xl:max-w-[305px] 2xl:max-w-[340px] 3xl:max-w-[445px] group">
@@ -183,7 +183,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
             breakpoint="lg"
             images={images}
           />
-          <div className="hidden lg:block relative w-full md:min-h-[370px] 3xl:min-h-[465px]">
+          <div className="hidden lg:block relative w-full md:min-h-[370px] 3xl:min-h-[465px] overflow-hidden">
             {image1 && (
               <ScrollWidget animation="slideLeft" delay={0.1}>
                 <div className="absolute top-0 left-0 w-full aspect-300/201 max-w-[220px] 2xl:max-w-[300px]">
@@ -224,7 +224,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
             breakpoint="lg"
             images={images}
           />
-          <div className="hidden lg:block relative w-full md:min-h-[465px] 3xl:min-h-[595px]">
+          <div className="hidden lg:block relative w-full md:min-h-[465px] 3xl:min-h-[595px] overflow-hidden">
             {image1 && (
               <ScrollWidget animation="fadeUp" delay={0.1}>
                 <div className="absolute top-0 left-0 w-full aspect-300/204 max-w-45 xl:max-w-[190px] 2xl:max-w-[220px] 3xl:max-w-[300px] group">
@@ -273,7 +273,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
             breakpoint="lg"
             images={images}
           />
-          <div className="hidden lg:block relative w-full md:min-h-[430px]">
+          <div className="hidden lg:block relative w-full md:min-h-[430px] overflow-hidden">
             {image1 && (
               <ScrollWidget animation="slideRight" delay={0.1}>
                 <div className="absolute top-0 left-[125px] 3xl:left-[185px] w-full aspect-300/203 max-w-45 xl:max-w-[190px] 2xl:max-w-[260px] 3xl:max-w-[300px] group">
@@ -322,7 +322,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
             breakpoint="lg"
             images={images}
           />
-          <div className="hidden lg:block relative w-full md:min-h-[370px]">
+          <div className="hidden lg:block relative w-full md:min-h-[370px] overflow-hidden">
             {image1 && (
               <ScrollWidget animation="fadeDown" delay={0.1}>
                 <div className="absolute top-0 left-0 w-full aspect-300/201 max-w-[220px] 2xl:max-w-[300px]">
@@ -363,7 +363,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
             breakpoint="lg"
             images={images}
           />
-          <div className="hidden lg:block relative w-full md:min-h-[350px]">
+          <div className="hidden lg:block relative w-full md:min-h-[350px] overflow-hidden">
             {image1 && (
               <ScrollWidget animation="fadeUp" delay={0.1}>
                 <div className="absolute top-0 left-[81px] w-full aspect-387/269 max-w-60 2xl:max-w-[310px] 3xl:max-w-[387px]">
@@ -404,7 +404,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
             breakpoint="lg"
             images={images}
           />
-          <div className="hidden lg:block relative w-full md:min-h-[330px] 3xl:min-h-[440px]">
+          <div className="hidden lg:block relative w-full md:min-h-[330px] 3xl:min-h-[440px] overflow-hidden">
             {image1 && (
               <ScrollWidget animation="fadeDown" delay={0.1}>
                 <div className="absolute top-0 left-[140px] xl:left-[151px] 2xl:left-[190px] 3xl:left-[231px] w-full aspect-249/374 max-w-[169px] 2xl:max-w-[199px] 3xl:max-w-[249px]">
@@ -445,7 +445,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
             breakpoint="lg"
             images={images}
           />
-          <div className="hidden lg:block relative w-full md:min-h-[370px] 3xl:min-h-[440px]">
+          <div className="hidden lg:block relative w-full md:min-h-[370px] 3xl:min-h-[440px] overflow-hidden">
             {image1 && (
               <ScrollWidget animation="slideRight" delay={0.1}>
                 <div className="absolute top-0 left-[155px] 3xl:left-[216px] w-full aspect-264/175 max-w-45 xl:max-w-[190px] 2xl:max-w-[220px] 3xl:max-w-[264px] group">
@@ -494,7 +494,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
             breakpoint="lg"
             images={images}
           />
-          <div className="hidden lg:block relative w-full md:min-h-[370px] 3xl:min-h-[450px]">
+          <div className="hidden lg:block relative w-full md:min-h-[370px] 3xl:min-h-[450px] overflow-hidden">
             {image1 && (
               <ScrollWidget animation="fadeUp" delay={0.1}>
                 <div className="absolute top-0 left-10 3xl:left-[60px] w-full aspect-300/199 max-w-45 xl:max-w-[200px] 2xl:max-w-[260px] 3xl:max-w-[300px] overflow-hidden z-20">
