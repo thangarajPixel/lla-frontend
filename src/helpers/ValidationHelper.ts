@@ -1,15 +1,33 @@
 import { z } from "zod";
+import { isNotFutureDate } from "./ConstantHelper";
 
 export const languageSchema = z
   .object({
-    language: z.string().min(1, "Language is required"),
+    language: z.string().optional(),
     read: z.boolean().default(false).optional(),
     write: z.boolean().default(false).optional(),
     speak: z.boolean().default(false).optional(),
   })
-  .refine((data) => data.read || data.write || data.speak, {
-    message: "Select at least one proficiency level",
-    path: ["language"],
+  .superRefine((data, ctx) => {
+    const hasLanguage = !!data.language?.trim();
+    const hasAnyProficiency = data.read || data.write || data.speak;
+
+    if (!hasLanguage) {
+      ctx.addIssue({
+        path: ["language"],
+        message: "Language is required",
+        code: z.ZodIssueCode.custom,
+      });
+      return;
+    }
+
+    if (!hasAnyProficiency) {
+      ctx.addIssue({
+        path: ["language"],
+        message: "Select at least one proficiency level",
+        code: z.ZodIssueCode.custom,
+      });
+    }
   });
 
 const addressSchema = z.object({
@@ -18,7 +36,7 @@ const addressSchema = z.object({
     z.object({
       text: z.string().min(1, "Address is required"),
       type: z.string(),
-    }),
+    })
   ),
 });
 
@@ -45,35 +63,68 @@ export const parentDetails = z.object({
     .min(1, "Pincode is required")
     .refine(
       (val) => val === "" || /^\d{6}$/.test(val),
-      "Enter a valid 6-digit pincode",
+      "Enter a valid 6-digit pincode"
     ),
 });
 
-export const workExperience = z.object({
-  designation: z.string().optional(),
-  employer: z.string().optional(),
-  // duration_start: z.string().optional(),
-  duration_start: z.string().refine((value) => {
-    const inputDate = new Date(value);
-    const today = new Date();
+export const workExperience = z
+  .object({
+    designation: z.string().optional(),
+    employer: z.string().optional(),
+    duration_start: z.string().optional(),
+    duration_end: z.string().optional(),
+    reference_letter: z.number().optional(),
+  })
+  .optional()
+  .superRefine((value, ctx) => {
+    if (!value) return;
 
-    inputDate.setHours(0, 0, 0, 0);
-    today.setHours(0, 0, 0, 0);
+    const fields = [
+      value.designation,
+      value.employer,
+      value.duration_start,
+      value.duration_end,
+      value.reference_letter,
+    ];
 
-    return inputDate <= today;
-  }, "Cannot select future date"),
-  // duration_end: z.string().optional(),
-  duration_end: z.string().refine((value) => {
-    const inputDate = new Date(value);
-    const today = new Date();
+    const hasAnyValue = fields.some((v) =>
+      typeof v === "string" ? v.trim() !== "" : !!v
+    );
 
-    inputDate.setHours(0, 0, 0, 0);
-    today.setHours(0, 0, 0, 0);
+    if (!hasAnyValue) return;
 
-    return inputDate <= today;
-  }, "Cannot select future date"),
-  reference_letter: z.number().optional(),
-});
+    if (!value.designation?.trim()) {
+      ctx.addIssue({
+        path: ["designation"],
+        message: "Designation is required",
+        code: z.ZodIssueCode.custom,
+      });
+    }
+
+    if (!value.employer?.trim()) {
+      ctx.addIssue({
+        path: ["employer"],
+        message: "Employer is required",
+        code: z.ZodIssueCode.custom,
+      });
+    }
+
+    if (!value.duration_start?.trim()) {
+      ctx.addIssue({
+        path: ["duration_start"],
+        message: "Duration is required",
+        code: z.ZodIssueCode.custom,
+      });
+    }
+
+    if (value.duration_start && !isNotFutureDate(value.duration_start)) {
+      ctx.addIssue({
+        path: ["duration_start"],
+        message: "Cannot select future date",
+        code: z.ZodIssueCode.custom,
+      });
+    }
+  });
 
 export const education = z.object({
   degree: z.string().min(1, "Degree is required"),
@@ -124,7 +175,7 @@ export const personalDetailsSchema = z.object({
     .min(1, "Pincode is required")
     .refine(
       (val) => val === "" || /^\d{6}$/.test(val),
-      "Enter a valid 6-digit pincode",
+      "Enter a valid 6-digit pincode"
     )
     .optional(),
   hobbies: z.string().optional(),
@@ -170,7 +221,7 @@ export const portfolioSchema = z.object({
       .array(
         z.object({
           id: z.number().min(1, "Image ID is required"),
-        }),
+        })
       )
       .min(1, "At least one image is required"),
   }),
@@ -181,6 +232,9 @@ export const admissionRequestSchema = z.object({
   FirstName: z.string().min(1, "Name is required"),
   LastName: z.string(),
   Email: z.string().min(1, "Email is required"),
-  Mobile: z.string().min(1, "Mobile Number is required"),
+  Mobile: z
+    .string()
+    .min(1, "Mobile number is required")
+    .regex(/^[6-9]\d{9}$/, "Enter a valid mobile number"),
   Message: z.string(),
 });

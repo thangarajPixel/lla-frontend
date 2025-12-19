@@ -246,3 +246,13 @@ export const calculateDuration = (start?: string, end?: string) => {
   const duration = Math.floor(diffInYears);
   return duration === 1 ? "1 year" : `${duration} years`;
 };
+
+export const isNotFutureDate = (value: string) => {
+  const inputDate = new Date(value);
+  const today = new Date();
+
+  inputDate.setHours(0, 0, 0, 0);
+  today.setHours(0, 0, 0, 0);
+
+  return inputDate <= today;
+};

@@ -42,6 +42,7 @@ const AddressFields = ({ control, name }: AddressFieldsProps) => {
           name={name ? "Parent_Guardian_Spouse_Details.city" : "city"}
           placeholder="Name of the town/village/city"
           control={control}
+          restrictionType="number"
         />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">

@@ -246,6 +246,7 @@ const ReviewApplication = ({
     null,
   );
   const router = useRouter();
+
   const fullAddress = `${admissionData?.address[0].children[0].text}, ${admissionData?.city}, ${admissionData?.district}, ${admissionData?.state.name}, ${admissionData?.pincode}`;
   const parentFullAddress = `${admissionData?.Parent_Guardian_Spouse_Details?.address[0].children[0].text}, ${admissionData?.Parent_Guardian_Spouse_Details?.city}, ${admissionData?.Parent_Guardian_Spouse_Details?.district}, ${admissionData?.Parent_Guardian_Spouse_Details?.state.name}, ${admissionData?.Parent_Guardian_Spouse_Details?.pincode}`;
 
@@ -278,7 +279,7 @@ const ReviewApplication = ({
     <div className="w-full min-h-screen flex justify-center">
       <div
         className={cn(
-          "flex flex-col md:flex-row w-full bg-white",
+          "flex flex-col lg:flex-row w-full bg-white",
           isPaymentOpen && "blur-xl",
         )}
       >
@@ -582,7 +583,7 @@ const ReviewApplication = ({
               </Section>
             )}
 
-            {admissionData?.Work_Experience[0]?.designation && (
+            {admissionData?.Work_Experience[0]?.designation !== "" && (
               <Section
                 title="Work Experience"
                 onEdit={() =>
@@ -616,7 +617,9 @@ const ReviewApplication = ({
                       <span className="text-black/50 text-base 3xl:text-2xl">
                         Duration
                       </span>
-                      <span className="text-black text-base font-medium md:text-sm flex flex-wrap 3xl:text-[22px]">
+                      <span 
+                      className="text-black font-medium flex flex-wrap text-lg 3xl:text-2xl"
+                      >
                         {calculateDuration(
                           experience?.duration_start ?? "",
                           experience?.duration_end ?? "",

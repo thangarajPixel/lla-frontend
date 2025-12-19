@@ -125,7 +125,7 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-[#E97451] z-70 h-auto min-h-[80px] md:h-25 flex items-center py-3 md:py-0">
+    <div className="fixed bottom-0 left-0 right-0 bg-[#E97451] z-70 h-auto min-h-[80px] md:h-26 flex items-center py-3 md:py-0">
       <ContainerWidget>
         <h3 className="text-white text-[14px] sm:text-[15px] md:text-[16px] lg:text-[15px] 3xl:text-[18px] font-semibold mb-2 md:mb-2 text-center md:text-left">
           Get In Touch
@@ -143,6 +143,7 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
             className="w-full md:flex-1 md:min-w-[120px] space-y-0"
             inputClassName="w-full md:flex-1 pl-3 md:pl-4 3xl:text-[18px] md:min-w-[120px] h-9 rounded-full text-[12px] sm:text-[13px] md:text-[14px] lg:text-[13px] 3xl:text-[16px] border border-white bg-white/20 text-white placeholder:text-[#FFFFFF] focus-visible:border-white focus-visible:ring-0 focus-visible:ring-offset-0 outline-none"
             errorClassName="text-black ml-2"
+            pageType="course"
           />
 
           <FormInput
@@ -154,6 +155,7 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
             inputClassName="w-full md:flex-1 pl-3 md:pl-4 3xl:text-[18px] md:min-w-[120px] h-9 rounded-full text-[12px] sm:text-[13px] md:text-[14px] lg:text-[13px] 3xl:text-[16px] border border-white bg-white/20 text-white placeholder:text-[#FFFFFF] focus-visible:border-white focus-visible:ring-0 focus-visible:ring-offset-0 outline-none"
             maxLength={10}
             errorClassName="text-black ml-2"
+            pageType="course"
           />
 
           <FormInput
@@ -163,6 +165,7 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
             className="w-full md:flex-1 md:min-w-[120px] space-y-0"
             inputClassName="w-full md:flex-1 pl-3 md:pl-4 3xl:text-[18px] md:min-w-[120px] h-9 rounded-full text-[12px] sm:text-[13px] md:text-[14px] lg:text-[13px] 3xl:text-[16px] border border-white bg-white/20 text-white placeholder:text-[#FFFFFF] focus-visible:border-white focus-visible:ring-0 focus-visible:ring-offset-0 outline-none"
             errorClassName="text-black ml-2"
+            pageType="course"
           />
 
           <FormInput
@@ -172,10 +175,11 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
             className="w-full md:flex-1 md:min-w-[120px] space-y-0"
             inputClassName="w-full md:flex-1 pl-3 md:pl-4 3xl:text-[18px] md:min-w-[120px] h-9 rounded-full text-[12px] sm:text-[13px] md:text-[14px] lg:text-[13px] 3xl:text-[16px] border border-white bg-white/20 text-white placeholder:text-[#FFFFFF] focus-visible:border-white focus-visible:ring-0 focus-visible:ring-offset-0 outline-none"
             errorClassName="text-black ml-2"
+            pageType="course"
           />
           <button
             type="submit"
-            className="col-span-2 md:col-span-1 group font-bold cursor-pointer flex items-center justify-center gap-2 px-4 md:px-6 py-2 bg-white text-[#E97451] rounded-full text-[12px] sm:text-[13px] md:text-[14px] lg:text-[13px] 3xl:text-[16px] hover:bg-gray-100 transition-colors h-9 w-full md:w-auto"
+            className="col-span-2 md:col-span-1 group font-bold cursor-pointer flex items-center justify-center gap-2 px-4 md:px-6 py-2 bg-white text-[#E97451] rounded-full text-[12px] sm:text-[13px] md:text-[14px] lg:text-[13px] 3xl:text-[16px] hover:bg-gray-100 transition-colors h-9 w-full md:w-auto relative md:bottom-2.5"
           >
             Submit
             <ArrowRight className="w-[14px] h-[14px] md:w-[15px] md:h-[15px] lg:w-[18px] lg:h-[18px] 3xl:w-6 3xl:h-6 transition-transform duration-300 group-hover:translate-x-1" />

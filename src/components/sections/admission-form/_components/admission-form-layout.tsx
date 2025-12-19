@@ -69,7 +69,6 @@ const AdmissionFormLayout = ({ children }: { children: React.ReactNode }) => {
     <div className="mx-auto">
       <section className="flex min-h-screen">
         <div
-          // className="hidden h-screen lg:flex w-[35%] p-12 justify-center"
           className="hidden h-screen lg:flex w-[35%] p-12 justify-center"
           style={{
             backgroundImage: `url(${ApplicationFormBg.src})`,
@@ -83,7 +82,6 @@ const AdmissionFormLayout = ({ children }: { children: React.ReactNode }) => {
         </div>
 
         <div
-          // className="w-full lg:w-[65%] bg-white px-4 sm:px-8 py-12 lg:pr-36 3xl:pr-80 "
           className="w-full lg:w-[65%] bg-white px-4 sm:px-8 py-12 lg:pr-36 3xl:pr-80 "
         >
           <div

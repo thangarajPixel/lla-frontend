@@ -13,6 +13,7 @@ type InputFieldProps = React.ComponentProps<"input"> & {
   restrictionType?: string;
   maxLength?: number;
   onFieldCheck?: (field: string) => void;
+  pageType?: string;
 };
 
 const Input = ({
@@ -26,6 +27,7 @@ const Input = ({
   restrictionType,
   maxLength,
   onFieldCheck,
+  pageType,
   ...props
 }: InputFieldProps) => {
   return (
@@ -121,9 +123,15 @@ const Input = ({
         }}
       />
 
-      {error && (
+      {error && !pageType && (
         <p className={cn("text-sm text-red-500", errorClassName)}>
           {error.message}
+        </p>
+      )}
+
+      {pageType && (
+        <p className={cn("text-sm text-red-500", error ? "block" : "invisible", errorClassName)}>
+          {error?.message ?? "No error"}
         </p>
       )}
     </div>
