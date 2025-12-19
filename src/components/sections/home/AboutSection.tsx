@@ -69,13 +69,13 @@ const AboutSection = ({ data }: AboutSectionProps) => {
     <section className="w-full bg-[#ECECEC] flex flex-col items-center justify-center z-40 relative pt-6 sm:py-30 sm:pb-23 h-full 3xl:h-[1048px]">
       <ContainerWidget>
         <div className="flex flex-col xl:flex-row gap-6 xl:gap-5 2xxl:gap-[30px]">
-          <div className="flex flex-col gap-4.5 justify-center md:-mt-15 w-full xl:w-[420px] 2xl:w-[420px] 2xxl:w-[520px]">
+          <div className="flex flex-col gap-2.5 md:gap-4.5 justify-center md:-mt-15 w-full xl:w-[420px] 2xl:w-[420px] 2xxl:w-[520px]">
             <h3 className="text-[32px] xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 2xxl:text-[80px] font-normal text-black font-urbanist">
               {data.Title}
             </h3>
             <HTMLWidget
               content={data.Heading}
-              className="font-mulish font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xxl 2xxl:text-[40px] text-black -mt-2"
+              className="font-mulish font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black md:max-w-[330px] -mt-1"
               tag="p"
             />
             <p className="text-[16px] lg:text-[17px] 2xxl:text-[18px] font-normal text-black leading-normal w-full">
