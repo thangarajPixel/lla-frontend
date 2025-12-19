@@ -157,7 +157,7 @@ const FormDatePickerWithInput = <T extends FieldValues>({
           </PopoverTrigger>
 
           <PopoverContent
-            className="w-auto overflow-hidden p-0 z-0"
+            className="w-auto overflow-hidden p-0 z-150"
             align="end"
             alignOffset={-8}
             sideOffset={10}

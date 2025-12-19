@@ -50,6 +50,7 @@ const AddressFields = ({ control, name }: AddressFieldsProps) => {
           name={name ? "Parent_Guardian_Spouse_Details.district" : "district"}
           placeholder="District"
           control={control}
+          restrictionType="number"
         />
 
         <FormSelectBox

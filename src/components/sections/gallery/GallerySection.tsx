@@ -118,7 +118,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
       try {
         const params = {
           page: 1,
-          per_page: 9,
+          per_page: 30,
           type: selectedType,
         };
 

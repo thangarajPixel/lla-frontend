@@ -101,51 +101,21 @@ export function FileUploadButton({
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isRemoved, setIsRemoved] = useState<boolean>(false);
 
-  const _handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setIsRemoved(false);
-
-    if (file.size > 2 * 1024 * 1024) {
-      alert("File size must be less than 2MB.");
-      return;
-    }
-
-    if (file.type.startsWith("image/")) {
-      const valid = await validateDimensions(file);
-      if (!valid) return;
-
-      const url = URL.createObjectURL(file);
-      setPreview(url);
-      onUpload?.(file);
-    } else if (
-      file.type.includes("pdf") ||
-      file.type.includes("document") ||
-      file.type.includes("word") ||
-      file.type.includes("spreadsheet")
-    ) {
-      setPreview(generateDocumentPreview(file));
-      onUpload?.(file);
-    }
-
-    setSelectedFile(file);
-  };
-
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     const ALLOWED_MIME_TYPES = [
       "application/pdf",
-      "application/msword",
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      // "application/msword",
+      // "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
       "image/jpeg",
       "image/png",
       "image/jpg",
     ];
 
     if (!ALLOWED_MIME_TYPES.includes(file.type)) {
-      toast.error("Only PDF, DOC, DOCX, JPG, JPEG, PNG files are allowed.", {
+      toast.error("Only PDF, JPG, JPEG, PNG files are allowed.", {
         position: "bottom-right",
       });
       e.target.value = "";

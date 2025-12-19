@@ -111,7 +111,7 @@ const EducationDetailsForm = ({
     <FormProvider {...form_step2}>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="space-y-4 py-8 bg-background mx-auto"
+        className="space-y-4 pt-8 lg:py-8 bg-background mx-auto"
       >
         <EducationDetails admissionData={admissionData} control={control} />
 
@@ -132,7 +132,7 @@ const EducationDetailsForm = ({
           You may upload any reference letters that support your application.
         </p>
 
-        <div className="flex justify-start gap-3 mt-10 pt-6">
+        <div className="flex justify-start gap-3 lg:mt-10 pt-6">
           <ButtonWidget
             type="button"
             onClick={() => {
@@ -147,8 +147,7 @@ const EducationDetailsForm = ({
 
           <OrangeButtonWidget
             content="Save & Continue"
-            // className="text-lg 2xl:text-lg h-[50px] px-6 py-3"
-            className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-xs 2xl:text-[18px] 3xl:text-[18px]"
+            className="xss:text-[18px] xss:h-10 3xl:h-12.5 2xl:text-[18px] 3xl:text-[18px]"
           />
         </div>
       </form>

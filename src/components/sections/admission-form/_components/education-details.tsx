@@ -94,7 +94,7 @@ export function EducationDetails({
                 { value: "Finished", label: "Finished" },
                 { value: "In-Progress", label: "In-Progress" },
               ]}
-              errorClassName="lg:-mt-4"
+              errorClassName="mt-0 lg:-mt-4"
             />
           </div>
 
