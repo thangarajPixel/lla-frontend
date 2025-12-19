@@ -9,6 +9,7 @@ import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import { Into, Play } from "@/helpers/ImageHelper";
 import type { CampusHeroSectionProps } from "./utils/campus";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 
 const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
   const stopAllVideos = () => {
@@ -48,7 +49,7 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
                 <HTMLWidget
                   content={data.Heading}
                   tag="p"
-                  className="text-white text-base sm:text-lg lg:text-[28px] xl:text-[28px] 2xl:text-[32px] 3xl:text-[40px] font-mulish"
+                  className="text-white text-base text-[24px] 3xl:text-[40px] font-mulish md:leading-[48px]!"
                 />
               )}
               <div className="hidden md:block">
@@ -113,12 +114,14 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
                   if (!textContent) return null;
                   const uniqueKey = `${index}-${textContent.slice(0, 20)}`;
                   return (
-                    <p
-                      key={uniqueKey}
-                      className="font-mulish text-sm xss:text-[16px] sm:text-base lg:text-[17px] xl:text-[14px] 2xl:text-[17px] 3xl:text-[18px] font-normal text-white xl:leading-[24px] 3xl:leading-[26px]"
-                    >
-                      {textContent}
-                    </p>
+                    <div key={uniqueKey}>
+                    <ParagraphWidget  
+          
+                      className="text-white!"
+                      >
+                          {textContent}
+                      </ParagraphWidget>
+                    </div>
                   );
                 })}
               </div>
