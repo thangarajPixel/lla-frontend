@@ -76,42 +76,30 @@ const FaqSection = ({ data }: FaqProps) => {
   return (
     <section className="relative w-full bg-white py-10 md:py-15">
       <ContainerWidget>
-        <div className="max-w-6xl mx-auto">
-          <h1 className="font-urbanist font-normal text-[32px] md:text-[40px] xl:text-[48px] 2xl:text-[56px] 3xl:text-[64px] text-black mb-12 text-left">
+        <div className="max-w-6xl">
+          <h1 className="font-urbanist font-normal text-[32px] md:text-[32px]  xl:text-[48px] 2xl:text-[56px] 3xl:text-[64px] text-black mb-6 md:mb-12 text-left">
             {data.Title || "Frequently Asked Questions"}
           </h1>
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            <div className="md:hidden mb-6">
-              <select
-                value={activeCategory}
-                onChange={(e) => scrollToCategory(Number(e.target.value))}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#E97451] focus:border-transparent"
-              >
-                {data.faq.map((category) => (
-                  <option key={category.id} value={category.id}>
-                    {category.Title}
-                  </option>
-                ))}
-              </select>
-            </div>
-
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-14">
             <div className="hidden md:block lg:col-span-1">
-              <nav className="space-y-1 lg:sticky lg:top-20">
-                {data.faq.map((category) => (
-                  <button
-                    key={category.id}
-                    type="button"
-                    onClick={() => scrollToCategory(category.id)}
-                    className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 cursor-pointer text-[16px] md:text-[15px] xl:text-[18px] 2xl:text-[20px] 3xl:text-[20px] relative ${
-                      activeCategory === category.id
-                        ? "text-[#E97451] font-semibold"
-                        : "text-gray-700 hover:text-[#E97451] hover:bg-gray-50 font-normal"
-                    }`}
-                  >
-                    {category.Title}
-                  </button>
-                ))}
-              </nav>
+              <div className="lg:sticky lg:top-24">
+                <nav className="space-y-1 p-2 shadow-lg">
+                  {data.faq.map((category) => (
+                    <button
+                      key={category.id}
+                      type="button"
+                      onClick={() => scrollToCategory(category.id)}
+                      className={`w-full text-left px-4 py-2 rounded-lg transition-all duration-300 cursor-pointer text-[16px] 2xxl:text-[18px] relative ${
+                        activeCategory === category.id
+                          ? "text-[#E97451] font-semibold"
+                          : "text-black hover:text-[#E97451] hover:bg-gray-50 font-normal"
+                      }`}
+                    >
+                      {category.Title}
+                    </button>
+                  ))}
+                </nav>
+              </div>
             </div>
             <div className="lg:col-span-3">
               {data.faq.map((category) => (
@@ -126,9 +114,9 @@ const FaqSection = ({ data }: FaqProps) => {
                   data-category={category.id}
                   className="scroll-mt-24"
                 >
-                  <div className="bg-white p-0 md:p-6">
+                  <div className="bg-white p-0 md:pb-6">
                     <h2
-                      className={`text-2xl md:text-3xl font-semibold mb-6 transition-colors duration-300 ${
+                      className={`text-[24px] md:text-[32px] font-semibold mb-3 md:mb-6 transition-colors duration-300 ${
                         activeCategory === category.id
                           ? "text-[#E97451]"
                           : "text-black"
@@ -143,15 +131,15 @@ const FaqSection = ({ data }: FaqProps) => {
                           value={`${category.id}-item-${index}`}
                           className="bg-white border-none"
                         >
-                          <AccordionTrigger className="py-4 text-left hover:no-underline cursor-pointer">
-                            <span className="text-[16px] sm:text-base md:text-[12px] lg:text-[12px] xl:text-[15px] 2xl:text-[15px] 3xl:text-[16px] font-mulish font-regular text-black">
+                          <AccordionTrigger className="py-3 text-left hover:no-underline cursor-pointer">
+                            <span className="text-[18px] font-urbanist text-black">
                               {item.Question}
                             </span>
                           </AccordionTrigger>
                           <AccordionContent className="pb-4">
                             <HTMLWidget
                               content={item.Answer}
-                              className="text-[16px] sm:text-base md:text-[12px] lg:text-[12px] xl:text-[15px] 2xl:text-[15px] 3xl:text-[16px] font-mulish font-regular text-black"
+                              className="text-[16px] font-mulish font-regular text-black"
                               tag="p"
                             />
                           </AccordionContent>
