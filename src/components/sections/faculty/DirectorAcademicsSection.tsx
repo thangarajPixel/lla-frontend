@@ -5,13 +5,14 @@ import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import type { FacultyFounderSectionProps } from "./utils/faculty";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 
 const DirectorAcademicsSection = ({ data }: FacultyFounderSectionProps) => {
   return (
-    <section className="w-full bg-white py-8 sm:py-12 md:py-16 lg:py-20 xl:py-20 2xl:py-20">
+    <section className="w-full bg-white py-8 sm:py-20 3xl:py-30 3xl:pb-35">
       <ContainerWidget>
         <ScrollWidget delay={0.2}>
-          <h2 className="font-urbanist font-normal text-left md:text-center text-black text-[28px] sm:text-[32px] md:text-[36px] lg:text-[42px] xl:text-[48px] 2xl:text-[52px] 3xl:text-[64px] mb-8 sm:mb-10 md:mb-12 lg:mb-16">
+          <h2 className="font-urbanist font-normal text-left md:text-center text-black text-[28px] sm:text-[32px] md:text-[36px] lg:text-[42px] xl:text-[48px] 2xl:text-[52px] 3xl:text-[64px] mb-8 sm:mb-10 md:mb-12 lg:mb-10">
             {data?.Title}
           </h2>
         </ScrollWidget>
@@ -24,15 +25,15 @@ const DirectorAcademicsSection = ({ data }: FacultyFounderSectionProps) => {
               <h3 className="font-urbanist font-normal text-left text-[#E97451] text-[18px] s:text-[19px] m:text-[20px] xss:text-[21px] xs:text-[22px] sm:text-[23px] md:text-[24px] lg:text-[26px] xl:text-[30px] 2xl:text-[34px] 3xl:text-[40px]">
                 {data?.Founder_card[0]?.Heading}
               </h3>
-              <p className="text-left font-mulish text-black text-[14px]  xss:text-[15px] xs:text-[15px] sm:text-[17px] 2xl:text-[17px] 3xl:text-[18px] leading-relaxed">
+              <ParagraphWidget className="text-left">
                 {data?.Founder_card[0]?.Description[0]?.children[0]?.text}
-              </p>
-              <p className="text-left font-mulish text-black text-[14px]  xss:text-[15px] xs:text-[15px] sm:text-[17px] 2xl:text-[17px] 3xl:text-[18px] leading-relaxed">
+              </ParagraphWidget>
+              <ParagraphWidget className="text-left">
                 {data?.Founder_card[0]?.Description[1]?.children[0]?.text}
-              </p>
-              <p className="text-left font-mulish text-black text-[14px]  xss:text-[15px] xs:text-[15px] sm:text-[17px] 2xl:text-[17px] 3xl:text-[18px] leading-relaxed">
+              </ParagraphWidget>
+              <ParagraphWidget className="text-left">
                 {data?.Founder_card[0]?.Description[2]?.children[0]?.text}
-              </p>
+              </ParagraphWidget>
               <div className="pt-2 s:pt-2 m:pt-2 xss:pt-2 xs:pt-2 sm:pt-2 md:pt-3 lg:pt-3 xl:pt-3 2xl:pt-3 3xl:pt-4">
                 <LinkWidget href={`/faculty/${data.Founder_card[0].Slug}`}>
                   <OrangeButtonWidget

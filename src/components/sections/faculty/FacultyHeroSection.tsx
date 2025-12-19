@@ -4,32 +4,32 @@ import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import type { FacultyHeroSectionProps } from "./utils/faculty";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 
 const FacultyHeroSection = ({ data }: FacultyHeroSectionProps) => {
   return (
-    <section className="max-h-[1000px] w-full bg-[#ECECEC] overflow-hidden  py-2 sm:py-8 md:py-10 lg:py-12 xl:py-10 2xl:py-16 3xl:py-20">
+    <section className="max-h-[1000px] w-full bg-[#ECECEC] overflow-hidden  py-2 sm:py-8 md:py-10 lg:py-12 xl:py-10 2xl:py-16 3xl:py-20 3xl:pb-10">
       <ContainerWidget>
         <div className="pb-[80px] flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row 2xl:flex-row gap-6 ">
           <ScrollWidget delay={0.3}>
-            <div className="space-y-2 pt-10">
-              <h2 className="font-urbanist  font-regular font-normal text-black text-[32px] sm:text-[36px] md:text-[36px] lg:text-[48px] xl:text-[48px] 2xl:text-[60px] 3xl:text-[64px]">
+            <div className="space-y-3 pt-10">
+              <h2 className="font-urbanist  font-regular font-normal text-black text-[32px] md:text-[48px] 3xl:text-[64px]">
                 {data.Title}
               </h2>
               {data?.Heading && (
                 <HTMLWidget
                   content={data.Heading}
-                  className="text-[24px] sm:text-[24px] md:text-[20px] lg:text-[22px] xl:text-[24px] 2xl:text-[30px] 3xl:text-[40px]
-               font-regular font-mulish  text-black w-full sm:max-w-[320px] md:max-w-[375px] lg:max-w-[375px] xl:max-w-[440px] 2xl:max-w-[550px] 3xl:max-w-[606px] 3xl:leading-[48px]"
+                  className="font-area-variable font-semibold text-[24px] md:text-[30px] 3xl:text-[40px] text-black leading-tight"
                   tag="p"
                 />
               )}
-              <p className="text-left mt-4  font-mulish text-black text-[18px] sm:text-[14px] md:text-[17px] 3xl:text-[18px] w-full sm:max-w-[320px] md:max-w-[375px] lg:max-w-[375px] xl:max-w-[430px] 2xl:max-w-[555px] 3xl:max-w-[606px]">
+              <ParagraphWidget className="text-left mt-6">
                 {data.Description}
-              </p>
+              </ParagraphWidget>
             </div>
           </ScrollWidget>
-          <div className="flex flex-row gap-4 xss:gap-8 xs:gap-5 column-gap:2 sm:gap-6 md:gap-5 lg:gap-5 xl:gap-5 2xl:gap-5 3xl:gap-10 ">
-            <div className="flex flex-col gap-3 md:gap-5  lg:gap-5 xl:gap-5 2xl:gap-5 3xl:gap-10 pt-25  sm:pt-30 lg:pt-35">
+          <div className="flex flex-row gap-4 xss:gap-3 xs:gap-5 column-gap:2 sm:gap-6 md:gap-5 lg:gap-5 xl:gap-5 2xl:gap-5 3xl:gap-7 ">
+            <div className="flex flex-col gap-3 md:gap-5  lg:gap-5 xl:gap-5 2xl:gap-5 3xl:gap-7 pt-25  sm:pt-30 lg:pt-35">
               {data.Image?.slice(0, 2).map(
                 ({ url }: { url: string }, index: number) => (
                   <ScrollWidget key={url} delay={0.4 + index * 0.3}>
@@ -48,7 +48,7 @@ const FacultyHeroSection = ({ data }: FacultyHeroSectionProps) => {
                 ),
               )}
             </div>
-            <div className="flex flex-col gap-3 md:gap-5 lg:gap-5 xl:gap-5  2xl:gap-5 3xl:gap-6 pt-10  sm:pt-15 lg:pt-18">
+            <div className="flex flex-col gap-3 md:gap-5 lg:gap-5 xl:gap-5  2xl:gap-5 3xl:gap-7 pt-10  sm:pt-15 lg:pt-18">
               {data.Image?.slice(2, 4).map(
                 ({ url }: { url: string }, index: number) => (
                   <ScrollWidget key={url} delay={0.5 + index * 0.3}>
@@ -67,7 +67,7 @@ const FacultyHeroSection = ({ data }: FacultyHeroSectionProps) => {
                 ),
               )}
             </div>
-            <div className="flex flex-col gap-3 md:gap-5 lg:gap-5 xl:gap-5 2xl:gap-5 3xl:gap-6">
+            <div className="flex flex-col gap-3 md:gap-5 lg:gap-5 xl:gap-5 2xl:gap-5 3xl:gap-7">
               {data.Image?.slice(4, 7).map(
                 ({ url }: { url: string }, index: number) => (
                   <ScrollWidget key={url} delay={0.6 + index * 0.3}>
