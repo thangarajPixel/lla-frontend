@@ -2,7 +2,7 @@ import { getLifePageData } from "@/app/api/server";
 import ListSection from "@/components/sections/more/life-at-lla/LifeLlaSection";
 
 const LifeAtLla = async () => {
-  const params = { page: 1, per_page: 8 };
+  const params = { page: 1, per_page: 16 };
   const { data: response } = await getLifePageData(params);
   if (response) return <ListSection data={response} />;
 };
