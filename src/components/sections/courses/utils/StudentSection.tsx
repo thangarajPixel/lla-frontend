@@ -12,8 +12,11 @@ import {
   stopHoverVideos,
 } from "@/components/sections/home/utils/videoHelpers";
 import { DialogClose } from "@/components/ui/dialog";
+import ContainerWidget from "@/components/widgets/ContainerWidget";
 import DialogWidget from "@/components/widgets/DialogWidget";
+import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import {
   ArrowLeftBlack,
@@ -123,24 +126,30 @@ const StudentSection = ({ data }: StudentSectionProps) => {
 
   return (
     <section className="w-full py-10 md:py-10 lg:py-12 xl:py-16 2xl:py-20 3xl:py-24 bg-white mx-auto max-w-[1920px]">
-      <ScrollWidget animation="fadeUp" delay={0.1}>
-        <div className="flex flex-col w-[90vw] mx-auto justify-start md:justify-center items-start md:items-center text-left md:text-center gap-2.5 md:gap-4.5">
-          <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-normal md:font-normal text-black font-urbanist">
-            {sectionData?.Title}
-          </h2>
-          <p className="font-mulish font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl 3xl:text-[40px] text-black">
-            {sectionData?.Heading}
-            {sectionData?.SubHeading && (
-              <span className="text-[#E97451] pl-2">
-                {sectionData.SubHeading}
-              </span>
+      <ContainerWidget>
+        <ScrollWidget animation="fadeUp" delay={0.1}>
+          <div className="flex flex-col justify-start md:justify-center items-start md:items-center text-left md:text-center gap-2.5 md:gap-4.5">
+            <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
+              {sectionData?.Title}
+            </h2>
+            {sectionData?.SubHeading ? (
+              <p className="font-area-variable font-semibold text-[24px] md:text-[28px] 3xl:text-[40px] text-black leading-tight">
+                {sectionData?.Heading}{" "}
+                <span className="text-[#E97451]">{sectionData.SubHeading}</span>
+              </p>
+            ) : (
+              <HTMLWidget
+                content={sectionData?.Heading || ""}
+                className="font-area-variable font-semibold text-[24px] md:text-[28px] 3xl:text-[40px] text-black leading-tight"
+                tag="p"
+              />
             )}
-          </p>
-          <p className="font-mulish text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[760px]">
-            {sectionData?.Description}
-          </p>
-        </div>
-      </ScrollWidget>
+            <ParagraphWidget className="max-w-full md:max-w-[880px]">
+              {sectionData?.Description}
+            </ParagraphWidget>
+          </div>
+        </ScrollWidget>
+      </ContainerWidget>
       <div className="pt-10 md:pt-20 md:pb-5 pb relative md:px-4 sm:px-0">
         <ScrollWidget animation="fadeDown" delay={0.2}>
           <div className="relative" ref={carouselRef}>
@@ -165,7 +174,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                         >
                           {/* biome-ignore lint/a11y/useSemanticElements: Container with hover effects, not a form fieldset */}
                           <div
-                            className="group relative flex flex-col gap-4 overflow-hidden transition-all duration-500 ease-in-out delay-75 p-3 sm:p-4 lg:p-5 aspect-3/4 min-h-[380px] sm:min-h-[580px] sm:max-w-[330px] bg-[#F6F6F6] hover:bg-[#E97451]/80 3xl:min-w-[410px] 3xl:h-[651px]"
+                            className="group relative flex flex-col gap-4 overflow-hidden transition-all duration-500 ease-in-out delay-75 p-3 sm:p-4 lg:p-5 aspect-3/4 min-h-[380px] sm:min-h-[580px] sm:max-w-[330px] bg-[#F6F6F6] hover:bg-[#E97451]/80 3xl:min-w-[430px] 3xl:h-[751px]"
                             role="group"
                             onMouseEnter={(e) => {
                               if (!isMobile) {
@@ -225,7 +234,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                             <div className="bg-[#F6F6F6] bottom-[-2px] z-10 w-full h-3 left-0 right-0 absolute block md:hidden" />
                             <div className="relative z-20 flex items-end justify-between h-full">
                               <div
-                                className="flex flex-col justify-end gap-3 bg-[#E97451]/80 w-full h-27 p-4"
+                                className="flex flex-col justify-end gap-3 bg-[#E97451]/80 w-full h-27 p-4 m-2"
                                 style={{
                                   clipPath:
                                     "polygon(0 0%, 100% 23%, 100% 100%, 0% 100%)",
@@ -234,9 +243,9 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                                 <h3 className="font-mulish text-xl md:text-xl lg:text-2xl xl:text-[20px] 2xl:text-[20px] 3xl:text-[24px] font-bold text-white font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight transition-colors duration-500 ease-in-out delay-150">
                                   {student.Title}
                                 </h3>
-                                <p className="text-xs sm:text-sm md:text-base lg:text-base xl:text-base 2xl:text-base 3xl:text-lg font-normal text-white">
+                                <ParagraphWidget className="text-white!">
                                   {student.Description}
-                                </p>
+                                </ParagraphWidget>
                               </div>
                               <DialogWidget
                                 trigger={

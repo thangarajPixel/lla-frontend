@@ -9,9 +9,9 @@ const HowtoApplySection = ({ data }: { data: HowToApplyData }) => {
   return (
     <section className="w-full bg-white py-10 sm:py-16 lg:py-20 3xl:py-24">
       <ContainerWidget>
-        <div className="flex flex-col items-start md:items-center gap-8 md:gap-12 lg:gap-16">
+        <div className="flex flex-col items-start md:items-center gap-8">
           <ScrollWidget delay={0.1} animation="fadeUp">
-            <h2 className="text-3xl font-urbanist font-normal xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] md:font-normal text-black font-urbanist text-left md:text-center">
+            <h2 className="text-3xl font-urbanist font-normal xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[64px] md:font-normal text-black font-urbanist text-left md:text-center">
               {data.Title}
             </h2>
           </ScrollWidget>
@@ -25,7 +25,7 @@ const HowtoApplySection = ({ data }: { data: HowToApplyData }) => {
                   delay={0.2 + index * 0.1}
                   animation="fadeUp"
                 >
-                  <div className="relative flex flex-col border border-[#E97451] bg-white px-4 py-2 pt-4 pb-4 3xl:p-6 min-h-[280px]">
+                  <div className="relative flex flex-col border border-[#E97451] bg-white px-4 py-4 3xl:p-6 min-h-[280px]">
                     {/* <div className="absolute top-6 right-6 lg:top-6 lg:right-6">
                       <span className="text-[#E97451]/20 font-urbanist text-5xl sm:text-[60px] 3xl:text-[80px] font-normal leading-none">
                         {stepNumber}
@@ -43,7 +43,7 @@ const HowtoApplySection = ({ data }: { data: HowToApplyData }) => {
                       </div>
                     )}
 
-                    <h3 className="text-[#E97451] font-urbanist text-lg xss:text-[24px] sm:text-[18px] xl:text-[14px] 2xl:text-[18px] 3xl:text-[24px] font-normal mb-3 pr-16 lg:pr-20">
+                    <h3 className="text-[#E97451] font-urbanist text-[24px] sm:text-[18px] xl:text-[14px] 2xl:text-[18px] 3xl:text-[24px] font-normal mb-3 pr-16 lg:pr-20">
                       {card.Heading}
                     </h3>
 
@@ -51,7 +51,7 @@ const HowtoApplySection = ({ data }: { data: HowToApplyData }) => {
                       <HTMLWidget
                         content={card.Description}
                         tag="p"
-                        className="font-mulish text-[16px] xss:text-[16px] lg:text-[17px] xl:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[760px]"
+                        className="font-mulish text-[16px] xss:text-[16px] 2xxl:text-[18px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[760px]"
                       />
                     )}
                   </div>
