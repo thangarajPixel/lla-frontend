@@ -64,7 +64,7 @@ const TestimonialSection = ({ data }: TestimonialSectionProps) => {
       <ContainerWidget>
         <ScrollWidget animation="fadeUp" delay={0.1}>
           <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-10 lg:gap-12 xl:gap-14 2xl:gap-16 items-stretch">
-            <div className="space-y-3 md:space-y-3 lg:space-y-4">
+            <div className="space-y-2.5 md:space-y-3 lg:space-y-4">
               <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
                 {sectionData?.Title}
               </h3>

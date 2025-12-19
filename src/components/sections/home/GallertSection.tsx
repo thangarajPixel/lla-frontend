@@ -151,15 +151,15 @@ const GallertSection = ({ data }: GallerySectionProps) => {
   return (
     <section className="w-full py-8 md:py-12 lg:py-16 xl:py-24 2xl:py-24 3xl:py-38 max-w-[1920px] mx-auto lg:w-[90vw]">
       <div className="mb-6 lg:hidden text-left pl-5 lg:text-center lg:pl-0">
-        <h2 className="text-3xl xss:text-[32px] font-normal text-black font-urbanist mb-2">
+        <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist mb-2">
           {data.Title}
         </h2>
         <HTMLWidget
           content={data.Heading}
-          className="font-area-variable font-semibold text-base xss:text-[24px] text-black"
+          className="font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black"
           tag="p"
         />
-        <div className="mt-6 text-left lg:text-center lg:hidden">
+        <div className="mt-4 text-left lg:text-center lg:hidden">
           <LinkWidget href="/gallery" className="w-full">
             <OrangeButtonWidget content={data.Btn_txt} />
           </LinkWidget>
