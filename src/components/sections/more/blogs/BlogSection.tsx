@@ -62,7 +62,8 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
   const blogData = data?.Blog;
   const [blogCards, setBlogCards] = useState(blogData?.BlogCard || []);
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
+  const [loading, _setLoading] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchLoading, setSearchLoading] = useState(false);
   const [searchTotal, setSearchTotal] = useState<number | null>(null);
@@ -79,7 +80,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
   const lastSearchQueryRef = useRef<string>("");
 
   const skeletonKeys = useMemo(() => {
-    if (loading) {
+    if (loadingMore) {
       skeletonIdRef.current += 1;
       const baseId = skeletonIdRef.current;
       return Array.from({ length: 6 }, () => {
@@ -88,7 +89,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
       });
     }
     return [];
-  }, [loading]);
+  }, [loadingMore]);
 
   const searchSkeletonKeys = useMemo(() => {
     if (searchLoading) {
@@ -130,9 +131,11 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
       if (res?.Blog?.BlogCard) {
         setBlogCards(res.Blog.BlogCard);
         setSearchTotal(res.pagination?.total || res.Blog.BlogCard.length);
+        setPage(1);
       } else {
         setBlogCards([]);
         setSearchTotal(0);
+        setPage(1);
       }
     } finally {
       setSearchLoading(false);
@@ -152,6 +155,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
     previousLength.current = 0;
     cardsRef.current = [];
     setBlogCards(blogData?.BlogCard || []);
+    setLoadingMore(false);
   }, [blogData?.BlogCard]);
 
   useEffect(() => {
@@ -191,27 +195,36 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
   }, [searchQuery, clearSearch, handleSearch, searchTotal]);
 
   const loadMore = async () => {
-    if (loading || blogCards.length >= total) return;
+    if (loading || loadingMore || blogCards.length >= total) return;
 
-    setLoading(true);
-    await new Promise((res) => setTimeout(res, 500));
+    setLoadingMore(true);
+    try {
+      const nextPage = page + 1;
+      const params = {
+        page: nextPage,
+        per_page: 9,
+        ...(searchQuery.trim() && { search: searchQuery.trim() }),
+      };
 
-    const nextPage = page + 1;
-    const params = {
-      page: nextPage,
-      per_page: 9,
-      ...(searchQuery.trim() && { search: searchQuery.trim() }),
-    };
-    const { data: res } = await getBlogPageData(params);
+      const { data: res } = await getBlogPageData(params);
 
-    if (res?.Blog?.BlogCard) {
-      setBlogCards((prev) => [...prev, ...res.Blog.BlogCard]);
-      setPage(nextPage);
-      if (res.pagination?.total !== undefined) {
-        setSearchTotal(res.pagination.total);
+      if (res?.Blog?.BlogCard) {
+        setBlogCards((prev) => [...prev, ...res.Blog.BlogCard]);
+        setPage(nextPage);
+        if (res.pagination?.total !== undefined) {
+          if (searchQuery.trim()) {
+            setSearchTotal(res.pagination.total);
+          } else {
+            // Update the original total when not searching
+            setSearchTotal(null);
+          }
+        }
       }
+    } catch (error) {
+      console.error("Error loading more blogs:", error);
+    } finally {
+      setLoadingMore(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -406,7 +419,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                         );
                       })}
 
-                      {loading &&
+                      {loadingMore &&
                         skeletonKeys.map((key) => (
                           <div key={key}>
                             <BlogCardSkeleton />
@@ -482,7 +495,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                     );
                   })}
 
-                  {loading &&
+                  {loadingMore &&
                     skeletonKeys.map((key) => (
                       <div key={key}>
                         <BlogCardSkeleton />
@@ -501,25 +514,29 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
             )
           )}
 
-          {!loading && !searchLoading && blogCards.length < total && (
-            <ScrollWidget animation="fadeIn" delay={0.1}>
-              <div className="flex justify-center items-center mt-8">
-                <ButtonWidget
-                  onClick={loadMore}
-                  className="h-[50px] w-[172px] font-mulish hover:bg-white font-bold bg-white border border-[#E97451] rounded-[60px] text-[#E97451] px-5 text-xs xl:text-[14px] 2xl:text-[14px] 3xl:text-[18px]"
-                >
-                  Load More
-                  <ImageWidget
-                    src={ArrowDown}
-                    alt="Arrow Down"
-                    height={24}
-                    width={24}
-                    className="object-cover"
-                  />
-                </ButtonWidget>
-              </div>
-            </ScrollWidget>
-          )}
+          {!loading &&
+            !searchLoading &&
+            !loadingMore &&
+            blogCards.length < total && (
+              <ScrollWidget animation="fadeIn" delay={0.1}>
+                <div className="flex justify-center items-center mt-8">
+                  <ButtonWidget
+                    onClick={loadMore}
+                    disabled={loadingMore}
+                    className="h-[50px] w-[172px] font-mulish hover:bg-white font-bold bg-white border border-[#E97451] rounded-[60px] text-[#E97451] px-5 text-xs xl:text-[14px] 2xl:text-[14px] 3xl:text-[18px] disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {loadingMore ? "Loading..." : "Load More"}
+                    <ImageWidget
+                      src={ArrowDown}
+                      alt="Arrow Down"
+                      height={24}
+                      width={24}
+                      className="object-cover"
+                    />
+                  </ButtonWidget>
+                </div>
+              </ScrollWidget>
+            )}
         </div>
       </ContainerWidget>
     </section>

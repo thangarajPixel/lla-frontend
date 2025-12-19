@@ -54,16 +54,34 @@ export type PaymentResponse = {
   admissionInfo: AdmissionInfo;
 };
 
+const handleDownload = async (url: string, fileName: string) => {
+  const res = await fetch(url);
+  const blob = await res.blob();
+  const blobUrl = window.URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = blobUrl;
+  a.download = fileName;
+  a.click();
+
+  window.URL.revokeObjectURL(blobUrl);
+  window.open(url, "_blank");
+};
+
 function Section({
   title,
   children,
   onEdit,
   className,
+  canEdit,
+  paymentStatus,
 }: {
   title: string;
   children: React.ReactNode;
   onEdit?: () => void;
   className?: string;
+  canEdit?: boolean;
+  paymentStatus?: string;
 }) {
   return (
     <div className="space-y-3">
@@ -73,14 +91,16 @@ function Section({
         >
           {title}
         </h3>
-        <Image
-          src={EditIcon}
-          width={24}
-          height={24}
-          alt="Edit"
-          className="size-6 rounded-full cursor-pointer"
-          onClick={onEdit}
-        />
+        {paymentStatus !== "Paid" && canEdit && (
+          <Image
+            src={EditIcon ?? null}
+            width={24}
+            height={24}
+            alt="Edit"
+            className="size-6 rounded-full cursor-pointer"
+            onClick={onEdit}
+          />
+        )}
       </section>
       <div className="space-y-2 3xl:space-y-5">{children}</div>
     </div>
@@ -185,20 +205,6 @@ function EducationField({
   title: string;
   value?: DocumentFile;
 }) {
-  const handleDownload = async (url: string, fileName: string) => {
-    const res = await fetch(url);
-    const blob = await res.blob();
-    const blobUrl = window.URL.createObjectURL(blob);
-
-    const a = document.createElement("a");
-    a.href = blobUrl;
-    a.download = fileName;
-    a.click();
-
-    window.URL.revokeObjectURL(blobUrl);
-    window.open(url, "_blank");
-  };
-
   return (
     <div className="flex flex-col items-start justify-start text-gray-700">
       <span className="w-40 text-base 3xl:text-2xl text-[#E97451]">
@@ -210,7 +216,7 @@ function EducationField({
           <section className="flex flex-row items-center justify-between gap-10 mt-2">
             <span className="text-xs flex items-center justify-center gap-1">
               <ImageWidget
-                src={DocumentIcon}
+                src={DocumentIcon ?? null}
                 alt="Document"
                 width={100}
                 height={100}
@@ -247,8 +253,8 @@ const ReviewApplication = ({
   );
   const router = useRouter();
 
-  const fullAddress = `${admissionData?.address[0].children[0].text}, ${admissionData?.city}, ${admissionData?.district}, ${admissionData?.state.name}, ${admissionData?.pincode}`;
-  const parentFullAddress = `${admissionData?.Parent_Guardian_Spouse_Details?.address[0].children[0].text}, ${admissionData?.Parent_Guardian_Spouse_Details?.city}, ${admissionData?.Parent_Guardian_Spouse_Details?.district}, ${admissionData?.Parent_Guardian_Spouse_Details?.state.name}, ${admissionData?.Parent_Guardian_Spouse_Details?.pincode}`;
+  const fullAddress = `${admissionData?.address?.[0]?.children?.[0]?.text}, ${admissionData?.city}, ${admissionData?.district}, ${admissionData?.state?.name}, ${admissionData?.pincode}`;
+  const parentFullAddress = `${admissionData?.Parent_Guardian_Spouse_Details?.address?.[0]?.children?.[0]?.text}, ${admissionData?.Parent_Guardian_Spouse_Details?.city}, ${admissionData?.Parent_Guardian_Spouse_Details?.district}, ${admissionData?.Parent_Guardian_Spouse_Details?.state.name}, ${admissionData?.Parent_Guardian_Spouse_Details?.pincode}`;
 
   useEffect(() => {
     if (admissionData) {
@@ -299,38 +305,47 @@ const ReviewApplication = ({
           <ImageWidget
             width={200}
             height={200}
-            src={admissionData?.passport_size_image?.url ?? ""}
+            src={admissionData?.passport_size_image?.url ?? null}
             alt="profile"
             className="w-72 h-80 3xl:w-md 3xl:h-auto ml-4 lg:ml-0 rounded-md shadow-md"
           />
 
-          <div className="flex flex-row items-center justify-between gap-1 3xl:w-md px-4 lg:px-0">
-            <ButtonWidget
-              className={cn(
-                "group bg-chart-1/10 text-chart-1 hover:bg-chart-1/10 rounded-[60px] px-5 w-2/4 h-10 xss:text-[16px] 3xl:h-[50px] text-xs 2xl:text-[14px] 3xl:text-[18px]",
-              )}
-              onClick={() => router.push(`/admission/${admissionId}/portfolio`)}
-            >
-              <ArrowLeft className="size-4 text-chart-1 group-hover:text-chart-1 font-light" />
-              Back to Edit
-            </ButtonWidget>
-            <OrangeButtonWidget
-              content="Proceed to Pay"
-              className="xss:text-[16px] xss:h-10 w-2/4 3xl:h-12.5 text-xs 2xl:text-[14px] 3xl:text-[18px]"
-              onClick={() =>
-                handleOpenPayment(admissionData?.documentId as string)
-              }
-            />
-          </div>
+          {admissionData?.Payment_Status !== "Paid" && (
+            <div className="flex flex-row items-center justify-between gap-1 3xl:w-md px-4 lg:px-0">
+              <ButtonWidget
+                className={cn(
+                  "group bg-chart-1/10 text-chart-1 hover:bg-chart-1/10 rounded-[60px] px-5 w-2/4 h-10 xss:text-[16px] 3xl:h-[50px] text-xs 2xl:text-[14px] 3xl:text-[18px]",
+                )}
+                onClick={() =>
+                  router.push(`/admission/${admissionId}/portfolio`)
+                }
+              >
+                <ArrowLeft className="size-4 text-chart-1 group-hover:text-chart-1 font-light" />
+                Back to Edit
+              </ButtonWidget>
+              <OrangeButtonWidget
+                content="Proceed to Pay"
+                className="xss:text-[16px] xss:h-10 w-2/4 3xl:h-12.5 text-xs 2xl:text-[14px] 3xl:text-[18px]"
+                onClick={() =>
+                  handleOpenPayment(admissionData?.documentId as string)
+                }
+              />
+            </div>
+          )}
         </div>
 
         <Card className="bg-chart-1/20 flex-1 backdrop-blur lg:py-16 3xl:py-32 3xl:pl-6 border-none shadow-none rounded-none">
-          <CardContent className="space-y-8 text-sm lg:max-w-3/4">
+          <CardContent
+            className="space-y-8 text-sm lg:max-w-3/4 h-[calc(100vh-6rem)] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            data-lenis-prevent
+          >
             <Section
               title="Personal Details"
               onEdit={() =>
                 router.push(`/admission/${admissionId}/personal-details`)
               }
+              canEdit
+              paymentStatus={admissionData?.Payment_Status}
             >
               <Field
                 label="First Name"
@@ -368,6 +383,7 @@ const ReviewApplication = ({
               onEdit={() =>
                 router.push(`/admission/${admissionId}/personal-details`)
               }
+              paymentStatus={admissionData?.Payment_Status}
             >
               <Field
                 label="Name"
@@ -393,9 +409,11 @@ const ReviewApplication = ({
 
             <Section
               title="Education Details"
+              canEdit
               onEdit={() =>
                 router.push(`/admission/${admissionId}/education-details`)
               }
+              paymentStatus={admissionData?.Payment_Status}
             >
               <div className="flex flex-col md:flex-row items-start justify-between">
                 <EducationField
@@ -415,13 +433,7 @@ const ReviewApplication = ({
               </div>
             </Section>
 
-            <Section
-              title="Under Graduate"
-              onEdit={() =>
-                router.push(`/admission/${admissionId}/education-details`)
-              }
-              className="text-base 3xl:text-2xl"
-            >
+            <Section title="Under Graduate" className="text-base 3xl:text-2xl">
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <section className="md:col-span-2">
                   <span className="text-black/50 text-base 3xl:text-2xl">
@@ -448,16 +460,22 @@ const ReviewApplication = ({
                     </span>
                     <span className="flex items-center justify-center gap-1">
                       <ImageWidget
-                        src={DocumentIcon}
+                        src={DocumentIcon ?? null}
                         alt="Document"
                         width={100}
                         height={100}
                         className="size-4 3xl:size-6 rounded-full"
                       />
                       <LinkWidget
-                        href={admissionData?.Under_Graduate?.marksheet?.url}
-                        target="_blank"
                         className="text-chart-1/80 text-base md:text-xs lg:text-base text-nowrap 3xl:text-lg"
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleDownload(
+                            admissionData?.Under_Graduate?.marksheet?.url,
+                            admissionData?.Under_Graduate?.marksheet?.name,
+                          );
+                        }}
                       >
                         View Document
                       </LinkWidget>
@@ -467,167 +485,168 @@ const ReviewApplication = ({
               </div>
             </Section>
 
-            {admissionData?.Post_Graduate[0]?.degree && (
-              <Section
-                title="Post Graduate"
-                onEdit={() =>
-                  router.push(`/admission/${admissionId}/education-details`)
-                }
-                className="text-base 3xl:text-2xl"
-              >
-                {admissionData?.Post_Graduate?.slice(0, 1).map(
-                  (degree, index) => (
+            {admissionData?.Post_Graduate?.length > 0 &&
+              admissionData?.Post_Graduate[0]?.degree && (
+                <Section
+                  title="Post Graduate"
+                  className="text-base 3xl:text-2xl"
+                >
+                  {admissionData?.Post_Graduate?.slice(0, 1).map(
+                    (degree, index) => (
+                      <div
+                        key={`post-graduate-${index + 1}`}
+                        className="grid grid-cols-1 md:grid-cols-4 gap-4"
+                      >
+                        <section className="md:col-span-2">
+                          <span className="text-black/50 text-base 3xl:text-2xl">
+                            Degree
+                          </span>
+                          <p className="text-black text-base 3xl:text-2xl">
+                            {degree?.degree}
+                          </p>
+                        </section>
+
+                        <section className="md:col-span-1">
+                          <span className="text-black/50 text-base 3xl:text-2xl">
+                            Status
+                          </span>
+                          <p className="text-black text-base 3xl:text-2xl">
+                            {degree?.pg_status}
+                          </p>
+                        </section>
+
+                        <section className="hidden md:invisible md:flex flex-col justify-start gap-2 items-start md:col-span-1">
+                          <span className="text-black/50 text-base 3xl:text-2xl">
+                            Document
+                          </span>
+                          <span className="flex items-center justify-center gap-1">
+                            <ImageWidget
+                              src={DocumentIcon ?? null}
+                              alt="Document"
+                              width={100}
+                              height={100}
+                              className="size-4 rounded-full"
+                            />
+                            <LinkWidget
+                              href={degree?.marksheet?.url ?? ""}
+                              target="_blank"
+                              className="text-chart-1/80 text-xs"
+                            >
+                              View Document
+                            </LinkWidget>
+                          </span>
+                        </section>
+                      </div>
+                    ),
+                  )}
+                </Section>
+              )}
+
+            {admissionData?.Post_Graduate?.length > 0 &&
+              admissionData?.Post_Graduate[1]?.degree && (
+                <Section
+                  title="Additional Degree"
+                  className="text-base 3xl:text-2xl"
+                >
+                  {admissionData?.Post_Graduate?.slice(1).map(
+                    (degree, index) => (
+                      <div
+                        key={`post-graduate-${index + 1}`}
+                        className="grid grid-cols-1 md:grid-cols-4 gap-4"
+                      >
+                        <section className="md:col-span-2">
+                          <span className="text-black/50 text-base 3xl:text-2xl">
+                            Degree
+                          </span>
+                          <p className="text-black text-base 3xl:text-2xl">
+                            {degree?.degree}
+                          </p>
+                        </section>
+
+                        <section className="md:col-span-1">
+                          <span className="text-black/50 text-base 3xl:text-2xl">
+                            Status
+                          </span>
+                          <p className="text-black text-base 3xl:text-2xl">
+                            {degree?.pg_status}
+                          </p>
+                        </section>
+
+                        <section className="hidden md:invisible md:flex flex-col justify-start gap-2 items-start md:col-span-1">
+                          <span className="text-black/50 text-base 3xl:text-2xl">
+                            Document
+                          </span>
+                          <span className="flex items-center justify-center gap-1">
+                            <ImageWidget
+                              src={DocumentIcon ?? null}
+                              alt="Document"
+                              width={100}
+                              height={100}
+                              className="size-4 rounded-full"
+                            />
+                            <LinkWidget
+                              href={degree?.marksheet?.url ?? ""}
+                              target="_blank"
+                              className="text-chart-1/80 text-xs"
+                            >
+                              View Document
+                            </LinkWidget>
+                          </span>
+                        </section>
+                      </div>
+                    ),
+                  )}
+                </Section>
+              )}
+
+            {admissionData?.Work_Experience?.length > 0 &&
+              admissionData?.Work_Experience[0]?.designation !== "" && (
+                <Section
+                  title="Work Experience"
+                  canEdit
+                  onEdit={() =>
+                    router.push(`/admission/${admissionId}/education-details`)
+                  }
+                  paymentStatus={admissionData?.Payment_Status}
+                >
+                  {admissionData?.Work_Experience?.map((experience) => (
                     <div
-                      key={`post-graduate-${index + 1}`}
-                      className="grid grid-cols-1 md:grid-cols-4 gap-4"
+                      key={experience?.id}
+                      className="grid grid-cols-1 md:grid-cols-5 gap-2"
                     >
                       <section className="md:col-span-2">
                         <span className="text-black/50 text-base 3xl:text-2xl">
-                          Degree
+                          Role/Designation
                         </span>
-                        <p className="text-black text-base 3xl:text-2xl">
-                          {degree?.degree}
+                        <p className="text-black text-lg  3xl:text-2xl">
+                          {experience?.designation ?? "-"}
+                        </p>
+                      </section>
+
+                      <section className="md:col-span-2">
+                        <span className="text-black/50 text-base 3xl:text-2xl">
+                          Employer
+                        </span>
+                        <p className="text-black text-lg  3xl:text-2xl">
+                          {experience?.employer ?? "-"}
                         </p>
                       </section>
 
                       <section className="md:col-span-1">
                         <span className="text-black/50 text-base 3xl:text-2xl">
-                          Status
+                          Duration
                         </span>
-                        <p className="text-black text-base 3xl:text-2xl">
-                          {degree?.pg_status}
-                        </p>
-                      </section>
-
-                      <section className="hidden md:invisible md:flex flex-col justify-start gap-2 items-start md:col-span-1">
-                        <span className="text-black/50 text-base 3xl:text-2xl">
-                          Document
-                        </span>
-                        <span className="flex items-center justify-center gap-1">
-                          <ImageWidget
-                            src={DocumentIcon}
-                            alt="Document"
-                            width={100}
-                            height={100}
-                            className="size-4 rounded-full"
-                          />
-                          <LinkWidget
-                            href={degree?.marksheet?.url ?? ""}
-                            target="_blank"
-                            className="text-chart-1/80 text-xs"
-                          >
-                            View Document
-                          </LinkWidget>
+                        <span className="text-black font-medium flex flex-wrap text-lg 3xl:text-2xl">
+                          {calculateDuration(
+                            experience?.duration_start ?? "",
+                            experience?.duration_end ?? "",
+                          )}
                         </span>
                       </section>
                     </div>
-                  ),
-                )}
-              </Section>
-            )}
-
-            {admissionData?.Post_Graduate[1]?.degree && (
-              <Section
-                title="Additional Degree"
-                onEdit={() =>
-                  router.push(`/admission/${admissionId}/education-details`)
-                }
-                className="text-base 3xl:text-2xl"
-              >
-                {admissionData?.Post_Graduate?.slice(1).map((degree, index) => (
-                  <div
-                    key={`post-graduate-${index + 1}`}
-                    className="grid grid-cols-1 md:grid-cols-4 gap-4"
-                  >
-                    <section className="md:col-span-2">
-                      <span className="text-black/50 text-base 3xl:text-2xl">
-                        Degree
-                      </span>
-                      <p className="text-black text-base 3xl:text-2xl">
-                        {degree?.degree}
-                      </p>
-                    </section>
-
-                    <section className="md:col-span-1">
-                      <span className="text-black/50 text-base 3xl:text-2xl">
-                        Status
-                      </span>
-                      <p className="text-black text-base 3xl:text-2xl">
-                        {degree?.pg_status}
-                      </p>
-                    </section>
-
-                    <section className="hidden md:invisible md:flex flex-col justify-start gap-2 items-start md:col-span-1">
-                      <span className="text-black/50 text-base 3xl:text-2xl">
-                        Document
-                      </span>
-                      <span className="flex items-center justify-center gap-1">
-                        <ImageWidget
-                          src={DocumentIcon}
-                          alt="Document"
-                          width={100}
-                          height={100}
-                          className="size-4 rounded-full"
-                        />
-                        <LinkWidget
-                          href={degree?.marksheet?.url ?? ""}
-                          target="_blank"
-                          className="text-chart-1/80 text-xs"
-                        >
-                          View Document
-                        </LinkWidget>
-                      </span>
-                    </section>
-                  </div>
-                ))}
-              </Section>
-            )}
-
-            {admissionData?.Work_Experience[0]?.designation !== "" && (
-              <Section
-                title="Work Experience"
-                onEdit={() =>
-                  router.push(`/admission/${admissionId}/education-details`)
-                }
-              >
-                {admissionData?.Work_Experience?.map((experience) => (
-                  <div
-                    key={experience?.id}
-                    className="grid grid-cols-1 md:grid-cols-5 gap-2"
-                  >
-                    <section className="md:col-span-2">
-                      <span className="text-black/50 text-base 3xl:text-2xl">
-                        Role/Designation
-                      </span>
-                      <p className="text-black text-lg  3xl:text-2xl">
-                        {experience?.designation ?? "-"}
-                      </p>
-                    </section>
-
-                    <section className="md:col-span-2">
-                      <span className="text-black/50 text-base 3xl:text-2xl">
-                        Employer
-                      </span>
-                      <p className="text-black text-lg  3xl:text-2xl">
-                        {experience?.employer ?? "-"}
-                      </p>
-                    </section>
-
-                    <section className="md:col-span-1">
-                      <span className="text-black/50 text-base 3xl:text-2xl">
-                        Duration
-                      </span>
-                      <span className="text-black font-medium flex flex-wrap text-lg 3xl:text-2xl">
-                        {calculateDuration(
-                          experience?.duration_start ?? "",
-                          experience?.duration_end ?? "",
-                        )}
-                      </span>
-                    </section>
-                  </div>
-                ))}
-              </Section>
-            )}
+                  ))}
+                </Section>
+              )}
 
             {admissionData?.Message && (
               <div className="flex flex-col md:flex-row items-start md:items-center justify-between text-base md:text-sm 3xl:text-2xl">
@@ -638,25 +657,31 @@ const ReviewApplication = ({
               </div>
             )}
 
-            <Section
-              title="Portfolio Images"
-              onEdit={() => router.push(`/admission/${admissionId}/portfolio`)}
-            >
-              <div className="grid grid-cols-2 gap-4">
-                {admissionData?.Upload_Your_Portfolio?.images.map(
-                  (img, index) => (
-                    <ImageWidget
-                      width={200}
-                      height={200}
-                      alt="Portfolio Image"
-                      key={`portfolio-${index + 1}`}
-                      src={img.url}
-                      className="w-full h-48 object-contain"
-                    />
-                  ),
-                )}
-              </div>
-            </Section>
+            {admissionData?.Upload_Your_Portfolio?.images?.length > 0 && (
+              <Section
+                title="Portfolio Images"
+                canEdit
+                onEdit={() =>
+                  router.push(`/admission/${admissionId}/portfolio`)
+                }
+                paymentStatus={admissionData?.Payment_Status}
+              >
+                <div className="grid grid-cols-2 gap-4">
+                  {admissionData?.Upload_Your_Portfolio?.images?.map(
+                    (img, index) => (
+                      <ImageWidget
+                        width={200}
+                        height={200}
+                        alt="Portfolio Image"
+                        key={`portfolio-${index + 1}`}
+                        src={img?.url ?? null}
+                        className="w-full h-48 object-contain"
+                      />
+                    ),
+                  )}
+                </div>
+              </Section>
+            )}
           </CardContent>
         </Card>
       </div>
