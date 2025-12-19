@@ -88,7 +88,7 @@ const AccordionWidget = ({
             <HTMLWidget
               content={item.content as string}
               tag="div"
-              className="text-[16px] leading-[24px]!"
+              className="text-[16px] leading-[24px]! [&_ul]:pl-4 [&_ol]:pl-4"
             />
           </AccordionContent>
         </AccordionItem>
@@ -125,7 +125,7 @@ const AccordionWidget = ({
                   <HTMLWidget
                     content={item.content as string}
                     tag="div"
-                    className="text-[16px] leading-[24px]!"
+                    className="text-[16px] leading-[24px]! [&_ul]:pl-4 [&_ol]:pl-4"
                   />
                 </AccordionContent>
               </AccordionItem>
@@ -153,7 +153,7 @@ const AccordionWidget = ({
                   <HTMLWidget
                     content={item.content as string}
                     tag="div"
-                    className="text-[16px] leading-[24px]!"
+                    className="text-[16px] leading-[24px]! [&_ul]:pl-4 [&_ol]:pl-4"
                   />
                 </AccordionContent>
               </AccordionItem>
