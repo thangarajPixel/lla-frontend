@@ -78,9 +78,17 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
   const [open, setOpen] = useState(false);
 
   const handleInputChange = (text: string) => {
+    if (text.trim() === "") {
+      setStart("");
+      setEnd("");
+    }
+
+    if (!/^[0-9/\s-]*$/.test(text)) {
+      return;
+    }
     setInputValue(text);
 
-    const [startStr, endStr] = text.split("-").map((x) => x.trim());
+    const [startStr, endStr] = text.split(" - ").map((x) => x.trim());
 
     const startParsed = parseDisplay(startStr);
     const endParsed = parseDisplay(endStr);
@@ -136,7 +144,7 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
             placeholder="DD/MM/YYYY - DD/MM/YYYY"
             onChange={(e) => handleInputChange(e.target.value)}
             className="pr-0"
-            restrictionType="text"
+            maxLength={23}
           />
 
           <PopoverTrigger asChild>

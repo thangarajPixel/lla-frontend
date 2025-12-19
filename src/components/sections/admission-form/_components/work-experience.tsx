@@ -112,7 +112,7 @@ export function WorkExperience({
         <button
           type="button"
           onClick={handleAddExperience}
-          className="flex ml-auto items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity"
+          className="flex ml-auto items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity cursor-pointer"
         >
           <Plus className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
           <span className="text-chart-1">Add More Work Experience</span>

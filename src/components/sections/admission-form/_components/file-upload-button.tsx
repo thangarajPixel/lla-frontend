@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
+import { toast } from "sonner";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import { validateDimensions } from "@/helpers/ConstantHelper";
 import { UploadIconImg } from "@/helpers/ImageHelper";
@@ -100,7 +101,7 @@ export function FileUploadButton({
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isRemoved, setIsRemoved] = useState<boolean>(false);
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const _handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     setIsRemoved(false);
@@ -123,6 +124,55 @@ export function FileUploadButton({
       file.type.includes("word") ||
       file.type.includes("spreadsheet")
     ) {
+      setPreview(generateDocumentPreview(file));
+      onUpload?.(file);
+    }
+
+    setSelectedFile(file);
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const ALLOWED_MIME_TYPES = [
+      "application/pdf",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "image/jpeg",
+      "image/png",
+      "image/jpg",
+    ];
+
+    if (!ALLOWED_MIME_TYPES.includes(file.type)) {
+      toast.error("Only PDF, DOC, DOCX, JPG, JPEG, PNG files are allowed.", {
+        position: "bottom-right",
+      });
+      e.target.value = "";
+      return;
+    }
+
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error("File size must be less than 2MB.", {
+        position: "bottom-right",
+      });
+      e.target.value = "";
+      return;
+    }
+
+    setIsRemoved(false);
+
+    if (file.type.startsWith("image/")) {
+      const valid = await validateDimensions(file);
+      if (!valid) {
+        e.target.value = "";
+        return;
+      }
+
+      const url = URL.createObjectURL(file);
+      setPreview(url);
+      onUpload?.(file);
+    } else {
       setPreview(generateDocumentPreview(file));
       onUpload?.(file);
     }
@@ -178,7 +228,7 @@ export function FileUploadButton({
             </div>
           ) : (
             <div className="text-muted-foreground mt-2">
-              {(selectedFile || defaultValue) &&
+              {selectedFile &&
                 getFileIcon(selectedFile?.type ?? defaultValue?.mime ?? "")}
             </div>
           ))}
