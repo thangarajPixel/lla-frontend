@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import AboutSection from "@/components/sections/home/AboutSection";
 import CampusSection from "@/components/sections/home/CampusSection";
 import CourseSection from "@/components/sections/home/CourseSection";
@@ -16,8 +15,7 @@ const Home = async () => {
 
   if (response?.Home)
     return (
-      <Fragment>
-        <div className="overflow-hidden">
+      <div className="overflow-hidden">
         <HeroSection data={response?.Home?.[0]} />
         <CourseSection data={response?.Home?.[1]} />
         <CampusSection data={response?.Home?.[2]} />
@@ -28,8 +26,7 @@ const Home = async () => {
         <GallertSection data={response?.Home?.[7]} />
         <AboutSection data={response?.Home?.[8]} />
         <SponsorsSection data={response?.Home?.[9]} />
-        </div>
-      </Fragment>
+      </div>
     );
 };
 

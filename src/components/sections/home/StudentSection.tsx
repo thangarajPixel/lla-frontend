@@ -8,6 +8,7 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import DialogWidget from "@/components/widgets/DialogWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import {
   ArrowLeftBlack,
@@ -130,9 +131,9 @@ const StudentSection = ({ data }: StudentSectionProps) => {
               className="max-w-[520px] font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black"
               tag="p"
             />
-            <p className="text-[16px] lg:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[760px]">
+            <ParagraphWidget className="max-w-full md:max-w-[880px]">
               {data.Description}
-            </p>
+            </ParagraphWidget>
           </div>
         </ScrollWidget>
       </ContainerWidget>
@@ -215,7 +216,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                             title="Student video"
                             style={{ border: "none" }}
                           />
-                          <div className="bg-[#F6F6F6] bottom-[-2px] z-10 w-full h-3 left-0 right-0 absolute block md:hidden"/>
+                          <div className="bg-[#F6F6F6] bottom-[-2px] z-10 w-full h-3 left-0 right-0 absolute block md:hidden" />
                           <div className="relative z-20 flex items-end justify-between h-full">
                             <div
                               className="flex flex-col justify-end gap-3 bg-[#E97451]/80 w-full h-27 p-4 m-2"
@@ -227,9 +228,9 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                               <h3 className="font-mulish text-xl md:text-xl lg:text-2xl xl:text-[20px] 2xl:text-[20px] 3xl:text-[24px] font-bold text-white font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight transition-colors duration-500 ease-in-out delay-150">
                                 {student.Title}
                               </h3>
-                              <p className="text-xs sm:text-sm md:text-base lg:text-base xl:text-base 2xl:text-base 3xl:text-lg font-normal text-white">
+                              <ParagraphWidget className="text-white!">
                                 {student.Description}
-                              </p>
+                              </ParagraphWidget>
                             </div>
                             <DialogWidget
                               trigger={

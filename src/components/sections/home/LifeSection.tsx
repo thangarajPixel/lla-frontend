@@ -7,6 +7,7 @@ import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import { Life, LifeMobile } from "@/helpers/ImageHelper";
@@ -26,9 +27,9 @@ const LifeCard = ({ card }: LifeCardProps) => (
           className="object-cover 3xl:max-w-[252px] 3xl:max-h-[168.79px]"
         />
       </div>
-      <p className="text-sm xss:text-[16px] sm:text-base lg:text-[15px] 2xl:text-[16px] 3xl:text-[18px] font-normal text-black leading-normal line-clamp-2">
+      <ParagraphWidget className="line-clamp-2">
         {card.Description}
-      </p>
+      </ParagraphWidget>
     </div>
   </LinkWidget>
 );
@@ -88,9 +89,9 @@ const LifeSection = ({ data }: LifeSectionProps) => {
                   className="3xl:max-w-[520px]  font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black"
                   tag="p"
                 />
-                <p className="text-[16px] lg:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[650px]">
+                <ParagraphWidget className="w-full md:max-w-[650px]">
                   {data.Description}
-                </p>
+                </ParagraphWidget>
                 <div className="self-start">
                   <LinkWidget href="/more/life-at-lla">
                     <OrangeButtonWidget content={data.Btn_txt} />

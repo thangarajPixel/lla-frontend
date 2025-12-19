@@ -7,6 +7,7 @@ import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import type { FacultySectionProps } from "./utils/home";
@@ -43,10 +44,10 @@ const FacultySection = ({ data }: FacultySectionProps) => {
               className="max-w-[700px] font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black"
               tag="p"
             />
-            <p className="text-[16px] lg:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[700px]">
+            <ParagraphWidget className="w-full md:max-w-[700px]">
               {data.Description}
-            </p>
-            <LinkWidget href="/faculty" className="w-full">
+            </ParagraphWidget>
+            <LinkWidget href="/faculty" className="w-full mt-3 sm:mt-0">
               <OrangeButtonWidget content={data.Btn_txt} />
             </LinkWidget>
           </div>
@@ -73,9 +74,9 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                   <h3 className="font-mulish text-lg xss:text-[16px] sm:text-xl font-bold text-black font-urbanist leading-tight truncate">
                     {faculty.Title}
                   </h3>
-                  <p className="text-sm sm:text-base font-normal xss:text-[16px] text-black leading-relaxed line-clamp-2 overflow-hidden text-ellipsis">
+                  <ParagraphWidget className="line-clamp-2 overflow-hidden text-ellipsis">
                     {faculty.Description}
-                  </p>
+                  </ParagraphWidget>
                   <div className="self-start mt-auto">
                     <LinkWidget
                       href={`/photography/${faculty.Slug}`}
@@ -137,9 +138,7 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                         {faculty.Title}
                       </h3>
                       <div className="opacity-0 transition-all duration-500 ease-in-out delay-200 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2">
-                        <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
-                          {faculty.Description}
-                        </p>
+                        <ParagraphWidget>{faculty.Description}</ParagraphWidget>
                         <div className="self-start mt-3">
                           <LinkWidget
                             href={`/photography/${faculty.Slug}`}

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { ArrowLeftBlack, ArrowRightBlack, Quote } from "@/helpers/ImageHelper";
 import type { TestimonialData } from "../courses/utils/types";
@@ -73,9 +74,9 @@ const TestimonialSection = ({ data }: TestimonialSectionProps) => {
                 tag="p"
               />
 
-              <p className="text-[16px] lg:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[450px]">
+              <ParagraphWidget className="w-full md:max-w-[450px]">
                 {sectionData?.Description}
-              </p>
+              </ParagraphWidget>
             </div>
             <div className="relative h-full flex flex-col">
               <div className="px-px">
