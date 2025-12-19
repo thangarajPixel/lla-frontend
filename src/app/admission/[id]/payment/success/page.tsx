@@ -6,37 +6,32 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useEffect } from "react";
 import { useParams } from "next/navigation";
-import { decryptCode, notify } from "@/helpers/ConstantHelper";
-import { getAdmissionsById } from "@/app/api/server";
+import { notify } from "@/helpers/ConstantHelper";
 import { updateAdmission } from "@/store/services/global-services";
 
 const PaymentSuccessPage = () => {
+
   const params = useParams();
+  const encryptedId = params?.id;
 
   useEffect(() => {
-    const admissionId = params && decryptCode(params?.id as string);
+    if (!encryptedId || Array.isArray(encryptedId)) return;
+
+
     const admissionResponse = async () => {
-      const admissionResponse = await getAdmissionsById(Number(admissionId));
-      const admissionData = admissionResponse?.data as AdmissionFormData;
-
-      const data = {
-        step_3: true,
-        Payment_Status: "Paid",
-      };
-
       try {
-        await updateAdmission(
-          admissionData?.documentId as string,
-          data as never,
-        );
+
+        await updateAdmission(encryptedId, {
+          step_3: true,
+          Payment_Status: "Paid",
+        } as never);
       } catch (error) {
-        notify({ success: false, message: error as string });
+        notify({ success: false, message: String(error) });
       }
-    }
+    };
 
     admissionResponse();
-
-  }, []);
+  }, [encryptedId]);
 
   return (
     <div className="flex min-h-[calc(100vh-64px)] items-center justify-center bg-linear-to-br from-background to-muted">

@@ -7,36 +7,30 @@ import { Card, CardContent } from "@/components/ui/card";
 import { updateAdmission } from "@/store/services/global-services";
 import { useEffect } from "react";
 import { useParams } from "next/navigation";
-import { decryptCode, notify } from "@/helpers/ConstantHelper";
-import { getAdmissionsById } from "@/app/api/server";
+import { notify } from "@/helpers/ConstantHelper";
 
 const PaymentFailedPage = () => {
-  const params = useParams();
 
-   useEffect(() => {
-      const admissionId = params && decryptCode(params?.id as string);
-      const admissionResponse = async () => {
-        const admissionResponse = await getAdmissionsById(Number(admissionId));
-        const admissionData = admissionResponse?.data as AdmissionFormData;
-  
-        const data = {
+  const params = useParams();
+  const encryptedId = params?.id;
+
+  useEffect(() => {
+    if (!encryptedId || Array.isArray(encryptedId)) return;
+
+    const admissionResponse = async () => {
+      try {
+
+        await updateAdmission(encryptedId, {
           step_3: true,
           Payment_Status: "UnPaid",
-        };
-  
-        try {
-          await updateAdmission(
-            admissionData?.documentId as string,
-            data as never,
-          );
-        } catch (error) {
-          notify({ success: false, message: error as string });
-        }
+        } as never);
+      } catch (error) {
+        notify({ success: false, message: String(error) });
       }
-  
-      admissionResponse();
-  
-    }, []);
+    };
+
+    admissionResponse();
+  }, [encryptedId]);
 
 
   return (
