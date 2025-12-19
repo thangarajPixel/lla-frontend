@@ -34,7 +34,7 @@ const RESOURCES = [
 ];
 
 const linkTextClass =
-  "text-[16px] md:text-[16px] lg:text-[14px] 3xl:text-[18px] font-normal";
+  "text-[16px] md:text-[16px] lg:text-[14px] 2xxl:text-[18px] 3xl:text-[18px] font-normal";
 const sectionTitleClass =
   "text-[18px] md:text-[20px] 3xl:text-[24px] font-normal font-urbanist";
 const dividerClass = "border-b border-white opacity-30 w-full h-px mt-3";
@@ -165,7 +165,7 @@ const WebFooter = ({
                   <HTMLWidget
                     content={Location ?? undefined}
                     tag="div"
-                    className="mt-[-2px]"
+                    className="mt-[-2px] text-[16px] md:text-[16px] lg:text-[14px] 2xxl:text-[18px] 3xl:text-[18px] font-normal leading-6"
                     suppressHydrationWarning
                   />
                 </div>
