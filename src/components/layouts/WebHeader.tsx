@@ -69,13 +69,13 @@ const WebHeader = ({
         { href: "/gallery", label: "Gallery" },
         {
           label: "More",
-          pathPrefix: "/more",
+          pathPrefix: "",
           items: [
-            { href: "/more/about-us", label: "About us" },
-            { href: "/more/life-at-lla", label: "Life at LLA" },
-            { href: "/more/blogs", label: "Blog" },
-            { href: "/more/contact-us", label: "Contact Us" },
-            { href: "/more/faq", label: "FAQ" },
+            { href: "/about-us", label: "About us" },
+            { href: "/life-at-lla", label: "Life at LLA" },
+            { href: "/blogs", label: "Blog" },
+            { href: "/contact-us", label: "Contact Us" },
+            { href: "/faq", label: "FAQ" },
           ],
         },
       ];
@@ -101,13 +101,13 @@ const WebHeader = ({
       { href: "/gallery", label: "Gallery" },
       {
         label: "More",
-        pathPrefix: "/more",
+        pathPrefix: "",
         items: [
-          { href: "/more/about-us", label: "About us" },
-          { href: "/more/life-at-lla", label: "Life at LLA" },
-          { href: "/more/blogs", label: "Blog" },
-          { href: "/more/contact-us", label: "Contact Us" },
-          { href: "/more/faq", label: "FAQ" },
+          { href: "/about-us", label: "About us" },
+          { href: "/life-at-lla", label: "Life at LLA" },
+          { href: "/blogs", label: "Blog" },
+          { href: "/contact-us", label: "Contact Us" },
+          { href: "/faq", label: "FAQ" },
         ],
       },
     ];

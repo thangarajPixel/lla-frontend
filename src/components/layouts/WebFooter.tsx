@@ -15,20 +15,20 @@ import OrangeButtonWidget from "../widgets/OrangeButtonWidget";
 
 const QUICK_LINKS = [
   { id: "home", href: "/", label: "Home" },
-  { id: "about", href: "/more/about-us", label: "About LLA" },
+  { id: "about", href: "/about-us", label: "About LLA" },
   { id: "campus", href: "/campus", label: "Campus" },
   { id: "faculty", href: "/faculty", label: "Faculty" },
   { id: "gallery", href: "/gallery", label: "Gallery" },
-  { id: "contact", href: "/more/contact-us", label: "Contact Us" },
+  { id: "contact", href: "/contact-us", label: "Contact Us" },
 ];
 
 const RESOURCES = [
-  { id: "blog", href: "/more/blogs", label: "Blog" },
-  { id: "faq", href: "/more/faq", label: "FAQ's" },
-  { id: "privacy", href: "/more/privacy-policy", label: "Privacy Policy" },
+  { id: "blog", href: "/blogs", label: "Blog" },
+  { id: "faq", href: "/faq", label: "FAQ's" },
+  { id: "privacy", href: "/privacy-policy", label: "Privacy Policy" },
   {
     id: "terms",
-    href: "/more/terms-and-conditions",
+    href: "/terms-and-conditions",
     label: "Terms & Conditions",
   },
 ];
@@ -142,7 +142,7 @@ const WebFooter = ({
           <p className={`${linkTextClass} max-w-full md:max-w-[550px]`}>
             {Description}
           </p>
-          <LinkWidget href="/more/contact-us">
+          <LinkWidget href="/contact-us">
             <OrangeButtonWidget content={Btn_txt} />
           </LinkWidget>
           <div className={dividerClass} />

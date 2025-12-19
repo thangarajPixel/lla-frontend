@@ -4,6 +4,7 @@ import { Fragment } from "react/jsx-runtime";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
@@ -68,9 +69,9 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
                     animation="fadeUp"
                     delay={0.2 + index * 0.1}
                   >
-                    <p className="font-mulish text-[16px] md:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[650px] xl:max-w-[660px] 2xl:max-w-[850px] 3xl:max-w-[854px]">
+                    <ParagraphWidget className="max-w-full md:max-w-[650px] xl:max-w-[660px] 2xl:max-w-[850px] 3xl:max-w-[854px]">
                       {textContent}
-                    </p>
+                    </ParagraphWidget>
                   </ScrollWidget>
                 );
               })}
