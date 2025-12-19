@@ -24,7 +24,7 @@ const AdmissionButton = ({
   const pathname = usePathname();
 
   // Check if current page is contact-us
-  const isContactUsPage = pathname === "/more/contact-us";
+  const isContactUsPage = pathname === "/contact-us";
 
   useEffect(() => {
     if (pathname) {
