@@ -12,7 +12,7 @@ const DirectorAcademicsSection = ({ data }: FacultyFounderSectionProps) => {
     <section className="w-full bg-white py-8 sm:py-20 3xl:py-30 3xl:pb-35">
       <ContainerWidget>
         <ScrollWidget delay={0.2}>
-          <h2 className="font-urbanist font-normal text-left md:text-center text-black text-[28px] sm:text-[32px] md:text-[36px] lg:text-[42px] xl:text-[48px] 2xl:text-[52px] 3xl:text-[64px] mb-8 sm:mb-10 md:mb-12 lg:mb-10">
+          <h2 className="font-urbanist font-normal text-left md:text-center text-black text-[32px] sm:text-[32px] md:text-[36px] lg:text-[42px] xl:text-[48px] 2xl:text-[52px] 3xl:text-[64px] mb-8 sm:mb-10 md:mb-12 lg:mb-10">
             {data?.Title}
           </h2>
         </ScrollWidget>
@@ -22,7 +22,7 @@ const DirectorAcademicsSection = ({ data }: FacultyFounderSectionProps) => {
             className="order-2 md:order-1 w-full md:flex-1"
           >
             <div className="space-y-3 s:space-y-3 m:space-y-3 xss:space-y-4 xs:space-y-4 sm:space-y-4 md:space-y-3 lg:space-y-4 xl:space-y-2 2xl:space-y-3 3xl:space-y-4">
-              <h3 className="font-urbanist font-normal text-left text-[#E97451] text-[18px] s:text-[19px] m:text-[20px] xss:text-[21px] xs:text-[22px] sm:text-[23px] md:text-[24px] lg:text-[26px] xl:text-[30px] 2xl:text-[34px] 3xl:text-[40px]">
+              <h3 className="font-urbanist font-normal text-left text-[#E97451] text-[24px] sm:text-[23px] md:text-[24px] lg:text-[26px] xl:text-[30px] 2xl:text-[34px] 3xl:text-[40px]">
                 {data?.Founder_card[0]?.Heading}
               </h3>
               <ParagraphWidget className="text-left">
