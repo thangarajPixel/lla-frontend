@@ -2,10 +2,10 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import type { FacultyFounderSectionProps } from "./utils/faculty";
-import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 
 const DirectorAcademicsSection = ({ data }: FacultyFounderSectionProps) => {
   return (

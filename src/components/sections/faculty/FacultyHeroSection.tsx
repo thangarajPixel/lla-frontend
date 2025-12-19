@@ -1,10 +1,10 @@
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import type { FacultyHeroSectionProps } from "./utils/faculty";
-import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 
 const FacultyHeroSection = ({ data }: FacultyHeroSectionProps) => {
   return (

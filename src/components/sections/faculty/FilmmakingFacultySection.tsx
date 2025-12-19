@@ -1,10 +1,10 @@
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import LinkWidget from "@/components/widgets/LinkWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import type { FilmmakingFacultySectionProps } from "./utils/faculty";
-import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 
 const FilmmakingFacultySection = ({ data }: FilmmakingFacultySectionProps) => {
   return (
@@ -21,10 +21,7 @@ const FilmmakingFacultySection = ({ data }: FilmmakingFacultySectionProps) => {
                 if (!text) return null;
                 return (
                   <div key={text}>
-                  <ParagraphWidget
-                    >
-                      {text}
-                    </ParagraphWidget>
+                    <ParagraphWidget>{text}</ParagraphWidget>
                   </div>
                 );
               })}
