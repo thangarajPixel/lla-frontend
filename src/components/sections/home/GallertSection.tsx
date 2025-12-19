@@ -156,7 +156,7 @@ const GallertSection = ({ data }: GallerySectionProps) => {
         </h2>
         <HTMLWidget
           content={data.Heading}
-          className="font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black"
+          className="font-area-variable font-semibold text-[24px] md:text-[28px] 3xl:text-[40px] text-black leading-tight"
           tag="p"
         />
         <div className="mt-4 text-left lg:text-center lg:hidden">
@@ -208,7 +208,7 @@ const GallertSection = ({ data }: GallerySectionProps) => {
           </ParallaxWidget>
         </div>
         <div className="flex flex-col gap-6">
-          <div className="flex flex-col justify-end  items-center gap-2">
+          <div className="flex flex-col justify-end  items-center gap-2 3xl:-ml-10">
             <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-normal text-black font-urbanist">
               {data.Title}
             </h2>

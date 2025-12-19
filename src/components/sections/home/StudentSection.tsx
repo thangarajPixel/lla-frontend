@@ -128,7 +128,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
             </h2>
             <HTMLWidget
               content={data.Heading}
-              className="max-w-[520px] font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black"
+              className="font-area-variable font-semibold text-[24px] md:text-[28px] 3xl:text-[40px] text-black leading-tight"
               tag="p"
             />
             <ParagraphWidget className="max-w-full md:max-w-[880px]">
@@ -160,7 +160,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                       >
                         {/* biome-ignore lint/a11y/useSemanticElements: Container with hover effects, not a form fieldset */}
                         <div
-                          className="group relative flex flex-col gap-4 overflow-hidden transition-all duration-500 ease-in-out delay-75 p-3 sm:p-4 lg:p-5 aspect-3/4 min-h-[380px] sm:min-h-[580px] sm:max-w-[330px] bg-[#F6F6F6] hover:bg-[#E97451]/80 3xl:min-w-[410px] 3xl:h-[651px]"
+                          className="group relative flex flex-col gap-4 overflow-hidden transition-all duration-500 ease-in-out delay-75 p-3 sm:p-4 lg:p-5 aspect-3/4 min-h-[380px] sm:min-h-[580px] sm:max-w-[330px] bg-[#F6F6F6] hover:bg-[#E97451]/80 3xl:min-w-[430px] 3xl:h-[751px]"
                           role="group"
                           onMouseEnter={(e) => {
                             if (!isMobile) {
