@@ -66,21 +66,21 @@ const PersonalDetailsForm = ({
       nationality: admissionData?.nationality ?? "",
       Language_Proficiency:
         admissionData?.Language_Proficiency &&
-          admissionData?.Language_Proficiency?.length > 0
+        admissionData?.Language_Proficiency?.length > 0
           ? admissionData?.Language_Proficiency?.map((language) => ({
-            language: language?.language ?? "",
-            read: language?.read ?? false,
-            write: language?.write ?? false,
-            speak: language?.speak ?? false,
-          }))
+              language: language?.language ?? "",
+              read: language?.read ?? false,
+              write: language?.write ?? false,
+              speak: language?.speak ?? false,
+            }))
           : [
-            {
-              language: "",
-              read: false,
-              write: false,
-              speak: false,
-            },
-          ],
+              {
+                language: "",
+                read: false,
+                write: false,
+                speak: false,
+              },
+            ],
       address: admissionData?.address?.map((block) => ({
         type: "paragraph",
         children: block.children.map((child) => ({
@@ -88,16 +88,16 @@ const PersonalDetailsForm = ({
           type: child.type,
         })),
       })) ?? [
-          {
-            type: "paragraph",
-            children: [
-              {
-                text: "",
-                type: "text",
-              },
-            ],
-          },
-        ],
+        {
+          type: "paragraph",
+          children: [
+            {
+              text: "",
+              type: "text",
+            },
+          ],
+        },
+      ],
       city: admissionData?.city ?? "",
       district: admissionData?.district ?? "",
       state: admissionData?.state?.documentId ?? "",
@@ -127,16 +127,16 @@ const PersonalDetailsForm = ({
             })),
           }),
         ) ?? [
-            {
-              type: "paragraph",
-              children: [
-                {
-                  text: "",
-                  type: "text",
-                },
-              ],
-            },
-          ],
+          {
+            type: "paragraph",
+            children: [
+              {
+                text: "",
+                type: "text",
+              },
+            ],
+          },
+        ],
         city: admissionData?.Parent_Guardian_Spouse_Details?.city ?? "",
         district: admissionData?.Parent_Guardian_Spouse_Details?.district ?? "",
         state:
@@ -210,7 +210,7 @@ const PersonalDetailsForm = ({
         if (!isValid) {
           toast.error(
             `Passport photo must be 51mm × 51mm (≈602×602 px at 300 DPI). Your image is ${width}×${height}px.`,
-            { position: "bottom-right" }
+            { position: "bottom-right" },
           );
           resolve(false);
         } else {
@@ -225,7 +225,6 @@ const PersonalDetailsForm = ({
       };
     });
   };
-
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -495,7 +494,7 @@ const PersonalDetailsForm = ({
                 onClick={handleClick}
               >
                 {(!previewUrl && !admissionData?.passport_size_image) ||
-                  isRemoved ? (
+                isRemoved ? (
                   <>
                     <ImageWidget
                       src={UploadIconImg}
@@ -553,7 +552,9 @@ const PersonalDetailsForm = ({
               <p className="text-xs font-mulish text-muted-foreground mt-2 xs:max-w-[180px] lg:max-w-full">
                 {/* The size of the images should not be more than 12&quot;x8&quot;
                 size. Max. file size not more than 1MB. */}
-                A recent , passport-size photograph (51mm x 51mm) in digital format, against a white background. And the  Max file size not more than 1MB.
+                A recent , passport-size photograph (51mm x 51mm) in digital
+                format, against a white background. And the Max file size not
+                more than 1MB.
               </p>
 
               {errors.passport_size_image && (

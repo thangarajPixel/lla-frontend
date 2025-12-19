@@ -26,20 +26,20 @@ const PaymentModel = ({
   total,
   paymentDetails,
 }: PaymentPopupProps) => {
-
   const handlePayment = async () => {
-
     const form = document.createElement("form");
     form.method = "POST";
     form.action = paymentDetails?.checkoutUrl ?? "";
 
-    Object.entries(paymentDetails?.data as PaymentData).forEach(([key, value]) => {
-      const input = document.createElement("input");
-      input.type = "hidden";
-      input.name = key;
-      input.value = String(value);
-      form.appendChild(input);
-    });
+    Object.entries(paymentDetails?.data as PaymentData).forEach(
+      ([key, value]) => {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = key;
+        input.value = String(value);
+        form.appendChild(input);
+      },
+    );
 
     document.body.appendChild(form);
     form.submit();
@@ -91,7 +91,7 @@ const PaymentModel = ({
             content="Go to Payment"
             className="3xl:px-4"
             onClick={handlePayment}
-          // className="text-lg 2xl:text-lg h-[46px] px-6 py-3"
+            // className="text-lg 2xl:text-lg h-[46px] px-6 py-3"
           />
         </div>
       </DialogContent>

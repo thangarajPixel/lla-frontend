@@ -2,25 +2,22 @@
 
 import { CheckCircle2 } from "lucide-react";
 import Link from "next/link";
+import { useParams } from "next/navigation";
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { useEffect } from "react";
-import { useParams } from "next/navigation";
 import { notify } from "@/helpers/ConstantHelper";
 import { updateAdmission } from "@/store/services/global-services";
 
 const PaymentSuccessPage = () => {
-
   const params = useParams();
   const encryptedId = params?.id;
 
   useEffect(() => {
     if (!encryptedId || Array.isArray(encryptedId)) return;
 
-
     const admissionResponse = async () => {
       try {
-
         await updateAdmission(encryptedId, {
           step_3: true,
           Payment_Status: "Paid",
@@ -67,6 +64,6 @@ const PaymentSuccessPage = () => {
       </Card>
     </div>
   );
-}
+};
 
 export default PaymentSuccessPage;

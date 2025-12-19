@@ -2,15 +2,14 @@
 
 import { XCircle } from "lucide-react";
 import Link from "next/link";
+import { useParams } from "next/navigation";
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { updateAdmission } from "@/store/services/global-services";
-import { useEffect } from "react";
-import { useParams } from "next/navigation";
 import { notify } from "@/helpers/ConstantHelper";
+import { updateAdmission } from "@/store/services/global-services";
 
 const PaymentFailedPage = () => {
-
   const params = useParams();
   const encryptedId = params?.id;
 
@@ -19,7 +18,6 @@ const PaymentFailedPage = () => {
 
     const admissionResponse = async () => {
       try {
-
         await updateAdmission(encryptedId, {
           step_3: true,
           Payment_Status: "UnPaid",
@@ -31,7 +29,6 @@ const PaymentFailedPage = () => {
 
     admissionResponse();
   }, [encryptedId]);
-
 
   return (
     <div className="flex min-h-[calc(100vh-64px)] items-center justify-center bg-linear-to-br from-background to-muted">
@@ -63,7 +60,6 @@ const PaymentFailedPage = () => {
       </Card>
     </div>
   );
-}
-
+};
 
 export default PaymentFailedPage;

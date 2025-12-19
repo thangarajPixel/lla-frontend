@@ -24,7 +24,6 @@ function FormCheckBox<T extends FieldValues>({
   disabled = false,
   className,
 }: FormCheckBoxProps<T>) {
-
   const { trigger } = useFormContext<T>();
 
   const {
@@ -37,9 +36,9 @@ function FormCheckBox<T extends FieldValues>({
 
   const id = `checkbox-${name.replace(/\./g, "-")}`;
 
-   const languagePath = name.replace(
+  const languagePath = name.replace(
     /\.(read|write|speak)$/,
-    ".language"
+    ".language",
   ) as Path<T>;
 
   return (

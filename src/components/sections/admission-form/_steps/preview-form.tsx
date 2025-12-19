@@ -617,9 +617,7 @@ const ReviewApplication = ({
                       <span className="text-black/50 text-base 3xl:text-2xl">
                         Duration
                       </span>
-                      <span 
-                      className="text-black font-medium flex flex-wrap text-lg 3xl:text-2xl"
-                      >
+                      <span className="text-black font-medium flex flex-wrap text-lg 3xl:text-2xl">
                         {calculateDuration(
                           experience?.duration_start ?? "",
                           experience?.duration_end ?? "",

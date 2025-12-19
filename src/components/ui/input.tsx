@@ -130,7 +130,13 @@ const Input = ({
       )}
 
       {pageType && (
-        <p className={cn("text-sm text-red-500", error ? "block" : "invisible", errorClassName)}>
+        <p
+          className={cn(
+            "text-sm text-red-500",
+            error ? "block" : "invisible",
+            errorClassName,
+          )}
+        >
           {error?.message ?? "No error"}
         </p>
       )}
