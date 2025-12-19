@@ -12,6 +12,7 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import DialogWidget from "@/components/widgets/DialogWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import LightboxWidget from "@/components/widgets/LightboxWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import { ArrowDown, Into, Play } from "@/helpers/ImageHelper";
@@ -278,24 +279,24 @@ const NilgirisSection = ({ data: initialData }: { data: NilgirisData }) => {
   };
 
   return (
-    <section className="w-full bg-white py-4 sm:py-6 md:py-8 lg:py-10 xl:py-12 2xl:py-14 3xl:py-20">
+    <section className="w-full bg-white py-10 sm:py-6 md:py-8 lg:py-10 xl:py-12 2xl:py-14 3xl:py-20">
       <ContainerWidget>
         <div className="flex flex-col gap-6 md:gap-8 lg:gap-10">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-6">
             <div className="flex flex-col gap-2 md:gap-3">
-              <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
+              <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-[64px] 3xl:text-[64px] font-semibold md:font-normal text-black font-urbanist">
                 {nilgirisData?.Title || initialData?.Title || "Nilgiris"}
               </h3>
-              <p className="text-[16px] md:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[600px]">
-                {nilgirisData?.Description || initialData?.Description || ""}
-              </p>
+              <ParagraphWidget className="w-full md:max-w-[600px]">
+                {nilgirisData?.Description || initialData?.Description}
+              </ParagraphWidget>
             </div>
 
             {uniqueTypes.length > 0 && (
               <RadioGroup
                 value={selectedType}
                 onValueChange={setSelectedType}
-                className="flex flex-wrap items-center gap-4 md:gap-6 mt-6"
+                className="flex flex-wrap items-center gap-4 md:gap-6 md:mt-20"
               >
                 {uniqueTypes.map((type) => {
                   const formattedType = type
