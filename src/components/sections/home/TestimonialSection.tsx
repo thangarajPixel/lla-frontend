@@ -60,7 +60,7 @@ const TestimonialSection = ({ data }: TestimonialSectionProps) => {
 
   if (testimonials?.length === 0) return null;
   return (
-    <section className="w-full bg-[#ECECEC] flex flex-col z-40 relative py-10 sm:py-14 md:py-18 lg:py-20 xl:py-20 2xl:py-20 3xl:py-20">
+    <section className="w-full bg-[#ECECEC] flex flex-col z-40 relative py-10 sm:py-14 md:py-18 lg:py-20 xl:py-20 2xl:py-25">
       <ContainerWidget>
         <ScrollWidget animation="fadeUp" delay={0.1}>
           <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-10 lg:gap-12 xl:gap-14 2xl:gap-16 items-stretch">
@@ -70,7 +70,7 @@ const TestimonialSection = ({ data }: TestimonialSectionProps) => {
               </h3>
               <HTMLWidget
                 content={sectionData.Heading}
-                className="max-w-[520px] font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black"
+                className="font-area-variable font-semibold text-[24px] md:text-[28px] 3xl:text-[40px] text-black leading-tight"
                 tag="p"
               />
 

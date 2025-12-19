@@ -80,7 +80,7 @@ const CourseSection = ({ data }: CourseSectionProps) => {
             </h2>
             <HTMLWidget
               content={data.Heading}
-              className="font-area-variable font-semibold text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black"
+              className="font-area-variable font-semibold text-[24px] md:text-[28px] 3xl:text-[40px] text-black leading-tight"
               tag="p"
             />
             <ParagraphWidget className="w-full md:max-w-[750px]">

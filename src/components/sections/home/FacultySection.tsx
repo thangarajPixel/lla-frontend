@@ -41,7 +41,7 @@ const FacultySection = ({ data }: FacultySectionProps) => {
             </h2>
             <HTMLWidget
               content={data.Heading}
-              className="max-w-[700px] font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black"
+              className="font-area-variable font-semibold text-[24px] md:text-[28px] 3xl:text-[40px] text-black leading-tight"
               tag="p"
             />
             <ParagraphWidget className="w-full md:max-w-[700px]">
