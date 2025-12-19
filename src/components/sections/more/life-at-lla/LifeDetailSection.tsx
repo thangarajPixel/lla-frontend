@@ -374,7 +374,7 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                           {post.Title}
                         </h4>
                         <Link
-                          href={`/more/life-at-lla/${post.Slug}`}
+                          href={`/life-at-lla/${post.Slug}`}
                           className="inline-flex items-center gap-2 text-[#E97451] hover:gap-4 transition-all duration-300 mt-2 text-[16px] md:text-[16px] lg:text-[16px] font-normal font-urbanist group"
                         >
                           Read More
@@ -417,7 +417,7 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                             {post.Title}
                           </h4>
                           <Link
-                            href={`/more/life-at-lla/${post.Slug}`}
+                            href={`/life-at-lla/${post.Slug}`}
                             className="inline-flex items-center gap-2 text-[#E97451] hover:gap-4 transition-all duration-300 mt-2 text-[16px] font-normal font-urbanist group"
                           >
                             Read More
