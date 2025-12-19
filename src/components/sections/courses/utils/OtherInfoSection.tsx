@@ -1,5 +1,6 @@
 import AccordionWidget from "@/components/widgets/AccordionWidget";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { Dummy12 } from "@/helpers/ImageHelper";
 import type { OtherInfoData } from "./types";
@@ -33,13 +34,15 @@ const OtherInfoSection = ({ data }: { data: OtherInfoData }) => {
       <ContainerWidget>
         <ScrollWidget animation="fadeUp">
           <div className="space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12 2xl:space-y-14 3xl:space-y-16">
-            <div className="space-y-2 md:space-y-3 lg:space-y-4">
-              <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-normal md:font-normal text-black font-urbanist">
+            <div className="space-y-0">
+              <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[64px] font-normal md:font-normal text-black font-urbanist leading-[26px]!">
                 {data.Title}
               </h3>
-              <p className="text-[16px] xss:text-[14px] lg:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[600px]">
+              <ParagraphWidget
+                className={`max-w-[600px] ${data.Description ? "mt-5 md:mt-10" : "mt-7 md:mt-20"}`}
+              >
                 {data.Description}
-              </p>
+              </ParagraphWidget>
             </div>
             {items.length > 0 && (
               <AccordionWidget
@@ -48,6 +51,7 @@ const OtherInfoSection = ({ data }: { data: OtherInfoData }) => {
                 defaultValue={items[0]?.value}
                 items={items}
                 columns={2}
+                className="md:-mt-5"
               />
             )}
           </div>
