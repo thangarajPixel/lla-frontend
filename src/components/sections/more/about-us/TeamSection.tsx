@@ -10,6 +10,7 @@ import { clientAxios } from "@/helpers/AxiosHelper";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import TeamMemberPopup from "./Team";
 import type { Card, TeamSectionProps } from "./utils/about-us";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 
 const TeamSection = ({ data }: TeamSectionProps) => {
   const [selectedCardId, setSelectedCardId] = useState<number | null>(null);
@@ -195,7 +196,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
                             hover:bg-[#E97451]/20 cursor-pointer
                             transition-colors duration-500 ease-out
                             px-2 py-2 flex flex-col
-                            min-h-[300px] xs:min-h-[310px] sm:min-h-[310px] md:min-h-[300px] lg:min-h-[300px]
+                            h-[250px] sm:h-auto! sm:min-h-[310px] md:min-h-[300px] lg:min-h-[300px]
                             xl:min-h-[340px] 2xl:min-h-[410px] 3xl:min-h-[480px] 4xl:min-h-[500px]`}
                 >
                   <ParallaxWidget speed={-0.1}>
@@ -273,9 +274,9 @@ const TeamSection = ({ data }: TeamSectionProps) => {
               >
                 {data.Frame.Title}
               </h5>
-              <p className="font-mulish text-[16px] md:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal">
+              <ParagraphWidget>
                 {data.Frame.Description}
-              </p>
+              </ParagraphWidget>
             </div>
           </ScrollWidget>
         </div>

@@ -302,7 +302,7 @@ export default function TeamMemberPopup({
                       >
                         <HTMLWidget
                           content={selectedBiography}
-                          className="font-mulish mt-8"
+                          className="font-mulish mt-8 text-[16px] md:text-[17px] 2xl:text-[18px] font-normal text-black leading-[26px]"
                         />
                       </motion.div>
                     )}
