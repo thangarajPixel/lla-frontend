@@ -29,7 +29,7 @@ const FilmmakingFacultySection = ({ data }: FilmmakingFacultySectionProps) => {
           </div>
         </ScrollWidget>
 
-        <div className="grid grid-cols-1 s:grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 3xl:grid-cols-4 gap-2 s:gap-2 m:gap-2 xss:gap-2 xs:gap-3 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-5 2xl:gap-8 3xl:gap-8.5">
+        <div className="grid grid-cols-1 s:grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 3xl:grid-cols-4 gap-5 md:gap-5">
           {data?.Card?.map((member, index) => (
             <ScrollWidget key={member.id} delay={0.1 * (index + 1)}>
               <LinkWidget href={`/filmmaking/${member.Slug}`}>
@@ -42,7 +42,7 @@ const FilmmakingFacultySection = ({ data }: FilmmakingFacultySectionProps) => {
                       className="object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
                     />
                   </div>
-                  <h3 className="font-mulish font-bold text-black text-[13px] s:text-[14px] m:text-[14px] xss:text-[15px] xs:text-[15px] sm:text-[16px] md:text-[16px] lg:text-[14px] xl:text-[14px] 2xl:text-[16px] 3xl:text-[23px]">
+                  <h3 className="font-mulish font-bold text-black text-[13px] s:text-[14px] m:text-[14px] xss:text-[15px] xs:text-[15px] sm:text-[16px] md:text-[16px] lg:text-[14px] xl:text-[14px] 2xl:text-[16px] 3xl:text-[23px] -mb-1.5">
                     {member.Title}
                   </h3>
                 </div>
