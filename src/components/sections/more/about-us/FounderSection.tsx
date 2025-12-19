@@ -3,11 +3,11 @@ import { useState } from "react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import TeamMemberPopup from "./Team";
 import type { FounderSectionProps } from "./utils/about-us";
-import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 
 const FounderSection = ({ data }: FounderSectionProps) => {
   const [selectedCardId, setSelectedCardId] = useState<number | null>(null);

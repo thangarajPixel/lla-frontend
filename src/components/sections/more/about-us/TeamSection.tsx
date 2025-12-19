@@ -4,13 +4,13 @@ import { useEffect, useState } from "react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import TeamMemberPopup from "./Team";
 import type { Card, TeamSectionProps } from "./utils/about-us";
-import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 
 const TeamSection = ({ data }: TeamSectionProps) => {
   const [selectedCardId, setSelectedCardId] = useState<number | null>(null);
@@ -274,9 +274,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
               >
                 {data.Frame.Title}
               </h5>
-              <ParagraphWidget>
-                {data.Frame.Description}
-              </ParagraphWidget>
+              <ParagraphWidget>{data.Frame.Description}</ParagraphWidget>
             </div>
           </ScrollWidget>
         </div>

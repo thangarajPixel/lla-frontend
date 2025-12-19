@@ -4,11 +4,11 @@ import { Fragment } from "react/jsx-runtime";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import type { AboutHeroSectionProps } from "./utils/about-us";
-import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 
 const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
   return (

@@ -5,11 +5,11 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import DialogWidget from "@/components/widgets/DialogWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import { Into, Play } from "@/helpers/ImageHelper";
 import type { CampusHeroSectionProps } from "./utils/campus";
-import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 
 const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
   const stopAllVideos = () => {
@@ -115,11 +115,8 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
                   const uniqueKey = `${index}-${textContent.slice(0, 20)}`;
                   return (
                     <div key={uniqueKey}>
-                    <ParagraphWidget  
-          
-                      className="text-white!"
-                      >
-                          {textContent}
+                      <ParagraphWidget className="text-white!">
+                        {textContent}
                       </ParagraphWidget>
                     </div>
                   );
