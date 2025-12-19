@@ -9,12 +9,12 @@ import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { ArrowDown } from "@/helpers/ImageHelper";
 import LifeCard from "./utils/life-card";
 import type { LifeSectionProps } from "./utils/life-lla";
-import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 
 const LifeLlaSection = ({ data }: LifeSectionProps) => {
   console.log(data);
@@ -91,7 +91,7 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
             </h3>
             <HTMLWidget
               content={data.Heading}
-                className="font-area-variable font-semibold text-[24px] md:text-[28px] 3xl:text-[40px] text-black leading-tight"
+              className="font-area-variable font-semibold text-[24px] md:text-[28px] 3xl:text-[40px] text-black leading-tight"
               tag="p"
             />
             <ParagraphWidget className="w-full md:max-w-[750px] 3xl:max-w-[976px]">

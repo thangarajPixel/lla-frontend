@@ -11,10 +11,10 @@ import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import { ArrowDown, ArrowRightWhite, SearchIcon } from "@/helpers/ImageHelper";
-import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 
 interface BlogImage {
   id: number;
