@@ -83,7 +83,7 @@ export function EducationDetails({
               control={control}
             />
 
-            <div className="h-5" />
+            <div className="lg:h-5" />
           </div>
 
           <div className="lg:pt-7">

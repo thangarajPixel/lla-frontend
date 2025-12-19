@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import type z from "zod";
+
 import { ImageGrid } from "@/components/sections/admission-form/_components/image-grid";
 import { UploadArea } from "@/components/sections/admission-form/_components/upload-area";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
@@ -29,132 +30,143 @@ type PortfolioFormProps = {
   admissionId?: string;
 };
 
+const MAX_IMAGES = 20;
+const MAX_SIZE = 1024 * 1024;
+const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/jpg"];
+
 const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
   const [images, setImages] = useState<UploadedImage[]>([]);
+  const router = useRouter();
 
-  const form_step3 = useForm<PortfolioSchema>({
+  const form = useForm<PortfolioSchema>({
     resolver: zodResolver(portfolioSchema),
     mode: "all",
     defaultValues: {
-      Upload_Your_Portfolio: {
-        images: [],
-      },
+      Upload_Your_Portfolio: { images: [] },
       step_3: admissionData?.step_3 ?? false,
     },
   });
 
-  const formRef = useRef(form_step3);
-  const router = useRouter();
-
-  const { handleSubmit, formState } = form_step3;
+  const { handleSubmit, setValue, getValues, formState } = form;
   const { errors } = formState;
 
   useEffect(() => {
     if (!admissionData?.Upload_Your_Portfolio?.images) return;
 
-    const apiImages = admissionData.Upload_Your_Portfolio.images.map((img) => ({
-      id: img.id.toString(),
-      url: img.url,
-      file: null,
-    }));
+    const apiImages: UploadedImage[] =
+      admissionData.Upload_Your_Portfolio.images.map((img) => ({
+        id: String(img.id),
+        url: img.url,
+        file: null,
+      }));
 
     setImages(apiImages);
 
-    formRef?.current?.setValue(
+    setValue(
       "Upload_Your_Portfolio.images",
       apiImages.map((i) => ({ id: Number(i.id) })),
       { shouldValidate: true },
     );
-  }, [admissionData]);
+  }, [admissionData, setValue]);
 
   useEffect(() => {
-    if (admissionData) {
-      useCourseStore.setState({ courseName: admissionData?.Course?.Name });
+    if (admissionData?.Course?.Name) {
+      useCourseStore.setState({ courseName: admissionData.Course.Name });
     }
   }, [admissionData]);
 
   const handleFilesSelected = async (files: File[]) => {
-    const MAX_SIZE = 1024 * 1024;
+    const existingCount = images.length;
 
-    if (images?.length > 20) {
-      return notify({
+    if (existingCount >= MAX_IMAGES) {
+      notify({
         success: false,
-        message: "You can upload a maximum of 20 images",
+        message: `You can upload a maximum of ${MAX_IMAGES} images`,
       });
+      return;
     }
 
     const validFiles = files.filter((file) => {
-      if (file.size > MAX_SIZE) {
-        notify({ success: false, message: `${file.name} exceeds 1MB limit` });
+      if (!ALLOWED_TYPES.includes(file.type)) {
+        notify({
+          success: false,
+          message: `${file.name} is not a supported image file`,
+        });
         return false;
       }
+
+      if (file.size > MAX_SIZE) {
+        notify({
+          success: false,
+          message: `${file.name} exceeds 1MB limit`,
+        });
+        return false;
+      }
+
       return true;
     });
 
     if (!validFiles.length) return;
 
+    const remainingSlots = MAX_IMAGES - existingCount;
+    const uploadFiles = validFiles.slice(0, remainingSlots);
+
     const formData = new FormData();
+    uploadFiles.forEach((file) => formData.append("files", file));
 
-    validFiles.forEach((file) => {
-      formData.append("files", file);
-    });
+    try {
+      const { data } = await axios.post(
+        `${process.env.BASE_URL}/upload`,
+        formData,
+      );
 
-    const uploadRes = await axios.post(
-      `${process.env.BASE_URL}/upload`,
-      formData,
-    );
+      const currentHf = getValues("Upload_Your_Portfolio.images") ?? [];
+      const uploadedIds = data.map((u: UploadRes) => ({ id: u.id }));
 
-    const uploaded = uploadRes.data;
+      setValue(
+        "Upload_Your_Portfolio.images",
+        [...currentHf, ...uploadedIds],
+        { shouldDirty: true, shouldValidate: true },
+      );
 
-    const currentHf =
-      form_step3.getValues("Upload_Your_Portfolio.images") || [];
-    const uploadedIds = uploaded.map((u: UploadRes) => ({ id: u.id }));
+      const previewImages: UploadedImage[] = uploadFiles.map((file) => ({
+        id: crypto.randomUUID(),
+        url: URL.createObjectURL(file),
+        file,
+      }));
 
-    form_step3.setValue(
-      "Upload_Your_Portfolio.images",
-      [...currentHf, ...uploadedIds],
-      { shouldValidate: true, shouldDirty: true },
-    );
-
-    const newStateImages = validFiles.map((file) => ({
-      id: Math.random().toString(36).slice(2, 9),
-      url: URL.createObjectURL(file),
-      file,
-    }));
-
-    setImages((prev) => [...prev, ...newStateImages]);
+      setImages((prev) => [...prev, ...previewImages]);
+    } catch {
+      notify({ success: false, message: "Image upload failed" });
+    }
   };
 
   const handleRemoveImage = (index: number) => {
-    const img = images[index];
-    if (img?.file) URL.revokeObjectURL(img.url);
-
-    const updatedImages = images.filter((_, i) => i !== index);
-    setImages(updatedImages);
-
-    const hfImages = form_step3.getValues("Upload_Your_Portfolio.images") || [];
-    const updatedHfImages = hfImages.filter((_, i: number) => i !== index);
-
-    form_step3.setValue("Upload_Your_Portfolio.images", updatedHfImages, {
-      shouldDirty: true,
-      shouldValidate: true,
+    setImages((prev) => {
+      const img = prev[index];
+      if (img?.file) URL.revokeObjectURL(img.url);
+      return prev.filter((_, i) => i !== index);
     });
+
+    const hfImages = getValues("Upload_Your_Portfolio.images") ?? [];
+    setValue(
+      "Upload_Your_Portfolio.images",
+      hfImages.filter((_, i) => i !== index),
+      { shouldDirty: true, shouldValidate: true },
+    );
   };
 
   const onSubmit = async (payload: PortfolioSchema) => {
-    const filtered = filteredPayload(payload);
-
-    const data = {
-      ...filtered,
-      step_3: true,
-      Payment_Status: "Pending",
-    };
-
     try {
       await updateAdmission(
         admissionData?.documentId as string,
-        data as PortfolioSchema,
+        {
+          ...filteredPayload(payload),
+          step_3: true,
+          Payment_Status: "Pending",
+        } as PortfolioSchema,
       );
+
       router.push(`/admission/${admissionId}/preview`);
     } catch (error) {
       notify({ success: false, message: error as string });
@@ -162,75 +174,57 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
   };
 
   return (
-    <FormProvider {...form_step3}>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="bg-background py-8 px-2"
-      >
-        <div className="mx-auto">
-          <h1 className="text-2xl text-[#E97451] font-urbanist mb-8">
-            Upload Your Portfolio
-          </h1>
+    <FormProvider {...form}>
+      <form onSubmit={handleSubmit(onSubmit)} className="bg-background py-8 px-2">
+        <h1 className="text-2xl text-[#E97451] font-urbanist mb-8">
+          Upload Your Portfolio
+        </h1>
 
-          <div className="grid grid-cols-1  sm:grid-cols-2 gap-8 mb-12">
-            <div>
-              <label
-                htmlFor="portfolio"
-                className="block text-foreground text-sm mb-4"
-              >
-                Upload Images<span className="text-destructive">*</span>
-              </label>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-12">
+          <div>
+            <label className="block text-sm mb-4">
+              Upload Images<span className="text-destructive">*</span>
+            </label>
 
-              <UploadArea onFilesSelected={handleFilesSelected} />
+            <UploadArea onFilesSelected={handleFilesSelected} />
 
-              <p className="text-xs text-muted-foreground mt-2">
-                20 of your best images showcasing your work and creativity.
-                Please note that the objective is to assess your photography
-                vision. We are not looking for technically advanced images.
-                Please include a variety of subjects.
+            <p className="text-xs text-muted-foreground mt-2">
+              20 of your best images showcasing your work and creativity.
+              Please note that the objective is to assess your photography
+              vision. We are not looking for technically advanced images.
+              Please include a variety of subjects.
+            </p>
+
+            {errors.Upload_Your_Portfolio?.images && (
+              <p className="text-sm text-destructive mt-2">
+                {errors.Upload_Your_Portfolio.images.message}
               </p>
-
-              <p className="text-xs text-muted-foreground mt-2">
-                Max. file size not more than 1MB.
-              </p>
-
-              {errors.Upload_Your_Portfolio?.images && (
-                <p className="text-sm text-destructive mt-2">
-                  {errors.Upload_Your_Portfolio.images.message}
-                </p>
-              )}
-            </div>
-
-            <div className="lg:pl-8">
-              <ImageGrid
-                images={images as UploadedImage[]}
-                onRemove={handleRemoveImage}
-              />
-            </div>
+            )}
           </div>
 
-          <div className="flex justify-start gap-3 mt-10 pt-6">
-            <ButtonWidget
-              type="button"
-              onClick={() =>
-                router.push(`/admission/${admissionId}/education-details`)
-              }
-              className={cn(
-                "p-5 w-[95px] 3xl:w-[123px] 3xl:h-[50px] text-lg bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
-              )}
-            >
-              Back
-            </ButtonWidget>
-
-            <OrangeButtonWidget
-              content="Review Application"
-              // className="text-lg 2xl:text-lg h-[50px] px-6 py-3"
-              className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-xs 2xl:text-[14px] 3xl:text-[18px]"
-            />
-          </div>
+          <ImageGrid images={images} onRemove={handleRemoveImage} />
         </div>
-      </form>
-    </FormProvider>
+
+        <div className="flex justify-start gap-3 mt-10 pt-6">
+          <ButtonWidget
+            type="button"
+            onClick={() =>
+              router.push(`/admission/${admissionId}/education-details`)
+            }
+            className={cn(
+              "p-5 w-[95px] 3xl:w-[123px] 3xl:h-[50px] text-lg bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
+            )}
+          >
+            Back
+          </ButtonWidget>
+
+          <OrangeButtonWidget
+            content="Review Application"
+            className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-xs 2xl:text-[14px] 3xl:text-[18px]"
+          />
+        </div>
+    </form>
+    </FormProvider >
   );
 };
 

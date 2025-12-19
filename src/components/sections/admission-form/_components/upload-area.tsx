@@ -1,3 +1,5 @@
+"use client";
+
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import ImageWidget from "@/components/widgets/ImageWidget";
@@ -8,64 +10,44 @@ interface UploadAreaProps {
 }
 
 export const UploadArea = ({ onFilesSelected }: UploadAreaProps) => {
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleDragOver = (e: React.DragEvent) => {
+  const handleFiles = (files: FileList | null) => {
+    if (!files) return;
+    onFilesSelected(Array.from(files));
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const files = Array.from(e.dataTransfer.files).filter((file) =>
-      file.type.startsWith("image/"),
-    );
-
-    if (files.length > 0) {
-      onFilesSelected(files);
-    }
-  };
-
-  const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files || []);
-    if (files.length > 0) {
-      onFilesSelected(files);
-    }
-  };
-
-  const handleSelectClick = () => {
-    fileInputRef.current?.click();
+    handleFiles(e.dataTransfer.files);
   };
 
   return (
     <div
-      aria-hidden
-      onDragOver={handleDragOver}
+      onDragOver={(e) => e.preventDefault()}
       onDrop={handleDrop}
-      className="border-2 border-dashed border-border rounded-xl p-12 flex flex-col items-center justify-center gap-4 bg-card hover:border-primary/50 transition-colors"
+      className="border-2 border-dashed rounded-xl p-12 flex flex-col items-center gap-4 bg-card hover:border-primary/50"
     >
-      <ImageWidget
-        src={UploadIconImg}
-        alt="Upload Icon"
-        className="h-10 w-10 mb-3"
-      />
-      <p className="text-foreground/70 text-sm">Drag and Drop here</p>
+      <ImageWidget src={UploadIconImg} alt="Upload" className="h-10 w-10" />
+
+      <p className="text-sm text-muted-foreground">Drag & drop images here</p>
+
       <Button
-        onClick={handleSelectClick}
         type="button"
-        className="bg-chart-1 hover:bg-chart-1/90 text-primary-foreground rounded-full px-8"
+        onClick={() => inputRef.current?.click()}
+        className="rounded-full px-8"
       >
-        Select File
+        Select Images
       </Button>
+
       <input
-        ref={fileInputRef}
+        ref={inputRef}
         type="file"
         multiple
-        accept="image/*"
-        onChange={handleFileInput}
+        accept="image/jpeg,image/png,image/jpg"
         className="hidden"
+        onChange={(e) => handleFiles(e.target.files)}
       />
     </div>
   );

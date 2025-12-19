@@ -14,14 +14,54 @@ import { Call, LocationIcon, Sms, StarIcon } from "@/helpers/ImageHelper";
 import type { ContactSectionProps } from "./utils/contact";
 
 export const contactSchema = z.object({
-  FirstName: z.string().min(1, "First name is required"),
-  LastName: z.string().min(0, "Last name is required"),
-  Email: z.string().email("Invalid email address"),
+  FirstName: z
+    .string()
+    .transform((val) => val.trim())
+    .pipe(z.string().min(1, "First name is required")),
+  LastName: z
+    .string()
+    .transform((val) => val.trim())
+    .pipe(z.string().min(1, "Last name is required")),
+  Email: z
+    .string()
+    .transform((val) => val.trim())
+    .pipe(
+      z
+        .string()
+        .min(1, "Email is required")
+        .email("Enter a valid email address")
+        .refine(
+          (email) => {
+            // Additional validation: check for common email format issues
+            return (
+              email.length > 0 &&
+              !email.startsWith("@") &&
+              !email.endsWith("@") &&
+              !email.includes("..") &&
+              !email.startsWith(".") &&
+              !email.endsWith(".") &&
+              email.includes("@") &&
+              email.split("@")[1]?.includes(".")
+            );
+          },
+          {
+            message: "Enter a valid email address",
+          },
+        ),
+    ),
   Mobile: z
     .string()
-    .min(1, "Phone number is required")
-    .regex(/^[6-9]\d{9}$/, "Enter a valid phone number"),
-  Message: z.string().min(0, "Message must be at least 10 characters"),
+    .transform((val) => val.trim())
+    .pipe(
+      z
+        .string()
+        .min(1, "Phone number is required")
+        .regex(/^[6-9]\d{9}$/, "Enter a valid 10-digit phone number"),
+    ),
+  Message: z
+    .string()
+    .transform((val) => val.trim())
+    .pipe(z.string().min(10, "Message must be at least 10 characters")),
 });
 
 export type ContactFormData = z.infer<typeof contactSchema>;
@@ -64,11 +104,12 @@ export default function ContactSection({ data }: ContactSectionProps) {
               <h1 className="font-urbanist text-[32px] sm:text-[40px] md:text-[48px] lg:text-[56px] xl:text-[60px] 3xl:text-[64px] font-normal text-foreground mb-4">
                 {data?.Title}
               </h1>
-              <p
+              <HTMLWidget
                 className="text-black text-[16px] sm:text-[18px] md:text-[20px] lg:text-[24px] xl:text-[28px] 3xl:text-[32px] font-mulish"
                 // biome-ignore lint/security/noDangerouslySetInnerHtml: Content is sanitized from trusted CMS source
-                dangerouslySetInnerHTML={{ __html: data.Heading || "" }}
-              ></p>
+                content={data.Heading || ""}
+                tag="p"
+              />
             </div>
             <div className="space-y-7">
               <div className="flex items-center gap-2">
@@ -134,7 +175,10 @@ export default function ContactSection({ data }: ContactSectionProps) {
             </div>
           </div>
           <div>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="space-y-6 md:mt-5"
+            >
               <div className="grid grid-cols-2 gap-4">
                 <FormInput
                   name="FirstName"
@@ -147,7 +191,6 @@ export default function ContactSection({ data }: ContactSectionProps) {
                   name="LastName"
                   control={control}
                   placeholder="Last Name"
-                  notRequired
                   className="col-span-1 mt-6"
                 />
               </div>
