@@ -318,7 +318,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
   }, [containerHeights, getBreakpoint]);
 
   return (
-    <section className=" w-full bg-white py-8 md:py-12 lg:py-16 xl:py-16 2xl:py-16 3xl:py-28 ">
+    <section className=" w-full bg-white py-15 md:pt-25 md:pb-10">
       <ContainerWidget>
         <div className="lg:hidden">
           <div className="space-y-4 md:space-y-4 w-full mb-8 md:mb-12">
