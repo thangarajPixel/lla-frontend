@@ -14,6 +14,7 @@ import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import { ArrowDown, ArrowRightWhite, SearchIcon } from "@/helpers/ImageHelper";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 
 interface BlogImage {
   id: number;
@@ -247,17 +248,17 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
       <ContainerWidget>
         <div className="flex flex-col gap-6 md:gap-8 lg:gap-10">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-6">
-            <div className="flex flex-col gap-2 md:gap-3 flex-1">
+            <div className="flex flex-col gap-5 md:gap-3 flex-1">
               <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[64px] font-semibold md:font-normal text-black font-urbanist">
                 {blogData?.Title || ""}
               </h3>
-              <p className="text-[16px] md:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[600px]">
+              <ParagraphWidget className="w-full md:max-w-[600px]">
                 {blogData?.Description || ""}
-              </p>
+              </ParagraphWidget>
             </div>
 
             <div className="w-full md:w-auto md:min-w-[320px] md:shrink-0">
-              <div className="relative">
+              <div className="relative md:mt-20">
                 <div className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400">
                   <ImageWidget
                     src={SearchIcon}
@@ -375,13 +376,13 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                                   )}
                                 </div>
                                 <div className="flex flex-col gap-2">
-                                  <h4 className="font-mulish  3xl:text-[24px] 2xl:text-[20px] xl:text-[18px] lg:text-[16px] md:text-[14px] text-[16px] font-bold text-black leading-tight">
+                                  <h4 className="font-mulish text-[24px]  font-semibold text-black leading-[29px]">
                                     {blog.Title}
                                   </h4>
                                   {blog.Description && (
                                     <HTMLWidget
                                       content={blog.Description}
-                                      className="text-[15px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal line-clamp-2"
+                                      className="text-[16px] lg:text-[16px]  3xl:text-[18px] font-normal text-black leading-normal line-clamp-2"
                                       tag="p"
                                     />
                                   )}
