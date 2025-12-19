@@ -1,9 +1,8 @@
 "use client";
 
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
-import LightboxWidget from "@/components/widgets/LightboxWidget";
-import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 
 type FacilitiesSectionProps = {
@@ -14,12 +13,13 @@ type FacilitiesSectionProps = {
     Card: Array<{
       id: number;
       Title: string;
+      Slug: string | null;
       Image: {
         id: number;
         name: string;
         url: string;
       };
-      Thumbnail?: {
+      Thumbnail: {
         id: number;
         name: string;
         url: string;
@@ -31,124 +31,419 @@ type FacilitiesSectionProps = {
 const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
   const facilitiesData = data?.Card || [];
 
-  const lightboxImages = facilitiesData
-    .filter((facility) => facility?.Image?.url)
-    .map((facility) => ({
-      src: getS3Url(facility.Image.url),
-      alt: facility?.Image?.name || facility?.Title || "",
-    }));
+  const getImageUrl = useCallback(
+    (card: FacilitiesSectionProps["data"]["Card"][0]) => {
+      if (Array.isArray(card.Image)) {
+        return card.Image.length > 0 && card.Image[0]?.url
+          ? getS3Url(card.Image[0].url)
+          : null;
+      }
+      return card.Image?.url ? getS3Url(card.Image.url) : null;
+    },
+    [],
+  );
 
-  const facilityToLightboxIndex = new Map<number, number>();
-  let lightboxIndex = 0;
-  facilitiesData.forEach((facility, index) => {
-    if (facility?.Image?.url) {
-      facilityToLightboxIndex.set(index, lightboxIndex);
-      lightboxIndex++;
-    }
-  });
+  const predefinedPositions: Array<{
+    position: string;
+    container: string;
+    heights: { xl: number; "2xl": number; "3xl": number };
+    tops: { xl: number; "2xl": number; "3xl": number };
+  }> = [
+    {
+      position: "absolute top-0 right-0",
+      container:
+        "relative w-full xl:w-[420px] xl:h-[281px] 2xl:w-[520px] 2xl:h-[381px] 3xl:h-[421px] 3xl:w-[630px] overflow-hidden mb-3 sm:mb-4 border border-white",
+      heights: { xl: 281, "2xl": 381, "3xl": 421 },
+      tops: { xl: 0, "2xl": 0, "3xl": 0 },
+    },
+    {
+      position: "absolute top-[228px] 2xl:top-[248px] left-0",
+      container:
+        "relative w-full xl:w-[290px] xl:h-[183px] 2xl:w-[350px] 2xl:h-[223px] 3xl:h-[273px] 3xl:w-[410px] overflow-hidden mb-3 sm:mb-4 border border-white",
+      heights: { xl: 183, "2xl": 223, "3xl": 273 },
+      tops: { xl: 228, "2xl": 248, "3xl": 248 },
+    },
+    {
+      position: "absolute top-[345px] 2xl:top-[455px] 3xl:top-[525px] right-0",
+      container:
+        "relative w-full xl:w-[332px] xl:h-[221px] 2xl:w-[422px] 2xl:h-[271px] 3xl:h-[291px] 3xl:w-[522px] overflow-hidden mb-3 sm:mb-4 border border-white",
+      heights: { xl: 221, "2xl": 271, "3xl": 291 },
+      tops: { xl: 345, "2xl": 455, "3xl": 525 },
+    },
+    {
+      position: "absolute top-[633px] 2xl:top-[793px] 3xl:top-[923px] right-0",
+      container:
+        "relative w-full xl:w-[332px] xl:h-[260px] 2xl:w-[420px] 2xl:h-[306px] 3xl:h-[346px] 3xl:w-[520px] overflow-hidden mb-3 sm:mb-4 border border-white",
+      heights: { xl: 260, "2xl": 306, "3xl": 346 },
+      tops: { xl: 633, "2xl": 793, "3xl": 923 },
+    },
+    {
+      position:
+        "absolute left-20 top-[460px] 2xl:top-[540px] 2xl:left-[90px] 3xl:top-[610px] 3xl:left-[110px]",
+      container:
+        "relative w-full xl:w-[440px] xl:h-[319px] 2xl:w-[500px] 2xl:h-[379px] 3xl:h-[419px] 3xl:w-[630px] overflow-hidden mb-3 sm:mb-4 border border-white",
+      heights: { xl: 319, "2xl": 379, "3xl": 419 },
+      tops: { xl: 460, "2xl": 540, "3xl": 610 },
+    },
+    {
+      position: "absolute top-[849px] 2xl:top-[996px] 3xl:top-[1126px] left-0",
+      container:
+        "relative w-[425px] h-[295px] 2xl:w-[500px] 2xl:h-[379px] 3xl:h-[419px] 3xl:w-[630px] overflow-hidden mb-3 sm:mb-4 border border-white",
+      heights: { xl: 295, "2xl": 379, "3xl": 419 },
+      tops: { xl: 849, "2xl": 996, "3xl": 1126 },
+    },
+    {
+      position:
+        "absolute top-[960px] 2xl:top-[1168px] 3xl:top-[1368px] right-0",
+      container:
+        "relative w-[425px] h-[295px] 2xl:w-[500px] 2xl:h-[379px] 3xl:h-[419px] 3xl:w-[630px] overflow-hidden mb-3 sm:mb-4 border border-white",
+      heights: { xl: 295, "2xl": 379, "3xl": 419 },
+      tops: { xl: 960, "2xl": 1168, "3xl": 1368 },
+    },
+    {
+      position:
+        "absolute top-[1205px] 2xl:top-[1435px] 3xl:top-[1645px] left-0",
+      container:
+        "relative xl:w-[290px] xl:h-[183px] 2xl:w-[330px] 2xl:h-[207px] 3xl:h-[267px] 3xl:w-[410px] overflow-hidden mb-3 sm:mb-4 border border-white",
+      heights: { xl: 183, "2xl": 207, "3xl": 267 },
+      tops: { xl: 1205, "2xl": 1435, "3xl": 1645 },
+    },
+    {
+      position:
+        "absolute top-[1325px] 2xl:top-[1625px] 3xl:top-[1885px] right-0",
+      container:
+        "relative w-[350px] h-[207px] 2xl:w-[410px] 2xl:h-[297px] 3xl:h-[347px] 3xl:w-[520px] overflow-hidden mb-3 sm:mb-4 border border-white",
+      heights: { xl: 207, "2xl": 297, "3xl": 347 },
+      tops: { xl: 1325, "2xl": 1625, "3xl": 1885 },
+    },
+    {
+      position:
+        "absolute top-[1455px] left-20 2xl:left-[90px] 2xl:top-[1709px] 3xl:top-[2009px] 3xl:left-[110px]",
+      container:
+        "relative w-[420px] h-[250px] 2xl:w-[500px] 2xl:h-[312px] 3xl:h-[392px] 3xl:w-[630px] overflow-hidden mb-3 sm:mb-4 border border-white",
+      heights: { xl: 250, "2xl": 312, "3xl": 392 },
+      tops: { xl: 1455, "2xl": 1709, "3xl": 2009 },
+    },
+    {
+      position:
+        "absolute top-[1595px] 2xl:top-[2016px] 3xl:top-[2366px] right-0",
+      container:
+        "relative w-[270px] h-[189px] 2xl:w-[330px] 2xl:h-[235px] 3xl:h-[275px] 3xl:w-[410px] overflow-hidden mb-3 sm:mb-4 border border-white",
+      heights: { xl: 189, "2xl": 235, "3xl": 275 },
+      tops: { xl: 1595, "2xl": 2016, "3xl": 2366 },
+    },
+    {
+      position:
+        "absolute top-[1759px] 2xl:top-[2089px] 3xl:top-[2499px] left-0",
+      container:
+        "relative w-[270px] h-[189px] 2xl:w-[330px] 2xl:h-[235px] 3xl:h-[275px] 3xl:w-[410px] overflow-hidden mb-3 sm:mb-4 border border-white",
+      heights: { xl: 189, "2xl": 235, "3xl": 275 },
+      tops: { xl: 1759, "2xl": 2089, "3xl": 2499 },
+    },
+    {
+      position:
+        "absolute top-[2005px] 2xl:top-[2385px] 3xl:top-[2855px] left-0",
+      container:
+        "relative w-[270px] h-[189px] 2xl:w-[330px] 2xl:h-[235px] 3xl:h-[275px] 3xl:w-[410px] overflow-hidden mb-3 sm:mb-4 border border-white",
+      heights: { xl: 189, "2xl": 235, "3xl": 275 },
+      tops: { xl: 2005, "2xl": 2385, "3xl": 2855 },
+    },
+    {
+      position:
+        "absolute top-[1850px] right-20 2xl:top-[2310px] 3xl:top-[2730px] 2xl:right-[110px]",
+      container:
+        "relative w-[491px] h-[386px] 2xl:w-[581px] 2xl:h-[416px] 3xl:h-[496px] 3xl:w-[741px] overflow-hidden mb-3 sm:mb-4 border border-white",
+      heights: { xl: 386, "2xl": 416, "3xl": 496 },
+      tops: { xl: 1850, "2xl": 2310, "3xl": 2730 },
+    },
+  ];
 
-  const getDisplayImageUrl = (
-    facility: FacilitiesSectionProps["data"]["Card"][0],
-  ) => {
-    if (facility?.Thumbnail?.url) {
-      return getS3Url(facility.Thumbnail.url);
-    }
-    if (facility?.Image?.url) {
-      return getS3Url(facility.Image.url);
-    }
-    return "";
-  };
+  const facilityPositions = useMemo(() => {
+    const positions: Array<{
+      facility: FacilitiesSectionProps["data"]["Card"][0];
+      position: string;
+      container: string;
+      heights: { xl: number; "2xl": number; "3xl": number };
+      tops: { xl: number; "2xl": number; "3xl": number };
+      left?: number;
+      right?: number;
+      widths?: { xl: number; "2xl": number; "3xl": number };
+    }> = [];
+
+    const maxPredefinedCount = 14;
+
+    const sizePatterns = [
+      { width: 420, height: 281, left: undefined, right: 0 },
+      { width: 290, height: 183, left: 0, right: undefined },
+      { width: 332, height: 221, left: undefined, right: 0 },
+      { width: 440, height: 319, left: 80, right: undefined },
+      { width: 425, height: 295, left: 0, right: undefined },
+      { width: 425, height: 295, left: undefined, right: 0 },
+      { width: 350, height: 207, left: undefined, right: 0 },
+      { width: 420, height: 250, left: 80, right: undefined },
+      { width: 270, height: 189, left: undefined, right: 0 },
+      { width: 270, height: 189, left: 0, right: undefined },
+      { width: 491, height: 386, left: undefined, right: 80 },
+    ];
+
+    let maxPredefinedBottomXl = 0;
+    predefinedPositions.forEach((pos) => {
+      const bottomXl = pos.tops.xl + pos.heights.xl;
+      if (bottomXl > maxPredefinedBottomXl) {
+        maxPredefinedBottomXl = bottomXl;
+      }
+    });
+
+    const titleHeight = 50;
+    let currentTop = maxPredefinedBottomXl + titleHeight + 40;
+    const verticalSpacing = 80;
+    let patternIndex = 0;
+    let facilityIndex = 0;
+
+    facilitiesData.forEach((facility) => {
+      const imageUrl = getImageUrl(facility);
+      if (!imageUrl) return;
+
+      if (
+        facilityIndex < maxPredefinedCount &&
+        facilityIndex < predefinedPositions.length
+      ) {
+        const predefined = predefinedPositions[facilityIndex];
+        positions.push({
+          facility,
+          ...predefined,
+        });
+      } else {
+        const pattern = sizePatterns[patternIndex % sizePatterns.length];
+        patternIndex++;
+
+        positions.push({
+          facility,
+          position: "absolute",
+          container: `relative overflow-hidden mb-3 sm:mb-4 border border-white`,
+          heights: {
+            xl: pattern.height,
+            "2xl": Math.round(pattern.height * 1.2),
+            "3xl": Math.round(pattern.height * 1.4),
+          },
+          tops: {
+            xl: currentTop,
+            "2xl": currentTop + 50,
+            "3xl": currentTop + 100,
+          },
+          left: pattern.left,
+          right: pattern.right,
+          widths: {
+            xl: pattern.width,
+            "2xl": Math.round(pattern.width * 1.2),
+            "3xl": Math.round(pattern.width * 1.4),
+          },
+        });
+
+        currentTop += pattern.height + titleHeight + verticalSpacing;
+      }
+
+      facilityIndex++;
+    });
+
+    return positions;
+  }, [facilitiesData, getImageUrl]);
+
+  const containerHeights = useMemo(() => {
+    const calculateMaxHeight = (breakpoint: "xl" | "2xl" | "3xl") => {
+      if (facilityPositions.length === 0) return 0;
+
+      let maxBottom = 0;
+      const titleHeight = 50;
+      facilityPositions.forEach((f) => {
+        const top = f.tops?.[breakpoint] ?? f.tops?.xl ?? 0;
+        const height = f.heights?.[breakpoint] ?? f.heights?.xl ?? 0;
+        const bottom = top + height + titleHeight;
+        if (bottom > maxBottom) {
+          maxBottom = bottom;
+        }
+      });
+
+      return maxBottom + 80;
+    };
+
+    return {
+      xl: calculateMaxHeight("xl"),
+      "2xl": calculateMaxHeight("2xl"),
+      "3xl": calculateMaxHeight("3xl"),
+    };
+  }, [facilityPositions]);
+
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 1280,
+  );
+
+  useEffect(() => {
+    const updateWidth = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
+  }, []);
+
+  const getBreakpoint = useCallback((): "xl" | "2xl" | "3xl" => {
+    if (windowWidth >= 1920) return "3xl";
+    if (windowWidth >= 1536) return "2xl";
+    if (windowWidth >= 1280) return "xl";
+    return "xl";
+  }, [windowWidth]);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const updateHeight = () => {
+      if (!containerRef.current) return;
+      const breakpoint = getBreakpoint();
+      const height = containerHeights[breakpoint] ?? containerHeights.xl ?? 0;
+      containerRef.current.style.minHeight =
+        height > 0 ? `${height}px` : "auto";
+    };
+
+    updateHeight();
+    const timeoutId = setTimeout(updateHeight, 100);
+    window.addEventListener("resize", updateHeight);
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener("resize", updateHeight);
+    };
+  }, [containerHeights, getBreakpoint]);
 
   return (
-    <section className="w-full bg-white py-8 md:py-12 lg:py-16 xl:py-16 2xl:py-16 3xl:py-28 relative z-20">
+    <section className=" w-full bg-white py-8 md:py-12 lg:py-16 xl:py-16 2xl:py-16 3xl:py-28 ">
       <ContainerWidget>
-        <div className="space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12 2xl:space-y-14 3xl:space-y-16">
-          <ScrollWidget animation="fadeUp" delay={0.1}>
-            <div className="space-y-4 md:space-y-4 w-full md:max-w-[650px]">
-              <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[64px] font-semibold md:font-normal text-black font-urbanist">
-                {data?.Title}
-              </h2>
-              <p className="font-area-variable font-normal text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-[32px] 2xl:text-[34px] 3xl:text-[40px] text-black font-mulish">
-                {data?.Heading}{" "}
-                {data?.SubHeading && (
-                  <span className="text-[#E97451]">{data.SubHeading}</span>
+        <div className="lg:hidden">
+          <div className="space-y-4 md:space-y-4 w-full mb-8 md:mb-12">
+            <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl font-semibold md:font-normal text-black font-urbanist">
+              {data?.Title}
+            </h2>
+            <p className="font-area-variable font-normal text-lg xss:text-[24px] md:text-lg lg:text-xl text-black font-mulish">
+              {data?.Heading}{" "}
+              {data?.SubHeading && (
+                <span className="text-[#E97451]">{data.SubHeading}</span>
+              )}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+            {facilitiesData.map((facility) => {
+              const imageUrl = getImageUrl(facility);
+              if (!imageUrl) return null;
+
+              return (
+                <div key={facility.id} className="flex flex-col">
+                  <div className="relative w-full aspect-4/3 overflow-hidden mb-3 sm:mb-4 border border-white">
+                    <ImageWidget
+                      src={imageUrl}
+                      alt={facility.Title || "Facility"}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  {facility.Title && (
+                    <h4 className="text-left font-mulish font-bold text-black text-sm xss:text-[20px] sm:text-base md:text-lg leading-tight">
+                      {facility.Title}
+                    </h4>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div
+          ref={containerRef}
+          className="hidden lg:block relative"
+          style={{
+            minHeight:
+              (containerHeights.xl ?? 0) > 0
+                ? `${containerHeights.xl}px`
+                : "auto",
+          }}
+        >
+          <div className="space-y-4 md:space-y-4 w-full xl:max-w-[430px] 2xl:max-w-[510px] 3xl:max-w-[650px]">
+            <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[64px] font-semibold md:font-normal text-black font-urbanist">
+              {data?.Title}
+            </h2>
+            <p className="font-area-variable font-normal text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-[32px] 2xl:text-[34px] 3xl:text-[40px] text-black font-mulish">
+              {data?.Heading}{" "}
+              {data?.SubHeading && (
+                <span className="text-[#E97451]">{data.SubHeading}</span>
+              )}
+            </p>
+          </div>
+
+          {facilityPositions.map((facilityPos, index) => {
+            const imageUrl = getImageUrl(facilityPos.facility);
+            if (!imageUrl) return null;
+
+            const isPredefined =
+              facilityPos.position.includes("top-") ||
+              facilityPos.position.includes("left-") ||
+              facilityPos.position.includes("right-");
+
+            let dynamicStyle: React.CSSProperties = {};
+            let containerStyle: React.CSSProperties = {};
+
+            if (!isPredefined) {
+              const breakpoint = getBreakpoint();
+              const currentTop =
+                facilityPos.tops?.[breakpoint] ?? facilityPos.tops?.xl ?? 0;
+              const currentHeight =
+                facilityPos.heights?.[breakpoint] ??
+                facilityPos.heights?.xl ??
+                0;
+              const currentWidth = facilityPos.widths?.[breakpoint];
+
+              dynamicStyle = {
+                top: `${currentTop}px`,
+                ...(facilityPos.left !== undefined && {
+                  left: `${facilityPos.left}px`,
+                }),
+                ...(facilityPos.right !== undefined && {
+                  right: `${facilityPos.right}px`,
+                }),
+              };
+
+              containerStyle = {
+                height: `${currentHeight}px`,
+                ...(currentWidth && { width: `${currentWidth}px` }),
+              };
+            }
+
+            return (
+              <div
+                key={facilityPos.facility.id || index}
+                className={facilityPos.position}
+                style={isPredefined ? undefined : dynamicStyle}
+              >
+                <div
+                  className={facilityPos.container}
+                  style={isPredefined ? undefined : containerStyle}
+                >
+                  <ImageWidget
+                    src={imageUrl}
+                    alt={facilityPos.facility.Title || "Facility"}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                {facilityPos.facility.Title && (
+                  <h4 className="text-left font-mulish font-bold text-black text-sm xss:text-[20px] sm:text-base md:text-lg lg:text-[18px] 2xl:text-[18px] 3xl:text-[24px] leading-tight -mb-2">
+                    {facilityPos.facility.Title}
+                  </h4>
                 )}
-              </p>
-            </div>
-          </ScrollWidget>
-
-          <LightboxWidget images={lightboxImages}>
-            {(openLightbox) => (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                {facilitiesData.map((facility, index) => {
-                  const lightboxIndex = facilityToLightboxIndex.get(index);
-
-                  return (
-                    <ScrollWidget
-                      key={facility.id || index}
-                      animation="fadeUp"
-                      delay={0.1 * (index + 1)}
-                    >
-                      <div className="flex flex-col items-start">
-                        <div
-                          {...(facility?.Image?.url
-                            ? {
-                                role: "button",
-                                tabIndex: 0,
-                                onClick: (
-                                  e: React.MouseEvent<HTMLDivElement>,
-                                ) => {
-                                  e.preventDefault();
-                                  e.stopPropagation();
-                                  if (
-                                    lightboxIndex !== undefined &&
-                                    facility?.Image?.url
-                                  ) {
-                                    openLightbox(lightboxIndex);
-                                  }
-                                },
-                                onKeyDown: (
-                                  e: React.KeyboardEvent<HTMLDivElement>,
-                                ) => {
-                                  if (
-                                    (e.key === "Enter" || e.key === " ") &&
-                                    lightboxIndex !== undefined &&
-                                    facility?.Image?.url
-                                  ) {
-                                    e.preventDefault();
-                                    openLightbox(lightboxIndex);
-                                  }
-                                },
-                              }
-                            : {})}
-                          className={`relative w-full min-h-[240px] max-h-[280px] 3xl:w-[410px] 3xl:h-[280px] 3xl:aspect-auto overflow-hidden mb-3 sm:mb-4 border border-white ${
-                            facility?.Image?.url
-                              ? "cursor-pointer hover:opacity-90 transition-opacity"
-                              : ""
-                          }`}
-                        >
-                          <ImageWidget
-                            src={getDisplayImageUrl(facility)}
-                            alt={
-                              facility?.Thumbnail?.name ||
-                              facility?.Image?.name ||
-                              facility?.Title ||
-                              ""
-                            }
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
-                        <h4 className="text-left font-mulish font-bold text-black text-sm xss:text-[20px] sm:text-base md:text-lg lg:text-[18px] 2xl:text-[18px] 3xl:text-[24px] leading-tight -mb-2">
-                          {facility?.Title}
-                        </h4>
-                      </div>
-                    </ScrollWidget>
-                  );
-                })}
               </div>
-            )}
-          </LightboxWidget>
+            );
+          })}
         </div>
       </ContainerWidget>
     </section>
