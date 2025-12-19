@@ -71,7 +71,9 @@ const TestimonialSection = ({ data }: TestimonialSectionProps) => {
               {sectionData?.SubHeading ? (
                 <p className="font-area-variable font-semibold text-[24px] md:text-[28px] 3xl:text-[40px] text-black leading-tight">
                   {sectionData?.Heading}{" "}
-                  <span className="text-[#E97451]">{sectionData.SubHeading}</span>
+                  <span className="text-[#E97451]">
+                    {sectionData.SubHeading}
+                  </span>
                 </p>
               ) : (
                 <HTMLWidget
