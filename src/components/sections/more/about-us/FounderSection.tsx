@@ -3,6 +3,7 @@ import { useState } from "react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import TeamMemberPopup from "./Team";
@@ -80,12 +81,12 @@ const FounderSection = ({ data }: FounderSectionProps) => {
                 <h4 className="font-urbanist  font-normal text-[#E97451]  hidden md:block  text-[24px]  xs:text-[26px] sm:text-[26px] md:text-[28px] lg:text-[28px] xl:text-[32px] 2xl:text-[36px] 3xl:text-[40px] ">
                   {data.Founder_card[0].Heading}
                 </h4>
-                <p className="font-mulish text-[16px] md:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal">
+                <ParagraphWidget>
                   {data.Founder_card[0].Description[0].children[0].text}
-                </p>
-                <p className="font-mulish text-[16px] md:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal">
+                </ParagraphWidget>
+                <ParagraphWidget>
                   {data.Founder_card[0].Description[1].children[0].text ?? ""}
-                </p>
+                </ParagraphWidget>
                 <OrangeButtonWidget
                   content={data.Founder_card[0].Btn_txt ?? ""}
                   onClick={() => handleKnowMore(data.Founder_card[0].id)}
@@ -139,12 +140,12 @@ const FounderSection = ({ data }: FounderSectionProps) => {
                 <h4 className="font-urbanist font-normal text-[#E97451]  hidden md:block text-[24px] xs:text-[26px] sm:text-[26px]  md:text-[28px] lg:text-[28px]  xl:text-[32px] 2xl:text-[36px] 3xl:text-[40px] ">
                   {data.Founder_card[1].Heading}
                 </h4>
-                <p className="font-mulish text-[16px] md:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal">
+                <ParagraphWidget>
                   {data.Founder_card[1].Description[0].children[0].text}
-                </p>
-                <p className="font-mulish text-[16px] md:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal">
+                </ParagraphWidget>
+                <ParagraphWidget>
                   {data.Founder_card[1].Description[1].children[0].text ?? ""}
-                </p>
+                </ParagraphWidget>
                 <OrangeButtonWidget
                   content={data.Founder_card[1].Btn_txt}
                   onClick={() => handleKnowMore(data.Founder_card[1].id)}
