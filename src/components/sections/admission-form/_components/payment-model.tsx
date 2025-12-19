@@ -2,15 +2,12 @@
 
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
-import { useRouter } from "next/navigation";
 import type {
-  // PaymentData,
+  PaymentData,
   PaymentResponse,
 } from "@/components/sections/admission-form/_steps/preview-form";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
-
-// import { clientAxios } from "@/helpers/AxiosHelper";
 
 type PaymentPopupProps = {
   isOpen: boolean;
@@ -27,29 +24,25 @@ const PaymentModel = ({
   amount,
   gstRate,
   total,
-  // paymentDetails,
+  paymentDetails,
 }: PaymentPopupProps) => {
-  const router = useRouter();
   const handlePayment = async () => {
-    // const formData = new FormData();
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = paymentDetails?.checkoutUrl ?? "";
 
-    // Object.entries(paymentDetails?.data as PaymentData).forEach(
-    //   ([key, value]) => {
-    //     if (value !== undefined && value !== null) {
-    //       formData.append(key, String(value));
-    //     }
-    //   },
-    // );
-
-    // await clientAxios.post(paymentDetails?.checkoutUrl ?? "", formData, {
-    //   headers: {
-    //     "Content-Type": "multipart/form-data",
-    //   },
-    // });
-
-    router.push(
-      "https://apitest.payu.in/public/#/80bd38f784d1eedd4df21105f729f5d5b4d09c6eba0b0feb3b2dd2573bf12cd7/paymentoptions",
+    Object.entries(paymentDetails?.data as PaymentData).forEach(
+      ([key, value]) => {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = key;
+        input.value = String(value);
+        form.appendChild(input);
+      },
     );
+
+    document.body.appendChild(form);
+    form.submit();
   };
 
   return (
@@ -73,7 +66,7 @@ const PaymentModel = ({
             </button>
           </div>
 
-          <div className="mb-8 h-px bg-gradient-to-r from-[#E87A6C] to-[#F4A79D]" />
+          <div className="mb-8 h-px bg-linear-to-r from-[#E87A6C] to-[#F4A79D]" />
 
           <div className="mb-8">
             <p className="3xl:text-lg text-gray-600">
@@ -94,13 +87,6 @@ const PaymentModel = ({
             </p>
           </div>
 
-          {/* <Button
-                        onClick={handlePayment}
-                        className="h-14 rounded-full bg-[#E87A6C] px-8 text-base font-medium text-white transition-colors hover:bg-[#d66b5e]"
-                    >
-                        Go to Payment
-                        <ArrowRight className="ml-2 h-5 w-5" />
-                    </Button> */}
           <OrangeButtonWidget
             content="Go to Payment"
             className="3xl:px-4"

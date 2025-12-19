@@ -121,7 +121,7 @@ export function EducationDetails({
       {pgDegrees?.map((degree, index) => (
         <div
           key={degree.id ?? index}
-          className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2 items-end"
+          className="relative grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2 items-end"
         >
           <FormInput
             name={`Post_Graduate.${index}.degree`}
@@ -130,6 +130,7 @@ export function EducationDetails({
             control={control}
             notRequired={true}
           />
+
           <FormRadioGroup
             name={`Post_Graduate.${index}.pg_status`}
             control={control}
@@ -142,7 +143,7 @@ export function EducationDetails({
             <Button
               type="button"
               onClick={() => removePgDegree(index)}
-              className="flex items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
+              className="absolute top-0 right-0 flex items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
             >
               <X className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
             </Button>

@@ -17,7 +17,10 @@ export const contactSchema = z.object({
   FirstName: z.string().min(1, "First name is required"),
   LastName: z.string().min(0, "Last name is required"),
   Email: z.string().email("Invalid email address"),
-  Mobile: z.string().min(10, "Phone number is required"),
+  Mobile: z
+    .string()
+    .min(1, "Phone number is required")
+    .regex(/^[6-9]\d{9}$/, "Enter a valid phone number"),
   Message: z.string().min(0, "Message must be at least 10 characters"),
 });
 
@@ -163,6 +166,7 @@ export default function ContactSection({ data }: ContactSectionProps) {
                   restrictionType="text"
                   placeholder="Enter your phone number"
                   label="Phone Number"
+                  maxLength={10}
                 />
               </div>
 
