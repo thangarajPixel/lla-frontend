@@ -11,11 +11,11 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
+import { toast } from "sonner";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import { validateDimensions } from "@/helpers/ConstantHelper";
 import { UploadIconImg } from "@/helpers/ImageHelper";
 import { cn } from "@/lib/utils";
-import { toast } from "sonner";
 
 type FileUploadButtonProps = {
   placeholder?: string;
@@ -131,9 +131,7 @@ export function FileUploadButton({
     setSelectedFile(file);
   };
 
-  const handleFileChange = async (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -174,8 +172,7 @@ export function FileUploadButton({
       const url = URL.createObjectURL(file);
       setPreview(url);
       onUpload?.(file);
-    }
-    else {
+    } else {
       setPreview(generateDocumentPreview(file));
       onUpload?.(file);
     }
@@ -183,16 +180,16 @@ export function FileUploadButton({
     setSelectedFile(file);
   };
 
-
   return (
     <div className="space-y-1">
       <button
         type="button"
         onClick={() => inputRef.current?.click()}
-        className={`flex items-center justify-center gap-2 w-full py-2 cursor-pointer rounded-lg transition-colors ${variant === "light"
-          ? "border border-border text-muted-foreground hover:bg-muted"
-          : "bg-gray-100 border border-[#969696]"
-          } ${inputClassName}`}
+        className={`flex items-center justify-center gap-2 w-full py-2 cursor-pointer rounded-lg transition-colors ${
+          variant === "light"
+            ? "border border-border text-muted-foreground hover:bg-muted"
+            : "bg-gray-100 border border-[#969696]"
+        } ${inputClassName}`}
       >
         <ImageWidget
           src={UploadIconImg}
@@ -231,7 +228,7 @@ export function FileUploadButton({
             </div>
           ) : (
             <div className="text-muted-foreground mt-2">
-              {(selectedFile) &&
+              {selectedFile &&
                 getFileIcon(selectedFile?.type ?? defaultValue?.mime ?? "")}
             </div>
           ))}

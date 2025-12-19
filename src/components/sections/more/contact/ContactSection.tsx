@@ -106,7 +106,6 @@ export default function ContactSection({ data }: ContactSectionProps) {
               </h1>
               <HTMLWidget
                 className="text-black text-[16px] sm:text-[18px] md:text-[20px] lg:text-[24px] xl:text-[28px] 3xl:text-[32px] font-mulish"
-                // biome-ignore lint/security/noDangerouslySetInnerHtml: Content is sanitized from trusted CMS source
                 content={data.Heading || ""}
                 tag="p"
               />

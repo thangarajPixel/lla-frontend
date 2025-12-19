@@ -25,6 +25,7 @@ export const UploadArea = ({ onFilesSelected }: UploadAreaProps) => {
 
   return (
     <div
+      aria-hidden
       onDragOver={(e) => e.preventDefault()}
       onDrop={handleDrop}
       className="border-2 border-dashed rounded-xl p-12 flex flex-col items-center gap-4 bg-card hover:border-primary/50"

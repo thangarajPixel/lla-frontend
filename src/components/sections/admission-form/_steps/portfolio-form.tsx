@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import type z from "zod";
 
@@ -112,7 +112,10 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
     const uploadFiles = validFiles.slice(0, remainingSlots);
 
     const formData = new FormData();
-    uploadFiles.forEach((file) => formData.append("files", file));
+
+    for (const file of uploadFiles) {
+      formData.append("files", file);
+    }
 
     try {
       const { data } = await axios.post(
@@ -123,11 +126,10 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
       const currentHf = getValues("Upload_Your_Portfolio.images") ?? [];
       const uploadedIds = data.map((u: UploadRes) => ({ id: u.id }));
 
-      setValue(
-        "Upload_Your_Portfolio.images",
-        [...currentHf, ...uploadedIds],
-        { shouldDirty: true, shouldValidate: true },
-      );
+      setValue("Upload_Your_Portfolio.images", [...currentHf, ...uploadedIds], {
+        shouldDirty: true,
+        shouldValidate: true,
+      });
 
       const previewImages: UploadedImage[] = uploadFiles.map((file) => ({
         id: crypto.randomUUID(),
@@ -175,24 +177,27 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
 
   return (
     <FormProvider {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className="bg-background py-8 px-2">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="bg-background py-8 px-2"
+      >
         <h1 className="text-2xl text-[#E97451] font-urbanist mb-8">
           Upload Your Portfolio
         </h1>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-12">
           <div>
-            <label className="block text-sm mb-4">
+            <label htmlFor="images" className="block text-sm mb-4">
               Upload Images<span className="text-destructive">*</span>
             </label>
 
             <UploadArea onFilesSelected={handleFilesSelected} />
 
             <p className="text-xs text-muted-foreground mt-2">
-              20 of your best images showcasing your work and creativity.
-              Please note that the objective is to assess your photography
-              vision. We are not looking for technically advanced images.
-              Please include a variety of subjects.
+              20 of your best images showcasing your work and creativity. Please
+              note that the objective is to assess your photography vision. We
+              are not looking for technically advanced images. Please include a
+              variety of subjects.
             </p>
 
             {errors.Upload_Your_Portfolio?.images && (
@@ -223,8 +228,8 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
             className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-xs 2xl:text-[14px] 3xl:text-[18px]"
           />
         </div>
-    </form>
-    </FormProvider >
+      </form>
+    </FormProvider>
   );
 };
 
