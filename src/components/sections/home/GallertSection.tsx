@@ -150,7 +150,7 @@ const GallertSection = ({ data }: GallerySectionProps) => {
   if (data?.Image?.length === 0) return null;
   return (
     <section className="w-full py-8 md:py-12 lg:py-16 xl:py-24 2xl:py-24 3xl:py-38 max-w-[1920px] mx-auto lg:w-[90vw]">
-      <div className="mb-6 md:hidden text-left pl-5 lg:text-center lg:pl-0">
+      <div className="mb-6 lg:hidden text-left pl-5 lg:text-center lg:pl-0">
         <h2 className="text-3xl xss:text-[32px] font-normal text-black font-urbanist mb-2">
           {data.Title}
         </h2>
@@ -159,7 +159,7 @@ const GallertSection = ({ data }: GallerySectionProps) => {
           className="font-area-variable font-semibold text-base xss:text-[24px] text-black"
           tag="p"
         />
-        <div className="mt-6 text-left lg:text-center md:hidden">
+        <div className="mt-6 text-left lg:text-center lg:hidden">
           <LinkWidget href="/gallery" className="w-full">
             <OrangeButtonWidget content={data.Btn_txt} />
           </LinkWidget>

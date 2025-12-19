@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import AboutSection from "@/components/sections/home/AboutSection";
 import CampusSection from "@/components/sections/home/CampusSection";
 import CourseSection from "@/components/sections/home/CourseSection";
@@ -16,20 +15,18 @@ const Home = async () => {
 
   if (response?.Home)
     return (
-      <Fragment>
-        <div className="overflow-hidden">
-          <HeroSection data={response?.Home?.[0]} />
-          <CourseSection data={response?.Home?.[1]} />
-          <CampusSection data={response?.Home?.[2]} />
-          <FacultySection data={response?.Home?.[3]} />
-          <LifeSection data={response?.Home?.[4]} />
-          <StudentSection data={response?.Home?.[5]} />
-          <TestimonialSection data={response?.Home?.[6]} />
-          <GallertSection data={response?.Home?.[7]} />
-          <AboutSection data={response?.Home?.[8]} />
-          <SponsorsSection data={response?.Home?.[9]} />
-        </div>
-      </Fragment>
+      <div className="overflow-hidden">
+        <HeroSection data={response?.Home?.[0]} />
+        <CourseSection data={response?.Home?.[1]} />
+        <CampusSection data={response?.Home?.[2]} />
+        <FacultySection data={response?.Home?.[3]} />
+        <LifeSection data={response?.Home?.[4]} />
+        <StudentSection data={response?.Home?.[5]} />
+        <TestimonialSection data={response?.Home?.[6]} />
+        <GallertSection data={response?.Home?.[7]} />
+        <AboutSection data={response?.Home?.[8]} />
+        <SponsorsSection data={response?.Home?.[9]} />
+      </div>
     );
 };
 

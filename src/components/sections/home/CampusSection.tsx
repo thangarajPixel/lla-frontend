@@ -2,6 +2,7 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import type { CampusSectionProps } from "./utils/home";
@@ -27,9 +28,9 @@ const CampusSection = ({ data }: CampusSectionProps) => {
                 className="font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black"
                 tag="p"
               />
-              <p className="text-[16px] lg:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[600px]">
+              <ParagraphWidget className="w-full md:max-w-[600px]">
                 {data.Description}
-              </p>
+              </ParagraphWidget>
               {data.Btn_txt && (
                 <LinkWidget href="/campus" className="w-full">
                   <OrangeButtonWidget content={data.Btn_txt} />

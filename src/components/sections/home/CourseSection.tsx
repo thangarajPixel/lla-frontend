@@ -6,6 +6,7 @@ import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
@@ -79,12 +80,12 @@ const CourseSection = ({ data }: CourseSectionProps) => {
             </h2>
             <HTMLWidget
               content={data.Heading}
-              className="font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black"
+              className="font-area-variable font-semibold text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black"
               tag="p"
             />
-            <p className="text-[16px] lg:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[700px]">
+            <ParagraphWidget className="w-full md:max-w-[750px]">
               {data.Description}
-            </p>
+            </ParagraphWidget>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-7 2xl:gap-6">
             {data?.Card?.map((card, index) => {
@@ -131,9 +132,7 @@ const CourseSection = ({ data }: CourseSectionProps) => {
                       <h3 className="text-xl xss:text-[24px] md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[32px] 3xl:text-[40px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
                         {card.Title}
                       </h3>
-                      <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
-                        {card.Description}
-                      </p>
+                      <ParagraphWidget>{card.Description}</ParagraphWidget>
                       {card.Btn_txt !== null && (
                         <div className="self-start flex gap-4">
                           <LinkWidget href={`/courses/${card.Slug}`}>

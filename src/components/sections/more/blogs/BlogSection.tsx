@@ -187,7 +187,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
         searchTimeoutRef.current = null;
       }
     };
-  }, [searchQuery, searchTotal, handleSearch, clearSearch]);
+  }, [searchQuery, clearSearch, handleSearch, searchTotal]);
 
   const loadMore = async () => {
     if (loading || blogCards.length >= total) return;
