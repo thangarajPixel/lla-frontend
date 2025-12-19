@@ -7,6 +7,7 @@ import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import { Life, LifeMobile } from "@/helpers/ImageHelper";
@@ -26,9 +27,9 @@ const LifeCard = ({ card }: LifeCardProps) => (
           className="object-cover 3xl:max-w-[252px] 3xl:max-h-[168.79px]"
         />
       </div>
-      <p className="text-sm xss:text-[16px] sm:text-base lg:text-[15px] 2xl:text-[16px] 3xl:text-[18px] font-normal text-black leading-normal line-clamp-2">
+      <ParagraphWidget className="line-clamp-2">
         {card.Description}
-      </p>
+      </ParagraphWidget>
     </div>
   </LinkWidget>
 );
@@ -79,18 +80,18 @@ const LifeSection = ({ data }: LifeSectionProps) => {
         <ContainerWidget>
           <div className="flex flex-col md:flex-row gap-4 sm:gap-5 md:gap-6 lg:gap-6 xl:gap-8 2xl:gap-8 3xl:gap-10">
             <div className="w-full md:w-auto md:min-w-[350px] lg:min-w-[400px] 2xl:min-w-[500px] 3xl:min-w-[550px]">
-              <div className="flex flex-col gap-3.5 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-4 2xl:gap-6 3xl:gap-8">
+              <div className="flex flex-col gap-2.5 sm:gap-4.5">
                 <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
                   {data.Title}
                 </h3>
                 <HTMLWidget
                   content={data.Heading}
-                  className="3xl:max-w-[520px]  font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black"
+                  className="font-area-variable font-area-variable font-semibold text-[24px] md:text-[28px] 3xl:text-[40px] text-black leading-tight"
                   tag="p"
                 />
-                <p className="text-[16px] lg:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[650px]">
+                <ParagraphWidget className="w-full md:max-w-[650px]">
                   {data.Description}
-                </p>
+                </ParagraphWidget>
                 <div className="self-start">
                   <LinkWidget href="/more/life-at-lla">
                     <OrangeButtonWidget content={data.Btn_txt} />

@@ -7,6 +7,7 @@ import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import type { FacultySectionProps } from "./utils/home";
@@ -34,19 +35,19 @@ const FacultySection = ({ data }: FacultySectionProps) => {
     <section className="w-full py-8 md:py-12 lg:pt-16 xl:pt-20 2xl:pt-24 3xl:pt-28 bg-white mx-auto max-w-[1920px]">
       <ContainerWidget>
         <ScrollWidget animation="fadeUp" delay={0.1}>
-          <div className="flex flex-col justify-start md:justify-center items-start md:items-center text-left md:text-center gap-3 md:gap-4.5">
+          <div className="flex flex-col justify-start md:justify-center items-start md:items-center text-left md:text-center gap-2.5 md:gap-4.5">
             <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
               {data.Title}
             </h2>
             <HTMLWidget
               content={data.Heading}
-              className="max-w-[700px] font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black"
+              className="font-area-variable font-semibold text-[24px] md:text-[28px] 3xl:text-[40px] text-black leading-tight"
               tag="p"
             />
-            <p className="text-[16px] lg:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[700px]">
+            <ParagraphWidget className="w-full md:max-w-[700px]">
               {data.Description}
-            </p>
-            <LinkWidget href="/faculty" className="w-full">
+            </ParagraphWidget>
+            <LinkWidget href="/faculty" className="w-full mt-3 sm:mt-0">
               <OrangeButtonWidget content={data.Btn_txt} />
             </LinkWidget>
           </div>
@@ -73,9 +74,9 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                   <h3 className="font-mulish text-lg xss:text-[16px] sm:text-xl font-bold text-black font-urbanist leading-tight truncate">
                     {faculty.Title}
                   </h3>
-                  <p className="text-sm sm:text-base font-normal xss:text-[16px] text-black leading-relaxed line-clamp-2 overflow-hidden text-ellipsis">
+                  <ParagraphWidget className="line-clamp-2 overflow-hidden text-ellipsis">
                     {faculty.Description}
-                  </p>
+                  </ParagraphWidget>
                   <div className="self-start mt-auto">
                     <LinkWidget
                       href={`/photography/${faculty.Slug}`}
@@ -137,9 +138,7 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                         {faculty.Title}
                       </h3>
                       <div className="opacity-0 transition-all duration-500 ease-in-out delay-200 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2">
-                        <p className="text-[16px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal">
-                          {faculty.Description}
-                        </p>
+                        <ParagraphWidget>{faculty.Description}</ParagraphWidget>
                         <div className="self-start mt-3">
                           <LinkWidget
                             href={`/photography/${faculty.Slug}`}

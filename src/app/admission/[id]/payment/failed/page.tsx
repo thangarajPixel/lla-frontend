@@ -21,7 +21,7 @@ const PaymentFailedPage = () => {
   
         const data = {
           step_3: true,
-          Payment_Status: "Failed",
+          Payment_Status: "UnPaid",
         };
   
         try {

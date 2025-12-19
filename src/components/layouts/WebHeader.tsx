@@ -129,20 +129,20 @@ const WebHeader = ({
     >
       <nav>
         <ContainerWidget>
-          <div className="flex items-center justify-between py-5 pt-3.5!">
+          <div className="flex items-center justify-between md:gap-6 py-5 pt-3.5!">
             <LinkWidget href="/">
               <ImageWidget
                 src={isHomePage ? (isSticky ? LogoBlack : Logo) : LogoBlack}
                 alt="Logo"
                 className={
                   isSticky
-                    ? "mt-2 md:mt-0 w-60 md:w-80 3xl:w-[341.26px] 3xl:h-[69px] h-auto relative"
-                    : "mt-2 md:mt-0 w-60 md:w-80 3xl:w-[341.26px] 3xl:h-[69px] h-auto relative md:top-0"
+                    ? "mt-2 md:mt-0 w-60 md:w-80 2xxl:w-[341.26px] 2xxl:h-[69px] h-auto relative"
+                    : "mt-2 md:mt-0 w-60 md:w-80 2xxl:w-[341.26px] 2xxl:h-[69px] h-auto relative md:top-0"
                 }
               />
             </LinkWidget>
 
-            <ul className="hidden lg:flex items-center gap-7 lg:gap-[14px] xl:gap-[18px] 2xl:gap-[46px] text-[14px] 2xl:text-[14px] 3xl:text-[18px]">
+            <ul className="hidden lg:flex items-center text-[14px] 2xxl:text-[18px] 3xl:text-[18px] gap-4 md:gap-10">
               {menuItems.map((item) => {
                 if (isDropdown(item)) {
                   const menuId = item.label.toLowerCase();
