@@ -85,7 +85,11 @@ const AccordionWidget = ({
             {item.title}
           </AccordionTrigger>
           <AccordionContent className={cn("text-black", item.contentClassName)}>
-            <HTMLWidget content={item.content as string} tag="div" />
+            <HTMLWidget
+              content={item.content as string}
+              tag="div"
+              className="text-[16px] leading-[24px]!"
+            />
           </AccordionContent>
         </AccordionItem>
       ))
@@ -114,11 +118,15 @@ const AccordionWidget = ({
                 </AccordionTrigger>
                 <AccordionContent
                   className={cn(
-                    "text-black bg-white text-[17px] mb-5 px-4 pb-3 pt-1",
+                    "text-black bg-white text-[17px] mb-5 px-4 pb-5 pt-1",
                     item.contentClassName,
                   )}
                 >
-                  <HTMLWidget content={item.content as string} tag="div" />
+                  <HTMLWidget
+                    content={item.content as string}
+                    tag="div"
+                    className="text-[16px] leading-[24px]!"
+                  />
                 </AccordionContent>
               </AccordionItem>
             ))}
@@ -142,7 +150,11 @@ const AccordionWidget = ({
                     item.contentClassName,
                   )}
                 >
-                  <HTMLWidget content={item.content as string} tag="div" />
+                  <HTMLWidget
+                    content={item.content as string}
+                    tag="div"
+                    className="text-[16px] leading-[24px]!"
+                  />
                 </AccordionContent>
               </AccordionItem>
             ))}

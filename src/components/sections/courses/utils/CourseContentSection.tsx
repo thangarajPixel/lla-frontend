@@ -1,5 +1,6 @@
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import ImageLayout from "./ImageLayout";
 import type { CourseContentData, ImageData } from "./types";
@@ -89,20 +90,18 @@ const CourseContentSection = ({ data }: { data: CourseContentData }) => {
         <ScrollWidget animation="fadeUp">
           <div className="space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12 2xl:space-y-14 3xl:space-y-16 mb-12">
             <div className="space-y-2 md:space-y-3 lg:space-y-4">
-              <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-normal md:font-normal text-black font-urbanist">
+              <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[64px] font-normal md:font-normal text-black font-urbanist">
                 {headerData.Title}
               </h3>
-              <p className="font-mulish font-normal text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl 3xl:text-[40px] text-black">
+              <h3 className="font-mulish font-normal text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl 3xl:text-[40px] text-black">
                 {headerData.Heading}
                 {headerData.SubHeading && (
                   <span className="text-[#E97451] pl-2">
                     {headerData.SubHeading}
                   </span>
                 )}
-              </p>
-              <p className="text-[16px] lg:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full">
-                {headerData.Description}
-              </p>
+              </h3>
+              <ParagraphWidget>{headerData.Description}</ParagraphWidget>
             </div>
           </div>
         </ScrollWidget>
@@ -146,14 +145,14 @@ const CourseContentSection = ({ data }: { data: CourseContentData }) => {
                       </h3>
                     )}
                     {section.title && (
-                      <h2 className="font-urbanist text-[24px] leading-8 xss:text-[24px] xl:text-[25px] 2xl:text-[37px] 3xl:text-[40px] font-normal text-black mt-[-10px]">
+                      <h2 className="font-urbanist text-[24px] leading-12 xss:text-[24px] xl:text-[25px] 2xl:text-[37px] 3xl:text-[40px] font-normal text-black mt-[-10px]">
                         {section.title}
                       </h2>
                     )}
                     {section.description && (
                       <HTMLWidget
                         content={section.description}
-                        className="font-normal font-mulish ul-image"
+                        className="font-normal font-mulish ul-image text-[16px] leading-[24px]!"
                         tag="div"
                       />
                     )}

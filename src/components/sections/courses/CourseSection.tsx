@@ -149,7 +149,7 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
 
     return (
       <>
-        <span className="block px-4 py-3 text-[15px] 3xl:text-lg text-[#E97451] font-semibold">
+        <span className="block px-4 py-3 md:pb-1 text-[16px] md:text-[17px] 3xl:text-[18px] text-[#E97451] font-semibold">
           Menu
         </span>
         <ul>
@@ -162,7 +162,7 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
                 <LinkWidget
                   href={item.href}
                   onClick={(e) => handleSmoothScroll(e, item.href)}
-                  className={`block px-4 py-3 text-[15px] 3xl:text-lg transition-colors duration-200 cursor-pointer ${
+                  className={`block px-4 py-3 md:pb-1 text-[16px] md:text-[17px] 3xl:text-[18px] transition-colors duration-200 cursor-pointer ${
                     isActive
                       ? "text-[#E97451] font-semibold"
                       : "hover:text-[#E97451]"
@@ -184,7 +184,7 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
                                     handleOuterTitleScroll(e, cards[0].id);
                                   }
                                 }}
-                                className="block px-4 py-2 text-[14px] 3xl:text-[17px] text-gray-700 font-medium transition-colors duration-200 cursor-pointer hover:text-[#E97451]"
+                                className="block px-4 py-2 text-[16px] md:text-[16px] 3xl:text-[17px] text-black font-medium transition-colors duration-200 cursor-pointer hover:text-[#E97451]"
                               >
                                 {outerTitle}
                               </LinkWidget>
@@ -203,9 +203,9 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
 
   return (
     <div className="bg-white">
-      <aside className="hidden xl:block shadow-lg fixed left-0 top-18 w-54 xl:w-45 2xl:w-54 border-r border-b border-gray-200 z-30 bg-white">
+      <aside className="hidden xl:block shadow-lg fixed left-0 top-18 w-54 xl:w-45 2xl:w-54 2xxl:w-68 border-r border-b border-gray-200 z-30 bg-white">
         <div className="h-full overflow-y-auto">
-          <nav className="py-6 px-4">{renderMenuItems()}</nav>
+          <nav className="py-6 2xxl:pt-13 px-4">{renderMenuItems()}</nav>
         </div>
       </aside>
 
