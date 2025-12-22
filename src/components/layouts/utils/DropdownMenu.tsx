@@ -27,7 +27,9 @@ const DropdownMenu = ({
   isSticky = false,
 }: DropdownMenuProps) => {
   const pathname = usePathname();
-  const isActive = pathname.startsWith(menu.pathPrefix);
+  const isActive = menu.pathPrefix
+    ? pathname.startsWith(menu.pathPrefix)
+    : menu.items.some((item) => pathname === item.href);
 
   return (
     <li
