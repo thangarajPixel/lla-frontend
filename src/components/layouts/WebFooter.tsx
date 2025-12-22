@@ -251,7 +251,7 @@ const WebFooter = ({
           </div>
 
           <p
-            className={`text-center md:text-left ${linkTextClass} max-w-full md:max-w-[350px]`}
+            className={`text-center md:text-left ${linkTextClass} max-w-full md:max-w-[350px] 2xxl:max-w-[500px]`}
           >
             © {new Date().getFullYear()} {Copy_right_txt}
           </p>

@@ -136,8 +136,8 @@ const WebHeader = ({
                 alt="Logo"
                 className={
                   isSticky
-                    ? "mt-2 md:mt-0 w-60 md:w-80 2xxl:w-[341.26px] 2xxl:h-[69px] h-auto relative"
-                    : "mt-2 md:mt-0 w-60 md:w-80 2xxl:w-[341.26px] 2xxl:h-[69px] h-auto relative md:top-0"
+                    ? "mt-2 md:mt-0 w-60 md:w-80 2xxl:w-[361.26px] 2xxl:h-[75px] 3xl:w-[341.26px] 3xl:h-[69px] h-auto relative"
+                    : "mt-2 md:mt-0 w-60 md:w-80 2xxl:w-[361.26px] 2xxl:h-[75px] 3xl:w-[341.26px] 3xl:h-[69px] h-auto relative md:top-0"
                 }
               />
             </LinkWidget>
