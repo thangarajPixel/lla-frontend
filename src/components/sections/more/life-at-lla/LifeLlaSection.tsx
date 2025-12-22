@@ -17,7 +17,6 @@ import LifeCard from "./utils/life-card";
 import type { LifeSectionProps } from "./utils/life-lla";
 
 const LifeLlaSection = ({ data }: LifeSectionProps) => {
-  console.log(data);
   const LifeCardSkeleton = () => (
     <div className="w-full h-full flex flex-col bg-[#ECECEC] p-3 sm:p-4 lg:p-4 xl:p-5 3xl:p-6">
       <Skeleton className="w-full h-[200px] md:h-[220px] lg:h-[230px] mb-2 lg:mb-3 3xl:mb-4" />

@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import LightboxWidget from "@/components/widgets/LightboxWidget";
+import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 
 type FacilitiesSectionProps = {
@@ -31,7 +33,22 @@ type FacilitiesSectionProps = {
 const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
   const facilitiesData = data?.Card || [];
 
-  const getImageUrl = useCallback(
+  const getThumbnailUrl = useCallback(
+    (card: FacilitiesSectionProps["data"]["Card"][0]) => {
+      if (card.Thumbnail?.url) {
+        return getS3Url(card.Thumbnail.url);
+      }
+      if (Array.isArray(card.Image)) {
+        return card.Image.length > 0 && card.Image[0]?.url
+          ? getS3Url(card.Image[0].url)
+          : null;
+      }
+      return card.Image?.url ? getS3Url(card.Image.url) : null;
+    },
+    [],
+  );
+
+  const getFullImageUrl = useCallback(
     (card: FacilitiesSectionProps["data"]["Card"][0]) => {
       if (Array.isArray(card.Image)) {
         return card.Image.length > 0 && card.Image[0]?.url
@@ -42,6 +59,33 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
     },
     [],
   );
+
+  const lightboxImages = useMemo(() => {
+    return facilitiesData
+      .map((facility) => {
+        const imageUrl = getFullImageUrl(facility);
+        return imageUrl
+          ? {
+              src: imageUrl,
+              alt: facility.Title || "Facility",
+            }
+          : null;
+      })
+      .filter((img): img is { src: string; alt: string } => img !== null);
+  }, [facilitiesData, getFullImageUrl]);
+
+  const facilityToLightboxIndex = useMemo(() => {
+    const map = new Map<number, number>();
+    let lightboxIndex = 0;
+    facilitiesData.forEach((facility) => {
+      const imageUrl = getFullImageUrl(facility);
+      if (imageUrl) {
+        map.set(facility.id, lightboxIndex);
+        lightboxIndex++;
+      }
+    });
+    return map;
+  }, [facilitiesData, getFullImageUrl]);
 
   const predefinedPositions: Array<{
     position: string;
@@ -79,14 +123,15 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
     },
     {
       position:
-        "absolute left-20 top-[460px] 2xl:top-[540px] 2xl:left-[90px] 3xl:top-[610px] 3xl:left-[110px]",
+        "absolute left-20 top-[460px] 2xl:top-[540px] 2xl:left-[98px] 3xl:top-[610px] 3xl:left-[110px]",
       container:
         "relative w-full xl:w-[440px] xl:h-[319px] 2xl:w-[500px] 2xl:h-[379px] 3xl:h-[419px] 3xl:w-[630px] overflow-hidden mb-3 sm:mb-4 border border-white",
       heights: { xl: 319, "2xl": 379, "3xl": 419 },
       tops: { xl: 460, "2xl": 540, "3xl": 610 },
     },
     {
-      position: "absolute top-[849px] 2xl:top-[996px] 3xl:top-[1126px] left-0",
+      position:
+        "absolute top-[849px] 2xl:top-[996px] 3xl:top-[1126px] left-0 2xl:left-4.5 3xl:left-0",
       container:
         "relative w-[425px] h-[295px] 2xl:w-[500px] 2xl:h-[379px] 3xl:h-[419px] 3xl:w-[630px] overflow-hidden mb-3 sm:mb-4 border border-white",
       heights: { xl: 295, "2xl": 379, "3xl": 419 },
@@ -118,7 +163,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
     },
     {
       position:
-        "absolute top-[1455px] left-20 2xl:left-[90px] 2xl:top-[1709px] 3xl:top-[2009px] 3xl:left-[110px]",
+        "absolute top-[1455px] left-20 2xl:left-[109px] 2xl:top-[1709px] 3xl:top-[2009px] 3xl:left-[110px]",
       container:
         "relative w-[420px] h-[250px] 2xl:w-[500px] 2xl:h-[312px] 3xl:h-[392px] 3xl:w-[630px] overflow-hidden mb-3 sm:mb-4 border border-white",
       heights: { xl: 250, "2xl": 312, "3xl": 392 },
@@ -150,7 +195,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
     },
     {
       position:
-        "absolute top-[1850px] right-20 2xl:top-[2310px] 3xl:top-[2730px] 2xl:right-[110px]",
+        "absolute top-[1850px] right-20 2xl:top-[2310px] 3xl:top-[2730px] 2xl:right-[108px]",
       container:
         "relative w-[491px] h-[386px] 2xl:w-[581px] 2xl:h-[416px] 3xl:h-[496px] 3xl:w-[741px] overflow-hidden mb-3 sm:mb-4 border border-white",
       heights: { xl: 386, "2xl": 416, "3xl": 496 },
@@ -201,7 +246,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
     let facilityIndex = 0;
 
     facilitiesData.forEach((facility) => {
-      const imageUrl = getImageUrl(facility);
+      const imageUrl = getThumbnailUrl(facility);
       if (!imageUrl) return;
 
       if (
@@ -247,7 +292,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
     });
 
     return positions;
-  }, [facilitiesData, getImageUrl]);
+  }, [facilitiesData, getThumbnailUrl]);
 
   const containerHeights = useMemo(() => {
     const calculateMaxHeight = (breakpoint: "xl" | "2xl" | "3xl") => {
@@ -321,42 +366,68 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
     <section className=" w-full bg-white py-15 md:pt-25 md:pb-10">
       <ContainerWidget>
         <div className="lg:hidden">
-          <div className="space-y-4 md:space-y-4 w-full mb-8 md:mb-12">
-            <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl font-semibold md:font-normal text-black font-urbanist">
-              {data?.Title}
-            </h2>
-            <p className="font-area-variable font-normal text-lg xss:text-[24px] md:text-lg lg:text-xl text-black font-mulish">
-              {data?.Heading}{" "}
-              {data?.SubHeading && (
-                <span className="text-[#E97451]">{data.SubHeading}</span>
-              )}
-            </p>
-          </div>
+          <ScrollWidget animation="fadeUp" delay={0.1}>
+            <div className="space-y-4 md:space-y-4 w-full mb-8 md:mb-12">
+              <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl font-semibold md:font-normal text-black font-urbanist">
+                {data?.Title}
+              </h2>
+              <p className="font-area-variable font-normal text-lg xss:text-[24px] md:text-lg lg:text-xl text-black font-mulish">
+                {data?.Heading}{" "}
+                {data?.SubHeading && (
+                  <span className="text-[#E97451]">{data.SubHeading}</span>
+                )}
+              </p>
+            </div>
+          </ScrollWidget>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-            {facilitiesData.map((facility) => {
-              const imageUrl = getImageUrl(facility);
-              if (!imageUrl) return null;
+          <LightboxWidget images={lightboxImages}>
+            {(openLightbox) => (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+                {facilitiesData.map((facility, index) => {
+                  const thumbnailUrl = getThumbnailUrl(facility);
+                  if (!thumbnailUrl) return null;
 
-              return (
-                <div key={facility.id} className="flex flex-col">
-                  <div className="relative w-full aspect-4/3 overflow-hidden mb-3 sm:mb-4 border border-white">
-                    <ImageWidget
-                      src={imageUrl}
-                      alt={facility.Title || "Facility"}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  {facility.Title && (
-                    <h4 className="text-left font-mulish font-bold text-black text-sm xss:text-[20px] sm:text-base md:text-lg leading-tight">
-                      {facility.Title}
-                    </h4>
-                  )}
-                </div>
-              );
-            })}
-          </div>
+                  const lightboxIndex = facilityToLightboxIndex.get(
+                    facility.id,
+                  );
+
+                  return (
+                    <ScrollWidget
+                      key={facility.id}
+                      animation="fadeUp"
+                      delay={0.1 + index * 0.1}
+                      duration={0.8}
+                    >
+                      <div className="flex flex-col">
+                        <button
+                          type="button"
+                          className="relative w-full aspect-4/3 overflow-hidden mb-3 sm:mb-4 border border-white cursor-pointer bg-transparent p-0"
+                          aria-label={`View ${facility.Title || "Facility"} image in lightbox`}
+                          onClick={() => {
+                            if (lightboxIndex !== undefined) {
+                              openLightbox(lightboxIndex);
+                            }
+                          }}
+                        >
+                          <ImageWidget
+                            src={thumbnailUrl}
+                            alt={facility.Title || "Facility"}
+                            fill
+                            className="object-cover"
+                          />
+                        </button>
+                        {facility.Title && (
+                          <h3 className="text-left font-mulish font-bold text-black text-sm xss:text-[20px] sm:text-base md:text-lg leading-tight">
+                            {facility.Title}
+                          </h3>
+                        )}
+                      </div>
+                    </ScrollWidget>
+                  );
+                })}
+              </div>
+            )}
+          </LightboxWidget>
         </div>
 
         <div
@@ -369,81 +440,108 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
                 : "auto",
           }}
         >
-          <div className="space-y-4 md:space-y-4 w-full xl:max-w-[430px] 2xl:max-w-[510px] 3xl:max-w-[650px]">
-            <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[64px] font-semibold md:font-normal text-black font-urbanist">
-              {data?.Title}
-            </h2>
-            <p className="font-area-variable font-normal text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-[32px] 2xl:text-[34px] 3xl:text-[40px] text-black font-mulish">
-              {data?.Heading}{" "}
-              {data?.SubHeading && (
-                <span className="text-[#E97451]">{data.SubHeading}</span>
-              )}
-            </p>
-          </div>
-
-          {facilityPositions.map((facilityPos, index) => {
-            const imageUrl = getImageUrl(facilityPos.facility);
-            if (!imageUrl) return null;
-
-            const isPredefined =
-              facilityPos.position.includes("top-") ||
-              facilityPos.position.includes("left-") ||
-              facilityPos.position.includes("right-");
-
-            let dynamicStyle: React.CSSProperties = {};
-            let containerStyle: React.CSSProperties = {};
-
-            if (!isPredefined) {
-              const breakpoint = getBreakpoint();
-              const currentTop =
-                facilityPos.tops?.[breakpoint] ?? facilityPos.tops?.xl ?? 0;
-              const currentHeight =
-                facilityPos.heights?.[breakpoint] ??
-                facilityPos.heights?.xl ??
-                0;
-              const currentWidth = facilityPos.widths?.[breakpoint];
-
-              dynamicStyle = {
-                top: `${currentTop}px`,
-                ...(facilityPos.left !== undefined && {
-                  left: `${facilityPos.left}px`,
-                }),
-                ...(facilityPos.right !== undefined && {
-                  right: `${facilityPos.right}px`,
-                }),
-              };
-
-              containerStyle = {
-                height: `${currentHeight}px`,
-                ...(currentWidth && { width: `${currentWidth}px` }),
-              };
-            }
-
-            return (
-              <div
-                key={facilityPos.facility.id || index}
-                className={facilityPos.position}
-                style={isPredefined ? undefined : dynamicStyle}
-              >
-                <div
-                  className={facilityPos.container}
-                  style={isPredefined ? undefined : containerStyle}
-                >
-                  <ImageWidget
-                    src={imageUrl}
-                    alt={facilityPos.facility.Title || "Facility"}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                {facilityPos.facility.Title && (
-                  <h4 className="text-left font-mulish font-bold text-black text-sm xss:text-[20px] sm:text-base md:text-lg lg:text-[18px] 2xl:text-[18px] 3xl:text-[24px] leading-tight -mb-2">
-                    {facilityPos.facility.Title}
-                  </h4>
+          <ScrollWidget animation="fadeUp" delay={0.1}>
+            <div className="space-y-4 md:space-y-4 w-full xl:max-w-[430px] 2xl:max-w-[510px] 3xl:max-w-[650px]">
+              <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[64px] font-semibold md:font-normal text-black font-urbanist">
+                {data?.Title}
+              </h2>
+              <p className="font-area-variable font-normal text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-[32px] 2xl:text-[34px] 3xl:text-[40px] text-black font-mulish">
+                {data?.Heading}{" "}
+                {data?.SubHeading && (
+                  <span className="text-[#E97451]">{data.SubHeading}</span>
                 )}
-              </div>
-            );
-          })}
+              </p>
+            </div>
+          </ScrollWidget>
+
+          <LightboxWidget images={lightboxImages}>
+            {(openLightbox) => (
+              <>
+                {facilityPositions.map((facilityPos, index) => {
+                  const thumbnailUrl = getThumbnailUrl(facilityPos.facility);
+                  if (!thumbnailUrl) return null;
+
+                  const lightboxIndex = facilityToLightboxIndex.get(
+                    facilityPos.facility.id,
+                  );
+
+                  const isPredefined =
+                    facilityPos.position.includes("top-") ||
+                    facilityPos.position.includes("left-") ||
+                    facilityPos.position.includes("right-");
+
+                  let dynamicStyle: React.CSSProperties = {};
+                  let containerStyle: React.CSSProperties = {};
+
+                  if (!isPredefined) {
+                    const breakpoint = getBreakpoint();
+                    const currentTop =
+                      facilityPos.tops?.[breakpoint] ??
+                      facilityPos.tops?.xl ??
+                      0;
+                    const currentHeight =
+                      facilityPos.heights?.[breakpoint] ??
+                      facilityPos.heights?.xl ??
+                      0;
+                    const currentWidth = facilityPos.widths?.[breakpoint];
+
+                    dynamicStyle = {
+                      top: `${currentTop}px`,
+                      ...(facilityPos.left !== undefined && {
+                        left: `${facilityPos.left}px`,
+                      }),
+                      ...(facilityPos.right !== undefined && {
+                        right: `${facilityPos.right}px`,
+                      }),
+                    };
+
+                    containerStyle = {
+                      height: `${currentHeight}px`,
+                      ...(currentWidth && { width: `${currentWidth}px` }),
+                    };
+                  }
+
+                  return (
+                    <div
+                      key={facilityPos.facility.id || index}
+                      className={facilityPos.position}
+                      style={isPredefined ? undefined : dynamicStyle}
+                    >
+                      <ScrollWidget
+                        animation="fadeUp"
+                        delay={0.1 + index * 0.1}
+                        duration={0.8}
+                      >
+                        <button
+                          type="button"
+                          className={`${facilityPos.container} cursor-pointer bg-transparent p-0`}
+                          style={isPredefined ? undefined : containerStyle}
+                          aria-label={`View ${facilityPos.facility.Title || "Facility"} image in lightbox`}
+                          onClick={() => {
+                            if (lightboxIndex !== undefined) {
+                              openLightbox(lightboxIndex);
+                            }
+                          }}
+                        >
+                          <ImageWidget
+                            src={thumbnailUrl}
+                            alt={facilityPos.facility.Title || "Facility"}
+                            fill
+                            className="object-cover"
+                          />
+                        </button>
+                        {facilityPos.facility.Title && (
+                          <h3 className="text-left font-mulish font-bold text-black text-sm xss:text-[20px] sm:text-base md:text-lg lg:text-[18px] 2xl:text-[18px] 3xl:text-[24px] leading-tight -mb-2">
+                            {facilityPos.facility.Title}
+                          </h3>
+                        )}
+                      </ScrollWidget>
+                    </div>
+                  );
+                })}
+              </>
+            )}
+          </LightboxWidget>
         </div>
       </ContainerWidget>
     </section>
