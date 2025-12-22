@@ -66,7 +66,7 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
     }
 
     let stickyContainer = targetElement.parentElement;
-    while (stickyContainer && !stickyContainer.classList.contains("sticky")) {
+    while (stickyContainer && !stickyContainer.className.includes("sticky")) {
       stickyContainer = stickyContainer.parentElement;
     }
 
