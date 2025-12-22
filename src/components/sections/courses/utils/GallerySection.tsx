@@ -2,7 +2,6 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import { Dummy1 } from "@/helpers/ImageHelper";
 import type { OverviewData } from "./types";
 
 const GallerySection = ({ data }: { data: OverviewData }) => {
@@ -25,10 +24,12 @@ const GallerySection = ({ data }: { data: OverviewData }) => {
               const imageUrl = Array.isArray(card.Image)
                 ? card.Image.length > 0 && card.Image[0]?.url
                   ? getS3Url(card.Image[0].url)
-                  : Dummy1
+                  : null
                 : card.Image?.url
                   ? getS3Url(card.Image.url)
-                  : Dummy1;
+                  : null;
+
+              if (!imageUrl) return null;
 
               return (
                 <div key={card.id} className="flex flex-col">

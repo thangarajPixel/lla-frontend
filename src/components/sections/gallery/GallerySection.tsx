@@ -118,7 +118,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
       try {
         const params = {
           page: 1,
-          per_page: 9,
+          per_page: 30,
           type: selectedType,
         };
 
@@ -146,7 +146,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
       const nextPage = page + 1;
       const params: { page: number; per_page: number; type: string } = {
         page: nextPage,
-        per_page: 9,
+        per_page: 30,
         type: selectedType,
       };
       const { data: res } = await getGalleryPageData(params);
