@@ -123,7 +123,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
     },
     {
       position:
-        "absolute left-20 top-[460px] 2xl:top-[540px] 2xl:left-[100px] 3xl:top-[610px] 3xl:left-[110px]",
+        "absolute left-20 top-[460px] 2xl:top-[540px] 2xl:left-[98px] 3xl:top-[610px] 3xl:left-[110px]",
       container:
         "relative w-full xl:w-[440px] xl:h-[319px] 2xl:w-[500px] 2xl:h-[379px] 3xl:h-[419px] 3xl:w-[630px] overflow-hidden mb-3 sm:mb-4 border border-white",
       heights: { xl: 319, "2xl": 379, "3xl": 419 },
@@ -131,7 +131,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
     },
     {
       position:
-        "absolute top-[849px] 2xl:top-[996px] 3xl:top-[1126px] left-4.5",
+        "absolute top-[849px] 2xl:top-[996px] 3xl:top-[1126px] left-0 2xl:left-4.5 3xl:left-0",
       container:
         "relative w-[425px] h-[295px] 2xl:w-[500px] 2xl:h-[379px] 3xl:h-[419px] 3xl:w-[630px] overflow-hidden mb-3 sm:mb-4 border border-white",
       heights: { xl: 295, "2xl": 379, "3xl": 419 },
@@ -163,7 +163,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
     },
     {
       position:
-        "absolute top-[1455px] left-20 2xl:left-[112px] 2xl:top-[1709px] 3xl:top-[2009px] 3xl:left-[110px]",
+        "absolute top-[1455px] left-20 2xl:left-[109px] 2xl:top-[1709px] 3xl:top-[2009px] 3xl:left-[110px]",
       container:
         "relative w-[420px] h-[250px] 2xl:w-[500px] 2xl:h-[312px] 3xl:h-[392px] 3xl:w-[630px] overflow-hidden mb-3 sm:mb-4 border border-white",
       heights: { xl: 250, "2xl": 312, "3xl": 392 },
@@ -195,7 +195,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
     },
     {
       position:
-        "absolute top-[1850px] right-20 2xl:top-[2310px] 3xl:top-[2730px] 2xl:right-[110px]",
+        "absolute top-[1850px] right-20 2xl:top-[2310px] 3xl:top-[2730px] 2xl:right-[108px]",
       container:
         "relative w-[491px] h-[386px] 2xl:w-[581px] 2xl:h-[416px] 3xl:h-[496px] 3xl:w-[741px] overflow-hidden mb-3 sm:mb-4 border border-white",
       heights: { xl: 386, "2xl": 416, "3xl": 496 },
