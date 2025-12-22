@@ -114,7 +114,7 @@ const CourseContentSection = ({ data }: { data: CourseContentData }) => {
             className="w-full"
           >
             {group.OuterTitle && (
-              <div className="bg-white pb-1 pt-10 md:sticky top-18 z-30">
+              <div className="bg-white pb-1 pt-10 -mt-12 md:sticky top-18 z-30">
                 <h3
                   className={`text-3xl ${!group.OuterDescription && "mb-6"} xss:text-[32px] md:text-[40px] font-normal md:font-normal text-black font-urbanist`}
                 >
