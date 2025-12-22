@@ -58,6 +58,7 @@ export const addAutoplayUnmute = (url: string): string => {
       params.set("autoplay", "1");
       params.set("muted", "0");
       params.set("controls", "1");
+      params.set("dnt", "1");
       return `${baseUrl}?${params.toString()}`;
     }
   }
@@ -126,6 +127,7 @@ export const addAutoplayAndMute = (url: string): string => {
       params.set("autoplay", "1");
       params.set("muted", "1");
       params.set("controls", "0");
+      params.set("dnt", "1");
       return `${baseUrl}?${params.toString()}`;
     }
   }
@@ -173,11 +175,12 @@ export const disableControls = (url: string): string => {
   }
 
   if (isVimeo) {
-    if (url.includes("controls=")) {
-      return url.replace(/controls=[^&]*/g, "controls=0");
-    }
-    const separator = url.includes("?") ? "&" : "?";
-    return `${url}${separator}controls=0`;
+    const existingParams = url.includes("?") ? url.split("?")[1] : "";
+    const params = new URLSearchParams(existingParams);
+    params.set("controls", "0");
+    params.set("dnt", "1");
+    const baseUrl = url.split("?")[0];
+    return `${baseUrl}?${params.toString()}`;
   }
 
   return url;

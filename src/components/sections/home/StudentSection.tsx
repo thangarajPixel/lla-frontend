@@ -38,6 +38,8 @@ const DialogVideoIframe = ({ videoUrl }: { videoUrl: string }) => {
         allowFullScreen
         title="Video player"
         style={{ border: "none" }}
+        referrerPolicy="no-referrer-when-downgrade"
+        loading="lazy"
       />
     </div>
   );
@@ -215,6 +217,8 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                             allowFullScreen
                             title="Student video"
                             style={{ border: "none" }}
+                            referrerPolicy="no-referrer-when-downgrade"
+                            loading="lazy"
                           />
                           <div className="bg-[#F6F6F6] bottom-[-2px] z-10 w-full h-3 left-0 right-0 absolute block md:hidden" />
                           <div className="relative z-20 flex items-end justify-between h-full">
