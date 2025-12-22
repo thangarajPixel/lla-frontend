@@ -1,5 +1,7 @@
 "use client";
 
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { getNilgirisPageData } from "@/app/api/server";
@@ -17,6 +19,10 @@ import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import { ArrowDown, Into, Play } from "@/helpers/ImageHelper";
 import type { NilgirisData } from "./utils/nilgiris";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const isVideoFile = (url: string): boolean => {
   if (!url) return false;
@@ -181,9 +187,51 @@ const NilgirisSection = ({ data: initialData }: { data: NilgirisData }) => {
     }
   };
 
+  // Refresh ScrollTrigger when new images are loaded
+  useEffect(() => {
+    if (typeof window === "undefined" || !isMounted) return;
+
+    const refreshScrollTrigger = () => {
+      // Multiple refresh calls to ensure it works after DOM updates
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          if (ScrollTrigger && typeof ScrollTrigger.refresh === "function") {
+            try {
+              ScrollTrigger.refresh();
+            } catch (error) {
+              console.error("Error refreshing ScrollTrigger:", error);
+            }
+          }
+        }, 100);
+        setTimeout(() => {
+          if (ScrollTrigger && typeof ScrollTrigger.refresh === "function") {
+            try {
+              ScrollTrigger.refresh();
+            } catch (error) {
+              console.error("Error refreshing ScrollTrigger:", error);
+            }
+          }
+        }, 300);
+        setTimeout(() => {
+          if (ScrollTrigger && typeof ScrollTrigger.refresh === "function") {
+            try {
+              ScrollTrigger.refresh();
+            } catch (error) {
+              console.error("Error refreshing ScrollTrigger:", error);
+            }
+          }
+        }, 500);
+      });
+    };
+
+    if (allImages.length > 0) {
+      refreshScrollTrigger();
+    }
+  }, [allImages.length, isMounted]);
+
   const renderGalleryItem = (
     item: (typeof allImages)[0],
-    index: number,
+    _index: number,
     openLightbox?: (index: number) => void,
   ) => {
     const lightboxIndex = imageToLightboxIndex.get(item.id);
@@ -192,9 +240,9 @@ const NilgirisSection = ({ data: initialData }: { data: NilgirisData }) => {
       <ScrollWidget
         key={item.id}
         animation="fadeUp"
-        delay={index * 0.1}
-        duration={0.6}
-        start="top 85%"
+        delay={0.1}
+        duration={0.4}
+        start="top 90%"
         once={true}
       >
         <div className="relative w-full overflow-hidden group cursor-pointer">
@@ -269,7 +317,8 @@ const NilgirisSection = ({ data: initialData }: { data: NilgirisData }) => {
                 height={800}
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
-                loading="lazy"
+                priority={true}
+                unoptimized={false}
               />
             </button>
           )}
@@ -347,13 +396,13 @@ const NilgirisSection = ({ data: initialData }: { data: NilgirisData }) => {
                           ))}
                           {loadingMore &&
                             skeletonKeys.length > 0 &&
-                            skeletonKeys.map((key, index) => (
+                            skeletonKeys.map((key) => (
                               <div key={key} className="w-full p-3">
                                 <ScrollWidget
                                   animation="fadeUp"
-                                  delay={(allImages.length + index) * 0.1}
-                                  duration={0.6}
-                                  start="top 85%"
+                                  delay={0.1}
+                                  duration={0.4}
+                                  start="top 90%"
                                   once={true}
                                 >
                                   <NilgirisImageSkeleton />
@@ -372,13 +421,13 @@ const NilgirisSection = ({ data: initialData }: { data: NilgirisData }) => {
                       ))}
                       {loadingMore &&
                         skeletonKeys.length > 0 &&
-                        skeletonKeys.map((key, index) => (
+                        skeletonKeys.map((key) => (
                           <div key={key}>
                             <ScrollWidget
                               animation="fadeUp"
-                              delay={(allImages.length + index) * 0.1}
-                              duration={0.6}
-                              start="top 85%"
+                              delay={0.1}
+                              duration={0.4}
+                              start="top 90%"
                               once={true}
                             >
                               <NilgirisImageSkeleton />
