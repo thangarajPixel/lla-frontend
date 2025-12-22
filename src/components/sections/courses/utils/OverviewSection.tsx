@@ -67,10 +67,10 @@ const OverviewSection = ({ data }: { data: MenuData }) => {
   );
 
   return (
-    <section className="w-full bg-white flex flex-col items-center justify-center relative  py-10 sm:py-30 2xxl:pt-40">
+    <section className="w-full bg-white flex flex-col items-center justify-center relative  py-10 sm:py-30 3xl:py-35">
       <ContainerWidget>
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 xl:gap-2.5 2xl:gap-5 3xl:gap-[30px]">
-          <div className="flex flex-col gap-4.5 justify-center md:-mt-15">
+          <div className="flex flex-col gap-4.5 md:-mt-15">
             <div className="self-start">
               <ButtonWidget
                 className="text-[20px] xss:text-[16px] p-5 3xl:text-[24px] 
@@ -80,19 +80,13 @@ const OverviewSection = ({ data }: { data: MenuData }) => {
                 {data.Duration}
               </ButtonWidget>
             </div>
-            <h2
+            <HTMLWidget
+              content={data.Title}
+              tag="h2"
               className="font-urbanist font-normal text-[23px] leading-10 sxx:leading-8 
             xss:text-[32px] md:leading-12 sm:text-5xl 3xl:text-[64px]
              text-black 2xxl:leading-16"
-            >
-              {data.Title}
-              {data.SubTitle && (
-                <>
-                  <br className="hidden sm:block" />
-                  <span className="text-[#E97451]">{data.SubTitle}</span>
-                </>
-              )}
-            </h2>
+            />
             {data?.Description && (
               <HTMLWidget
                 content={data.Description}
