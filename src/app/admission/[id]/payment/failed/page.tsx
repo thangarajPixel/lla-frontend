@@ -4,11 +4,11 @@ import { XCircle } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
+import { getAdmissionsById } from "@/app/api/server";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { decryptCode, notify } from "@/helpers/ConstantHelper";
 import { updateAdmission } from "@/store/services/global-services";
-import { getAdmissionsById } from "@/app/api/server";
 
 const PaymentFailedPage = () => {
   const params = useParams();
@@ -18,7 +18,6 @@ const PaymentFailedPage = () => {
     if (!encryptedId || Array.isArray(encryptedId)) return;
 
     const updatePaymentStatus = async () => {
-
       const admissionId = decryptCode(encryptedId);
 
       const admissionResponse = await getAdmissionsById(Number(admissionId));

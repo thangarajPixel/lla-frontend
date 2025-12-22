@@ -66,21 +66,21 @@ const PersonalDetailsForm = ({
       nationality: admissionData?.nationality ?? "",
       Language_Proficiency:
         admissionData?.Language_Proficiency &&
-          admissionData?.Language_Proficiency?.length > 0
+        admissionData?.Language_Proficiency?.length > 0
           ? admissionData?.Language_Proficiency?.map((language) => ({
-            language: language?.language ?? "",
-            read: language?.read ?? false,
-            write: language?.write ?? false,
-            speak: language?.speak ?? false,
-          }))
+              language: language?.language ?? "",
+              read: language?.read ?? false,
+              write: language?.write ?? false,
+              speak: language?.speak ?? false,
+            }))
           : [
-            {
-              language: "",
-              read: false,
-              write: false,
-              speak: false,
-            },
-          ],
+              {
+                language: "",
+                read: false,
+                write: false,
+                speak: false,
+              },
+            ],
       address: admissionData?.address?.map((block) => ({
         type: "paragraph",
         children: block.children.map((child) => ({
@@ -88,16 +88,16 @@ const PersonalDetailsForm = ({
           type: child.type,
         })),
       })) ?? [
-          {
-            type: "paragraph",
-            children: [
-              {
-                text: "",
-                type: "text",
-              },
-            ],
-          },
-        ],
+        {
+          type: "paragraph",
+          children: [
+            {
+              text: "",
+              type: "text",
+            },
+          ],
+        },
+      ],
       city: admissionData?.city ?? "",
       district: admissionData?.district ?? "",
       state: admissionData?.state?.documentId ?? "",
@@ -127,16 +127,16 @@ const PersonalDetailsForm = ({
             })),
           }),
         ) ?? [
-            {
-              type: "paragraph",
-              children: [
-                {
-                  text: "",
-                  type: "text",
-                },
-              ],
-            },
-          ],
+          {
+            type: "paragraph",
+            children: [
+              {
+                text: "",
+                type: "text",
+              },
+            ],
+          },
+        ],
         city: admissionData?.Parent_Guardian_Spouse_Details?.city ?? "",
         district: admissionData?.Parent_Guardian_Spouse_Details?.district ?? "",
         state:
@@ -495,7 +495,7 @@ const PersonalDetailsForm = ({
                 onClick={handleClick}
               >
                 {(!previewUrl && !admissionData?.passport_size_image) ||
-                  isRemoved ? (
+                isRemoved ? (
                   <>
                     <ImageWidget
                       src={UploadIconImg}
@@ -682,16 +682,14 @@ const PersonalDetailsForm = ({
           </div>
         </div>
 
-        {
-          admissionData?.Payment_Status !== "Paid" && (
-            <div className="flex justify-start gap-3 lg:mt-10 pt-6">
-              <OrangeButtonWidget
-                content="Save & Continue"
-                className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-xs 2xl:text-[18px] 3xl:text-[18px]"
-              />
-            </div>
-          )
-        }
+        {admissionData?.Payment_Status !== "Paid" && (
+          <div className="flex justify-start gap-3 lg:mt-10 pt-6">
+            <OrangeButtonWidget
+              content="Save & Continue"
+              className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-xs 2xl:text-[18px] 3xl:text-[18px]"
+            />
+          </div>
+        )}
       </form>
     </FormProvider>
   );

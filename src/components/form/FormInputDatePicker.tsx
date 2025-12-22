@@ -70,7 +70,7 @@ const FormDatePickerWithInput = <T extends FieldValues>({
   const id = `date-${name.replace(/\./g, "/")}`;
 
   const formatTypedDate = (raw: string) => {
-    let digits = raw.replace(/[^0-9\/]/g, "");
+    const digits = raw.replace(/[^0-9/]/g, "");
 
     // if (digits.length > 2) digits = `${digits.slice(0, 2)}/${digits.slice(2)}`;
     // if (digits.length > 5) digits = `${digits.slice(0, 5)}/${digits.slice(5)}`;
