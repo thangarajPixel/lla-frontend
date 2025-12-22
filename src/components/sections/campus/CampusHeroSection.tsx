@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, useState } from "react";
 import { DialogClose } from "@/components/ui/dialog";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import DialogWidget from "@/components/widgets/DialogWidget";
@@ -12,6 +13,10 @@ import { Into, Play } from "@/helpers/ImageHelper";
 import type { CampusHeroSectionProps } from "./utils/campus";
 
 const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
+  const [videoError, setVideoError] = useState(false);
+  const [dialogVideoError, setDialogVideoError] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   const stopAllVideos = () => {
     const videos = document.querySelectorAll("video");
     videos.forEach((video) => {
@@ -19,22 +24,51 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
       video.currentTime = 0;
     });
   };
+
+  const handleVideoError = (
+    e: React.SyntheticEvent<HTMLVideoElement, Event>,
+  ) => {
+    e.preventDefault();
+    setVideoError(true);
+    if (videoRef.current) {
+      videoRef.current.style.display = "none";
+    }
+  };
+
+  const videoUrl = data?.Video?.url ? getS3Url(data.Video.url) : "";
+  const backgroundImage = data?.Image?.url ? getS3Url(data.Image.url) : null;
+
   return (
     <section className="relative w-full h-[1050px] overflow-hidden">
       <div className="absolute inset-0 w-full h-[1050px] z-0">
-        <video
-          className="w-full h-[1050px] object-cover"
-          autoPlay
-          loop
-          muted
-          playsInline
-        >
-          <source
-            src={data?.Video?.url ? getS3Url(data.Video.url) : ""}
-            type="video/mp4"
+        {!videoError && videoUrl && (
+          <video
+            ref={videoRef}
+            className="w-full h-[1050px] object-cover"
+            autoPlay
+            loop
+            muted
+            playsInline
+            onError={handleVideoError}
+            onLoadStart={() => {
+              setVideoError(false);
+            }}
+          >
+            <source src={videoUrl} type="video/mp4" />
+            <track kind="captions" srcLang="en" label="English" />
+          </video>
+        )}
+        {(videoError || !videoUrl) && backgroundImage && (
+          <ImageWidget
+            src={backgroundImage}
+            alt={data?.Title || "Campus"}
+            fill
+            className="object-cover"
           />
-          <track kind="captions" srcLang="en" label="English" />
-        </video>
+        )}
+        {(videoError || !videoUrl) && !backgroundImage && (
+          <div className="w-full h-full bg-[#F6F6F6]" />
+        )}
       </div>
       <ContainerWidget>
         <ScrollWidget animation="fadeUp" delay={0.1}>
@@ -95,15 +129,25 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
                   }
                 >
                   <div className="relative w-full aspect-video bg-black rounded-lg">
-                    <video
-                      src={data?.Video?.url ? getS3Url(data.Video.url) : ""}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      controls
-                      className="w-full h-full object-contain rounded-lg"
-                    />
+                    {videoUrl && !dialogVideoError ? (
+                      <video
+                        src={videoUrl}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        controls
+                        className="w-full h-full object-contain rounded-lg"
+                        onError={(e) => {
+                          e.preventDefault();
+                          setDialogVideoError(true);
+                        }}
+                      />
+                    ) : (
+                      <div className="flex items-center justify-center h-full text-white">
+                        Video unavailable
+                      </div>
+                    )}
                   </div>
                 </DialogWidget>
               </div>
