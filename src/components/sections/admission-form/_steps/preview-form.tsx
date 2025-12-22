@@ -266,6 +266,7 @@ const ReviewApplication = ({
     const data = {
       step_3: true,
       Payment_Status: "Completed",
+      EncryptId: admissionId,
     };
 
     try {
@@ -691,8 +692,8 @@ const ReviewApplication = ({
           isOpen={isPaymentOpen}
           onClose={() => setIsPaymentOpen(false)}
           amount={admissionData?.Course?.Amount ?? 0}
-          gstRate={admissionData?.Course?.GstPercentage ?? 18}
-          total={admissionData?.Course?.TotalAmount ?? 0}
+          gstRate={admissionData?.Course?.Percentage ?? 18}
+          // total={admissionData?.Course?.TotalAmount ?? 0}
           paymentDetails={paymentDetails ?? null}
         />
       )}

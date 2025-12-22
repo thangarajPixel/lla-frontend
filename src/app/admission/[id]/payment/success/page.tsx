@@ -6,8 +6,9 @@ import { useParams } from "next/navigation";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { notify } from "@/helpers/ConstantHelper";
+import { decryptCode, notify } from "@/helpers/ConstantHelper";
 import { updateAdmission } from "@/store/services/global-services";
+import { getAdmissionsById } from "@/app/api/server";
 
 const PaymentSuccessPage = () => {
   const params = useParams();
@@ -16,18 +17,32 @@ const PaymentSuccessPage = () => {
   useEffect(() => {
     if (!encryptedId || Array.isArray(encryptedId)) return;
 
-    const admissionResponse = async () => {
+    const updatePaymentStatus = async () => {
       try {
-        await updateAdmission(encryptedId, {
+
+        const admissionId = decryptCode(encryptedId);
+
+        const admissionResponse = await getAdmissionsById(Number(admissionId));
+
+        const admissionData = admissionResponse?.data as AdmissionFormData;
+
+        if (admissionData?.Payment_Status === "Paid" ) {
+          return;
+        }
+
+        const paidAmount = admissionData?.Course?.Amount + (admissionData?.Course?.Amount * admissionData?.Course?.Percentage) / 100 ;
+
+        await updateAdmission(admissionData?.documentId, {
           step_3: true,
           Payment_Status: "Paid",
+          Paid_Amount: paidAmount
         } as never);
       } catch (error) {
         notify({ success: false, message: String(error) });
       }
     };
 
-    admissionResponse();
+    updatePaymentStatus();
   }, [encryptedId]);
 
   return (

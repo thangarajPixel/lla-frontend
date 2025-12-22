@@ -166,6 +166,7 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
           ...filteredPayload(payload),
           step_3: true,
           Payment_Status: "Pending",
+          EncryptId: admissionId,
         } as PortfolioSchema,
       );
 
@@ -210,24 +211,28 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
           <ImageGrid images={images} onRemove={handleRemoveImage} />
         </div>
 
-        <div className="flex justify-start gap-3 mt-10 pt-6">
-          <ButtonWidget
-            type="button"
-            onClick={() =>
-              router.push(`/admission/${admissionId}/education-details`)
-            }
-            className={cn(
-              "p-5 w-[95px] 3xl:w-[123px] 3xl:h-[50px] text-lg bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
-            )}
-          >
-            Back
-          </ButtonWidget>
+        {
+          admissionData?.Payment_Status !== "Paid" && (
+            <div className="flex justify-start gap-3 mt-10 pt-6">
+              <ButtonWidget
+                type="button"
+                onClick={() =>
+                  router.push(`/admission/${admissionId}/education-details`)
+                }
+                className={cn(
+                  "p-5 w-[95px] 3xl:w-[123px] 3xl:h-[50px] text-lg bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
+                )}
+              >
+                Back
+              </ButtonWidget>
 
-          <OrangeButtonWidget
-            content="Review Application"
-            className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-xs 2xl:text-[14px] 3xl:text-[18px]"
-          />
-        </div>
+              <OrangeButtonWidget
+                content="Review Application"
+                className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-xs 2xl:text-[14px] 3xl:text-[18px]"
+              />
+            </div>
+          )
+        }
       </form>
     </FormProvider>
   );

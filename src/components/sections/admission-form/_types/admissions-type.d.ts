@@ -96,6 +96,7 @@ type course = {
   publishedAt: null;
   locale: null;
   Amount: number;
+  Percentage: number;
   GstAmount: number;
   TotalAmount: number;
   GstPercentage: number;
@@ -144,7 +145,11 @@ type AdmissionFormData = {
 
   step_3: boolean;
 
-  Payment_Status: "Paid" | "Not Paid" | string;
+  Payment_Status: string;
+
+  Paid_Amount: number;
+
+  EncryptId: string;
 };
 
 type LanguageProficiency = {

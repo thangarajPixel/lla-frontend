@@ -133,7 +133,7 @@ const Input = ({
         <p
           className={cn(
             "text-sm text-red-500",
-            error ? "block" : "invisible",
+            error ? "block" : "hidden md:block md:invisible",
             errorClassName,
           )}
         >

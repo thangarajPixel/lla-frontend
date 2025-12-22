@@ -14,7 +14,7 @@ type PaymentPopupProps = {
   onClose: () => void;
   amount: number;
   gstRate: number;
-  total: number;
+  total?: number;
   paymentDetails?: PaymentResponse | null;
 };
 
@@ -23,7 +23,7 @@ const PaymentModel = ({
   onClose,
   amount,
   gstRate,
-  total,
+  // total,
   paymentDetails,
 }: PaymentPopupProps) => {
   const handlePayment = async () => {
@@ -79,7 +79,7 @@ const PaymentModel = ({
               <span className="font-medium text-gray-700">
                 (Total:{" "}
                 <span className="text-[#E87A6C]">
-                  ₹{total.toLocaleString("en-IN")}
+                  {amount + (amount * gstRate) / 100}
                 </span>
                 )
               </span>{" "}

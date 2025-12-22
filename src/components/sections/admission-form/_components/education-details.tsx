@@ -143,7 +143,7 @@ export function EducationDetails({
             <Button
               type="button"
               onClick={() => removePgDegree(index)}
-              className="absolute top-0 right-0 flex items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
+              className="absolute -top-2 right-0 flex items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
             >
               <X className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
             </Button>
