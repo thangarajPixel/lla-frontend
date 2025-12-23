@@ -81,9 +81,9 @@ const AdmissionFormLayout = ({ children }: { children: React.ReactNode }) => {
           </h1>
         </div>
 
-        <div 
-        // className="w-full lg:w-[65%] bg-white px-4 sm:px-8 py-12 lg:pr-36 3xl:pr-80"
-        className="w-full lg:w-[65%] bg-white px-4 sm:px-8 py-12 lg:pr-24 xl:pr-36 3xl:pr-80"
+        <div
+          // className="w-full lg:w-[65%] bg-white px-4 sm:px-8 py-12 lg:pr-36 3xl:pr-80"
+          className="w-full lg:w-[65%] bg-white px-4 sm:px-8 py-12 lg:pr-24 xl:pr-36 3xl:pr-80"
         >
           <div
             ref={scrollContainerRef}

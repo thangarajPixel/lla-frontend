@@ -24,7 +24,6 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
     }
   };
 
-
   const handleVideoError = (
     e: React.SyntheticEvent<HTMLVideoElement, Event>,
   ) => {
@@ -115,7 +114,7 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
                   showCloseButton={false}
                   onOpenChange={(open) => {
                     if (!open) {
-                      stopPopupVideo();        // stop popup video
+                      stopPopupVideo(); // stop popup video
                       videoRef.current?.play(); // resume background video
                     } else {
                       videoRef.current?.pause(); // pause background video

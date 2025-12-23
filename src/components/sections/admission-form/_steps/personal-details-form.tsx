@@ -66,21 +66,21 @@ const PersonalDetailsForm = ({
       nationality: admissionData?.nationality ?? "",
       Language_Proficiency:
         admissionData?.Language_Proficiency &&
-          admissionData?.Language_Proficiency?.length > 0
+        admissionData?.Language_Proficiency?.length > 0
           ? admissionData?.Language_Proficiency?.map((language) => ({
-            language: language?.language ?? "",
-            read: language?.read ?? false,
-            write: language?.write ?? false,
-            speak: language?.speak ?? false,
-          }))
+              language: language?.language ?? "",
+              read: language?.read ?? false,
+              write: language?.write ?? false,
+              speak: language?.speak ?? false,
+            }))
           : [
-            {
-              language: "",
-              read: false,
-              write: false,
-              speak: false,
-            },
-          ],
+              {
+                language: "",
+                read: false,
+                write: false,
+                speak: false,
+              },
+            ],
       address: admissionData?.address?.map((block) => ({
         type: "paragraph",
         children: block.children.map((child) => ({
@@ -88,16 +88,16 @@ const PersonalDetailsForm = ({
           type: child.type,
         })),
       })) ?? [
-          {
-            type: "paragraph",
-            children: [
-              {
-                text: "",
-                type: "text",
-              },
-            ],
-          },
-        ],
+        {
+          type: "paragraph",
+          children: [
+            {
+              text: "",
+              type: "text",
+            },
+          ],
+        },
+      ],
       city: admissionData?.city ?? "",
       district: admissionData?.district ?? "",
       state: admissionData?.state?.documentId ?? "",
@@ -127,16 +127,16 @@ const PersonalDetailsForm = ({
             })),
           }),
         ) ?? [
-            {
-              type: "paragraph",
-              children: [
-                {
-                  text: "",
-                  type: "text",
-                },
-              ],
-            },
-          ],
+          {
+            type: "paragraph",
+            children: [
+              {
+                text: "",
+                type: "text",
+              },
+            ],
+          },
+        ],
         city: admissionData?.Parent_Guardian_Spouse_Details?.city ?? "",
         district: admissionData?.Parent_Guardian_Spouse_Details?.district ?? "",
         state:
@@ -186,7 +186,6 @@ const PersonalDetailsForm = ({
     fileInputRef.current?.click();
   };
 
-
   const validateDimensions = (file: File): Promise<boolean> => {
     return new Promise((resolve) => {
       const img = document.createElement("img") as HTMLImageElement;
@@ -208,7 +207,7 @@ const PersonalDetailsForm = ({
           toast.error(
             `Image dimensions must not exceed 51mm × 51mm (600×600 px).
              Your image is ${width}×${height}px.`,
-            { position: "bottom-right" }
+            { position: "bottom-right" },
           );
           resolve(false);
           return;
@@ -224,8 +223,6 @@ const PersonalDetailsForm = ({
       };
     });
   };
-
-
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -330,9 +327,9 @@ const PersonalDetailsForm = ({
             Personal Details
           </h1>
 
-          <div 
-          // className="flex flex-col-reverse xs:flex-col lg:grid lg:grid-cols-[1fr_180px] gap-8"
-          className="flex flex-col-reverse xs:flex-col lg:grid lg:grid-cols-[1fr] xl:grid-cols-[1fr_180px] gap-8"
+          <div
+            // className="flex flex-col-reverse xs:flex-col lg:grid lg:grid-cols-[1fr_180px] gap-8"
+            className="flex flex-col-reverse xs:flex-col lg:grid lg:grid-cols-[1fr] xl:grid-cols-[1fr_180px] gap-8"
           >
             <div className="space-y-6">
               <div>
@@ -499,7 +496,7 @@ const PersonalDetailsForm = ({
                 onClick={handleClick}
               >
                 {(!previewUrl && !admissionData?.passport_size_image) ||
-                  isRemoved ? (
+                isRemoved ? (
                   <>
                     <ImageWidget
                       src={UploadIconImg}

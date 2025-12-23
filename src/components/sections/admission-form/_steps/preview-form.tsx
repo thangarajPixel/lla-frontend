@@ -328,7 +328,10 @@ const ReviewApplication = ({
                 content="Proceed to Pay"
                 className="xss:text-[16px] xss:h-10 w-2/4 3xl:h-12.5 text-lg 2xl:text-[14px] 3xl:text-[18px]"
                 onClick={() =>
-                  handleOpenPayment(admissionData?.documentId as string, admissionId as string)
+                  handleOpenPayment(
+                    admissionData?.documentId as string,
+                    admissionId as string,
+                  )
                 }
               />
             </div>
