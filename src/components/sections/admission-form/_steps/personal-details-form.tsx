@@ -66,21 +66,21 @@ const PersonalDetailsForm = ({
       nationality: admissionData?.nationality ?? "",
       Language_Proficiency:
         admissionData?.Language_Proficiency &&
-        admissionData?.Language_Proficiency?.length > 0
+          admissionData?.Language_Proficiency?.length > 0
           ? admissionData?.Language_Proficiency?.map((language) => ({
-              language: language?.language ?? "",
-              read: language?.read ?? false,
-              write: language?.write ?? false,
-              speak: language?.speak ?? false,
-            }))
+            language: language?.language ?? "",
+            read: language?.read ?? false,
+            write: language?.write ?? false,
+            speak: language?.speak ?? false,
+          }))
           : [
-              {
-                language: "",
-                read: false,
-                write: false,
-                speak: false,
-              },
-            ],
+            {
+              language: "",
+              read: false,
+              write: false,
+              speak: false,
+            },
+          ],
       address: admissionData?.address?.map((block) => ({
         type: "paragraph",
         children: block.children.map((child) => ({
@@ -88,16 +88,16 @@ const PersonalDetailsForm = ({
           type: child.type,
         })),
       })) ?? [
-        {
-          type: "paragraph",
-          children: [
-            {
-              text: "",
-              type: "text",
-            },
-          ],
-        },
-      ],
+          {
+            type: "paragraph",
+            children: [
+              {
+                text: "",
+                type: "text",
+              },
+            ],
+          },
+        ],
       city: admissionData?.city ?? "",
       district: admissionData?.district ?? "",
       state: admissionData?.state?.documentId ?? "",
@@ -127,16 +127,16 @@ const PersonalDetailsForm = ({
             })),
           }),
         ) ?? [
-          {
-            type: "paragraph",
-            children: [
-              {
-                text: "",
-                type: "text",
-              },
-            ],
-          },
-        ],
+            {
+              type: "paragraph",
+              children: [
+                {
+                  text: "",
+                  type: "text",
+                },
+              ],
+            },
+          ],
         city: admissionData?.Parent_Guardian_Spouse_Details?.city ?? "",
         district: admissionData?.Parent_Guardian_Spouse_Details?.district ?? "",
         state:
@@ -186,6 +186,7 @@ const PersonalDetailsForm = ({
     fileInputRef.current?.click();
   };
 
+
   const validateDimensions = (file: File): Promise<boolean> => {
     return new Promise((resolve) => {
       const img = document.createElement("img") as HTMLImageElement;
@@ -199,23 +200,21 @@ const PersonalDetailsForm = ({
 
         URL.revokeObjectURL(objectUrl);
 
-        // 51mm × 51mm @ 300 DPI
-        const REQUIRED_PX = 602;
-        const TOLERANCE = 5;
+        const MAX_PX = 600;
 
-        const isValid =
-          Math.abs(width - REQUIRED_PX) <= TOLERANCE &&
-          Math.abs(height - REQUIRED_PX) <= TOLERANCE;
+        const isAllowed = width <= MAX_PX && height <= MAX_PX;
 
-        if (!isValid) {
+        if (!isAllowed) {
           toast.error(
-            `Passport photo must be 51mm × 51mm (≈602×602 px at 300 DPI). Your image is ${width}×${height}px.`,
-            { position: "bottom-right" },
+            `Image dimensions must not exceed 51mm × 51mm (600×600 px).
+             Your image is ${width}×${height}px.`,
+            { position: "bottom-right" }
           );
           resolve(false);
-        } else {
-          resolve(true);
+          return;
         }
+
+        resolve(true);
       };
 
       img.onerror = () => {
@@ -225,6 +224,8 @@ const PersonalDetailsForm = ({
       };
     });
   };
+
+
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -329,7 +330,10 @@ const PersonalDetailsForm = ({
             Personal Details
           </h1>
 
-          <div className="flex flex-col-reverse xs:flex-col lg:grid lg:grid-cols-[1fr_180px] gap-8">
+          <div 
+          // className="flex flex-col-reverse xs:flex-col lg:grid lg:grid-cols-[1fr_180px] gap-8"
+          className="flex flex-col-reverse xs:flex-col lg:grid lg:grid-cols-[1fr] xl:grid-cols-[1fr_180px] gap-8"
+          >
             <div className="space-y-6">
               <div>
                 <label
@@ -491,11 +495,11 @@ const PersonalDetailsForm = ({
 
               <div
                 aria-hidden
-                className="border border-dashed border-border rounded-lg xs:max-w-[190px] flex flex-col items-center justify-center min-h-[227px] xs:min-h-[227px] bg-secondary cursor-pointer hover:bg-accent transition relative overflow-hidden group lg:max-w-full"
+                className="border border-dashed border-border rounded-lg xs:max-w-[190px] flex flex-col items-center justify-center min-h-[227px] xs:min-h-[227px] bg-secondary cursor-pointer hover:bg-accent transition relative overflow-hidden group xl:max-w-full"
                 onClick={handleClick}
               >
                 {(!previewUrl && !admissionData?.passport_size_image) ||
-                isRemoved ? (
+                  isRemoved ? (
                   <>
                     <ImageWidget
                       src={UploadIconImg}
@@ -521,7 +525,7 @@ const PersonalDetailsForm = ({
                       width={100}
                       height={100}
                       alt="Preview"
-                      className="h-[227px] xs:h-[227px] w-full object-cover rounded-md hover:opacity-80 transition-opacity"
+                      className="h-fit xs:h-[227px] w-full object-cover rounded-md hover:opacity-80 transition-opacity"
                     />
                     <Button
                       type="button"
@@ -549,7 +553,7 @@ const PersonalDetailsForm = ({
                 className="hidden"
               />
 
-              <p className="text-xs font-mulish text-muted-foreground mt-2 xs:max-w-[180px] lg:max-w-full">
+              <p className="text-xs font-mulish text-muted-foreground mt-2 xs:max-w-[180px] xl:max-w-full">
                 {/* The size of the images should not be more than 12&quot;x8&quot;
                 size. Max. file size not more than 1MB. */}
                 A recent , passport-size photograph (51mm x 51mm) in digital

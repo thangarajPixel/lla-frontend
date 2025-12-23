@@ -262,7 +262,7 @@ const ReviewApplication = ({
     }
   }, [admissionData]);
 
-  const handleOpenPayment = async (admissionId: string) => {
+  const handleOpenPayment = async (updateId: string, admissionId: string) => {
     const data = {
       step_3: true,
       Payment_Status: "Completed",
@@ -270,7 +270,7 @@ const ReviewApplication = ({
     };
 
     try {
-      const res = await clientAxios.put(`/admissions/${admissionId}`, { data });
+      const res = await clientAxios.put(`/admissions/${updateId}`, { data });
       setPaymentDetails(res?.data?.checkoutLink);
       setIsPaymentOpen(true);
     } catch (_error) {
@@ -328,7 +328,7 @@ const ReviewApplication = ({
                 content="Proceed to Pay"
                 className="xss:text-[16px] xss:h-10 w-2/4 3xl:h-12.5 text-lg 2xl:text-[14px] 3xl:text-[18px]"
                 onClick={() =>
-                  handleOpenPayment(admissionData?.documentId as string)
+                  handleOpenPayment(admissionData?.documentId as string, admissionId as string)
                 }
               />
             </div>
