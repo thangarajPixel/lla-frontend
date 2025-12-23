@@ -401,7 +401,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
                       <div className="flex flex-col">
                         <button
                           type="button"
-                          className="relative w-full aspect-4/3 overflow-hidden mb-3 sm:mb-4 border border-white cursor-pointer bg-transparent p-0"
+                          className="relative w-full aspect-4/3 overflow-hidden mb-3 sm:mb-4 border border-white cursor-pointer bg-transparent p-0 group"
                           aria-label={`View ${facility.Title || "Facility"} image in lightbox`}
                           onClick={() => {
                             if (lightboxIndex !== undefined) {
@@ -413,7 +413,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
                             src={thumbnailUrl}
                             alt={facility.Title || "Facility"}
                             fill
-                            className="object-cover"
+                            className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"
                           />
                         </button>
                         {facility.Title && (
@@ -514,7 +514,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
                       >
                         <button
                           type="button"
-                          className={`${facilityPos.container} cursor-pointer bg-transparent p-0`}
+                          className={`${facilityPos.container} cursor-pointer bg-transparent p-0 group`}
                           style={isPredefined ? undefined : containerStyle}
                           aria-label={`View ${facilityPos.facility.Title || "Facility"} image in lightbox`}
                           onClick={() => {
@@ -527,7 +527,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
                             src={thumbnailUrl}
                             alt={facilityPos.facility.Title || "Facility"}
                             fill
-                            className="object-cover"
+                            className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"
                           />
                         </button>
                         {facilityPos.facility.Title && (
