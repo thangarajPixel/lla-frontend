@@ -125,7 +125,7 @@ const AccordionWidget = ({
                   <HTMLWidget
                     content={item.content as string}
                     tag="div"
-                    className="text-[16px] leading-[24px]! [&_ul]:pl-4 [&_ol]:pl-4"
+                    className="text-[16px] leading-[24px]! [&_ul]:pl-4 [&_ol]:pl-4 [&_ul]:list-disc"
                   />
                 </AccordionContent>
               </AccordionItem>

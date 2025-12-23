@@ -341,7 +341,7 @@ const NilgirisSection = ({ data: initialData }: { data: NilgirisData }) => {
               </ParagraphWidget>
             </div>
 
-            {uniqueTypes.length > 0 && (
+            {/* {uniqueTypes.length > 0 && (
               <RadioGroup
                 value={selectedType}
                 onValueChange={setSelectedType}
@@ -372,7 +372,7 @@ const NilgirisSection = ({ data: initialData }: { data: NilgirisData }) => {
                   );
                 })}
               </RadioGroup>
-            )}
+            )} */}
           </div>
 
           <div className="w-full" suppressHydrationWarning>
