@@ -6,8 +6,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { getNilgirisPageData } from "@/app/api/server";
 import { DialogClose } from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Skeleton } from "@/components/ui/skeleton";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
@@ -44,7 +42,7 @@ const NilgirisSection = ({ data: initialData }: { data: NilgirisData }) => {
     return Array.from(new Set(initialData.ImageCard.map((card) => card.Type)));
   }, [initialData?.ImageCard]);
 
-  const [selectedType, setSelectedType] = useState<string>(
+  const [selectedType, _setSelectedType] = useState<string>(
     uniqueTypesInitial.length > 0 ? uniqueTypesInitial[0] : "",
   );
   const [imageCards, setImageCards] = useState(initialData.ImageCard || []);
@@ -61,7 +59,7 @@ const NilgirisSection = ({ data: initialData }: { data: NilgirisData }) => {
     setIsMounted(true);
   }, []);
 
-  const uniqueTypes = useMemo(() => {
+  const _uniqueTypes = useMemo(() => {
     if (!initialData?.ImageCard) return [];
     const types = Array.from(
       new Set(initialData.ImageCard.map((card) => card.Type)),
