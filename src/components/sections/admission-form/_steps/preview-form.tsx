@@ -532,7 +532,10 @@ const ReviewApplication = ({
                               href="#"
                               onClick={(e) => {
                                 e.preventDefault();
-                                handleDownload(degree?.marksheet?.url, degree?.marksheet?.name);
+                                handleDownload(
+                                  degree?.marksheet?.url,
+                                  degree?.marksheet?.name,
+                                );
                               }}
                               className="text-chart-1/80 text-xs"
                             >
@@ -592,7 +595,10 @@ const ReviewApplication = ({
                               href="#"
                               onClick={(e) => {
                                 e.preventDefault();
-                                handleDownload(degree?.marksheet?.url, degree?.marksheet?.name);
+                                handleDownload(
+                                  degree?.marksheet?.url,
+                                  degree?.marksheet?.name,
+                                );
                               }}
                               className="text-chart-1/80 text-xs"
                             >

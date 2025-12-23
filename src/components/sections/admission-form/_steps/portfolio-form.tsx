@@ -2,11 +2,11 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import type z from "zod";
-
 import { ImageGrid } from "@/components/sections/admission-form/_components/image-grid";
 import { UploadArea } from "@/components/sections/admission-form/_components/upload-area";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
@@ -16,7 +16,6 @@ import { portfolioSchema } from "@/helpers/ValidationHelper";
 import { cn } from "@/lib/utils";
 import { updateAdmission } from "@/store/services/global-services";
 import { useCourseStore } from "@/store/zustand";
-import { ArrowLeft } from "lucide-react";
 
 export type PortfolioSchema = z.infer<typeof portfolioSchema>;
 
@@ -223,7 +222,7 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
                 "p-5 w-[95px] 3xl:w-[123px] 3xl:h-[50px] text-lg bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
               )}
             >
-              <ArrowLeft className="size-5"/>
+              <ArrowLeft className="size-5" />
               Back
             </ButtonWidget>
 
