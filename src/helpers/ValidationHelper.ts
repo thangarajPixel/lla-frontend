@@ -234,7 +234,7 @@ export const admissionRequestSchema = z.object({
   Email: z.string().min(1, "Email is required"),
   Mobile: z
     .string()
-    .min(1, "Mobile number is required")
+    .min(1, "Mobile No is required")
     .regex(/^[6-9]\d{9}$/, "Enter a valid mobile number"),
   Message: z.string(),
 });

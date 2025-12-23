@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -94,6 +95,7 @@ const EducationDetailsForm = ({
     const data = {
       ...filteredData,
       step_2: true,
+      EncryptId: admissionId,
     };
 
     try {
@@ -132,24 +134,27 @@ const EducationDetailsForm = ({
           You may upload any reference letters that support your application.
         </p>
 
-        <div className="flex justify-start gap-3 lg:mt-10 pt-6">
-          <ButtonWidget
-            type="button"
-            onClick={() => {
-              router.push(`/admission/${admissionId}/personal-details`);
-            }}
-            className={cn(
-              "p-5 w-[95px] 3xl:w-[123px] 3xl:h-[50px] text-lg bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
-            )}
-          >
-            Back
-          </ButtonWidget>
+        {admissionData?.Payment_Status !== "Paid" && (
+          <div className="flex justify-start gap-3 lg:mt-10 pt-6">
+            <ButtonWidget
+              type="button"
+              onClick={() => {
+                router.push(`/admission/${admissionId}/personal-details`);
+              }}
+              className={cn(
+                "flex items-center justify-center p-5 w-[95px] 3xl:w-[123px] 3xl:h-[50px] text-lg bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
+              )}
+            >
+              <ArrowLeft className="size-5" />
+              Back
+            </ButtonWidget>
 
-          <OrangeButtonWidget
-            content="Save & Continue"
-            className="xss:text-[18px] xss:h-10 3xl:h-12.5 2xl:text-[18px] 3xl:text-[18px]"
-          />
-        </div>
+            <OrangeButtonWidget
+              content="Save & Continue"
+              className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-[18px] 2xl:text-[18px] 3xl:text-[18px]"
+            />
+          </div>
+        )}
       </form>
     </FormProvider>
   );

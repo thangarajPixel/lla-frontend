@@ -2,11 +2,11 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import type z from "zod";
-
 import { ImageGrid } from "@/components/sections/admission-form/_components/image-grid";
 import { UploadArea } from "@/components/sections/admission-form/_components/upload-area";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
@@ -166,6 +166,7 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
           ...filteredPayload(payload),
           step_3: true,
           Payment_Status: "Pending",
+          EncryptId: admissionId,
         } as PortfolioSchema,
       );
 
@@ -181,7 +182,7 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
         onSubmit={handleSubmit(onSubmit)}
         className="bg-background py-8 px-2"
       >
-        <h1 className="text-2xl text-[#E97451] font-urbanist mb-8">
+        <h1 className="text-2xl 3xl:text-[32px] text-[#E97451] font-urbanist mb-8">
           Upload Your Portfolio
         </h1>
 
@@ -210,24 +211,27 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
           <ImageGrid images={images} onRemove={handleRemoveImage} />
         </div>
 
-        <div className="flex justify-start gap-3 mt-10 pt-6">
-          <ButtonWidget
-            type="button"
-            onClick={() =>
-              router.push(`/admission/${admissionId}/education-details`)
-            }
-            className={cn(
-              "p-5 w-[95px] 3xl:w-[123px] 3xl:h-[50px] text-lg bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
-            )}
-          >
-            Back
-          </ButtonWidget>
+        {admissionData?.Payment_Status !== "Paid" && (
+          <div className="flex justify-start gap-3 mt-10 pt-6">
+            <ButtonWidget
+              type="button"
+              onClick={() =>
+                router.push(`/admission/${admissionId}/education-details`)
+              }
+              className={cn(
+                "p-5 w-[95px] 3xl:w-[123px] 3xl:h-[50px] text-lg bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
+              )}
+            >
+              <ArrowLeft className="size-5" />
+              Back
+            </ButtonWidget>
 
-          <OrangeButtonWidget
-            content="Review Application"
-            className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-xs 2xl:text-[14px] 3xl:text-[18px]"
-          />
-        </div>
+            <OrangeButtonWidget
+              content="Review Application"
+              className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-[18px] 2xl:text-[18px] 3xl:text-[18px]"
+            />
+          </div>
+        )}
       </form>
     </FormProvider>
   );

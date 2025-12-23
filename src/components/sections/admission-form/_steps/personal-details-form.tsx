@@ -300,6 +300,7 @@ const PersonalDetailsForm = ({
     const data = {
       ...filteredData,
       step_1: true,
+      EncryptId: admissionId,
     };
 
     try {
@@ -520,7 +521,7 @@ const PersonalDetailsForm = ({
                       width={100}
                       height={100}
                       alt="Preview"
-                      className="h-[227px] xs:h-[227px] w-full object-contain rounded-md hover:opacity-80 transition-opacity"
+                      className="h-[227px] xs:h-[227px] w-full object-cover rounded-md hover:opacity-80 transition-opacity"
                     />
                     <Button
                       type="button"
@@ -542,7 +543,6 @@ const PersonalDetailsForm = ({
 
               <input
                 type="file"
-                // accept="image/*"
                 accept="image/jpeg,image/png"
                 ref={fileInputRef}
                 onChange={handleFileChange}
@@ -571,7 +571,7 @@ const PersonalDetailsForm = ({
             <FormInput
               name="hobbies"
               label="Hobbies / Talent(s)"
-              placeholder="Enter your Hobbies / Talent(s)"
+              placeholder="Enter your hobbies"
               control={control}
               notRequired={true}
             />
@@ -579,7 +579,7 @@ const PersonalDetailsForm = ({
             <FormInput
               name="photography_club"
               label="Photography Club"
-              placeholder="Enter your Photography Club"
+              placeholder="Enter your club"
               control={control}
               notRequired={true}
             />
@@ -682,14 +682,14 @@ const PersonalDetailsForm = ({
           </div>
         </div>
 
-        <div className="flex justify-start gap-3 lg:mt-10 pt-6">
-          <OrangeButtonWidget
-            content="Save & Continue"
-            // className="xss:text-[12px] h-9 px-4"
-            // className="text-lg 2xl:text-lg h-[50px] px-6 py-3"
-            className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-xs 2xl:text-[18px] 3xl:text-[18px]"
-          />
-        </div>
+        {admissionData?.Payment_Status !== "Paid" && (
+          <div className="flex justify-start gap-3 lg:mt-10 pt-6">
+            <OrangeButtonWidget
+              content="Save & Continue"
+              className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-xs 2xl:text-[18px] 3xl:text-[18px]"
+            />
+          </div>
+        )}
       </form>
     </FormProvider>
   );

@@ -4,9 +4,10 @@ import { XCircle } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
+import { getAdmissionsById } from "@/app/api/server";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { notify } from "@/helpers/ConstantHelper";
+import { decryptCode, notify } from "@/helpers/ConstantHelper";
 import { updateAdmission } from "@/store/services/global-services";
 
 const PaymentFailedPage = () => {
@@ -16,9 +17,19 @@ const PaymentFailedPage = () => {
   useEffect(() => {
     if (!encryptedId || Array.isArray(encryptedId)) return;
 
-    const admissionResponse = async () => {
+    const updatePaymentStatus = async () => {
+      const admissionId = decryptCode(encryptedId);
+
+      const admissionResponse = await getAdmissionsById(Number(admissionId));
+
+      const admissionData = admissionResponse?.data as AdmissionFormData;
+
+      if (admissionData?.Payment_Status === "UnPaid") {
+        return;
+      }
+
       try {
-        await updateAdmission(encryptedId, {
+        await updateAdmission(admissionData?.documentId, {
           step_3: true,
           Payment_Status: "UnPaid",
         } as never);
@@ -27,7 +38,7 @@ const PaymentFailedPage = () => {
       }
     };
 
-    admissionResponse();
+    updatePaymentStatus();
   }, [encryptedId]);
 
   return (

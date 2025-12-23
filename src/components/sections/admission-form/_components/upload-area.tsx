@@ -28,18 +28,18 @@ export const UploadArea = ({ onFilesSelected }: UploadAreaProps) => {
       aria-hidden
       onDragOver={(e) => e.preventDefault()}
       onDrop={handleDrop}
-      className="border-2 border-dashed rounded-xl p-12 flex flex-col items-center gap-4 bg-card hover:border-primary/50"
+      className="border border-[#969696] rounded-xl p-12 flex flex-col items-center gap-4 bg-[#F7F7F7] hover:border-primary/50"
     >
       <ImageWidget src={UploadIconImg} alt="Upload" className="h-10 w-10" />
 
-      <p className="text-sm text-muted-foreground">Drag & drop images here</p>
+      <p className="text-sm text-muted-foreground">Drag & Drop here</p>
 
       <Button
         type="button"
         onClick={() => inputRef.current?.click()}
-        className="rounded-full px-8"
+        className="rounded-full px-4 py-2 bg-[#E97451]"
       >
-        Select Images
+        Select File
       </Button>
 
       <input
