@@ -17,13 +17,13 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
   const [dialogVideoError, setDialogVideoError] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const stopAllVideos = () => {
-    const videos = document.querySelectorAll("video");
-    videos.forEach((video) => {
-      video.pause();
-      video.currentTime = 0;
-    });
+  const stopPopupVideo = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
   };
+
 
   const handleVideoError = (
     e: React.SyntheticEvent<HTMLVideoElement, Event>,
@@ -114,7 +114,12 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
                   showCancel={false}
                   showCloseButton={false}
                   onOpenChange={(open) => {
-                    if (!open) stopAllVideos();
+                    if (!open) {
+                      stopPopupVideo();        // stop popup video
+                      videoRef.current?.play(); // resume background video
+                    } else {
+                      videoRef.current?.pause(); // pause background video
+                    }
                   }}
                   customCloseButton={
                     <DialogClose asChild>
