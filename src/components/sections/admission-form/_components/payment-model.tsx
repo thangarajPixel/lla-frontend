@@ -49,7 +49,7 @@ const PaymentModel = ({
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent
         aria-describedby={undefined}
-        className="max-w-2xl border-0 bg-white p-0 shadow-xl [&>button]:hidden rounded-none"
+        className="max-w-xs xs:max-w-lg sm:max-w-md 3xl:max-w-2xl border-0 bg-white p-0 shadow-xl [&>button]:hidden rounded-none"
       >
         <DialogTitle className="hidden">Proceed to Pay</DialogTitle>
         <div className="relative p-8">
