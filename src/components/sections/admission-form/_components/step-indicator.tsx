@@ -54,8 +54,8 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
             <section
               key={`step-indicator-${index + 1}`}
               className={cn(
-                isCircle ? "h-4 w-4 rounded-full" : "h-0.5 flex-1",
-                isActive ? "bg-green-500" : "bg-primary/30",
+                isCircle ? "h-4 w-4 rounded-full" : "h-1 flex-1",
+                isActive ? "bg-[#02B752]" : "bg-primary/30",
               )}
             />
           );

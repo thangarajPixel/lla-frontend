@@ -65,7 +65,7 @@ const FormRadioGroup = <T extends FieldValues>({
               return (
                 <div
                   key={id}
-                  className="flex h-fit items-center space-x-3 p-2 rounded-lg cursor-pointer"
+                  className="flex h-fit items-center space-x-3 py-2 lg:p-2 rounded-lg cursor-pointer"
                 >
                   <RadioGroupItem
                     id={id}

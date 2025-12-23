@@ -66,7 +66,7 @@ const AdmissionFormLayout = ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <div className="mx-auto">
+    <div className="mx-auto mt-2">
       <section className="flex min-h-screen">
         <div
           className="hidden h-screen lg:flex w-[35%] p-12 justify-center"

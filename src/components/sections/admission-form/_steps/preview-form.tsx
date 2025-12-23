@@ -102,7 +102,7 @@ function Section({
           />
         )}
       </section>
-      <div className="space-y-2 3xl:space-y-5">{children}</div>
+      <div className="space-y-5 3xl:space-y-5">{children}</div>
     </div>
   );
 }
@@ -121,7 +121,7 @@ function Field({
   return (
     <div
       className={cn(
-        "flex flex-col items-start md:flex-row md:items-center gap-3 lg:gap-0 justify-between text-base 3xl:text-2xl font-mulish",
+        "flex flex-col items-start md:flex-row md:items-center gap-1 lg:gap-0 justify-between text-base 3xl:text-2xl font-mulish",
         label === "Address" && "md:items-start",
       )}
     >
@@ -132,7 +132,7 @@ function Field({
         className={cn(
           "text-black text-left w-full",
           "wrap-break-word whitespace-normal overflow-hidden",
-          "md:text-right md:max-w-3xs",
+          "md:text-right md:max-w-xs", // md:max-w-3xs
           label === "Email" && "md:max-w-fit",
         )}
       >
@@ -218,9 +218,9 @@ function EducationField({
               <ImageWidget
                 src={DocumentIcon ?? null}
                 alt="Document"
-                width={100}
-                height={100}
-                className="size-4 3xl:size-6 rounded-full"
+                width={24}
+                height={24}
+                className="size-6 rounded-full"
               />
               <LinkWidget
                 href="#"
@@ -291,7 +291,7 @@ const ReviewApplication = ({
         )}
       >
         {/* LEFT SIDE */}
-        <div className="flex lg:ml-36 md:w-2/4 lg:w-1/4 flex-col lg:items-center gap-6 pt-8 mb-8 3xl:py-16 3xl:mt-10">
+        <div className="flex lg:ml-20 xl:ml-36 md:w-full lg:w-[33%] 3xl:w-[35%] flex-col lg:items-center gap-6 pt-8 mb-8 3xl:py-16 3xl:mt-10">
           <h1 className="text-[32px] px-4 font-urbanist leading-tight lg:hidden">
             {admissionData?.Course?.Name}
           </h1>
@@ -315,7 +315,7 @@ const ReviewApplication = ({
             <div className="flex flex-row items-center justify-between gap-1 3xl:w-md px-4 lg:px-0">
               <ButtonWidget
                 className={cn(
-                  "group bg-chart-1/10 text-chart-1 hover:bg-chart-1/10 rounded-[60px] px-5 w-2/4 h-10 xss:text-[16px] 3xl:h-[50px] text-xs 2xl:text-[14px] 3xl:text-[18px]",
+                  "group bg-chart-1/10 text-chart-1 hover:bg-chart-1/10 rounded-[60px] px-5 w-2/4 h-10 xss:text-[16px] 3xl:h-[50px] text-lg 2xl:text-[14px] 3xl:text-[18px]",
                 )}
                 onClick={() =>
                   router.push(`/admission/${admissionId}/portfolio`)
@@ -326,7 +326,7 @@ const ReviewApplication = ({
               </ButtonWidget>
               <OrangeButtonWidget
                 content="Proceed to Pay"
-                className="xss:text-[16px] xss:h-10 w-2/4 3xl:h-12.5 text-xs 2xl:text-[14px] 3xl:text-[18px]"
+                className="xss:text-[16px] xss:h-10 w-2/4 3xl:h-12.5 text-lg 2xl:text-[14px] 3xl:text-[18px]"
                 onClick={() =>
                   handleOpenPayment(admissionData?.documentId as string)
                 }
@@ -337,7 +337,7 @@ const ReviewApplication = ({
 
         <Card className="bg-chart-1/20 flex-1 backdrop-blur lg:py-16 3xl:py-32 3xl:pl-6 border-none shadow-none rounded-none">
           <CardContent
-            className="space-y-8 text-sm lg:max-w-3/4 h-[calc(100vh-6rem)] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="space-y-8 text-sm lg:max-w-[90%] xl:max-w-[75%] 3xl:max-w-3/4 h-[calc(100vh-6rem)] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             data-lenis-prevent
           >
             <Section
@@ -416,7 +416,7 @@ const ReviewApplication = ({
               }
               paymentStatus={admissionData?.Payment_Status}
             >
-              <div className="flex flex-col md:flex-row items-start justify-between">
+              <div className="flex flex-col gap-3 md:flex-row items-start justify-between">
                 <EducationField
                   label="10th Std"
                   title="Document"
@@ -463,9 +463,9 @@ const ReviewApplication = ({
                       <ImageWidget
                         src={DocumentIcon ?? null}
                         alt="Document"
-                        width={100}
-                        height={100}
-                        className="size-4 3xl:size-6 rounded-full"
+                        width={24}
+                        height={24}
+                        className="size-6 rounded-full"
                       />
                       <LinkWidget
                         className="text-chart-1/80 text-base md:text-xs lg:text-base text-nowrap 3xl:text-lg"
@@ -524,13 +524,16 @@ const ReviewApplication = ({
                             <ImageWidget
                               src={DocumentIcon ?? null}
                               alt="Document"
-                              width={100}
-                              height={100}
-                              className="size-4 rounded-full"
+                              width={24}
+                              height={24}
+                              className="size-6 rounded-full"
                             />
                             <LinkWidget
-                              href={degree?.marksheet?.url ?? ""}
-                              target="_blank"
+                              href="#"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                handleDownload(degree?.marksheet?.url, degree?.marksheet?.name);
+                              }}
                               className="text-chart-1/80 text-xs"
                             >
                               View Document
@@ -581,13 +584,16 @@ const ReviewApplication = ({
                             <ImageWidget
                               src={DocumentIcon ?? null}
                               alt="Document"
-                              width={100}
-                              height={100}
-                              className="size-4 rounded-full"
+                              width={24}
+                              height={24}
+                              className="size-6 rounded-full"
                             />
                             <LinkWidget
-                              href={degree?.marksheet?.url ?? ""}
-                              target="_blank"
+                              href="#"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                handleDownload(degree?.marksheet?.url, degree?.marksheet?.name);
+                              }}
                               className="text-chart-1/80 text-xs"
                             >
                               View Document

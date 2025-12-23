@@ -14,6 +14,7 @@ import { educationDetailsSchema } from "@/helpers/ValidationHelper";
 import { cn } from "@/lib/utils";
 import { updateAdmission } from "@/store/services/global-services";
 import { useCourseStore } from "@/store/zustand";
+import { ArrowLeft } from "lucide-react";
 
 export type EducationDetailsSchema = z.infer<typeof educationDetailsSchema>;
 
@@ -46,36 +47,36 @@ const EducationDetailsForm = ({
       Post_Graduate:
         admissionData?.Post_Graduate && admissionData?.Post_Graduate?.length > 0
           ? admissionData?.Post_Graduate?.map((item) => ({
-              degree: item?.degree ?? "",
-              pg_status: item?.pg_status ?? "",
-              marksheet: item?.marksheet?.id ?? 0,
-            }))
+            degree: item?.degree ?? "",
+            pg_status: item?.pg_status ?? "",
+            marksheet: item?.marksheet?.id ?? 0,
+          }))
           : [
-              {
-                degree: "",
-                pg_status: "",
-                marksheet: 0,
-              },
-            ],
+            {
+              degree: "",
+              pg_status: "",
+              marksheet: 0,
+            },
+          ],
       Work_Experience:
         admissionData?.Work_Experience &&
-        admissionData?.Work_Experience?.length > 0
+          admissionData?.Work_Experience?.length > 0
           ? admissionData?.Work_Experience?.map((item) => ({
-              designation: item?.designation ?? "",
-              employer: item?.employer ?? "",
-              duration_start: item?.duration_start ?? "",
-              duration_end: item?.duration_end ?? "",
-              reference_letter: item?.reference_letter?.id ?? 0,
-            }))
+            designation: item?.designation ?? "",
+            employer: item?.employer ?? "",
+            duration_start: item?.duration_start ?? "",
+            duration_end: item?.duration_end ?? "",
+            reference_letter: item?.reference_letter?.id ?? 0,
+          }))
           : [
-              {
-                designation: "",
-                employer: "",
-                duration_start: "",
-                duration_end: "",
-                reference_letter: 0,
-              },
-            ],
+            {
+              designation: "",
+              employer: "",
+              duration_start: "",
+              duration_end: "",
+              reference_letter: 0,
+            },
+          ],
       step_2: admissionData?.step_2 ?? false,
     },
   });
@@ -141,15 +142,16 @@ const EducationDetailsForm = ({
                 router.push(`/admission/${admissionId}/personal-details`);
               }}
               className={cn(
-                "p-5 w-[95px] 3xl:w-[123px] 3xl:h-[50px] text-lg bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
+                "flex items-center justify-center p-5 w-[95px] 3xl:w-[123px] 3xl:h-[50px] text-lg bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
               )}
             >
+              <ArrowLeft className="size-5" />
               Back
             </ButtonWidget>
 
             <OrangeButtonWidget
               content="Save & Continue"
-              className="xss:text-[18px] xss:h-10 3xl:h-12.5 2xl:text-[18px] 3xl:text-[18px]"
+              className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-[18px] 2xl:text-[18px] 3xl:text-[18px]"
             />
           </div>
         )}

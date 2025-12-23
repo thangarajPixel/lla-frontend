@@ -164,7 +164,7 @@ export function FileUploadButton({
         <ImageWidget
           src={UploadIconImg}
           alt="Upload Icon"
-          className="h-5 w-5"
+          className="size-6"
         />
         <span className="text-sm font-light lg:font-normal">{placeholder}</span>
       </button>
@@ -177,7 +177,7 @@ export function FileUploadButton({
       />
       <p
         className={cn(
-          "text-xs text-muted-foreground mt-2",
+          "text-xs text-muted-foreground mt-4",
           hideDescription && "hidden",
         )}
       >

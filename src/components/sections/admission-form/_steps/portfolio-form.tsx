@@ -16,6 +16,7 @@ import { portfolioSchema } from "@/helpers/ValidationHelper";
 import { cn } from "@/lib/utils";
 import { updateAdmission } from "@/store/services/global-services";
 import { useCourseStore } from "@/store/zustand";
+import { ArrowLeft } from "lucide-react";
 
 export type PortfolioSchema = z.infer<typeof portfolioSchema>;
 
@@ -182,7 +183,7 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
         onSubmit={handleSubmit(onSubmit)}
         className="bg-background py-8 px-2"
       >
-        <h1 className="text-2xl text-[#E97451] font-urbanist mb-8">
+        <h1 className="text-2xl 3xl:text-[32px] text-[#E97451] font-urbanist mb-8">
           Upload Your Portfolio
         </h1>
 
@@ -222,12 +223,13 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
                 "p-5 w-[95px] 3xl:w-[123px] 3xl:h-[50px] text-lg bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
               )}
             >
+              <ArrowLeft className="size-5"/>
               Back
             </ButtonWidget>
 
             <OrangeButtonWidget
               content="Review Application"
-              className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-xs 2xl:text-[14px] 3xl:text-[18px]"
+              className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-[18px] 2xl:text-[18px] 3xl:text-[18px]"
             />
           </div>
         )}

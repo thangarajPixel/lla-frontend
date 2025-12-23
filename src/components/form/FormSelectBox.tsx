@@ -72,7 +72,7 @@ const FormSelectBox = <T extends FieldValues>({
           />
         </SelectTrigger>
         {options.length > 0 ? (
-          <SelectContent className="max-h-60 overflow-y-auto">
+          <SelectContent className={cn("max-h-60 overflow-y-auto")}>
             {options.map((option) => (
               <SelectItem key={option.value} value={option.value}>
                 <div className="flex flex-col">

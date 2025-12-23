@@ -521,7 +521,7 @@ const PersonalDetailsForm = ({
                       width={100}
                       height={100}
                       alt="Preview"
-                      className="h-[227px] xs:h-[227px] w-full object-contain rounded-md hover:opacity-80 transition-opacity"
+                      className="h-[227px] xs:h-[227px] w-full object-cover rounded-md hover:opacity-80 transition-opacity"
                     />
                     <Button
                       type="button"
@@ -571,7 +571,7 @@ const PersonalDetailsForm = ({
             <FormInput
               name="hobbies"
               label="Hobbies / Talent(s)"
-              placeholder="Enter your Hobbies / Talent(s)"
+              placeholder="Enter your hobbies"
               control={control}
               notRequired={true}
             />
@@ -579,7 +579,7 @@ const PersonalDetailsForm = ({
             <FormInput
               name="photography_club"
               label="Photography Club"
-              placeholder="Enter your Photography Club"
+              placeholder="Enter your club"
               control={control}
               notRequired={true}
             />

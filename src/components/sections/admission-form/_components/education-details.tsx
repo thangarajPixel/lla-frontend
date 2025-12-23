@@ -46,8 +46,8 @@ export function EducationDetails({
   };
 
   return (
-    <div className="space-y-6">
-      <h2 className="text-2xl 3xl:text-3xl text-[#E97451] font-urbanist">
+    <div className="space-y-2">
+      <h2 className="text-2xl 3xl:text-[32px] text-[#E97451] font-urbanist">
         Education Details
       </h2>
 
@@ -155,7 +155,7 @@ export function EducationDetails({
         <Button
           type="button"
           onClick={addDegree}
-          className="flex ml-auto items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
+          className="flex md:ml-auto items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
         >
           <Plus className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
           <span className="text-chart-1">Add Any Other Degree</span>
