@@ -28,8 +28,8 @@ const FacultyHeroSection = ({ data }: FacultyHeroSectionProps) => {
               </ParagraphWidget>
             </div>
           </ScrollWidget>
-          <div className="flex flex-row gap-3 xss:gap-3 xs:gap-5 column-gap:2 sm:gap-6 md:gap-5 lg:gap-5 xl:gap-5 2xl:gap-5 3xl:gap-7 ">
-            <div className="flex flex-col gap-3 md:gap-5  lg:gap-5 xl:gap-5 2xl:gap-5 3xl:gap-7 pt-25  sm:pt-30 lg:pt-35">
+          <div className="flex flex-row gap-3 xss:gap-4 xs:gap-5 column-gap:2 sm:gap-6 md:gap-5 lg:gap-5 xl:gap-5 2xl:gap-5 3xl:gap-7 ">
+            <div className="flex flex-col gap-3 xss:gap-4 md:gap-5   lg:gap-5 xl:gap-5 2xl:gap-5 3xl:gap-7 pt-25  sm:pt-30 lg:pt-35">
               {data.Image?.slice(0, 2).map(
                 ({ url }: { url: string }, index: number) => (
                   <ScrollWidget key={url} delay={0.4 + index * 0.3}>
@@ -48,7 +48,7 @@ const FacultyHeroSection = ({ data }: FacultyHeroSectionProps) => {
                 ),
               )}
             </div>
-            <div className="flex flex-col gap-3 md:gap-5 lg:gap-5 xl:gap-5  2xl:gap-5 3xl:gap-7 pt-10  sm:pt-15 lg:pt-18">
+            <div className="flex flex-col gap-3 xss:gap-4 md:gap-5 lg:gap-5 xl:gap-5  2xl:gap-5 3xl:gap-7 pt-10  sm:pt-15 lg:pt-18">
               {data.Image?.slice(2, 4).map(
                 ({ url }: { url: string }, index: number) => (
                   <ScrollWidget key={url} delay={0.5 + index * 0.3}>
@@ -67,7 +67,7 @@ const FacultyHeroSection = ({ data }: FacultyHeroSectionProps) => {
                 ),
               )}
             </div>
-            <div className="flex flex-col gap-3 md:gap-5 lg:gap-5 xl:gap-5 2xl:gap-5 3xl:gap-7">
+            <div className="flex flex-col gap-3 xss:gap-4 md:gap-5 lg:gap-5 xl:gap-5 2xl:gap-5 3xl:gap-7">
               {data.Image?.slice(4, 7).map(
                 ({ url }: { url: string }, index: number) => (
                   <ScrollWidget key={url} delay={0.6 + index * 0.3}>
