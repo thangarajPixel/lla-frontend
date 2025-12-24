@@ -1,16 +1,15 @@
 "use client";
 
 import { CheckCircle2 } from "lucide-react";
-import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import { getAdmissionsById } from "@/app/api/server";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { clientAxios } from "@/helpers/AxiosHelper";
 import { decryptCode, notify } from "@/helpers/ConstantHelper";
 import { updateAdmission } from "@/store/services/global-services";
-import { clientAxios } from "@/helpers/AxiosHelper";
-import { toast } from "sonner";
 
 const PaymentSuccessPage = () => {
   const [admissionId, setAdmissionId] = useState<string | null>(null);
@@ -19,15 +18,12 @@ const PaymentSuccessPage = () => {
 
   const handleDownload = async () => {
     try {
-      const res = await clientAxios.get(
-        `/admissions/${admissionId}/pdf`,
-        {
-          responseType: "blob",
-          headers: {
+      const res = await clientAxios.get(`/admissions/${admissionId}/pdf`, {
+        responseType: "blob",
+        headers: {
           Accept: "application/pdf",
         },
-        }
-      );
+      });
 
       const blob = new Blob([res.data], { type: "application/pdf" });
       const url = window.URL.createObjectURL(blob);
@@ -40,13 +36,12 @@ const PaymentSuccessPage = () => {
 
       link.remove();
       window.URL.revokeObjectURL(url);
-    } catch (error) {
+    } catch (_error) {
       toast.error("Download Failed", {
         position: "bottom-right",
       });
     }
   };
-
 
   useEffect(() => {
     if (!encryptedId || Array.isArray(encryptedId)) return;
@@ -67,7 +62,7 @@ const PaymentSuccessPage = () => {
         const paidAmount =
           admissionData?.Course?.Amount +
           (admissionData?.Course?.Amount * admissionData?.Course?.Percentage) /
-          100;
+            100;
 
         await updateAdmission(admissionData?.documentId, {
           step_3: true,

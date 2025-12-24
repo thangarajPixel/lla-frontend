@@ -13,7 +13,7 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 import ImageWidget from "@/components/widgets/ImageWidget";
-import { validateDimensions } from "@/helpers/ConstantHelper";
+// import { validateDimensions } from "@/helpers/ConstantHelper";
 import { UploadIconImg } from "@/helpers/ImageHelper";
 import { cn } from "@/lib/utils";
 

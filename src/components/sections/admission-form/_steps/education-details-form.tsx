@@ -83,7 +83,7 @@ const EducationDetailsForm = ({
 
   const { control, handleSubmit, watch, setValue } = form_step2;
 
-  const watchUgStatus = watch("Under_Graduate.ug_status")
+  const watchUgStatus = watch("Under_Graduate.ug_status");
 
   useEffect(() => {
     if (admissionData) {
@@ -95,7 +95,7 @@ const EducationDetailsForm = ({
     if (watchUgStatus === "In-Progress") {
       setValue("Under_Graduate.marksheet", 0, { shouldValidate: true });
     }
-  }, [watchUgStatus]);
+  }, [watchUgStatus, setValue]);
 
   const onSubmit = async (payload: EducationDetailsSchema) => {
     const filteredData = filteredPayload(payload);
@@ -129,8 +129,8 @@ const EducationDetailsForm = ({
           <span className="font-bold text-black">
             Educational Certificates :{" "}
           </span>{" "}
-          Digital copies (PDF/JPEG/PNG) of your 10th and 12th standard certificates,
-          along with UG and PG certificates, if applicable.
+          Digital copies (PDF/JPEG/PNG) of your 10th and 12th standard
+          certificates, along with UG and PG certificates, if applicable.
         </p>
 
         <WorkExperience admissionData={admissionData} control={control} />

@@ -136,7 +136,6 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
           onSubmit={form.handleSubmit(onSubmit)}
           className="grid grid-cols-2 md:flex font-mulish gap-2 md:gap-3 items-stretch md:items-center md:justify-between"
         >
-
           <FormInput
             name="FirstName"
             placeholder="Name*"

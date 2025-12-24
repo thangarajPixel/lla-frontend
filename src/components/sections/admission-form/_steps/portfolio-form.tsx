@@ -30,7 +30,7 @@ type PortfolioFormProps = {
   admissionId?: string;
 };
 
-const MAX_IMAGES = 20;
+const _MAX_IMAGES = 20;
 const MAX_SIZE = 1024 * 1024;
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/jpg"];
 

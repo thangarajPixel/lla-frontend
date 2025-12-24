@@ -1,11 +1,9 @@
 "use client";
 
 import { XCircle } from "lucide-react";
-import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
 import { getAdmissionsById } from "@/app/api/server";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { decryptCode, notify } from "@/helpers/ConstantHelper";
 import { updateAdmission } from "@/store/services/global-services";
