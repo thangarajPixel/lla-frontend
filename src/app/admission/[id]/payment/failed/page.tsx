@@ -59,14 +59,6 @@ const PaymentFailedPage = () => {
               We couldn't process your payment
             </p>
           </div>
-
-          <div className="flex flex-col gap-3 mt-8">
-            <Link href="/" className="w-full">
-              <Button variant="outline" size="lg" className="w-full">
-                Back to Home
-              </Button>
-            </Link>
-          </div>
         </CardContent>
       </Card>
     </div>

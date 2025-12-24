@@ -64,6 +64,7 @@ const AddressFields = ({ control, name }: AddressFieldsProps) => {
           placeholder="Pincode"
           control={control}
           restrictionType="text"
+          maxLength={6}
         />
       </div>
     </div>

@@ -133,11 +133,11 @@ export function FileUploadButton({
     setIsRemoved(false);
 
     if (file.type.startsWith("image/")) {
-      const valid = await validateDimensions(file);
-      if (!valid) {
-        e.target.value = "";
-        return;
-      }
+      // const valid = await validateDimensions(file);
+      // if (!valid) {
+      //   e.target.value = "";
+      //   return;
+      // }
 
       const url = URL.createObjectURL(file);
       setPreview(url);

@@ -12,7 +12,7 @@ type InputFieldProps = React.ComponentProps<"input"> & {
   errorClassName?: string;
   restrictionType?: string;
   maxLength?: number;
-  onFieldCheck?: (field: string) => void;
+  onFieldCheck?: (field: string, error?: string) => void;
   pageType?: string;
 };
 
@@ -118,7 +118,7 @@ const Input = ({
           const trimmed = e.target.value.trim();
           e.target.value = trimmed;
 
-          onFieldCheck?.(trimmed);
+          onFieldCheck?.(trimmed, error?.message as string);
           props.onBlur?.(e);
         }}
       />
