@@ -13,7 +13,7 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 import ImageWidget from "@/components/widgets/ImageWidget";
-import { validateDimensions } from "@/helpers/ConstantHelper";
+// import { validateDimensions } from "@/helpers/ConstantHelper";
 import { UploadIconImg } from "@/helpers/ImageHelper";
 import { cn } from "@/lib/utils";
 
@@ -133,11 +133,11 @@ export function FileUploadButton({
     setIsRemoved(false);
 
     if (file.type.startsWith("image/")) {
-      const valid = await validateDimensions(file);
-      if (!valid) {
-        e.target.value = "";
-        return;
-      }
+      // const valid = await validateDimensions(file);
+      // if (!valid) {
+      //   e.target.value = "";
+      //   return;
+      // }
 
       const url = URL.createObjectURL(file);
       setPreview(url);

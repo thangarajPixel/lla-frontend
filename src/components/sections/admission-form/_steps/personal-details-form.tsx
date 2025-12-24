@@ -186,7 +186,7 @@ const PersonalDetailsForm = ({
     fileInputRef.current?.click();
   };
 
-  const validateDimensions = (file: File): Promise<boolean> => {
+  const _validateDimensions = (file: File): Promise<boolean> => {
     return new Promise((resolve) => {
       const img = document.createElement("img") as HTMLImageElement;
       const objectUrl = URL.createObjectURL(file);
@@ -254,8 +254,8 @@ const PersonalDetailsForm = ({
       return;
     }
 
-    const valid = await validateDimensions(file);
-    if (!valid) return;
+    // const valid = await validateDimensions(file);
+    // if (!valid) return;
 
     const url = URL.createObjectURL(file);
     setPreviewUrl(url);
@@ -269,7 +269,9 @@ const PersonalDetailsForm = ({
     });
   };
 
-  const handleFieldCheck = async (email: string) => {
+  const handleFieldCheck = async (email: string, error?: string) => {
+    if (error) return;
+
     const isExistingEmailCheck = await clientAxios.post(
       `/admissions/email/check`,
       {
@@ -327,10 +329,7 @@ const PersonalDetailsForm = ({
             Personal Details
           </h1>
 
-          <div
-            // className="flex flex-col-reverse xs:flex-col lg:grid lg:grid-cols-[1fr_180px] gap-8"
-            className="flex flex-col-reverse xs:flex-col lg:grid lg:grid-cols-[1fr] xl:grid-cols-[1fr_180px] gap-8"
-          >
+          <div className="flex flex-col-reverse xs:flex-col 2xl:grid 2xl:grid-cols-[1fr_180px] 3xl:grid-cols-[1fr_180px] gap-8">
             <div className="space-y-6">
               <div>
                 <label
@@ -388,7 +387,7 @@ const PersonalDetailsForm = ({
                     onFieldCheck={handleFieldCheck}
                   />
 
-                  {isVerified && (
+                  {isVerified && !errors?.email?.message && (
                     <div className="flex items-center gap-2 text-green-600 font-medium mt-2">
                       <CheckCircle className="size-4 3xl:size-4" />
                       <span className="text-sm">Email Verified</span>
@@ -492,7 +491,7 @@ const PersonalDetailsForm = ({
 
               <div
                 aria-hidden
-                className="border border-dashed border-border rounded-lg xs:max-w-[190px] flex flex-col items-center justify-center min-h-[227px] xs:min-h-[227px] bg-secondary cursor-pointer hover:bg-accent transition relative overflow-hidden group xl:max-w-full"
+                className="border border-dashed border-border rounded-lg xs:max-w-[190px] flex flex-col items-center justify-center min-h-[227px] xs:min-h-[227px] bg-secondary cursor-pointer hover:bg-accent transition relative overflow-hidden"
                 onClick={handleClick}
               >
                 {(!previewUrl && !admissionData?.passport_size_image) ||
@@ -550,7 +549,7 @@ const PersonalDetailsForm = ({
                 className="hidden"
               />
 
-              <p className="text-xs font-mulish text-muted-foreground mt-2 xs:max-w-[180px] xl:max-w-full">
+              <p className="text-xs font-mulish text-muted-foreground mt-2 xs:max-w-[180px] 2xl:max-w-full">
                 {/* The size of the images should not be more than 12&quot;x8&quot;
                 size. Max. file size not more than 1MB. */}
                 A recent , passport-size photograph (51mm x 51mm) in digital
@@ -590,7 +589,6 @@ const PersonalDetailsForm = ({
               label="Blood Group"
               placeholder="Enter your bloodGroup"
               control={control}
-              notRequired={true}
               restrictionType="number"
               maxLength={3}
             />

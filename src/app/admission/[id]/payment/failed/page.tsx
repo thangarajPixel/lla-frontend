@@ -1,11 +1,9 @@
 "use client";
 
 import { XCircle } from "lucide-react";
-import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
 import { getAdmissionsById } from "@/app/api/server";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { decryptCode, notify } from "@/helpers/ConstantHelper";
 import { updateAdmission } from "@/store/services/global-services";
@@ -58,14 +56,6 @@ const PaymentFailedPage = () => {
             <p className="text-muted-foreground">
               We couldn't process your payment
             </p>
-          </div>
-
-          <div className="flex flex-col gap-3 mt-8">
-            <Link href="/" className="w-full">
-              <Button variant="outline" size="lg" className="w-full">
-                Back to Home
-              </Button>
-            </Link>
           </div>
         </CardContent>
       </Card>

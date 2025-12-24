@@ -30,7 +30,7 @@ type PortfolioFormProps = {
   admissionId?: string;
 };
 
-const MAX_IMAGES = 20;
+const _MAX_IMAGES = 20;
 const MAX_SIZE = 1024 * 1024;
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/jpg"];
 
@@ -76,15 +76,15 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
   }, [admissionData]);
 
   const handleFilesSelected = async (files: File[]) => {
-    const existingCount = images.length;
+    // const existingCount = images.length;
 
-    if (existingCount >= MAX_IMAGES) {
-      notify({
-        success: false,
-        message: `You can upload a maximum of ${MAX_IMAGES} images`,
-      });
-      return;
-    }
+    // if (existingCount >= MAX_IMAGES) {
+    //   notify({
+    //     success: false,
+    //     message: `You can upload a maximum of ${MAX_IMAGES} images`,
+    //   });
+    //   return;
+    // }
 
     const validFiles = files.filter((file) => {
       if (!ALLOWED_TYPES.includes(file.type)) {
@@ -108,12 +108,12 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
 
     if (!validFiles.length) return;
 
-    const remainingSlots = MAX_IMAGES - existingCount;
-    const uploadFiles = validFiles.slice(0, remainingSlots);
+    // const remainingSlots = MAX_IMAGES - existingCount;
+    // const uploadFiles = validFiles.slice(0, remainingSlots);
 
     const formData = new FormData();
 
-    for (const file of uploadFiles) {
+    for (const file of validFiles) {
       formData.append("files", file);
     }
 
@@ -131,7 +131,7 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
         shouldValidate: true,
       });
 
-      const previewImages: UploadedImage[] = uploadFiles.map((file) => ({
+      const previewImages: UploadedImage[] = validFiles.map((file) => ({
         id: crypto.randomUUID(),
         url: URL.createObjectURL(file),
         file,

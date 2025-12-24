@@ -1,18 +1,47 @@
 "use client";
 
 import { CheckCircle2 } from "lucide-react";
-import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import { getAdmissionsById } from "@/app/api/server";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { clientAxios } from "@/helpers/AxiosHelper";
 import { decryptCode, notify } from "@/helpers/ConstantHelper";
 import { updateAdmission } from "@/store/services/global-services";
 
 const PaymentSuccessPage = () => {
+  const [admissionId, setAdmissionId] = useState<string | null>(null);
   const params = useParams();
   const encryptedId = params?.id;
+
+  const handleDownload = async () => {
+    try {
+      const res = await clientAxios.get(`/admissions/${admissionId}/pdf`, {
+        responseType: "blob",
+        headers: {
+          Accept: "application/pdf",
+        },
+      });
+
+      const blob = new Blob([res.data], { type: "application/pdf" });
+      const url = window.URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `admission-${admissionId}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (_error) {
+      toast.error("Download Failed", {
+        position: "bottom-right",
+      });
+    }
+  };
 
   useEffect(() => {
     if (!encryptedId || Array.isArray(encryptedId)) return;
@@ -20,6 +49,7 @@ const PaymentSuccessPage = () => {
     const updatePaymentStatus = async () => {
       try {
         const admissionId = decryptCode(encryptedId);
+        setAdmissionId(admissionId);
 
         const admissionResponse = await getAdmissionsById(Number(admissionId));
 
@@ -59,23 +89,23 @@ const PaymentSuccessPage = () => {
 
           <div className="text-center mb-6">
             <h1 className="text-2xl font-semibold text-foreground mb-2">
-              Payment Successful!
+              Payment Successfull
             </h1>
             <p className="text-muted-foreground">
-              Your payment has been processed successfully
+              Thank you so much for your application.
             </p>
           </div>
 
           <div className="flex flex-col gap-3 mt-8">
-            <Link href="/" className="w-full">
-              <Button
-                variant="outline"
-                size="lg"
-                className="w-full bg-transparent"
-              >
-                Back to Home
-              </Button>
-            </Link>
+            <Button
+              type="button"
+              variant="outline"
+              size="lg"
+              className="w-full bg-transparent"
+              onClick={handleDownload}
+            >
+              Download
+            </Button>
           </div>
         </CardContent>
       </Card>
