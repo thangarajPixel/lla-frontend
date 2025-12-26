@@ -53,6 +53,7 @@ const Input = ({
           inputClassName,
         )}
         {...props}
+        disabled={props.disabled}
         maxLength={maxLength}
         onChange={(e) => {
           e.preventDefault();

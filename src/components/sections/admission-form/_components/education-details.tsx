@@ -144,6 +144,7 @@ export function EducationDetails({
                 });
               }
             }}
+            disabled={ugStatus !== "Finished"}
           />
 
           <FormRadioGroup
@@ -153,7 +154,9 @@ export function EducationDetails({
               { value: "Finished", label: "Finished" },
               { value: "In-Progress", label: "In-Progress" },
             ]}
-            disabled={!postGraduate?.[index]?.degree?.trim()}
+            disabled={
+              ugStatus !== "Finished" || !postGraduate?.[index]?.degree?.trim()
+            }
             errorClassName="mt-0 lg:-mt-4"
           />
           {index > 0 && (

@@ -665,11 +665,13 @@ const ReviewApplication = ({
               )}
 
             {admissionData?.Message && (
-              <div className="flex flex-col md:flex-row items-start md:items-center justify-between text-base md:text-sm 3xl:text-2xl">
-                <span className="text-[#E97451] text-base 3xl:text-2xl">
+              <div className="flex flex-col md:flex-row items-start md:items-start justify-between text-base md:text-sm 3xl:text-2xl">
+                <span className="text-[#E97451] text-base 3xl:text-2xl text-nowrap">
                   Where did you find out about LLA?
                 </span>
-                <span>{admissionData?.Message}</span>
+                <span className="wrap-break-word md:max-w-xs">
+                  {admissionData?.Message}
+                </span>
               </div>
             )}
 
