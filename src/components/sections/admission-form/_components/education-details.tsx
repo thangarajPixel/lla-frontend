@@ -1,7 +1,12 @@
 "use client";
 
 import { Plus, X } from "lucide-react";
-import { type Control, useFieldArray, UseFormSetValue, useWatch } from "react-hook-form";
+import {
+  type Control,
+  type UseFormSetValue,
+  useFieldArray,
+  useWatch,
+} from "react-hook-form";
 import { FormInput } from "@/components/form";
 import FormFileUploadButton from "@/components/form/FormFileUploadButton";
 import FormRadioGroup from "@/components/form/FormRadioGroup";
@@ -148,9 +153,7 @@ export function EducationDetails({
               { value: "Finished", label: "Finished" },
               { value: "In-Progress", label: "In-Progress" },
             ]}
-            disabled={
-              postGraduate?.[index]?.degree?.trim() === "" ? true : false
-            }
+            disabled={!postGraduate?.[index]?.degree?.trim()}
             errorClassName="mt-0 lg:-mt-4"
           />
           {index > 0 && (

@@ -550,8 +550,8 @@ const PersonalDetailsForm = ({
               />
 
               <p className="text-xs font-mulish text-muted-foreground mt-2 xs:max-w-[180px] 2xl:max-w-full">
-                A recent passport-size photograph in white background. And the Max file size not
-                more than 1MB.
+                A recent passport-size photograph in white background. And the
+                Max file size not more than 1MB.
               </p>
 
               {errors.passport_size_image && (

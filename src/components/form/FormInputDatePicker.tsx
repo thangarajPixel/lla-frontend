@@ -103,7 +103,7 @@ const FormDatePickerWithInput = <T extends FieldValues>({
               (cursor === 3 || cursor === 6) &&
               value[cursor - 1] !== "/"
             ) {
-              value = value.slice(0, cursor - 1) + "/" + value.slice(cursor - 1);
+              value = `${value.slice(0, cursor - 1)}/${value.slice(cursor - 1)}`;
               cursor += 1;
             }
 

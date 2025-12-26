@@ -89,15 +89,11 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
       (cursor === 3 || cursor === 6 || cursor === 16 || cursor === 19) &&
       value[cursor - 1] !== "/"
     ) {
-      value =
-        value.slice(0, cursor - 1) + "/" + value.slice(cursor - 1);
+      value = `${value.slice(0, cursor - 1)}/${value.slice(cursor - 1)}`;
       cursor += 1;
     }
 
-    if (
-      value.length === 10 &&
-      !value.includes(" - ")
-    ) {
+    if (value.length === 10 && !value.includes(" - ")) {
       value += " - ";
       cursor = value.length;
     }
@@ -110,7 +106,7 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
       input.setSelectionRange(cursor, cursor);
     });
 
-    const [startStr, endStr] = value.split(" - ").map(v => v.trim());
+    const [startStr, endStr] = value.split(" - ").map((v) => v.trim());
 
     const startParsed = parseDisplay(startStr);
     const endParsed = parseDisplay(endStr);
@@ -132,7 +128,6 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
       to: endParsed ?? undefined,
     });
   };
-
 
   const handleCalendarSelect = (r: { from?: Date; to?: Date } | undefined) => {
     if (!r) return;

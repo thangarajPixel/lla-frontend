@@ -24,7 +24,7 @@ const FormRadioGroup = <T extends FieldValues>({
   notRequired,
   isLoading,
   errorClassName,
-  disabled
+  disabled,
 }: RadioGroupProps<T>) => {
   const {
     field,
