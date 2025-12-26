@@ -15,4 +15,3 @@ export const useCourseStore = create<CourseState>((set) => ({
   isHeaderVisible: false,
   setIsHeaderVisible: (visible) => set({ isHeaderVisible: visible }),
 }));
-

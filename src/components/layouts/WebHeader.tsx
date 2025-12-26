@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { getEssentialsData } from "@/app/api/server";
 import { Logo, LogoBlack } from "@/helpers/ImageHelper";
+import { useCourseStore } from "@/store/zustand";
 import ContainerWidget from "../widgets/ContainerWidget";
 import ImageWidget from "../widgets/ImageWidget";
 import LinkWidget from "../widgets/LinkWidget";
@@ -17,7 +18,6 @@ import type {
   MenuItem,
   WebHeaderResponse,
 } from "./utils/types";
-import { useCourseStore } from "@/store/zustand";
 
 const WebHeader = ({
   response,

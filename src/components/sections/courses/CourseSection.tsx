@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import LinkWidget from "@/components/widgets/LinkWidget";
+import { cn } from "@/lib/utils";
+import { useCourseStore } from "@/store/zustand";
 import CourseContentSection from "./utils/CourseContentSection";
 import FaqSection from "./utils/FaqSection";
 import GallerySection from "./utils/GallerySection";
@@ -15,8 +17,6 @@ import OverviewSection from "./utils/OverviewSection";
 import StudentSection from "./utils/StudentSection";
 import TestimonialSection from "./utils/TestimonialSection";
 import type { ContentCard, PgDiplomaData } from "./utils/types";
-import { useCourseStore } from "@/store/zustand";
-import { cn } from "@/lib/utils";
 
 const sidebarMenuItems = [
   { href: "#overview", label: "Overview" },
@@ -206,7 +206,12 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
 
   return (
     <div className="bg-white">
-      <aside className={cn("hidden xl:block shadow-lg fixed left-0 top-18 w-54 xl:w-45 2xl:w-54 2xxl:w-68 border-r border-b border-gray-200 z-30 bg-white", isHeaderVisible && "top-0")}>
+      <aside
+        className={cn(
+          "hidden xl:block shadow-lg fixed left-0 top-18 w-54 xl:w-45 2xl:w-54 2xxl:w-68 border-r border-b border-gray-200 z-30 bg-white",
+          isHeaderVisible && "top-0",
+        )}
+      >
         <div className="h-full overflow-y-auto">
           <nav className="py-6 2xxl:pt-13 px-4">{renderMenuItems()}</nav>
         </div>
@@ -244,7 +249,10 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
         )}
         <section id="course-content" className="scroll-mt-[-40px]">
           {data?.Course_content && (
-            <CourseContentSection data={data?.Course_content} isHeaderVisible={isHeaderVisible} />
+            <CourseContentSection
+              data={data?.Course_content}
+              isHeaderVisible={isHeaderVisible}
+            />
           )}
         </section>
         <section id="other-info" className="scroll-mt-[-40px]">
