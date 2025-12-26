@@ -11,6 +11,7 @@ import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import type { CourseSectionProps } from "./utils/home";
+import { getEssentialsData } from "@/app/api/server";
 
 type AnimationType =
   | "fadeIn"
@@ -26,6 +27,8 @@ const CourseSection = ({ data }: CourseSectionProps) => {
     return data?.Card?.map(() => 0) || [];
   });
 
+  const [isAdmissionOpen, setIsAdmissionOpen] = useState(false);
+
   useEffect(() => {
     setImageIndices(
       data?.Card?.map((card) => {
@@ -36,6 +39,14 @@ const CourseSection = ({ data }: CourseSectionProps) => {
       }),
     );
   }, [data?.Card]);
+  useEffect(() => {
+  const getAdmissionData = async () => {
+    const { data: res } = await getEssentialsData();
+    setIsAdmissionOpen(res?.isAdmission);
+  };
+  getAdmissionData();
+}, []);
+
 
   const animations: Array<{
     image: AnimationType;
@@ -112,12 +123,21 @@ const CourseSection = ({ data }: CourseSectionProps) => {
                       className="relative w-full aspect-4/3 overflow-hidden xss:max-h-[242px] xss:min-w-[360px] sm:min-w-full sm:max-h-full"
                     >
                       {imageUrl && (
-                        <ImageWidget
-                          src={imageUrl}
-                          alt={card?.Title}
-                          fill
-                          className="object-cover 3xl:max-h-[429px] 3xl:max-w-[630px]"
-                        />
+                        <>
+                          <ImageWidget
+                            src={imageUrl}
+                            alt={card?.Title}
+                            fill
+                            className="object-cover 3xl:max-h-[429px] 3xl:max-w-[630px]"
+                          />
+                          {isAdmissionOpen && (
+                            <div className="absolute top-4 right-4 z-10">
+                              <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-[#E97451] text-white shadow-lg">
+                                Admissions Open
+                              </span>
+                            </div>
+                          )}
+                        </>
                       )}
                     </ParallaxWidget>
                   </ScrollWidget>
