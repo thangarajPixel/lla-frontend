@@ -17,6 +17,7 @@ import type {
   MenuItem,
   WebHeaderResponse,
 } from "./utils/types";
+import { useCourseStore } from "@/store/zustand";
 
 const WebHeader = ({
   response,
@@ -71,8 +72,10 @@ const WebHeader = ({
 
       if (currentY > lastScrollY.current && currentY > 120) {
         setIsHidden(true);
+        useCourseStore.setState({ isHeaderVisible: true });
       } else {
         setIsHidden(false);
+        useCourseStore.setState({ isHeaderVisible: false });
       }
 
       lastScrollY.current = currentY;

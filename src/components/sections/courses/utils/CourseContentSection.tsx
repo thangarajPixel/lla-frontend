@@ -4,6 +4,7 @@ import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import ImageLayout from "./ImageLayout";
 import type { CourseContentData, ImageData } from "./types";
+import { cn } from "@/lib/utils";
 
 const parseDuration = (
   duration: string,
@@ -21,7 +22,7 @@ const parseDuration = (
   };
 };
 
-const CourseContentSection = ({ data }: { data: CourseContentData }) => {
+const CourseContentSection = ({ data, isHeaderVisible }: { data: CourseContentData; isHeaderVisible?: boolean }) => {
   const durationParts = parseDuration(data.Duration ?? "");
   const headerData = {
     __component: "other-info-section",
@@ -114,7 +115,7 @@ const CourseContentSection = ({ data }: { data: CourseContentData }) => {
             className="w-full"
           >
             {group.OuterTitle && (
-              <div className="bg-white pb-1 pt-10 -mt-12 md:sticky top-18 z-30">
+              <div className={cn("bg-white pb-1 pt-10 -mt-12 md:sticky z-30", isHeaderVisible ? "top-0" : "top-18")}>
                 <h3
                   className={`text-3xl ${!group.OuterDescription && "mb-6"} xss:text-[32px] md:text-[40px] font-normal md:font-normal text-black font-urbanist`}
                 >
@@ -132,7 +133,7 @@ const CourseContentSection = ({ data }: { data: CourseContentData }) => {
             {group.sections.map((section, sectionIndex) => (
               <div
                 key={`section-${section.id || sectionIndex}`}
-                className={`w-full md:sticky ${group.OuterDescription ? "top-66" : "top-47"} z-10`}
+                className={cn(`w-full md:sticky ${group.OuterDescription ? "top-66" : "top-47"} z-10`, isHeaderVisible && "top-40")}
               >
                 <div
                   id={`course-content-${section.id || sectionIndex}`}
