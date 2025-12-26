@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { getEssentialsData } from "@/app/api/server";
 import { Logo, LogoBlack } from "@/helpers/ImageHelper";
 import ContainerWidget from "../widgets/ContainerWidget";
@@ -28,6 +28,9 @@ const WebHeader = ({
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [isSticky, setIsSticky] = useState(false);
   const [isAdmissionOpen, setIsAdmissionOpen] = useState<boolean>(false);
+  const [isHidden, setIsHidden] = useState(false);
+  const lastScrollY = useRef(0);
+
 
   useEffect(() => {
     if (!isHomePage) {
@@ -61,6 +64,26 @@ const WebHeader = ({
     getAdmissionData();
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+
+      setIsSticky(!isHomePage || currentY > window.innerHeight);
+
+      if (currentY > lastScrollY.current && currentY > 120) {
+        setIsHidden(true);
+      } else {
+        setIsHidden(false);
+      }
+
+      lastScrollY.current = currentY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isHomePage]);
+
+
   const menuItems: (MenuItem | DropdownMenuType)[] = useMemo(() => {
     if (!response?.course || !Array.isArray(response.course)) {
       return [
@@ -89,12 +112,12 @@ const WebHeader = ({
     return [
       ...(courseItems.length > 0
         ? [
-            {
-              label: "Courses",
-              pathPrefix: "/courses",
-              items: courseItems,
-            },
-          ]
+          {
+            label: "Courses",
+            pathPrefix: "/courses",
+            items: courseItems,
+          },
+        ]
         : []),
       { href: "/campus", label: "Campus" },
       { href: "/faculty", label: "Faculty" },
@@ -119,13 +142,14 @@ const WebHeader = ({
 
   return (
     <header
-      className={`w-full z-50 transition-all duration-300 ${
-        isHomePage
+      className={`w-full z-50 transition-all duration-300
+        ${isHidden ? "-translate-y-full" : "translate-y-0"}
+        ${isHomePage
           ? isSticky
             ? "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
             : "absolute top-0 left-0 bg-transparent text-white"
           : "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
-      }`}
+        }`}
     >
       <nav>
         <ContainerWidget>

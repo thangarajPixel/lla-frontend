@@ -79,7 +79,7 @@ const PaymentModel = ({
               <span className="font-medium text-gray-700">
                 (Total:{" "}
                 <span className="text-[#E87A6C]">
-                  {amount + (amount * gstRate) / 100}
+                  {(amount + (amount * gstRate) / 100).toFixed(2)}
                 </span>
                 )
               </span>{" "}

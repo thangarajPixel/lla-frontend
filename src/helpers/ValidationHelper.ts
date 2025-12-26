@@ -132,6 +132,14 @@ export const workExperience = z
         code: z.ZodIssueCode.custom,
       });
     }
+
+    if (value.duration_end && !isNotFutureDate(value.duration_end)) {
+      ctx.addIssue({
+        path: ["duration_start"],
+        message: "Cannot select future date",
+        code: z.ZodIssueCode.custom,
+      });
+    }
   });
 
 export const education = z.object({

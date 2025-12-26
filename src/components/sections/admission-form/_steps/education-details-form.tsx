@@ -133,7 +133,7 @@ const EducationDetailsForm = ({
           <span className="font-bold text-black">
             Educational Certificates :{" "}
           </span>{" "}
-          Digital copies (PDF/JPEG/PNG) of your 10th and 12th standard
+          Digital copies (PDF/JPG/JPEG/PNG) of your 10th and 12th standard
           certificates, along with UG and PG certificates, if applicable.
         </p>
 
