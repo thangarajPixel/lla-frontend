@@ -23,7 +23,7 @@ const SponsorsSection = ({ data }: SponsorsSectionProps) => {
                 className="flex items-center justify-center"
               >
                 <ScrollWidget animation="fadeUp" delay={0.1 + index * 0.05}>
-                  <div className="relative w-[120px] h-[45px] xss:w-[171px] xss:h-[63px] sm:w-[140px] sm:h-[55px] md:w-[150px] md:h-[58px] lg:w-[160px] lg:h-[62px] xl:w-[163px] xl:h-[63px] 2xl:w-[180px] 2xl:h-[70px] 3xl:w-[200px] 3xl:h-[78px] overflow-hidden">
+                  <div className="relative w-[120px] h-[45px] xss:w-[171px] xss:h-[63px] sm:w-[140px] sm:h-[55px] md:w-[150px] md:h-[60px] lg:w-[160px] lg:h-[65px] xl:w-[163px] xl:h-[68px] 2xl:w-[180px] 2xl:h-[78px] 3xl:w-[200px] 3xl:h-[85px] overflow-hidden">
                     <ImageWidget
                       src={getS3Url(sponsor.url)}
                       alt={sponsor.name}
