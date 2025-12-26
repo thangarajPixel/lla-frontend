@@ -1,6 +1,7 @@
 import type * as React from "react";
 
 import { cn } from "@/lib/utils";
+import { on } from "node:cluster";
 
 type InputFieldProps = React.ComponentProps<"input"> & {
   label?: string;
@@ -14,6 +15,7 @@ type InputFieldProps = React.ComponentProps<"input"> & {
   maxLength?: number;
   onFieldCheck?: (field: string, error?: string) => void;
   pageType?: string;
+  onChangeExtra?: (value: string) => void;
 };
 
 const Input = ({
@@ -27,6 +29,7 @@ const Input = ({
   restrictionType,
   maxLength,
   onFieldCheck,
+  onChangeExtra,
   pageType,
   ...props
 }: InputFieldProps) => {
@@ -53,6 +56,11 @@ const Input = ({
         )}
         {...props}
         maxLength={maxLength}
+        onChange={(e) => {
+          e.preventDefault();
+          onChangeExtra?.(e.target.value);
+          props.onChange?.(e);
+        }}
         onKeyDown={(e) => {
           const allowedControlKeys = [
             "Backspace",

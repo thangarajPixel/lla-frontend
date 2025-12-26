@@ -25,6 +25,7 @@ type InputProps<T extends FieldValues> = UseControllerProps<T> & {
   maxLength?: number;
   onFieldCheck?: (field: string) => void;
   pageType?: string;
+  onChangeExtra?: (value: string) => void;
 } & React.ComponentProps<"input">;
 
 const FormInput = <T extends FieldValues>({
@@ -38,6 +39,7 @@ const FormInput = <T extends FieldValues>({
   maxLength,
   onFieldCheck,
   pageType,
+  onChangeExtra,
   ...props
 }: InputProps<T>) => {
   const {
@@ -68,6 +70,7 @@ const FormInput = <T extends FieldValues>({
       maxLength={maxLength}
       onFieldCheck={onFieldCheck}
       pageType={pageType}
+      onChangeExtra={onChangeExtra}
     />
   );
 };

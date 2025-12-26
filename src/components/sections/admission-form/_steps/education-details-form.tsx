@@ -123,7 +123,7 @@ const EducationDetailsForm = ({
         onSubmit={handleSubmit(onSubmit)}
         className="space-y-4 pt-8 lg:py-8 bg-background mx-auto"
       >
-        <EducationDetails admissionData={admissionData} control={control} />
+        <EducationDetails admissionData={admissionData} control={control} setValue={setValue} />
 
         <p className="text-base text-muted-foreground mt-2">
           <span className="font-bold text-black">

@@ -69,16 +69,6 @@ const FormDatePickerWithInput = <T extends FieldValues>({
 
   const id = `date-${name.replace(/\./g, "/")}`;
 
-  const formatTypedDate = (raw: string) => {
-    let digits = raw.replace(/[^0-9]/g, "");
-
-    if (digits.length > 2) digits = `${digits.slice(0, 2)}/${digits.slice(2)}`;
-    if (digits.length > 5) digits = `${digits.slice(0, 5)}/${digits.slice(5)}`;
-    if (digits.length > 10) digits = digits.slice(0, 10);
-
-    return digits;
-  };
-
   return (
     <div className="w-full space-y-1">
       {label && (
@@ -102,37 +92,41 @@ const FormDatePickerWithInput = <T extends FieldValues>({
           inputClassName="w-full flex-1"
           maxLength={10}
           onChange={(e) => {
-            const { value: raw, selectionStart } = e.target;
+            const input = e.target;
+            let value = input.value;
+            let cursor = input.selectionStart ?? value.length;
 
-            const isMiddleDelete =
-              raw.length < inputValue.length && (selectionStart ?? 0) < 10;
+            if (!/^[0-9/]*$/.test(value)) return;
 
-            if (isMiddleDelete) {
-              setInputValue(raw);
+            if (
+              value.length > inputValue.length &&
+              (cursor === 3 || cursor === 6) &&
+              value[cursor - 1] !== "/"
+            ) {
+              value = value.slice(0, cursor - 1) + "/" + value.slice(cursor - 1);
+              cursor += 1;
+            }
 
-              if (raw.trim() === "" || raw.length < 10) {
-                onChange("");
-                setMonth(undefined);
+            if (value.length > 10) return;
+
+            setInputValue(value);
+
+            requestAnimationFrame(() => {
+              input.setSelectionRange(cursor, cursor);
+            });
+
+            if (value.length === 10) {
+              const parsed = parseDisplay(value);
+
+              if (parsed) {
+                onChange(format(parsed, STORE_FORMAT));
+                setMonth(parsed);
+                return;
               }
-
-              return;
             }
 
-            const formatted = formatTypedDate(raw);
-            setInputValue(formatted);
-
-            const parsed = parseDisplay(formatted);
-
-            if (parsed) {
-              const today = new Date();
-              today.setHours(0, 0, 0, 0);
-
-              onChange(format(parsed, STORE_FORMAT));
-              setMonth(parsed);
-            } else {
-              onChange("");
-              setMonth(undefined);
-            }
+            onChange("");
+            setMonth(undefined);
           }}
           onKeyDown={(e) => {
             if (e.key === "ArrowDown") {
@@ -157,7 +151,7 @@ const FormDatePickerWithInput = <T extends FieldValues>({
           </PopoverTrigger>
 
           <PopoverContent
-            className="w-auto overflow-hidden p-0 z-150"
+            className="w-auto overflow-hidden p-0 z-40"
             align="end"
             alignOffset={-8}
             sideOffset={10}

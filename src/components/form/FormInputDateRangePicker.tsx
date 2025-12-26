@@ -77,27 +77,54 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
 
   const [open, setOpen] = useState(false);
 
-  const handleInputChange = (text: string) => {
-    if (text.trim() === "") {
-      setStart("");
-      setEnd("");
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target;
+    let value = input.value;
+    let cursor = input.selectionStart ?? value.length;
+
+    if (!/^[0-9/\s-]*$/.test(value)) return;
+
+    if (
+      value.length > inputValue.length &&
+      (cursor === 3 || cursor === 6 || cursor === 16 || cursor === 19) &&
+      value[cursor - 1] !== "/"
+    ) {
+      value =
+        value.slice(0, cursor - 1) + "/" + value.slice(cursor - 1);
+      cursor += 1;
     }
 
-    if (!/^[0-9/\s-]*$/.test(text)) {
-      return;
+    if (
+      value.length === 10 &&
+      !value.includes(" - ")
+    ) {
+      value += " - ";
+      cursor = value.length;
     }
-    setInputValue(text);
 
-    const [startStr, endStr] = text.split(" - ").map((x) => x.trim());
+    if (value.length > 23) return;
+
+    setInputValue(value);
+
+    requestAnimationFrame(() => {
+      input.setSelectionRange(cursor, cursor);
+    });
+
+    const [startStr, endStr] = value.split(" - ").map(v => v.trim());
 
     const startParsed = parseDisplay(startStr);
     const endParsed = parseDisplay(endStr);
 
     if (startParsed) {
       setStart(format(startParsed, STORE));
+    } else {
+      setStart("");
     }
+
     if (endParsed) {
       setEnd(format(endParsed, STORE));
+    } else {
+      setEnd("");
     }
 
     setRange({
@@ -105,6 +132,7 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
       to: endParsed ?? undefined,
     });
   };
+
 
   const handleCalendarSelect = (r: { from?: Date; to?: Date } | undefined) => {
     if (!r) return;
@@ -131,7 +159,7 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
   return (
     <div className="space-y-2 w-full">
       {label && (
-        <Label className="px-1 text-base 3xl:text-lg">
+        <Label className="px-1 text-black text-base 3xl:text-lg">
           {label}
           {required && <span className="text-chart-1">*</span>}
         </Label>
@@ -142,7 +170,8 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
           <Input
             value={inputValue}
             placeholder="DD/MM/YYYY - DD/MM/YYYY"
-            onChange={(e) => handleInputChange(e.target.value)}
+            // onChange={(e) => handleInputChange(e.target.value)}
+            onChange={handleInputChange}
             className="pr-0"
             maxLength={23}
           />

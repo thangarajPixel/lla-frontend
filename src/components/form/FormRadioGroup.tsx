@@ -13,6 +13,7 @@ type RadioGroupProps<T extends FieldValues> = {
   notRequired?: string;
   isLoading?: boolean;
   errorClassName?: string;
+  disabled?: boolean;
 };
 
 const FormRadioGroup = <T extends FieldValues>({
@@ -23,6 +24,7 @@ const FormRadioGroup = <T extends FieldValues>({
   notRequired,
   isLoading,
   errorClassName,
+  disabled
 }: RadioGroupProps<T>) => {
   const {
     field,
@@ -58,6 +60,7 @@ const FormRadioGroup = <T extends FieldValues>({
             value={field.value}
             onValueChange={handleChange}
             className="flex space-y-2 max-h-[39vh] overflow-y-auto pr-2"
+            disabled={disabled}
           >
             {options?.map((option) => {
               const id = `${name}-${option.value}`;
