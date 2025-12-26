@@ -99,9 +99,9 @@ export default function ContactSection({ data }: ContactSectionProps) {
     <section className="py-16 px-4 md:px-8 lg:px-16 xl:px-10 max-w-7xl mx-auto">
       <ContainerWidget>
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-10">
-          <div className="space-y-8">
+          <div className="space-y-5">
             <div>
-              <h1 className="font-urbanist text-[32px] sm:text-[40px] md:text-[48px] lg:text-[56px] xl:text-[60px] 3xl:text-[64px] font-normal text-foreground mb-4">
+              <h1 className="font-urbanist text-[32px] sm:text-[40px] md:text-[48px] lg:text-[56px] xl:text-[60px] 3xl:text-[64px] font-normal text-foreground">
                 {data?.Title}
               </h1>
             </div>
