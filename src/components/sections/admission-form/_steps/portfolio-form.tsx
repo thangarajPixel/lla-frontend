@@ -188,7 +188,7 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-12">
           <div>
-            <label htmlFor="images" className="block text-sm mb-4">
+            <label htmlFor="images" className="block text-black text-sm mb-4">
               Upload Images<span className="text-destructive">*</span>
             </label>
 

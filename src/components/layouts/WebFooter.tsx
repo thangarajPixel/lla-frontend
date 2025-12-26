@@ -126,7 +126,7 @@ const WebFooter = ({
 
   if (!response) return null;
 
-  const { Title, Description, Btn_txt, Copy_right_txt, Location } = response;
+  const { Title, Btn_txt, Copy_right_txt, Location } = response;
 
   return (
     <footer

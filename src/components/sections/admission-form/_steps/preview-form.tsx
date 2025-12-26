@@ -132,7 +132,7 @@ function Field({
         className={cn(
           "text-black text-left w-full",
           "wrap-break-word whitespace-normal overflow-hidden",
-          "md:text-right md:max-w-xs", // md:max-w-3xs
+          "md:text-right md:max-w-xs",
           label === "Email" && "md:max-w-fit",
         )}
       >
@@ -160,7 +160,7 @@ function LanguageField({
             key={`language-${index + 1}`}
             className="flex flex-col gap-2 w-full"
           >
-            <span className="md:ml-auto text-lg font-mulish 3xl:text-2xl">
+            <span className="md:ml-auto text-black text-lg font-mulish 3xl:text-2xl">
               {language.language}
             </span>
             <section className="flex flex-row items-center justify-between gap-8">
@@ -295,7 +295,7 @@ const ReviewApplication = ({
           <h1 className="text-[32px] px-4 font-urbanist leading-tight lg:hidden">
             {admissionData?.Course?.Name}
           </h1>
-          <div className="flex flex-col gap-3 px-4 lg:px-0">
+          <div className="flex flex-col gap-3 px-4 lg:px-0 2xl:mt-14 3xl:mt-0">
             <h1 className="text-[32px] 3xl:text-[40px] font-urbanist text-[#E97451]">
               Review Application
             </h1>
@@ -340,7 +340,7 @@ const ReviewApplication = ({
 
         <Card className="bg-chart-1/20 flex-1 backdrop-blur lg:py-16 3xl:py-32 3xl:pl-6 border-none shadow-none rounded-none">
           <CardContent
-            className="space-y-8 text-sm lg:max-w-[90%] xl:max-w-[75%] 3xl:max-w-3/4 h-[calc(100vh-6rem)] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="space-y-8 text-sm lg:max-w-[90%] xl:max-w-[75%] 2xl:mt-10 3xl:mt-0 3xl:max-w-3/4 h-[calc(100vh-6rem)] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             data-lenis-prevent
           >
             <Section

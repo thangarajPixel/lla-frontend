@@ -96,7 +96,7 @@ const PaymentSuccessPage = () => {
             </p>
           </div>
 
-          <div className="flex flex-col gap-3 mt-8">
+          <div className="hidden flex-col gap-3 mt-8">
             <Button
               type="button"
               variant="outline"

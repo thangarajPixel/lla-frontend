@@ -334,7 +334,7 @@ const PersonalDetailsForm = ({
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-base xl:text-sm 2xl:text-lg mb-2 font-mulish"
+                  className="block text-black text-base xl:text-sm 2xl:text-lg mb-2 font-mulish"
                 >
                   Full Name (As in Certificate)
                   <span className="text-chart-1">*</span>
@@ -417,7 +417,7 @@ const PersonalDetailsForm = ({
               <div>
                 <label
                   htmlFor="Language_Proficiency"
-                  className="block text-base 3xl:text-lg mb-2"
+                  className="block text-black text-base 3xl:text-lg mb-2"
                 >
                   Language & Proficiency<span className="text-chart-1">*</span>
                 </label>
@@ -484,7 +484,7 @@ const PersonalDetailsForm = ({
             <div className="mb-4">
               <label
                 htmlFor="passport"
-                className="block text-base 3xl:text-lg text-foreground mb-2 font-mulish"
+                className="block text-black text-base 3xl:text-lg text-foreground mb-2 font-mulish"
               >
                 Passport size Image<span className="text-chart-1">*</span>
               </label>
@@ -550,11 +550,8 @@ const PersonalDetailsForm = ({
               />
 
               <p className="text-xs font-mulish text-muted-foreground mt-2 xs:max-w-[180px] 2xl:max-w-full">
-                {/* The size of the images should not be more than 12&quot;x8&quot;
-                size. Max. file size not more than 1MB. */}
-                A recent , passport-size photograph (51mm x 51mm) in digital
-                format, against a white background. And the Max file size not
-                more than 1MB.
+                A recent passport-size photograph in white background. And the
+                Max file size not more than 1MB.
               </p>
 
               {errors.passport_size_image && (

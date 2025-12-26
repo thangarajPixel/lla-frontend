@@ -1,7 +1,12 @@
 "use client";
 
 import { Plus, X } from "lucide-react";
-import { type Control, useFieldArray, useWatch } from "react-hook-form";
+import {
+  type Control,
+  type UseFormSetValue,
+  useFieldArray,
+  useWatch,
+} from "react-hook-form";
 import { FormInput } from "@/components/form";
 import FormFileUploadButton from "@/components/form/FormFileUploadButton";
 import FormRadioGroup from "@/components/form/FormRadioGroup";
@@ -11,11 +16,13 @@ import { Button } from "@/components/ui/button";
 type EducationDetailsProps = {
   admissionData?: AdmissionFormData;
   control: Control<EducationDetailsSchema>;
+  setValue?: UseFormSetValue<EducationDetailsSchema>;
 };
 
 export function EducationDetails({
   admissionData,
   control,
+  setValue,
 }: EducationDetailsProps) {
   const {
     fields: pgDegrees,
@@ -74,7 +81,7 @@ export function EducationDetails({
       </div>
 
       <div className="space-y-3">
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] lg:gap-2 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2 lg:gap-0 items-start">
           <div>
             <FormInput
               name="Under_Graduate.degree"
@@ -110,7 +117,7 @@ export function EducationDetails({
                 hideDescription
               />
 
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-muted-foreground lg:ml-2">
                 Max. file size not more than 2MB.
               </p>
             </>
@@ -129,6 +136,14 @@ export function EducationDetails({
             placeholder="Enter your post graduation degree"
             control={control}
             notRequired={true}
+            onChangeExtra={(value) => {
+              if (!value?.trim()) {
+                setValue?.(`Post_Graduate.${index}.pg_status`, "", {
+                  shouldDirty: true,
+                  shouldValidate: true,
+                });
+              }
+            }}
           />
 
           <FormRadioGroup
@@ -138,6 +153,8 @@ export function EducationDetails({
               { value: "Finished", label: "Finished" },
               { value: "In-Progress", label: "In-Progress" },
             ]}
+            disabled={!postGraduate?.[index]?.degree?.trim()}
+            errorClassName="mt-0 lg:-mt-4"
           />
           {index > 0 && (
             <Button
