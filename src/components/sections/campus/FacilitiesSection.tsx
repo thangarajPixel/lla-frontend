@@ -383,7 +383,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
 
           <LightboxWidget images={lightboxImages}>
             {(openLightbox) => (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-6">
                 {facilitiesData.map((facility, index) => {
                   const thumbnailUrl = getThumbnailUrl(facility);
                   if (!thumbnailUrl) return null;
@@ -418,7 +418,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
                           />
                         </button>
                         {facility.Title && (
-                          <h3 className="text-left font-mulish font-bold text-black text-sm xss:text-[20px] sm:text-base md:text-lg leading-tight">
+                          <h3 className="text-left font-mulish font-bold text-black text-sm xss:text-[20px] sm:text-base md:text-lg leading-tight -mt-2">
                             {facility.Title}
                           </h3>
                         )}
