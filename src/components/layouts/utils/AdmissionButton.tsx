@@ -66,7 +66,7 @@ const AdmissionButton = ({
         <ButtonWidget
           className={`${
             isContactUsPage
-              ? "orange-button-white border-1 border-[#E97451] font-bold leading-[28px]"
+              ? "orange-button-white border-1 border-[#E97451]  leading-[28px]"
               : "orange-button"
           } group rounded-[60px] xss:text-[16px] px-5 h-10 3xl:w-[230px] 3xl:h-[50px]  text-[14px] 2xl:text-[14px] 3xl:text-[18px] ${className}`}
         >
