@@ -222,7 +222,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                           />
                           <div className="bg-[#F6F6F6] bottom-[-2px] z-10 w-full h-3 left-0 right-0 absolute block md:hidden" />
                           <div className="relative z-20 flex items-end justify-between h-full">
-                            <div
+                            {/* <div
                               className="flex flex-col justify-end gap-3 bg-[#E97451]/80 w-full h-27 p-4 m-2"
                               style={{
                                 clipPath:
@@ -235,13 +235,13 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                               <ParagraphWidget className="text-white!">
                                 {student.Description}
                               </ParagraphWidget>
-                            </div>
+                            </div> */}
                             <DialogWidget
                               trigger={
                                 <button
                                   type="button"
                                   aria-label="Play video"
-                                  className="absolute right-5 bottom-15 w-13 h-13 border-none bg-transparent p-0 cursor-pointer group/play-button"
+                                  className="absolute right-5 bottom-10 w-13 h-13 border-none bg-transparent p-0 cursor-pointer group/play-button"
                                 >
                                   <div className="video-main">
                                     <div className="waves-block">
