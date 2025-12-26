@@ -78,6 +78,7 @@ export type IconItem = {
   name: string;
   url: string;
   href?: string;
+  caption?: string;
 };
 
 export type WebHeaderResponse = {

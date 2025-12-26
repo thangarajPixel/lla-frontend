@@ -118,7 +118,7 @@ const WebFooter = ({
         id: item.id,
         name: item.name,
         url: getS3Url(item.url),
-        href: item.href || "#",
+        href: item.caption || "#",
         alt: iconName.charAt(0).toUpperCase() + iconName.slice(1),
       };
     });
@@ -139,9 +139,9 @@ const WebFooter = ({
           <h2 className="text-[32px] md:text-[40px] lg:text-[50px] 3xl:text-[56px] font-normal font-urbanist leading-10">
             {Title}
           </h2>
-          <p className={`${linkTextClass} max-w-full md:max-w-[550px]`}>
+          {/* <p className={`${linkTextClass} max-w-full md:max-w-[550px]`}>
             {Description}
-          </p>
+          </p> */}
           <LinkWidget href="/contact-us">
             <OrangeButtonWidget content={Btn_txt} />
           </LinkWidget>

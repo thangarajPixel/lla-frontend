@@ -531,7 +531,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
                           />
                         </button>
                         {facilityPos.facility.Title && (
-                          <h3 className="text-left font-mulish font-bold text-black text-sm xss:text-[20px] sm:text-base md:text-lg lg:text-[18px] 2xl:text-[18px] 3xl:text-[24px] leading-tight -mb-2">
+                          <h3 className="text-left font-mulish font-bold text-black text-sm xss:text-[20px] sm:text-base md:text-lg lg:text-[18px] 2xl:text-[18px] 3xl:text-[24px] leading-tight -mt-3">
                             {facilityPos.facility.Title}
                           </h3>
                         )}

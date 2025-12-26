@@ -104,11 +104,6 @@ export default function ContactSection({ data }: ContactSectionProps) {
               <h1 className="font-urbanist text-[32px] sm:text-[40px] md:text-[48px] lg:text-[56px] xl:text-[60px] 3xl:text-[64px] font-normal text-foreground mb-4">
                 {data?.Title}
               </h1>
-              <HTMLWidget
-                className="text-black text-[16px] sm:text-[18px] md:text-[20px] lg:text-[24px] xl:text-[28px] 3xl:text-[32px] font-mulish"
-                content={data.Heading || ""}
-                tag="p"
-              />
             </div>
             <div className="space-y-7">
               <div className="flex items-center gap-2">
