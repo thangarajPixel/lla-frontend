@@ -7,12 +7,13 @@ import LightboxWidget from "@/components/widgets/LightboxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 
 type FacilitiesSectionProps = {
   data: {
     Title: string;
     Heading: string;
-    SubHeading: string | null;
+    Description: string | null;
     Card: Array<{
       id: number;
       Title: string;
@@ -372,12 +373,11 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
               <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl font-semibold md:font-normal text-black font-urbanist">
                 {data?.Title}
               </h2>
-              <p className="font-area-variable font-normal text-lg xss:text-[24px] md:text-lg lg:text-xl text-black font-mulish">
-                {data?.Heading}{" "}
-                {data?.SubHeading && (
-                  <span className="text-[#E97451]">{data.SubHeading}</span>
-                )}
-              </p>
+              <HTMLWidget
+                content={data?.Heading}
+                className="font-area-variable font-normal text-lg xss:text-[24px] md:text-lg lg:text-xl text-black font-mulish"
+                tag="p"
+              />
             </div>
           </ScrollWidget>
 
@@ -451,6 +451,9 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
                 className="font-area-variable font-normal text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-[32px] 2xl:text-[34px] 3xl:text-[40px] text-black font-mulish"
                 tag="p"
               />
+               {/* <ParagraphWidget>
+              {data?.Description}
+            </ParagraphWidget> */}
             </div>
           </ScrollWidget>
 
