@@ -31,34 +31,32 @@ export const UploadArea = ({ onFilesSelected, loading }: UploadAreaProps) => {
       onDrop={handleDrop}
       className="border border-[#969696] rounded-xl p-12 flex flex-col items-center gap-4 bg-[#F7F7F7] hover:border-primary/50"
     >
-      {
-        loading ? (
-          <p className="text-sm text-muted-foreground">Uploading...</p>
-        ) : (
-          <>
-            <ImageWidget src={UploadIconImg} alt="Upload" className="h-10 w-10" />
+      {loading ? (
+        <p className="text-sm text-muted-foreground">Uploading...</p>
+      ) : (
+        <>
+          <ImageWidget src={UploadIconImg} alt="Upload" className="h-10 w-10" />
 
-            <p className="text-sm text-muted-foreground">Drag & Drop here</p>
+          <p className="text-sm text-muted-foreground">Drag & Drop here</p>
 
-            <Button
-              type="button"
-              onClick={() => inputRef.current?.click()}
-              className="rounded-full px-4 py-2 bg-[#E97451]"
-            >
-              Select File
-            </Button>
+          <Button
+            type="button"
+            onClick={() => inputRef.current?.click()}
+            className="rounded-full px-4 py-2 bg-[#E97451]"
+          >
+            Select File
+          </Button>
 
-            <input
-              ref={inputRef}
-              type="file"
-              multiple
-              accept="image/jpeg,image/png,image/jpg"
-              className="hidden"
-              onChange={(e) => handleFiles(e.target.files)}
-            />
-          </>
-        )
-      }
+          <input
+            ref={inputRef}
+            type="file"
+            multiple
+            accept="image/jpeg,image/png,image/jpg"
+            className="hidden"
+            onChange={(e) => handleFiles(e.target.files)}
+          />
+        </>
+      )}
     </div>
   );
 };

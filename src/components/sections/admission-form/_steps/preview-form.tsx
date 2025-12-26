@@ -669,7 +669,9 @@ const ReviewApplication = ({
                 <span className="text-[#E97451] text-base 3xl:text-2xl text-nowrap">
                   Where did you find out about LLA?
                 </span>
-                <span className="wrap-break-word md:max-w-xs">{admissionData?.Message}</span>
+                <span className="wrap-break-word md:max-w-xs">
+                  {admissionData?.Message}
+                </span>
               </div>
             )}
 

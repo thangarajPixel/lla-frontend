@@ -121,7 +121,7 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
     setLoading(true);
 
     try {
-      const { data, status } = await axios.post(
+      const { data } = await axios.post(
         `${process.env.BASE_URL}/upload`,
         formData,
       );
@@ -143,7 +143,7 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
       setImages((prev) => [...prev, ...previewImages]);
     } catch {
       notify({ success: false, message: "Image upload failed" });
-    } finally{
+    } finally {
       setLoading(false);
     }
   };
@@ -197,7 +197,10 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
               Upload Images<span className="text-destructive">*</span>
             </label>
 
-            <UploadArea onFilesSelected={handleFilesSelected} loading={loading} />
+            <UploadArea
+              onFilesSelected={handleFilesSelected}
+              loading={loading}
+            />
 
             <p className="text-xs text-muted-foreground mt-2">
               20 of your best images showcasing your work and creativity. Please

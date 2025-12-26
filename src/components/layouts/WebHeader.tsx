@@ -31,7 +31,6 @@ const WebHeader = ({
   const [isHidden, setIsHidden] = useState(false);
   const lastScrollY = useRef(0);
 
-
   useEffect(() => {
     if (!isHomePage) {
       setIsSticky(true);
@@ -83,7 +82,6 @@ const WebHeader = ({
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isHomePage]);
 
-
   const menuItems: (MenuItem | DropdownMenuType)[] = useMemo(() => {
     if (!response?.course || !Array.isArray(response.course)) {
       return [
@@ -112,12 +110,12 @@ const WebHeader = ({
     return [
       ...(courseItems.length > 0
         ? [
-          {
-            label: "Courses",
-            pathPrefix: "/courses",
-            items: courseItems,
-          },
-        ]
+            {
+              label: "Courses",
+              pathPrefix: "/courses",
+              items: courseItems,
+            },
+          ]
         : []),
       { href: "/campus", label: "Campus" },
       { href: "/faculty", label: "Faculty" },
@@ -144,11 +142,12 @@ const WebHeader = ({
     <header
       className={`w-full z-50 transition-all duration-300
         ${isHidden ? "-translate-y-full" : "translate-y-0"}
-        ${isHomePage
-          ? isSticky
-            ? "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
-            : "absolute top-0 left-0 bg-transparent text-white"
-          : "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
+        ${
+          isHomePage
+            ? isSticky
+              ? "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
+              : "absolute top-0 left-0 bg-transparent text-white"
+            : "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
         }`}
     >
       <nav>

@@ -154,7 +154,9 @@ export function EducationDetails({
               { value: "Finished", label: "Finished" },
               { value: "In-Progress", label: "In-Progress" },
             ]}
-            disabled={ugStatus !== "Finished" || !postGraduate?.[index]?.degree?.trim()}
+            disabled={
+              ugStatus !== "Finished" || !postGraduate?.[index]?.degree?.trim()
+            }
             errorClassName="mt-0 lg:-mt-4"
           />
           {index > 0 && (
