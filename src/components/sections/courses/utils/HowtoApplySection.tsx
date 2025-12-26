@@ -24,15 +24,16 @@ const HowtoApplySection = ({ data }: { data: HowToApplyData }) => {
                   key={card.id}
                   delay={0.2 + index * 0.1}
                   animation="fadeUp"
+                  className="h-full"
                 >
-                  <div className="relative flex flex-col border border-[#E97451] bg-white px-4 py-4 3xl:p-6 min-h-[280px]">
+                  <div className="relative flex flex-col border border-[#E97451] bg-white px-4 py-4 3xl:p-6 h-full">
                     {/* <div className="absolute top-6 right-6 lg:top-6 lg:right-6">
                       <span className="text-[#E97451]/20 font-urbanist text-5xl sm:text-[60px] 3xl:text-[80px] font-normal leading-none">
                         {stepNumber}
                       </span>
                     </div> */}
                     {card.Icon && (
-                      <div className="relative mb-4 lg:mb-6 w-18 h-18 flex items-center justify-center">
+                      <div className="relative mb-4 lg:mb-6 w-18 h-18 flex items-center justify-center flex-shrink-0">
                         <ImageWidget
                           src={getS3Url(card.Icon.url)}
                           alt={card.Heading}
@@ -43,7 +44,7 @@ const HowtoApplySection = ({ data }: { data: HowToApplyData }) => {
                       </div>
                     )}
 
-                    <h3 className="text-[#E97451] font-urbanist text-[24px] sm:text-[18px] xl:text-[14px] 2xl:text-[18px] 3xl:text-[24px] font-normal mb-3 pr-16 lg:pr-20">
+                    <h3 className="text-[#E97451] font-urbanist text-[24px] sm:text-[18px] xl:text-[14px] 2xl:text-[18px] 3xl:text-[24px] font-normal mb-3 pr-16 lg:pr-20 flex-shrink-0">
                       {card.Heading}
                     </h3>
 
@@ -51,7 +52,7 @@ const HowtoApplySection = ({ data }: { data: HowToApplyData }) => {
                       <HTMLWidget
                         content={card.Description}
                         tag="p"
-                        className="font-mulish text-[16px] xss:text-[16px] 2xxl:text-[18px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[760px]"
+                        className="font-mulish text-[16px] xss:text-[16px] 2xxl:text-[18px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[760px] flex-grow"
                       />
                     )}
                   </div>
