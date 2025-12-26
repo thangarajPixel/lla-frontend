@@ -6,7 +6,12 @@ import { CheckCircle, Plus, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import {
+  FormProvider,
+  useFieldArray,
+  useForm,
+  useWatch,
+} from "react-hook-form";
 import { toast } from "sonner";
 import type z from "zod";
 import { FormInput, FormSelectBox } from "@/components/form";
@@ -49,6 +54,7 @@ const PersonalDetailsForm = ({
   const form_step1 = useForm<PersonalDetailsSchema>({
     resolver: zodResolver(personalDetailsSchema),
     mode: "all",
+    reValidateMode: "onChange",
     defaultValues: {
       Course: admissionData?.Course?.documentId ?? courseId ?? "",
       name_title: admissionData?.name_title ?? "Mr.",
@@ -147,7 +153,6 @@ const PersonalDetailsForm = ({
     control,
     handleSubmit,
     formState: { errors },
-    watch,
   } = form_step1;
 
   const {
@@ -158,6 +163,14 @@ const PersonalDetailsForm = ({
     control: control,
     name: "Language_Proficiency",
   });
+
+  const languageProficiency = useWatch({
+    control,
+    name: "Language_Proficiency",
+  });
+
+  const lastLanguage =
+    languageProficiency?.[languageProficiency.length - 1]?.language?.trim();
 
   useEffect(() => {
     if (admissionData) {
@@ -173,10 +186,11 @@ const PersonalDetailsForm = ({
     fileInputRef.current?.click();
   };
 
-  const validateDimensions = (file: File): Promise<boolean> => {
+  const _validateDimensions = (file: File): Promise<boolean> => {
     return new Promise((resolve) => {
       const img = document.createElement("img") as HTMLImageElement;
       const objectUrl = URL.createObjectURL(file);
+
       img.src = objectUrl;
 
       img.onload = () => {
@@ -185,24 +199,26 @@ const PersonalDetailsForm = ({
 
         URL.revokeObjectURL(objectUrl);
 
-        const maxWidth = 3600;
-        const maxHeight = 2400;
+        const MAX_PX = 600;
 
-        if (width > maxWidth || height > maxHeight) {
+        const isAllowed = width <= MAX_PX && height <= MAX_PX;
+
+        if (!isAllowed) {
           toast.error(
-            `Image must be max 12"x8" (3600x2400 pixels). Your image is ${width}x${height}px.`,
-            {
-              position: "bottom-right",
-            },
+            `Image dimensions must not exceed 51mm × 51mm (600×600 px).
+             Your image is ${width}×${height}px.`,
+            { position: "bottom-right" },
           );
           resolve(false);
-        } else {
-          resolve(true);
+          return;
         }
+
+        resolve(true);
       };
 
       img.onerror = () => {
         URL.revokeObjectURL(objectUrl);
+        toast.error("Invalid image file.", { position: "bottom-right" });
         resolve(false);
       };
     });
@@ -214,8 +230,17 @@ const PersonalDetailsForm = ({
 
     setIsRemoved(false);
 
-    if (!file.type.startsWith("image/")) {
-      toast.error("Please upload a valid image.", { position: "bottom-right" });
+    // if (!file.type.startsWith("image/")) {
+    //   toast.error("Please upload a valid image.", { position: "bottom-right" });
+    //   return;
+    // }
+
+    const allowedTypes = ["image/jpeg", "image/png"];
+
+    if (!allowedTypes.includes(file.type)) {
+      toast.error("Only JPEG and PNG images are allowed.", {
+        position: "bottom-right",
+      });
       return;
     }
 
@@ -229,8 +254,8 @@ const PersonalDetailsForm = ({
       return;
     }
 
-    const valid = await validateDimensions(file);
-    if (!valid) return;
+    // const valid = await validateDimensions(file);
+    // if (!valid) return;
 
     const url = URL.createObjectURL(file);
     setPreviewUrl(url);
@@ -244,7 +269,9 @@ const PersonalDetailsForm = ({
     });
   };
 
-  const handleFieldCheck = async (email: string) => {
+  const handleFieldCheck = async (email: string, error?: string) => {
+    if (error) return;
+
     const isExistingEmailCheck = await clientAxios.post(
       `/admissions/email/check`,
       {
@@ -273,6 +300,7 @@ const PersonalDetailsForm = ({
     const data = {
       ...filteredData,
       step_1: true,
+      EncryptId: admissionId,
     };
 
     try {
@@ -301,7 +329,7 @@ const PersonalDetailsForm = ({
             Personal Details
           </h1>
 
-          <div className="flex flex-col-reverse xs:flex-col lg:grid lg:grid-cols-[1fr_180px] gap-8">
+          <div className="flex flex-col-reverse xs:flex-col 2xl:grid 2xl:grid-cols-[1fr_180px] 3xl:grid-cols-[1fr_180px] gap-8">
             <div className="space-y-6">
               <div>
                 <label
@@ -311,7 +339,7 @@ const PersonalDetailsForm = ({
                   Full Name (As in Certificate)
                   <span className="text-chart-1">*</span>
                 </label>
-                <div className="grid grid-cols-[80px_1fr] sm:grid-cols-[80px_1fr_1fr] gap-3">
+                <div className="grid grid-cols-[96px_1fr] sm:grid-cols-[96px_1fr_1fr] gap-3">
                   <FormSelectBox
                     control={control}
                     name="name_title"
@@ -321,7 +349,7 @@ const PersonalDetailsForm = ({
                       { value: "Mrs.", label: "Mrs" },
                     ]}
                     placeholder="select title"
-                    className="w-20"
+                    className="w-24"
                   />
 
                   <FormInput
@@ -359,7 +387,7 @@ const PersonalDetailsForm = ({
                     onFieldCheck={handleFieldCheck}
                   />
 
-                  {isVerified && (
+                  {isVerified && !errors?.email?.message && (
                     <div className="flex items-center gap-2 text-green-600 font-medium mt-2">
                       <CheckCircle className="size-4 3xl:size-4" />
                       <span className="text-sm">Email Verified</span>
@@ -371,7 +399,7 @@ const PersonalDetailsForm = ({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <FormDatePickerWithInput
                   name="date_of_birth"
-                  placeholder="DD-MM-YYYY"
+                  placeholder="DD/MM/YYYY"
                   label="Date of Birth"
                   control={control}
                   required
@@ -389,7 +417,7 @@ const PersonalDetailsForm = ({
               <div>
                 <label
                   htmlFor="Language_Proficiency"
-                  className="block text-base 3xl:text-lg text-foreground mb-2"
+                  className="block text-base 3xl:text-lg mb-2"
                 >
                   Language & Proficiency<span className="text-chart-1">*</span>
                 </label>
@@ -438,7 +466,7 @@ const PersonalDetailsForm = ({
                     </div>
                   </div>
                 ))}
-                {watch("Language_Proficiency.0.language") !== "" && (
+                {lastLanguage !== "" && (
                   <ButtonWidget
                     type="button"
                     onClick={handleAddLanguage}
@@ -463,7 +491,7 @@ const PersonalDetailsForm = ({
 
               <div
                 aria-hidden
-                className="border border-dashed border-border rounded-lg xs:max-w-[180px] flex flex-col items-center justify-center min-h-[227px] xs:min-h-[227px] bg-secondary cursor-pointer hover:bg-accent transition relative overflow-hidden group lg:max-w-full" // min-h-180px
+                className="border border-dashed border-border rounded-lg xs:max-w-[190px] flex flex-col items-center justify-center min-h-[227px] xs:min-h-[227px] bg-secondary cursor-pointer hover:bg-accent transition relative overflow-hidden"
                 onClick={handleClick}
               >
                 {(!previewUrl && !admissionData?.passport_size_image) ||
@@ -493,7 +521,7 @@ const PersonalDetailsForm = ({
                       width={100}
                       height={100}
                       alt="Preview"
-                      className="h-[227px] xs:h-[227px] w-full object-contain rounded-md hover:opacity-80 transition-opacity"
+                      className="h-fit xs:h-[227px] w-full object-cover rounded-md hover:opacity-80 transition-opacity"
                     />
                     <Button
                       type="button"
@@ -515,22 +543,18 @@ const PersonalDetailsForm = ({
 
               <input
                 type="file"
-                accept="image/*"
+                accept="image/jpeg,image/png"
                 ref={fileInputRef}
                 onChange={handleFileChange}
                 className="hidden"
               />
 
-              {/* <p className="text-xs text-muted-foreground mt-2">
-                The size of the images should not
-                <br />
-                be more than 12&quot;x8&quot; size.
-                <br />
-                Max. file size not more than 1MB.
-              </p> */}
-              <p className="text-xs font-mulish text-muted-foreground mt-2 xs:max-w-[180px] lg:max-w-full">
-                The size of the images should not be more than 12&quot;x8&quot;
-                size. Max. file size not more than 1MB.
+              <p className="text-xs font-mulish text-muted-foreground mt-2 xs:max-w-[180px] 2xl:max-w-full">
+                {/* The size of the images should not be more than 12&quot;x8&quot;
+                size. Max. file size not more than 1MB. */}
+                A recent , passport-size photograph (51mm x 51mm) in digital
+                format, against a white background. And the Max file size not
+                more than 1MB.
               </p>
 
               {errors.passport_size_image && (
@@ -547,7 +571,7 @@ const PersonalDetailsForm = ({
             <FormInput
               name="hobbies"
               label="Hobbies / Talent(s)"
-              placeholder="Enter your Hobbies / Talent(s)"
+              placeholder="Enter your hobbies"
               control={control}
               notRequired={true}
             />
@@ -555,7 +579,7 @@ const PersonalDetailsForm = ({
             <FormInput
               name="photography_club"
               label="Photography Club"
-              placeholder="Enter your Photography Club"
+              placeholder="Enter your club"
               control={control}
               notRequired={true}
             />
@@ -565,7 +589,6 @@ const PersonalDetailsForm = ({
               label="Blood Group"
               placeholder="Enter your bloodGroup"
               control={control}
-              notRequired={true}
               restrictionType="number"
               maxLength={3}
             />
@@ -587,7 +610,7 @@ const PersonalDetailsForm = ({
                   Full Name (As in Certificate)
                   <span className="text-chart-1">*</span>
                 </label>
-                <div className="grid grid-cols-[80px_1fr] sm:grid-cols-[80px_1fr_1fr] gap-3">
+                <div className="grid grid-cols-[96px_1fr] sm:grid-cols-[96px_1fr_1fr] gap-3">
                   <FormSelectBox
                     control={control}
                     name="Parent_Guardian_Spouse_Details.title"
@@ -597,7 +620,7 @@ const PersonalDetailsForm = ({
                       { value: "Mrs.", label: "Mrs" },
                     ]}
                     placeholder="select title"
-                    className="w-20 "
+                    className="w-24"
                   />
 
                   <FormInput
@@ -658,13 +681,14 @@ const PersonalDetailsForm = ({
           </div>
         </div>
 
-        <div className="flex justify-start gap-3 mt-10 pt-6">
-          <OrangeButtonWidget
-            content="Save & Continue"
-            // className="xss:text-[12px] h-9 px-4"
-            className="text-lg 2xl:text-lg h-[50px] px-6 py-3"
-          />
-        </div>
+        {admissionData?.Payment_Status !== "Paid" && (
+          <div className="flex justify-start gap-3 lg:mt-10 pt-6">
+            <OrangeButtonWidget
+              content="Save & Continue"
+              className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-xs 2xl:text-[18px] 3xl:text-[18px]"
+            />
+          </div>
+        )}
       </form>
     </FormProvider>
   );

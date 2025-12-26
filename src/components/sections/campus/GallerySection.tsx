@@ -46,7 +46,7 @@ const GallertSection = ({ data }: GallerySectionProps) => {
               <HTMLWidget
                 content={data?.Heading}
                 tag="p"
-                className="font-mulish text-left md:text-center relative md:max-w-[800px]"
+                className="font-mulish text-left text-[16px] lg:text-[18px] md:text-center relative md:max-w-[800px]"
               />
             )}
             <div className="my-4 text-left lg:text-center">

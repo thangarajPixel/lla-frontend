@@ -4,6 +4,8 @@ import { DialogContent, DialogTitle } from "@radix-ui/react-dialog";
 import { XIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { getEssentialsData } from "@/app/api/server";
+import AdmissionRequestButton from "@/components/layouts/utils/AdmissionRequestButton";
 import {
   Sheet,
   SheetClose,
@@ -28,6 +30,7 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
     null,
   );
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [isAdmissionOpen, setIsAdmissionOpen] = useState<boolean>(false);
 
   const isDropdown = (
     item: MenuItem | DropdownMenuType,
@@ -42,6 +45,14 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
       setOpenMobileDropdown(null);
     }
   }, [isSheetOpen]);
+
+  useEffect(() => {
+    const getAdmissionData = async () => {
+      const { data: res } = await getEssentialsData();
+      setIsAdmissionOpen(res?.isAdmission);
+    };
+    getAdmissionData();
+  }, []);
 
   return (
     <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
@@ -174,10 +185,18 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
           </div>
 
           <div className="px-6 pt-6 pb-6 border-t border-black/10">
-            <AdmissionButton
-              className="px-6 py-3.5 h-10 text-sm w-full justify-center font-semibold"
-              iconClassName="w-4 h-4"
-            />
+            {isAdmissionOpen ? (
+              <AdmissionButton
+                className="px-6 py-3.5 h-10 text-sm w-full justify-center font-semibold"
+                iconClassName="w-4 h-4"
+                onClick={() => setIsSheetOpen(false)}
+              />
+            ) : (
+              <AdmissionRequestButton
+                className="px-6 py-3.5 h-10 text-sm w-full justify-center font-semibold"
+                iconClassName="w-4 h-4"
+              />
+            )}
           </div>
         </div>
       </SheetContent>

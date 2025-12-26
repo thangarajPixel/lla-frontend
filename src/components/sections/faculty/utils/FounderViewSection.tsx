@@ -171,7 +171,7 @@ const FounderViewSection = ({ data }: FounderViewSectionProps) => {
               <div className="mb-8">
                 <HTMLWidget
                   content={biography}
-                  className="prose prose-sm md:prose-base max-w-none font-mulish text-sm xss:text-[16px] sm:text-base lg:text-[15px] 2xl:text-[14px] 3xl:text-[18px] font-normal text-black leading-normal"
+                  className="font-mulish text-[16px] md:text-[17px] 2xl:text-[18px] font-normal text-black leading-[26px]"
                 />
               </div>
             )}

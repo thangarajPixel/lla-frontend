@@ -11,6 +11,7 @@ import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import { ArrowDown, ArrowRightWhite, SearchIcon } from "@/helpers/ImageHelper";
@@ -61,7 +62,8 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
   const blogData = data?.Blog;
   const [blogCards, setBlogCards] = useState(blogData?.BlogCard || []);
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
+  const [loading, _setLoading] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchLoading, setSearchLoading] = useState(false);
   const [searchTotal, setSearchTotal] = useState<number | null>(null);
@@ -78,7 +80,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
   const lastSearchQueryRef = useRef<string>("");
 
   const skeletonKeys = useMemo(() => {
-    if (loading) {
+    if (loadingMore) {
       skeletonIdRef.current += 1;
       const baseId = skeletonIdRef.current;
       return Array.from({ length: 6 }, () => {
@@ -87,7 +89,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
       });
     }
     return [];
-  }, [loading]);
+  }, [loadingMore]);
 
   const searchSkeletonKeys = useMemo(() => {
     if (searchLoading) {
@@ -106,11 +108,11 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
 
   const handleSearch = useCallback(async (query: string) => {
     const trimmedQuery = query.trim();
-    
+
     if (isSearchingRef.current || lastSearchQueryRef.current === trimmedQuery) {
       return;
     }
-    
+
     isSearchingRef.current = true;
     lastSearchQueryRef.current = trimmedQuery;
     setSearchLoading(true);
@@ -129,9 +131,11 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
       if (res?.Blog?.BlogCard) {
         setBlogCards(res.Blog.BlogCard);
         setSearchTotal(res.pagination?.total || res.Blog.BlogCard.length);
+        setPage(1);
       } else {
         setBlogCards([]);
         setSearchTotal(0);
+        setPage(1);
       }
     } finally {
       setSearchLoading(false);
@@ -151,6 +155,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
     previousLength.current = 0;
     cardsRef.current = [];
     setBlogCards(blogData?.BlogCard || []);
+    setLoadingMore(false);
   }, [blogData?.BlogCard]);
 
   useEffect(() => {
@@ -173,7 +178,10 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
     }
 
     searchTimeoutRef.current = setTimeout(() => {
-      if (!isSearchingRef.current && lastSearchQueryRef.current !== trimmedQuery) {
+      if (
+        !isSearchingRef.current &&
+        lastSearchQueryRef.current !== trimmedQuery
+      ) {
         handleSearch(trimmedQuery);
       }
     }, 500);
@@ -184,37 +192,46 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
         searchTimeoutRef.current = null;
       }
     };
-  }, [searchQuery]);
+  }, [searchQuery, clearSearch, handleSearch, searchTotal]);
 
   const loadMore = async () => {
-    if (loading || blogCards.length >= total) return;
+    if (loading || loadingMore || blogCards.length >= total) return;
 
-    setLoading(true);
-    await new Promise((res) => setTimeout(res, 500));
+    setLoadingMore(true);
+    try {
+      const nextPage = page + 1;
+      const params = {
+        page: nextPage,
+        per_page: 9,
+        ...(searchQuery.trim() && { search: searchQuery.trim() }),
+      };
 
-    const nextPage = page + 1;
-    const params = {
-      page: nextPage,
-      per_page: 9,
-      ...(searchQuery.trim() && { search: searchQuery.trim() }),
-    };
-    const { data: res } = await getBlogPageData(params);
+      const { data: res } = await getBlogPageData(params);
 
-    if (res?.Blog?.BlogCard) {
-      setBlogCards((prev) => [...prev, ...res.Blog.BlogCard]);
-      setPage(nextPage);
-      if (res.pagination?.total !== undefined) {
-        setSearchTotal(res.pagination.total);
+      if (res?.Blog?.BlogCard) {
+        setBlogCards((prev) => [...prev, ...res.Blog.BlogCard]);
+        setPage(nextPage);
+        if (res.pagination?.total !== undefined) {
+          if (searchQuery.trim()) {
+            setSearchTotal(res.pagination.total);
+          } else {
+            // Update the original total when not searching
+            setSearchTotal(null);
+          }
+        }
       }
+    } catch (error) {
+      console.error("Error loading more blogs:", error);
+    } finally {
+      setLoadingMore(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {
     const newItems = cardsRef.current
       .slice(previousLength.current)
       .filter((el): el is HTMLDivElement => el !== null);
-    
+
     if (newItems.length > 0) {
       gsap.fromTo(
         newItems,
@@ -244,17 +261,17 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
       <ContainerWidget>
         <div className="flex flex-col gap-6 md:gap-8 lg:gap-10">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-6">
-            <div className="flex flex-col gap-2 md:gap-3 flex-1">
+            <div className="flex flex-col gap-5 md:gap-3 flex-1">
               <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[64px] font-semibold md:font-normal text-black font-urbanist">
                 {blogData?.Title || ""}
               </h3>
-              <p className="text-[16px] md:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[600px]">
+              <ParagraphWidget className="w-full md:max-w-[600px]">
                 {blogData?.Description || ""}
-              </p>
+              </ParagraphWidget>
             </div>
 
             <div className="w-full md:w-auto md:min-w-[320px] md:shrink-0">
-              <div className="relative">
+              <div className="relative md:mt-20">
                 <div className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400">
                   <ImageWidget
                     src={SearchIcon}
@@ -372,19 +389,19 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                                   )}
                                 </div>
                                 <div className="flex flex-col gap-2">
-                                  <h4 className="font-mulish  3xl:text-[24px] 2xl:text-[20px] xl:text-[18px] lg:text-[16px] md:text-[14px] text-[16px] font-bold text-black leading-tight">
+                                  <h4 className="font-mulish text-[24px]  font-semibold text-black leading-[29px]">
                                     {blog.Title}
                                   </h4>
                                   {blog.Description && (
                                     <HTMLWidget
                                       content={blog.Description}
-                                      className="text-[15px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal line-clamp-2"
+                                      className="text-[16px] lg:text-[16px]  3xl:text-[18px] font-normal text-black leading-normal line-clamp-2"
                                       tag="p"
                                     />
                                   )}
                                 </div>
                                 <Link
-                                  href={`/more/blogs/${blog.Slug}`}
+                                  href={`/blogs/${blog.Slug}`}
                                   className="inline-flex items-center gap-2 text-[#E97451] hover:gap-4 transition-all duration-300 mt-2 text-[16px] md:text-[16px] lg:text-[16px] font-normal font-urbanist group"
                                 >
                                   {blog.Btn_txt}
@@ -402,7 +419,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                         );
                       })}
 
-                      {loading &&
+                      {loadingMore &&
                         skeletonKeys.map((key) => (
                           <div key={key}>
                             <BlogCardSkeleton />
@@ -459,7 +476,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                                 />
                               )}
                               <Link
-                                href={`/more/blogs/${blog.Slug}`}
+                                href={`/blogs/${blog.Slug}`}
                                 className="inline-flex items-center gap-2 text-[#E97451] hover:gap-4 transition-all duration-300 mt-2 text-[16px] md:text-[16px] lg:text-[16px] font-normal font-urbanist group"
                               >
                                 Read More
@@ -478,7 +495,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                     );
                   })}
 
-                  {loading &&
+                  {loadingMore &&
                     skeletonKeys.map((key) => (
                       <div key={key}>
                         <BlogCardSkeleton />
@@ -497,25 +514,29 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
             )
           )}
 
-          {!loading && !searchLoading && blogCards.length < total && (
-            <ScrollWidget animation="fadeIn" delay={0.1}>
-              <div className="flex justify-center items-center mt-8">
-                <ButtonWidget
-                  onClick={loadMore}
-                  className="h-[50px] w-[172px] font-mulish hover:bg-white font-bold bg-white border border-[#E97451] rounded-[60px] text-[#E97451] px-5 text-xs xl:text-[14px] 2xl:text-[14px] 3xl:text-[18px]"
-                >
-                  Load More
-                  <ImageWidget
-                    src={ArrowDown}
-                    alt="Arrow Down"
-                    height={24}
-                    width={24}
-                    className="object-cover"
-                  />
-                </ButtonWidget>
-              </div>
-            </ScrollWidget>
-          )}
+          {!loading &&
+            !searchLoading &&
+            !loadingMore &&
+            blogCards.length < total && (
+              <ScrollWidget animation="fadeIn" delay={0.1}>
+                <div className="flex justify-center items-center mt-8">
+                  <ButtonWidget
+                    onClick={loadMore}
+                    disabled={loadingMore}
+                    className="h-[50px] w-[172px] font-mulish hover:bg-white font-bold bg-white border border-[#E97451] rounded-[60px] text-[#E97451] px-5 text-xs xl:text-[14px] 2xl:text-[14px] 3xl:text-[18px] disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {loadingMore ? "Loading..." : "Load More"}
+                    <ImageWidget
+                      src={ArrowDown}
+                      alt="Arrow Down"
+                      height={24}
+                      width={24}
+                      className="object-cover"
+                    />
+                  </ButtonWidget>
+                </div>
+              </ScrollWidget>
+            )}
         </div>
       </ContainerWidget>
     </section>

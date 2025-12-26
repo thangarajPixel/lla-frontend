@@ -11,8 +11,9 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
+import { toast } from "sonner";
 import ImageWidget from "@/components/widgets/ImageWidget";
-import { validateDimensions } from "@/helpers/ConstantHelper";
+// import { validateDimensions } from "@/helpers/ConstantHelper";
 import { UploadIconImg } from "@/helpers/ImageHelper";
 import { cn } from "@/lib/utils";
 
@@ -103,26 +104,45 @@ export function FileUploadButton({
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    setIsRemoved(false);
 
-    if (file.size > 2 * 1024 * 1024) {
-      alert("File size must be less than 2MB.");
+    const ALLOWED_MIME_TYPES = [
+      "application/pdf",
+      // "application/msword",
+      // "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "image/jpeg",
+      "image/png",
+      "image/jpg",
+    ];
+
+    if (!ALLOWED_MIME_TYPES.includes(file.type)) {
+      toast.error("Only PDF, JPG, JPEG, PNG files are allowed.", {
+        position: "bottom-right",
+      });
+      e.target.value = "";
       return;
     }
 
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error("File size must be less than 2MB.", {
+        position: "bottom-right",
+      });
+      e.target.value = "";
+      return;
+    }
+
+    setIsRemoved(false);
+
     if (file.type.startsWith("image/")) {
-      const valid = await validateDimensions(file);
-      if (!valid) return;
+      // const valid = await validateDimensions(file);
+      // if (!valid) {
+      //   e.target.value = "";
+      //   return;
+      // }
 
       const url = URL.createObjectURL(file);
       setPreview(url);
       onUpload?.(file);
-    } else if (
-      file.type.includes("pdf") ||
-      file.type.includes("document") ||
-      file.type.includes("word") ||
-      file.type.includes("spreadsheet")
-    ) {
+    } else {
       setPreview(generateDocumentPreview(file));
       onUpload?.(file);
     }
@@ -141,12 +161,8 @@ export function FileUploadButton({
             : "bg-gray-100 border border-[#969696]"
         } ${inputClassName}`}
       >
-        <ImageWidget
-          src={UploadIconImg}
-          alt="Upload Icon"
-          className="h-5 w-5"
-        />
-        <span className="text-sm">{placeholder}</span>
+        <ImageWidget src={UploadIconImg} alt="Upload Icon" className="size-6" />
+        <span className="text-sm font-light lg:font-normal">{placeholder}</span>
       </button>
       <input
         ref={inputRef}
@@ -157,7 +173,7 @@ export function FileUploadButton({
       />
       <p
         className={cn(
-          "text-xs text-muted-foreground",
+          "text-xs text-muted-foreground mt-4",
           hideDescription && "hidden",
         )}
       >
@@ -177,8 +193,8 @@ export function FileUploadButton({
               />
             </div>
           ) : (
-            <div className="text-muted-foreground">
-              {(selectedFile || defaultValue) &&
+            <div className="text-muted-foreground mt-2">
+              {selectedFile &&
                 getFileIcon(selectedFile?.type ?? defaultValue?.mime ?? "")}
             </div>
           ))}
@@ -188,7 +204,7 @@ export function FileUploadButton({
             <p className="text-sm font-medium truncate text-foreground">
               {selectedFile?.name ?? defaultValue?.name ?? ""}
             </p>
-            <div className="flex gap-2 text-xs text-muted-foreground mt-1">
+            <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1">
               <span>
                 {formatFileSize(selectedFile?.size ?? defaultValue?.size ?? 0)}
               </span>

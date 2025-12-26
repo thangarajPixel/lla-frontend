@@ -1,7 +1,6 @@
 "use client";
 
 import { format, parse } from "date-fns";
-import { CalendarIcon } from "lucide-react";
 import { useState } from "react";
 import {
   type Control,
@@ -9,7 +8,6 @@ import {
   type Path,
   useController,
 } from "react-hook-form";
-
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
@@ -19,6 +17,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import ImageWidget from "@/components/widgets/ImageWidget";
+import { CalendarIcon } from "@/helpers/ImageHelper";
 import { cn } from "@/lib/utils";
 
 const DISPLAY_FORMAT = "dd/MM/yyyy";
@@ -83,7 +83,7 @@ const FormDatePickerWithInput = <T extends FieldValues>({
     <div className="w-full space-y-1">
       {label && (
         <Label
-          className="block text-base 3xl:text-lg text-foreground font-mulish"
+          className="block text-base 3xl:text-lg text-black font-mulish"
           htmlFor={id}
         >
           {label}
@@ -146,15 +146,18 @@ const FormDatePickerWithInput = <T extends FieldValues>({
           <PopoverTrigger asChild>
             <Button
               variant="ghost"
-              className="absolute top-1/2 right-3 size-6 -translate-y-1/2"
-              disabled={disabled}
+              className="absolute right-2 top-1/2 -translate-y-1/2"
             >
-              <CalendarIcon className="size-3.5 text-chart-1" />
+              <ImageWidget
+                src={CalendarIcon}
+                alt="calendar"
+                className="size-6 transition-transform duration-300 group-hover:translate-x-1"
+              />
             </Button>
           </PopoverTrigger>
 
           <PopoverContent
-            className="w-auto overflow-hidden p-0"
+            className="w-auto overflow-hidden p-0 z-150"
             align="end"
             alignOffset={-8}
             sideOffset={10}

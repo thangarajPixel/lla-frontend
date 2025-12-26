@@ -17,6 +17,7 @@ import type { AdmissionButtonProps, CourseCard } from "./types";
 const AdmissionButton = ({
   className = "",
   iconClassName = "",
+  onClick,
 }: AdmissionButtonProps) => {
   const [data, setData] = useState<CourseCard[]>();
   const [isOpen, setIsOpen] = useState(false);
@@ -24,7 +25,7 @@ const AdmissionButton = ({
   const pathname = usePathname();
 
   // Check if current page is contact-us
-  const isContactUsPage = pathname === "/more/contact-us";
+  const isContactUsPage = pathname === "/contact-us";
 
   useEffect(() => {
     if (pathname) {
@@ -65,7 +66,7 @@ const AdmissionButton = ({
         <ButtonWidget
           className={`${
             isContactUsPage
-              ? "orange-button-white border-none font-bold leading-[28px]"
+              ? "orange-button-white border-1 border-[#E97451] font-bold leading-[28px]"
               : "orange-button"
           } group rounded-[60px] xss:text-[16px] px-5 h-10 3xl:w-[230px] 3xl:h-[50px]  text-[14px] 2xl:text-[14px] 3xl:text-[18px] ${className}`}
         >
@@ -122,7 +123,10 @@ const AdmissionButton = ({
                   <div className="self-start flex gap-2">
                     <LinkWidget
                       href={`/admission?course=${encodeURIComponent(card?.Slug)}`}
-                      onClick={() => setIsOpen(false)}
+                      onClick={() => {
+                        setIsOpen(false);
+                        onClick?.();
+                      }}
                     >
                       <OrangeButtonWidget content="Apply now" />
                     </LinkWidget>

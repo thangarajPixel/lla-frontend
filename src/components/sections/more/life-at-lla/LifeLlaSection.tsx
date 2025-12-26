@@ -9,6 +9,7 @@ import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { ArrowDown } from "@/helpers/ImageHelper";
@@ -48,13 +49,12 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
   const loadMore = async () => {
     if (loading || cards.length >= total) return;
 
-    // STEP 1: show skeleton first
     setLoading(true);
 
     await new Promise((res) => setTimeout(res, 500));
 
     const nextPage = page + 1;
-    const params = { page: nextPage, per_page: 8 };
+    const params = { page: nextPage, per_page: 16 };
     const { data: res } = await getLifePageData(params);
     if (res?.LifeCard) {
       setCards((prev) => [...prev, ...res.LifeCard]);
@@ -81,7 +81,7 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
   }, [cards]);
 
   return (
-    <section className="w-full bg-white h-full py-4 sm:py-6 md:py-8 lg:py-10 xl:py-2 2xl:py-7 3xl:py-20">
+    <section className="w-full bg-white h-full py-8 pb-4 md:py-12 3xl:py-20">
       <ContainerWidget>
         <ScrollWidget animation="fadeDown" delay={0.1}>
           <div className="flex flex-col justify-start md:justify-center items-start md:items-center text-left md:text-center gap-2 md:gap-5 lg:gap-3">
@@ -90,13 +90,12 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
             </h3>
             <HTMLWidget
               content={data.Heading}
-              className="text-[16px] sm:text-[17px] md:text-[18px] lg:text-[20px] xl:text-[25px] 2xl:text-[30px] 3xl:text-[40px] font-regular font-mulish
-              text-black w-full md:max-w-[600px] 3xl:max-w-[976px] 3xl:leading-[48px]"
+              className="font-area-variable font-semibold text-[24px] md:text-[28px] 3xl:text-[40px] text-black leading-tight"
               tag="p"
             />
-            <p className="text-[12px] md:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[750px] 3xl:max-w-[976px]">
+            <ParagraphWidget className="w-full md:max-w-[750px] 3xl:max-w-[976px]">
               {data.Description}
-            </p>
+            </ParagraphWidget>
           </div>
         </ScrollWidget>
         <div
@@ -104,7 +103,7 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
           suppressHydrationWarning
         >
           <div className="w-full" suppressHydrationWarning>
-            <div className="-m-3">
+            <div className="-m-2">
               <ResponsiveMasonry
                 columnsCountBreakPoints={{
                   350: 1,
@@ -118,11 +117,11 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
                   1024: 4,
                 }}
               >
-                <Masonry gutter="24px">
+                <Masonry gutter="10px">
                   {cards.map((card, index) => (
                     <div
                       key={card.id}
-                      className="w-full p-3 m-0"
+                      className="w-full p-2 m-0"
                       ref={(el) => {
                         cardsRef.current[index] = el;
                       }}
@@ -137,7 +136,7 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
 
                   {loading &&
                     skeletonKeys.map((key) => (
-                      <div key={key} className="w-full p-3 m-0">
+                      <div key={key} className="w-full p-2 m-0">
                         <LifeCardSkeleton />
                       </div>
                     ))}

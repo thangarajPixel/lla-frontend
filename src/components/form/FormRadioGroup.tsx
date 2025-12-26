@@ -3,6 +3,7 @@
 import type { Control, FieldValues, Path } from "react-hook-form";
 import { useController } from "react-hook-form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { cn } from "@/lib/utils";
 
 type RadioGroupProps<T extends FieldValues> = {
   label?: string;
@@ -11,6 +12,7 @@ type RadioGroupProps<T extends FieldValues> = {
   options?: { value: string; label: string }[];
   notRequired?: string;
   isLoading?: boolean;
+  errorClassName?: string;
 };
 
 const FormRadioGroup = <T extends FieldValues>({
@@ -20,6 +22,7 @@ const FormRadioGroup = <T extends FieldValues>({
   options,
   notRequired,
   isLoading,
+  errorClassName,
 }: RadioGroupProps<T>) => {
   const {
     field,
@@ -62,7 +65,7 @@ const FormRadioGroup = <T extends FieldValues>({
               return (
                 <div
                   key={id}
-                  className="flex h-fit items-center space-x-3 p-2 rounded-lg cursor-pointer"
+                  className="flex h-fit items-center space-x-3 py-2 lg:p-2 rounded-lg cursor-pointer"
                 >
                   <RadioGroupItem
                     id={id}
@@ -82,7 +85,7 @@ const FormRadioGroup = <T extends FieldValues>({
           </RadioGroup>
 
           {error && (
-            <div className="mt-3 rounded-md p-3">
+            <div className={cn("mt-3 rounded-md px-3 lg:p-3", errorClassName)}>
               <p className="text-sm text-red-500">{error.message}</p>
             </div>
           )}

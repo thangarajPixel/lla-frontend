@@ -4,6 +4,7 @@ import { Fragment } from "react/jsx-runtime";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
@@ -44,7 +45,7 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
             />
           </div>
         </ParallaxWidget>
-        <div className="relative z-10 min-h-[1650px] m:min-h-[1500px] xs:min-h-[1500px] sm:min-h-[1500px] md:min-h-[1400px] lg:min-h-[1000px] xl:min-h-[1000px] 2xl:min-h-[1300px] 3xl:min-h-[1500px]">
+        <div className="relative z-10 min-h-[1650px] m:min-h-[1500px] xs:min-h-[1500px] sm:min-h-[1500px] md:min-h-[1400px] lg:min-h-[1000px] xl:min-h-[1100px] 2xl:min-h-[1300px] 3xl:min-h-[1500px]">
           <ContainerWidget>
             <ScrollWidget animation="fadeUp" delay={0.1}>
               <h3 className="text-[32px] sm:text-[34px] md:text-[36px] lg:text-[48px] xl:text-[56px] 2xl:text-[64px] 3xl:text-[64px] 4xl:text-[64px]  font-regular text-black font-urbanist">
@@ -68,9 +69,9 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
                     animation="fadeUp"
                     delay={0.2 + index * 0.1}
                   >
-                    <p className="font-mulish text-[16px] md:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[650px] xl:max-w-[660px] 2xl:max-w-[850px] 3xl:max-w-[854px]">
+                    <ParagraphWidget className="max-w-full md:max-w-[650px] xl:max-w-[660px] 2xl:max-w-[850px] 3xl:max-w-[854px]">
                       {textContent}
-                    </p>
+                    </ParagraphWidget>
                   </ScrollWidget>
                 );
               })}

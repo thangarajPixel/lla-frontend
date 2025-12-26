@@ -1,15 +1,41 @@
 import { z } from "zod";
+import { isNotFutureDate } from "./ConstantHelper";
+
+const ALLOWED_EMAIL_DOMAINS = [
+  "gmail.com",
+  "yahoo.com",
+  "outlook.com",
+  "hotmail.com",
+  "icloud.com",
+];
 
 export const languageSchema = z
   .object({
-    language: z.string().min(1, "Language is required"),
+    language: z.string().optional(),
     read: z.boolean().default(false).optional(),
     write: z.boolean().default(false).optional(),
     speak: z.boolean().default(false).optional(),
   })
-  .refine((data) => data.read || data.write || data.speak, {
-    message: "Select at least one proficiency level",
-    path: ["language"],
+  .superRefine((data, ctx) => {
+    const hasLanguage = !!data.language?.trim();
+    const hasAnyProficiency = data.read || data.write || data.speak;
+
+    if (!hasLanguage) {
+      ctx.addIssue({
+        path: ["language"],
+        message: "Language is required",
+        code: z.ZodIssueCode.custom,
+      });
+      return;
+    }
+
+    if (!hasAnyProficiency) {
+      ctx.addIssue({
+        path: ["language"],
+        message: "Select at least one proficiency level",
+        code: z.ZodIssueCode.custom,
+      });
+    }
   });
 
 const addressSchema = z.object({
@@ -49,13 +75,64 @@ export const parentDetails = z.object({
     ),
 });
 
-export const workExperience = z.object({
-  designation: z.string().optional(),
-  employer: z.string().optional(),
-  duration_start: z.string().optional(),
-  duration_end: z.string().optional(),
-  reference_letter: z.number().optional(),
-});
+export const workExperience = z
+  .object({
+    designation: z.string().optional(),
+    employer: z.string().optional(),
+    duration_start: z.string().optional(),
+    duration_end: z.string().optional(),
+    reference_letter: z.number().optional(),
+  })
+  .optional()
+  .superRefine((value, ctx) => {
+    if (!value) return;
+
+    const fields = [
+      value.designation,
+      value.employer,
+      value.duration_start,
+      value.duration_end,
+      value.reference_letter,
+    ];
+
+    const hasAnyValue = fields.some((v) =>
+      typeof v === "string" ? v.trim() !== "" : !!v,
+    );
+
+    if (!hasAnyValue) return;
+
+    // if (!value.designation?.trim()) {
+    //   ctx.addIssue({
+    //     path: ["designation"],
+    //     message: "Designation is required",
+    //     code: z.ZodIssueCode.custom,
+    //   });
+    // }
+
+    // if (!value.employer?.trim()) {
+    //   ctx.addIssue({
+    //     path: ["employer"],
+    //     message: "Employer is required",
+    //     code: z.ZodIssueCode.custom,
+    //   });
+    // }
+
+    // if (!value.duration_start?.trim()) {
+    //   ctx.addIssue({
+    //     path: ["duration_start"],
+    //     message: "Duration is required",
+    //     code: z.ZodIssueCode.custom,
+    //   });
+    // }
+
+    if (value.duration_start && !isNotFutureDate(value.duration_start)) {
+      ctx.addIssue({
+        path: ["duration_start"],
+        message: "Cannot select future date",
+        code: z.ZodIssueCode.custom,
+      });
+    }
+  });
 
 export const education = z.object({
   degree: z.string().min(1, "Degree is required"),
@@ -80,8 +157,12 @@ export const personalDetailsSchema = z.object({
     .regex(/^[6-9]\d{9}$/, "Enter a valid mobile number"),
   email: z
     .string()
-    .min(1, "Email is required")
-    .email({ message: "Enter a valid email" }),
+    .min(1, "Email Address is required")
+    .email({ message: "Enter a valid email" })
+    .refine((email) => {
+      const domain = email.split("@")[1];
+      return ALLOWED_EMAIL_DOMAINS.includes(domain);
+    }, "Enter a valid email"),
   nationality: z.string().min(1, "Nationality is required"),
   date_of_birth: z
     .string()
@@ -95,6 +176,7 @@ export const personalDetailsSchema = z.object({
 
       return inputDate <= today;
     }, "Cannot select future date"),
+
   Language_Proficiency: z.array(languageSchema),
   address: z.array(addressSchema).min(1, "Address is required"),
   city: z.string().min(1, "City is required"),
@@ -110,7 +192,7 @@ export const personalDetailsSchema = z.object({
     .optional(),
   hobbies: z.string().optional(),
   photography_club: z.string().optional(),
-  blood_group: z.string().optional(),
+  blood_group: z.string().min(1, "Blood group is required"),
 
   Parent_Guardian_Spouse_Details: parentDetails,
 
@@ -118,7 +200,7 @@ export const personalDetailsSchema = z.object({
 
   passport_size_image: z
     .number()
-    .min(1, "Passport image is required")
+    .min(1, "Passport size image is required")
     .optional(),
 
   step_1: z.boolean().optional(),
@@ -126,16 +208,27 @@ export const personalDetailsSchema = z.object({
 
 export const educationDetailsSchema = z.object({
   Education_Details: z.object({
-    Education_Details_12th_std: z.number().min(1, "MarkSheet is required"),
-    Education_Details_10th_std: z.number().min(1, "MarkSheet is required"),
+    Education_Details_12th_std: z.number().min(1, "12th MarkSheet is required"),
+    Education_Details_10th_std: z.number().min(1, "10th MarkSheet is required"),
   }),
   Under_Graduate: z
     .object({
       degree: z.string().min(1, "Graduation degree is required"),
-      ug_status: z.string().optional(),
-      marksheet: z.number().optional(),
+      ug_status: z.string().min(1, "Graduation status is required"),
+      marksheet: z.number(),
     })
-    .optional(),
+    .optional()
+    .superRefine((data, ctx) => {
+      if (!data) return;
+
+      if (data.ug_status === "Finished" && !data.marksheet) {
+        ctx.addIssue({
+          path: ["marksheet"],
+          message: "UG Marksheet is required",
+          code: z.ZodIssueCode.custom,
+        });
+      }
+    }),
   Post_Graduate: z.array(postGraduate).optional(),
 
   additionalDegree: z.array(education).optional(),
@@ -153,15 +246,21 @@ export const portfolioSchema = z.object({
           id: z.number().min(1, "Image ID is required"),
         }),
       )
-      .min(1, "At least one image is required"),
+      .min(20, "Min 20 image is required"),
   }),
   step_3: z.boolean().optional(),
 });
 
 export const admissionRequestSchema = z.object({
-  FirstName: z.string(),
+  FirstName: z.string().min(1, "Name is required"),
   LastName: z.string(),
-  Email: z.string(),
-  Mobile: z.string(),
+  Email: z
+    .string()
+    .min(1, "Email is required")
+    .email({ message: "Enter a valid email" }),
+  Mobile: z
+    .string()
+    .min(1, "Mobile No is required")
+    .regex(/^[6-9]\d{9}$/, "Enter a valid mobile number"),
   Message: z.string(),
 });

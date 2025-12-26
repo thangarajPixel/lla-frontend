@@ -5,6 +5,7 @@ import {
   type FieldValues,
   type Path,
   useController,
+  useFormContext,
 } from "react-hook-form";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -23,6 +24,8 @@ function FormCheckBox<T extends FieldValues>({
   disabled = false,
   className,
 }: FormCheckBoxProps<T>) {
+  const { trigger } = useFormContext<T>();
+
   const {
     field: { value, onChange },
     fieldState: { error },
@@ -33,12 +36,20 @@ function FormCheckBox<T extends FieldValues>({
 
   const id = `checkbox-${name.replace(/\./g, "-")}`;
 
+  const languagePath = name.replace(
+    /\.(read|write|speak)$/,
+    ".language",
+  ) as Path<T>;
+
   return (
     <div className="flex items-start gap-2">
       <Checkbox
         id={id}
         checked={!!value}
-        onCheckedChange={(checked) => onChange(!!checked)}
+        onCheckedChange={(checked) => {
+          onChange(!!checked);
+          trigger(languagePath);
+        }}
         disabled={disabled}
         className={className}
       />

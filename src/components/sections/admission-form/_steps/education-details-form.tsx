@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -80,11 +81,9 @@ const EducationDetailsForm = ({
     },
   });
 
-  const { control, handleSubmit, watch } = form_step2;
+  const { control, handleSubmit, watch, setValue } = form_step2;
 
-  const ugStatus = watch("Under_Graduate.ug_status");
-  const pgStatus = watch("Post_Graduate.0.pg_status");
-  const watchPostGraduate = watch("Post_Graduate.0.degree");
+  const watchUgStatus = watch("Under_Graduate.ug_status");
 
   useEffect(() => {
     if (admissionData) {
@@ -92,12 +91,19 @@ const EducationDetailsForm = ({
     }
   }, [admissionData]);
 
+  useEffect(() => {
+    if (watchUgStatus === "In-Progress") {
+      setValue("Under_Graduate.marksheet", 0, { shouldValidate: true });
+    }
+  }, [watchUgStatus, setValue]);
+
   const onSubmit = async (payload: EducationDetailsSchema) => {
     const filteredData = filteredPayload(payload);
 
     const data = {
       ...filteredData,
       step_2: true,
+      EncryptId: admissionId,
     };
 
     try {
@@ -115,22 +121,16 @@ const EducationDetailsForm = ({
     <FormProvider {...form_step2}>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="space-y-12 py-8 bg-background mx-auto"
+        className="space-y-4 pt-8 lg:py-8 bg-background mx-auto"
       >
-        <EducationDetails
-          admissionData={admissionData}
-          control={control}
-          ugStatus={ugStatus}
-          pgStatus={pgStatus}
-          watchPostGraduate={watchPostGraduate}
-        />
+        <EducationDetails admissionData={admissionData} control={control} />
 
         <p className="text-base text-muted-foreground mt-2">
           <span className="font-bold text-black">
             Educational Certificates :{" "}
           </span>{" "}
-          Digital copies (PDF/JPEG) of your 10th and 12th standard certificates,
-          along with UG and PG certificates, if applicable.
+          Digital copies (PDF/JPEG/PNG) of your 10th and 12th standard
+          certificates, along with UG and PG certificates, if applicable.
         </p>
 
         <WorkExperience admissionData={admissionData} control={control} />
@@ -142,24 +142,27 @@ const EducationDetailsForm = ({
           You may upload any reference letters that support your application.
         </p>
 
-        <div className="flex justify-start gap-3 mt-10 pt-6">
-          <ButtonWidget
-            type="button"
-            onClick={() => {
-              router.push(`/admission/${admissionId}/personal-details`);
-            }}
-            className={cn(
-              "p-5 w-[95px] 3xl:w-[123px] 3xl:h-[50px] text-lg bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
-            )}
-          >
-            Back
-          </ButtonWidget>
+        {admissionData?.Payment_Status !== "Paid" && (
+          <div className="flex justify-start gap-3 lg:mt-10 pt-6">
+            <ButtonWidget
+              type="button"
+              onClick={() => {
+                router.push(`/admission/${admissionId}/personal-details`);
+              }}
+              className={cn(
+                "flex items-center justify-center p-5 w-[95px] 3xl:w-[123px] 3xl:h-[50px] text-lg bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
+              )}
+            >
+              <ArrowLeft className="size-5" />
+              Back
+            </ButtonWidget>
 
-          <OrangeButtonWidget
-            content="Save & Continue"
-            className="text-lg 2xl:text-lg h-[50px] px-6 py-3"
-          />
-        </div>
+            <OrangeButtonWidget
+              content="Save & Continue"
+              className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-[18px] 2xl:text-[18px] 3xl:text-[18px]"
+            />
+          </div>
+        )}
       </form>
     </FormProvider>
   );

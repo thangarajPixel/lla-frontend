@@ -42,6 +42,7 @@ const AddressFields = ({ control, name }: AddressFieldsProps) => {
           name={name ? "Parent_Guardian_Spouse_Details.city" : "city"}
           placeholder="Name of the town/village/city"
           control={control}
+          restrictionType="number"
         />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
@@ -49,6 +50,7 @@ const AddressFields = ({ control, name }: AddressFieldsProps) => {
           name={name ? "Parent_Guardian_Spouse_Details.district" : "district"}
           placeholder="District"
           control={control}
+          restrictionType="number"
         />
 
         <FormSelectBox
@@ -62,6 +64,7 @@ const AddressFields = ({ control, name }: AddressFieldsProps) => {
           placeholder="Pincode"
           control={control}
           restrictionType="text"
+          maxLength={6}
         />
       </div>
     </div>

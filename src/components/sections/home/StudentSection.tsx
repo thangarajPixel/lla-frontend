@@ -8,6 +8,7 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import DialogWidget from "@/components/widgets/DialogWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import {
   ArrowLeftBlack,
@@ -33,10 +34,12 @@ const DialogVideoIframe = ({ videoUrl }: { videoUrl: string }) => {
       <iframe
         src={autoplayUrl}
         className="w-full h-full object-contain rounded-lg"
-        allow="autoplay; encrypted-media; fullscreen"
+        allow="autoplay; encrypted-media;"
         allowFullScreen
         title="Video player"
         style={{ border: "none" }}
+        referrerPolicy="no-referrer-when-downgrade"
+        loading="lazy"
       />
     </div>
   );
@@ -127,12 +130,12 @@ const StudentSection = ({ data }: StudentSectionProps) => {
             </h2>
             <HTMLWidget
               content={data.Heading}
-              className="max-w-[520px] font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black"
+              className="font-area-variable font-semibold text-[24px] md:text-[28px] 3xl:text-[40px] text-black leading-tight"
               tag="p"
             />
-            <p className="text-[16px] lg:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full md:max-w-[760px]">
+            <ParagraphWidget className="max-w-full md:max-w-[880px]">
               {data.Description}
-            </p>
+            </ParagraphWidget>
           </div>
         </ScrollWidget>
       </ContainerWidget>
@@ -159,7 +162,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                       >
                         {/* biome-ignore lint/a11y/useSemanticElements: Container with hover effects, not a form fieldset */}
                         <div
-                          className="group relative flex flex-col gap-4 overflow-hidden transition-all duration-500 ease-in-out delay-75 p-3 sm:p-4 lg:p-5 aspect-3/4 min-h-[380px] sm:min-h-[580px] sm:max-w-[330px] bg-[#F6F6F6] hover:bg-[#E97451]/80 3xl:min-w-[410px] 3xl:h-[651px]"
+                          className="group relative flex flex-col gap-4 overflow-hidden transition-all duration-500 ease-in-out delay-75 p-3 sm:p-4 lg:p-5 aspect-3/4 min-h-[380px] sm:min-h-[580px] sm:max-w-[330px] bg-[#F6F6F6] hover:bg-[#F6C7B9]/80 3xl:min-w-[430px] 3xl:h-[751px]"
                           role="group"
                           onMouseEnter={(e) => {
                             if (!isMobile) {
@@ -214,11 +217,13 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                             allowFullScreen
                             title="Student video"
                             style={{ border: "none" }}
+                            referrerPolicy="no-referrer-when-downgrade"
+                            loading="lazy"
                           />
-                          <div className="bg-[#F6F6F6] bottom-[-2px] z-10 w-full h-3 left-0 right-0 absolute block md:hidden"/>
+                          <div className="bg-[#F6F6F6] bottom-[-2px] z-10 w-full h-3 left-0 right-0 absolute block md:hidden" />
                           <div className="relative z-20 flex items-end justify-between h-full">
-                            <div
-                              className="flex flex-col justify-end gap-3 bg-[#E97451]/80 w-full h-27 p-4"
+                            {/* <div
+                              className="flex flex-col justify-end gap-3 bg-[#E97451]/80 w-full h-27 p-4 m-2"
                               style={{
                                 clipPath:
                                   "polygon(0 0%, 100% 23%, 100% 100%, 0% 100%)",
@@ -227,16 +232,16 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                               <h3 className="font-mulish text-xl md:text-xl lg:text-2xl xl:text-[20px] 2xl:text-[20px] 3xl:text-[24px] font-bold text-white font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight transition-colors duration-500 ease-in-out delay-150">
                                 {student.Title}
                               </h3>
-                              <p className="text-xs sm:text-sm md:text-base lg:text-base xl:text-base 2xl:text-base 3xl:text-lg font-normal text-white">
+                              <ParagraphWidget className="text-white!">
                                 {student.Description}
-                              </p>
-                            </div>
+                              </ParagraphWidget>
+                            </div> */}
                             <DialogWidget
                               trigger={
                                 <button
                                   type="button"
                                   aria-label="Play video"
-                                  className="absolute right-5 bottom-15 w-13 h-13 border-none bg-transparent p-0 cursor-pointer group/play-button"
+                                  className="absolute right-5 bottom-10 w-13 h-13 border-none bg-transparent p-0 cursor-pointer group/play-button"
                                 >
                                   <div className="video-main">
                                     <div className="waves-block">

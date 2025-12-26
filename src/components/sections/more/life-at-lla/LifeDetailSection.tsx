@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 
@@ -15,9 +15,7 @@ import {
   ArrowRightWhite,
   FacebookBlack,
   InstagramBlack,
-
   LinkedInBlack,
-
   TwitterBlack,
   WhatsappBlack,
 } from "@/helpers/ImageHelper";
@@ -82,7 +80,7 @@ const getYouTubeEmbedUrl = (url: string): string => {
 
   for (const pattern of patterns) {
     const match = url.match(pattern);
-    if (match && match[1]) {
+    if (match?.[1]) {
       return `https://www.youtube.com/embed/${match[1]}`;
     }
   }
@@ -92,22 +90,28 @@ const getYouTubeEmbedUrl = (url: string): string => {
 };
 
 // Image Slider Component for Slide type viewCards
-const ImageSlider = ({ images, title }: { images: Array<{ id: number; name: string; url: string }>; title: string }) => {
+const ImageSlider = ({
+  images,
+  title,
+}: {
+  images: Array<{ id: number; name: string; url: string }>;
+  title: string;
+}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
 
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % images.length);
-  };
+  }, [images.length]);
 
-  const prevSlide = () => {
+  const prevSlide = useCallback(() => {
     setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
-  };
+  }, [images.length]);
 
-  const goToSlide = (index: number) => {
+  const goToSlide = useCallback((index: number) => {
     setCurrentIndex(index);
-  };
+  }, []);
 
   // Auto-play functionality
   useEffect(() => {
@@ -122,7 +126,7 @@ const ImageSlider = ({ images, title }: { images: Array<{ id: number; name: stri
         clearInterval(autoPlayRef.current);
       }
     };
-  }, [isAutoPlaying, images.length]);
+  }, [isAutoPlaying, images.length, nextSlide]);
 
   const handleMouseEnter = () => setIsAutoPlaying(false);
   const handleMouseLeave = () => setIsAutoPlaying(true);
@@ -131,6 +135,7 @@ const ImageSlider = ({ images, title }: { images: Array<{ id: number; name: stri
 
   return (
     <div
+      aria-hidden
       className="relative w-full aspect-video overflow-hidden group"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -180,13 +185,14 @@ const ImageSlider = ({ images, title }: { images: Array<{ id: number; name: stri
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
           {images.map((_, index) => (
             <button
-              key={index}
+              key={`slide-${index + 1}`}
               type="button"
               onClick={() => goToSlide(index)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
-                ? "bg-white scale-125"
-                : "bg-white/50 hover:bg-white/75"
-                }`}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                index === currentIndex
+                  ? "bg-white scale-125"
+                  : "bg-white/50 hover:bg-white/75"
+              }`}
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}
@@ -272,9 +278,14 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                         tag="div"
                       />
                     )}
-                    {viewCard.Type === "Slide" && viewCard.Images && viewCard.Images.length > 0 && (
-                      <ImageSlider images={viewCard.Images} title={viewCard.Title} />
-                    )}
+                    {viewCard.Type === "Slide" &&
+                      viewCard.Images &&
+                      viewCard.Images.length > 0 && (
+                        <ImageSlider
+                          images={viewCard.Images}
+                          title={viewCard.Title}
+                        />
+                      )}
                     {viewCard.Type === "Video" && viewCard.Url && (
                       <div className="relative w-full aspect-video overflow-hidden bg-black">
                         <iframe
@@ -363,7 +374,7 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                           {post.Title}
                         </h4>
                         <Link
-                          href={`/more/life-at-lla/${post.Slug}`}
+                          href={`/life-at-lla/${post.Slug}`}
                           className="inline-flex items-center gap-2 text-[#E97451] hover:gap-4 transition-all duration-300 mt-2 text-[16px] md:text-[16px] lg:text-[16px] font-normal font-urbanist group"
                         >
                           Read More
@@ -406,7 +417,7 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                             {post.Title}
                           </h4>
                           <Link
-                            href={`/more/life-at-lla/${post.Slug}`}
+                            href={`/life-at-lla/${post.Slug}`}
                             className="inline-flex items-center gap-2 text-[#E97451] hover:gap-4 transition-all duration-300 mt-2 text-[16px] font-normal font-urbanist group"
                           >
                             Read More
@@ -427,10 +438,11 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                       type="button"
                       onClick={() => scroll("left")}
                       disabled={!canScrollLeft}
-                      className={`transition-opacity ${canScrollLeft
-                        ? "opacity-100 hover:opacity-70"
-                        : "opacity-30 cursor-not-allowed"
-                        }`}
+                      className={`transition-opacity ${
+                        canScrollLeft
+                          ? "opacity-100 hover:opacity-70"
+                          : "opacity-30 cursor-not-allowed"
+                      }`}
                       aria-label="Previous slide"
                     >
                       <ImageWidget
@@ -445,10 +457,11 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                       type="button"
                       onClick={() => scroll("right")}
                       disabled={!canScrollRight}
-                      className={`transition-opacity ${canScrollRight
-                        ? "opacity-100 hover:opacity-70"
-                        : "opacity-30 cursor-not-allowed"
-                        }`}
+                      className={`transition-opacity ${
+                        canScrollRight
+                          ? "opacity-100 hover:opacity-70"
+                          : "opacity-30 cursor-not-allowed"
+                      }`}
                       aria-label="Next slide"
                     >
                       <ImageWidget

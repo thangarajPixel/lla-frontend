@@ -15,26 +15,26 @@ import OrangeButtonWidget from "../widgets/OrangeButtonWidget";
 
 const QUICK_LINKS = [
   { id: "home", href: "/", label: "Home" },
-  { id: "about", href: "/more/about-us", label: "About LLA" },
+  { id: "about", href: "/about-us", label: "About LLA" },
   { id: "campus", href: "/campus", label: "Campus" },
   { id: "faculty", href: "/faculty", label: "Faculty" },
   { id: "gallery", href: "/gallery", label: "Gallery" },
-  { id: "contact", href: "/more/contact-us", label: "Contact Us" },
+  { id: "contact", href: "/contact-us", label: "Contact Us" },
 ];
 
 const RESOURCES = [
-  { id: "blog", href: "/more/blogs", label: "Blog" },
-  { id: "faq", href: "/more/faq", label: "FAQ's" },
-  { id: "privacy", href: "/more/privacy-policy", label: "Privacy Policy" },
+  { id: "blog", href: "/blogs", label: "Blog" },
+  { id: "faq", href: "/faq", label: "FAQ's" },
+  { id: "privacy", href: "/privacy-policy", label: "Privacy Policy" },
   {
     id: "terms",
-    href: "/more/terms-and-conditions",
+    href: "/terms-and-conditions",
     label: "Terms & Conditions",
   },
 ];
 
 const linkTextClass =
-  "text-[16px] md:text-[16px] lg:text-[14px] 3xl:text-[18px] font-normal";
+  "text-[16px] md:text-[16px] lg:text-[14px] 2xxl:text-[18px] 3xl:text-[18px] font-normal";
 const sectionTitleClass =
   "text-[18px] md:text-[20px] 3xl:text-[24px] font-normal font-urbanist";
 const dividerClass = "border-b border-white opacity-30 w-full h-px mt-3";
@@ -118,7 +118,7 @@ const WebFooter = ({
         id: item.id,
         name: item.name,
         url: getS3Url(item.url),
-        href: item.href || "#",
+        href: item.caption || "#",
         alt: iconName.charAt(0).toUpperCase() + iconName.slice(1),
       };
     });
@@ -139,10 +139,10 @@ const WebFooter = ({
           <h2 className="text-[32px] md:text-[40px] lg:text-[50px] 3xl:text-[56px] font-normal font-urbanist leading-10">
             {Title}
           </h2>
-          <p className={`${linkTextClass} max-w-full md:max-w-[550px]`}>
+          {/* <p className={`${linkTextClass} max-w-full md:max-w-[550px]`}>
             {Description}
-          </p>
-          <LinkWidget href="/more/contact-us">
+          </p> */}
+          <LinkWidget href="/contact-us">
             <OrangeButtonWidget content={Btn_txt} />
           </LinkWidget>
           <div className={dividerClass} />
@@ -165,7 +165,7 @@ const WebFooter = ({
                   <HTMLWidget
                     content={Location ?? undefined}
                     tag="div"
-                    className="mt-[-2px]"
+                    className="mt-[-2px] text-[16px] md:text-[16px] lg:text-[14px] 2xxl:text-[18px] 3xl:text-[18px] font-normal leading-6"
                     suppressHydrationWarning
                   />
                 </div>
@@ -251,7 +251,7 @@ const WebFooter = ({
           </div>
 
           <p
-            className={`text-center md:text-left ${linkTextClass} max-w-full md:max-w-[350px]`}
+            className={`text-center md:text-left ${linkTextClass} max-w-full md:max-w-[350px] 2xxl:max-w-[500px]`}
           >
             © {new Date().getFullYear()} {Copy_right_txt}
           </p>

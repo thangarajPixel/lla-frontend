@@ -6,7 +6,7 @@ const baseConfiguration = {
     "Content-Type": "application/json",
     // "Access-Control-Allow-Origin": "*",
   },
-  timeout: 3000,
+  // timeout: 3000,
 };
 
 // Client-side Axios instance

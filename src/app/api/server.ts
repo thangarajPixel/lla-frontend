@@ -120,6 +120,9 @@ export async function getBlogBySlug(slug: string) {
 export async function getFounderBySlug(slug: string) {
   return fetchData(`/about/founder/${slug}`);
 }
+export async function getFacultyFounderBySlug(slug: string) {
+  return fetchData(`/faculty/founder/${slug}`);
+}
 
 export async function getFacultyBySlug(
   name: string,

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
@@ -195,7 +196,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
                             hover:bg-[#E97451]/20 cursor-pointer
                             transition-colors duration-500 ease-out
                             px-2 py-2 flex flex-col
-                            min-h-[300px] xs:min-h-[310px] sm:min-h-[310px] md:min-h-[300px] lg:min-h-[300px]
+                            h-[250px] sm:h-auto! sm:min-h-[310px] md:min-h-[300px] lg:min-h-[300px]
                             xl:min-h-[340px] 2xl:min-h-[410px] 3xl:min-h-[480px] 4xl:min-h-[500px]`}
                 >
                   <ParallaxWidget speed={-0.1}>
@@ -273,9 +274,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
               >
                 {data.Frame.Title}
               </h5>
-              <p className="font-mulish text-[16px] md:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal">
-                {data.Frame.Description}
-              </p>
+              <ParagraphWidget>{data.Frame.Description}</ParagraphWidget>
             </div>
           </ScrollWidget>
         </div>

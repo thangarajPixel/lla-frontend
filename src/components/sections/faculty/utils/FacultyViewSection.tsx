@@ -60,7 +60,7 @@ const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
 
   const facultyCard = currentData?.Card?.[0];
   const viewCard = facultyCard?.ViewCard?.[0];
-    const totalPages = currentData?.pagination?.totalPages || 1;
+  const totalPages = currentData?.pagination?.totalPages || 1;
 
   const facultyName = facultyCard?.Title || "Faculty Member";
   const portraitImage = facultyCard?.Image;
@@ -189,7 +189,7 @@ const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
                 <button
                   type="button"
                   onClick={handleNext}
-                    disabled={currentPage >= totalPages || isLoading}
+                  disabled={currentPage >= totalPages || isLoading}
                   className={`flex items-center rounded-full justify-center h-12 flex-1 border-2 border-[#FFD4CC] bg-white transition-all ${
                     currentPage >= totalPages || isLoading
                       ? "opacity-50 cursor-not-allowed"
@@ -217,7 +217,10 @@ const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
                 delay={0.5}
               >
                 <div className="mb-8">
-                  <HTMLWidget content={biography} className="font-mulish" />
+                  <HTMLWidget
+                    content={biography}
+                    className="font-mulish text-[16px] md:text-[17px] 2xl:text-[18px] font-normal text-black leading-[26px]"
+                  />
                 </div>
               </ScrollWidget>
             )}

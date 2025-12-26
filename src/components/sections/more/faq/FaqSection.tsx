@@ -81,23 +81,25 @@ const FaqSection = ({ data }: FaqProps) => {
             {data.Title || "Frequently Asked Questions"}
           </h1>
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-14">
-            <div className="hidden md:block lg:col-span-1   ">
-              <nav className="space-y-1 lg:sticky lg:top-30 shadow-lg">
-                {data.faq.map((category) => (
-                  <button
-                    key={category.id}
-                    type="button"
-                    onClick={() => scrollToCategory(category.id)}
-                    className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 cursor-pointer text-[16px] md:text-[15px] xl:text-[16px] 2xl:text-[17px] 3xl:text-[18px] relative ${
-                      activeCategory === category.id
-                        ? "text-[#E97451] font-semibold"
-                        : "text-black hover:text-[#E97451] hover:bg-gray-50 font-normal"
-                    }`}
-                  >
-                    {category.Title}
-                  </button>
-                ))}
-              </nav>
+            <div className="hidden md:block lg:col-span-1">
+              <div className="lg:sticky lg:top-24">
+                <nav className="space-y-1 p-2 shadow-lg">
+                  {data.faq.map((category) => (
+                    <button
+                      key={category.id}
+                      type="button"
+                      onClick={() => scrollToCategory(category.id)}
+                      className={`w-full text-left px-4 py-2 rounded-lg transition-all duration-300 cursor-pointer text-[16px] 2xxl:text-[18px] relative ${
+                        activeCategory === category.id
+                          ? "text-[#E97451] font-semibold"
+                          : "text-black hover:text-[#E97451] hover:bg-gray-50 font-normal"
+                      }`}
+                    >
+                      {category.Title}
+                    </button>
+                  ))}
+                </nav>
+              </div>
             </div>
             <div className="lg:col-span-3">
               {data.faq.map((category) => (
@@ -114,7 +116,7 @@ const FaqSection = ({ data }: FaqProps) => {
                 >
                   <div className="bg-white p-0 md:pb-6">
                     <h2
-                      className={`text-[24px] md:text-3xl font-semibold mb-3 md:mb-6 transition-colors duration-300 ${
+                      className={`text-[24px] md:text-[32px] font-semibold mb-3 md:mb-6 transition-colors duration-300 ${
                         activeCategory === category.id
                           ? "text-[#E97451]"
                           : "text-black"
@@ -130,14 +132,14 @@ const FaqSection = ({ data }: FaqProps) => {
                           className="bg-white border-none"
                         >
                           <AccordionTrigger className="py-3 text-left hover:no-underline cursor-pointer">
-                            <span className="text-[16px] sm:text-[14px] md:text-[15px] lg:text-[16px] xl:text-[16px] 2xl:text-[17px] 3xl:text-[18px] font-mulish font-regular text-black">
+                            <span className="text-[18px] font-urbanist text-black">
                               {item.Question}
                             </span>
                           </AccordionTrigger>
                           <AccordionContent className="pb-4">
                             <HTMLWidget
                               content={item.Answer}
-                              className="text-[16px] sm:text-[14px] md:text-[14px] lg:text-[14px] xl:text-[15px] 2xl:text-[15px] 3xl:text-[16px] font-mulish font-regular text-black"
+                              className="text-[16px] font-mulish font-regular text-black"
                               tag="p"
                             />
                           </AccordionContent>

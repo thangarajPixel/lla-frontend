@@ -1,39 +1,73 @@
 "use client";
 
+import { useRef, useState } from "react";
 import { DialogClose } from "@/components/ui/dialog";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import DialogWidget from "@/components/widgets/DialogWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import { Into, Play } from "@/helpers/ImageHelper";
 import type { CampusHeroSectionProps } from "./utils/campus";
 
 const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
-  const stopAllVideos = () => {
-    const videos = document.querySelectorAll("video");
-    videos.forEach((video) => {
-      video.pause();
-      video.currentTime = 0;
-    });
+  const [videoError, setVideoError] = useState(false);
+  const [dialogVideoError, setDialogVideoError] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const stopPopupVideo = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
   };
+
+  const handleVideoError = (
+    e: React.SyntheticEvent<HTMLVideoElement, Event>,
+  ) => {
+    e.preventDefault();
+    setVideoError(true);
+    if (videoRef.current) {
+      videoRef.current.style.display = "none";
+    }
+  };
+
+  const videoUrl = data?.Video?.url ? getS3Url(data.Video.url) : "";
+  const backgroundImage = data?.Image?.url ? getS3Url(data.Image.url) : null;
+
   return (
     <section className="relative w-full h-[1050px] overflow-hidden">
       <div className="absolute inset-0 w-full h-[1050px] z-0">
-        <video
-          className="w-full h-[1050px] object-cover"
-          autoPlay
-          loop
-          muted
-          playsInline
-        >
-          <source
-            src={data?.Video?.url ? getS3Url(data.Video.url) : ""}
-            type="video/mp4"
+        {!videoError && videoUrl && (
+          <video
+            ref={videoRef}
+            className="w-full h-[1050px] object-cover"
+            autoPlay
+            loop
+            muted
+            playsInline
+            onError={handleVideoError}
+            onLoadStart={() => {
+              setVideoError(false);
+            }}
+          >
+            <source src={videoUrl} type="video/mp4" />
+            <track kind="captions" srcLang="en" label="English" />
+          </video>
+        )}
+        {(videoError || !videoUrl) && backgroundImage && (
+          <ImageWidget
+            src={backgroundImage}
+            alt={data?.Title || "Campus"}
+            fill
+            className="object-cover"
           />
-          <track kind="captions" srcLang="en" label="English" />
-        </video>
+        )}
+        {(videoError || !videoUrl) && !backgroundImage && (
+          <div className="w-full h-full bg-[#F6F6F6]" />
+        )}
       </div>
       <ContainerWidget>
         <ScrollWidget animation="fadeUp" delay={0.1}>
@@ -48,7 +82,7 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
                 <HTMLWidget
                   content={data.Heading}
                   tag="p"
-                  className="text-white text-base sm:text-lg lg:text-[28px] xl:text-[28px] 2xl:text-[32px] 3xl:text-[40px] font-mulish"
+                  className="text-white text-base text-[24px] 3xl:text-[40px] font-mulish md:leading-[48px]!"
                 />
               )}
               <div className="hidden md:block">
@@ -79,7 +113,12 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
                   showCancel={false}
                   showCloseButton={false}
                   onOpenChange={(open) => {
-                    if (!open) stopAllVideos();
+                    if (!open) {
+                      stopPopupVideo(); // stop popup video
+                      videoRef.current?.play(); // resume background video
+                    } else {
+                      videoRef.current?.pause(); // pause background video
+                    }
                   }}
                   customCloseButton={
                     <DialogClose asChild>
@@ -94,15 +133,25 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
                   }
                 >
                   <div className="relative w-full aspect-video bg-black rounded-lg">
-                    <video
-                      src={data?.Video?.url ? getS3Url(data.Video.url) : ""}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      controls
-                      className="w-full h-full object-contain rounded-lg"
-                    />
+                    {videoUrl && !dialogVideoError ? (
+                      <video
+                        src={videoUrl}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        controls
+                        className="w-full h-full object-contain rounded-lg"
+                        onError={(e) => {
+                          e.preventDefault();
+                          setDialogVideoError(true);
+                        }}
+                      />
+                    ) : (
+                      <div className="flex items-center justify-center h-full text-white">
+                        Video unavailable
+                      </div>
+                    )}
                   </div>
                 </DialogWidget>
               </div>
@@ -113,12 +162,11 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
                   if (!textContent) return null;
                   const uniqueKey = `${index}-${textContent.slice(0, 20)}`;
                   return (
-                    <p
-                      key={uniqueKey}
-                      className="font-mulish text-sm xss:text-[16px] sm:text-base lg:text-[17px] xl:text-[14px] 2xl:text-[17px] 3xl:text-[18px] font-normal text-white xl:leading-[24px] 3xl:leading-[26px]"
-                    >
-                      {textContent}
-                    </p>
+                    <div key={uniqueKey}>
+                      <ParagraphWidget className="text-white!">
+                        {textContent}
+                      </ParagraphWidget>
+                    </div>
                   );
                 })}
               </div>

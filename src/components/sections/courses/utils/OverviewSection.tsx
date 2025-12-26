@@ -67,28 +67,32 @@ const OverviewSection = ({ data }: { data: MenuData }) => {
   );
 
   return (
-    <section className="w-full bg-white flex flex-col items-center justify-center relative  py-10 sm:py-20 sm:pt-30 3xl:my-10 3xl:h-[1048px]">
+    <section className="w-full bg-white flex flex-col items-center justify-center relative  py-10 sm:py-30 3xl:py-35">
       <ContainerWidget>
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 xl:gap-2.5 2xl:gap-5 3xl:gap-[30px]">
-          <div className="flex flex-col gap-4.5 justify-center md:-mt-15">
+          <div className="flex flex-col gap-4.5 md:-mt-15">
             <div className="self-start">
-              <ButtonWidget className="text-[20px] xss:text-[16px] p-5 3xl:text-[24px] font-mulish w-full rounded-full bg-[#E97451]/20 border border-[#E97451] text-black hover:bg-[#E97451]/20">
-                Duration1 Year
+              <ButtonWidget
+                className="text-[20px] xss:text-[16px] p-5 3xl:text-[24px] 
+              font-mulish w-full rounded-full bg-[#E97451]/20 
+              border border-[#E97451] text-black hover:bg-[#E97451]/20"
+              >
+                {data.Duration}
               </ButtonWidget>
             </div>
-            <p className="font-urbanist font-normal text-[23px] sxx:leading-10 xss:text-[32px] md:leading-14 sm:text-5xl 3xl:text-[64px] text-black">
-              {data.Title}
-              {data.SubTitle && (
-                <>
-                  <br className="hidden sm:block" />
-                  <span className="text-[#E97451] ml-2 sm:ml-0">
-                    {data.SubTitle}
-                  </span>
-                </>
-              )}
-            </p>
+            <HTMLWidget
+              content={data.Title}
+              tag="h2"
+              className="font-urbanist font-normal text-[23px] leading-10 sxx:leading-8 
+            xss:text-[32px] md:leading-12 sm:text-5xl 3xl:text-[64px]
+             text-black 2xxl:leading-16"
+            />
             {data?.Description && (
-              <HTMLWidget content={data.Description} tag="p" />
+              <HTMLWidget
+                content={data.Description}
+                tag="p"
+                className="text-[16px] lg:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal max-w-full"
+              />
             )}
             {data.Btn_txt && (
               <div className="self-start">
@@ -175,7 +179,7 @@ const OverviewSection = ({ data }: { data: MenuData }) => {
                         src={getS3Url(image.url)}
                         alt={image.name}
                         fill
-                        className="object-cover"
+                        className="object-cover min-w-[361px] min-h-[358px]"
                       />
                     </div>
                   ))}

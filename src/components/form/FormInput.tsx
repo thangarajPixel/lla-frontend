@@ -24,6 +24,7 @@ type InputProps<T extends FieldValues> = UseControllerProps<T> & {
   restrictionType?: string;
   maxLength?: number;
   onFieldCheck?: (field: string) => void;
+  pageType?: string;
 } & React.ComponentProps<"input">;
 
 const FormInput = <T extends FieldValues>({
@@ -36,6 +37,7 @@ const FormInput = <T extends FieldValues>({
   restrictionType,
   maxLength,
   onFieldCheck,
+  pageType,
   ...props
 }: InputProps<T>) => {
   const {
@@ -65,6 +67,7 @@ const FormInput = <T extends FieldValues>({
       restrictionType={restrictionType}
       maxLength={maxLength}
       onFieldCheck={onFieldCheck}
+      pageType={pageType}
     />
   );
 };

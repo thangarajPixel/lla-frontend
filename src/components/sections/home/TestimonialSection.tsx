@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { ArrowLeftBlack, ArrowRightBlack, Quote } from "@/helpers/ImageHelper";
 import type { TestimonialData } from "../courses/utils/types";
@@ -59,23 +60,23 @@ const TestimonialSection = ({ data }: TestimonialSectionProps) => {
 
   if (testimonials?.length === 0) return null;
   return (
-    <section className="w-full bg-[#ECECEC] flex flex-col z-40 relative py-10 sm:py-14 md:py-18 lg:py-20 xl:py-20 2xl:py-20 3xl:py-20">
+    <section className="w-full bg-[#ECECEC] flex flex-col z-40 relative py-10 sm:py-14 md:py-18 lg:py-20 xl:py-20 2xl:py-25">
       <ContainerWidget>
         <ScrollWidget animation="fadeUp" delay={0.1}>
           <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-10 lg:gap-12 xl:gap-14 2xl:gap-16 items-stretch">
-            <div className="space-y-3 md:space-y-3 lg:space-y-4">
+            <div className="space-y-2.5 md:space-y-3 lg:space-y-4">
               <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
                 {sectionData?.Title}
               </h3>
               <HTMLWidget
                 content={sectionData.Heading}
-                className="max-w-[520px] font-area-variable font-semibold text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-[40px] text-black"
+                className="font-area-variable font-semibold text-[24px] md:text-[28px] 3xl:text-[40px] text-black leading-tight"
                 tag="p"
               />
 
-              <p className="text-[16px] lg:text-[17px] 3xl:text-[18px] font-normal text-black leading-normal w-full md:max-w-[450px]">
+              <ParagraphWidget className="w-full md:max-w-[450px]">
                 {sectionData?.Description}
-              </p>
+              </ParagraphWidget>
             </div>
             <div className="relative h-full flex flex-col">
               <div className="px-px">

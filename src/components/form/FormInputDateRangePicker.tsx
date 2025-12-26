@@ -1,7 +1,6 @@
 "use client";
 
 import { format, parse } from "date-fns";
-import { CalendarIcon } from "lucide-react";
 import { useState } from "react";
 import {
   type Control,
@@ -9,7 +8,6 @@ import {
   type Path,
   useController,
 } from "react-hook-form";
-
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
@@ -19,11 +17,14 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import ImageWidget from "@/components/widgets/ImageWidget";
+import { CalendarIcon } from "@/helpers/ImageHelper";
 
-const DISPLAY = "dd-MM-yyyy";
+const DISPLAY = "dd/MM/yyyy";
 const STORE = "yyyy-MM-dd";
 
 function parseDisplay(text: string): Date | null {
+  if (typeof text !== "string" || !text) return null;
   const d = parse(text, DISPLAY, new Date());
   return Number.isNaN(d.getTime()) ? null : d;
 }
@@ -47,13 +48,14 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
   label,
   required,
 }: Props<T>) {
-  // Hook form fields
   const {
     field: { value: startValue, onChange: setStart },
+    fieldState: { error: startError },
   } = useController({ name: startName, control });
 
   const {
     field: { value: endValue, onChange: setEnd },
+    fieldState: { error: endError },
   } = useController({ name: endName, control });
 
   const parsedStart = startValue
@@ -64,7 +66,7 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
 
   const [inputValue, setInputValue] = useState(() =>
     parsedStart && parsedEnd
-      ? `${toDisplay(parsedStart)} to ${toDisplay(parsedEnd)}`
+      ? `${toDisplay(parsedStart)} - ${toDisplay(parsedEnd)}`
       : "",
   );
 
@@ -76,9 +78,17 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
   const [open, setOpen] = useState(false);
 
   const handleInputChange = (text: string) => {
+    if (text.trim() === "") {
+      setStart("");
+      setEnd("");
+    }
+
+    if (!/^[0-9/\s-]*$/.test(text)) {
+      return;
+    }
     setInputValue(text);
 
-    const [startStr, endStr] = text.split("to").map((x) => x.trim());
+    const [startStr, endStr] = text.split(" - ").map((x) => x.trim());
 
     const startParsed = parseDisplay(startStr);
     const endParsed = parseDisplay(endStr);
@@ -111,7 +121,7 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
       setEnd(format(r.to, STORE));
 
       if (r.from) {
-        setInputValue(`${toDisplay(r.from)} to ${toDisplay(r.to)}`);
+        setInputValue(`${toDisplay(r.from)} - ${toDisplay(r.to)}`);
       }
 
       setOpen(false);
@@ -131,9 +141,10 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
         <div className="relative">
           <Input
             value={inputValue}
-            placeholder="DD-MM-YYYY to DD-MM-YYYY"
+            placeholder="DD/MM/YYYY - DD/MM/YYYY"
             onChange={(e) => handleInputChange(e.target.value)}
             className="pr-0"
+            maxLength={23}
           />
 
           <PopoverTrigger asChild>
@@ -141,12 +152,16 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
               variant="ghost"
               className="absolute right-2 top-1/2 -translate-y-1/2"
             >
-              <CalendarIcon className="h-4 w-4 text-chart-1" />
+              <ImageWidget
+                src={CalendarIcon}
+                alt="calendar"
+                className="size-6 transition-transform duration-300 group-hover:translate-x-1"
+              />
             </Button>
           </PopoverTrigger>
         </div>
 
-        <PopoverContent className="w-auto p-0">
+        <PopoverContent className="w-auto p-0 z-40">
           <Calendar
             key={
               range?.from
@@ -160,6 +175,7 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
             selected={range}
             onSelect={handleCalendarSelect}
             captionLayout="dropdown"
+            disabled={{ after: new Date() }}
             defaultMonth={
               range?.from
                 ? range.from
@@ -170,6 +186,12 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
           />
         </PopoverContent>
       </Popover>
+
+      {(startError || endError) && (
+        <p className="text-sm text-red-500 mt-1">
+          {startError?.message || endError?.message}
+        </p>
+      )}
     </div>
   );
 }
