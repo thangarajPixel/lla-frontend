@@ -125,7 +125,7 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0  bg-[#E97451] z-70 h-auto min-h-[80px] md:h-26 flex items-center py-3 md:py-0">
+    <div className="fixed bottom-0 left-0 right-0  bg-[#E97451]  z-70 h-auto min-h-[80px] md:h-26 flex items-center py-3 md:py-0">
       <ContainerWidget>
         <h3 className="md:hidden text-white text-[14px] sm:text-[15px] md:text-[16px] lg:text-[15px] 3xl:text-[18px] font-semibold mb-2 md:mb-2 text-center md:text-left">
           Apply Now
@@ -135,7 +135,7 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
           onSubmit={form.handleSubmit(onSubmit)}
           className="grid grid-cols-2 md:flex font-mulish gap-2 md:gap-3 items-stretch md:items-center md:justify-between"
         >
-          <h3 className="hidden md:block text-white text-[14px] sm:text-[15px] md:text-[16px] lg:text-[15px] 3xl:text-[18px] font-semibold mb-2 md:mb-2 text-center md:text-left relative md:bottom-2.5">
+          <h3 className="hidden md:block text-white text-[14px] sm:text-[15px] md:text-[18px] lg:text-[18px] 3xl:text-[18px] font-semibold mb-2 md:mb-2 text-center md:text-left relative md:bottom-[5px]">
             Apply Now
           </h3>
 
