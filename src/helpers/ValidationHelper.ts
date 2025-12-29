@@ -175,15 +175,35 @@ export const personalDetailsSchema = z.object({
   date_of_birth: z
     .string()
     .min(1, "Date of birth is required")
-    .refine((value) => {
+    .superRefine((value, ctx) => {
+      if (value === "2000-01-01") {
+        ctx.addIssue({
+          message: "Invalid date",
+          code: z.ZodIssueCode.custom,
+        });
+        return;
+      }
+
       const inputDate = new Date(value);
       const today = new Date();
 
       inputDate.setHours(0, 0, 0, 0);
       today.setHours(0, 0, 0, 0);
 
-      return inputDate <= today;
-    }, "Cannot select future date"),
+      if (inputDate > today) {
+        ctx.addIssue({
+          message: "Cannot select future date",
+          code: z.ZodIssueCode.custom,
+        });
+      }
+
+      if (value.trim() === "") {
+        ctx.addIssue({
+          message: "Date of birth is required",
+          code: z.ZodIssueCode.custom,
+        });
+      }
+    }),
 
   Language_Proficiency: z.array(languageSchema),
   address: z.array(addressSchema).min(1, "Address is required"),

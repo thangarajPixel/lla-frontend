@@ -96,6 +96,11 @@ const FormDatePickerWithInput = <T extends FieldValues>({
             let value = input.value;
             let cursor = input.selectionStart ?? value.length;
 
+            if (!value.trim()) {
+              onChange("");
+              setMonth(undefined);
+            }
+
             if (!/^[0-9/]*$/.test(value)) return;
 
             if (
@@ -122,11 +127,11 @@ const FormDatePickerWithInput = <T extends FieldValues>({
                 onChange(format(parsed, STORE_FORMAT));
                 setMonth(parsed);
                 return;
+              } else {
+                onChange("2000-01-01");
+                setMonth(undefined);
               }
             }
-
-            onChange("");
-            setMonth(undefined);
           }}
           onKeyDown={(e) => {
             if (e.key === "ArrowDown") {

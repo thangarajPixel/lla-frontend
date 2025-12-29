@@ -143,7 +143,7 @@ const WebHeader = ({
 
   return (
     <header
-      className={`w-full z-50 transition-all duration-300
+      className={`w-full z-50 transition-all duration-500
         ${isHidden ? "-translate-y-full" : "translate-y-0"}
         ${
           isHomePage
