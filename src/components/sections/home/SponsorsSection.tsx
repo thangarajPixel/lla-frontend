@@ -16,14 +16,14 @@ const SponsorsSection = ({ data }: SponsorsSectionProps) => {
               {data.Title}
             </h2>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-7 2xl:gap-6 3xl:gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-10 md:gap-5 lg:gap-6 xl:gap-5 2xl:gap-5 3xl:gap-8">
             {sponsors?.map((sponsor, index) => (
               <div
                 key={sponsor.id}
                 className="flex items-center justify-center"
               >
                 <ScrollWidget animation="fadeUp" delay={0.1 + index * 0.05}>
-                  <div className="relative w-[171px] h-[63px]  sm:w-[171px] sm:h-[63px] md:w-[171px] md:h-[75px] lg:w-[160px] lg:h-[65px] xl:w-[175px] xl:h-[75px] 2xl:w-[180px] 2xl:h-[78px] 3xl:w-[200px] 3xl:h-[85px] overflow-hidden">
+                  <div className="relative w-[160px] h-[63px]  sm:w-[171px] sm:h-[63px] md:w-[171px] md:h-[75px] lg:w-[160px] lg:h-[65px] xl:w-[130px] xl:h-[70px] 2xl:w-[155px] 2xl:h-[70px] 3xl:w-[200px] 3xl:h-[85px] overflow-hidden">
                     <ImageWidget
                       src={getS3Url(sponsor.url)}
                       alt={sponsor.name}
