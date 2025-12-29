@@ -18,6 +18,7 @@ const FacultySection = ({ data }: FacultySectionProps) => {
       align: "end",
       slidesToScroll: 1,
       loop: false,
+      dragFree: true
     },
     [
       Autoplay({
