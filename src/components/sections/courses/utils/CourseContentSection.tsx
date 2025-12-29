@@ -108,7 +108,11 @@ const CourseContentSection = ({
                   </span>
                 )}
               </h3>
-              <ParagraphWidget>{headerData.Description}</ParagraphWidget>
+              <HTMLWidget
+                content={headerData.Description}
+                tag="p"
+                className="font-mulish text-[16px] md:text-[17px] 2xl:text-[18px] font-normal text-black leading-[26px]"
+              />
             </div>
           </div>
         </ScrollWidget>
