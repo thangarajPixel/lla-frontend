@@ -15,8 +15,37 @@ const FaqSection = ({ data }: FaqProps) => {
   const [activeCategory, setActiveCategory] = useState<number>(
     data?.faq?.[0]?.id || 1,
   );
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const categoryRefs = useRef<{ [key: number]: HTMLDivElement | null }>({});
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const headerObserverRef = useRef<IntersectionObserver | null>(null);
+
+  useEffect(() => {
+    // Observer for header visibility
+    headerObserverRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          setIsHeaderVisible(entry.isIntersecting);
+        });
+      },
+      {
+        threshold: 0,
+        rootMargin: "0px",
+      },
+    );
+
+    // Observe the header element
+    const headerElement = document.querySelector("header");
+    if (headerElement && headerObserverRef.current) {
+      headerObserverRef.current.observe(headerElement);
+    }
+
+    return () => {
+      if (headerObserverRef.current) {
+        headerObserverRef.current.disconnect();
+      }
+    };
+  }, []);
 
   useEffect(() => {
     observerRef.current = new IntersectionObserver(
@@ -82,7 +111,7 @@ const FaqSection = ({ data }: FaqProps) => {
           </h1>
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-14">
             <div className="hidden md:block lg:col-span-1">
-              <div className="lg:sticky lg:top-24">
+              <div className={`lg:sticky transition-all duration-300 ${isHeaderVisible ? 'lg:top-24' : 'lg:top-5'}`}>
                 <nav className="space-y-1 p-2 shadow-lg">
                   {data.faq.map((category) => (
                     <button
