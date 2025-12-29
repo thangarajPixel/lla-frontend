@@ -90,16 +90,18 @@ const PaymentSuccessPage = () => {
           </div>
 
           <h1 className="text-2xl font-semibold text-foreground mb-4 text-center">
-              Payment Successfull
-            </h1>
+            Payment Successfull
+          </h1>
 
           <div className=" mb-6 space-y-3">
             <p className="">
-              Thank you for your applying to the {courseName}. We will review your application and get in touch within 2-3 working days.
+              Thank you for your applying to the {courseName}. We will review
+              your application and get in touch within 2-3 working days.
             </p>
 
             <p className="text-muted-foreground">
-              For further enquiries, please send an email to: admissions@llacademy.org or call +91 7598287370
+              For further enquiries, please send an email to:
+              admissions@llacademy.org or call +91 7598287370
             </p>
           </div>
 

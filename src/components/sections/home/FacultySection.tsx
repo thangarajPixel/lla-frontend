@@ -19,7 +19,7 @@ const FacultySection = ({ data }: FacultySectionProps) => {
       slidesToScroll: 1,
       loop: false,
       dragFree: true,
-       watchDrag: true,
+      watchDrag: true,
     },
     [
       Autoplay({

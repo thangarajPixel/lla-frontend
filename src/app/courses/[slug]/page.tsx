@@ -14,7 +14,9 @@ export async function generateMetadata({
   const seoData = response?.data?.SeoViewCard;
   return {
     title: seoData.Title || "Course | LLA",
-    description: seoData.Description || "Professional Photography Course at Light & Life Academy",
+    description:
+      seoData.Description ||
+      "Professional Photography Course at Light & Life Academy",
     keywords: seoData.KeyWords || undefined,
   };
 }
