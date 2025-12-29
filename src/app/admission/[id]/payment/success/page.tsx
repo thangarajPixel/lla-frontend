@@ -13,6 +13,7 @@ import { updateAdmission } from "@/store/services/global-services";
 
 const PaymentSuccessPage = () => {
   const [admissionId, setAdmissionId] = useState<string | null>(null);
+  const [courseName, setCourseName] = useState<string>("");
   const params = useParams();
   const encryptedId = params?.id;
 
@@ -54,6 +55,7 @@ const PaymentSuccessPage = () => {
         const admissionResponse = await getAdmissionsById(Number(admissionId));
 
         const admissionData = admissionResponse?.data as AdmissionFormData;
+        setCourseName(admissionData?.Course?.Name);
 
         if (admissionData?.Payment_Status === "Paid") {
           return;
@@ -78,21 +80,28 @@ const PaymentSuccessPage = () => {
   }, [encryptedId]);
 
   return (
-    <div className="flex min-h-[calc(100vh-64px)] items-center justify-center bg-linear-to-br from-background to-muted">
-      <Card className="w-full max-w-lg 3xl:max-w-5xl shadow-lg">
-        <CardContent className="pt-6">
-          <div className="flex justify-center mb-6">
+    <div className="flex min-h-[calc(100vh-64px)] items-center justify-center bg-linear-to-br from-background to-muted p-2">
+      <Card className="w-full max-w-3xl 3xl:max-w-5xl shadow-lg">
+        <CardContent>
+          <div className="flex justify-center mb-2">
             <div className="rounded-full bg-green-50 p-3">
               <CheckCircle2 className="h-16 w-16 text-green-600" />
             </div>
           </div>
 
-          <div className="text-center mb-6">
-            <h1 className="text-2xl font-semibold text-foreground mb-2">
-              Payment Successfull
-            </h1>
+          <h1 className="text-2xl font-semibold text-foreground mb-4 text-center">
+            Payment Successfull
+          </h1>
+
+          <div className=" mb-6 space-y-3">
+            <p className="">
+              Thank you for your applying to the {courseName}. We will review
+              your application and get in touch within 2-3 working days.
+            </p>
+
             <p className="text-muted-foreground">
-              Thank you so much for your application.
+              For further enquiries, please send an email to:
+              admissions@llacademy.org or call +91 7598287370
             </p>
           </div>
 

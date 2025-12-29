@@ -16,15 +16,14 @@ const DirectorAcademicsSection = ({ data }: FacultyFounderSectionProps) => {
             {data?.Title}
           </h2>
           <h3 className="md:hidden font-urbanist mb-4 font-normal text-left text-[#E97451] text-[24px] sm:text-[23px] md:text-[24px] lg:text-[26px] xl:text-[30px] 2xl:text-[34px] 3xl:text-[40px]">
-                {data?.Founder_card[0]?.Heading}
-              </h3>
+            {data?.Founder_card[0]?.Heading}
+          </h3>
         </ScrollWidget>
         <div className="flex flex-col md:flex-row lg:flex-row items-center gap-8 md:gap-20 lg:gap-20 xl:gap-25 2xl:gap-30 3xl:gap-35">
           <ScrollWidget
             delay={0.3}
             className="order-2 md:order-1 w-full md:flex-1"
           >
-            
             <div className="space-y-3 s:space-y-3 m:space-y-3 xss:space-y-4 xs:space-y-4 sm:space-y-4 md:space-y-3 lg:space-y-4 xl:space-y-2 2xl:space-y-3 3xl:space-y-4">
               <h3 className=" block hidden md:block font-urbanist font-normal text-left text-[#E97451] text-[24px] sm:text-[23px] md:text-[24px] lg:text-[26px] xl:text-[30px] 2xl:text-[34px] 3xl:text-[40px]">
                 {data?.Founder_card[0]?.Heading}

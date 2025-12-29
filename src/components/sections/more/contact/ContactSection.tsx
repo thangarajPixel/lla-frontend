@@ -18,8 +18,7 @@ export const contactSchema = z.object({
     .string()
     .transform((val) => val.trim())
     .pipe(z.string().min(1, "First name is required")),
-  LastName: z 
-    .string(),
+  LastName: z.string(),
   Email: z
     .string()
     .transform((val) => val.trim())
