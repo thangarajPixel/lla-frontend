@@ -90,9 +90,7 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
   };
 
   return (
-    <div
-      className="fixed bottom-0 left-0 right-0 backdrop-blur-sm shadow-full bg-[#E97451]/80 z-70 h-auto min-h-20 flex items-center p-2 md:pt-6"
-    >
+    <div className="fixed bottom-0 left-0 right-0 backdrop-blur-sm shadow-full bg-[#E97451]/80 z-70 h-auto min-h-20 flex items-center p-2 md:pt-6">
       <ContainerWidget>
         <h3 className="md:hidden text-white text-[14px] sm:text-[15px] md:text-[16px] lg:text-[15px] 3xl:text-[18px] font-semibold mb-2 md:mb-2 text-center md:text-left">
           Apply Now

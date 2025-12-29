@@ -132,7 +132,6 @@ const FormDatePickerWithInput = <T extends FieldValues>({
                 setMonth(undefined);
               }
             }
-
           }}
           onKeyDown={(e) => {
             if (e.key === "ArrowDown") {

@@ -176,7 +176,6 @@ export const personalDetailsSchema = z.object({
     .string()
     .min(1, "Date of birth is required")
     .superRefine((value, ctx) => {
-
       if (value === "2000-01-01") {
         ctx.addIssue({
           message: "Invalid date",
@@ -204,8 +203,7 @@ export const personalDetailsSchema = z.object({
           code: z.ZodIssueCode.custom,
         });
       }
-    })
-    ,
+    }),
 
   Language_Proficiency: z.array(languageSchema),
   address: z.array(addressSchema).min(1, "Address is required"),
