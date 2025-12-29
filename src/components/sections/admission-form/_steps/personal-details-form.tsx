@@ -388,7 +388,7 @@ const PersonalDetailsForm = ({
                   />
 
                   {isVerified && !errors?.email?.message && (
-                    <div className="flex items-center gap-2 text-green-600 font-medium mt-2">
+                    <div className="hidden items-center gap-2 text-green-600 font-medium mt-2">
                       <CheckCircle className="size-4 3xl:size-4" />
                       <span className="text-sm">Email Verified</span>
                     </div>
