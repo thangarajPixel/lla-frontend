@@ -123,7 +123,7 @@ const CourseContentSection = ({
             {group.OuterTitle && (
               <div
                 className={cn(
-                  "bg-white pb-1 pt-10 -mt-12 md:sticky z-30",
+                  "bg-white pb-1 pt-10 -mt-12 md:sticky z-30 transition-all duration-500",
                   isHeaderVisible ? "top-0" : "top-18",
                 )}
               >
@@ -145,8 +145,8 @@ const CourseContentSection = ({
               <div
                 key={`section-${section.id || sectionIndex}`}
                 className={cn(
-                  `w-full md:sticky ${group.OuterDescription ? "top-66" : "top-47"} z-10`,
-                  isHeaderVisible && "top-40",
+                  `w-full md:sticky ${group.OuterDescription ? "top-66" : "top-47"} z-10 transition-all duration-500`,
+                  isHeaderVisible && "top-30",
                 )}
               >
                 <div
