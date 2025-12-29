@@ -334,7 +334,7 @@ export default function TeamMemberPopup({
                                     columnsCountBreakPoints={{
                                       350: 1,
                                       768: 1,
-                                      1024: 2,
+                                      1024: 1,
                                     }}
                                   >
                                     <Masonry gutter="32px">

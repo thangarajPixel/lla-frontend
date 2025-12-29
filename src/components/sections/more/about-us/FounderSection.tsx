@@ -24,7 +24,7 @@ const FounderSection = ({ data }: FounderSectionProps) => {
   const founderCards = data.Founder_card.map((founder) => {
     const biography = founder.Description.map((desc) => {
       const text = desc.children.map((child) => child.text).join("");
-      return `<p>${text}</p>`;
+      return `<p class="mb-4">${text}</p>`;
     }).join("");
 
     const gallery = founder.ViewCard?.Image
