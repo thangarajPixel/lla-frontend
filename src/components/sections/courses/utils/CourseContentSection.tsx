@@ -108,7 +108,11 @@ const CourseContentSection = ({
                   </span>
                 )}
               </h3>
-              <ParagraphWidget>{headerData.Description}</ParagraphWidget>
+              <HTMLWidget
+                content={headerData.Description}
+                tag="p"
+                className="font-mulish text-[16px] md:text-[17px] 2xl:text-[18px] font-normal text-black leading-[26px]"
+              />
             </div>
           </div>
         </ScrollWidget>
@@ -123,12 +127,12 @@ const CourseContentSection = ({
             {group.OuterTitle && (
               <div
                 className={cn(
-                  "bg-white pb-1 pt-10 -mt-12 md:sticky z-30 transition-all duration-500",
+                  "bg-white pb-1 pt-4 -mt-12 md:sticky z-30 transition-all duration-500",
                   isHeaderVisible ? "top-0" : "top-18",
                 )}
               >
                 <h3
-                  className={`text-3xl ${!group.OuterDescription && "mb-6"} xss:text-[32px] md:text-[40px] font-normal md:font-normal text-black font-urbanist`}
+                  className={`text-3xl ${!group.OuterDescription && "mb-4"} xss:text-[32px] md:text-[36px] font-normal md:font-normal text-black font-urbanist`}
                 >
                   {group.OuterTitle}
                 </h3>
@@ -145,8 +149,8 @@ const CourseContentSection = ({
               <div
                 key={`section-${section.id || sectionIndex}`}
                 className={cn(
-                  `w-full md:sticky ${group.OuterDescription ? "top-66" : "top-47"} z-10 transition-all duration-500`,
-                  isHeaderVisible && "top-30",
+                  `w-full md:sticky ${group.OuterDescription ? "top-66" : "top-40"} z-10 transition-all duration-500`,
+                  isHeaderVisible && "top-25",
                 )}
               >
                 <div
