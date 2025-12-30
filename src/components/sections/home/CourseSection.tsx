@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { getEssentialsData } from "@/app/api/server";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
@@ -11,7 +12,6 @@ import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import type { CourseSectionProps } from "./utils/home";
-import { getEssentialsData } from "@/app/api/server";
 
 type AnimationType =
   | "fadeIn"
@@ -40,13 +40,12 @@ const CourseSection = ({ data }: CourseSectionProps) => {
     );
   }, [data?.Card]);
   useEffect(() => {
-  const getAdmissionData = async () => {
-    const { data: res } = await getEssentialsData();
-    setIsAdmissionOpen(res?.isAdmission);
-  };
-  getAdmissionData();
-}, []);
-
+    const getAdmissionData = async () => {
+      const { data: res } = await getEssentialsData();
+      setIsAdmissionOpen(res?.isAdmission);
+    };
+    getAdmissionData();
+  }, []);
 
   const animations: Array<{
     image: AnimationType;

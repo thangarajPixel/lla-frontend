@@ -5,24 +5,26 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { getAdmissionsById } from "@/app/api/server";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import HTMLWidget from "@/components/widgets/HTMLWidget";
+import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
 import { decryptCode, notify } from "@/helpers/ConstantHelper";
 import { updateAdmission } from "@/store/services/global-services";
-import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
-import HTMLWidget from "@/components/widgets/HTMLWidget";
 
 type ThankYouPage = {
   Title: string;
   Description: string;
   LongDescription: string;
-}
+};
 
 const PaymentSuccessPage = () => {
   const [admissionId, setAdmissionId] = useState<string | null>(null);
   const [courseName, setCourseName] = useState<string>("");
-  const [thankYouContent, setThankYouContent] = useState<ThankYouPage>({ Title: "", Description: "", LongDescription: "" });
+  const [thankYouContent, setThankYouContent] = useState<ThankYouPage>({
+    Title: "",
+    Description: "",
+    LongDescription: "",
+  });
   const params = useParams();
   const encryptedId = params?.id;
 
@@ -73,7 +75,7 @@ const PaymentSuccessPage = () => {
         const paidAmount =
           admissionData?.Course?.Amount +
           (admissionData?.Course?.Amount * admissionData?.Course?.Percentage) /
-          100;
+            100;
 
         await updateAdmission(admissionData?.documentId, {
           step_3: true,
@@ -89,12 +91,9 @@ const PaymentSuccessPage = () => {
   }, [encryptedId]);
 
   useEffect(() => {
-
     const getThankYouContent = async () => {
       try {
-        const res = await clientAxios.get(
-          `/thank-you-pages`,
-        );
+        const res = await clientAxios.get(`/thank-you-pages`);
         setThankYouContent(res?.data?.data[0]);
       } catch (error) {
         notify({ success: false, message: String(error) });
@@ -105,7 +104,6 @@ const PaymentSuccessPage = () => {
   }, []);
 
   return (
-
     <main className="min-h-screen bg-white flex items-center justify-center p-4">
       <div className="w-full flex flex-col items-center text-center space-y-8">
         <div className="space-y-2 lg:max-w-2xl 3xl:max-w-3xl">

@@ -160,55 +160,55 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
         </Label>
       )}
 
-        <Popover open={open} onOpenChange={setOpen}>
-          <div className="relative">
-            <Input
-              value={inputValue}
-              placeholder="DD/MM/YYYY - DD/MM/YYYY"
-              onChange={handleInputChange}
-              className="pr-0"
-              maxLength={23}
-            />
+      <Popover open={open} onOpenChange={setOpen}>
+        <div className="relative">
+          <Input
+            value={inputValue}
+            placeholder="DD/MM/YYYY - DD/MM/YYYY"
+            onChange={handleInputChange}
+            className="pr-0"
+            maxLength={23}
+          />
 
-            <PopoverTrigger asChild>
-              <Button
-                variant="ghost"
-                className="absolute right-2 top-1/2 -translate-y-1/2"
-              >
-                <ImageWidget
-                  src={CalendarIcon}
-                  alt="calendar"
-                  className="size-6 transition-transform duration-300 group-hover:translate-x-1"
-                />
-              </Button>
-            </PopoverTrigger>
-          </div>
+          <PopoverTrigger asChild>
+            <Button
+              variant="ghost"
+              className="absolute right-2 top-1/2 -translate-y-1/2"
+            >
+              <ImageWidget
+                src={CalendarIcon}
+                alt="calendar"
+                className="size-6 transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </Button>
+          </PopoverTrigger>
+        </div>
 
-          <PopoverContent className="w-auto p-0 z-40">
-            <Calendar
-              key={
-                range?.from
-                  ? `from-${range.from.toISOString()}`
-                  : range?.to
-                    ? `to-${range.to.toISOString()}`
-                    : "default"
-              }
-              mode="range"
-              numberOfMonths={2}
-              selected={range}
-              onSelect={handleCalendarSelect}
-              captionLayout="dropdown"
-              disabled={{ after: new Date() }}
-              defaultMonth={
-                range?.from
-                  ? range.from
-                  : range?.to
-                    ? new Date(range.to.getFullYear(), range.to.getMonth() - 1)
-                    : new Date()
-              }
-            />
-          </PopoverContent>
-        </Popover>
+        <PopoverContent className="w-auto p-0 z-40">
+          <Calendar
+            key={
+              range?.from
+                ? `from-${range.from.toISOString()}`
+                : range?.to
+                  ? `to-${range.to.toISOString()}`
+                  : "default"
+            }
+            mode="range"
+            numberOfMonths={2}
+            selected={range}
+            onSelect={handleCalendarSelect}
+            captionLayout="dropdown"
+            disabled={{ after: new Date() }}
+            defaultMonth={
+              range?.from
+                ? range.from
+                : range?.to
+                  ? new Date(range.to.getFullYear(), range.to.getMonth() - 1)
+                  : new Date()
+            }
+          />
+        </PopoverContent>
+      </Popover>
 
       {(startError || endError) && (
         <p className="text-sm text-red-500 mt-1">

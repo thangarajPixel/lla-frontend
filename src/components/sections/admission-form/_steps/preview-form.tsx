@@ -268,28 +268,21 @@ const ReviewApplication = ({
   }, [admissionData]);
 
   useEffect(() => {
-    if (
-      section === "portfolio" &&
-      scrollContainerRef.current &&
-      portfolioRef.current
-    ) {
-      requestAnimationFrame(() => {
-        const container = scrollContainerRef.current!;
-        const target = portfolioRef.current!;
+    if (section !== "portfolio") return;
 
-        const top =
-          target.offsetTop - container.offsetTop - 20;
-        container.scrollTo({
-          top,
-          behavior: "smooth",
-        });
+    requestAnimationFrame(() => {
+      const container = scrollContainerRef.current;
+      const target = portfolioRef.current;
 
-        // target.setAttribute("tabindex", "-1");
-        // target.focus({ preventScroll: true });
+      if (!container || !target) return;
+
+      const top = target.offsetTop - container.offsetTop - 20;
+      container.scrollTo({
+        top,
+        behavior: "smooth",
       });
-    }
-  }, [section, admissionData]);
-
+    });
+  }, [section]);
 
   const handleOpenPayment = async (updateId: string, admissionId: string) => {
     const data = {
@@ -714,7 +707,12 @@ const ReviewApplication = ({
                 }
                 paymentStatus={admissionData?.Payment_Status}
               >
-                <div className="grid grid-cols-2 gap-4" ref={portfolioRef} id="portfolio" tabIndex={-1}>
+                <div
+                  className="grid grid-cols-2 gap-4"
+                  ref={portfolioRef}
+                  id="portfolio"
+                  tabIndex={-1}
+                >
                   {admissionData?.Upload_Your_Portfolio?.images?.map(
                     (img, index) => (
                       <ImageWidget

@@ -7,7 +7,7 @@ import { DialogClose } from "@/components/ui/dialog";
 import DialogWidget from "@/components/widgets/DialogWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import { ArrowRight, ArrowRightWhite, Into } from "@/helpers/ImageHelper";
+import { ArrowRightWhite, Into } from "@/helpers/ImageHelper";
 import ButtonWidget from "../../widgets/ButtonWidget";
 import ImageWidget from "../../widgets/ImageWidget";
 import LinkWidget from "../../widgets/LinkWidget";

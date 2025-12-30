@@ -81,7 +81,8 @@ const EducationDetailsForm = ({
     },
   });
 
-  const { control, handleSubmit, watch, setValue, setError, clearErrors } = form_step2;
+  const { control, handleSubmit, watch, setValue, setError, clearErrors } =
+    form_step2;
 
   const watchUgStatus = watch("Under_Graduate.ug_status");
 

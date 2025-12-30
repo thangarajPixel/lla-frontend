@@ -1,10 +1,11 @@
 "use client";
 
 import { Plus, X } from "lucide-react";
+import { useEffect } from "react";
 import {
   type Control,
-  UseFormClearErrors,
-  UseFormSetError,
+  type UseFormClearErrors,
+  type UseFormSetError,
   type UseFormSetValue,
   useFieldArray,
   useWatch,
@@ -14,7 +15,6 @@ import FormFileUploadButton from "@/components/form/FormFileUploadButton";
 import FormRadioGroup from "@/components/form/FormRadioGroup";
 import type { EducationDetailsSchema } from "@/components/sections/admission-form/_steps/education-details-form";
 import { Button } from "@/components/ui/button";
-import { useEffect } from "react";
 
 type EducationDetailsProps = {
   admissionData?: AdmissionFormData;
@@ -61,7 +61,7 @@ export function EducationDetails({
 
   useEffect(() => {
     const invalidIndex = postGraduate?.findIndex(
-      (pg) => pg.pg_status?.trim() === "In-Progress"
+      (pg) => pg.pg_status?.trim() === "In-Progress",
     );
 
     clearError?.("Post_Graduate");
@@ -69,21 +69,14 @@ export function EducationDetails({
     if (invalidIndex === -1) return;
 
     if (invalidIndex !== undefined) {
-      postGraduate
-        ?.slice(invalidIndex + 1)
-        .forEach((_, idx) => {
-          setError?.(
-            `Post_Graduate.${invalidIndex + idx + 1}.degree`,
-            {
-              type: "manual",
-              message:
-                "In-progress degree must be completed first.",
-            }
-          );
+      postGraduate?.slice(invalidIndex + 1).forEach((_, idx) => {
+        setError?.(`Post_Graduate.${invalidIndex + idx + 1}.degree`, {
+          type: "manual",
+          message: "In-progress degree must be completed first.",
         });
+      });
     }
   }, [postGraduate, setError, clearError]);
-
 
   return (
     <div className="space-y-2">
