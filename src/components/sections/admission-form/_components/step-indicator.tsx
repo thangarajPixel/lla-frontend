@@ -78,7 +78,11 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
                   : isCompleted
                     ? "text-black"
                     : "text-gray-500",
-                index === 0 ? "text-left" : index === steps.length - 1 ? "text-right" : "text-center",
+                index === 0
+                  ? "text-left"
+                  : index === steps.length - 1
+                    ? "text-right"
+                    : "text-center",
               )}
             >
               {step}
