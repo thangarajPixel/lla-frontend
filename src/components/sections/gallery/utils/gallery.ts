@@ -5,7 +5,7 @@ export interface GalleryData {
   ImageCard: Array<{
     id: number;
     Type: string;
-    Url?: string | null;
+    VideoUrl?: string | null;
     Image:
       | {
           id: number;

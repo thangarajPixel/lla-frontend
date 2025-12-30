@@ -102,7 +102,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
           alt: img.name || "Gallery image",
           type: card.Type,
           isVideo,
-          videoLinkUrl: card.Url || null,
+          videoLinkUrl: card.VideoUrl || null,
           videoUrl: typeof videoUrl === "string" ? videoUrl : null,
         };
       });
