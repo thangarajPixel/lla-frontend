@@ -72,12 +72,17 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
             <div
               key={step}
               className={cn(
-                "mt-3 text-sm sm:text-base xl:text-sm 2xl:text-base max-w-24 sm:max-w-fit",
+                "mt-3 text-sm sm:text-base xl:text-sm 2xl:text-base max-w-40 sm:max-w-48",
                 isActive
                   ? "text-[#E97451]"
                   : isCompleted
                     ? "text-black"
                     : "text-gray-500",
+                index === 0
+                  ? "text-left"
+                  : index === steps.length - 1
+                    ? "text-right"
+                    : "text-center",
               )}
             >
               {step}
