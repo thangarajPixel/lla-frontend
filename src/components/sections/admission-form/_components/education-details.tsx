@@ -3,6 +3,8 @@
 import { Plus, X } from "lucide-react";
 import {
   type Control,
+  UseFormClearErrors,
+  UseFormSetError,
   type UseFormSetValue,
   useFieldArray,
   useWatch,
@@ -12,17 +14,22 @@ import FormFileUploadButton from "@/components/form/FormFileUploadButton";
 import FormRadioGroup from "@/components/form/FormRadioGroup";
 import type { EducationDetailsSchema } from "@/components/sections/admission-form/_steps/education-details-form";
 import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
 
 type EducationDetailsProps = {
   admissionData?: AdmissionFormData;
   control: Control<EducationDetailsSchema>;
   setValue?: UseFormSetValue<EducationDetailsSchema>;
+  setError?: UseFormSetError<EducationDetailsSchema>;
+  clearError?: UseFormClearErrors<EducationDetailsSchema>;
 };
 
 export function EducationDetails({
   admissionData,
   control,
   setValue,
+  setError,
+  clearError,
 }: EducationDetailsProps) {
   const {
     fields: pgDegrees,
@@ -52,6 +59,32 @@ export function EducationDetails({
     append({ degree: "", pg_status: "" });
   };
 
+  useEffect(() => {
+    const invalidIndex = postGraduate?.findIndex(
+      (pg) => pg.pg_status?.trim() === "In-Progress"
+    );
+
+    clearError?.("Post_Graduate");
+
+    if (invalidIndex === -1) return;
+
+    if (invalidIndex !== undefined) {
+      postGraduate
+        ?.slice(invalidIndex + 1)
+        .forEach((_, idx) => {
+          setError?.(
+            `Post_Graduate.${invalidIndex + idx + 1}.degree`,
+            {
+              type: "manual",
+              message:
+                "In-progress degree must be completed first.",
+            }
+          );
+        });
+    }
+  }, [postGraduate, setError, clearError]);
+
+
   return (
     <div className="space-y-2">
       <h2 className="text-2xl 3xl:text-[32px] text-[#E97451] font-urbanist">
@@ -63,7 +96,7 @@ export function EducationDetails({
           name="Education_Details.Education_Details_12th_std"
           control={control}
           label="12th std"
-          placeholder="Upload your MarkSheet"
+          placeholder="Upload your marksheet"
           defaultValue={
             admissionData?.Education_Details?.Education_Details_12th_std ?? null
           }
@@ -73,7 +106,7 @@ export function EducationDetails({
           name="Education_Details.Education_Details_10th_std"
           control={control}
           label="10th std"
-          placeholder="Upload your MarkSheet"
+          placeholder="Upload your marksheet"
           defaultValue={
             admissionData?.Education_Details?.Education_Details_10th_std ?? null
           }
@@ -110,7 +143,7 @@ export function EducationDetails({
               <FormFileUploadButton
                 name="Under_Graduate.marksheet"
                 control={control}
-                placeholder="Upload your MarkSheet"
+                placeholder="Upload your marksheet"
                 notRequired
                 defaultValue={admissionData?.Under_Graduate?.marksheet ?? null}
                 inputClassName="justify-start pl-4"

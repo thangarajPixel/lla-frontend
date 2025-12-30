@@ -53,7 +53,7 @@ export const contactSchema = z.object({
       z
         .string()
         .min(1, "Phone number is required")
-        .regex(/^[6-9]\d{9}$/, "Enter a valid 10-digit phone number"),
+        .regex(/^[1-9]\d{9}$/, "Enter a valid phone number"),
     ),
   Message: z
     .string()
@@ -72,6 +72,7 @@ export default function ContactSection({ data }: ContactSectionProps) {
     formState: { errors },
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
+    mode: "all",
     defaultValues: {
       FirstName: "",
       LastName: "",
