@@ -127,7 +127,7 @@ const CourseContentSection = ({
               <div
                 className={cn(
                   "bg-white pb-1 pt-4 -mt-12 md:sticky z-30 transition-all duration-500",
-                  isHeaderVisible ? "top-0" : "top-18 xl:top-24 2xl:top-26",
+                  isHeaderVisible ? "top-0" : "top-18 xl:top-18 2xl:top-26",
                 )}
               >
                 <h3
