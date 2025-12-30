@@ -41,7 +41,12 @@ const convertToEmbedUrl = (url: string): string => {
   return url;
 };
 
-const shuffleArray = <T,>(array: T[]): T[] => {
+const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
+  const uniqueTypesInitial = useMemo(() => {
+    if (!initialData?.ImageCard) return [];
+    return Array.from(new Set(initialData.ImageCard.map((card) => card.Type)));
+  }, [initialData?.ImageCard]);
+  const shuffleArray = <T,>(array: T[]): T[] => {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -49,12 +54,6 @@ const shuffleArray = <T,>(array: T[]): T[] => {
   }
   return shuffled;
 };
-
-const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
-  const uniqueTypesInitial = useMemo(() => {
-    if (!initialData?.ImageCard) return [];
-    return Array.from(new Set(initialData.ImageCard.map((card) => card.Type)));
-  }, [initialData?.ImageCard]);
 
   const [selectedType, setSelectedType] = useState<string>(
     uniqueTypesInitial.length > 0 ? uniqueTypesInitial[0] : "",
@@ -87,33 +86,46 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   );
 
   const allImages = useMemo(() => {
+    if (!isMounted) return [];
+    
     const images = filteredImageCards.flatMap((card, cardIndex) => {
       const images = Array.isArray(card.Image)
         ? card.Image
         : card.Image
           ? [card.Image]
           : [];
-      return images.map((img, imgIndex) => {
-        const isVideo = card.Type === "Video";
-        const src = img.url ? getS3Url(img.url) : Dummy3;
-        const isVideoFile =
-          isVideo && img.url && /\.(mp4|mov|avi|webm|mkv|m4v)$/i.test(img.url);
-        const videoUrl = isVideoFile ? getS3Url(img.url) : null;
-        return {
-          id: `gallery-${card.id}-${img.id}-${cardIndex}-${imgIndex}`,
-          imageId: img.id,
-          cardId: card.id,
-          src,
-          alt: img.name || "Gallery image",
-          type: card.Type,
-          isVideo,
-          videoLinkUrl: card.VideoUrl || null,
-          videoUrl: typeof videoUrl === "string" ? videoUrl : null,
-        };
-      });
+      
+      // Log cards with no valid images
+      if (images.length === 0 || !images.some((img) => img && (img.url || img.id))) {
+        console.log(`Card ${card.id} has no valid images:`, card);
+      }
+      
+      // Filter out invalid images and map to gallery items
+      return images
+        .filter((img) => img && (img.url || img.id)) // Only include images with url or id
+        .map((img, imgIndex) => {
+          const isVideo = card.Type === "Video";
+          const src = img.url ? getS3Url(img.url) : Dummy3;
+          const isVideoFile =
+            isVideo && img.url && /\.(mp4|mov|avi|webm|mkv|m4v)$/i.test(img.url);
+          const videoUrl = isVideoFile ? getS3Url(img.url) : null;
+          return {
+            id: `gallery-${card.id}-${img.id}-${cardIndex}-${imgIndex}`,
+            imageId: img.id,
+            cardId: card.id,
+            src,
+            alt: img.name || "Gallery image",
+            type: card.Type,
+            isVideo,
+            videoLinkUrl: card.VideoUrl || null,
+            videoUrl: typeof videoUrl === "string" ? videoUrl : null,
+          };
+        });
     });
+    
+    console.log(`Cards: ${filteredImageCards.length}, Images: ${images.length}`);
     return shuffleArray(images);
-  }, [filteredImageCards]);
+  }, [filteredImageCards, isMounted]);
 
   const lightboxImages = useMemo(() => {
     return allImages
