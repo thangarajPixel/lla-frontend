@@ -46,6 +46,15 @@ const convertToEmbedUrl = (url: string): string => {
   return url;
 };
 
+const shuffleArray = <T,>(array: T[]): T[] => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+};
+
 const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   const uniqueTypesInitial = useMemo(() => {
     if (!initialData?.ImageCard) return [];
@@ -83,7 +92,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   );
 
   const allImages = useMemo(() => {
-    return filteredImageCards.flatMap((card, cardIndex) => {
+    const images = filteredImageCards.flatMap((card, cardIndex) => {
       const images = Array.isArray(card.Image)
         ? card.Image
         : card.Image
@@ -107,6 +116,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
         };
       });
     });
+    return shuffleArray(images);
   }, [filteredImageCards]);
 
   const lightboxImages = useMemo(() => {
