@@ -66,13 +66,13 @@ const AdmissionButton = ({
         <ButtonWidget
           className={`${
             isContactUsPage
-              ? "orange-button-white border-1 border-[#E97451] font-bold leading-[28px]"
-              : "orange-button"
+              ? "orange-button-white border-1 border-[#E97451]  leading-[28px]"
+              : "orange-button-white border-1 border-[#E97451]  leading-[28px]"
           } group rounded-[60px] xss:text-[16px] px-5 h-10 3xl:w-[230px] 3xl:h-[50px]  text-[14px] 2xl:text-[14px] 3xl:text-[18px] ${className}`}
         >
           Admission Open
           <ImageWidget
-            src={isContactUsPage ? ArrowRightWhite : ArrowRight}
+            src={isContactUsPage ? ArrowRightWhite : ArrowRightWhite}
             alt="Arrow Right"
             className={`lg:w-[18px] lg:h-[18px] 3xl:w-6 3xl:h-6 transition-transform duration-300 group-hover:translate-x-1 ${iconClassName}`}
           />

@@ -82,10 +82,11 @@ const MobileImageLayout = ({ breakpoint, images }: MobileImageLayoutProps) => {
 };
 
 const ImageLayout = ({ type, images }: ImageLayoutProps) => {
+ 
   const image1 = images?.[0]?.url ? getS3Url(images[0].url) : undefined;
   const image2 = images?.[1]?.url ? getS3Url(images[1].url) : undefined;
   const image3 = images?.[2]?.url ? getS3Url(images[2].url) : undefined;
-
+ console.log("Rendering ImageLayout with type:", type, "and images:", image1);
   switch (type) {
     case "Type1":
       return (
@@ -451,7 +452,6 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
           </div>
         </>
       );
-
     case "Type10":
       return (
         <>
@@ -489,6 +489,27 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
                     alt="Course Content"
                     fill
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
+              </ScrollWidget>
+            )}
+          </div>
+        </>
+      );
+
+    case "SingeImage":
+      return (
+        <>
+          <MobileImageLayout breakpoint="md" images={images} />
+          <div className="hidden lg:block relative w-full md:min-h-[370px] 3xl:min-h-[450px] overflow-hidden">
+            {image1 && (
+              <ScrollWidget animation="fadeUp" delay={0.1}>
+                <div className="absolute top-15 left-10 3xl:left-[60px] w-full aspect-300/199 max-w-45 xl:max-w-full  overflow-hidden z-20">
+                  <ImageWidget
+                    src={image1}
+                    alt="Course Content"
+                    fill
+                    className="object-cover"
                   />
                 </div>
               </ScrollWidget>

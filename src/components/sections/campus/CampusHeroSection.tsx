@@ -35,15 +35,35 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
   };
 
   const videoUrl = data?.Video?.url ? getS3Url(data.Video.url) : "";
+  const mobileVideoUrl = data?.MobileVideo?.url
+    ? getS3Url(data.MobileVideo.url)
+    : "";
   const backgroundImage = data?.Image?.url ? getS3Url(data.Image.url) : null;
 
   return (
     <section className="relative w-full h-[1050px] overflow-hidden">
       <div className="absolute inset-0 w-full h-[1050px] z-0">
+        {!videoError && mobileVideoUrl && (
+          <video
+            ref={videoRef}
+            className="md:hidden w-full h-[1050px] object-cover"
+            autoPlay
+            loop
+            muted
+            playsInline
+            onError={handleVideoError}
+            onLoadStart={() => {
+              setVideoError(false);
+            }}
+          >
+            <source src={mobileVideoUrl} type="video/mp4" />
+            <track kind="captions" srcLang="en" label="English" />
+          </video>
+        )}
         {!videoError && videoUrl && (
           <video
             ref={videoRef}
-            className="w-full h-[1050px] object-cover"
+            className="hidden md:block w-full h-[1050px] object-cover"
             autoPlay
             loop
             muted
@@ -57,7 +77,7 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
             <track kind="captions" srcLang="en" label="English" />
           </video>
         )}
-        {(videoError || !videoUrl) && backgroundImage && (
+        {(videoError || (!videoUrl && !mobileVideoUrl)) && backgroundImage && (
           <ImageWidget
             src={backgroundImage}
             alt={data?.Title || "Campus"}
@@ -65,7 +85,7 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
             className="object-cover"
           />
         )}
-        {(videoError || !videoUrl) && !backgroundImage && (
+        {(videoError || (!videoUrl && !mobileVideoUrl)) && !backgroundImage && (
           <div className="w-full h-full bg-[#F6F6F6]" />
         )}
       </div>
