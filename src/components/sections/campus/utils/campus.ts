@@ -22,6 +22,11 @@ export type CampusHeroSectionProps = {
       name: string;
       url: string;
     };
+    MobileVideo?: {
+      id: number;
+      name: string;
+      url: string;
+    };
     TopImage?: {
       id: number;
       name: string;
