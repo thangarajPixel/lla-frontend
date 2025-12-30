@@ -31,6 +31,21 @@ const isVideoFile = (url: string): boolean => {
   );
 };
 
+const convertToEmbedUrl = (url: string): string => {
+  if (!url) return url;
+  
+  // YouTube URL patterns
+  const youtubeRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+  const match = url.match(youtubeRegex);
+  
+  if (match && match[1]) {
+    return `https://www.youtube.com/embed/${match[1]}`;
+  }
+  
+  // Return original URL for other video platforms or already embedded URLs
+  return url;
+};
+
 const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   const uniqueTypesInitial = useMemo(() => {
     if (!initialData?.ImageCard) return [];
@@ -75,9 +90,10 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
           ? [card.Image]
           : [];
       return images.map((img, imgIndex) => {
-        const isVideo = isVideoFile(img.url || "");
+        const isVideo = card.Type === "Video";
         const src = img.url ? getS3Url(img.url) : Dummy3;
-        const videoUrl = isVideo && img.url ? getS3Url(img.url) : null;
+        const isVideoFile = isVideo && img.url && /\.(mp4|mov|avi|webm|mkv|m4v)$/i.test(img.url);
+        const videoUrl = isVideoFile ? getS3Url(img.url) : null;
         return {
           id: `gallery-${card.id}-${img.id}-${cardIndex}-${imgIndex}`,
           imageId: img.id,
@@ -86,6 +102,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
           alt: img.name || "Gallery image",
           type: card.Type,
           isVideo,
+          videoLinkUrl: card.Url || null,
           videoUrl: typeof videoUrl === "string" ? videoUrl : null,
         };
       });
@@ -224,13 +241,28 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
           <DialogWidget
             trigger={
               <div className="relative w-full overflow-hidden rounded-none">
-                <video
-                  src={(item.videoUrl as string) || ""}
-                  className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
-                  muted
-                  playsInline
-                  preload="metadata"
-                />
+                {
+                  item.videoLinkUrl ? (
+                       <ImageWidget
+                    src={item.src}
+                    alt={item.alt}
+                    width={600}
+                    height={800}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+                    priority={false}
+                    unoptimized={false}
+                  />
+                  ) : (
+                    <video
+                      src={(item.videoUrl as string) || ""}
+                      className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+                      muted
+                      playsInline
+                      preload="metadata"
+                    />
+                  )
+                }
                 <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
                   <div className="video-main">
                     <div className="waves-block">
@@ -265,13 +297,23 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
             }
           >
             <div className="relative w-full aspect-video bg-black rounded-lg">
-              {/* biome-ignore lint/a11y/useMediaCaption: Gallery videos may not have captions available */}
-              <video
-                src={(item.videoUrl as string) || ""}
-                controls
-                autoPlay
-                className="w-full h-full object-contain rounded-lg"
-              />
+              {item.videoLinkUrl ? (
+                <iframe
+                  src={convertToEmbedUrl(item.videoLinkUrl)}
+                  className="w-full h-full object-contain rounded-lg"
+                  allow="autoplay; encrypted-media; fullscreen"
+                  allowFullScreen
+                  title={item.alt}
+                />
+              ) : (
+                // biome-ignore lint/a11y/useMediaCaption: Gallery videos may not have captions available
+                <video
+                  src={(item.videoUrl as string) || ""}
+                  controls
+                  autoPlay
+                  className="w-full h-full object-contain rounded-lg"
+                />
+              )}
             </div>
           </DialogWidget>
         ) : (
