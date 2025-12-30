@@ -162,7 +162,7 @@ export const personalDetailsSchema = z.object({
   mobile_no: z
     .string()
     .min(1, "Mobile number is required")
-    .regex(/^[6-9]\d{9}$/, "Enter a valid mobile number"),
+    .regex(/^[1-9]\d{9}$/, "Enter a valid mobile number"),
   email: z
     .string()
     .min(1, "Email Address is required")
@@ -236,8 +236,8 @@ export const personalDetailsSchema = z.object({
 
 export const educationDetailsSchema = z.object({
   Education_Details: z.object({
-    Education_Details_12th_std: z.number().min(1, "12th MarkSheet is required"),
-    Education_Details_10th_std: z.number().min(1, "10th MarkSheet is required"),
+    Education_Details_12th_std: z.number().min(1, "12th marksheet is required"),
+    Education_Details_10th_std: z.number().min(1, "10th marksheet is required"),
   }),
   Under_Graduate: z
     .object({
@@ -252,7 +252,7 @@ export const educationDetailsSchema = z.object({
       if (data.ug_status === "Finished" && !data.marksheet) {
         ctx.addIssue({
           path: ["marksheet"],
-          message: "UG Marksheet is required",
+          message: "UG marksheet is required",
           code: z.ZodIssueCode.custom,
         });
       }
@@ -289,6 +289,6 @@ export const admissionRequestSchema = z.object({
   Mobile: z
     .string()
     .min(1, "Mobile No is required")
-    .regex(/^[6-9]\d{9}$/, "Enter a valid mobile number"),
+    .regex(/^[1-9]\d{9}$/, "Enter a valid mobile number"),
   Message: z.string(),
 });

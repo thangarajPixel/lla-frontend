@@ -1,9 +1,9 @@
 "use client";
 import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import type React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { Card, CardContent } from "@/components/ui/card";
 import CheckboxField from "@/components/ui/checkbox";
@@ -251,7 +251,12 @@ const ReviewApplication = ({
   const [paymentDetails, setPaymentDetails] = useState<PaymentResponse | null>(
     null,
   );
+
+  const portfolioRef = useRef<HTMLDivElement | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const section = searchParams.get("section");
 
   const fullAddress = `${admissionData?.address?.[0]?.children?.[0]?.text}, ${admissionData?.city}, ${admissionData?.district}, ${admissionData?.state?.name}, ${admissionData?.pincode}`;
   const parentFullAddress = `${admissionData?.Parent_Guardian_Spouse_Details?.address?.[0]?.children?.[0]?.text}, ${admissionData?.Parent_Guardian_Spouse_Details?.city}, ${admissionData?.Parent_Guardian_Spouse_Details?.district}, ${admissionData?.Parent_Guardian_Spouse_Details?.state.name}, ${admissionData?.Parent_Guardian_Spouse_Details?.pincode}`;
@@ -261,6 +266,23 @@ const ReviewApplication = ({
       useCourseStore.setState({ courseName: admissionData?.Course?.Name });
     }
   }, [admissionData]);
+
+  useEffect(() => {
+    if (section !== "portfolio") return;
+
+    requestAnimationFrame(() => {
+      const container = scrollContainerRef.current;
+      const target = portfolioRef.current;
+
+      if (!container || !target) return;
+
+      const top = target.offsetTop - container.offsetTop - 20;
+      container.scrollTo({
+        top,
+        behavior: "smooth",
+      });
+    });
+  }, [section]);
 
   const handleOpenPayment = async (updateId: string, admissionId: string) => {
     const data = {
@@ -340,6 +362,7 @@ const ReviewApplication = ({
 
         <Card className="bg-chart-1/20 flex-1 backdrop-blur lg:py-16 3xl:py-32 3xl:pl-6 border-none shadow-none rounded-none">
           <CardContent
+            ref={scrollContainerRef}
             className="space-y-8 text-sm lg:max-w-[90%] xl:max-w-[75%] 2xl:mt-10 3xl:mt-0 3xl:max-w-3/4 h-[calc(100vh-6rem)] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             data-lenis-prevent
           >
@@ -684,7 +707,12 @@ const ReviewApplication = ({
                 }
                 paymentStatus={admissionData?.Payment_Status}
               >
-                <div className="grid grid-cols-2 gap-4">
+                <div
+                  className="grid grid-cols-2 gap-4"
+                  ref={portfolioRef}
+                  id="portfolio"
+                  tabIndex={-1}
+                >
                   {admissionData?.Upload_Your_Portfolio?.images?.map(
                     (img, index) => (
                       <ImageWidget

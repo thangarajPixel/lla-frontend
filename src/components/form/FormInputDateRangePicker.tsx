@@ -165,7 +165,6 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
           <Input
             value={inputValue}
             placeholder="DD/MM/YYYY - DD/MM/YYYY"
-            // onChange={(e) => handleInputChange(e.target.value)}
             onChange={handleInputChange}
             className="pr-0"
             maxLength={23}

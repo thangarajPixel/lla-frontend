@@ -23,7 +23,7 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const isVideoFile = (url: string): boolean => {
+const _isVideoFile = (url: string): boolean => {
   if (!url) return false;
   const videoExtensions = [".mp4", ".mov", ".avi", ".webm", ".mkv", ".m4v"];
   return videoExtensions.some((ext) =>
@@ -33,15 +33,18 @@ const isVideoFile = (url: string): boolean => {
 
 const convertToEmbedUrl = (url: string): string => {
   if (!url) return url;
-  
+
   // YouTube URL patterns
-  const youtubeRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+  const youtubeRegex =
+    /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
   const match = url.match(youtubeRegex);
-  
-  if (match && match[1]) {
-    return `https://www.youtube.com/embed/${match[1]}`;
+
+  const videoId = match?.[1];
+
+  if (videoId) {
+    return `https://www.youtube.com/embed/${videoId}`;
   }
-  
+
   // Return original URL for other video platforms or already embedded URLs
   return url;
 };
@@ -101,7 +104,8 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
       return images.map((img, imgIndex) => {
         const isVideo = card.Type === "Video";
         const src = img.url ? getS3Url(img.url) : Dummy3;
-        const isVideoFile = isVideo && img.url && /\.(mp4|mov|avi|webm|mkv|m4v)$/i.test(img.url);
+        const isVideoFile =
+          isVideo && img.url && /\.(mp4|mov|avi|webm|mkv|m4v)$/i.test(img.url);
         const videoUrl = isVideoFile ? getS3Url(img.url) : null;
         return {
           id: `gallery-${card.id}-${img.id}-${cardIndex}-${imgIndex}`,
@@ -251,9 +255,8 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
           <DialogWidget
             trigger={
               <div className="relative w-full overflow-hidden rounded-none">
-                {
-                  item.videoLinkUrl ? (
-                       <ImageWidget
+                {item.videoLinkUrl ? (
+                  <ImageWidget
                     src={item.src}
                     alt={item.alt}
                     width={600}
@@ -263,16 +266,15 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
                     priority={false}
                     unoptimized={false}
                   />
-                  ) : (
-                    <video
-                      src={(item.videoUrl as string) || ""}
-                      className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
-                      muted
-                      playsInline
-                      preload="metadata"
-                    />
-                  )
-                }
+                ) : (
+                  <video
+                    src={(item.videoUrl as string) || ""}
+                    className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+                    muted
+                    playsInline
+                    preload="metadata"
+                  />
+                )}
                 <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
                   <div className="video-main">
                     <div className="waves-block">

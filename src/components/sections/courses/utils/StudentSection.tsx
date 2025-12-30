@@ -159,7 +159,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
               className="overflow-hidden cursor-grab active:cursor-grabbing"
               ref={emblaRef}
             >
-              <div className="flex w-full justify-start md:justify-center gap-4 sm:gap-6">
+              <div className="flex w-full justify-start md:justify-center xl:ml-[6%] 2xl:ml-0 gap-4 sm:gap-6">
                 {studentData.map(
                   (student: StudentTestimonialCard, index: number) => {
                     const videoUrl = student.Url;

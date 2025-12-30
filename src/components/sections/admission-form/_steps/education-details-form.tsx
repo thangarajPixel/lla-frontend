@@ -81,7 +81,8 @@ const EducationDetailsForm = ({
     },
   });
 
-  const { control, handleSubmit, watch, setValue } = form_step2;
+  const { control, handleSubmit, watch, setValue, setError, clearErrors } =
+    form_step2;
 
   const watchUgStatus = watch("Under_Graduate.ug_status");
 
@@ -127,6 +128,8 @@ const EducationDetailsForm = ({
           admissionData={admissionData}
           control={control}
           setValue={setValue}
+          setError={setError}
+          clearError={clearErrors}
         />
 
         <p className="text-base text-muted-foreground mt-2">

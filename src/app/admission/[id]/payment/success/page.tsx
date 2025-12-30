@@ -1,19 +1,30 @@
 "use client";
 
-import { CheckCircle2 } from "lucide-react";
+import { Check } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { getAdmissionsById } from "@/app/api/server";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import HTMLWidget from "@/components/widgets/HTMLWidget";
+import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
 import { decryptCode, notify } from "@/helpers/ConstantHelper";
 import { updateAdmission } from "@/store/services/global-services";
 
+type ThankYouPage = {
+  Title: string;
+  Description: string;
+  LongDescription: string;
+};
+
 const PaymentSuccessPage = () => {
   const [admissionId, setAdmissionId] = useState<string | null>(null);
   const [courseName, setCourseName] = useState<string>("");
+  const [thankYouContent, setThankYouContent] = useState<ThankYouPage>({
+    Title: "",
+    Description: "",
+    LongDescription: "",
+  });
   const params = useParams();
   const encryptedId = params?.id;
 
@@ -79,46 +90,60 @@ const PaymentSuccessPage = () => {
     updatePaymentStatus();
   }, [encryptedId]);
 
+  useEffect(() => {
+    const getThankYouContent = async () => {
+      try {
+        const res = await clientAxios.get(`/thank-you-pages`);
+        setThankYouContent(res?.data?.data[0]);
+      } catch (error) {
+        notify({ success: false, message: String(error) });
+      }
+    };
+
+    getThankYouContent();
+  }, []);
+
   return (
-    <div className="flex min-h-[calc(100vh-64px)] items-center justify-center bg-linear-to-br from-background to-muted p-2">
-      <Card className="w-full max-w-3xl 3xl:max-w-5xl shadow-lg">
-        <CardContent>
-          <div className="flex justify-center mb-2">
-            <div className="rounded-full bg-green-50 p-3">
-              <CheckCircle2 className="h-16 w-16 text-green-600" />
-            </div>
-          </div>
-
-          <h1 className="text-2xl font-semibold text-foreground mb-4 text-center">
-            Payment Successfull
+    <main className="min-h-screen bg-white flex items-center justify-center p-4">
+      <div className="w-full flex flex-col items-center text-center space-y-8">
+        <div className="space-y-2 lg:max-w-2xl 3xl:max-w-3xl">
+          <h1 className="text-2xl md:text-3xl 3xl:text-[40px] font-medium">
+            <span className="text-[#E97451] font-urbanist">{courseName}</span>
           </h1>
+        </div>
 
-          <div className=" mb-6 space-y-3">
-            <p className="">
-              Thank you for your applying to the {courseName}. We will review
-              your application and get in touch within 2-3 working days.
-            </p>
-
-            <p className="text-muted-foreground">
-              For further enquiries, please send an email to:
-              admissions@llacademy.org or call +91 7598287370
-            </p>
+        <div className="flex justify-center">
+          <div className="bg-[#4CAF50] rounded-full p-3 flex items-center justify-center">
+            <Check className="size-8 text-white stroke-[3]" />
           </div>
+        </div>
 
-          <div className="hidden flex-col gap-3 mt-8">
-            <Button
-              type="button"
-              variant="outline"
-              size="lg"
-              className="w-full bg-transparent"
-              onClick={handleDownload}
-            >
-              Download
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+        <div className="space-y-4 max-w-5xl">
+          <p className="text-base 3xl:text-lg leading-relaxed font-mulish">
+            {thankYouContent?.Title.replace("CourseName", courseName)}
+          </p>
+
+          <HTMLWidget
+            content={thankYouContent?.Description}
+            className="text-base 3xl:text-lg font-mulish"
+            tag="p"
+          />
+
+          <HTMLWidget
+            content={thankYouContent?.LongDescription}
+            className="font-mulish text-black/50 text-xs 3xl:text-sm italic 3xl:max-w-5xl mx-auto leading-relaxed"
+            tag="p"
+          />
+        </div>
+
+        {/* Download Button */}
+        <OrangeButtonWidget
+          content="Download Submitted Application"
+          onClick={handleDownload}
+          type="button"
+        />
+      </div>
+    </main>
   );
 };
 
