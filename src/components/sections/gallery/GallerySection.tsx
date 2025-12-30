@@ -23,14 +23,6 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const _isVideoFile = (url: string): boolean => {
-  if (!url) return false;
-  const videoExtensions = [".mp4", ".mov", ".avi", ".webm", ".mkv", ".m4v"];
-  return videoExtensions.some((ext) =>
-    url.toLowerCase().endsWith(ext.toLowerCase()),
-  );
-};
-
 const convertToEmbedUrl = (url: string): string => {
   if (!url) return url;
 
