@@ -154,7 +154,7 @@ const CourseContentSection = ({
               >
                 <div
                   id={`course-content-${section.id || sectionIndex}`}
-                  className={`md:sticky  ${sectionIndex === group.sections.length - 1 && "mb-20"} ${group.OuterDescription ? "top-32" : "top-20"} z-10  grid grid-cols-1 ${section.gridBreakpoint === "md" ? "md:grid-cols-[58%_40%]" : "lg:grid-cols-[58%_40%]"} gap-6 bg-[#ECECEC] min-h-[600px] 3xl:min-h-[750px] w-full p-8 pb-9 ${sectionIndex > 0 ? "mt-8" : ""} `}
+                  className={`md:sticky  ${sectionIndex === group.sections.length - 1 && "mb-20mb-20 md:mb-0"} ${group.OuterDescription ? "top-32" : "top-20"} z-10  grid grid-cols-1 ${section.gridBreakpoint === "md" ? "md:grid-cols-[58%_40%]" : "lg:grid-cols-[58%_40%]"} gap-6 bg-[#ECECEC] min-h-[600px] 3xl:min-h-[750px] w-full p-8 pb-9 ${sectionIndex > 0 ? "mt-8" : ""} `}
                 >
                   <div className="flex flex-col gap-4 w-full">
                     {section.section && (
