@@ -127,7 +127,7 @@ const CourseContentSection = ({
               <div
                 className={cn(
                   "bg-white pb-1 pt-4 -mt-12 md:sticky z-30 transition-all duration-500",
-                  isHeaderVisible ? "top-0" : "top-18 xl:top-24 2xl:top-26",
+                  isHeaderVisible ? "top-0" : "top-18 xl:top-18 2xl:top-18 3xl:top-22",
                 )}
               >
                 <h3
@@ -154,7 +154,7 @@ const CourseContentSection = ({
               >
                 <div
                   id={`course-content-${section.id || sectionIndex}`}
-                  className={`md:sticky  ${sectionIndex === group.sections.length - 1 && "mb-20 md:mb-0"} ${group.OuterDescription ? "top-32" : "top-20"} z-10  grid grid-cols-1 ${section.gridBreakpoint === "md" ? "md:grid-cols-[58%_40%]" : "lg:grid-cols-[58%_40%]"} gap-6 bg-[#ECECEC] min-h-[600px] 3xl:min-h-[750px] w-full p-8 pb-9 ${sectionIndex > 0 ? "mt-8" : ""} `}
+                  className={`md:sticky  ${sectionIndex === group.sections.length - 1 && "mb-20 md:mb-18"} ${group.OuterDescription ? "top-32" : "top-20"} z-10  grid grid-cols-1 ${section.gridBreakpoint === "md" ? "md:grid-cols-[58%_40%]" : "lg:grid-cols-[58%_40%]"} gap-6 bg-[#ECECEC] min-h-[600px] 3xl:min-h-[750px] w-full p-8 pb-9 ${sectionIndex > 0 ? "mt-8" : ""} `}
                 >
                   <div className="flex flex-col gap-4 w-full">
                     {section.section && (
@@ -163,7 +163,7 @@ const CourseContentSection = ({
                       </h3>
                     )}
                     {section.title && (
-                      <h2 className="font-urbanist text-[24px] leading-12 xss:text-[24px] xl:text-[25px] 2xl:text-[37px] 3xl:text-[40px] font-normal text-black mt-[-10px]">
+                      <h2 className="font-urbanist text-[24px] leading-[32px] md:leading-[48px] xss:text-[24px] xl:text-[25px] 2xl:text-[37px] 3xl:text-[40px] font-normal text-black mt-[-10px]">
                         {section.title}
                       </h2>
                     )}

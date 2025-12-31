@@ -10,16 +10,17 @@ import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
+import WheelGestures from "embla-carousel-wheel-gestures";
 import type { FacultySectionProps } from "./utils/home";
 
 const FacultySection = ({ data }: FacultySectionProps) => {
-  const [emblaRef] = useEmblaCarousel(
+ const [emblaRef] = useEmblaCarousel(
     {
-      align: "end",
-      slidesToScroll: 1,
-      loop: false,
-      dragFree: true,
-      watchDrag: true,
+    align: "end",
+    slidesToScroll: 1,
+    loop: false,
+    dragFree: true,
+    containScroll: "trimSnaps",
     },
     [
       Autoplay({
@@ -27,7 +28,11 @@ const FacultySection = ({ data }: FacultySectionProps) => {
         stopOnInteraction: false,
         stopOnMouseEnter: true,
       }),
-    ],
+      WheelGestures({
+        forceWheelAxis: "x",
+        wheelDraggingClass: "is-wheel-dragging",
+      }),
+    ]
   );
 
   const facultyData = data.Card;
