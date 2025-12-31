@@ -101,11 +101,15 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
     setValue(
       "Upload_Your_Portfolio.images",
       [...currentHf, ...tempValues.map((value) => ({ id: Number(value.id) }))],
-      { shouldDirty: true, shouldValidate: true }
+      { shouldDirty: true, shouldValidate: true },
     );
 
     const formData = new FormData();
-    validFiles.forEach((file) => formData.append("files", file));
+    // validFiles.forEach((file) => formData.append("files", file));
+
+    for (const file of validFiles) {
+      formData.append("files", file);
+    }
 
     setLoading(true);
 
@@ -113,17 +117,16 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
       const { data } = await axios.post(
         `${process.env.BASE_URL}/upload`,
         formData,
-        { headers: { "Content-Type": "multipart/form-data" } }
+        { headers: { "Content-Type": "multipart/form-data" } },
       );
 
       const uploadedIds = data.map((u: UploadRes) => ({ id: u.id }));
 
       // ✅ replace temp ids with real ids
-      setValue(
-        "Upload_Your_Portfolio.images",
-        [...currentHf, ...uploadedIds],
-        { shouldDirty: true, shouldValidate: true }
-      );
+      setValue("Upload_Your_Portfolio.images", [...currentHf, ...uploadedIds], {
+        shouldDirty: true,
+        shouldValidate: true,
+      });
 
       setImages((prev) => [
         ...prev,
@@ -140,7 +143,6 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
       setLoading(false);
     }
   };
-
 
   const handleRemoveImage = (index: number) => {
     setImages((prev) => {
