@@ -143,7 +143,7 @@ export function EducationDetails({
                 hideDescription
               />
 
-              <p className="text-xs text-muted-foreground lg:ml-2">
+              <p className="text-xs text-muted-foreground lg:ml-2 relative md:top-2.5">
                 Max. file size not more than 2MB.
               </p>
             </>
