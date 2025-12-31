@@ -1,14 +1,22 @@
 "use client";
 
-import { XCircle } from "lucide-react";
+import { X } from "lucide-react";
 import { useParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getAdmissionsById } from "@/app/api/server";
-import { Card, CardContent } from "@/components/ui/card";
+import HTMLWidget from "@/components/widgets/HTMLWidget";
+import { clientAxios } from "@/helpers/AxiosHelper";
 import { decryptCode, notify } from "@/helpers/ConstantHelper";
 import { updateAdmission } from "@/store/services/global-services";
+import type { ThankYouPage } from "../success/page";
 
 const PaymentFailedPage = () => {
+  const [thankYouContent, setThankYouContent] = useState<ThankYouPage>({
+    Title: "",
+    Description: "",
+    LongDescription: "",
+  });
+
   const params = useParams();
   const encryptedId = params?.id;
 
@@ -39,27 +47,47 @@ const PaymentFailedPage = () => {
     updatePaymentStatus();
   }, [encryptedId]);
 
-  return (
-    <div className="flex min-h-[calc(100vh-64px)] items-center justify-center bg-linear-to-br from-background to-muted">
-      <Card className="w-full max-w-lg 3xl:max-w-5xl shadow-lg">
-        <CardContent className="pt-6">
-          <div className="flex justify-center mb-6">
-            <div className="rounded-full bg-red-50 p-3">
-              <XCircle className="h-16 w-16 text-red-600" />
-            </div>
-          </div>
+  useEffect(() => {
+    const getThankYouContent = async () => {
+      try {
+        const res = await clientAxios.get(`/thank-you-pages`);
+        setThankYouContent(res?.data?.data[1]);
+      } catch (error) {
+        notify({ success: false, message: String(error) });
+      }
+    };
 
-          <div className="text-center mb-6">
-            <h1 className="text-2xl font-semibold text-foreground mb-2">
-              Payment Failed
-            </h1>
-            <p className="text-muted-foreground">
-              We couldn't process your payment
-            </p>
+    getThankYouContent();
+  }, []);
+
+  return (
+    <main className="flex items-center justify-center p-4 pt-8 pb-16 min-h-[calc(100vh-200px)]">
+      <div className="w-full flex flex-col items-center text-center space-y-8">
+        <div className="flex justify-center">
+          <div className="bg-red-500 rounded-full p-3 flex items-center justify-center">
+            <X className="size-8 text-white stroke-[3]" />
           </div>
-        </CardContent>
-      </Card>
-    </div>
+        </div>
+
+        <div className="space-y-4 max-w-195 3xl:max-w-267.5">
+          <p className="text-base 3xl:text-lg font-mulish text-black">
+            {thankYouContent?.Title}
+          </p>
+
+          <HTMLWidget
+            content={thankYouContent?.Description}
+            className="text-base 3xl:text-lg font-mulish"
+            tag="p"
+          />
+
+          <HTMLWidget
+            content={thankYouContent?.LongDescription}
+            className="font-mulish text-black/50 text-xs 3xl:text-sm italic 3xl:max-w-5xl mx-auto leading-relaxed"
+            tag="p"
+          />
+        </div>
+      </div>
+    </main>
   );
 };
 

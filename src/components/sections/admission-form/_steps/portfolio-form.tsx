@@ -77,30 +77,14 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
   }, [admissionData]);
 
   const handleFilesSelected = async (files: File[]) => {
-    // const existingCount = images.length;
-
-    // if (existingCount >= MAX_IMAGES) {
-    //   notify({
-    //     success: false,
-    //     message: `You can upload a maximum of ${MAX_IMAGES} images`,
-    //   });
-    //   return;
-    // }
-
     const validFiles = files.filter((file) => {
       if (!ALLOWED_TYPES.includes(file.type)) {
-        notify({
-          success: false,
-          message: `${file.name} is not a supported image file`,
-        });
+        notify({ success: false, message: `${file.name} is not supported` });
         return false;
       }
 
       if (file.size > MAX_SIZE) {
-        notify({
-          success: false,
-          message: `${file.name} exceeds 1MB limit`,
-        });
+        notify({ success: false, message: `${file.name} exceeds 1MB` });
         return false;
       }
 
@@ -109,10 +93,19 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
 
     if (!validFiles.length) return;
 
-    // const remainingSlots = MAX_IMAGES - existingCount;
-    // const uploadFiles = validFiles.slice(0, remainingSlots);
+    const currentHf = getValues("Upload_Your_Portfolio.images") ?? [];
+
+    // ✅ temporary values to prevent validation error
+    const tempValues = validFiles.map(() => ({ id: crypto.randomUUID() }));
+
+    setValue(
+      "Upload_Your_Portfolio.images",
+      [...currentHf, ...tempValues.map((value) => ({ id: Number(value.id) }))],
+      { shouldDirty: true, shouldValidate: true },
+    );
 
     const formData = new FormData();
+    // validFiles.forEach((file) => formData.append("files", file));
 
     for (const file of validFiles) {
       formData.append("files", file);
@@ -124,24 +117,27 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
       const { data } = await axios.post(
         `${process.env.BASE_URL}/upload`,
         formData,
+        { headers: { "Content-Type": "multipart/form-data" } },
       );
 
-      const currentHf = getValues("Upload_Your_Portfolio.images") ?? [];
       const uploadedIds = data.map((u: UploadRes) => ({ id: u.id }));
 
+      // ✅ replace temp ids with real ids
       setValue("Upload_Your_Portfolio.images", [...currentHf, ...uploadedIds], {
         shouldDirty: true,
         shouldValidate: true,
       });
 
-      const previewImages: UploadedImage[] = validFiles.map((file) => ({
-        id: crypto.randomUUID(),
-        url: URL.createObjectURL(file),
-        file,
-      }));
-
-      setImages((prev) => [...prev, ...previewImages]);
-    } catch {
+      setImages((prev) => [
+        ...prev,
+        ...validFiles.map((file) => ({
+          id: crypto.randomUUID(),
+          url: URL.createObjectURL(file),
+          file,
+        })),
+      ]);
+    } catch (error) {
+      console.error(error);
       notify({ success: false, message: "Image upload failed" });
     } finally {
       setLoading(false);

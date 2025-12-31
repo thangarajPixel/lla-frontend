@@ -1,13 +1,13 @@
 import { z } from "zod";
 import { isNotFutureDate } from "./ConstantHelper";
 
-const ALLOWED_EMAIL_DOMAINS = [
-  "gmail.com",
-  "yahoo.com",
-  "outlook.com",
-  "hotmail.com",
-  "icloud.com",
-];
+// const ALLOWED_EMAIL_DOMAINS = [
+//   "gmail.com",
+//   "yahoo.com",
+//   "outlook.com",
+//   "hotmail.com",
+//   "icloud.com",
+// ];
 
 export const languageSchema = z
   .object({
@@ -166,11 +166,11 @@ export const personalDetailsSchema = z.object({
   email: z
     .string()
     .min(1, "Email Address is required")
-    .email({ message: "Enter a valid email" })
-    .refine((email) => {
-      const domain = email.split("@")[1];
-      return ALLOWED_EMAIL_DOMAINS.includes(domain);
-    }, "Enter a valid email"),
+    .email({ message: "Enter a valid email" }),
+  // .refine((email) => {
+  //   const domain = email.split("@")[1];
+  //   return ALLOWED_EMAIL_DOMAINS.includes(domain);
+  // }, "Enter a valid email"),
   nationality: z.string().min(1, "Nationality is required"),
   date_of_birth: z
     .string()
