@@ -163,7 +163,7 @@ const CourseContentSection = ({
                       </h3>
                     )}
                     {section.title && (
-                      <h2 className="font-urbanist text-[24px] leading-12 xss:text-[24px] xl:text-[25px] 2xl:text-[37px] 3xl:text-[40px] font-normal text-black mt-[-10px]">
+                      <h2 className="font-urbanist text-[24px] leading-[32px] md:leading-[48px] xss:text-[24px] xl:text-[25px] 2xl:text-[37px] 3xl:text-[40px] font-normal text-black mt-[-10px]">
                         {section.title}
                       </h2>
                     )}
