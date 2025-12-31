@@ -11,7 +11,7 @@ import { clientAxios } from "@/helpers/AxiosHelper";
 import { decryptCode, notify } from "@/helpers/ConstantHelper";
 import { updateAdmission } from "@/store/services/global-services";
 
-type ThankYouPage = {
+export type ThankYouPage = {
   Title: string;
   Description: string;
   LongDescription: string;
@@ -104,10 +104,10 @@ const PaymentSuccessPage = () => {
   }, []);
 
   return (
-    <main className="min-h-screen bg-white flex items-center justify-center p-4">
+    <main className="flex items-center justify-center p-4 pt-8 pb-16 3xl:pt-12">
       <div className="w-full flex flex-col items-center text-center space-y-8">
         <div className="space-y-2 lg:max-w-2xl 3xl:max-w-3xl">
-          <h1 className="text-2xl md:text-3xl 3xl:text-[40px] font-medium">
+          <h1 className="text-2xl md:text-3xl 3xl:text-[40px]">
             <span className="text-[#E97451] font-urbanist">{courseName}</span>
           </h1>
         </div>
@@ -118,8 +118,8 @@ const PaymentSuccessPage = () => {
           </div>
         </div>
 
-        <div className="space-y-4 max-w-5xl">
-          <p className="text-base 3xl:text-lg leading-relaxed font-mulish">
+        <div className="space-y-4 max-w-195 3xl:max-w-267.5">
+          <p className="text-base 3xl:text-lg font-mulish text-black">
             {thankYouContent?.Title.replace("CourseName", courseName)}
           </p>
 
