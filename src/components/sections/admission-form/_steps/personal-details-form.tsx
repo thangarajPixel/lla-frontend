@@ -435,7 +435,7 @@ const PersonalDetailsForm = ({
                         restrictionType="number"
                       />
                     </div>
-                    <div className="flex items-center gap-6">
+                    <div className="flex items-center gap-3 3xl:gap-6">
                       <FormCheckBox
                         name={`Language_Proficiency.${index}.read`}
                         control={control}
