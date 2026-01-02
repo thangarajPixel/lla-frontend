@@ -1,4 +1,4 @@
-'force-dynamic';
+export const dynamic = "force-dynamic";
 
 import type { Metadata } from "next";
 import { Mulish, Urbanist } from "next/font/google";
