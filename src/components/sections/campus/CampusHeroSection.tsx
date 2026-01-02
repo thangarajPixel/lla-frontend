@@ -197,13 +197,13 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
       </ContainerWidget>
     </section>
     <section className="md:hidden">
-      <div className="w-full h-full bg-white  py-10">
+      <div className="w-full h-full bg-white  py-8">
         <ContainerWidget>
           <ScrollWidget animation="fadeUp" delay={0.1}>
             <div className="grid grid-cols-1">
               <div className="relative flex flex-col">
                 {data?.Title && (
-                  <h1 className="text-black text-[32px] sm:text-[32px] font-urbanist font-normal mb-3">
+                  <h1 className="text-black text-[32px] sm:text-[32px] leading-[40px] font-urbanist font-normal mb-3">
                     {data.Title}
                   </h1>
                 )}
