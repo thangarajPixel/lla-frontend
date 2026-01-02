@@ -139,12 +139,13 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
                       />
                     )}
                     {viewCard.Image?.[0]?.url && (
-                      <div className="relative w-full aspect-video overflow-hidden">
+                      <div className="relative w-full overflow-hidden">
                         <ImageWidget
                           src={getS3Url(viewCard.Image[0].url)}
                           alt={viewCard.Title}
-                          fill
-                          className="object-cover"
+                          width={850}
+                          height={600}
+                          className="w-full h-auto object-contain"
                         />
                       </div>
                     )}
