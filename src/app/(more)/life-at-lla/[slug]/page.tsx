@@ -8,7 +8,7 @@ const LifeAtLlaDetail = async ({
 }) => {
   const { slug } = await params;
   const { data: response } = await getLifeById(slug);
-  if (!response?.card) return null;
+  if (!response) return null;
   return <LifeDetailSection data={response} />;
 };
 
