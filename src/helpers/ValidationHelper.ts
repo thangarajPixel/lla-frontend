@@ -55,7 +55,7 @@ export const parentDetails = z.object({
   mobile_no: z
     .string()
     .min(1, "Mobile number is required")
-    .regex(/^[6-9]\d{9}$/, "Enter a valid mobile number"),
+    .regex(/^[6-9]\d{9}$/, "Enter a valid 10-digit mobile number"),
   email: z
     .string()
     .min(1, "Email is required")
@@ -162,7 +162,7 @@ export const personalDetailsSchema = z.object({
   mobile_no: z
     .string()
     .min(1, "Mobile number is required")
-    .regex(/^[1-9]\d{9}$/, "Enter a valid mobile number"),
+    .regex(/^[1-9]\d{9}$/, "Enter a valid 10-digit mobile number"),
   email: z
     .string()
     .min(1, "Email Address is required")
@@ -289,6 +289,6 @@ export const admissionRequestSchema = z.object({
   Mobile: z
     .string()
     .min(1, "Mobile No is required")
-    .regex(/^[1-9]\d{9}$/, "Enter a valid mobile number"),
+    .regex(/^[1-9]\d{9}$/, "Enter a valid 10-digit mobile number"),
   Message: z.string(),
 });
