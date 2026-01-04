@@ -41,7 +41,8 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
   const backgroundImage = data?.Image?.url ? getS3Url(data.Image.url) : null;
 
   return (
-    <section className="relative w-full h-[1050px] overflow-hidden">
+    <>
+    <section className="relative w-full h-[1050px] overflow-hidden hidden md:block">
       <div className="absolute inset-0 w-full h-[1050px] z-0">
         {!videoError && mobileVideoUrl && (
           <video
@@ -195,6 +196,137 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
         </ScrollWidget>
       </ContainerWidget>
     </section>
+    <section className="md:hidden">
+      <div className="w-full h-full bg-white  py-8">
+        <ContainerWidget>
+          <ScrollWidget animation="fadeUp" delay={0.1}>
+            <div className="grid grid-cols-1">
+              <div className="relative flex flex-col">
+                {data?.Title && (
+                  <h1 className="text-black text-[32px] sm:text-[32px] leading-[40px] font-urbanist font-normal mb-3">
+                    {data.Title}
+                  </h1>
+                )}
+                {data?.Heading && (
+                  <HTMLWidget
+                    content={data.Heading}
+                    tag="p"
+                    className="text-black text-[24px] font-mulish"
+                  />
+                )}
+                <div className="flex flex-col gap-4 mt-6">
+                  {data.Description?.map((paragraph, index) => {
+                    const textContent = paragraph.children?.[0]?.text || "";
+                    if (!textContent) return null;
+                    const uniqueKey = `mobile-${index}-${textContent.slice(0, 20)}`;
+                    return (
+                      <div key={uniqueKey}>
+                        <ParagraphWidget className="text-black!">
+                          {textContent}
+                        </ParagraphWidget>
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="mt-6 w-full">
+                  <DialogWidget
+                    trigger={
+                      <button
+                        type="button"
+                        aria-label="Play video"
+                        className="relative w-full overflow-hidden  border-none bg-transparent p-0 cursor-pointer group"
+                      >
+                        <div className="relative w-full aspect-video">
+                          {mobileVideoUrl ? (
+                            <video
+                              src={mobileVideoUrl}
+                              className="w-full h-full object-cover"
+                              muted
+                              playsInline
+                              preload="metadata"
+                            />
+                          ) : backgroundImage ? (
+                            <ImageWidget
+                              src={backgroundImage}
+                              alt={data?.Title || "Campus video"}
+                              fill
+                              className="object-cover"
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-gray-200" />
+                          )}
+                          <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
+                            <div className="video-main">
+                              <div className="waves-block">
+                                <div className="waves wave-1" />
+                                <div className="waves wave-2" />
+                                <div className="waves wave-3" />
+                              </div>
+                            </div>
+                            <div className="relative w-13 h-13 p-0 bg-transparent hover:bg-transparent border-none shadow-none rounded-full transition-all duration-300 ease-out z-10">
+                              <ImageWidget
+                                src={Play}
+                                alt="play video"
+                                className="w-13 cursor-pointer h-13 text-white group-hover:text-[#E97451] transition-colors duration-500 ease-in-out relative z-10"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </button>
+                    }
+                    contentClassName="max-w-[90vw] p-0"
+                    showCancel={false}
+                    showCloseButton={false}
+                    onOpenChange={(open) => {
+                      if (!open) {
+                        stopPopupVideo();
+                        videoRef.current?.play();
+                      } else {
+                        videoRef.current?.pause();
+                      }
+                    }}
+                    customCloseButton={
+                      <DialogClose asChild>
+                        <div className="cursor-pointer -mt-[30px] -mr-[30px]">
+                          <ImageWidget
+                            src={Into}
+                            alt="Close"
+                            className="w-[30px] h-[30px]"
+                          />
+                        </div>
+                      </DialogClose>
+                    }
+                  >
+                    <div className="relative w-full aspect-video bg-black">
+                      {(mobileVideoUrl || videoUrl) && !dialogVideoError ? (
+                        <video
+                          src={mobileVideoUrl || videoUrl}
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          controls
+                          className="w-full h-full object-contain"
+                          onError={(e) => {
+                            e.preventDefault();
+                            setDialogVideoError(true);
+                          }}
+                        />
+                      ) : (
+                        <div className="flex items-center justify-center h-full text-white">
+                          Video unavailable
+                        </div>
+                      )}
+                    </div>
+                  </DialogWidget>
+                </div>
+              </div>
+            </div>
+          </ScrollWidget>
+        </ContainerWidget>
+      </div>
+    </section>
+    </>
   );
 };
 

@@ -161,7 +161,7 @@ const ImageSlider = ({
               alt="Previous"
               width={20}
               height={20}
-              className="object-contain filter invert"
+              className="object-contain filter invert cursor-pointer"
             />
           </button>
 
@@ -176,7 +176,7 @@ const ImageSlider = ({
               alt="Next"
               width={20}
               height={20}
-              className="object-contain filter invert"
+              className="object-contain filter invert cursor-pointer"
             />
           </button>
         </>

@@ -104,7 +104,7 @@ const PaymentSuccessPage = () => {
   }, []);
 
   return (
-    <main className="flex items-center justify-center p-4 pt-8 pb-16 3xl:pt-12">
+    <main className="flex items-center justify-center p-4 pt-8 pb-16 3xl:pt-12 py-10">
       <div className="w-full flex flex-col items-center text-center space-y-8">
         <div className="space-y-2 lg:max-w-2xl 3xl:max-w-3xl">
           <h1 className="text-2xl md:text-3xl 3xl:text-[40px]">

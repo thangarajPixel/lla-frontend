@@ -177,7 +177,7 @@ export function FileUploadButton({
           hideDescription && "hidden",
         )}
       >
-        Max. file size not more than {maxSize}.
+        Max. file size is not more than {maxSize}.
       </p>
 
       <div className="flex-1 min-w-0">

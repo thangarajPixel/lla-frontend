@@ -7,6 +7,7 @@ import ImageWidget from "@/components/widgets/ImageWidget";
 import LightboxWidget from "@/components/widgets/LightboxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
+import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 
 type FacilitiesSectionProps = {
   data: {
@@ -102,7 +103,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
       tops: { xl: 0, "2xl": 0, "3xl": 0 },
     },
     {
-      position: "absolute top-[228px] 2xl:top-[248px] left-0",
+      position: "absolute top-[308px] 2xl:top-[320px] left-0",
       container:
         "relative w-full xl:w-[290px] xl:h-[183px] 2xl:w-[350px] 2xl:h-[223px] 3xl:h-[273px] 3xl:w-[410px] overflow-hidden mb-3 sm:mb-4 border border-white",
       heights: { xl: 183, "2xl": 223, "3xl": 273 },
@@ -124,7 +125,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
     },
     {
       position:
-        "absolute left-20 top-[460px] 2xl:top-[540px] 2xl:left-[98px] 3xl:top-[610px] 3xl:left-[110px]",
+        "absolute left-20 top-[550px] 2xl:top-[603px] 2xl:left-[98px] 3xl:top-[680px] 3xl:left-[110px]",
       container:
         "relative w-full xl:w-[440px] xl:h-[319px] 2xl:w-[500px] 2xl:h-[379px] 3xl:h-[419px] 3xl:w-[630px] overflow-hidden mb-3 sm:mb-4 border border-white",
       heights: { xl: 319, "2xl": 379, "3xl": 419 },
@@ -132,7 +133,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
     },
     {
       position:
-        "absolute top-[849px] 2xl:top-[996px] 3xl:top-[1126px] left-0 2xl:left-4.5 3xl:left-0",
+        "absolute top-[930px] 2xl:top-[1056px] 3xl:top-[1176px] left-0 2xl:left-4.5 3xl:left-0",
       container:
         "relative w-[425px] h-[295px] 2xl:w-[500px] 2xl:h-[379px] 3xl:h-[419px] 3xl:w-[630px] overflow-hidden mb-3 sm:mb-4 border border-white",
       heights: { xl: 295, "2xl": 379, "3xl": 419 },
@@ -148,7 +149,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
     },
     {
       position:
-        "absolute top-[1205px] 2xl:top-[1435px] 3xl:top-[1645px] left-0",
+        "absolute top-[1295px] 2xl:top-[1500px] 3xl:top-[1675px] left-0",
       container:
         "relative xl:w-[290px] xl:h-[183px] 2xl:w-[330px] 2xl:h-[207px] 3xl:h-[267px] 3xl:w-[410px] overflow-hidden mb-3 sm:mb-4 border border-white",
       heights: { xl: 183, "2xl": 207, "3xl": 267 },
@@ -164,7 +165,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
     },
     {
       position:
-        "absolute top-[1455px] left-20 2xl:left-[109px] 2xl:top-[1709px] 3xl:top-[2009px] 3xl:left-[110px]",
+        "absolute top-[1535px] left-20 2xl:left-[109px] 2xl:top-[1769px] 3xl:top-[2039px] 3xl:left-[110px]",
       container:
         "relative w-[420px] h-[250px] 2xl:w-[500px] 2xl:h-[312px] 3xl:h-[392px] 3xl:w-[630px] overflow-hidden mb-3 sm:mb-4 border border-white",
       heights: { xl: 250, "2xl": 312, "3xl": 392 },
@@ -180,7 +181,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
     },
     {
       position:
-        "absolute top-[1759px] 2xl:top-[2089px] 3xl:top-[2499px] left-0",
+        "absolute top-[1860px] 2xl:top-[2149px] 3xl:top-[2519px] left-0",
       container:
         "relative w-[270px] h-[189px] 2xl:w-[330px] 2xl:h-[235px] 3xl:h-[275px] 3xl:w-[410px] overflow-hidden mb-3 sm:mb-4 border border-white",
       heights: { xl: 189, "2xl": 235, "3xl": 275 },
@@ -188,7 +189,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
     },
     {
       position:
-        "absolute top-[2005px] 2xl:top-[2385px] 3xl:top-[2855px] left-0",
+        "absolute top-[2110px] 2xl:top-[2445px] 3xl:top-[2875px] left-0",
       container:
         "relative w-[270px] h-[189px] 2xl:w-[330px] 2xl:h-[235px] 3xl:h-[275px] 3xl:w-[410px] overflow-hidden mb-3 sm:mb-4 border border-white",
       heights: { xl: 189, "2xl": 235, "3xl": 275 },
@@ -364,9 +365,9 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
   }, [containerHeights, getBreakpoint]);
 
   return (
-    <section className=" w-full bg-white py-15 md:pt-25 md:pb-10">
+    <section className=" w-full bg-white py-5 md:py-15 md:pt-25 md:pb-10">
       <ContainerWidget>
-        <div className="lg:hidden">
+        <div className="xl:hidden">
           <ScrollWidget animation="fadeUp" delay={0.1}>
             <div className="space-y-4 md:space-y-4 w-full mb-8 md:mb-12">
               <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl font-semibold md:font-normal text-black font-urbanist">
@@ -377,6 +378,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
                 className="font-area-variable font-normal text-lg xss:text-[24px] md:text-lg lg:text-xl text-black font-mulish"
                 tag="p"
               />
+              <HTMLWidget content={data?.Description || ""} tag="p" />
             </div>
           </ScrollWidget>
 
@@ -432,7 +434,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
 
         <div
           ref={containerRef}
-          className="hidden lg:block relative"
+          className="hidden xl:block relative"
           style={{
             minHeight:
               (containerHeights.xl ?? 0) > 0
@@ -450,9 +452,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
                 className="font-area-variable font-normal text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-[32px] 2xl:text-[34px] 3xl:text-[40px] text-black font-mulish"
                 tag="p"
               />
-              {/* <ParagraphWidget>
-              {data?.Description}
-            </ParagraphWidget> */}
+              <HTMLWidget content={data?.Description || ""} tag="p" />
             </div>
           </ScrollWidget>
 
