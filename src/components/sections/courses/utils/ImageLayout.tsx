@@ -42,7 +42,7 @@ const MobileImageLayout = ({ breakpoint, images }: MobileImageLayoutProps) => {
         ref={emblaRef}
         className="overflow-hidden cursor-grab active:cursor-grabbing"
       >
-        <div className="flex gap-3 sm:gap-4 touch-pan-x">
+        <div className="flex gap-3 sm:gap-3 touch-pan-x">
           {images.map((image, index) => {
             const imageUrl = image?.url ? getS3Url(image.url) : undefined;
             if (!imageUrl) return null;
@@ -50,21 +50,18 @@ const MobileImageLayout = ({ breakpoint, images }: MobileImageLayoutProps) => {
             return (
               <div
                 key={image.id || index}
-                className="relative flex-[0_0_80vw] sm:flex-[0_0_75vw] md:flex-[0_0_80vw] min-w-0 overflow-hidden"
+                className="relative w-full overflow-hidden"
               >
                 <div
-                  className="relative w-full overflow-hidden min-h-[200px] xs:min-h-[250px] sm:min-h-[300px] md:min-h-[350px] max-h-[400px]"
+                  className="relative w-full overflow-hidden h-full"
                 >
                   <ImageWidget
                     src={imageUrl}
                     alt={image.name || "Course Content"}
-                    fill
+                    height={300}
+                    width={400}
                     className="object-cover"
-                    style={{
-                      objectFit: "cover",
-                      width: "100%",
-                      height: "100%",
-                    }}
+                   
                   />
                 </div>
               </div>
