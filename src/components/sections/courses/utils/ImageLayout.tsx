@@ -500,10 +500,10 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
       return (
         <>
           <MobileImageLayout breakpoint="md" images={images} />
-          <div className="hidden lg:block relative w-full md:min-h-[370px] 3xl:min-h-[450px] overflow-hidden">
+          <div className="hidden lg:block relative w-full md:min-h-[370px] 3xl:min-h-[450px]">
             {image1 && (
               <ScrollWidget animation="fadeUp" delay={0.1}>
-                <div className="absolute top-15 left-10 3xl:left-[60px] w-full aspect-300/199 max-w-45 xl:max-w-full  overflow-hidden z-20">
+                <div className="absolute top-15 w-full aspect-300/199 max-w-45 xl:max-w-full  overflow-hidden z-20">
                   <ImageWidget
                     src={image1}
                     alt="Course Content"
