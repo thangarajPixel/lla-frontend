@@ -15,7 +15,6 @@ import FormFileUploadButton from "@/components/form/FormFileUploadButton";
 import FormRadioGroup from "@/components/form/FormRadioGroup";
 import type { EducationDetailsSchema } from "@/components/sections/admission-form/_steps/education-details-form";
 import { Button } from "@/components/ui/button";
-import Checkbox from "@/components/ui/checkbox";
 
 type EducationDetailsProps = {
   admissionData?: AdmissionFormData;
@@ -32,7 +31,6 @@ export function EducationDetails({
   setError,
   clearError,
 }: EducationDetailsProps) {
-
   const {
     fields: pgDegrees,
     append,
@@ -206,18 +204,16 @@ export function EducationDetails({
           </div>
         ))}
 
-        {
-          postGraduate?.[0]?.degree !== "" && (
-            <Button
-              type="button"
-              onClick={clearAllDegree}
-              className="absolute -top-4 md:-top-2 right-0 flex md:ml-auto items-center gap-2 text-sm hover:opacity-80 transition-opacity bg-chart-1"
-            >
-              <X className="h-4 w-4 border rounded-full" />
-              <span className="text-white">Clear All</span>
-            </Button>
-          )
-        }
+        {postGraduate?.[0]?.degree !== "" && (
+          <Button
+            type="button"
+            onClick={clearAllDegree}
+            className="absolute -top-4 md:-top-2 right-0 flex md:ml-auto items-center gap-2 text-sm hover:opacity-80 transition-opacity bg-chart-1"
+          >
+            <X className="h-4 w-4 border rounded-full" />
+            <span className="text-white">Clear All</span>
+          </Button>
+        )}
       </div>
 
       {lastDegree !== "" && lastPgStatus === "Finished" && (

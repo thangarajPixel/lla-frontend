@@ -77,7 +77,6 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
   }, [admissionData]);
 
   const handleFilesSelected = async (files: File[]) => {
-
     const totalImages = images.length + files.length;
 
     if (totalImages > MAX_IMAGES) {
