@@ -151,7 +151,7 @@ export const education = z.object({
 export const postGraduate = z.object({
   degree: z.string().optional(),
   pg_status: z.string().optional(),
-  marksheet: z.number().optional(),
+  // marksheet: z.number().optional(),
 });
 
 export const personalDetailsSchema = z.object({
@@ -259,7 +259,7 @@ export const educationDetailsSchema = z.object({
     }),
   Post_Graduate: z.array(postGraduate).optional(),
 
-  additionalDegree: z.array(education).optional(),
+  // additionalDegree: z.array(education).optional(),
 
   Work_Experience: z.array(workExperience).optional(),
 
@@ -274,7 +274,8 @@ export const portfolioSchema = z.object({
           id: z.number().min(1, "Image ID is required"),
         }),
       )
-      .min(20, "Min 20 image is required"),
+      .min(20, "Min 20 image is required")
+      .max(20, "Max 20 images are allowed"),
   }),
   step_3: z.boolean().optional(),
 });

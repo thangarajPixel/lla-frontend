@@ -330,7 +330,7 @@ const ReviewApplication = ({
             height={200}
             src={admissionData?.passport_size_image?.url ?? null}
             alt="profile"
-            className="w-72 h-80 3xl:w-md 3xl:h-auto ml-4 lg:ml-0 rounded-md shadow-md"
+            className="w-72 h-80 3xl:w-md 3xl:h-auto ml-4 lg:ml-0 rounded-md shadow-md object-cover"
           />
 
           {admissionData?.Payment_Status !== "Paid" && (

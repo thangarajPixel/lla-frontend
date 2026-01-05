@@ -59,6 +59,11 @@ export function EducationDetails({
     append({ degree: "", pg_status: "" });
   };
 
+  const cancelDegree = () => {
+    setValue?.("Post_Graduate", []);
+    addDegree();
+  };
+
   useEffect(() => {
     const invalidIndex = postGraduate?.findIndex(
       (pg) => pg.pg_status?.trim() === "In-Progress",
@@ -151,51 +156,63 @@ export function EducationDetails({
         </div>
       </div>
 
-      {pgDegrees?.map((degree, index) => (
-        <div
-          key={degree.id ?? index}
-          className="relative grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2 items-end"
-        >
-          <FormInput
-            name={`Post_Graduate.${index}.degree`}
-            label={index > 0 ? `Additional Degree ${index}` : "Post Graduate"}
-            placeholder="Enter your post graduation degree"
-            control={control}
-            notRequired={true}
-            onChangeExtra={(value) => {
-              if (!value?.trim()) {
-                setValue?.(`Post_Graduate.${index}.pg_status`, "", {
-                  shouldDirty: true,
-                  shouldValidate: true,
-                });
-              }
-            }}
-            disabled={ugStatus !== "Finished"}
-          />
+      <div className="relative">
+        {pgDegrees?.map((degree, index) => (
+          <div
+            key={degree.id ?? index}
+            className="relative grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2 items-end space-y-3"
+          >
+            <FormInput
+              name={`Post_Graduate.${index}.degree`}
+              label={index > 0 ? `Additional Degree ${index}` : "Post Graduate"}
+              placeholder="Enter your post graduation degree"
+              control={control}
+              notRequired={true}
+              onChangeExtra={(value) => {
+                if (!value?.trim()) {
+                  setValue?.(`Post_Graduate.${index}.pg_status`, "", {
+                    shouldDirty: true,
+                    shouldValidate: true,
+                  });
+                }
+              }}
+              disabled={ugStatus !== "Finished"}
+            />
 
-          <FormRadioGroup
-            name={`Post_Graduate.${index}.pg_status`}
-            control={control}
-            options={[
-              { value: "Finished", label: "Finished" },
-              { value: "In-Progress", label: "In-Progress" },
-            ]}
-            disabled={
-              ugStatus !== "Finished" || !postGraduate?.[index]?.degree?.trim()
-            }
-            errorClassName="mt-0 lg:-mt-4"
-          />
-          {index > 0 && (
-            <Button
-              type="button"
-              onClick={() => removePgDegree(index)}
-              className="absolute -top-2 right-0 flex items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
-            >
-              <X className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
-            </Button>
-          )}
-        </div>
-      ))}
+            <FormRadioGroup
+              name={`Post_Graduate.${index}.pg_status`}
+              control={control}
+              options={[
+                { value: "Finished", label: "Finished" },
+                { value: "In-Progress", label: "In-Progress" },
+              ]}
+              disabled={
+                ugStatus !== "Finished" ||
+                !postGraduate?.[index]?.degree?.trim()
+              }
+              errorClassName="mt-0 lg:-mt-4"
+            />
+            {index > 0 && (
+              <Button
+                type="button"
+                onClick={() => removePgDegree(index)}
+                className="absolute -top-2 right-0 flex items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
+              >
+                <X className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
+              </Button>
+            )}
+          </div>
+        ))}
+
+        <Button
+          type="button"
+          onClick={cancelDegree}
+          className="absolute -top-2 left-2/5 flex md:ml-auto items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
+        >
+          <X className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
+          <span className="text-chart-1">Cancel Degree</span>
+        </Button>
+      </div>
 
       {lastDegree !== "" && lastPgStatus === "Finished" && (
         <Button

@@ -22,7 +22,7 @@ import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
-import { encryptId, filteredPayload, notify } from "@/helpers/ConstantHelper";
+import { encryptId, notify } from "@/helpers/ConstantHelper";
 import { UploadIconImg } from "@/helpers/ImageHelper";
 import { personalDetailsSchema } from "@/helpers/ValidationHelper";
 import {
@@ -295,10 +295,10 @@ const PersonalDetailsForm = ({
   };
 
   const onSubmit = async (payload: PersonalDetailsSchema) => {
-    const filteredData = filteredPayload(payload);
+    // const filteredData = filteredPayload(payload);
 
     const data = {
-      ...filteredData,
+      ...payload,
       step_1: true,
       EncryptId: admissionId,
     };
@@ -550,8 +550,8 @@ const PersonalDetailsForm = ({
               />
 
               <p className="text-xs font-mulish text-muted-foreground mt-2 xs:max-w-[180px] 2xl:max-w-full">
-                A recent passport-size photograph in white background. And the
-                Max file size not more than 1MB.
+                Upload a recent passport-size photograph with a white
+                background. The file size must not exceed 1 MB.
               </p>
 
               {errors.passport_size_image && (
