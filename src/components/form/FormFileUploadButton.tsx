@@ -71,7 +71,7 @@ const FormFileUploadButton = <T extends FieldValues>({
           maxSize={maxSize ?? "2MB"}
           onUpload={handleUpload}
           onRemove={() => field.onChange(0)}
-          defaultValue={defaultValue}
+          defaultValue={field?.value === 0 ? null : defaultValue}
           inputClassName={inputClassName}
           hideDescription={hideDescription}
         />
