@@ -30,7 +30,7 @@ type PortfolioFormProps = {
   admissionId?: string;
 };
 
-const _MAX_IMAGES = 20;
+const MAX_IMAGES = 20;
 const MAX_SIZE = 1024 * 1024;
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/jpg"];
 
@@ -77,6 +77,17 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
   }, [admissionData]);
 
   const handleFilesSelected = async (files: File[]) => {
+
+    const totalImages = images.length + files.length;
+
+    if (totalImages > MAX_IMAGES) {
+      notify({
+        success: false,
+        message: `Only ${MAX_IMAGES} images are allowed`,
+      });
+      return;
+    }
+
     const validFiles = files.filter((file) => {
       if (!ALLOWED_TYPES.includes(file.type)) {
         notify({ success: false, message: `${file.name} is not supported` });
