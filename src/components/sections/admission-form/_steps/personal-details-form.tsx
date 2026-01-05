@@ -25,6 +25,7 @@ import { clientAxios } from "@/helpers/AxiosHelper";
 import { encryptId, notify } from "@/helpers/ConstantHelper";
 import { UploadIconImg } from "@/helpers/ImageHelper";
 import { personalDetailsSchema } from "@/helpers/ValidationHelper";
+import { cn } from "@/lib/utils";
 import {
   createAdmission,
   updateAdmission,
@@ -296,6 +297,7 @@ const PersonalDetailsForm = ({
 
   const onSubmit = async (payload: PersonalDetailsSchema) => {
     // const filteredData = filteredPayload(payload);
+    await handleFieldCheck(payload?.email);
 
     const data = {
       ...payload,
@@ -425,7 +427,11 @@ const PersonalDetailsForm = ({
                 {languageFields.map((lang, index) => (
                   <div
                     key={lang.id ?? index}
-                    className="flex flex-col md:flex-row md:items-center gap-4 mb-6"
+                    className={cn(
+                      "flex flex-col md:flex-row md:items-center gap-4 mb-6",
+                      errors?.Language_Proficiency?.[index]?.language
+                        ?.message && "md:items-start",
+                    )}
                   >
                     <div className="w-full md:w-64">
                       <FormInput

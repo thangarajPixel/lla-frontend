@@ -80,7 +80,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
   const image1 = images?.[0]?.url ? getS3Url(images[0].url) : undefined;
   const image2 = images?.[1]?.url ? getS3Url(images[1].url) : undefined;
   const image3 = images?.[2]?.url ? getS3Url(images[2].url) : undefined;
-  console.log("Rendering ImageLayout with type:", type, "and images:", image1);
+
   switch (type) {
     case "Type1":
       return (
