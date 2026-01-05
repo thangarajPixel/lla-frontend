@@ -59,7 +59,7 @@ export function EducationDetails({
     append({ degree: "", pg_status: "" });
   };
 
-  const cancelDegree = () => {
+  const clearAllDegree = () => {
     setValue?.("Post_Graduate", []);
     addDegree();
   };
@@ -204,14 +204,16 @@ export function EducationDetails({
           </div>
         ))}
 
-        <Button
-          type="button"
-          onClick={cancelDegree}
-          className="absolute -top-2 left-2/5 flex md:ml-auto items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
-        >
-          <X className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
-          <span className="text-chart-1">Cancel Degree</span>
-        </Button>
+        {postGraduate?.[0]?.degree !== "" && (
+          <Button
+            type="button"
+            onClick={clearAllDegree}
+            className="absolute -top-4 md:-top-2 right-0 flex md:ml-auto items-center gap-2 text-sm hover:opacity-80 transition-opacity bg-chart-1"
+          >
+            <X className="h-4 w-4 border rounded-full" />
+            <span className="text-white">Clear All</span>
+          </Button>
+        )}
       </div>
 
       {lastDegree !== "" && lastPgStatus === "Finished" && (
