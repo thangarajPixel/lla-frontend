@@ -62,7 +62,7 @@ export function EducationDetails({
   const cancelDegree = () => {
     setValue?.("Post_Graduate", []);
     addDegree();
-  }
+  };
 
   useEffect(() => {
     const invalidIndex = postGraduate?.findIndex(
@@ -187,7 +187,8 @@ export function EducationDetails({
                 { value: "In-Progress", label: "In-Progress" },
               ]}
               disabled={
-                ugStatus !== "Finished" || !postGraduate?.[index]?.degree?.trim()
+                ugStatus !== "Finished" ||
+                !postGraduate?.[index]?.degree?.trim()
               }
               errorClassName="mt-0 lg:-mt-4"
             />
@@ -211,7 +212,6 @@ export function EducationDetails({
           <X className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
           <span className="text-chart-1">Cancel Degree</span>
         </Button>
-
       </div>
 
       {lastDegree !== "" && lastPgStatus === "Finished" && (

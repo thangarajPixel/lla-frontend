@@ -102,15 +102,22 @@ const EducationDetailsForm = ({
     const filteredData = filteredPayload(payload);
 
     const workExperience = payload?.Work_Experience?.slice(0, 1).filter(
-      (item) => item?.designation === "" && item?.employer === "" && item?.duration_start === "" && item?.duration_end === "",
+      (item) =>
+        item?.designation === "" &&
+        item?.employer === "" &&
+        item?.duration_start === "" &&
+        item?.duration_end === "",
     );
 
     const data = {
       ...filteredData,
       step_2: true,
       EncryptId: admissionId,
-      Post_Graduate: payload?.Post_Graduate?.[0]?.degree === "" ? [] : payload?.Post_Graduate,
-      Work_Experience: workExperience ? [] : payload?.Work_Experience
+      Post_Graduate:
+        payload?.Post_Graduate?.[0]?.degree === ""
+          ? []
+          : payload?.Post_Graduate,
+      Work_Experience: workExperience ? [] : payload?.Work_Experience,
     };
 
     try {
