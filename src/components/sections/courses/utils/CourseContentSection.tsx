@@ -126,10 +126,10 @@ const CourseContentSection = ({
             {group.OuterTitle && (
               <div
                 className={cn(
-                  "bg-white pb-1 pt-4 -mt-12 md:sticky z-30 transition-all duration-500",
+                  "bg-white pb-1 pt-4 2xxl:pt-10 -mt-12 md:sticky z-30 transition-all duration-500",
                   isHeaderVisible
                     ? "top-0"
-                    : "top-18 xl:top-18 2xl:top-18 3xl:top-22",
+                    : "top-16 xl:top-16 2xl:top-18 3xl:top-22",
                 )}
               >
                 <h3

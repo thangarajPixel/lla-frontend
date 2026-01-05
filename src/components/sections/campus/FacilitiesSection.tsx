@@ -7,7 +7,6 @@ import ImageWidget from "@/components/widgets/ImageWidget";
 import LightboxWidget from "@/components/widgets/LightboxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 
 type FacilitiesSectionProps = {
   data: {
