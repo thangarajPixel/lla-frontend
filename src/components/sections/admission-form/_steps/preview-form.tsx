@@ -136,7 +136,7 @@ function Field({
           label === "Email" && "md:max-w-fit",
         )}
       >
-        {isDob ? dobValue : prefix ? `${prefix} ${value}` : (value ?? "-")}
+        {isDob ? dobValue?.replace(/-/g, "/") : prefix ? `${prefix} ${value}` : (value ?? "-")}
       </span>
     </div>
   );
