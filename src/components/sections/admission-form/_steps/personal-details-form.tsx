@@ -66,21 +66,21 @@ const PersonalDetailsForm = ({
       nationality: admissionData?.nationality ?? "",
       Language_Proficiency:
         admissionData?.Language_Proficiency &&
-        admissionData?.Language_Proficiency?.length > 0
+          admissionData?.Language_Proficiency?.length > 0
           ? admissionData?.Language_Proficiency?.map((language) => ({
-              language: language?.language ?? "",
-              read: language?.read ?? false,
-              write: language?.write ?? false,
-              speak: language?.speak ?? false,
-            }))
+            language: language?.language ?? "",
+            read: language?.read ?? false,
+            write: language?.write ?? false,
+            speak: language?.speak ?? false,
+          }))
           : [
-              {
-                language: "",
-                read: false,
-                write: false,
-                speak: false,
-              },
-            ],
+            {
+              language: "",
+              read: false,
+              write: false,
+              speak: false,
+            },
+          ],
       address: admissionData?.address?.map((block) => ({
         type: "paragraph",
         children: block.children.map((child) => ({
@@ -88,16 +88,16 @@ const PersonalDetailsForm = ({
           type: child.type,
         })),
       })) ?? [
-        {
-          type: "paragraph",
-          children: [
-            {
-              text: "",
-              type: "text",
-            },
-          ],
-        },
-      ],
+          {
+            type: "paragraph",
+            children: [
+              {
+                text: "",
+                type: "text",
+              },
+            ],
+          },
+        ],
       city: admissionData?.city ?? "",
       district: admissionData?.district ?? "",
       state: admissionData?.state?.documentId ?? "",
@@ -127,16 +127,16 @@ const PersonalDetailsForm = ({
             })),
           }),
         ) ?? [
-          {
-            type: "paragraph",
-            children: [
-              {
-                text: "",
-                type: "text",
-              },
-            ],
-          },
-        ],
+            {
+              type: "paragraph",
+              children: [
+                {
+                  text: "",
+                  type: "text",
+                },
+              ],
+            },
+          ],
         city: admissionData?.Parent_Guardian_Spouse_Details?.city ?? "",
         district: admissionData?.Parent_Guardian_Spouse_Details?.district ?? "",
         state:
@@ -295,10 +295,10 @@ const PersonalDetailsForm = ({
   };
 
   const onSubmit = async (payload: PersonalDetailsSchema) => {
-    const filteredData = filteredPayload(payload);
+    // const filteredData = filteredPayload(payload);
 
     const data = {
-      ...filteredData,
+      ...payload,
       step_1: true,
       EncryptId: admissionId,
     };
@@ -495,7 +495,7 @@ const PersonalDetailsForm = ({
                 onClick={handleClick}
               >
                 {(!previewUrl && !admissionData?.passport_size_image) ||
-                isRemoved ? (
+                  isRemoved ? (
                   <>
                     <ImageWidget
                       src={UploadIconImg}
@@ -550,8 +550,7 @@ const PersonalDetailsForm = ({
               />
 
               <p className="text-xs font-mulish text-muted-foreground mt-2 xs:max-w-[180px] 2xl:max-w-full">
-                A recent passport-size photograph in white background. And the
-                Max file size not more than 1MB.
+                Upload a recent passport-size photograph with a white background. The file size must not exceed 1 MB.
               </p>
 
               {errors.passport_size_image && (

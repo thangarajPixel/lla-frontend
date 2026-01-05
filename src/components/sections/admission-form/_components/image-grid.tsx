@@ -15,7 +15,7 @@ export const ImageGrid = ({ images, onRemove }: ImageGridProps) => {
 
   return (
     <div className="grid grid-cols-2 gap-6">
-      {images.map((image, index) => (
+      {images?.reverse().map((image, index) => (
         <div key={image.id} className="relative group">
           <div className=" w-full border overflow-hidden">
             <Image

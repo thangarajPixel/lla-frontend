@@ -49,13 +49,13 @@ const EducationDetailsForm = ({
           ? admissionData?.Post_Graduate?.map((item) => ({
               degree: item?.degree ?? "",
               pg_status: item?.pg_status ?? "",
-              marksheet: item?.marksheet?.id ?? 0,
+              // marksheet: item?.marksheet?.id ?? 0,
             }))
           : [
               {
                 degree: "",
                 pg_status: "",
-                marksheet: 0,
+                // marksheet: 0,
               },
             ],
       Work_Experience:
@@ -101,10 +101,16 @@ const EducationDetailsForm = ({
   const onSubmit = async (payload: EducationDetailsSchema) => {
     const filteredData = filteredPayload(payload);
 
+    const workExperience = payload?.Work_Experience?.slice(0, 1).filter(
+      (item) => item?.designation === "" && item?.employer === "" && item?.duration_start === "" && item?.duration_end === "",
+    );
+
     const data = {
       ...filteredData,
       step_2: true,
       EncryptId: admissionId,
+      Post_Graduate: payload?.Post_Graduate?.[0]?.degree === "" ? [] : payload?.Post_Graduate,
+      Work_Experience: workExperience ? [] : payload?.Work_Experience
     };
 
     try {

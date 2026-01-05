@@ -77,6 +77,7 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
   }, [admissionData]);
 
   const handleFilesSelected = async (files: File[]) => {
+
     const validFiles = files.filter((file) => {
       if (!ALLOWED_TYPES.includes(file.type)) {
         notify({ success: false, message: `${file.name} is not supported` });
