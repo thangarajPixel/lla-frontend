@@ -52,9 +52,7 @@ const MobileImageLayout = ({ breakpoint, images }: MobileImageLayoutProps) => {
                 key={image.id || index}
                 className="relative flex-[0_0_80vw] sm:flex-[0_0_75vw] min-w-0 overflow-hidden"
               >
-                <div
-                  className="relative w-full overflow-hidden min-h-[200px] md:min-h-[350px] max-h-[400px]"
-                >
+                <div className="relative w-full overflow-hidden min-h-[200px] md:min-h-[350px] max-h-[400px]">
                   <ImageWidget
                     src={imageUrl}
                     alt={image.name || "Course Content"}
@@ -80,7 +78,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
   const image1 = images?.[0]?.url ? getS3Url(images[0].url) : undefined;
   const image2 = images?.[1]?.url ? getS3Url(images[1].url) : undefined;
   const image3 = images?.[2]?.url ? getS3Url(images[2].url) : undefined;
-  console.log("Rendering ImageLayout with type:", type, "and images:", image1);
+
   switch (type) {
     case "Type1":
       return (
