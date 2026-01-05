@@ -53,12 +53,7 @@ const MobileImageLayout = ({ breakpoint, images }: MobileImageLayoutProps) => {
                 className="relative flex-[0_0_80vw] sm:flex-[0_0_75vw] min-w-0 overflow-hidden"
               >
                 <div
-                  className="relative w-full overflow-hidden"
-                  style={{
-                    minHeight: "200px",
-                    maxHeight: "300px",
-                    height: "auto",
-                  }}
+                  className="relative w-full overflow-hidden min-h-[200px] md:min-h-[350px] max-h-[400px]"
                 >
                   <ImageWidget
                     src={imageUrl}
@@ -499,11 +494,11 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
     case "SingeImage":
       return (
         <>
-          <MobileImageLayout breakpoint="md" images={images} />
-          <div className="hidden lg:block relative w-full md:min-h-[370px] 3xl:min-h-[450px]">
+          <MobileImageLayout breakpoint="lg" images={images} />
+          <div className="hidden lg:block relative w-full md:min-h-[390px] 3xl:min-h-[450px]">
             {image1 && (
               <ScrollWidget animation="fadeUp" delay={0.1}>
-                <div className="absolute top-15 w-full aspect-300/199 max-w-45 xl:max-w-full  overflow-hidden z-20">
+                <div className="absolute top-15 w-full aspect-300/199   lg:max-w-full xl:max-w-full  overflow-hidden z-20">
                   <ImageWidget
                     src={image1}
                     alt="Course Content"
