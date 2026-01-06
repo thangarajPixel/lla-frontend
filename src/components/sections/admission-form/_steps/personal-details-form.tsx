@@ -33,7 +33,8 @@ import {
 import { useCourseStore } from "@/store/zustand";
 import AddressFields from "../_components/address-fields";
 
-export type PersonalDetailsSchema = z.infer<typeof personalDetailsSchema>;
+// export type PersonalDetailsSchema = z.infer<typeof personalDetailsSchema>;
+export type PersonalDetailsSchema = z.infer<ReturnType<typeof personalDetailsSchema>>;
 
 type PersonalDetailsFormProps = {
   admissionData?: AdmissionFormData;
@@ -54,8 +55,8 @@ const PersonalDetailsForm = ({
   const router = useRouter();
 
   const form_step1 = useForm<PersonalDetailsSchema>({
-    resolver: zodResolver(personalDetailsSchema),
-    mode: "all",
+    resolver: zodResolver(personalDetailsSchema(admissionData?.email)),
+    mode: "onSubmit",
     reValidateMode: "onChange",
     shouldFocusError: true,
     defaultValues: {

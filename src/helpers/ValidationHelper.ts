@@ -156,7 +156,7 @@ export const postGraduate = z.object({
   // marksheet: z.number().optional(),
 });
 
-export const personalDetailsSchema = z.object({
+export const personalDetailsSchema = (admissionEmail?: string) => z.object({
   Course: z.string().optional(),
   name_title: z.string().optional(),
   first_name: z.string().min(1, "First name is required"),
@@ -172,6 +172,8 @@ export const personalDetailsSchema = z.object({
     .refine(
       async (email) => {
         if (!email) return;
+
+        if (email === admissionEmail) return true;
 
         const res = await clientAxios.post("/admissions/email/check", {
           email,
