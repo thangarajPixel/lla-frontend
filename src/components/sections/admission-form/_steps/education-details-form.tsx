@@ -163,7 +163,7 @@ const EducationDetailsForm = ({
         </p>
 
         {admissionData?.Payment_Status !== "Paid" && (
-          <div className="flex justify-start gap-3 lg:mt-10 pt-6">
+          <div className="flex justify-start gap-3 lg:mt-6 pt-6">
             <ButtonWidget
               type="button"
               onClick={() => {
@@ -179,7 +179,7 @@ const EducationDetailsForm = ({
 
             <OrangeButtonWidget
               content="Save & Continue"
-              className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-[18px] 2xl:text-[18px] 3xl:text-[18px]"
+              className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-base 2xl:text-[18px] 3xl:text-[18px] 3xl:w-[226px]"
             />
           </div>
         )}

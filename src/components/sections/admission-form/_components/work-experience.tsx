@@ -102,7 +102,7 @@ export function WorkExperience({
               defaultValue={
                 admissionData?.Work_Experience[index]?.reference_letter ?? null
               }
-              inputClassName="justify-start pl-4"
+              inputClassName="justify-start pl-3"
             />
           </div>
         </div>

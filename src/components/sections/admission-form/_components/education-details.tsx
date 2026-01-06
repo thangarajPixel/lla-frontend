@@ -144,7 +144,7 @@ export function EducationDetails({
                 placeholder="Upload your marksheet"
                 notRequired
                 defaultValue={admissionData?.Under_Graduate?.marksheet ?? null}
-                inputClassName="justify-start pl-4"
+                inputClassName="justify-start pl-3"
                 hideDescription
               />
 
@@ -160,7 +160,7 @@ export function EducationDetails({
         {pgDegrees?.map((degree, index) => (
           <div
             key={degree.id ?? index}
-            className="relative grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2 items-end space-y-3"
+            className="relative grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2 items-start space-y-3"
           >
             <FormInput
               name={`Post_Graduate.${index}.degree`}
@@ -179,19 +179,22 @@ export function EducationDetails({
               disabled={ugStatus !== "Finished"}
             />
 
-            <FormRadioGroup
-              name={`Post_Graduate.${index}.pg_status`}
-              control={control}
-              options={[
-                { value: "Finished", label: "Finished" },
-                { value: "In-Progress", label: "In-Progress" },
-              ]}
-              disabled={
-                ugStatus !== "Finished" ||
-                !postGraduate?.[index]?.degree?.trim()
-              }
-              errorClassName="mt-0 lg:-mt-4"
-            />
+            <div className="lg:pt-7">
+              <FormRadioGroup
+                name={`Post_Graduate.${index}.pg_status`}
+                control={control}
+                options={[
+                  { value: "Finished", label: "Finished" },
+                  { value: "In-Progress", label: "In-Progress" },
+                ]}
+                disabled={
+                  ugStatus !== "Finished" ||
+                  !postGraduate?.[index]?.degree?.trim()
+                }
+                errorClassName="mt-0 lg:-mt-4"
+              />
+            </div>
+
             {index > 0 && (
               <Button
                 type="button"
@@ -208,7 +211,7 @@ export function EducationDetails({
           <Button
             type="button"
             onClick={clearAllDegree}
-            className="absolute -top-4 md:-top-2 right-0 flex md:ml-auto items-center gap-2 text-sm hover:opacity-80 transition-opacity bg-chart-1"
+            className="absolute h-7 md:h-9 -top-2 right-0 flex md:ml-auto items-center gap-2 text-sm hover:opacity-80 transition-opacity bg-chart-1"
           >
             <X className="h-4 w-4 border rounded-full" />
             <span className="text-white">Clear All</span>
@@ -220,7 +223,7 @@ export function EducationDetails({
         <Button
           type="button"
           onClick={addDegree}
-          className="flex md:ml-auto items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
+          className="flex -mt-4 md:ml-auto items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
         >
           <Plus className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
           <span className="text-chart-1">Add Any Other Degree</span>
