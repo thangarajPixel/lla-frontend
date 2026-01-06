@@ -317,7 +317,7 @@ const ReviewApplication = ({
         )}
       >
         {/* LEFT SIDE */}
-        <div className="flex lg:ml-20 xl:ml-36 md:w-full lg:w-[33%] 3xl:w-[35%] flex-col lg:items-center gap-6 pt-8 mb-8 3xl:py-16 3xl:mt-6">
+        <div className="flex lg:ml-20 xl:ml-36 md:w-full lg:w-[33%] 3xl:w-[35%] flex-col lg:items-center gap-6 pt-8 2xl:pt-0 mb-8 3xl:py-16 3xl:mt-6">
           <h1 className="text-[32px] px-4 font-urbanist leading-tight lg:hidden">
             {admissionData?.Course?.Name}
           </h1>
