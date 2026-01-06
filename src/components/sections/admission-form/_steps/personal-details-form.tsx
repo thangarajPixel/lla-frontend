@@ -34,7 +34,9 @@ import { useCourseStore } from "@/store/zustand";
 import AddressFields from "../_components/address-fields";
 
 // export type PersonalDetailsSchema = z.infer<typeof personalDetailsSchema>;
-export type PersonalDetailsSchema = z.infer<ReturnType<typeof personalDetailsSchema>>;
+export type PersonalDetailsSchema = z.infer<
+  ReturnType<typeof personalDetailsSchema>
+>;
 
 type PersonalDetailsFormProps = {
   admissionData?: AdmissionFormData;
