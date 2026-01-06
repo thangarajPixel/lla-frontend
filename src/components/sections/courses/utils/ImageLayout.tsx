@@ -53,7 +53,7 @@ const MobileImageLayout = ({ breakpoint, images }: MobileImageLayoutProps) => {
                   src={imageUrl}
                   alt={image.name || "Course Content"}
                   fill
-                  className="object-cover"
+                  className="object-cover  object-top"
                 />
               </div>
             );
