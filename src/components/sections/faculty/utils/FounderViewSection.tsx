@@ -97,7 +97,7 @@ const FounderViewSection = ({ data }: FounderViewSectionProps) => {
   return (
     <>
       <div className="hidden md:block">
-        <div className="flex justify-end mb-6 fixed top-25 right-5">
+        <div className="flex justify-end mb-6 fixed top-25 2xl:top-28 right-5">
           <ButtonWidget
             onClick={() => router.back()}
             type="button"

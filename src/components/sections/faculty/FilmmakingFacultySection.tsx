@@ -12,7 +12,7 @@ const FilmmakingFacultySection = ({ data }: FilmmakingFacultySectionProps) => {
       <ContainerWidget>
         <ScrollWidget delay={0.2}>
           <div className="text-left md:text-center mb-8 sm:mb-10 md:mb-12 lg:mb-14 xl:mb-15 2xl:mb-18 3xl:mb-20">
-            <h2 className="font-urbanist font-normal text-black md:text-center text-[28px] sm:text-[32px] md:text-[36px] lg:text-[42px] xl:text-[48px] 2xl:text-[52px] 3xl:text-[64px mb-6">
+            <h2 className="font-urbanist font-normal text-black md:text-center text-[28px] sm:text-[32px] md:text-[36px] lg:text-[42px] xl:text-[48px] 2xl:text-[52px] 3xl:text-[64px] mb-6">
               {data?.Title}
             </h2>
             <div className="space-y-3 sm:space-y-4 md:space-y-4 lg:space-y-5 xl:space-y-5 2xl:space-y-5 3xl:space-y-6 max-w-[280px] s:max-w-[320px] m:max-w-[350px] xss:max-w-[370px] xs:max-w-[450px] sm:max-w-[600px] md:max-w-[750px] lg:max-w-[900px] xl:max-w-[1000px] 2xl:max-w-[1100px] 3xl:max-w-[1290px] mx-auto">
@@ -42,7 +42,7 @@ const FilmmakingFacultySection = ({ data }: FilmmakingFacultySectionProps) => {
                       className="object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
                     />
                   </div>
-                  <h3 className="font-mulish font-bold text-black text-[13px] s:text-[14px] m:text-[14px] xss:text-[15px] xs:text-[15px] sm:text-[16px] md:text-[16px] lg:text-[14px] xl:text-[14px] 2xl:text-[16px] 3xl:text-[23px] -mb-1.5">
+                  <h3 className="font-mulish font-bold text-black text-[13px] s:text-[14px] m:text-[14px] xss:text-[15px] xs:text-[15px] sm:text-[16px] md:text-[16px] lg:text-[14px] xl:text-[14px] 2xl:text-[16px] 3xl:text-[24px] -mb-1.5">
                     {member.Title}
                   </h3>
                 </div>

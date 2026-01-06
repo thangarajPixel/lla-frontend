@@ -12,7 +12,7 @@ const VisitingFacultySection = ({ data }: VisitingFacultySectionProps) => {
       <ContainerWidget>
         <ScrollWidget delay={0.2}>
           <div className="text-center mb-12">
-            <h2 className=" text-left md:text-center font-urbanist font-normal text-black text-[28px] sm:text-[32px] md:text-[36px] lg:text-[42px] xl:text-[48px] 2xl:text-[52px] 3xl:text-[64px mb-2 3xl:mb-4">
+            <h2 className=" text-left md:text-center font-urbanist font-normal text-black text-[28px] sm:text-[32px] md:text-[36px] lg:text-[42px] xl:text-[48px] 2xl:text-[52px] 3xl:text-[64px] mb-2 3xl:mb-4">
               {data?.Title}
             </h2>
             <ParagraphWidget className=" text-left md:text-center max-w-[280px] s:max-w-[320px] m:max-w-[350px] xss:max-w-[370px] xs:max-w-[450px] sm:max-w-[500px] md:max-w-[600px] lg:max-w-[650px] xl:max-w-[700px] 2xl:max-w-[750px] 3xl:max-w-[770px] mx-auto">

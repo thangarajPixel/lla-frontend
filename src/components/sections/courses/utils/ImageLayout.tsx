@@ -27,7 +27,7 @@ const MobileImageLayout = ({ breakpoint, images }: MobileImageLayoutProps) => {
     },
     [
       Autoplay({
-        delay: 3000,
+        delay: 2000,
         stopOnInteraction: false,
         stopOnMouseEnter: true,
       }),
@@ -40,9 +40,9 @@ const MobileImageLayout = ({ breakpoint, images }: MobileImageLayoutProps) => {
     <div className={`w-full overflow-hidden mt-4 sm:mt-6 ${breakpoint}:hidden`}>
       <div
         ref={emblaRef}
-        className="overflow-hidden cursor-grab active:cursor-grabbing"
+        className="cursor-grab active:cursor-grabbing"
       >
-        <div className="flex gap-3 sm:gap-3 touch-pan-x">
+        <div className="flex gap-3 sm:gap-4 touch-pan-x px-4 sm:px-6">
           {images.map((image, index) => {
             const imageUrl = image?.url ? getS3Url(image.url) : undefined;
             if (!imageUrl) return null;
@@ -50,17 +50,14 @@ const MobileImageLayout = ({ breakpoint, images }: MobileImageLayoutProps) => {
             return (
               <div
                 key={image.id || index}
-                className="relative w-full overflow-hidden"
+                className="relative flex-[0_0_calc(70vw-2rem)] sm:flex-[0_0_calc(65vw-3rem)] min-w-0 aspect-4/3 overflow-hidden"
               >
-                <div className="relative w-full overflow-hidden h-full">
-                  <ImageWidget
-                    src={imageUrl}
-                    alt={image.name || "Course Content"}
-                    height={300}
-                    width={400}
-                    className="object-cover"
-                  />
-                </div>
+                <ImageWidget
+                  src={imageUrl}
+                  alt={image.name || "Course Content"}
+                  fill
+                  className="object-cover"
+                />
               </div>
             );
           })}
@@ -69,6 +66,7 @@ const MobileImageLayout = ({ breakpoint, images }: MobileImageLayoutProps) => {
     </div>
   );
 };
+
 
 const ImageLayout = ({ type, images }: ImageLayoutProps) => {
   const image1 = images?.[0]?.url ? getS3Url(images[0].url) : undefined;
