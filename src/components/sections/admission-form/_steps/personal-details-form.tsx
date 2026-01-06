@@ -69,21 +69,21 @@ const PersonalDetailsForm = ({
       nationality: admissionData?.nationality ?? "",
       Language_Proficiency:
         admissionData?.Language_Proficiency &&
-          admissionData?.Language_Proficiency?.length > 0
+        admissionData?.Language_Proficiency?.length > 0
           ? admissionData?.Language_Proficiency?.map((language) => ({
-            language: language?.language ?? "",
-            read: language?.read ?? false,
-            write: language?.write ?? false,
-            speak: language?.speak ?? false,
-          }))
+              language: language?.language ?? "",
+              read: language?.read ?? false,
+              write: language?.write ?? false,
+              speak: language?.speak ?? false,
+            }))
           : [
-            {
-              language: "",
-              read: false,
-              write: false,
-              speak: false,
-            },
-          ],
+              {
+                language: "",
+                read: false,
+                write: false,
+                speak: false,
+              },
+            ],
       address: admissionData?.address?.map((block) => ({
         type: "paragraph",
         children: block.children.map((child) => ({
@@ -91,16 +91,16 @@ const PersonalDetailsForm = ({
           type: child.type,
         })),
       })) ?? [
-          {
-            type: "paragraph",
-            children: [
-              {
-                text: "",
-                type: "text",
-              },
-            ],
-          },
-        ],
+        {
+          type: "paragraph",
+          children: [
+            {
+              text: "",
+              type: "text",
+            },
+          ],
+        },
+      ],
       city: admissionData?.city ?? "",
       district: admissionData?.district ?? "",
       state: admissionData?.state?.documentId ?? "",
@@ -130,16 +130,16 @@ const PersonalDetailsForm = ({
             })),
           }),
         ) ?? [
-            {
-              type: "paragraph",
-              children: [
-                {
-                  text: "",
-                  type: "text",
-                },
-              ],
-            },
-          ],
+          {
+            type: "paragraph",
+            children: [
+              {
+                text: "",
+                type: "text",
+              },
+            ],
+          },
+        ],
         city: admissionData?.Parent_Guardian_Spouse_Details?.city ?? "",
         district: admissionData?.Parent_Guardian_Spouse_Details?.district ?? "",
         state:
@@ -286,9 +286,12 @@ const PersonalDetailsForm = ({
 
     if (isExistingEmail?.exists && email !== admissionData?.email) {
       form_step1?.setError("email", { message: "Email already exists" });
-      toast.error('The email id  has already been used. Kindly check your mail', {
-        position: "bottom-right",
-      });
+      toast.error(
+        "The email id  has already been used. Kindly check your mail",
+        {
+          position: "bottom-right",
+        },
+      );
       setIsVerified(false);
       return;
     } else {
@@ -299,7 +302,9 @@ const PersonalDetailsForm = ({
 
   const onError = () => {
     if (errors.passport_size_image) {
-      toast.error("Please upload passport size image", { position: "bottom-right" });
+      toast.error("Please upload passport size image", {
+        position: "bottom-right",
+      });
       fileUploadRef?.current?.scrollIntoView({
         behavior: "smooth",
         block: "center",
@@ -513,7 +518,7 @@ const PersonalDetailsForm = ({
                 onClick={handleClick}
               >
                 {(!previewUrl && !admissionData?.passport_size_image) ||
-                  isRemoved ? (
+                isRemoved ? (
                   <>
                     <ImageWidget
                       src={UploadIconImg}

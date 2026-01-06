@@ -79,10 +79,11 @@ const AdmissionRequestButton = ({
       onOpenChange={handleOpenChange}
       trigger={
         <ButtonWidget
-          className={`${isContactUsPage
+          className={`${
+            isContactUsPage
               ? "orange-button-white border-1 border-[#E97451]  leading-[28px]"
               : "orange-button-white border-1 border-[#E97451]  leading-[28px]"
-            } group rounded-[60px] xss:text-[16px] px-5 h-10 3xl:w-[230px] 3xl:h-[50px]  text-[14px] 2xl:text-[14px] 3xl:text-[18px] ${className}`}
+          } group rounded-[60px] xss:text-[16px] px-5 h-10 3xl:w-[230px] 3xl:h-[50px]  text-[14px] 2xl:text-[14px] 3xl:text-[18px] ${className}`}
         >
           Request Info
           <ImageWidget
