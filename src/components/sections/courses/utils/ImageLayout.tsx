@@ -60,8 +60,8 @@ const MobileImageLayout = ({ breakpoint, images }: MobileImageLayoutProps) => {
                     alt={image.name || "Course Content"}
                     height={300}
                     width={400}
-                    className="object-cover"
-                   
+                    className="object-cover w-full h-full"
+          
                   />
                 </div>
               </div>
