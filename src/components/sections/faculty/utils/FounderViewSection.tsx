@@ -115,7 +115,7 @@ const FounderViewSection = ({ data }: FounderViewSectionProps) => {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2">
         <div className="flex flex-col">
-          <div className="flex flex-col sticky top-16 space-y-4  px-4 py-8 pb-0 md:pb-8 md:px-6 lg:px-8 xl:px-12 xl:pl-52 2xl:pl-58 2xl:pr-10 3xl:px-20 3xl:pl-74 pt-13">
+          <div className="flex flex-col sticky top-16 space-y-4  px-4 py-8 pb-0 md:pb-8 md:px-6 lg:px-8 xl:px-12 pl-10 md:pl-10 lg:pl-25 xl:pl-52 2xl:pl-70 2xl:pr-10 3xl:px-20 3xl:pl-74 pt-13">
             {founderName && (
               <h1 className="text-3xl font-urbanist text-[#E97451] xss:text-[24px] lg:text-[30px] 3xl:text-[40px] font-normal mb-6">
                 {founderName}
