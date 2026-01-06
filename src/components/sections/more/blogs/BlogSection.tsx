@@ -26,7 +26,6 @@ interface BlogCard {
   id: number;
   Title: string;
   Slug: string;
-  ImageUrl: string;
   Description: string | null;
   Btn_txt: string;
   Image: BlogImage[] | null;
@@ -352,8 +351,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                   >
                     <Masonry gutter="20px">
                       {blogCards.map((blog, index) => {
-                        const imageUrl =
-                          blog.ImageUrl || getImageUrl(blog.Image);
+                        const imageUrl = getImageUrl(blog.Image);
                         const imageAlt =
                           blog.Image?.[0]?.name ||
                           blog.Title ||
@@ -434,7 +432,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                   style={{ gap: "20px" }}
                 >
                   {blogCards.map((blog, index) => {
-                    const imageUrl = blog.ImageUrl || getImageUrl(blog.Image);
+                    const imageUrl = getImageUrl(blog.Image);
                     const imageAlt =
                       blog.Image?.[0]?.name || blog.Title || "Blog post image";
 

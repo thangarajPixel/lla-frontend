@@ -28,6 +28,7 @@ const sidebarMenuItems = [
 
 const CourseSection = ({ data }: { data: PgDiplomaData }) => {
   const [activeSection, setActiveSection] = useState<string>("#overview");
+  const [activeCourseContent, setActiveCourseContent] = useState<number | null>(null);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const isHeaderVisible = useCourseStore((state) => state.isHeaderVisible);
 
@@ -121,6 +122,7 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
       const sections = sidebarMenuItems.map((item) => item.href.substring(1));
       const scrollPosition = window.scrollY + 200;
 
+      // Check for main sections
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = document.getElementById(sections[i]);
         if (section && section.offsetTop <= scrollPosition) {
@@ -128,13 +130,70 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
           break;
         }
       }
+
+      // Only check for course content subsections when actively in course-content section
+      if (activeSection === "#course-content") {
+        // Get all valid course content IDs from the data
+        const validCourseContentIds = new Set(
+          data?.Course_content?.Content_card
+            ?.filter(card => card.OuterTitle && card.OuterTitle.trim() !== "")
+            ?.map(card => card.id) || []
+        );
+
+        const courseContentElements = Array.from(document.querySelectorAll('[id^="course-content-"]'))
+          .filter(element => {
+            const idMatch = element.id.match(/course-content-(\d+)/);
+            return idMatch && validCourseContentIds.has(parseInt(idMatch[1], 10));
+          });
+
+        let activeContentId: number | null = null;
+        let bestMatch = { element: null as Element | null, score: -1 };
+
+        courseContentElements.forEach((element) => {
+          const rect = element.getBoundingClientRect();
+          const elementTop = rect.top + window.pageYOffset;
+          const elementBottom = elementTop + rect.height;
+          const viewportTop = window.pageYOffset + 100; // Header offset
+          const viewportCenter = window.pageYOffset + window.innerHeight / 2;
+
+          // Calculate visibility score
+          let score = 0;
+          
+          // Element is above viewport center and visible
+          if (elementTop <= viewportCenter && elementBottom > viewportTop) {
+            const visibleHeight = Math.min(elementBottom, viewportCenter) - Math.max(elementTop, viewportTop);
+            const totalHeight = elementBottom - elementTop;
+            score = visibleHeight / totalHeight;
+            
+            // Bonus for elements that start above the center
+            if (elementTop <= viewportCenter) {
+              score += 0.5;
+            }
+          }
+
+          if (score > bestMatch.score) {
+            bestMatch = { element, score };
+          }
+        });
+
+        if (bestMatch.element && bestMatch.score > 0.1) {
+          const idMatch = bestMatch.element.id.match(/course-content-(\d+)/);
+          if (idMatch) {
+            activeContentId = parseInt(idMatch[1], 10);
+          }
+        }
+
+        setActiveCourseContent(activeContentId);
+      } else {
+        setActiveCourseContent(null);
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [activeSection, data?.Course_content?.Content_card]);
 
   const renderMenuItems = () => {
     const groupedByOuterTitle =
@@ -175,24 +234,35 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
                 </LinkWidget>
                 {isCourseContent &&
                   Object.keys(groupedByOuterTitle).length > 0 && (
-                    <ul className="ml-4">
+                    <ul className="ml-4 border-l-2 border-gray-100">
                       {Object.entries(groupedByOuterTitle).map(
-                        ([outerTitle, cards]) =>
-                          outerTitle !== "" && (
+                        ([outerTitle, cards]) => {
+                          if (outerTitle === "") return null;
+                          
+                          const cardId = cards[0]?.id;
+                          const isActiveContent = activeCourseContent === cardId;
+                          
+                          return (
                             <li key={outerTitle}>
                               <LinkWidget
-                                href={`#course-content-${cards[0]?.id || 0}`}
+                                href={`#course-content-${cardId || 0}`}
                                 onClick={(e) => {
-                                  if (cards[0]?.id) {
-                                    handleOuterTitleScroll(e, cards[0].id);
+                                  if (cardId) {
+                                    handleOuterTitleScroll(e, cardId);
+                                    setActiveCourseContent(cardId);
                                   }
                                 }}
-                                className="block px-4 py-2 text-[16px] md:text-[16px] 3xl:text-[17px] text-black font-medium transition-colors duration-200 cursor-pointer hover:text-[#E97451]"
+                                className={`block px-4 py-2 text-[15px] md:text-[15px] 3xl:text-[16px] font-medium transition-all duration-200 cursor-pointer border-l-2 -ml-[2px] ${
+                                  isActiveContent
+                                    ? "text-[#E97451] font-semibold border-[#E97451] bg-orange-50"
+                                    : "text-gray-600 hover:text-[#E97451] border-transparent hover:border-orange-200"
+                                }`}
                               >
                                 {outerTitle}
                               </LinkWidget>
                             </li>
-                          ),
+                          );
+                        }
                       )}
                     </ul>
                   )}
