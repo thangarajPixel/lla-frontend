@@ -274,8 +274,8 @@ export const portfolioSchema = z.object({
           id: z.number().min(1, "Image ID is required"),
         }),
       )
-      .min(20, "Min 20 image is required")
-      .max(20, "Max 20 images are allowed"),
+      .min(20, "Only 20 images are allowed")
+      .max(20, "Only 20 images are allowed"),
   }),
   step_3: z.boolean().optional(),
 });

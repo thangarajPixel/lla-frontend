@@ -52,9 +52,7 @@ const MobileImageLayout = ({ breakpoint, images }: MobileImageLayoutProps) => {
                 key={image.id || index}
                 className="relative w-full overflow-hidden"
               >
-                <div
-                  className="relative w-full overflow-hidden h-full"
-                >
+                <div className="relative w-full overflow-hidden h-full">
                   <ImageWidget
                     src={imageUrl}
                     alt={image.name || "Course Content"}
