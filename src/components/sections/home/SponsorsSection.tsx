@@ -18,7 +18,7 @@ const SponsorsSection = ({ data }: SponsorsSectionProps) => {
           </div>
           <div
             className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6
-            gap-6 lg:gap-1
+            gap-6 
           "
           >
             {sponsors?.map((sponsor, index) => (
