@@ -23,7 +23,7 @@ const AddressFields = ({ control, name }: AddressFieldsProps) => {
     <div>
       <label
         htmlFor="address"
-        className="block text-base 3xl:text-lg text-foreground mb-2"
+        className="block text-base 3xl:text-lg text-black mb-2"
       >
         Address<span className="text-chart-1">*</span>
       </label>

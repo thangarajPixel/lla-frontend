@@ -15,7 +15,7 @@ import DialogWidget from "@/components/widgets/DialogWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
 import { filteredPayload } from "@/helpers/ConstantHelper";
-import { ArrowRight, Into } from "@/helpers/ImageHelper";
+import { ArrowRightWhite, Into } from "@/helpers/ImageHelper";
 import ButtonWidget from "../../widgets/ButtonWidget";
 import ImageWidget from "../../widgets/ImageWidget";
 import type { AdmissionButtonProps } from "./types";
@@ -26,6 +26,8 @@ const AdmissionRequestButton = ({
 }: AdmissionButtonProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const pathname = usePathname();
+
+  const isContactUsPage = pathname === "/contact-us";
 
   const {
     control,
@@ -77,17 +79,21 @@ const AdmissionRequestButton = ({
       onOpenChange={handleOpenChange}
       trigger={
         <ButtonWidget
-          className={`orange-button group rounded-[60px] xss:text-[16px] px-5 h-10 3xl:h-[50px] text-[14px] 2xl:text-[14px] 3xl:text-[18px] ${className}`}
+          className={`${
+            isContactUsPage
+              ? "orange-button-white border-1 border-[#E97451]  leading-[28px]"
+              : "orange-button-white border-1 border-[#E97451]  leading-[28px]"
+          } group rounded-[60px] xss:text-[16px] px-5 h-10 3xl:w-[230px] 3xl:h-[50px]  text-[14px] 2xl:text-[14px] 3xl:text-[18px] ${className}`}
         >
-          Admission Request
+          Request Info
           <ImageWidget
-            src={ArrowRight}
+            src={isContactUsPage ? ArrowRightWhite : ArrowRightWhite}
             alt="Arrow Right"
             className={`lg:w-[18px] lg:h-[18px] 3xl:w-6 3xl:h-6 transition-transform duration-300 group-hover:translate-x-1 ${iconClassName}`}
           />
         </ButtonWidget>
       }
-      contentClassName="sm:max-w-[90vw] md:max-w-[85vw] lg:max-w-[700px] xl:max-w-[800px] 2xl:max-w-[900px] p-4 sm:p-6 lg:p-6"
+      contentClassName="sm:max-w-[90vw] md:max-w-[85vw] lg:max-w-[700px] xl:max-w-[719px] p-4 sm:p-6 lg:p-6"
       showCancel={false}
       showCloseButton={false}
       customCloseButton={
@@ -99,10 +105,10 @@ const AdmissionRequestButton = ({
       }
     >
       <section className="p-4 mx-auto">
-        <h2 className="mb-4 font-semibold text-base">
+        <h2 className="mb-4 font-semibold text-xl 3xl:text-2xl">
           Request Information Form
         </h2>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
           <div className="grid grid-cols-2 gap-4">
             <FormInput
               name="FirstName"
