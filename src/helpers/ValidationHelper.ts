@@ -1,4 +1,6 @@
+import { toast } from "sonner";
 import { z } from "zod";
+import { clientAxios } from "./AxiosHelper";
 import { isNotFutureDate } from "./ConstantHelper";
 
 // const ALLOWED_EMAIL_DOMAINS = [
@@ -166,7 +168,29 @@ export const personalDetailsSchema = z.object({
   email: z
     .string()
     .min(1, "Email Address is required")
-    .email({ message: "Enter a valid email" }),
+    .email({ message: "Enter a valid email" })
+    .refine(
+      async (email) => {
+        if (!email) return;
+
+        const res = await clientAxios.post("/admissions/email/check", {
+          email,
+        });
+
+        if (res?.data?.exists) {
+          toast.error(
+            "The email id  has already been used. Kindly check your mail",
+            {
+              position: "bottom-right",
+            },
+          );
+        }
+        return !res?.data?.exists;
+      },
+      {
+        message: "Email already exists",
+      },
+    ),
   // .refine((email) => {
   //   const domain = email.split("@")[1];
   //   return ALLOWED_EMAIL_DOMAINS.includes(domain);

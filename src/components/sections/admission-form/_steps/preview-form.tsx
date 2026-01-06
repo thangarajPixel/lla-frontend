@@ -130,7 +130,7 @@ function Field({
       </span>
       <span
         className={cn(
-          "text-black text-left w-full",
+          "text-black text-left w-full text-xl 3xl:text-2xl",
           "wrap-break-word whitespace-normal overflow-hidden",
           "md:text-right md:max-w-xs",
           label === "Email" && "md:max-w-fit",
@@ -158,11 +158,11 @@ function LanguageField({
       <span className="text-black/50 text-base 3xl:text-2xl mb-3 font-mulish">
         {label}
       </span>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 w-full xs:w-[300px] md:w-[295px]">
         {value?.map((language, index) => (
           <main
             key={`language-${index + 1}`}
-            className="flex flex-col gap-2 w-full"
+            className="flex flex-col gap-3 w-full"
           >
             <span className="md:ml-auto text-black text-lg font-mulish 3xl:text-2xl">
               {language.language}
@@ -317,7 +317,7 @@ const ReviewApplication = ({
         )}
       >
         {/* LEFT SIDE */}
-        <div className="flex lg:ml-20 xl:ml-36 md:w-full lg:w-[33%] 3xl:w-[35%] flex-col lg:items-center gap-6 pt-8 mb-8 3xl:py-16 3xl:mt-6">
+        <div className="flex lg:ml-20 xl:ml-36 md:w-full lg:w-[33%] 3xl:w-[35%] flex-col lg:items-center gap-6 pt-8 2xl:pt-0 mb-8 3xl:py-16 3xl:mt-6">
           <h1 className="text-[32px] px-4 font-urbanist leading-tight lg:hidden">
             {admissionData?.Course?.Name}
           </h1>
@@ -329,19 +329,22 @@ const ReviewApplication = ({
               Kindly verify the details before submitting.
             </p>
           </div>
-          <ImageWidget
-            width={200}
-            height={200}
-            src={admissionData?.passport_size_image?.url ?? null}
-            alt="profile"
-            className="w-72 h-80 3xl:w-md 3xl:h-auto ml-4 lg:ml-0 rounded-md shadow-md object-cover"
-          />
+
+          <div className="w-[193px] h-[250px] lg:w-[300px] xl:w-[350px] 2xl:w-[400px] 2xxl:w-[420px] lg:h-fit 3xl:w-[519px] 3xl:h-[669px]  ml-4 lg:ml-0 xl:ml-6 2xl:ml-16 2xxl:ml-22 3xl:ml-22">
+            <ImageWidget
+              width={200}
+              height={200}
+              src={admissionData?.passport_size_image?.url ?? null}
+              alt="profile"
+              className="size-full shadow-md object-cover aspect-square"
+            />
+          </div>
 
           {admissionData?.Payment_Status !== "Paid" && (
-            <div className="flex flex-row items-center justify-between gap-1 3xl:w-md px-4 lg:px-0">
+            <div className="flex flex-row items-center justify-between gap-3 w-full lg:w-[300px] lg:-ml-4 xl:w-[350px] 2xl:w-[400px] 2xxl:w-[420px] 3xl:w-[519px] xl:ml-2 2xl:ml-12 2xxl:ml-18 3xl:ml-18 px-4 lg:px-0">
               <ButtonWidget
                 className={cn(
-                  "group bg-chart-1/10 text-chart-1 hover:bg-chart-1/10 rounded-[60px] px-5 w-2/4 h-10 xss:text-[16px] 3xl:h-[50px] text-lg 2xl:text-[14px] 3xl:text-[18px]",
+                  "group bg-chart-1/10 text-chart-1 hover:bg-chart-1/10 rounded-[60px] px-5 w-2/4 h-10 s:text-sm xss:text-[16px] 3xl:h-[50px] xs:text-lg lg:text-sm xl:text-base 2xl:text-[14px] 3xl:text-[18px]",
                 )}
                 onClick={() =>
                   router.push(`/admission/${admissionId}/portfolio`)
@@ -352,7 +355,7 @@ const ReviewApplication = ({
               </ButtonWidget>
               <OrangeButtonWidget
                 content="Proceed to Pay"
-                className="xss:text-[16px] xss:h-10 w-2/4 3xl:h-12.5 text-lg 2xl:text-[14px] 3xl:text-[18px]"
+                className="s:text-sm xss:text-[16px] xss:h-10 w-2/4 3xl:h-12.5 xs:text-lg lg:text-sm xl:text-base 2xl:text-[14px] 3xl:text-[18px]"
                 onClick={() =>
                   handleOpenPayment(
                     admissionData?.documentId as string,
