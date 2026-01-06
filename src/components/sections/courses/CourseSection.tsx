@@ -28,7 +28,9 @@ const sidebarMenuItems = [
 
 const CourseSection = ({ data }: { data: PgDiplomaData }) => {
   const [activeSection, setActiveSection] = useState<string>("#overview");
-  const [activeCourseContent, setActiveCourseContent] = useState<number | null>(null);
+  const [activeCourseContent, setActiveCourseContent] = useState<number | null>(
+    null,
+  );
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const isHeaderVisible = useCourseStore((state) => state.isHeaderVisible);
 
@@ -135,16 +137,17 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
       if (activeSection === "#course-content") {
         // Get all valid course content IDs from the data
         const validCourseContentIds = new Set(
-          data?.Course_content?.Content_card
-            ?.filter(card => card.OuterTitle && card.OuterTitle.trim() !== "")
-            ?.map(card => card.id) || []
+          data?.Course_content?.Content_card?.filter(
+            (card) => card.OuterTitle && card.OuterTitle.trim() !== "",
+          )?.map((card) => card.id) || [],
         );
 
-        const courseContentElements = Array.from(document.querySelectorAll('[id^="course-content-"]'))
-          .filter(element => {
-            const idMatch = element.id.match(/course-content-(\d+)/);
-            return idMatch && validCourseContentIds.has(parseInt(idMatch[1], 10));
-          });
+        const courseContentElements = Array.from(
+          document.querySelectorAll('[id^="course-content-"]'),
+        ).filter((element) => {
+          const idMatch = element.id.match(/course-content-(\d+)/);
+          return idMatch && validCourseContentIds.has(parseInt(idMatch[1], 10));
+        });
 
         let activeContentId: number | null = null;
         let bestMatch = { element: null as Element | null, score: -1 };
@@ -158,13 +161,15 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
 
           // Calculate visibility score
           let score = 0;
-          
+
           // Element is above viewport center and visible
           if (elementTop <= viewportCenter && elementBottom > viewportTop) {
-            const visibleHeight = Math.min(elementBottom, viewportCenter) - Math.max(elementTop, viewportTop);
+            const visibleHeight =
+              Math.min(elementBottom, viewportCenter) -
+              Math.max(elementTop, viewportTop);
             const totalHeight = elementBottom - elementTop;
             score = visibleHeight / totalHeight;
-            
+
             // Bonus for elements that start above the center
             if (elementTop <= viewportCenter) {
               score += 0.5;
@@ -238,10 +243,11 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
                       {Object.entries(groupedByOuterTitle).map(
                         ([outerTitle, cards]) => {
                           if (outerTitle === "") return null;
-                          
+
                           const cardId = cards[0]?.id;
-                          const isActiveContent = activeCourseContent === cardId;
-                          
+                          const isActiveContent =
+                            activeCourseContent === cardId;
+
                           return (
                             <li key={outerTitle}>
                               <LinkWidget
@@ -262,7 +268,7 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
                               </LinkWidget>
                             </li>
                           );
-                        }
+                        },
                       )}
                     </ul>
                   )}

@@ -180,19 +180,19 @@ export function EducationDetails({
             />
 
             <div className="lg:pt-7">
-            <FormRadioGroup
-              name={`Post_Graduate.${index}.pg_status`}
-              control={control}
-              options={[
-                { value: "Finished", label: "Finished" },
-                { value: "In-Progress", label: "In-Progress" },
-              ]}
-              disabled={
-                ugStatus !== "Finished" ||
-                !postGraduate?.[index]?.degree?.trim()
-              }
-              errorClassName="mt-0 lg:-mt-4"
-            />
+              <FormRadioGroup
+                name={`Post_Graduate.${index}.pg_status`}
+                control={control}
+                options={[
+                  { value: "Finished", label: "Finished" },
+                  { value: "In-Progress", label: "In-Progress" },
+                ]}
+                disabled={
+                  ugStatus !== "Finished" ||
+                  !postGraduate?.[index]?.degree?.trim()
+                }
+                errorClassName="mt-0 lg:-mt-4"
+              />
             </div>
 
             {index > 0 && (
