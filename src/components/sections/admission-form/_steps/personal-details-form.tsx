@@ -314,7 +314,6 @@ const PersonalDetailsForm = ({
 
   const onSubmit = async (payload: PersonalDetailsSchema) => {
     // const filteredData = filteredPayload(payload);
-    await handleFieldCheck(payload?.email);
 
     const data = {
       ...payload,
@@ -702,10 +701,10 @@ const PersonalDetailsForm = ({
         </div>
 
         {admissionData?.Payment_Status !== "Paid" && (
-          <div className="flex justify-start gap-3 lg:mt-10 pt-6">
+          <div className="flex justify-start gap-3 lg:mt-6 pt-6">
             <OrangeButtonWidget
               content="Save & Continue"
-              className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-xs 2xl:text-[18px] 3xl:text-[18px]"
+              className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-base 2xl:text-[18px] 3xl:text-[18px] 3xl:w-[226px]"
             />
           </div>
         )}

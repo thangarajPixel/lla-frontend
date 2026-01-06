@@ -1,5 +1,7 @@
 import { z } from "zod";
 import { isNotFutureDate } from "./ConstantHelper";
+import { clientAxios } from "./AxiosHelper";
+import { toast } from "sonner";
 
 // const ALLOWED_EMAIL_DOMAINS = [
 //   "gmail.com",
@@ -44,7 +46,7 @@ const addressSchema = z.object({
     z.object({
       text: z.string().min(1, "Address is required"),
       type: z.string(),
-    }),
+    })
   ),
 });
 
@@ -71,7 +73,7 @@ export const parentDetails = z.object({
     .min(1, "Pincode is required")
     .refine(
       (val) => val === "" || /^\d{6}$/.test(val),
-      "Enter a valid 6-digit pincode",
+      "Enter a valid 6-digit pincode"
     ),
 });
 
@@ -96,7 +98,7 @@ export const workExperience = z
     ];
 
     const hasAnyValue = fields.some((v) =>
-      typeof v === "string" ? v.trim() !== "" : !!v,
+      typeof v === "string" ? v.trim() !== "" : !!v
     );
 
     if (!hasAnyValue) return;
@@ -166,7 +168,27 @@ export const personalDetailsSchema = z.object({
   email: z
     .string()
     .min(1, "Email Address is required")
-    .email({ message: "Enter a valid email" }),
+    .email({ message: "Enter a valid email" })
+    .refine(
+      async (email) => {
+
+        if (!email) return;
+
+        const res = await clientAxios.post("/admissions/email/check", {
+          email,
+        });
+
+        if (res?.data?.exists) {
+          toast.error("The email id  has already been used. Kindly check your mail", {
+            position: "bottom-right",
+          });
+        }
+        return !res?.data?.exists;
+      },
+      {
+        message: "Email already exists",
+      }
+    ),
   // .refine((email) => {
   //   const domain = email.split("@")[1];
   //   return ALLOWED_EMAIL_DOMAINS.includes(domain);
@@ -215,7 +237,7 @@ export const personalDetailsSchema = z.object({
     .min(1, "Pincode is required")
     .refine(
       (val) => val === "" || /^\d{6}$/.test(val),
-      "Enter a valid 6-digit pincode",
+      "Enter a valid 6-digit pincode"
     )
     .optional(),
   hobbies: z.string().optional(),
@@ -272,7 +294,7 @@ export const portfolioSchema = z.object({
       .array(
         z.object({
           id: z.number().min(1, "Image ID is required"),
-        }),
+        })
       )
       .min(20, "Only 20 images are allowed")
       .max(20, "Only 20 images are allowed"),
