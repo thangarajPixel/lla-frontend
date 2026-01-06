@@ -66,7 +66,7 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
 
         if (isExistingEmail?.exists) {
           toast.error(
-            `${isExistingEmail.message} & please try with new email`,
+            "The email id  has already been used. Kindly check your mail",
             {
               position: "bottom-right",
             },

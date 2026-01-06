@@ -317,7 +317,7 @@ const ReviewApplication = ({
         )}
       >
         {/* LEFT SIDE */}
-        <div className="flex lg:ml-20 xl:ml-36 md:w-full lg:w-[33%] 3xl:w-[35%] flex-col lg:items-center gap-6 pt-8 mb-8 3xl:py-16 3xl:mt-10">
+        <div className="flex lg:ml-20 xl:ml-36 md:w-full lg:w-[33%] 3xl:w-[35%] flex-col lg:items-center gap-6 pt-8 mb-8 3xl:py-16 3xl:mt-6">
           <h1 className="text-[32px] px-4 font-urbanist leading-tight lg:hidden">
             {admissionData?.Course?.Name}
           </h1>
@@ -364,7 +364,7 @@ const ReviewApplication = ({
           )}
         </div>
 
-        <Card className="bg-chart-1/20 flex-1 backdrop-blur lg:py-16 3xl:py-32 3xl:pl-6 border-none shadow-none rounded-none">
+        <Card className="bg-chart-1/20 flex-1 backdrop-blur lg:py-16 3xl:py-32 3xl:pl-6 3xl:mt-10 border-none shadow-none rounded-none">
           <CardContent
             ref={scrollContainerRef}
             className="space-y-8 text-sm lg:max-w-[90%] xl:max-w-[75%] 2xl:mt-10 3xl:mt-0 3xl:max-w-3/4 h-[calc(100vh-6rem)] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"

@@ -42,7 +42,7 @@ export function WorkExperience({
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl 3xl:text-3xl text-[#E97451] font-urbanist">
+      <h2 className="text-2xl 3xl:text-[32px] text-[#E97451] font-urbanist">
         Work Experience
       </h2>
 

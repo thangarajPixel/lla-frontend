@@ -47,6 +47,7 @@ const PersonalDetailsForm = ({
   courseId,
 }: PersonalDetailsFormProps) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const fileUploadRef = useRef<HTMLDivElement | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isRemoved, setIsRemoved] = useState<boolean>(false);
   const [isVerified, setIsVerified] = useState<boolean>(false);
@@ -56,6 +57,7 @@ const PersonalDetailsForm = ({
     resolver: zodResolver(personalDetailsSchema),
     mode: "all",
     reValidateMode: "onChange",
+    shouldFocusError: true,
     defaultValues: {
       Course: admissionData?.Course?.documentId ?? courseId ?? "",
       name_title: admissionData?.name_title ?? "Mr.",
@@ -67,21 +69,21 @@ const PersonalDetailsForm = ({
       nationality: admissionData?.nationality ?? "",
       Language_Proficiency:
         admissionData?.Language_Proficiency &&
-        admissionData?.Language_Proficiency?.length > 0
+          admissionData?.Language_Proficiency?.length > 0
           ? admissionData?.Language_Proficiency?.map((language) => ({
-              language: language?.language ?? "",
-              read: language?.read ?? false,
-              write: language?.write ?? false,
-              speak: language?.speak ?? false,
-            }))
+            language: language?.language ?? "",
+            read: language?.read ?? false,
+            write: language?.write ?? false,
+            speak: language?.speak ?? false,
+          }))
           : [
-              {
-                language: "",
-                read: false,
-                write: false,
-                speak: false,
-              },
-            ],
+            {
+              language: "",
+              read: false,
+              write: false,
+              speak: false,
+            },
+          ],
       address: admissionData?.address?.map((block) => ({
         type: "paragraph",
         children: block.children.map((child) => ({
@@ -89,16 +91,16 @@ const PersonalDetailsForm = ({
           type: child.type,
         })),
       })) ?? [
-        {
-          type: "paragraph",
-          children: [
-            {
-              text: "",
-              type: "text",
-            },
-          ],
-        },
-      ],
+          {
+            type: "paragraph",
+            children: [
+              {
+                text: "",
+                type: "text",
+              },
+            ],
+          },
+        ],
       city: admissionData?.city ?? "",
       district: admissionData?.district ?? "",
       state: admissionData?.state?.documentId ?? "",
@@ -128,16 +130,16 @@ const PersonalDetailsForm = ({
             })),
           }),
         ) ?? [
-          {
-            type: "paragraph",
-            children: [
-              {
-                text: "",
-                type: "text",
-              },
-            ],
-          },
-        ],
+            {
+              type: "paragraph",
+              children: [
+                {
+                  text: "",
+                  type: "text",
+                },
+              ],
+            },
+          ],
         city: admissionData?.Parent_Guardian_Spouse_Details?.city ?? "",
         district: admissionData?.Parent_Guardian_Spouse_Details?.district ?? "",
         state:
@@ -284,7 +286,7 @@ const PersonalDetailsForm = ({
 
     if (isExistingEmail?.exists && email !== admissionData?.email) {
       form_step1?.setError("email", { message: "Email already exists" });
-      toast.error(`${isExistingEmail.message} & please try with new email`, {
+      toast.error('The email id  has already been used. Kindly check your mail', {
         position: "bottom-right",
       });
       setIsVerified(false);
@@ -292,6 +294,16 @@ const PersonalDetailsForm = ({
     } else {
       form_step1?.clearErrors("email");
       setIsVerified(true);
+    }
+  };
+
+  const onError = () => {
+    if (errors.passport_size_image) {
+      toast.error("Please upload passport size image", { position: "bottom-right" });
+      fileUploadRef?.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
     }
   };
 
@@ -325,7 +337,7 @@ const PersonalDetailsForm = ({
 
   return (
     <FormProvider {...form_step1}>
-      <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
+      <form onSubmit={handleSubmit(onSubmit, onError)} className="mt-8">
         <div className="mx-auto">
           <h1 className="text-2xl 3xl:text-[32px] text-[#E97451] mb-8 font-urbanist">
             Personal Details
@@ -487,10 +499,10 @@ const PersonalDetailsForm = ({
               </div>
             </div>
 
-            <div className="mb-4">
+            <div className="mb-4" ref={fileUploadRef}>
               <label
                 htmlFor="passport"
-                className="block text-black text-base 3xl:text-lg text-foreground mb-2 font-mulish"
+                className="block text-black text-base 3xl:text-lg mb-2 font-mulish"
               >
                 Passport size Image<span className="text-chart-1">*</span>
               </label>
@@ -501,7 +513,7 @@ const PersonalDetailsForm = ({
                 onClick={handleClick}
               >
                 {(!previewUrl && !admissionData?.passport_size_image) ||
-                isRemoved ? (
+                  isRemoved ? (
                   <>
                     <ImageWidget
                       src={UploadIconImg}
@@ -598,8 +610,8 @@ const PersonalDetailsForm = ({
           </div>
         </div>
 
-        <div className="mx-auto mt-12">
-          <h1 className="text-2xl 3xl:text-3xl text-[#E97451] mb-8">
+        <div className="mx-auto mt-8">
+          <h1 className="text-2xl 3xl:text-[32px] text-[#E97451] font-urbanist">
             Parent/Guardian/Spouse Details
           </h1>
 
@@ -608,7 +620,7 @@ const PersonalDetailsForm = ({
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-base 3xl:text-lg text-foreground mb-2 font-mulish"
+                  className="block text-black text-base xl:text-sm 2xl:text-lg mt-4 mb-2 font-mulish"
                 >
                   Full Name (As in Certificate)
                   <span className="text-chart-1">*</span>
