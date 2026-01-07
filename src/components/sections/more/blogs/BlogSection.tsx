@@ -397,20 +397,21 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                                       tag="p"
                                     />
                                   )}
-                                </div>
-                                <Link
+                                    <Link
                                   href={`/blogs/${blog.Slug}`}
-                                  className="inline-flex items-center gap-2 text-[#E97451] hover:gap-4 transition-all duration-300 mt-2 text-[16px] md:text-[16px] lg:text-[16px] font-normal font-urbanist group"
+                                  className="inline-flex items-center gap-2 text-[#E97451] hover:gap-2 transition-all duration-300  text-[16px] md:text-[16px] lg:text-[16px] font-normal font-urbanist group"
                                 >
                                   {blog.Btn_txt}
                                   <ImageWidget
                                     src={ArrowRightWhite}
                                     alt="Arrow Right"
-                                    width={16}
-                                    height={16}
+                                    width={15}
+                                    height={15}
                                     className="object-contain"
                                   />
                                 </Link>
+                                </div>
+                              
                               </div>
                             </div>
                           </ScrollWidget>
