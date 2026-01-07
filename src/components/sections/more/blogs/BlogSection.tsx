@@ -299,7 +299,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                       }
                     }
                   }}
-                  className="w-full h-[45px] pl-4 pb-2.5 pr-10 rounded-full border border-[#E97451] bg-background px-3 py-2 text-base placeholder:text-muted-foreground/80 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-[#E97451]/50 disabled:cursor-not-allowed disabled:opacity-50 placeholder:text-sm placeholder:font-urbanist"
+                  className="w-full h-[45px] pl-4  pr-[70px] rounded-full border border-[#E97451] bg-background text-base placeholder:text-muted-foreground/80 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-[#E97451]/50 disabled:cursor-not-allowed disabled:opacity-50 placeholder:text-sm placeholder:font-urbanist"
                 />
                 {searchQuery && (
                   <button
