@@ -9,7 +9,6 @@ export type LifeSectionProps = {
       id: number;
       Title: string;
       Slug: string;
-      ImageUrl: string;
       Description: string;
       Btn_txt: string | null;
       Image: Array<{

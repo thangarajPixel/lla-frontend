@@ -249,9 +249,9 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
           <div className="flex-1 max-w-[850px] overflow-hidden">
             <ScrollWidget animation="fadeDown" delay={0.1}>
               <div className="flex flex-col">
-                <p className="text-sm md:text-base text-gray-500 font-mulish mb-8">
+                {/* <p className="text-sm md:text-base text-gray-500 font-mulish mb-8">
                   {formatDate(card.CreatedDate)}
-                </p>
+                </p> */}
                 <p className="mb-1 text-[32px] sm:text-[34px] md:text-[34px] lg:text-[38px] xl:text-[34px] 2xl:text-[38px] 3xl:text-[48px] font-normal text-black font-urbanist leading-tight">
                   {card.Title}
                 </p>
