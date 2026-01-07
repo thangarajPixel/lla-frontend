@@ -26,6 +26,8 @@ export type BlogImage = {
 export type BlogViewCardItem = {
   id: number;
   Title: string;
+  Type: string;
+  Url: string;
   Description: string | null;
   Image: Array<BlogImage>;
 };

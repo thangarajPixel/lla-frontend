@@ -311,7 +311,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                     className="absolute right-12 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                     aria-label="Clear search"
                   >
-                    <X className="w-5 h-5" />
+                    <X className="w-5 h-5 cursor-pointer" />
                   </button>
                 )}
               </div>

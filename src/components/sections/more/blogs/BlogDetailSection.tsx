@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
@@ -18,6 +18,140 @@ import {
   WhatsappBlack,
 } from "@/helpers/ImageHelper";
 import type { BlogDetailProps } from "./utils/blog-detail";
+const getYouTubeEmbedUrl = (url: string): string => {
+  if (!url) return "";
+
+  // Handle different YouTube URL formats
+  const patterns = [
+    /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([^&]+)/,
+    /(?:https?:\/\/)?(?:www\.)?youtu\.be\/([^?]+)/,
+    /(?:https?:\/\/)?(?:www\.)?youtube\.com\/embed\/([^?]+)/,
+  ];
+
+  for (const pattern of patterns) {
+    const match = url.match(pattern);
+    if (match?.[1]) {
+      return `https://www.youtube.com/embed/${match[1]}`;
+    }
+  }
+  return url;
+};
+
+const ImageSlider = ({
+  images,
+  title,
+}: {
+  images: Array<{ id: number; name: string; url: string }>;
+  title: string;
+}) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
+
+  const nextSlide = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  }, [images.length]);
+
+  const prevSlide = useCallback(() => {
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  }, [images.length]);
+
+  const goToSlide = useCallback((index: number) => {
+    setCurrentIndex(index);
+  }, []);
+
+  // Auto-play functionality
+  useEffect(() => {
+    if (isAutoPlaying && images.length > 1) {
+      autoPlayRef.current = setInterval(nextSlide, 4000);
+    } else if (autoPlayRef.current) {
+      clearInterval(autoPlayRef.current);
+    }
+
+    return () => {
+      if (autoPlayRef.current) {
+        clearInterval(autoPlayRef.current);
+      }
+    };
+  }, [isAutoPlaying, images.length, nextSlide]);
+
+  const handleMouseEnter = () => setIsAutoPlaying(false);
+  const handleMouseLeave = () => setIsAutoPlaying(true);
+
+  if (images.length === 0) return null;
+
+  return (
+    <div
+      aria-hidden
+      className="relative w-full aspect-video overflow-hidden group"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div className="relative w-full h-full">
+        <ImageWidget
+          src={getS3Url(images[currentIndex].url)}
+          alt={title || images[currentIndex].name}
+          fill
+          className="object-cover transition-opacity duration-500"
+        />
+      </div>
+      {images.length > 1 && (
+        <>
+          <button
+            type="button"
+            onClick={prevSlide}
+            className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 z-10"
+            aria-label="Previous image"
+          >
+            <ImageWidget
+              src={ArrowLeftBlack}
+              alt="Previous"
+              width={20}
+              height={20}
+              className="object-contain filter invert cursor-pointer"
+            />
+          </button>
+
+          <button
+            type="button"
+            onClick={nextSlide}
+            className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 z-10"
+            aria-label="Next image"
+          >
+            <ImageWidget
+              src={ArrowRightBlack}
+              alt="Next"
+              width={20}
+              height={20}
+              className="object-contain filter invert cursor-pointer"
+            />
+          </button>
+        </>
+      )}
+      {images.length > 1 && (
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+          {images.map((_, index) => (
+            <button
+              key={`slide-${index + 1}`}
+              type="button"
+              onClick={() => goToSlide(index)}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
+                  ? "bg-white scale-125"
+                  : "bg-white/50 hover:bg-white/75"
+                }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+      )}
+      {images.length > 1 && (
+        <div className="absolute top-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          {currentIndex + 1} / {images.length}
+        </div>
+      )}
+    </div>
+  );
+};
 
 const _SOCIAL_LINKS = [
   {
@@ -138,17 +272,39 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
                         tag="div"
                       />
                     )}
-                    {viewCard.Image?.[0]?.url && (
-                      <div className="relative w-full overflow-hidden">
-                        <ImageWidget
-                          src={getS3Url(viewCard.Image[0].url)}
-                          alt={viewCard.Title}
-                          width={850}
-                          height={600}
-                          className="w-full h-auto object-contain"
+                    {viewCard.Type === "Slide" &&
+                      viewCard.Image &&
+                      viewCard.Image.length > 0 && (
+                        <ImageSlider
+                          images={viewCard.Image}
+                          title={viewCard.Title}
+                        />
+                      )}
+                    {viewCard.Type === "Video" && viewCard.Url && (
+                      <div className="relative w-full aspect-video overflow-hidden bg-black">
+                        <iframe
+                          src={getYouTubeEmbedUrl(viewCard.Url)}
+                          className="w-full h-full"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          allowFullScreen
+                          title={viewCard.Title || "Video"}
+                          loading="lazy"
                         />
                       </div>
                     )}
+                    {viewCard.Type !== "Slide" &&
+                      viewCard.Type !== "Video" &&
+                      viewCard.Image?.[0]?.url && (
+                        <div className="relative w-full overflow-hidden">
+                          <ImageWidget
+                            src={getS3Url(viewCard.Image[0].url)}
+                            alt={viewCard.Title}
+                            width={850}
+                            height={600}
+                            className="w-full h-auto object-contain"
+                          />
+                        </div>
+                      )}
                   </div>
                 ))}
 
@@ -280,11 +436,10 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
                       type="button"
                       onClick={() => scroll("left")}
                       disabled={!canScrollLeft}
-                      className={`transition-opacity ${
-                        canScrollLeft
+                      className={`transition-opacity ${canScrollLeft
                           ? "opacity-100 hover:opacity-70"
                           : "opacity-30 cursor-not-allowed"
-                      }`}
+                        }`}
                       aria-label="Previous slide"
                     >
                       <ImageWidget
@@ -299,11 +454,10 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
                       type="button"
                       onClick={() => scroll("right")}
                       disabled={!canScrollRight}
-                      className={`transition-opacity ${
-                        canScrollRight
+                      className={`transition-opacity ${canScrollRight
                           ? "opacity-100 hover:opacity-70"
                           : "opacity-30 cursor-not-allowed"
-                      }`}
+                        }`}
                       aria-label="Next slide"
                     >
                       <ImageWidget
