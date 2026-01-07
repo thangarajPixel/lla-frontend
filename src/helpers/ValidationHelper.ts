@@ -156,107 +156,110 @@ export const postGraduate = z.object({
   // marksheet: z.number().optional(),
 });
 
-export const personalDetailsSchema = z.object({
-  Course: z.string().optional(),
-  name_title: z.string().optional(),
-  first_name: z.string().min(1, "First name is required"),
-  last_name: z.string().min(1, "Last name is required"),
-  mobile_no: z
-    .string()
-    .min(1, "Mobile number is required")
-    .regex(/^[1-9]\d{9}$/, "Enter a valid 10-digit mobile number"),
-  email: z
-    .string()
-    .min(1, "Email Address is required")
-    .email({ message: "Enter a valid email" })
-    .refine(
-      async (email) => {
-        if (!email) return;
+export const personalDetailsSchema = (admissionEmail?: string) =>
+  z.object({
+    Course: z.string().optional(),
+    name_title: z.string().optional(),
+    first_name: z.string().min(1, "First name is required"),
+    last_name: z.string().min(1, "Last name is required"),
+    mobile_no: z
+      .string()
+      .min(1, "Mobile number is required")
+      .regex(/^[1-9]\d{9}$/, "Enter a valid 10-digit mobile number"),
+    email: z
+      .string()
+      .min(1, "Email Address is required")
+      .email({ message: "Enter a valid email" })
+      .refine(
+        async (email) => {
+          if (!email) return;
 
-        const res = await clientAxios.post("/admissions/email/check", {
-          email,
-        });
+          if (email === admissionEmail) return true;
 
-        if (res?.data?.exists) {
-          toast.error(
-            "The email id  has already been used. Kindly check your mail",
-            {
-              position: "bottom-right",
-            },
-          );
+          const res = await clientAxios.post("/admissions/email/check", {
+            email,
+          });
+
+          if (res?.data?.exists) {
+            toast.error(
+              "The email id  has already been used. Kindly check your mail",
+              {
+                position: "bottom-right",
+              },
+            );
+          }
+          return !res?.data?.exists;
+        },
+        {
+          message: "Email already exists",
+        },
+      ),
+    // .refine((email) => {
+    //   const domain = email.split("@")[1];
+    //   return ALLOWED_EMAIL_DOMAINS.includes(domain);
+    // }, "Enter a valid email"),
+    nationality: z.string().min(1, "Nationality is required"),
+    date_of_birth: z
+      .string()
+      .min(1, "Date of birth is required")
+      .superRefine((value, ctx) => {
+        if (value === "2000-01-01") {
+          ctx.addIssue({
+            message: "Invalid date",
+            code: z.ZodIssueCode.custom,
+          });
+          return;
         }
-        return !res?.data?.exists;
-      },
-      {
-        message: "Email already exists",
-      },
-    ),
-  // .refine((email) => {
-  //   const domain = email.split("@")[1];
-  //   return ALLOWED_EMAIL_DOMAINS.includes(domain);
-  // }, "Enter a valid email"),
-  nationality: z.string().min(1, "Nationality is required"),
-  date_of_birth: z
-    .string()
-    .min(1, "Date of birth is required")
-    .superRefine((value, ctx) => {
-      if (value === "2000-01-01") {
-        ctx.addIssue({
-          message: "Invalid date",
-          code: z.ZodIssueCode.custom,
-        });
-        return;
-      }
 
-      const inputDate = new Date(value);
-      const today = new Date();
+        const inputDate = new Date(value);
+        const today = new Date();
 
-      inputDate.setHours(0, 0, 0, 0);
-      today.setHours(0, 0, 0, 0);
+        inputDate.setHours(0, 0, 0, 0);
+        today.setHours(0, 0, 0, 0);
 
-      if (inputDate > today) {
-        ctx.addIssue({
-          message: "Cannot select future date",
-          code: z.ZodIssueCode.custom,
-        });
-      }
+        if (inputDate > today) {
+          ctx.addIssue({
+            message: "Cannot select future date",
+            code: z.ZodIssueCode.custom,
+          });
+        }
 
-      if (value.trim() === "") {
-        ctx.addIssue({
-          message: "Date of birth is required",
-          code: z.ZodIssueCode.custom,
-        });
-      }
-    }),
+        if (value.trim() === "") {
+          ctx.addIssue({
+            message: "Date of birth is required",
+            code: z.ZodIssueCode.custom,
+          });
+        }
+      }),
 
-  Language_Proficiency: z.array(languageSchema),
-  address: z.array(addressSchema).min(1, "Address is required"),
-  city: z.string().min(1, "City is required"),
-  district: z.string().min(1, "District is required"),
-  state: z.string().min(1, "State is required"),
-  pincode: z
-    .string()
-    .min(1, "Pincode is required")
-    .refine(
-      (val) => val === "" || /^\d{6}$/.test(val),
-      "Enter a valid 6-digit pincode",
-    )
-    .optional(),
-  hobbies: z.string().optional(),
-  photography_club: z.string().optional(),
-  blood_group: z.string().min(1, "Blood group is required"),
+    Language_Proficiency: z.array(languageSchema),
+    address: z.array(addressSchema).min(1, "Address is required"),
+    city: z.string().min(1, "City is required"),
+    district: z.string().min(1, "District is required"),
+    state: z.string().min(1, "State is required"),
+    pincode: z
+      .string()
+      .min(1, "Pincode is required")
+      .refine(
+        (val) => val === "" || /^\d{6}$/.test(val),
+        "Enter a valid 6-digit pincode",
+      )
+      .optional(),
+    hobbies: z.string().optional(),
+    photography_club: z.string().optional(),
+    blood_group: z.string().min(1, "Blood group is required"),
 
-  Parent_Guardian_Spouse_Details: parentDetails,
+    Parent_Guardian_Spouse_Details: parentDetails,
 
-  profession: z.string().optional(),
+    profession: z.string().optional(),
 
-  passport_size_image: z
-    .number()
-    .min(1, "Passport size image is required")
-    .optional(),
+    passport_size_image: z
+      .number()
+      .min(1, "Passport size image is required")
+      .optional(),
 
-  step_1: z.boolean().optional(),
-});
+    step_1: z.boolean().optional(),
+  });
 
 export const educationDetailsSchema = z.object({
   Education_Details: z.object({
