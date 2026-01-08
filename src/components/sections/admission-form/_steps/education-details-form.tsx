@@ -101,14 +101,13 @@ const EducationDetailsForm = ({
   const onSubmit = async (payload: EducationDetailsSchema) => {
     const filteredData = filteredPayload(payload);
 
-    const workExperience = payload?.Work_Experience?.slice(0, 1).filter(
+    const workExperience = filteredData?.Work_Experience?.slice(0, 1).filter(
       (item) =>
         item?.designation === "" &&
         item?.employer === "" &&
         item?.duration_start === "" &&
         item?.duration_end === "",
     );
-
     const data = {
       ...filteredData,
       step_2: true,
@@ -117,7 +116,7 @@ const EducationDetailsForm = ({
         payload?.Post_Graduate?.[0]?.degree === ""
           ? []
           : payload?.Post_Graduate,
-      Work_Experience: workExperience ? [] : payload?.Work_Experience,
+      Work_Experience: filteredData?.Work_Experience ?? [],
     };
 
     try {
