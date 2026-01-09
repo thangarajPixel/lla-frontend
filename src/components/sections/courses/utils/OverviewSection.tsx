@@ -169,7 +169,7 @@ const OverviewSection = ({ data }: { data: MenuData }) => {
                 ref={emblaRef}
                 className="overflow-hidden cursor-grab active:cursor-grabbing"
               >
-                <div className="flex gap-3 sm:gap-4 touch-pan-x">
+                <div className="flex gap-3 sm:gap-4">
                   {aboutImages.map((image) => (
                     <div
                       key={image.id}

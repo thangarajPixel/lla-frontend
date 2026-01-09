@@ -242,7 +242,7 @@ const ImageSlider = ({
           <button
             type="button"
             onClick={prevSlide}
-            className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 z-10"
+            className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full  opacity-100 transition-all duration-300 z-10"
             aria-label="Previous image"
           >
             <ImageWidget
@@ -257,7 +257,7 @@ const ImageSlider = ({
           <button
             type="button"
             onClick={nextSlide}
-            className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 z-10"
+            className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-100 transition-all duration-300 z-10"
             aria-label="Next image"
           >
             <ImageWidget
@@ -288,7 +288,7 @@ const ImageSlider = ({
         </div>
       )}
       {images.length > 1 && (
-        <div className="absolute top-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="absolute top-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm font-medium opacity-100 transition-opacity duration-300">
           {currentIndex + 1} / {images.length}
         </div>
       )}

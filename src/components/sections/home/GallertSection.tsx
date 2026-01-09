@@ -282,7 +282,7 @@ const GallertSection = ({ data }: GallerySectionProps) => {
             className="overflow-hidden cursor-grab active:cursor-grabbing"
             dir="rtl"
           >
-            <div className="flex gap-4 touch-pan-x pl-5 pr-5">
+            <div className="flex gap-4 pl-5 pr-5">
               {imageChunks[0]?.map((image) => (
                 <div
                   key={`row1-${image.id}`}
@@ -306,7 +306,7 @@ const GallertSection = ({ data }: GallerySectionProps) => {
             className="overflow-hidden cursor-grab active:cursor-grabbing"
             dir="ltr"
           >
-            <div className="flex gap-4 touch-pan-x pl-5 pr-5">
+            <div className="flex gap-4 pl-5 pr-5">
               {imageChunks[1]?.map((image) => (
                 <div
                   key={`row2-${image.id}`}
