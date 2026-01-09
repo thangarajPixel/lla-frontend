@@ -10,7 +10,7 @@ import { EducationDetails } from "@/components/sections/admission-form/_componen
 import { WorkExperience } from "@/components/sections/admission-form/_components/work-experience";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
-import { filteredPayload, notify } from "@/helpers/ConstantHelper";
+import { notify } from "@/helpers/ConstantHelper";
 import { educationDetailsSchema } from "@/helpers/ValidationHelper";
 import { cn } from "@/lib/utils";
 import { updateAdmission } from "@/store/services/global-services";
@@ -81,8 +81,7 @@ const EducationDetailsForm = ({
     },
   });
 
-  const { control, handleSubmit, watch, setValue, setError, clearErrors } =
-    form_step2;
+  const { control, handleSubmit, watch, setValue, trigger } = form_step2;
 
   const watchUgStatus = watch("Under_Graduate.ug_status");
 
@@ -99,24 +98,31 @@ const EducationDetailsForm = ({
   }, [watchUgStatus, setValue]);
 
   const onSubmit = async (payload: EducationDetailsSchema) => {
-    const filteredData = filteredPayload(payload);
-
-    const workExperience = filteredData?.Work_Experience?.slice(0, 1).filter(
-      (item) =>
-        item?.designation === "" &&
-        item?.employer === "" &&
-        item?.duration_start === "" &&
-        item?.duration_end === "",
-    );
     const data = {
-      ...filteredData,
+      ...payload,
       step_2: true,
       EncryptId: admissionId,
       Post_Graduate:
         payload?.Post_Graduate?.[0]?.degree === ""
           ? []
           : payload?.Post_Graduate,
-      Work_Experience: filteredData?.Work_Experience ?? [],
+      Work_Experience:
+        payload?.Work_Experience?.[0]?.designation === "" &&
+        payload?.Work_Experience?.[0]?.employer === "" &&
+        payload?.Work_Experience?.[0]?.duration_start === "" &&
+        payload?.Work_Experience?.[0]?.duration_end === "" &&
+        payload?.Work_Experience?.[0]?.reference_letter === 0
+          ? []
+          : payload?.Work_Experience?.map((item) => ({
+              designation: item?.designation ?? "",
+              employer: item?.employer ?? "",
+              duration_start:
+                item?.duration_start === "" ? null : item?.duration_start,
+              duration_end:
+                item?.duration_end === "" ? null : item?.duration_end,
+              reference_letter:
+                item?.reference_letter === 0 ? null : item?.reference_letter,
+            })),
     };
 
     try {
@@ -140,8 +146,7 @@ const EducationDetailsForm = ({
           admissionData={admissionData}
           control={control}
           setValue={setValue}
-          setError={setError}
-          clearError={clearErrors}
+          trigger={trigger}
         />
 
         <p className="text-base text-muted-foreground mt-2">

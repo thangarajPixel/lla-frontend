@@ -83,7 +83,7 @@ export const workExperience = z
     employer: z.string().optional(),
     duration_start: z.string().optional(),
     duration_end: z.string().optional(),
-    reference_letter: z.number().optional(),
+    reference_letter: z.number(),
   })
   .optional()
   .superRefine((value, ctx) => {
@@ -284,9 +284,27 @@ export const educationDetailsSchema = z.object({
         });
       }
     }),
-  Post_Graduate: z.array(postGraduate).optional(),
 
-  // additionalDegree: z.array(education).optional(),
+  Post_Graduate: z
+    .array(postGraduate)
+    .optional()
+    .superRefine((pgList, ctx) => {
+      if (!pgList || pgList.length === 0) return;
+
+      const inProgressIndex = pgList.findIndex(
+        (pg) => pg.pg_status === "In-Progress",
+      );
+
+      if (inProgressIndex === -1) return;
+
+      for (let i = inProgressIndex + 1; i < pgList.length; i++) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: [i, "degree"],
+          message: "Complete the In-Progress degree before adding another.",
+        });
+      }
+    }),
 
   Work_Experience: z.array(workExperience).optional(),
 
@@ -301,8 +319,7 @@ export const portfolioSchema = z.object({
           id: z.number().min(1, "Image ID is required"),
         }),
       )
-      .min(20, "Only 20 images are allowed")
-      .max(20, "Only 20 images are allowed"),
+      .length(20, "Only 20 images are allowed"),
   }),
   step_3: z.boolean().optional(),
 });

@@ -45,6 +45,8 @@ const FormFileUploadButton = <T extends FieldValues>({
   const handleUpload = async (file: File) => {
     if (!file) return;
 
+    field.onChange(0);
+
     const formData = new FormData();
     formData.append("files", file);
 
