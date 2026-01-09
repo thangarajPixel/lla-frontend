@@ -314,7 +314,7 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                   </div>
                 ))}
 
-                <div className="mt-8 pt-8 border-t border-gray-600">
+                {/* <div className="mt-8 pt-8 border-t border-gray-600">
                   <h3 className="text-[16px] md:text-[18px] lg:text-[18px] xl:text-[20px] 2xl:text-[20px] 3xl:text-[24px] font-normal text-[#082326] font-mulish mb-6">
                     Share with
                   </h3>
@@ -344,7 +344,7 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                       );
                     })}
                   </div>
-                </div>
+                </div> */}
               </div>
             </ScrollWidget>
           </div>
