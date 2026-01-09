@@ -367,7 +367,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                             once={true}
                           >
                             <div
-                              className="relative w-full overflow-hidden group cursor-pointer bg-white"
+                              className="relative w-full overflow-hidden group  bg-white"
                               style={{ padding: "10px" }}
                               ref={(el) => {
                                 cardsRef.current[index] = el;
@@ -447,7 +447,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                         once={true}
                       >
                         <div
-                          className="relative w-full overflow-hidden group cursor-pointer bg-white p-3"
+                          className="relative w-full overflow-hidden group  bg-white p-3"
                           ref={(el) => {
                             cardsRef.current[index] = el;
                           }}

@@ -352,7 +352,7 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
             <ScrollWidget animation="fadeIn" delay={0.2}>
               <div className="lg:sticky lg:top-8">
                 <h3 className="text-[32px] ledding-[40px] font-normal text-black font-urbanist mb-3">
-                  Latest Life at LLA
+                  Latest Life @ LLA
                 </h3>
                 <div className="hidden md:flex flex-col gap-4">
                   {latest.map((post) => (
