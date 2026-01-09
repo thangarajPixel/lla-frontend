@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev -p 3030",
     "build": "next build",
-    "start": "next start -p 3040",
+    "start": "next start -p 3030",
     "lint": "biome check",
     "lint:fix": "biome check --write",
     "format": "biome format --write",
