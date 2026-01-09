@@ -96,7 +96,7 @@ const FacultySection = ({ data }: FacultySectionProps) => {
               </ScrollWidget>
             ))}
           </div>
-          <div className="min-h-[70px]  flex flex-col justify-center items-start gap-2 sm:gap-3 p-3 sm:p-4">
+          <div className="min-h-[70px]  flex flex-col justify-center items-start mt-4">
             <div className="self-center">
               <LinkWidget href="/faculty" className="w-full">
                 <OrangeButtonWidget content={data.Btn_txt} />

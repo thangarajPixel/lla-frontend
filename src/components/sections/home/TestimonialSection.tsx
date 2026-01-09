@@ -98,15 +98,13 @@ const TestimonialSection = ({ data }: TestimonialSectionProps) => {
                               className="object-center w-[40px] h-[40px] xss:w-[40px] xss:h-[40px] opacity-80"
                             />
                           </div>
-                          <p className="md:text-center mb-2 text-[16px] lg:text-[15px] xl:text-[18px] 3xl:text-[24px] font-normal font-mulish  text-black leading-normal w-full md:max-w-[750px]">
+                          <p className="md:text-center mb-3 text-[16px] lg:text-[15px] xl:text-[18px] 3xl:text-[24px] font-normal font-mulish  text-black leading-normal w-full md:max-w-[750px]">
                             {testimonial.Description}
                           </p>
-
-                          <p className="mb-2 text-[18px] xss:text-[20px] sm:text-[20px] md:text-[24px] lg:text-[24px] text-[#E97451] font-regular font-mulish">
+                          <p className="text-[18px] xss:text-[20px] sm:text-[20px] md:text-[24px] lg:text-[24px] text-[#E97451] font-regular font-mulish">
                             {testimonial.Name}
                           </p>
-
-                          <p className="md:text-center mb-2 text-sm xss:text-[16px] sm:text-base md:text-[14px] 3xl:text-[16px] text-black font-regular font-mulish lg:-mt-5">
+                          <p className="md:text-center  text-sm xss:text-[16px] sm:text-base md:text-[14px] 3xl:text-[16px] text-black font-regular font-mulish lg:-mt-5">
                             {testimonial.Batch}
                           </p>
                         </div>
