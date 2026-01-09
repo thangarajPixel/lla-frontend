@@ -119,7 +119,7 @@ const CourseSection = ({ data }: CourseSectionProps) => {
                   >
                     <ParallaxWidget
                       speed={parallaxSpeeds[index]?.image || 0.4}
-                      className="relative w-full aspect-4/3 overflow-hidden xss:max-h-[242px] xss:min-w-[360px] sm:min-w-full sm:max-h-full"
+                      className="relative w-full aspect-4/3 overflow-hidden xss:max-h-[242px] xss:min-w-[360px] sm:min-w-full sm:max-h-full hidden md:block"
                     >
                       {imageUrl && (
                         <>
@@ -140,13 +140,32 @@ const CourseSection = ({ data }: CourseSectionProps) => {
                       )}
                     </ParallaxWidget>
                   </ScrollWidget>
+                  <div className="relative w-full aspect-4/3 overflow-hidden xss:max-h-[242px] xss:min-w-[360px] sm:min-w-full sm:max-h-full md:hidden">
+                    {imageUrl && (
+                      <>
+                        <ImageWidget
+                          src={imageUrl}
+                          alt={card?.Title}
+                          fill
+                          className="object-cover"
+                        />
+                        {isAdmissionOpen && (
+                          <div className="absolute top-4 right-4 z-10">
+                            <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-[#E97451] text-white shadow-lg">
+                              Admissions Open
+                            </span>
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </div>
                   <ScrollWidget
                     animation={animations[index]?.content || "slideLeft"}
                     delay={animations[index]?.delay.content || 0.3}
                   >
                     <ParallaxWidget
                       speed={parallaxSpeeds[index]?.content || -0.25}
-                      className={contentClasses[index] || contentClasses[0]}
+                      className={`${contentClasses[index] || contentClasses[0]} hidden md:block`}
                     >
                       <h3 className="text-xl xss:text-[24px] md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[32px] 3xl:text-[40px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
                         {card.Title}
@@ -161,6 +180,19 @@ const CourseSection = ({ data }: CourseSectionProps) => {
                       )}
                     </ParallaxWidget>
                   </ScrollWidget>
+                  <div className={`${contentClasses[index] || contentClasses[0]} md:hidden`}>
+                    <h3 className="text-xl xss:text-[24px] md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[32px] 3xl:text-[40px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
+                      {card.Title}
+                    </h3>
+                    <ParagraphWidget>{card.Description}</ParagraphWidget>
+                    {card.Btn_txt !== null && (
+                      <div className="self-start flex gap-4">
+                        <LinkWidget href={`/courses/${card.Slug}`}>
+                          <OrangeButtonWidget content={card.Btn_txt} />
+                        </LinkWidget>
+                      </div>
+                    )}
+                  </div>
                 </div>
               );
             })}
