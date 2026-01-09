@@ -47,11 +47,11 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
         </ParallaxWidget>
         <div className="relative z-10 min-h-[1650px] m:min-h-[1500px] xs:min-h-[1500px] sm:min-h-[1500px] md:min-h-[1400px] lg:min-h-[1100px] xl:min-h-[1200px] 2xl:min-h-[1300px] 3xl:min-h-[1500px]">
           <ContainerWidget>
-            {/* <ScrollWidget animation="fadeUp" delay={0.1}>
+            <ScrollWidget animation="fadeUp" delay={0.1}>
               <h3 className="text-[32px] sm:text-[34px] md:text-[36px] lg:text-[48px] xl:text-[56px] 2xl:text-[64px] 3xl:text-[64px] 4xl:text-[64px]  font-regular text-black font-urbanist">
                 {data.Title}
               </h3>
-            </ScrollWidget> */}
+            </ScrollWidget>
             <div className="flex flex-col items-start justify-start gap-2 md:gap-2">
               <ScrollWidget animation="slideLeft" delay={0.2}>
                 <HTMLWidget
