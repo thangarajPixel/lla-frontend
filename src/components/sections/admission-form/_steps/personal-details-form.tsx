@@ -58,7 +58,7 @@ const PersonalDetailsForm = ({
 
   const form_step1 = useForm<PersonalDetailsSchema>({
     resolver: zodResolver(personalDetailsSchema(admissionData?.email)),
-    mode: "onSubmit",
+    mode: "all",
     reValidateMode: "onChange",
     shouldFocusError: true,
     defaultValues: {
@@ -170,6 +170,16 @@ const PersonalDetailsForm = ({
     name: "Language_Proficiency",
   });
 
+  const personalAddress = useWatch({
+    control,
+    name: "address",
+  });
+
+  const personalCity = useWatch({ control, name: "city" });
+  const personalDistrict = useWatch({ control, name: "district" });
+  const personalState = useWatch({ control, name: "state" });
+  const personalPincode = useWatch({ control, name: "pincode" });
+
   const languageProficiency = useWatch({
     control,
     name: "Language_Proficiency",
@@ -186,6 +196,36 @@ const PersonalDetailsForm = ({
 
   const handleAddLanguage = () => {
     append({ language: "", read: false, write: false, speak: false });
+  };
+
+  const handleSameAddress = () => {
+    if (!personalAddress) return;
+
+    form_step1.setValue(
+      "Parent_Guardian_Spouse_Details.address",
+      personalAddress,
+      { shouldValidate: true, shouldDirty: true },
+    );
+
+    form_step1.setValue("Parent_Guardian_Spouse_Details.city", personalCity, {
+      shouldValidate: true,
+    });
+
+    form_step1.setValue(
+      "Parent_Guardian_Spouse_Details.district",
+      personalDistrict,
+      { shouldValidate: true },
+    );
+
+    form_step1.setValue("Parent_Guardian_Spouse_Details.state", personalState, {
+      shouldValidate: true,
+    });
+
+    form_step1.setValue(
+      "Parent_Guardian_Spouse_Details.pincode",
+      personalPincode ?? "",
+      { shouldValidate: true },
+    );
   };
 
   const handleClick = () => {
@@ -276,7 +316,7 @@ const PersonalDetailsForm = ({
   };
 
   const handleFieldCheck = async (email: string, error?: string) => {
-    if (error) return;
+    if (!email || error) return;
 
     const isExistingEmailCheck = await clientAxios.post(
       `/admissions/email/check`,
@@ -516,7 +556,7 @@ const PersonalDetailsForm = ({
 
               <div
                 aria-hidden
-                className="border border-dashed border-border rounded-lg xs:max-w-[190px] flex flex-col items-center justify-center min-h-[227px] xs:min-h-[227px] bg-secondary cursor-pointer hover:bg-accent transition relative overflow-hidden"
+                className="group border border-dashed border-border rounded-lg xs:max-w-[190px] flex flex-col items-center justify-center min-h-[227px] xs:min-h-[227px] bg-secondary cursor-pointer hover:bg-accent transition relative overflow-hidden"
                 onClick={handleClick}
               >
                 {(!previewUrl && !admissionData?.passport_size_image) ||
@@ -558,7 +598,7 @@ const PersonalDetailsForm = ({
                           shouldValidate: true,
                         });
                       }}
-                      className="absolute top-2 right-2 hidden group-hover:flex items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
+                      className="absolute top-2 right-2 hidden group-hover:flex items-center gap-2 text-primary text-sm group-hover:opacity-80 transition-opacity bg-white hover:bg-white group-hover:bg-white"
                     >
                       <X className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
                     </Button>
@@ -695,10 +735,22 @@ const PersonalDetailsForm = ({
                 />
               </div>
 
-              <AddressFields
-                control={control}
-                name="Parent_Guardian_Spouse_Details"
-              />
+              <div className="relative">
+                <AddressFields
+                  control={control}
+                  name="Parent_Guardian_Spouse_Details"
+                />
+
+                <ButtonWidget
+                  type="button"
+                  onClick={handleSameAddress}
+                  className="flex absolute -top-2 right-0 ml-auto items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
+                >
+                  <span className="text-chart-1 text-base 3xl:text-lg">
+                    Same Address
+                  </span>
+                </ButtonWidget>
+              </div>
             </div>
           </div>
         </div>

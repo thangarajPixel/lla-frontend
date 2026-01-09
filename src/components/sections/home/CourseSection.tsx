@@ -180,7 +180,9 @@ const CourseSection = ({ data }: CourseSectionProps) => {
                       )}
                     </ParallaxWidget>
                   </ScrollWidget>
-                  <div className={`${contentClasses[index] || contentClasses[0]} md:hidden`}>
+                  <div
+                    className={`${contentClasses[index] || contentClasses[0]} md:hidden`}
+                  >
                     <h3 className="text-xl xss:text-[24px] md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[32px] 3xl:text-[40px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight">
                       {card.Title}
                     </h3>

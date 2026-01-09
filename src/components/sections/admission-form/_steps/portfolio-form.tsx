@@ -6,6 +6,7 @@ import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import type z from "zod";
 import { ImageGrid } from "@/components/sections/admission-form/_components/image-grid";
 import { UploadArea } from "@/components/sections/admission-form/_components/upload-area";
@@ -169,6 +170,14 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
     );
   };
 
+  const onError = () => {
+    if (images?.length !== MAX_IMAGES) {
+      toast.error("Must upload 20 images", {
+        position: "bottom-right",
+      });
+    }
+  };
+
   const onSubmit = async (payload: PortfolioSchema) => {
     try {
       await updateAdmission(
@@ -190,7 +199,7 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
   return (
     <FormProvider {...form}>
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onSubmit, onError)}
         className="bg-background py-8 px-2"
       >
         <h1 className="text-2xl 3xl:text-[32px] text-[#E97451] font-urbanist mb-8">

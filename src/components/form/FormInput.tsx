@@ -23,7 +23,7 @@ type InputProps<T extends FieldValues> = UseControllerProps<T> & {
   errorClassName?: string;
   restrictionType?: string;
   maxLength?: number;
-  onFieldCheck?: (field: string) => void;
+  onFieldCheck?: (field: string, error?: string) => void;
   pageType?: string;
   onChangeExtra?: (value: string) => void;
 } & React.ComponentProps<"input">;

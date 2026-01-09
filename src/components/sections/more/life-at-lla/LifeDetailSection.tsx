@@ -58,7 +58,7 @@ const _SOCIAL_LINKS = [
   },
 ];
 
-const formatDate = (dateString: string): string => {
+const _formatDate = (dateString: string): string => {
   const date = new Date(dateString);
   return date.toLocaleDateString("en-US", {
     year: "numeric",
@@ -358,12 +358,10 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                   {latest.map((post) => (
                     <div key={post.id} className="group">
                       <div className="flex flex-col gap-2">
-                        {(post.Image?.[0]?.url) && (
+                        {post.Image?.[0]?.url && (
                           <div className="relative w-full aspect-video overflow-hidden">
                             <ImageWidget
-                              src={
-                                getS3Url(post.Image?.[0]?.url || "")
-                              }
+                              src={getS3Url(post.Image?.[0]?.url || "")}
                               alt={post.Title}
                               fill
                               className="object-cover"

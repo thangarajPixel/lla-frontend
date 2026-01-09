@@ -18,6 +18,7 @@ import {
   WhatsappBlack,
 } from "@/helpers/ImageHelper";
 import type { BlogDetailProps } from "./utils/blog-detail";
+
 const getYouTubeEmbedUrl = (url: string): string => {
   if (!url) return "";
 
@@ -135,10 +136,11 @@ const ImageSlider = ({
               key={`slide-${index + 1}`}
               type="button"
               onClick={() => goToSlide(index)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                index === currentIndex
                   ? "bg-white scale-125"
                   : "bg-white/50 hover:bg-white/75"
-                }`}
+              }`}
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}
@@ -190,7 +192,7 @@ const _SOCIAL_LINKS = [
   },
 ];
 
-const formatDate = (dateString: string): string => {
+const _formatDate = (dateString: string): string => {
   const date = new Date(dateString);
   return date.toLocaleDateString("en-US", {
     year: "numeric",
@@ -356,12 +358,10 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
                   {latest.map((post) => (
                     <div key={post.id} className="group">
                       <div className="flex flex-col gap-2">
-                        {(post.Image?.[0]?.url) && (
+                        {post.Image?.[0]?.url && (
                           <div className="relative w-full aspect-video overflow-hidden">
                             <ImageWidget
-                              src={
-                                getS3Url(post.Image?.[0]?.url || "")
-                              }
+                              src={getS3Url(post.Image?.[0]?.url || "")}
                               alt={post.Title}
                               fill
                               className="object-cover"
@@ -436,10 +436,11 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
                       type="button"
                       onClick={() => scroll("left")}
                       disabled={!canScrollLeft}
-                      className={`transition-opacity ${canScrollLeft
+                      className={`transition-opacity ${
+                        canScrollLeft
                           ? "opacity-100 hover:opacity-70"
                           : "opacity-30 cursor-not-allowed"
-                        }`}
+                      }`}
                       aria-label="Previous slide"
                     >
                       <ImageWidget
@@ -454,10 +455,11 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
                       type="button"
                       onClick={() => scroll("right")}
                       disabled={!canScrollRight}
-                      className={`transition-opacity ${canScrollRight
+                      className={`transition-opacity ${
+                        canScrollRight
                           ? "opacity-100 hover:opacity-70"
                           : "opacity-30 cursor-not-allowed"
-                        }`}
+                      }`}
                       aria-label="Next slide"
                     >
                       <ImageWidget
