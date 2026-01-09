@@ -1,8 +1,14 @@
+import type { Metadata } from "next";
 import { Fragment } from "react/jsx-runtime";
 import CampusHeroSection from "@/components/sections/campus/CampusHeroSection";
 import FacilitiesSection from "@/components/sections/campus/FacilitiesSection";
 import GallerySection from "@/components/sections/campus/GallerySection";
+import { generateSeoMetadata } from "@/helpers/SeoHelper";
 import { getCampusPageData } from "../api/server";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generateSeoMetadata("/campus");
+}
 
 const Campus = async () => {
   const [{ data: response }] = await Promise.all([getCampusPageData()]);

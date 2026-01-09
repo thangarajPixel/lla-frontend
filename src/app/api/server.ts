@@ -135,3 +135,7 @@ export async function getFacultyBySlug(
 export async function getTeamBySlug(slug: string, page: string) {
   return fetchData(`/about/team/${slug}?page=${page}`);
 }
+
+export async function getSeoData() {
+  return fetchData("/seo");
+}
