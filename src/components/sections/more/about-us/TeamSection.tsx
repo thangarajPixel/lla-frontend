@@ -200,16 +200,16 @@ const TeamSection = ({ data }: TeamSectionProps) => {
                 >
                   <ParallaxWidget speed={-0.1}>
                     <div
-                     onClick={() => {
-                      if (
-                        isMobile() &&
-                        faculty.id &&
-                        faculty.Slug &&
-                        !loadingCards
-                      ) {
-                        handleCardClick(faculty.id, faculty.Slug);
-                      }
-                    }}
+                    //  onClick={() => {
+                    //   if (
+                    //     isMobile() &&
+                    //     faculty.id &&
+                    //     faculty.Slug &&
+                    //     !loadingCards
+                    //   ) {
+                    //     handleCardClick(faculty.id, faculty.Slug);
+                    //   }
+                    // }}
                      className="aspect-square overflow-hidden  w-[170px] h-[171px] md:w-[200px] md:h-[200px] lg:w-[200px] lg:h-[200px] xl:w-[200px] xl:h-[200px] 2xl:w-[300px] 2xl:h-[302px] 3xl:w-[300px] 3xl:h-[302px]">
                       <ImageWidget
                         src={faculty.imageUrl}

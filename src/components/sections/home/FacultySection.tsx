@@ -84,52 +84,44 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                   <ParagraphWidget className="line-clamp-2 overflow-hidden text-ellipsis">
                     {faculty.Description}
                   </ParagraphWidget>
-                  <div className="self-start mt-auto">
+                  {/* <div className="self-start mt-auto">
                     <LinkWidget
                       href={`/photography/${faculty.Slug}`}
                       className="w-full"
                     >
                       <OrangeButtonWidget content={faculty.Btn_txt} />
                     </LinkWidget>
-                  </div>
+                  </div> */}
                 </div>
               </ScrollWidget>
             ))}
-            <ScrollWidget
-              key="mobile-static"
-              animation="scale"
-              delay={0.1 + Math.min(facultyData.length, 6) * 0.1}
-            >
-              <div className="min-h-[200px] flex flex-col justify-center items-center gap-2 sm:gap-3 bg-[#E97451]/20 p-3 sm:p-4">
-                <div className="self-center">
-                  <LinkWidget href="/faculty" className="w-full">
-                    <OrangeButtonWidget content={data.Btn_txt} />
-                  </LinkWidget>
-                </div>
-              </div>
-            </ScrollWidget>
+          </div>
+          <div className="min-h-[70px]  flex flex-col justify-center items-start gap-2 sm:gap-3 p-3 sm:p-4">
+            <div className="self-center">
+              <LinkWidget href="/faculty" className="w-full">
+                <OrangeButtonWidget content={data.Btn_txt} />
+              </LinkWidget>
+            </div>
           </div>
         </div>
 
         <div className="hidden md:block">
           <div className="overflow-hidden" ref={emblaRef}>
             <div
-              className={`flex ${
-                facultyData.length >= 6 ? "justify-start" : "justify-end"
-              }`}
+              className={`flex ${facultyData.length >= 6 ? "justify-start" : "justify-end"
+                }`}
             >
               {facultyData.map((faculty, index) => (
                 <div
                   key={faculty.id}
-                  className={`shrink-0 ${
-                    index === 0
+                  className={`shrink-0 ${index === 0
                       ? "mt-10 hover:mt-0"
                       : index === 3
                         ? "mt-20 hover:mt-0"
                         : index % 2
                           ? "mt-40 hover:mt-0"
                           : "mt-0"
-                  } w-[calc((100%-3rem)/3)] lg:w-[calc((100%-4.5rem)/4)] xl:w-[calc((100%-6rem)/5)] 2xl:w-[calc((100%-7.5rem)/6)] transition-all duration-1000 ease-in-out delay-150`}
+                    } w-[calc((100%-3rem)/3)] lg:w-[calc((100%-4.5rem)/4)] xl:w-[calc((100%-6rem)/5)] 2xl:w-[calc((100%-7.5rem)/6)] transition-all duration-1000 ease-in-out delay-150`}
                 >
                   <ScrollWidget animation="scale" delay={0.1 + index * 0.05}>
                     <div className="group relative flex flex-col gap-3 overflow-hidden transition-all duration-500 ease-in-out delay-75 hover:bg-[#E97451]/20 p-3.5 cursor-pointer">
@@ -162,15 +154,14 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                 </div>
               ))}
               <div
-                className={`shrink-0 ${
-                  facultyData.length % 2 ? "mt-30" : "mt-0"
-                } w-[calc((100%-3rem)/3)] lg:w-[calc((100%-4.5rem)/4)] xl:w-[calc((100%-6rem)/5)] 2xl:w-[calc((100%-7.5rem)/6)] ml-3`}
+                className={`shrink-0 ${facultyData.length % 2 ? "mt-30" : "mt-0"
+                  } w-[calc((100%-3rem)/3)] lg:w-[calc((100%-4.5rem)/4)] xl:w-[calc((100%-6rem)/5)] 2xl:w-[calc((100%-7.5rem)/6)] ml-3`}
               >
                 <ScrollWidget
                   animation="scale"
                   delay={0.1 + facultyData.length * 0.05}
                 >
-                  <div className="min-h-[230px] group relative flex flex-col justify-center gap-3 overflow-hidden transition-all duration-500 ease-in-out delay-75 bg-[#E97451]/20 hover:bg-[#E97451]/20 p-3.5 cursor-pointer">
+                  <div className="min-h-[230px] group relative flex flex-col justify-center gap-3 overflow-hidden transition-all duration-500 ease-in-out delay-75  p-3.5 cursor-pointer">
                     <h3 className="font-mulish text-xl md:text-xl lg:text-2xl xl:text-[20px] 2xl:text-[20px] 3xl:text-[24px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight transition-colors duration-500 ease-in-out delay-150">
                       {" "}
                     </h3>
