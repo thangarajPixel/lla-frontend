@@ -78,7 +78,7 @@ const AdmissionButton = ({
           />
         </ButtonWidget>
       }
-      contentClassName="sm:max-w-[90vw] md:max-w-[85vw] lg:max-w-[700px] xl:max-w-[800px] 2xl:max-w-[900px] p-4 sm:p-6 lg:p-6"
+      contentClassName="h-[80vh] md:h-auto sm:max-w-[90vw] md:max-w-[85vw] lg:max-w-[700px] xl:max-w-[800px] 2xl:max-w-[900px] p-4 sm:p-6 lg:p-6"
       showCancel={false}
       showCloseButton={false}
       customCloseButton={
@@ -89,7 +89,7 @@ const AdmissionButton = ({
         </DialogClose>
       }
     >
-      <div className="flex flex-col md:flex-row gap-5 h-[420px] overflow-y-auto md:h-auto">
+      <div className="flex flex-col md:flex-row gap-5 h-[75vh] overflow-y-auto md:h-auto">
         {data && data.length > 0
           ? data.map((card, index) => {
               const images = card?.Image || [];
