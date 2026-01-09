@@ -242,7 +242,7 @@ export const personalDetailsSchema = (admissionEmail?: string) =>
       .min(1, "Pincode is required")
       .refine(
         (val) => val === "" || /^\d{6}$/.test(val),
-        "Enter a valid 6-digit pincode"
+        "Enter a valid 6-digit pincode",
       )
       .optional(),
     hobbies: z.string().optional(),
@@ -301,7 +301,7 @@ export const educationDetailsSchema = z.object({
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           path: [i, "degree"],
-          message: "Complete the in-progress degree before adding another.",
+          message: "Complete the In-Progress degree before adding another.",
         });
       }
     }),

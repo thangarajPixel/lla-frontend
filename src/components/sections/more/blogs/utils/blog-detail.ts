@@ -9,7 +9,6 @@ export type BlogCard = {
   id: number;
   Title: string;
   Slug: string;
-  ImageUrl: string;
   CreatedDate: string;
   Description: string | null;
   Btn_txt?: string | null;
@@ -27,6 +26,8 @@ export type BlogImage = {
 export type BlogViewCardItem = {
   id: number;
   Title: string;
+  Type: string;
+  Url: string;
   Description: string | null;
   Image: Array<BlogImage>;
 };

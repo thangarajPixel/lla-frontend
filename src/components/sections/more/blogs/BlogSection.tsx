@@ -299,7 +299,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                       }
                     }
                   }}
-                  className="w-full h-[45px] pl-4 pb-2.5 pr-10 rounded-full border border-[#E97451] bg-background px-3 py-2 text-base placeholder:text-muted-foreground/80 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-[#E97451]/50 disabled:cursor-not-allowed disabled:opacity-50 placeholder:text-sm placeholder:font-urbanist"
+                  className="w-full h-[45px] pl-4  pr-[70px] rounded-full border border-[#E97451] bg-background text-base placeholder:text-muted-foreground/80 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-[#E97451]/50 disabled:cursor-not-allowed disabled:opacity-50 placeholder:text-sm placeholder:font-urbanist"
                 />
                 {searchQuery && (
                   <button
@@ -311,7 +311,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                     className="absolute right-12 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                     aria-label="Clear search"
                   >
-                    <X className="w-5 h-5" />
+                    <X className="w-5 h-5 cursor-pointer" />
                   </button>
                 )}
               </div>
@@ -397,20 +397,21 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                                       tag="p"
                                     />
                                   )}
-                                </div>
-                                <Link
+                                    <Link
                                   href={`/blogs/${blog.Slug}`}
-                                  className="inline-flex items-center gap-2 text-[#E97451] hover:gap-4 transition-all duration-300 mt-2 text-[16px] md:text-[16px] lg:text-[16px] font-normal font-urbanist group"
+                                  className="inline-flex items-center gap-2 text-[#E97451] hover:gap-2 transition-all duration-300  text-[16px] md:text-[16px] lg:text-[16px] font-normal font-urbanist group"
                                 >
                                   {blog.Btn_txt}
                                   <ImageWidget
                                     src={ArrowRightWhite}
                                     alt="Arrow Right"
-                                    width={16}
-                                    height={16}
+                                    width={15}
+                                    height={15}
                                     className="object-contain"
                                   />
                                 </Link>
+                                </div>
+                              
                               </div>
                             </div>
                           </ScrollWidget>

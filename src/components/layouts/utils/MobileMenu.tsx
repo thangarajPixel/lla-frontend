@@ -82,7 +82,7 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
       </SheetTrigger>
       <SheetContent
         side="top"
-        className="w-full! max-w-full! overflow-y-auto p-0 h-auto max-h-[90vh] transition-all duration-300 [&_button.absolute]:hidden bg-white text-black border-b border-black/10"
+        className="w-full! max-w-full! overflow-y-auto p-0 h-auto max-h-[75vh] md:max-h-[90vh] transition-all duration-300 [&_button.absolute]:hidden bg-white text-black border-b border-black/10"
       >
         <DialogTitle className="hidden" />
         <DialogContent className="hidden" />
