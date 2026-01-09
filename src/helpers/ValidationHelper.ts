@@ -46,7 +46,7 @@ const addressSchema = z.object({
     z.object({
       text: z.string().min(1, "Address is required"),
       type: z.string(),
-    })
+    }),
   ),
 });
 
@@ -73,7 +73,7 @@ export const parentDetails = z.object({
     .min(1, "Pincode is required")
     .refine(
       (val) => val === "" || /^\d{6}$/.test(val),
-      "Enter a valid 6-digit pincode"
+      "Enter a valid 6-digit pincode",
     ),
 });
 
@@ -98,7 +98,7 @@ export const workExperience = z
     ];
 
     const hasAnyValue = fields.some((v) =>
-      typeof v === "string" ? v.trim() !== "" : !!v
+      typeof v === "string" ? v.trim() !== "" : !!v,
     );
 
     if (!hasAnyValue) return;
@@ -185,14 +185,14 @@ export const personalDetailsSchema = (admissionEmail?: string) =>
               "The email id  has already been used. Kindly check your mail",
               {
                 position: "bottom-right",
-              }
+              },
             );
           }
           return !res?.data?.exists;
         },
         {
           message: "Email already exists",
-        }
+        },
       ),
     // .refine((email) => {
     //   const domain = email.split("@")[1];
@@ -284,7 +284,7 @@ export const educationDetailsSchema = z.object({
         });
       }
     }),
-  
+
   Post_Graduate: z
     .array(postGraduate)
     .optional()
@@ -292,7 +292,7 @@ export const educationDetailsSchema = z.object({
       if (!pgList || pgList.length === 0) return;
 
       const inProgressIndex = pgList.findIndex(
-        (pg) => pg.pg_status === "In-Progress"
+        (pg) => pg.pg_status === "In-Progress",
       );
 
       if (inProgressIndex === -1) return;
@@ -317,7 +317,7 @@ export const portfolioSchema = z.object({
       .array(
         z.object({
           id: z.number().min(1, "Image ID is required"),
-        })
+        }),
       )
       .length(20, "Only 20 images are allowed"),
   }),

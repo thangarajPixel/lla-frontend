@@ -4,10 +4,8 @@ import { Plus, X } from "lucide-react";
 import { useEffect } from "react";
 import {
   type Control,
-  type UseFormClearErrors,
-  type UseFormSetError,
   type UseFormSetValue,
-  UseFormTrigger,
+  type UseFormTrigger,
   useFieldArray,
   useFormState,
   useWatch,
@@ -67,7 +65,9 @@ export function EducationDetails({
   };
 
   useEffect(() => {
-    trigger("Post_Graduate");
+    if (postGraduate) {
+      trigger("Post_Graduate");
+    }
   }, [postGraduate, trigger]);
 
   return (
@@ -163,10 +163,14 @@ export function EducationDetails({
                     shouldValidate: true,
                   });
                 } else {
-                  setValue?.(`Post_Graduate.${index}.pg_status`, "In-Progress", {
-                    shouldDirty: true,
-                    shouldValidate: true,
-                  });
+                  setValue?.(
+                    `Post_Graduate.${index}.pg_status`,
+                    "In-Progress",
+                    {
+                      shouldDirty: true,
+                      shouldValidate: true,
+                    },
+                  );
                 }
                 // trigger("Post_Graduate");
               }}

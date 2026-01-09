@@ -6,6 +6,7 @@ import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import type z from "zod";
 import { ImageGrid } from "@/components/sections/admission-form/_components/image-grid";
 import { UploadArea } from "@/components/sections/admission-form/_components/upload-area";
@@ -16,7 +17,6 @@ import { portfolioSchema } from "@/helpers/ValidationHelper";
 import { cn } from "@/lib/utils";
 import { updateAdmission } from "@/store/services/global-services";
 import { useCourseStore } from "@/store/zustand";
-import { toast } from "sonner";
 
 export type PortfolioSchema = z.infer<typeof portfolioSchema>;
 
@@ -171,12 +171,12 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
   };
 
   const onError = () => {
-  if (images?.length !== MAX_IMAGES) {
-    toast.error("Must upload 20 images", {
-      position: "bottom-right",
-    });
-  }
-};
+    if (images?.length !== MAX_IMAGES) {
+      toast.error("Must upload 20 images", {
+        position: "bottom-right",
+      });
+    }
+  };
 
   const onSubmit = async (payload: PortfolioSchema) => {
     try {
