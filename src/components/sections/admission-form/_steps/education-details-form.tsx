@@ -47,36 +47,36 @@ const EducationDetailsForm = ({
       Post_Graduate:
         admissionData?.Post_Graduate && admissionData?.Post_Graduate?.length > 0
           ? admissionData?.Post_Graduate?.map((item) => ({
-            degree: item?.degree ?? "",
-            pg_status: item?.pg_status ?? "",
-            // marksheet: item?.marksheet?.id ?? 0,
-          }))
+              degree: item?.degree ?? "",
+              pg_status: item?.pg_status ?? "",
+              // marksheet: item?.marksheet?.id ?? 0,
+            }))
           : [
-            {
-              degree: "",
-              pg_status: "",
-              // marksheet: 0,
-            },
-          ],
+              {
+                degree: "",
+                pg_status: "",
+                // marksheet: 0,
+              },
+            ],
       Work_Experience:
         admissionData?.Work_Experience &&
-          admissionData?.Work_Experience?.length > 0
+        admissionData?.Work_Experience?.length > 0
           ? admissionData?.Work_Experience?.map((item) => ({
-            designation: item?.designation ?? "",
-            employer: item?.employer ?? "",
-            duration_start: item?.duration_start ?? "",
-            duration_end: item?.duration_end ?? "",
-            reference_letter: item?.reference_letter?.id ?? 0,
-          }))
+              designation: item?.designation ?? "",
+              employer: item?.employer ?? "",
+              duration_start: item?.duration_start ?? "",
+              duration_end: item?.duration_end ?? "",
+              reference_letter: item?.reference_letter?.id ?? 0,
+            }))
           : [
-            {
-              designation: "",
-              employer: "",
-              duration_start: "",
-              duration_end: "",
-              reference_letter: 0,
-            },
-          ],
+              {
+                designation: "",
+                employer: "",
+                duration_start: "",
+                duration_end: "",
+                reference_letter: 0,
+              },
+            ],
       step_2: admissionData?.step_2 ?? false,
     },
   });
@@ -98,7 +98,6 @@ const EducationDetailsForm = ({
   }, [watchUgStatus, setValue]);
 
   const onSubmit = async (payload: EducationDetailsSchema) => {
-
     const data = {
       ...payload,
       step_2: true,
@@ -108,15 +107,22 @@ const EducationDetailsForm = ({
           ? []
           : payload?.Post_Graduate,
       Work_Experience:
-        payload?.Work_Experience?.[0]?.designation === "" && payload?.Work_Experience?.[0]?.employer === "" && payload?.Work_Experience?.[0]?.duration_start === "" && payload?.Work_Experience?.[0]?.duration_end === "" && payload?.Work_Experience?.[0]?.reference_letter === 0
+        payload?.Work_Experience?.[0]?.designation === "" &&
+        payload?.Work_Experience?.[0]?.employer === "" &&
+        payload?.Work_Experience?.[0]?.duration_start === "" &&
+        payload?.Work_Experience?.[0]?.duration_end === "" &&
+        payload?.Work_Experience?.[0]?.reference_letter === 0
           ? []
           : payload?.Work_Experience?.map((item) => ({
-            designation: item?.designation ?? "",
-            employer: item?.employer ?? "",
-            duration_start: item?.duration_start === "" ? null : item?.duration_start,
-            duration_end: item?.duration_end === "" ? null : item?.duration_end,
-            reference_letter: item?.reference_letter === 0 ? null : item?.reference_letter,
-          })),
+              designation: item?.designation ?? "",
+              employer: item?.employer ?? "",
+              duration_start:
+                item?.duration_start === "" ? null : item?.duration_start,
+              duration_end:
+                item?.duration_end === "" ? null : item?.duration_end,
+              reference_letter:
+                item?.reference_letter === 0 ? null : item?.reference_letter,
+            })),
     };
 
     try {

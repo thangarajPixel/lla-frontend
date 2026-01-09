@@ -28,9 +28,7 @@ const pageMapping: Record<string, string> = {
   "/admission": "Admission",
 };
 
-export async function generateSeoMetadata(
-  pagePath: string,
-): Promise<Metadata> {
+export async function generateSeoMetadata(pagePath: string): Promise<Metadata> {
   try {
     const { data } = await getSeoData();
     const seoData = data as SeoData;
