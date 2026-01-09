@@ -1,11 +1,11 @@
+import type { Metadata } from "next";
 import { getContactPageData } from "@/app/api/server";
 import ContactSection from "@/components/sections/more/contact/ContactSection";
+import { generateSeoMetadata } from "@/helpers/SeoHelper";
 
-export const metadata = {
-  title: "Contact Us | Light & Life Academy",
-  description:
-    "Get in touch with Light & Life Academy. We're here to help with your queries about our photography courses and admissions.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return generateSeoMetadata("/contact-us");
+}
 
 const ContactPage = async () => {
   const { data: response } = await getContactPageData();

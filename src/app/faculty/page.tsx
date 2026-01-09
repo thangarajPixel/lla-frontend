@@ -1,10 +1,16 @@
+import type { Metadata } from "next";
 import { Fragment } from "react/jsx-runtime";
 import DirectorAcademicsSection from "@/components/sections/faculty/DirectorAcademicsSection";
 import FacultyHeroSection from "@/components/sections/faculty/FacultyHeroSection";
 import FilmmakingFacultySection from "@/components/sections/faculty/FilmmakingFacultySection";
 import PhotographyFacultySection from "@/components/sections/faculty/PhotographyFacultySection";
 import VisitingFacultySection from "@/components/sections/faculty/VisitingFacultySection";
+import { generateSeoMetadata } from "@/helpers/SeoHelper";
 import { getFacultyPageData } from "../api/server";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generateSeoMetadata("/faculty");
+}
 
 const Faculty = async () => {
   const { data: response } = await getFacultyPageData();

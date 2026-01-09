@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import AboutSection from "@/components/sections/home/AboutSection";
 import CampusSection from "@/components/sections/home/CampusSection";
 import CourseSection from "@/components/sections/home/CourseSection";
@@ -8,7 +9,12 @@ import LifeSection from "@/components/sections/home/LifeSection";
 import SponsorsSection from "@/components/sections/home/SponsorsSection";
 import StudentSection from "@/components/sections/home/StudentSection";
 import TestimonialSection from "@/components/sections/home/TestimonialSection";
+import { generateSeoMetadata } from "@/helpers/SeoHelper";
 import { getLandingPageData } from "./api/server";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generateSeoMetadata("/");
+}
 
 const Home = async () => {
   const [{ data: response }] = await Promise.all([getLandingPageData()]);
