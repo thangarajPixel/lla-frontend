@@ -58,7 +58,7 @@ const PersonalDetailsForm = ({
 
   const form_step1 = useForm<PersonalDetailsSchema>({
     resolver: zodResolver(personalDetailsSchema(admissionData?.email)),
-    mode: "onSubmit",
+    mode: "all",
     reValidateMode: "onChange",
     shouldFocusError: true,
     defaultValues: {
@@ -276,7 +276,7 @@ const PersonalDetailsForm = ({
   };
 
   const handleFieldCheck = async (email: string, error?: string) => {
-    if (error) return;
+    if (!email || error) return;
 
     const isExistingEmailCheck = await clientAxios.post(
       `/admissions/email/check`,
@@ -516,7 +516,7 @@ const PersonalDetailsForm = ({
 
               <div
                 aria-hidden
-                className="border border-dashed border-border rounded-lg xs:max-w-[190px] flex flex-col items-center justify-center min-h-[227px] xs:min-h-[227px] bg-secondary cursor-pointer hover:bg-accent transition relative overflow-hidden"
+                className="group border border-dashed border-border rounded-lg xs:max-w-[190px] flex flex-col items-center justify-center min-h-[227px] xs:min-h-[227px] bg-secondary cursor-pointer hover:bg-accent transition relative overflow-hidden"
                 onClick={handleClick}
               >
                 {(!previewUrl && !admissionData?.passport_size_image) ||
@@ -558,7 +558,7 @@ const PersonalDetailsForm = ({
                           shouldValidate: true,
                         });
                       }}
-                      className="absolute top-2 right-2 hidden group-hover:flex items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
+                      className="absolute top-2 right-2 hidden group-hover:flex items-center gap-2 text-primary text-sm group-hover:opacity-80 transition-opacity bg-white hover:bg-white group-hover:bg-white"
                     >
                       <X className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
                     </Button>

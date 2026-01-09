@@ -46,7 +46,7 @@ const addressSchema = z.object({
     z.object({
       text: z.string().min(1, "Address is required"),
       type: z.string(),
-    }),
+    })
   ),
 });
 
@@ -73,7 +73,7 @@ export const parentDetails = z.object({
     .min(1, "Pincode is required")
     .refine(
       (val) => val === "" || /^\d{6}$/.test(val),
-      "Enter a valid 6-digit pincode",
+      "Enter a valid 6-digit pincode"
     ),
 });
 
@@ -83,7 +83,7 @@ export const workExperience = z
     employer: z.string().optional(),
     duration_start: z.string().optional(),
     duration_end: z.string().optional(),
-    reference_letter: z.number().optional(),
+    reference_letter: z.number(),
   })
   .optional()
   .superRefine((value, ctx) => {
@@ -98,7 +98,7 @@ export const workExperience = z
     ];
 
     const hasAnyValue = fields.some((v) =>
-      typeof v === "string" ? v.trim() !== "" : !!v,
+      typeof v === "string" ? v.trim() !== "" : !!v
     );
 
     if (!hasAnyValue) return;
@@ -185,14 +185,14 @@ export const personalDetailsSchema = (admissionEmail?: string) =>
               "The email id  has already been used. Kindly check your mail",
               {
                 position: "bottom-right",
-              },
+              }
             );
           }
           return !res?.data?.exists;
         },
         {
           message: "Email already exists",
-        },
+        }
       ),
     // .refine((email) => {
     //   const domain = email.split("@")[1];
@@ -242,7 +242,7 @@ export const personalDetailsSchema = (admissionEmail?: string) =>
       .min(1, "Pincode is required")
       .refine(
         (val) => val === "" || /^\d{6}$/.test(val),
-        "Enter a valid 6-digit pincode",
+        "Enter a valid 6-digit pincode"
       )
       .optional(),
     hobbies: z.string().optional(),
@@ -284,9 +284,27 @@ export const educationDetailsSchema = z.object({
         });
       }
     }),
-  Post_Graduate: z.array(postGraduate).optional(),
+  
+  Post_Graduate: z
+    .array(postGraduate)
+    .optional()
+    .superRefine((pgList, ctx) => {
+      if (!pgList || pgList.length === 0) return;
 
-  // additionalDegree: z.array(education).optional(),
+      const inProgressIndex = pgList.findIndex(
+        (pg) => pg.pg_status === "In-Progress"
+      );
+
+      if (inProgressIndex === -1) return;
+
+      for (let i = inProgressIndex + 1; i < pgList.length; i++) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: [i, "degree"],
+          message: "Complete the in-progress degree before adding another.",
+        });
+      }
+    }),
 
   Work_Experience: z.array(workExperience).optional(),
 
@@ -299,10 +317,9 @@ export const portfolioSchema = z.object({
       .array(
         z.object({
           id: z.number().min(1, "Image ID is required"),
-        }),
+        })
       )
-      .min(20, "Only 20 images are allowed")
-      .max(20, "Only 20 images are allowed"),
+      .length(20, "Only 20 images are allowed"),
   }),
   step_3: z.boolean().optional(),
 });

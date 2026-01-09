@@ -7,7 +7,9 @@ import {
   type UseFormClearErrors,
   type UseFormSetError,
   type UseFormSetValue,
+  UseFormTrigger,
   useFieldArray,
+  useFormState,
   useWatch,
 } from "react-hook-form";
 import { FormInput } from "@/components/form";
@@ -20,16 +22,14 @@ type EducationDetailsProps = {
   admissionData?: AdmissionFormData;
   control: Control<EducationDetailsSchema>;
   setValue?: UseFormSetValue<EducationDetailsSchema>;
-  setError?: UseFormSetError<EducationDetailsSchema>;
-  clearError?: UseFormClearErrors<EducationDetailsSchema>;
+  trigger: UseFormTrigger<EducationDetailsSchema>;
 };
 
 export function EducationDetails({
   admissionData,
   control,
   setValue,
-  setError,
-  clearError,
+  trigger,
 }: EducationDetailsProps) {
   const {
     fields: pgDegrees,
@@ -39,6 +39,8 @@ export function EducationDetails({
     control: control,
     name: "Post_Graduate",
   });
+
+  const { errors } = useFormState({ control });
 
   const postGraduate = useWatch({
     control,
@@ -65,23 +67,8 @@ export function EducationDetails({
   };
 
   useEffect(() => {
-    const invalidIndex = postGraduate?.findIndex(
-      (pg) => pg.pg_status?.trim() === "In-Progress",
-    );
-
-    clearError?.("Post_Graduate");
-
-    if (invalidIndex === -1) return;
-
-    if (invalidIndex !== undefined) {
-      postGraduate?.slice(invalidIndex + 1).forEach((_, idx) => {
-        setError?.(`Post_Graduate.${invalidIndex + idx + 1}.degree`, {
-          type: "manual",
-          message: "In-progress degree must be completed first.",
-        });
-      });
-    }
-  }, [postGraduate, setError, clearError]);
+    trigger("Post_Graduate");
+  }, [postGraduate, trigger]);
 
   return (
     <div className="space-y-2">
@@ -124,7 +111,7 @@ export function EducationDetails({
             <div className="lg:h-5" />
           </div>
 
-          <div className="lg:pt-7">
+          <div className="md:pt-7">
             <FormRadioGroup
               name="Under_Graduate.ug_status"
               control={control}
@@ -168,18 +155,25 @@ export function EducationDetails({
               placeholder="Enter your post graduation degree"
               control={control}
               notRequired={true}
+              errorMessage={errors?.Post_Graduate?.[index]?.degree}
               onChangeExtra={(value) => {
                 if (!value?.trim()) {
                   setValue?.(`Post_Graduate.${index}.pg_status`, "", {
                     shouldDirty: true,
                     shouldValidate: true,
                   });
+                } else {
+                  setValue?.(`Post_Graduate.${index}.pg_status`, "In-Progress", {
+                    shouldDirty: true,
+                    shouldValidate: true,
+                  });
                 }
+                // trigger("Post_Graduate");
               }}
               disabled={ugStatus !== "Finished"}
             />
 
-            <div className="lg:pt-7">
+            <div className="md:pt-7">
               <FormRadioGroup
                 name={`Post_Graduate.${index}.pg_status`}
                 control={control}

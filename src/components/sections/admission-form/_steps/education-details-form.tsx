@@ -47,41 +47,41 @@ const EducationDetailsForm = ({
       Post_Graduate:
         admissionData?.Post_Graduate && admissionData?.Post_Graduate?.length > 0
           ? admissionData?.Post_Graduate?.map((item) => ({
-              degree: item?.degree ?? "",
-              pg_status: item?.pg_status ?? "",
-              // marksheet: item?.marksheet?.id ?? 0,
-            }))
+            degree: item?.degree ?? "",
+            pg_status: item?.pg_status ?? "",
+            // marksheet: item?.marksheet?.id ?? 0,
+          }))
           : [
-              {
-                degree: "",
-                pg_status: "",
-                // marksheet: 0,
-              },
-            ],
+            {
+              degree: "",
+              pg_status: "",
+              // marksheet: 0,
+            },
+          ],
       Work_Experience:
         admissionData?.Work_Experience &&
-        admissionData?.Work_Experience?.length > 0
+          admissionData?.Work_Experience?.length > 0
           ? admissionData?.Work_Experience?.map((item) => ({
-              designation: item?.designation ?? "",
-              employer: item?.employer ?? "",
-              duration_start: item?.duration_start ?? "",
-              duration_end: item?.duration_end ?? "",
-              reference_letter: item?.reference_letter?.id ?? 0,
-            }))
+            designation: item?.designation ?? "",
+            employer: item?.employer ?? "",
+            duration_start: item?.duration_start ?? "",
+            duration_end: item?.duration_end ?? "",
+            reference_letter: item?.reference_letter?.id ?? 0,
+          }))
           : [
-              {
-                designation: "",
-                employer: "",
-                duration_start: "",
-                duration_end: "",
-                reference_letter: 0,
-              },
-            ],
+            {
+              designation: "",
+              employer: "",
+              duration_start: "",
+              duration_end: "",
+              reference_letter: 0,
+            },
+          ],
       step_2: admissionData?.step_2 ?? false,
     },
   });
 
-  const { control, handleSubmit, watch, setValue, setError, clearErrors } =
+  const { control, handleSubmit, watch, setValue, trigger } =
     form_step2;
 
   const watchUgStatus = watch("Under_Graduate.ug_status");
@@ -101,14 +101,6 @@ const EducationDetailsForm = ({
   const onSubmit = async (payload: EducationDetailsSchema) => {
     const filteredData = filteredPayload(payload);
 
-    const workExperience = payload?.Work_Experience?.slice(0, 1).filter(
-      (item) =>
-        item?.designation === "" &&
-        item?.employer === "" &&
-        item?.duration_start === "" &&
-        item?.duration_end === "",
-    );
-
     const data = {
       ...filteredData,
       step_2: true,
@@ -117,7 +109,16 @@ const EducationDetailsForm = ({
         payload?.Post_Graduate?.[0]?.degree === ""
           ? []
           : payload?.Post_Graduate,
-      Work_Experience: workExperience ? [] : payload?.Work_Experience,
+      Work_Experience:
+        payload?.Work_Experience?.[0]?.designation === ""
+          ? []
+          : payload?.Work_Experience?.map((item) => ({
+            designation: item?.designation ?? "",
+            employer: item?.employer ?? "",
+            duration_start: item?.duration_start ?? "",
+            duration_end: item?.duration_end ?? "",
+            reference_letter: item?.reference_letter !== 0 ? item?.reference_letter : null,
+          })),
     };
 
     try {
@@ -141,8 +142,7 @@ const EducationDetailsForm = ({
           admissionData={admissionData}
           control={control}
           setValue={setValue}
-          setError={setError}
-          clearError={clearErrors}
+          trigger={trigger}
         />
 
         <p className="text-base text-muted-foreground mt-2">
