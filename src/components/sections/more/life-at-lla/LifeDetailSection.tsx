@@ -446,25 +446,22 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                 </h3>
                 <div className="hidden md:flex flex-col gap-4">
                   {latest.map((post) => (
-                    <div key={post.id} className="group">
-                      <div className="flex flex-col gap-2">
+                    <Link key={post.id} href={`/life-at-lla/${post.Slug}`} className="group block">
+                      <div className="flex flex-col gap-2 cursor-pointer transition-transform duration-300 hover:scale-[1.02]">
                         {post.Image?.[0]?.url && (
                           <div className="relative w-full aspect-video overflow-hidden">
                             <ImageWidget
                               src={getS3Url(post.Image?.[0]?.url || "")}
                               alt={post.Title}
                               fill
-                              className="object-cover"
+                              className="object-cover transition-transform duration-300 group-hover:scale-105"
                             />
                           </div>
                         )}
-                        <h4 className="text-[16px] font-semibold text-black font-mulish">
+                        <h4 className="text-[16px] font-semibold text-black font-mulish transition-colors duration-300">
                           {post.Title}
                         </h4>
-                        <Link
-                          href={`/life-at-lla/${post.Slug}`}
-                          className="inline-flex items-center gap-2 text-[#E97451] hover:gap-4 transition-all duration-300 mt-2 text-[16px] md:text-[16px] lg:text-[16px] font-normal font-urbanist group"
-                        >
+                        <div className="inline-flex items-center gap-2 text-[#E97451] group-hover:gap-4 transition-all duration-300 mt-2 text-[16px] md:text-[16px] lg:text-[16px] font-normal font-urbanist">
                           Read More
                           <ImageWidget
                             src={ArrowRightWhite}
@@ -473,9 +470,9 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                             height={16}
                             className="object-contain"
                           />
-                        </Link>
+                        </div>
                       </div>
-                    </div>
+                    </Link>
                   ))}
                 </div>
                 <div className="md:hidden relative">
@@ -486,28 +483,26 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                     style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                   >
                     {latest.map((post) => (
-                      <div
+                      <Link
                         key={post.id}
-                        className="shrink-0 w-[85%] snap-start"
+                        href={`/life-at-lla/${post.Slug}`}
+                        className="shrink-0 w-[85%] snap-start block group"
                       >
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-2 cursor-pointer transition-transform duration-300 hover:scale-[1.02]">
                           {post.Image?.[0]?.url && (
-                            <div className="relative w-full aspect-video overflow-hidden">
+                            <div className="relative w-full aspect-video overflow-hidden ">
                               <ImageWidget
                                 src={getS3Url(post.Image[0].url)}
                                 alt={post.Title}
                                 fill
-                                className="object-cover"
+                                className="object-cover transition-transform duration-300 group-hover:scale-105"
                               />
                             </div>
                           )}
-                          <h4 className="text-[16px] font-semibold text-black font-mulish">
+                          <h4 className="text-[16px] font-semibold text-black font-mulish transition-colors duration-300">
                             {post.Title}
                           </h4>
-                          <Link
-                            href={`/life-at-lla/${post.Slug}`}
-                            className="inline-flex items-center gap-2 text-[#E97451] hover:gap-4 transition-all duration-300 mt-2 text-[16px] font-normal font-urbanist group"
-                          >
+                          <div className="inline-flex items-center gap-2 text-[#E97451] group-hover:gap-4 transition-all duration-300 mt-2 text-[16px] font-normal font-urbanist">
                             Read More
                             <ImageWidget
                               src={ArrowRightWhite}
@@ -516,9 +511,9 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                               height={16}
                               className="object-contain"
                             />
-                          </Link>
+                          </div>
                         </div>
-                      </div>
+                      </Link>
                     ))}
                   </div>
                   <div className="flex gap-4 mt-6 justify-start">
