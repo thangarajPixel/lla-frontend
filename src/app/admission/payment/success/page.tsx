@@ -16,6 +16,7 @@ export type ThankYouPage = {
   Title: string;
   Description: string;
   LongDescription: string;
+  Type?: string;
 };
 
 const PaymentSuccessPage = () => {
@@ -105,7 +106,10 @@ const PaymentSuccessPage = () => {
     const getThankYouContent = async () => {
       try {
         const res = await clientAxios.get(`/thank-you-pages`);
-        setThankYouContent(res?.data?.data[0]);
+        const successContent = res?.data?.data?.find(
+          (item: ThankYouPage) => item.Type === "Success",
+        );
+        setThankYouContent(successContent);
       } catch (error) {
         notify({ success: false, message: String(error) });
       }

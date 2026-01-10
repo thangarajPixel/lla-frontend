@@ -198,7 +198,7 @@ const CourseApplicationFormModel = ({
                 <span>loading...</span>
               </div>
             ) : (
-              <OrangeButtonWidget type="submit" content="Submit" />
+              <OrangeButtonWidget type="submit" content="Save & Continue" />
             )}
           </form>
         </section>

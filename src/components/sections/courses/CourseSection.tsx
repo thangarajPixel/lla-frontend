@@ -122,7 +122,7 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = sidebarMenuItems.map((item) => item.href.substring(1));
+      const sections = sidebarMenuItems?.map((item) => item.href.substring(1));
       const scrollPosition = window.scrollY + 200;
 
       // Check for main sections

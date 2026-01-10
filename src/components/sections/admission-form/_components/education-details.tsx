@@ -1,6 +1,6 @@
 "use client";
 
-import { Plus} from "lucide-react";
+import { Plus } from "lucide-react";
 import { useEffect } from "react";
 import {
   type Control,
