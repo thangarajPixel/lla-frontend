@@ -4,12 +4,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { getEssentialsData } from "@/app/api/server";
 import { FormInput } from "@/components/form";
 import type { CourseCard, CourseItem } from "@/components/layouts/utils/types";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Spinner } from "@/components/ui/spinner";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
 import { encryptId } from "@/helpers/ConstantHelper";
@@ -29,6 +31,7 @@ const CourseApplicationFormModel = ({
   selectedCourse,
   selectedCourseItem,
 }: CourseApplicationProps) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
 
   const form = useForm<RequestFormData>({
@@ -70,6 +73,8 @@ const CourseApplicationFormModel = ({
     };
 
     try {
+      setIsLoading(true);
+
       if (isAdmissionOpen?.data?.isAdmission) {
         const isExistingEmailCheck = await clientAxios.post(
           `/admissions/email/check`,
@@ -96,7 +101,7 @@ const CourseApplicationFormModel = ({
         const res = await clientAxios.post(`/admissions`, {
           data: admissionPayload,
         });
-        console.log('res',res)
+        console.log("res", res);
 
         const encryptedId = encryptId(res?.data?.data?.id);
         router.push(`/admission/${encryptedId}/personal-details`);
@@ -111,6 +116,8 @@ const CourseApplicationFormModel = ({
       toast.error("Failed to send message. Please try again.", {
         position: "top-right",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -185,7 +192,14 @@ const CourseApplicationFormModel = ({
                                 label="Email"
                             />
                         </div> */}
-            <OrangeButtonWidget type="submit" content="Submit" />
+            {isLoading ? (
+              <div className="flex items-center w-fit justify-center gap-2 orange-button p-3 rounded-full">
+                <Spinner />
+                <span>loading...</span>
+              </div>
+            ) : (
+              <OrangeButtonWidget type="submit" content="Submit" />
+            )}
           </form>
         </section>
       </DialogContent>

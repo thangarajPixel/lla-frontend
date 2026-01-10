@@ -324,6 +324,15 @@ export const educationDetailsSchema = z.object({
 });
 
 export const portfolioSchema = z.object({
+  // Upload_Your_Portfolio: z.object({
+  //   images: z
+  //     .array(
+  //       z.object({
+  //         id: z.number().min(1, "Image ID is required"),
+  //       }),
+  //     )
+  //     .length(20, "Only 20 images are allowed"),
+  // }),
   Upload_Your_Portfolio: z.object({
     images: z
       .array(
@@ -331,7 +340,16 @@ export const portfolioSchema = z.object({
           id: z.number().min(1, "Image ID is required"),
         }),
       )
-      .length(20, "Only 20 images are allowed"),
+      .superRefine((images, ctx) => {
+        const MAX = 20;
+
+        if (images.length !== MAX) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: `${images.length} out of ${MAX} images uploaded`,
+          });
+        }
+      }),
   }),
   step_3: z.boolean().optional(),
 });

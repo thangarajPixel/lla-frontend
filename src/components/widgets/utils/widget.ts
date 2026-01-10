@@ -28,6 +28,7 @@ export type DialogWidgetProps = {
 
 export type OrangeButtonWidgetProps = Omit<ButtonWidgetProps, "children"> & {
   content: string;
+  apiLoader?: boolean;
 };
 
 export type HTMLWidgetProps = {

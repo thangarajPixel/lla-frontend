@@ -1,12 +1,11 @@
 "use client";
 
-import { Plus, X } from "lucide-react";
+import { Plus } from "lucide-react";
 import { type Control, useFieldArray, useWatch } from "react-hook-form";
 import { FormInput } from "@/components/form";
 import FormFileUploadButton from "@/components/form/FormFileUploadButton";
 import FormDateRangePickerWithInput from "@/components/form/FormInputDateRangePicker";
 import type { EducationDetailsSchema } from "@/components/sections/admission-form/_steps/education-details-form";
-import { Button } from "@/components/ui/button";
 
 type WorkExperienceProps = {
   admissionData?: AdmissionFormData;
@@ -54,13 +53,26 @@ export function WorkExperience({
                 Work Experience - {index}
               </h2>
 
-              <Button
+              {/* <Button
                 type="button"
                 onClick={() => remove(index)}
                 className="flex relative bottom-2 items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
               >
                 <X className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
-              </Button>
+              </Button> */}
+              <div
+                aria-hidden
+                className="flex items-center justify-center gap-2 cursor-pointer"
+                onClick={() => remove(index)}
+              >
+                <button
+                  type="button"
+                  className=" text-white bg-[#E97451] size-5 rounded-full p-1 text-sm flex items-center justify-center hover:bg-[#E97451] cursor-pointer"
+                >
+                  X
+                </button>
+                <span className="hidden">Remove</span>
+              </div>
             </div>
           )}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

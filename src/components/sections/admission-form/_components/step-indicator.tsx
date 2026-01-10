@@ -82,7 +82,7 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
                   ? "text-left"
                   : index === steps.length - 1
                     ? "text-right"
-                    : "text-center",
+                    : "text-center ml-4",
               )}
             >
               {step}

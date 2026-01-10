@@ -129,7 +129,7 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
     });
   };
 
-  const handleCalendarSelect = (r: { from?: Date; to?: Date } | undefined) => {
+  const _handleCalendarSelect = (r: { from?: Date; to?: Date } | undefined) => {
     if (!r) return;
 
     setRange({
@@ -147,6 +147,27 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
         setInputValue(`${toDisplay(r.from)} - ${toDisplay(r.to)}`);
       }
 
+      setOpen(false);
+    }
+  };
+
+  const handleCalendarSelect = (r: { from?: Date; to?: Date } | undefined) => {
+    if (!r) return;
+
+    setRange({
+      from: r.from ?? undefined,
+      to: r.to ?? undefined,
+    });
+
+    if (r.from) {
+      setStart(format(r.from, STORE));
+    }
+
+    if (!r.to || !r.from) return;
+
+    if (r.from.getTime() !== r.to.getTime()) {
+      setEnd(format(r.to, STORE));
+      setInputValue(`${toDisplay(r.from)} - ${toDisplay(r.to)}`);
       setOpen(false);
     }
   };

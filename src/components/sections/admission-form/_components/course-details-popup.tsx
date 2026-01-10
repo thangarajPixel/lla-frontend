@@ -3,19 +3,21 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getCoursesListData } from "@/app/api/server";
+import type { CourseCard } from "@/components/layouts/utils/types";
 import CourseApplicationFormModel from "@/components/sections/courses/utils/CourseApplicationFormModel";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import LinkWidget from "@/components/widgets/LinkWidget";
 import OrangeBorderButtonWidget from "@/components/widgets/OrangeBorderButtonWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import type { CourseCard } from "@/components/layouts/utils/types";
 
 type CourseDetailsPopupProps = {
   redirectToHome?: boolean;
 };
 
-const CourseDetailsPopup = ({ redirectToHome = false }: CourseDetailsPopupProps) => {
+const CourseDetailsPopup = ({
+  redirectToHome = false,
+}: CourseDetailsPopupProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState<CourseCard[]>();
   const [isApplicationOpen, setIsApplicationOpen] = useState<boolean>(false);
@@ -95,10 +97,14 @@ const CourseDetailsPopup = ({ redirectToHome = false }: CourseDetailsPopupProps)
     <>
       {/* Custom Modal for Course Selection */}
       {isOpen && (
-        <div className="fixed inset-0 flex items-center justify-center" style={{ zIndex: 9998 }}>
+        <div
+          className="fixed inset-0 flex items-center justify-center"
+          style={{ zIndex: 9998 }}
+        >
           {/* Backdrop */}
-          <div 
-            className="absolute inset-0 bg-black/50" 
+          <div
+            className="absolute inset-0 bg-black/50"
+            aria-hidden
             onClick={handleClose}
           />
           {/* Modal Content */}
@@ -136,6 +142,7 @@ const CourseDetailsPopup = ({ redirectToHome = false }: CourseDetailsPopupProps)
                         </p>
                         <div className="self-start flex gap-2">
                           <div
+                            aria-hidden
                             onClick={() => handleApplyNow(card)}
                             className="inline-block cursor-pointer"
                           >

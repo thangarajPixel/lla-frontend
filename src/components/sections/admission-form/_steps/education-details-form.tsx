@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import type z from "zod";
 import { EducationDetails } from "@/components/sections/admission-form/_components/education-details";
@@ -27,6 +27,7 @@ const EducationDetailsForm = ({
   admissionData,
   admissionId,
 }: EducationDetailsFormProps) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
 
   const form_step2 = useForm<EducationDetailsSchema>({
@@ -103,6 +104,14 @@ const EducationDetailsForm = ({
       ...payload,
       step_2: true,
       EncryptId: admissionId,
+      Under_Graduate: {
+        degree: payload?.Under_Graduate?.degree ?? "",
+        ug_status: payload?.Under_Graduate?.ug_status ?? "",
+        marksheet:
+          payload?.Under_Graduate?.marksheet === 0
+            ? null
+            : payload?.Under_Graduate?.marksheet,
+      },
       Post_Graduate:
         payload?.Post_Graduate?.[0]?.degree === ""
           ? []
@@ -131,6 +140,8 @@ const EducationDetailsForm = ({
     };
 
     try {
+      setIsLoading(true);
+
       await updateAdmission(
         admissionData?.documentId as string,
         data as EducationDetailsSchema,
@@ -138,6 +149,8 @@ const EducationDetailsForm = ({
       router.push(`/admission/${admissionId}/portfolio`);
     } catch (error) {
       notify({ success: false, message: error as string });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -190,6 +203,7 @@ const EducationDetailsForm = ({
             <OrangeButtonWidget
               content="Save & Continue"
               className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-base 2xl:text-[18px] 3xl:text-[18px] 3xl:w-[226px]"
+              apiLoader={isLoading}
             />
           </div>
         )}

@@ -71,7 +71,7 @@ const PaymentFailedPage = () => {
           </div>
         </div>
 
-        <div className="space-y-4 max-w-195 3xl:max-w-267.5">
+        <div className="hidden space-y-4 max-w-195 3xl:max-w-267.5">
           <p className="text-base 3xl:text-lg font-mulish text-black">
             {thankYouContent?.Title}
           </p>
@@ -87,6 +87,38 @@ const PaymentFailedPage = () => {
             className="font-mulish text-black/50 text-xs 3xl:text-sm italic 3xl:max-w-5xl mx-auto leading-relaxed"
             tag="p"
           />
+        </div>
+
+        <div className="space-y-3 text-center">
+          <p className="text-lg font-semibold text-red-600">
+            Your Payment has failed.
+          </p>
+
+          <p className="text-sm text-gray-700">
+            For further assistance, please contact us:
+          </p>
+
+          <div className="text-sm text-gray-800 space-y-1">
+            <p>
+              <span className="font-medium">Email:</span>{" "}
+              <a
+                href="mailto:admissions@llacademy.org"
+                className="text-blue-600 hover:underline"
+              >
+                admissions@llacademy.org
+              </a>
+            </p>
+
+            <p>
+              <span className="font-medium">Phone:</span>{" "}
+              <a
+                href="tel:+917598287370"
+                className="text-blue-600 hover:underline"
+              >
+                +91 75982 87370
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </main>

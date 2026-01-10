@@ -40,7 +40,7 @@ export const UploadArea = ({ onFilesSelected, loading }: UploadAreaProps) => {
           <p className="text-sm text-muted-foreground">Drag & Drop here</p>
 
           <p className="text-xs 3xl:text-sm text-muted-foreground">
-            Image should be less than 1MB
+            Image must be less than 1MB
           </p>
 
           <Button
