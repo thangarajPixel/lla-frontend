@@ -1,6 +1,14 @@
 "use client";
 
+import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
+import { useRouter } from "next/navigation";
+
 export default function ThankYouPage() {
+  const router = useRouter();
+
+  const handleGoHome = () => {
+    router.push("/");
+  };
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Header Section */}
@@ -23,6 +31,8 @@ export default function ThankYouPage() {
           <p className="text-base md:text-lg text-gray-500 font-sans">
             We will get back to you shortly.
           </p>
+
+          <OrangeButtonWidget content="Go Back to Home" onClick={handleGoHome}  />
         </div>
       </div>
     </div>
