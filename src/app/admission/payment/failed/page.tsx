@@ -57,7 +57,6 @@ const PaymentFailedPage = () => {
           (item: ThankYouPage) => item.Type === "Error",
         );
         setThankYouContent(errorContent);
-        setThankYouContent(res?.data?.data[1]);
       } catch (error) {
         notify({ success: false, message: String(error) });
       }
