@@ -70,7 +70,6 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
               loop
               muted
               playsInline
-              poster={backgroundImage || undefined}
               onError={handleVideoError}
               onLoadStart={() => {
                 setVideoError(false);
@@ -164,7 +163,6 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
                           muted
                           playsInline
                           controls
-                          poster={backgroundImage || undefined}
                           className="w-full h-[90vh] object-contain rounded-lg"
                           onError={(e) => {
                             e.preventDefault();
