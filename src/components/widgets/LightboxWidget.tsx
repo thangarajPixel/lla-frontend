@@ -2,10 +2,9 @@
 
 import type { StaticImageData } from "next/image";
 import { useEffect, useRef, useState } from "react";
-import Lightbox, { type SlideImage } from "yet-another-react-lightbox";
+import Lightbox from "yet-another-react-lightbox";
 import { cn } from "@/lib/utils";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
-import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import "yet-another-react-lightbox/styles.css";
 import ImageWidget from "./ImageWidget";
 
@@ -14,14 +13,24 @@ type ImageType = {
   width?: number;
   height?: number;
   alt?: string;
+  title?: string;
 };
 
-const mapImages = (images: ImageType[]): SlideImage[] => {
+type ExtendedSlideImage = {
+  src: string;
+  width?: number;
+  height?: number;
+  alt?: string;
+  title?: string;
+};
+
+const mapImages = (images: ImageType[]): ExtendedSlideImage[] => {
   return images.map((image) => ({
     src: typeof image.src === "string" ? image.src : image.src.src,
     width: image.width,
     height: image.height,
     alt: image.alt,
+    title: image.title,
   }));
 };
 
@@ -138,8 +147,29 @@ export default function LightboxWidget({
           close={handleClose}
           index={index}
           slides={mapImages(images)}
-          plugins={[Zoom]}
-          zoom={{ maxZoomPixelRatio: 3 }}
+          render={{
+            slide: ({ slide }) => {
+              const extendedSlide = slide as ExtendedSlideImage;
+              return (
+                <div className="flex flex-col items-center justify-center h-full">
+                  <img
+                    src={extendedSlide.src}
+                    alt={extendedSlide.alt || ""}
+                    style={{
+                      maxWidth: "100%",
+                      maxHeight: "calc(100vh - 120px)",
+                      objectFit: "contain",
+                    }}
+                  />
+                  {extendedSlide.title && (
+                    <div className="mt-4 text-white text-center text-lg md:text-xl lg:text-2xl font-mulish font-bold px-4">
+                      {extendedSlide.title}
+                    </div>
+                  )}
+                </div>
+              );
+            },
+          }}
         />
       )}
     </>

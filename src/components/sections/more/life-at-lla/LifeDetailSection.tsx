@@ -99,7 +99,14 @@ const ImageSlider = ({
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState<number | null>(null);
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Minimum swipe distance (in px)
+  const minSwipeDistance = 50;
 
   const nextSlide = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % images.length);
@@ -131,6 +138,68 @@ const ImageSlider = ({
   const handleMouseEnter = () => setIsAutoPlaying(false);
   const handleMouseLeave = () => setIsAutoPlaying(true);
 
+  // Touch handlers for mobile swipe
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      nextSlide();
+    } else if (isRightSwipe) {
+      prevSlide();
+    }
+
+    setTouchStart(null);
+    setTouchEnd(null);
+  };
+
+  // Mouse drag handlers for desktop
+  const onMouseDown = (e: React.MouseEvent) => {
+    setIsDragging(true);
+    setDragStart(e.clientX);
+  };
+
+  const onMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !dragStart) return;
+    e.preventDefault();
+  };
+
+  const onMouseUp = (e: React.MouseEvent) => {
+    if (!isDragging || !dragStart) return;
+
+    const distance = dragStart - e.clientX;
+    const isLeftDrag = distance > minSwipeDistance;
+    const isRightDrag = distance < -minSwipeDistance;
+
+    if (isLeftDrag) {
+      nextSlide();
+    } else if (isRightDrag) {
+      prevSlide();
+    }
+
+    setIsDragging(false);
+    setDragStart(null);
+  };
+
+  const onMouseLeaveWhileDragging = () => {
+    if (isDragging) {
+      setIsDragging(false);
+      setDragStart(null);
+    }
+  };
+
   if (images.length === 0) return null;
 
   return (
@@ -140,12 +209,32 @@ const ImageSlider = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="relative w-full h-full">
+      <div 
+        className="relative w-full h-full cursor-grab active:cursor-grabbing select-none"
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+        onMouseUp={onMouseUp}
+        onMouseLeave={onMouseLeaveWhileDragging}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            nextSlide();
+          } else if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            prevSlide();
+          }
+        }}
+      >
         <ImageWidget
           src={getS3Url(images[currentIndex].url)}
           alt={title || images[currentIndex].name}
           fill
-          className="object-cover transition-opacity duration-500"
+          className="object-cover transition-opacity duration-500 pointer-events-none"
         />
       </div>
       {images.length > 1 && (
@@ -153,7 +242,7 @@ const ImageSlider = ({
           <button
             type="button"
             onClick={prevSlide}
-            className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 z-10"
+            className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full  opacity-100 transition-all duration-300 z-10"
             aria-label="Previous image"
           >
             <ImageWidget
@@ -168,7 +257,7 @@ const ImageSlider = ({
           <button
             type="button"
             onClick={nextSlide}
-            className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 z-10"
+            className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-100 transition-all duration-300 z-10"
             aria-label="Next image"
           >
             <ImageWidget
@@ -199,7 +288,7 @@ const ImageSlider = ({
         </div>
       )}
       {images.length > 1 && (
-        <div className="absolute top-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="absolute top-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm font-medium opacity-100 transition-opacity duration-300">
           {currentIndex + 1} / {images.length}
         </div>
       )}
@@ -314,7 +403,7 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                   </div>
                 ))}
 
-                <div className="mt-8 pt-8 border-t border-gray-600">
+                {/* <div className="mt-8 pt-8 border-t border-gray-600">
                   <h3 className="text-[16px] md:text-[18px] lg:text-[18px] xl:text-[20px] 2xl:text-[20px] 3xl:text-[24px] font-normal text-[#082326] font-mulish mb-6">
                     Share with
                   </h3>
@@ -344,7 +433,7 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                       );
                     })}
                   </div>
-                </div>
+                </div> */}
               </div>
             </ScrollWidget>
           </div>
@@ -352,7 +441,7 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
             <ScrollWidget animation="fadeIn" delay={0.2}>
               <div className="lg:sticky lg:top-8">
                 <h3 className="text-[32px] ledding-[40px] font-normal text-black font-urbanist mb-3">
-                  Latest Life at LLA
+                  Latest Life @ LLA
                 </h3>
                 <div className="hidden md:flex flex-col gap-4">
                   {latest.map((post) => (

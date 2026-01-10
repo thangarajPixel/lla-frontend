@@ -72,30 +72,30 @@ const AdmissionButton = ({
             className={`${isContactUsPage
               ? "orange-button-white border-1 border-[#E97451]  leading-[28px]"
               : "orange-button-white border-1 border-[#E97451]  leading-[28px]"
-              } group rounded-[60px] xss:text-[16px] px-5 h-10 3xl:w-[230px] 3xl:h-[50px]  text-[14px] 2xl:text-[14px] 3xl:text-[18px] ${className}`}
-          >
-            Admission Open
-            <ImageWidget
-              src={isContactUsPage ? ArrowRightWhite : ArrowRightWhite}
-              alt="Arrow Right"
-              className={`lg:w-[18px] lg:h-[18px] 3xl:w-6 3xl:h-6 transition-transform duration-300 group-hover:translate-x-1 ${iconClassName}`}
-            />
-          </ButtonWidget>
-        }
-        contentClassName="sm:max-w-[90vw] md:max-w-[85vw] lg:max-w-[700px] xl:max-w-[800px] 2xl:max-w-[900px] p-4 sm:p-6 lg:p-6"
-        showCancel={false}
-        showCloseButton={false}
-        customCloseButton={
-          <DialogClose asChild>
-            <div className="cursor-pointer -mt-[30px] -mr-[30px]">
-              <ImageWidget src={Into} alt="Into" className="w-[30px] h-[30px]" />
-            </div>
-          </DialogClose>
-        }
-      >
-        <div className="flex flex-col md:flex-row gap-5 h-[420px] overflow-y-auto md:h-auto">
-          {data && data.length > 0
-            ? data.map((card, index) => {
+          } group rounded-[60px] xss:text-[16px] px-5 h-10 3xl:w-[230px] 3xl:h-[50px]  text-[14px] 2xl:text-[14px] 3xl:text-[18px] ${className}`}
+        >
+          Admission Open
+          <ImageWidget
+            src={isContactUsPage ? ArrowRightWhite : ArrowRightWhite}
+            alt="Arrow Right"
+            className={`lg:w-[18px] lg:h-[18px] 3xl:w-6 3xl:h-6 transition-transform duration-300 group-hover:translate-x-1 ${iconClassName}`}
+          />
+        </ButtonWidget>
+      }
+      contentClassName="h-[80vh] md:h-auto sm:max-w-[90vw] md:max-w-[85vw] lg:max-w-[700px] xl:max-w-[800px] 2xl:max-w-[900px] p-4 sm:p-6 lg:p-6"
+      showCancel={false}
+      showCloseButton={false}
+      customCloseButton={
+        <DialogClose asChild>
+          <div className="cursor-pointer -mt-[30px] -mr-[30px]">
+            <ImageWidget src={Into} alt="Into" className="w-[30px] h-[30px]" />
+          </div>
+        </DialogClose>
+      }
+    >
+      <div className="flex flex-col md:flex-row gap-5 h-[75vh] overflow-y-auto md:h-auto">
+        {data && data.length > 0
+          ? data.map((card, index) => {
               const images = card?.Image || [];
               const imageIndex = imageIndices[index] ?? 0;
               const selectedImage = images[imageIndex];

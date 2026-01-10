@@ -157,7 +157,7 @@ const LifeSection = ({ data }: LifeSectionProps) => {
             ref={emblaRef}
             className="overflow-hidden cursor-grab active:cursor-grabbing"
           >
-            <div className="flex gap-4 sm:gap-4 touch-pan-x pl-4">
+            <div className="flex gap-4 sm:gap-4 pl-4">
               {lifeCardsData.map((card) => (
                 <div
                   key={card.id}
