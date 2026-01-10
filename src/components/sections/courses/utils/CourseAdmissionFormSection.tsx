@@ -9,16 +9,20 @@ import { toast } from "sonner";
 import type z from "zod";
 import { getEssentialsData } from "@/app/api/server";
 import { FormInput } from "@/components/form";
+import type { CourseItem } from "@/components/layouts/utils/types";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
 import { encryptId } from "@/helpers/ConstantHelper";
 import { admissionRequestSchema } from "@/helpers/ValidationHelper";
 import CourseApplicationFormModel from "./CourseApplicationFormModel";
-import { CourseItem } from "@/components/layouts/utils/types";
 
 export type RequestFormData = z.infer<typeof admissionRequestSchema>;
 
-const CourseAdmissionFormSection = ({ selectedCourse }: { selectedCourse?: CourseItem }) => {
+const CourseAdmissionFormSection = ({
+  selectedCourse,
+}: {
+  selectedCourse?: CourseItem;
+}) => {
   // const [selectedCourse, setSelectedCourse] =
   //   useState<string>();
   const [isApplicationOpen, setIsApplicationOpen] = useState(false);
@@ -90,7 +94,9 @@ const CourseAdmissionFormSection = ({ selectedCourse }: { selectedCourse?: Cours
       form.reset();
       toast.success("Request submitted successfully!");
     } catch (_error) {
-      toast.error("Failed to send message. Please try again.", { position : "top-right"});
+      toast.error("Failed to send message. Please try again.", {
+        position: "top-right",
+      });
     }
   };
 

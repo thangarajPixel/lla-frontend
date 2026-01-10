@@ -59,7 +59,9 @@ const AdmissionRequestButton = ({
       reset();
       setIsOpen(false);
     } catch (_error) {
-      toast.error("Failed to send message. Please try again.",{ position : "top-right"});
+      toast.error("Failed to send message. Please try again.", {
+        position: "top-right",
+      });
     }
   };
 

@@ -150,22 +150,23 @@ export const education = z.object({
   status: z.enum(["finished", "in-progress"]).optional(),
 });
 
-export const postGraduate = z.object({
-  degree: z.string().optional(),
-  pg_status: z.string().optional(),
-  marksheet: z.number().optional(),
-})
-.superRefine((data, ctx) => {
-      if (!data) return;
+export const postGraduate = z
+  .object({
+    degree: z.string().optional(),
+    pg_status: z.string().optional(),
+    marksheet: z.number().optional(),
+  })
+  .superRefine((data, ctx) => {
+    if (!data) return;
 
-      if (data.pg_status === "Finished" && !data.marksheet) {
-        ctx.addIssue({
-          path: ["marksheet"],
-          message: "PG marksheet is required",
-          code: z.ZodIssueCode.custom,
-        });
-      }
-    });
+    if (data.pg_status === "Finished" && !data.marksheet) {
+      ctx.addIssue({
+        path: ["marksheet"],
+        message: "PG marksheet is required",
+        code: z.ZodIssueCode.custom,
+      });
+    }
+  });
 
 export const personalDetailsSchema = (admissionEmail?: string) =>
   z.object({

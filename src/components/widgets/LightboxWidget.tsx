@@ -152,7 +152,7 @@ export default function LightboxWidget({
               const extendedSlide = slide as ExtendedSlideImage;
               return (
                 <div className="flex flex-col items-center justify-center h-full">
-                  <img
+                  {/* <img
                     src={extendedSlide.src}
                     alt={extendedSlide.alt || ""}
                     style={{
@@ -160,7 +160,15 @@ export default function LightboxWidget({
                       maxHeight: "calc(100vh - 120px)",
                       objectFit: "contain",
                     }}
+                  /> */}
+                  <ImageWidget
+                    src={extendedSlide.src}
+                    alt={extendedSlide.alt || ""}
+                    fill
+                    className="object-contain"
+                    sizes="100vw"
                   />
+
                   {extendedSlide.title && (
                     <div className="mt-4 text-white text-center text-lg md:text-xl lg:text-2xl font-mulish font-bold px-4">
                       {extendedSlide.title}

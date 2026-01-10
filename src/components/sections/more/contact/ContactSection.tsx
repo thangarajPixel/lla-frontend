@@ -87,7 +87,9 @@ export default function ContactSection({ data }: ContactSectionProps) {
       const _response = await clientAxios.post<ContactFormData>("/contacts", {
         data: data,
       });
-      toast.success("Thank you for getting in touch with us. We will get back to you in 5 working days");
+      toast.success(
+        "Thank you for getting in touch with us. We will get back to you in 5 working days",
+      );
       reset();
     } catch (_error) {
       toast.error("Failed to send message. Please try again.");

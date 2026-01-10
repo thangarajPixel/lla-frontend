@@ -108,20 +108,22 @@ const FacultySection = ({ data }: FacultySectionProps) => {
         <div className="hidden md:block">
           <div className="overflow-hidden" ref={emblaRef}>
             <div
-              className={`flex ${facultyData.length >= 6 ? "justify-start" : "justify-end"
-                }`}
+              className={`flex ${
+                facultyData.length >= 6 ? "justify-start" : "justify-end"
+              }`}
             >
               {facultyData.map((faculty, index) => (
                 <div
                   key={faculty.id}
-                  className={`shrink-0 ${index === 0
+                  className={`shrink-0 ${
+                    index === 0
                       ? "mt-10 hover:mt-0"
                       : index === 3
                         ? "mt-20 hover:mt-0"
                         : index % 2
                           ? "mt-40 hover:mt-0"
                           : "mt-0"
-                    } w-[calc((100%-3rem)/3)] lg:w-[calc((100%-4.5rem)/4)] xl:w-[calc((100%-6rem)/5)] 2xl:w-[calc((100%-7.5rem)/6)] transition-all duration-1000 ease-in-out delay-150`}
+                  } w-[calc((100%-3rem)/3)] lg:w-[calc((100%-4.5rem)/4)] xl:w-[calc((100%-6rem)/5)] 2xl:w-[calc((100%-7.5rem)/6)] transition-all duration-1000 ease-in-out delay-150`}
                 >
                   <ScrollWidget animation="scale" delay={0.1 + index * 0.05}>
                     <div className="group relative flex flex-col gap-3 overflow-hidden transition-all duration-500 ease-in-out delay-75 hover:bg-[#E97451]/20 p-3.5 cursor-pointer">
@@ -154,8 +156,9 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                 </div>
               ))}
               <div
-                className={`shrink-0 ${facultyData.length % 2 ? "mt-30" : "mt-0"
-                  } w-[calc((100%-3rem)/3)] lg:w-[calc((100%-4.5rem)/4)] xl:w-[calc((100%-6rem)/5)] 2xl:w-[calc((100%-7.5rem)/6)] ml-3`}
+                className={`shrink-0 ${
+                  facultyData.length % 2 ? "mt-30" : "mt-0"
+                } w-[calc((100%-3rem)/3)] lg:w-[calc((100%-4.5rem)/4)] xl:w-[calc((100%-6rem)/5)] 2xl:w-[calc((100%-7.5rem)/6)] ml-3`}
               >
                 <ScrollWidget
                   animation="scale"

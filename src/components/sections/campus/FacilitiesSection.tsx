@@ -7,7 +7,6 @@ import ImageWidget from "@/components/widgets/ImageWidget";
 import LightboxWidget from "@/components/widgets/LightboxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import { title } from "node:process";
 
 type FacilitiesSectionProps = {
   data: {
@@ -74,7 +73,10 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
             }
           : null;
       })
-      .filter((img): img is { src: string; alt: string; title: string } => img !== null);
+      .filter(
+        (img): img is { src: string; alt: string; title: string } =>
+          img !== null,
+      );
   }, [facilitiesData, getFullImageUrl]);
 
   const facilityToLightboxIndex = useMemo(() => {

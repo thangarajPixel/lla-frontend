@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getEssentialsData } from "@/app/api/server";
 import AdmissionRequestButton from "@/components/layouts/utils/AdmissionRequestButton";
+import CourseApplicationFormModel from "@/components/sections/courses/utils/CourseApplicationFormModel";
 import {
   Sheet,
   SheetClose,
@@ -17,8 +18,11 @@ import ButtonWidget from "../../widgets/ButtonWidget";
 import ImageWidget from "../../widgets/ImageWidget";
 import LinkWidget from "../../widgets/LinkWidget";
 import AdmissionButton from "./AdmissionButton";
-import type { CourseCard, DropdownMenu as DropdownMenuType, MenuItem } from "./types";
-import CourseApplicationFormModel from "@/components/sections/courses/utils/CourseApplicationFormModel";
+import type {
+  CourseCard,
+  DropdownMenu as DropdownMenuType,
+  MenuItem,
+} from "./types";
 
 type MobileMenuProps = {
   menuItems: (MenuItem | DropdownMenuType)[];
@@ -33,8 +37,7 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [isAdmissionOpen, setIsAdmissionOpen] = useState<boolean>(false);
 
-  const [selectedCourse, setSelectedCourse] =
-    useState<CourseCard>();
+  const [selectedCourse, setSelectedCourse] = useState<CourseCard>();
   const [isApplicationOpen, setIsApplicationOpen] = useState(false);
 
   const isDropdown = (
@@ -69,16 +72,19 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
           >
             <div className="flex flex-col gap-1.5 w-6">
               <span
-                className={`block h-0.5 w-full transition-all duration-300 ${isSticky ? "bg-black" : "bg-white"
-                  }`}
+                className={`block h-0.5 w-full transition-all duration-300 ${
+                  isSticky ? "bg-black" : "bg-white"
+                }`}
               />
               <span
-                className={`block h-0.5 w-full transition-all duration-300 ${isSticky ? "bg-black" : "bg-white"
-                  }`}
+                className={`block h-0.5 w-full transition-all duration-300 ${
+                  isSticky ? "bg-black" : "bg-white"
+                }`}
               />
               <span
-                className={`block h-0.5 w-full transition-all duration-300 ${isSticky ? "bg-black" : "bg-white"
-                  }`}
+                className={`block h-0.5 w-full transition-all duration-300 ${
+                  isSticky ? "bg-black" : "bg-white"
+                }`}
               />
             </div>
           </ButtonWidget>
@@ -124,10 +130,11 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
                       <button
                         type="button"
                         onClick={() => toggleMobileDropdown(menuId)}
-                        className={`flex items-center justify-between text-left py-4 transition-all duration-300 ${isActive
-                          ? "text-[#E97451]"
-                          : "text-black hover:text-[#E97451]"
-                          }`}
+                        className={`flex items-center justify-between text-left py-4 transition-all duration-300 ${
+                          isActive
+                            ? "text-[#E97451]"
+                            : "text-black hover:text-[#E97451]"
+                        }`}
                       >
                         <span className="text-base font-medium">
                           {item.label}
@@ -135,13 +142,15 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
                         <ImageWidget
                           src={TopArrowIcon}
                           alt="Arrow"
-                          className={`w-[13px] h-[13px] transition-transform duration-500 ease-out brightness-0 ${isOpen ? "rotate-180" : "rotate-0"
-                            }`}
+                          className={`w-[13px] h-[13px] transition-transform duration-500 ease-out brightness-0 ${
+                            isOpen ? "rotate-180" : "rotate-0"
+                          }`}
                         />
                       </button>
                       <div
-                        className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-                          }`}
+                        className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                          isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                        }`}
                       >
                         <div className="pl-4 pr-2 pb-4 space-y-1">
                           {item.items.map((subItem) => {
@@ -151,10 +160,11 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
                                 key={subItem.href}
                                 href={subItem.href}
                                 onClick={() => setIsSheetOpen(false)}
-                                className={`block py-3 text-sm transition-all duration-300 ${isSubItemActive
-                                  ? "text-[#E97451]"
-                                  : "text-black/80 hover:text-[#E97451]"
-                                  }`}
+                                className={`block py-3 text-sm transition-all duration-300 ${
+                                  isSubItemActive
+                                    ? "text-[#E97451]"
+                                    : "text-black/80 hover:text-[#E97451]"
+                                }`}
                               >
                                 {subItem.label}
                               </LinkWidget>
@@ -171,10 +181,11 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
                     key={item.href}
                     href={item.href}
                     onClick={() => setIsSheetOpen(false)}
-                    className={`flex items-center py-4 text-base font-medium transition-all duration-300 border-b last:border-0 border-black/10 ${isItemActive
-                      ? "text-[#E97451]"
-                      : "text-black hover:text-[#E97451]"
-                      }`}
+                    className={`flex items-center py-4 text-base font-medium transition-all duration-300 border-b last:border-0 border-black/10 ${
+                      isItemActive
+                        ? "text-[#E97451]"
+                        : "text-black hover:text-[#E97451]"
+                    }`}
                   >
                     {item.label}
                   </LinkWidget>
@@ -189,12 +200,10 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
                   iconClassName="w-4 h-4"
                   onClick={() => setIsSheetOpen(false)}
                   onApply={(course) => {
-                  setSelectedCourse(course);
-                  setIsSheetOpen(false);
-                  requestAnimationFrame(() =>
-                    setIsApplicationOpen(true),
-                  );
-                }}
+                    setSelectedCourse(course);
+                    setIsSheetOpen(false);
+                    requestAnimationFrame(() => setIsApplicationOpen(true));
+                  }}
                 />
               ) : (
                 <AdmissionRequestButton
@@ -214,7 +223,6 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
           selectedCourse={selectedCourse}
         />
       )}
-
     </>
   );
 };

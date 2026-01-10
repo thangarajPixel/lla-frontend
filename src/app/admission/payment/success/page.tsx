@@ -27,7 +27,7 @@ const PaymentSuccessPage = () => {
   });
   // const params = useParams();
   const searchParams = useSearchParams();
-  const encryptedId = searchParams.get("id")
+  const encryptedId = searchParams.get("id");
   // const encryptedId = params?.id;
 
   const handleDownload = async () => {

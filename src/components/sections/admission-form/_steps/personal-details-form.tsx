@@ -73,21 +73,21 @@ const PersonalDetailsForm = ({
       nationality: admissionData?.nationality ?? "",
       Language_Proficiency:
         admissionData?.Language_Proficiency &&
-          admissionData?.Language_Proficiency?.length > 0
+        admissionData?.Language_Proficiency?.length > 0
           ? admissionData?.Language_Proficiency?.map((language) => ({
-            language: language?.language ?? "",
-            read: language?.read ?? false,
-            write: language?.write ?? false,
-            speak: language?.speak ?? false,
-          }))
+              language: language?.language ?? "",
+              read: language?.read ?? false,
+              write: language?.write ?? false,
+              speak: language?.speak ?? false,
+            }))
           : [
-            {
-              language: "",
-              read: false,
-              write: false,
-              speak: false,
-            },
-          ],
+              {
+                language: "",
+                read: false,
+                write: false,
+                speak: false,
+              },
+            ],
       address: admissionData?.address?.map((block) => ({
         type: "paragraph",
         children: block.children.map((child) => ({
@@ -95,16 +95,16 @@ const PersonalDetailsForm = ({
           type: child.type,
         })),
       })) ?? [
-          {
-            type: "paragraph",
-            children: [
-              {
-                text: "",
-                type: "text",
-              },
-            ],
-          },
-        ],
+        {
+          type: "paragraph",
+          children: [
+            {
+              text: "",
+              type: "text",
+            },
+          ],
+        },
+      ],
       city: admissionData?.city ?? "",
       district: admissionData?.district ?? "",
       state: admissionData?.state?.documentId ?? "",
@@ -134,16 +134,16 @@ const PersonalDetailsForm = ({
             })),
           }),
         ) ?? [
-            {
-              type: "paragraph",
-              children: [
-                {
-                  text: "",
-                  type: "text",
-                },
-              ],
-            },
-          ],
+          {
+            type: "paragraph",
+            children: [
+              {
+                text: "",
+                type: "text",
+              },
+            ],
+          },
+        ],
         city: admissionData?.Parent_Guardian_Spouse_Details?.city ?? "",
         district: admissionData?.Parent_Guardian_Spouse_Details?.district ?? "",
         state:
@@ -195,7 +195,6 @@ const PersonalDetailsForm = ({
     }
   }, [admissionData]);
 
-
   const handleAddLanguage = () => {
     append({ language: "", read: false, write: false, speak: false });
   };
@@ -210,41 +209,52 @@ const PersonalDetailsForm = ({
         form_step1.setValue(
           "Parent_Guardian_Spouse_Details.address",
           personalAddress,
-          { shouldValidate: true, shouldDirty: true }
+          { shouldValidate: true, shouldDirty: true },
         );
 
         form_step1.setValue(
           "Parent_Guardian_Spouse_Details.city",
           personalCity ?? "",
-          { shouldValidate: true }
+          { shouldValidate: true },
         );
 
         form_step1.setValue(
           "Parent_Guardian_Spouse_Details.district",
           personalDistrict ?? "",
-          { shouldValidate: true }
+          { shouldValidate: true },
         );
 
         form_step1.setValue(
           "Parent_Guardian_Spouse_Details.state",
           personalState ?? "",
-          { shouldValidate: true }
+          { shouldValidate: true },
         );
 
         form_step1.setValue(
           "Parent_Guardian_Spouse_Details.pincode",
           personalPincode ?? "",
-          { shouldValidate: true }
+          { shouldValidate: true },
         );
       } else {
-        form_step1.resetField("Parent_Guardian_Spouse_Details.address.0.children.0.text", {
+        form_step1.resetField(
+          "Parent_Guardian_Spouse_Details.address.0.children.0.text",
+          {
+            defaultValue: "",
+          },
+        );
+
+        form_step1.resetField("Parent_Guardian_Spouse_Details.city", {
           defaultValue: "",
         });
-
-        form_step1.resetField("Parent_Guardian_Spouse_Details.city", { defaultValue: "" });
-        form_step1.resetField("Parent_Guardian_Spouse_Details.district", { defaultValue: "" });
-        form_step1.resetField("Parent_Guardian_Spouse_Details.state", { defaultValue: "" });
-        form_step1.resetField("Parent_Guardian_Spouse_Details.pincode", { defaultValue: "" });
+        form_step1.resetField("Parent_Guardian_Spouse_Details.district", {
+          defaultValue: "",
+        });
+        form_step1.resetField("Parent_Guardian_Spouse_Details.state", {
+          defaultValue: "",
+        });
+        form_step1.resetField("Parent_Guardian_Spouse_Details.pincode", {
+          defaultValue: "",
+        });
       }
     },
     [
@@ -256,7 +266,6 @@ const PersonalDetailsForm = ({
       form_step1,
     ],
   );
-
 
   const handleClick = () => {
     fileInputRef.current?.click();
@@ -533,7 +542,9 @@ const PersonalDetailsForm = ({
                         restrictionType="number"
                       />
                     </div>
-                    <div className={`flex items-center gap-3 3xl:gap-6 ${index === 0 && "md:mt-3"}`}>
+                    <div
+                      className={`flex items-center gap-3 3xl:gap-6 ${index === 0 && "md:mt-3"}`}
+                    >
                       <FormCheckBox
                         name={`Language_Proficiency.${index}.read`}
                         control={control}
@@ -594,7 +605,7 @@ const PersonalDetailsForm = ({
                 onClick={handleClick}
               >
                 {(!previewUrl && !admissionData?.passport_size_image) ||
-                  isRemoved ? (
+                isRemoved ? (
                   <>
                     <ImageWidget
                       src={UploadIconImg}
@@ -622,7 +633,7 @@ const PersonalDetailsForm = ({
                       alt="Preview"
                       className="h-fit xs:h-[227px] w-full object-cover rounded-md hover:opacity-80 transition-opacity"
                     />
-  
+
                     <button
                       type="button"
                       className="absolute top-2 right-2 text-white bg-[#E97451] size-5 rounded-full p-1 text-sm hidden group-hover:flex items-center justify-center hover:bg-[#E97451] cursor-pointer"
@@ -777,7 +788,6 @@ const PersonalDetailsForm = ({
                 />
 
                 <div
-                  role="button"
                   aria-hidden
                   onClick={() => handleSameAddress(!isSameAddress)}
                   className="flex absolute -top-2 right-0 ml-auto items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent cursor-pointer"
@@ -786,9 +796,13 @@ const PersonalDetailsForm = ({
                     Same Address
                   </span>
 
-                  <input type="checkbox" checked={isSameAddress} onChange={() => handleSameAddress(!isSameAddress)} className="accent-red-500 size-4" />
+                  <input
+                    type="checkbox"
+                    checked={isSameAddress}
+                    onChange={() => handleSameAddress(!isSameAddress)}
+                    className="accent-red-500 size-4"
+                  />
                 </div>
-
               </div>
             </div>
           </div>

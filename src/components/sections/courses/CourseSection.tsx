@@ -229,10 +229,11 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
                 <LinkWidget
                   href={item.href}
                   onClick={(e) => handleSmoothScroll(e, item.href)}
-                  className={`block px-4 py-3 md:pb-1 text-[16px] md:text-[17px] 3xl:text-[18px] transition-colors duration-200 cursor-pointer ${isActive
-                    ? "text-[#E97451] font-semibold"
-                    : "hover:text-[#E97451]"
-                    }`}
+                  className={`block px-4 py-3 md:pb-1 text-[16px] md:text-[17px] 3xl:text-[18px] transition-colors duration-200 cursor-pointer ${
+                    isActive
+                      ? "text-[#E97451] font-semibold"
+                      : "hover:text-[#E97451]"
+                  }`}
                 >
                   {item.label}
                 </LinkWidget>
@@ -257,10 +258,11 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
                                     setActiveCourseContent(cardId);
                                   }
                                 }}
-                                className={`block px-4 py-2 text-[15px] md:text-[15px] 3xl:text-[16px] font-medium transition-all duration-200 cursor-pointer border-l-2 -ml-[2px] ${isActiveContent
-                                  ? "text-[#E97451] font-semibold border-[#E97451] bg-orange-50"
-                                  : "text-gray-600 hover:text-[#E97451] border-transparent hover:border-orange-200"
-                                  }`}
+                                className={`block px-4 py-2 text-[15px] md:text-[15px] 3xl:text-[16px] font-medium transition-all duration-200 cursor-pointer border-l-2 -ml-[2px] ${
+                                  isActiveContent
+                                    ? "text-[#E97451] font-semibold border-[#E97451] bg-orange-50"
+                                    : "text-gray-600 hover:text-[#E97451] border-transparent hover:border-orange-200"
+                                }`}
                               >
                                 {outerTitle}
                               </LinkWidget>
@@ -345,7 +347,6 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
           {data?.Faq && <FaqSection data={data?.Faq} />}
         </section>
       </main>
-
     </div>
   );
 };

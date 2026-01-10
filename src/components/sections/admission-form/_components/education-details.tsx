@@ -6,7 +6,7 @@ import {
   type Control,
   type UseFormSetValue,
   type UseFormTrigger,
-  UseFormUnregister,
+  type UseFormUnregister,
   useFieldArray,
   useFormState,
   useWatch,
@@ -75,24 +75,16 @@ export function EducationDetails({
 
   useEffect(() => {
     postGraduate?.forEach((item, index) => {
-      if (
-        item?.pg_status === "In-Progress" &&
-        item?.marksheet !== 0
-      ) {
+      if (item?.pg_status === "In-Progress" && item?.marksheet !== 0) {
         unregister?.(`Post_Graduate.${index}.marksheet`);
 
-        setValue?.(
-          `Post_Graduate.${index}.marksheet`,
-          0,
-          {
-            shouldDirty: true,
-            shouldValidate: true,
-          }
-        );
+        setValue?.(`Post_Graduate.${index}.marksheet`, 0, {
+          shouldDirty: true,
+          shouldValidate: true,
+        });
       }
     });
   }, [postGraduate, unregister, setValue]);
-
 
   return (
     <div className="space-y-2">
@@ -137,14 +129,10 @@ export function EducationDetails({
                     shouldValidate: true,
                   });
                 } else {
-                  setValue?.(
-                    `Under_Graduate.ug_status`,
-                    "In-Progress",
-                    {
-                      shouldDirty: true,
-                      shouldValidate: true,
-                    },
-                  );
+                  setValue?.(`Under_Graduate.ug_status`, "In-Progress", {
+                    shouldDirty: true,
+                    shouldValidate: true,
+                  });
                 }
               }}
             />
@@ -252,7 +240,9 @@ export function EducationDetails({
                   control={control}
                   placeholder="Upload your marksheet"
                   notRequired
-                  defaultValue={admissionData?.Post_Graduate?.[index]?.marksheet ?? null}
+                  defaultValue={
+                    admissionData?.Post_Graduate?.[index]?.marksheet ?? null
+                  }
                   inputClassName="justify-start pl-3"
                   hideDescription
                 />

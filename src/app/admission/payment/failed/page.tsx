@@ -20,7 +20,7 @@ const PaymentFailedPage = () => {
   // const params = useParams();
   // const encryptedId = params?.id;
   const searchParams = useSearchParams();
-    const encryptedId = searchParams.get("id")
+  const encryptedId = searchParams.get("id");
 
   useEffect(() => {
     if (!encryptedId || Array.isArray(encryptedId)) return;

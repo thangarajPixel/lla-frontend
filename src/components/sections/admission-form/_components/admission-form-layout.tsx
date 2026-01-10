@@ -2,12 +2,12 @@
 
 import { usePathname, useSearchParams } from "next/navigation";
 import type React from "react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { getCourseBySlug } from "@/app/api/server";
 import { StepIndicator } from "@/components/sections/admission-form/_components/step-indicator";
 import { ApplicationFormBg } from "@/helpers/ImageHelper";
-import { useCourseStore } from "@/store/zustand";
 import { cn } from "@/lib/utils";
+import { useCourseStore } from "@/store/zustand";
 
 const AdmissionFormLayout = ({ children }: { children: React.ReactNode }) => {
   const [currentStep, setCurrentStep] = useState<number>(1);
@@ -76,7 +76,8 @@ const AdmissionFormLayout = ({ children }: { children: React.ReactNode }) => {
             "hidden lg:flex flex-col justify-start p-12 text-white",
             "lg:w-[35%] 3xl:w-181.25",
             "sticky top-0 h-screen",
-            currentStep === 1 && "lg:w-[25%]")}
+            currentStep === 1 && "lg:w-[25%]",
+          )}
           style={{
             backgroundImage: `url(${ApplicationFormBg.src})`,
             backgroundSize: "cover",
@@ -84,7 +85,11 @@ const AdmissionFormLayout = ({ children }: { children: React.ReactNode }) => {
           }}
         >
           {/* text-[32px] md:text-[28px] xl:text-[40px] 3xl:text-[56px]  */}
-          <h1 className={cn("text-[32px] md:text-[28px] xl:text-[36px] 2xl:text-[40px] 3xl:text-[56px] 2xl:mt-6 3xl:mt-10 text-white leading-tight font-urbanist mt-5")}>
+          <h1
+            className={cn(
+              "text-[32px] md:text-[28px] xl:text-[36px] 2xl:text-[40px] 3xl:text-[56px] 2xl:mt-6 3xl:mt-10 text-white leading-tight font-urbanist mt-5",
+            )}
+          >
             {courseName || selectedCourseName}
           </h1>
         </aside>
@@ -98,13 +103,13 @@ const AdmissionFormLayout = ({ children }: { children: React.ReactNode }) => {
             "w-full bg-white px-4 sm:px-8 py-6",
             "lg:w-[65%] 3xl:flex-1",
             "lg:pr-24 xl:pr-52 2xl:pr-62 3xl:pr-76",
-            currentStep === 1 && "lg:w-[75%] lg:pr-10"
+            currentStep === 1 && "lg:w-[75%] lg:pr-10",
           )}
         >
           <div
-            // ref={scrollContainerRef}
-            // className=" mx-auto h-[calc(100vh-6rem)] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-            // data-lenis-prevent
+          // ref={scrollContainerRef}
+          // className=" mx-auto h-[calc(100vh-6rem)] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          // data-lenis-prevent
           >
             {/* ref={headerRef} */}
             <div className="mb-8 mt-4 2xl:mt-12">

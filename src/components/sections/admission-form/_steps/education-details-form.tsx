@@ -81,7 +81,8 @@ const EducationDetailsForm = ({
     },
   });
 
-  const { control, handleSubmit, watch, setValue, trigger, unregister } = form_step2;
+  const { control, handleSubmit, watch, setValue, trigger, unregister } =
+    form_step2;
 
   const watchUgStatus = watch("Under_Graduate.ug_status");
 
@@ -109,7 +110,7 @@ const EducationDetailsForm = ({
               degree: item?.degree ?? "",
               pg_status: item?.pg_status ?? "",
               marksheet: item?.marksheet === 0 ? null : item?.marksheet,
-          })),
+            })),
       Work_Experience:
         payload?.Work_Experience?.[0]?.designation === "" &&
         payload?.Work_Experience?.[0]?.employer === "" &&
