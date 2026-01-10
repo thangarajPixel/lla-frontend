@@ -151,13 +151,6 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
         const youTubeThumbnailMQ = getYouTubeThumbnailMedium(card.VideoUrl);
         const thumbnailSrc = youTubeThumbnailHQ || youTubeThumbnailMQ || Dummy3;
         
-        console.log(`Video ${card.id} thumbnail:`, {
-          videoUrl: card.VideoUrl,
-          thumbnailHQ: youTubeThumbnailHQ,
-          thumbnailMQ: youTubeThumbnailMQ,
-          finalSrc: thumbnailSrc
-        });
-        
         return [{
           id: `gallery-${card.id}-video-${cardIndex}`,
           imageId: `video-${card.id}`,
@@ -182,7 +175,6 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
         images.length === 0 ||
         !images.some((img) => img && (img.url || img.id))
       ) {
-        console.log(`Card ${card.id} has no valid images:`, card);
         return []; // Return empty array instead of undefined
       }
 
@@ -215,9 +207,6 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
         });
     });
 
-    console.log(
-      `Cards: ${filteredImageCards.length}, Images: ${images.length}`,
-    );
     return shuffleArray(images);
   }, [filteredImageCards, isMounted, shuffleArray]);
 

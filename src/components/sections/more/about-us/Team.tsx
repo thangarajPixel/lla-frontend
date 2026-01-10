@@ -159,7 +159,7 @@ export default function TeamMemberPopup({
                 e.stopPropagation();
               }}
             >
-              <div className="hidden md:block">
+              <div>
                 <div className="flex justify-end mb-6 fixed top-25 right-10 z-10">
                   <ButtonWidget
                     onClick={handleClose}
