@@ -2,6 +2,7 @@
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import type { StaticImageData } from "next/image";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { getGalleryPageData } from "@/app/api/server";
@@ -19,6 +20,19 @@ import { getS3Url } from "@/helpers/ConstantHelper";
 import { ArrowDown, Dummy3, Into, Play } from "@/helpers/ImageHelper";
 import type { GalleryData } from "./utils/gallery";
 
+// Define types for gallery items
+type GalleryItem = {
+  id: string;
+  imageId: string | number;
+  cardId: number;
+  src: string | StaticImageData;
+  alt: string;
+  type: string;
+  isVideo: boolean;
+  videoLinkUrl: string | null;
+  videoUrl: string | null;
+};
+
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
@@ -34,7 +48,7 @@ const convertToEmbedUrl = (url: string): string => {
   const videoId = match?.[1];
 
   if (videoId) {
-    return `https://www.youtube.com/embed/${videoId}`;
+    return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&rel=0&modestbranding=1`;
   }
 
   // Return original URL for other video platforms or already embedded URLs
@@ -88,10 +102,25 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
     [imageCards, selectedType],
   );
 
-  const allImages = useMemo(() => {
+  const allImages: GalleryItem[] = useMemo(() => {
     if (!isMounted) return [];
 
-    const images = filteredImageCards.flatMap((card, cardIndex) => {
+    const images: GalleryItem[] = filteredImageCards.flatMap((card, cardIndex) => {
+      // Handle video cards with VideoUrl but no Image
+      if (card.Type === "Video" && (card.VideoUrl) && (!card.Image || card.Image === null)) {
+        return [{
+          id: `gallery-${card.id}-video-${cardIndex}`,
+          imageId: `video-${card.id}`,
+          cardId: card.id,
+          src: Dummy3, // Use placeholder image for video thumbnail
+          alt: `Video ${card.id}`,
+          type: card.Type,
+          isVideo: true,
+          videoLinkUrl: card.VideoUrl || null,
+          videoUrl: null,
+        }];
+      }
+
       const images = Array.isArray(card.Image)
         ? card.Image
         : card.Image
@@ -104,12 +133,13 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
         !images.some((img) => img && (img.url || img.id))
       ) {
         console.log(`Card ${card.id} has no valid images:`, card);
+        return []; // Return empty array instead of undefined
       }
 
       // Filter out invalid images and map to gallery items
       return images
         .filter((img) => img && (img.url || img.id)) // Only include images with url or id
-        .map((img, imgIndex) => {
+        .map((img, imgIndex): GalleryItem => {
           const isVideo = card.Type === "Video";
           const src = img.url ? getS3Url(img.url) : Dummy3;
           const isVideoFile =
@@ -117,6 +147,10 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
             img.url &&
             /\.(mp4|mov|avi|webm|mkv|m4v)$/i.test(img.url);
           const videoUrl = isVideoFile ? getS3Url(img.url) : null;
+          
+          // Handle VideoUrl from card
+          const videoLinkUrl = card.VideoUrl || null;
+          
           return {
             id: `gallery-${card.id}-${img.id}-${cardIndex}-${imgIndex}`,
             imageId: img.id,
@@ -125,7 +159,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
             alt: img.name || "Gallery image",
             type: card.Type,
             isVideo,
-            videoLinkUrl: card.VideoUrl || null,
+            videoLinkUrl,
             videoUrl: typeof videoUrl === "string" ? videoUrl : null,
           };
         });
@@ -254,7 +288,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   }, [allImages.length, isMounted]);
 
   const renderGalleryItem = (
-    item: (typeof allImages)[0],
+    item: GalleryItem,
     _index: number,
     openLightbox?: (index: number) => void,
   ) => {
