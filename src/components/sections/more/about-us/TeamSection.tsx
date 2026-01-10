@@ -247,16 +247,6 @@ const TeamSection = ({ data }: TeamSectionProps) => {
         <div
           className="bg-[#ECECEC] py-5 sm:py-5 md:py-6 lg:py-5 xl:py-5 2xl:py-7 3xl:py-9 4xl:py-11 
         px-4 sm:px-5 md:px-6 lg:px-5 xl:px-5 2xl:px-7 3xl:px-9 4xl:px-11"
-        onClick={() => {
-                        if (
-                          // isMobile() &&
-                          faculty.id &&
-                          faculty.Slug &&
-                          !loadingCards
-                        ) {
-                          handleCardClick(faculty.id, faculty.Slug);
-                        }
-                      }}
         >
           <ScrollWidget delay={0.2} animation="fadeUp">
             <div
