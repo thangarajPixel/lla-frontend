@@ -82,6 +82,9 @@ const CourseApplicationFormModel = ({
           `/admissions/email/check`,
           {
             email: payload.Email,
+            courseId:
+              selectedCourse?.course_list?.id ??
+              selectedCourseItem?.id,
           },
         );
 
@@ -185,7 +188,11 @@ const CourseApplicationFormModel = ({
                 <span>loading...</span>
               </div>
             ) : (
-              <OrangeButtonWidget type="submit" content="Save & Continue" />
+              <OrangeButtonWidget 
+              type="submit" 
+              content="Save & Continue"
+              // className="text-lg xss:text-[16px] xss:h-[48px] 3xl:h-[50px] text-xs 2xl:text-[14px] 3xl:text-[18px]" 
+              />
             )}
           </form>
         </section>

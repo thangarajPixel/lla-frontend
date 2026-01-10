@@ -612,33 +612,38 @@ const ReviewApplication = ({
                           </p>
                         </section>
 
-                        <section className="flex flex-col justify-start gap-2 items-start md:col-span-1">
-                          <span className="text-black/50 text-base 3xl:text-2xl">
-                            Document
-                          </span>
-                          <span className="flex items-center justify-center gap-1">
-                            <ImageWidget
-                              src={DocumentIcon ?? null}
-                              alt="Document"
-                              width={24}
-                              height={24}
-                              className="size-6 rounded-full"
-                            />
-                            <LinkWidget
-                              href="#"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                handleDownload(
-                                  degree?.marksheet?.url,
-                                  degree?.marksheet?.name,
-                                );
-                              }}
-                              className="text-chart-1/80 text-base md:text-xs lg:text-base text-nowrap 3xl:text-lg"
-                            >
-                              View Document
-                            </LinkWidget>
-                          </span>
-                        </section>
+                        {
+                          degree?.marksheet?.url && (
+                            <section className="flex flex-col justify-start gap-2 items-start md:col-span-1">
+                              <span className="text-black/50 text-base 3xl:text-2xl">
+                                Document
+                              </span>
+
+                              <span className="flex items-center justify-center gap-1">
+                                <ImageWidget
+                                  src={DocumentIcon ?? null}
+                                  alt="Document"
+                                  width={24}
+                                  height={24}
+                                  className="size-6 rounded-full"
+                                />
+                                <LinkWidget
+                                  href="#"
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    handleDownload(
+                                      degree?.marksheet?.url,
+                                      degree?.marksheet?.name,
+                                    );
+                                  }}
+                                  className="text-chart-1/80 text-base md:text-xs lg:text-base text-nowrap 3xl:text-lg"
+                                >
+                                  View Document
+                                </LinkWidget>
+                              </span>
+                            </section>
+                          )
+                        }
                       </div>
                     ),
                   )}

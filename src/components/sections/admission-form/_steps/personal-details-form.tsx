@@ -59,7 +59,7 @@ const PersonalDetailsForm = ({
   const router = useRouter();
 
   const form_step1 = useForm<PersonalDetailsSchema>({
-    resolver: zodResolver(personalDetailsSchema(admissionData?.email)),
+    resolver: zodResolver(personalDetailsSchema(admissionData?.email, admissionData?.Course?.id)),
     mode: "all",
     reValidateMode: "onChange",
     shouldFocusError: true,
@@ -362,6 +362,7 @@ const PersonalDetailsForm = ({
       `/admissions/email/check`,
       {
         email: email,
+        courseId: admissionData?.Course?.id,
       },
     );
 
@@ -493,6 +494,7 @@ const PersonalDetailsForm = ({
                     placeholder="Enter your email address"
                     control={control}
                     onFieldCheck={handleFieldCheck}
+                    disabled={!!admissionData?.email}
                   />
 
                   {isVerified && !errors?.email?.message && (
