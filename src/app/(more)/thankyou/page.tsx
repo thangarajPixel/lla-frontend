@@ -1,7 +1,7 @@
 "use client";
 
-import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { useRouter } from "next/navigation";
+import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 
 export default function ThankYouPage() {
   const router = useRouter();
@@ -32,7 +32,10 @@ export default function ThankYouPage() {
             We will get back to you shortly.
           </p>
 
-          <OrangeButtonWidget content="Go Back to Home" onClick={handleGoHome}  />
+          <OrangeButtonWidget
+            content="Go Back to Home"
+            onClick={handleGoHome}
+          />
         </div>
       </div>
     </div>
