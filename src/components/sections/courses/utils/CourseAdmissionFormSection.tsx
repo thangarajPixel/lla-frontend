@@ -154,11 +154,7 @@ const CourseAdmissionFormSection = ({
           </button>
         </form>
 
-        <div className="flex items-center justify-between md:hidden">
-          <h3 className="text-white text-[14px] sm:text-[15px] md:text-[16px] lg:text-[15px] 3xl:text-[18px] font-semibold mb-2 md:mb-2 text-center md:text-left">
-            Get In Touch
-          </h3>
-
+        <div className="flex items-center justify-center md:hidden">
           <button
             type="button"
             className="group font-bold cursor-pointer flex items-center justify-center gap-2 px-4 md:px-6 py-2 bg-white text-[#E97451] rounded-full text-[12px] sm:text-[13px] md:text-[14px] lg:text-[13px] 3xl:text-[16px] hover:bg-gray-100 transition-colors h-9 w-fit relative md:bottom-2.5"

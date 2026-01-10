@@ -164,9 +164,13 @@ export default function LightboxWidget({
                   <ImageWidget
                     src={extendedSlide.src}
                     alt={extendedSlide.alt || ""}
-                    fill
-                    className="object-contain"
-                    sizes="100vw"
+                     style={{
+                      maxWidth: "100%",
+                      maxHeight: "calc(100vh - 120px)",
+                    
+                    }}
+                    width={100}
+                    height={100}
                   />
 
                   {extendedSlide.title && (

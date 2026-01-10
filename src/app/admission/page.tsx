@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import PersonalDetailsForm from "@/components/sections/admission-form/_steps/personal-details-form";
+import CourseDetailsPopup from "@/components/sections/admission-form/_components/course-details-popup";
 import { generateSeoMetadata } from "@/helpers/SeoHelper";
 import { getCourseBySlug } from "../api/server";
 
@@ -17,10 +18,13 @@ const AdmissionFormPage = async ({
   const response = await getCourseBySlug((course as string) ?? "");
 
   return (
-    <PersonalDetailsForm
-      courseId={response?.data?.courseList?.documentId ?? ""}
-    />
+    <div>
+      <CourseDetailsPopup />
+      <PersonalDetailsForm
+        courseId={response?.data?.courseList?.documentId ?? ""}
+      />
+    </div>
   );
-};
+}
 
 export default AdmissionFormPage;

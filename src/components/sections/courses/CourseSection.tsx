@@ -18,14 +18,6 @@ import StudentSection from "./utils/StudentSection";
 import TestimonialSection from "./utils/TestimonialSection";
 import type { ContentCard, PgDiplomaData } from "./utils/types";
 
-const sidebarMenuItems = [
-  { href: "#overview", label: "Overview" },
-  { href: "#course-content", label: "Course Content" },
-  { href: "#other-info", label: "Other Info" },
-  { href: "#how-to-apply", label: "How to Apply" },
-  { href: "#faqs", label: "FAQ's" },
-];
-
 const CourseSection = ({ data }: { data: PgDiplomaData }) => {
   const [activeSection, setActiveSection] = useState<string>("#overview");
   const [activeCourseContent, setActiveCourseContent] = useState<number | null>(
@@ -33,6 +25,15 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
   );
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const isHeaderVisible = useCourseStore((state) => state.isHeaderVisible);
+
+  // Create dynamic sidebar menu items based on data
+  const sidebarMenuItems = [
+    { href: "#overview", label: "Overview" },
+    { href: "#course-content", label: "Course Content" },
+    { href: "#other-info", label: data?.Other_Info?.Title || "Other Info" },
+    { href: "#how-to-apply", label: "How to Apply" },
+    { href: "#faqs", label: "FAQ's" },
+  ];
 
   const handleSmoothScroll = (
     e: React.MouseEvent<HTMLElement>,
