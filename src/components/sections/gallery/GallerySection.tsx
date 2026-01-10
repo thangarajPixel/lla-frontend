@@ -55,6 +55,44 @@ const convertToEmbedUrl = (url: string): string => {
   return url;
 };
 
+const getYouTubeThumbnail = (url: string): string => {
+  if (!url) return "";
+
+  // YouTube URL patterns
+  const youtubeRegex =
+    /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
+  const match = url.match(youtubeRegex);
+
+  const videoId = match?.[1];
+
+  if (videoId) {
+    // Use high quality thumbnail (maxresdefault), with fallback to medium quality
+    // Note: maxresdefault might not be available for all videos, but we'll try it first
+    return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+  }
+
+  // Return empty string for non-YouTube URLs
+  return "";
+};
+
+// Alternative function to get medium quality thumbnail as fallback
+const getYouTubeThumbnailMedium = (url: string): string => {
+  if (!url) return "";
+
+  const youtubeRegex =
+    /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
+  const match = url.match(youtubeRegex);
+
+  const videoId = match?.[1];
+
+  if (videoId) {
+    // Use medium quality thumbnail (more reliable)
+    return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+  }
+
+  return "";
+};
+
 const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   const uniqueTypesInitial = useMemo(() => {
     if (!initialData?.ImageCard) return [];
@@ -108,11 +146,23 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
     const images: GalleryItem[] = filteredImageCards.flatMap((card, cardIndex) => {
       // Handle video cards with VideoUrl but no Image
       if (card.Type === "Video" && (card.VideoUrl) && (!card.Image || card.Image === null)) {
+        // Get YouTube thumbnail - try high quality first, then medium quality, then placeholder
+        const youTubeThumbnailHQ = getYouTubeThumbnail(card.VideoUrl);
+        const youTubeThumbnailMQ = getYouTubeThumbnailMedium(card.VideoUrl);
+        const thumbnailSrc = youTubeThumbnailHQ || youTubeThumbnailMQ || Dummy3;
+        
+        console.log(`Video ${card.id} thumbnail:`, {
+          videoUrl: card.VideoUrl,
+          thumbnailHQ: youTubeThumbnailHQ,
+          thumbnailMQ: youTubeThumbnailMQ,
+          finalSrc: thumbnailSrc
+        });
+        
         return [{
           id: `gallery-${card.id}-video-${cardIndex}`,
           imageId: `video-${card.id}`,
           cardId: card.id,
-          src: Dummy3, // Use placeholder image for video thumbnail
+          src: thumbnailSrc,
           alt: `Video ${card.id}`,
           type: card.Type,
           isVideo: true,
