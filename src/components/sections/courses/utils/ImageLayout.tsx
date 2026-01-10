@@ -39,7 +39,7 @@ const MobileImageLayout = ({ breakpoint, images }: MobileImageLayoutProps) => {
   return (
     <div className={`w-full overflow-hidden mt-4 sm:mt-6 ${breakpoint}:hidden`}>
       <div ref={emblaRef} className="cursor-grab active:cursor-grabbing">
-        <div className="flex gap-3 sm:gap-4 px-4 sm:px-6">
+        <div className="flex gap-3 sm:gap-4 px-0 sm:px-6">
           {images.map((image, index) => {
             const imageUrl = image?.url ? getS3Url(image.url) : undefined;
             if (!imageUrl) return null;
@@ -47,13 +47,15 @@ const MobileImageLayout = ({ breakpoint, images }: MobileImageLayoutProps) => {
             return (
               <div
                 key={image.id || index}
-                className="relative flex-[0_0_calc(70vw-2rem)] sm:flex-[0_0_calc(65vw-3rem)] min-w-0 aspect-4/3 overflow-hidden"
+                // className="relative aspect-4/3 overflow-hidden"
               >
                 <ImageWidget
                   src={imageUrl}
                   alt={image.name || "Course Content"}
-                  fill
-                  className="object-cover  object-top"
+                  // fill
+                  width={100}
+                  height={100}
+                  className="object-cover object-top w-full h-full"
                 />
               </div>
             );
@@ -483,10 +485,10 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
       return (
         <>
           <MobileImageLayout breakpoint="lg" images={images} />
-          <div className="hidden lg:block relative w-full md:min-h-[390px] 3xl:min-h-[450px]">
+          <div className="hidden lg:block relative w-full">
             {image1 && (
               <ScrollWidget animation="fadeUp" delay={0.1}>
-                <div className="absolute top-15 w-full aspect-300/199   lg:max-w-full xl:max-w-full  overflow-hidden z-20">
+                <div className="absolute top-15 w-full aspect-300/199 lg:max-w-full xl:max-w-full overflow-hidden z-20">
                   <ImageWidget
                     src={image1}
                     alt="Course Content"
