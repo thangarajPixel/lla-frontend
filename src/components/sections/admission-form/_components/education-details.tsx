@@ -114,8 +114,8 @@ export function EducationDetails({
         />
       </div>
 
-      <div className="space-y-3">
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2 lg:gap-0 items-start">
+      <div className="space-y-3 mt-6">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-0 md:gap-2 lg:gap-0 items-start">
           <div>
             <FormInput
               name="Under_Graduate.degree"
@@ -165,7 +165,7 @@ export function EducationDetails({
                 hideDescription
               />
 
-              <p className="text-xs text-muted-foreground lg:ml-2 relative md:top-2.5">
+              <p className="hidden md:flex text-xs text-muted-foreground lg:ml-2 relative md:top-3.5">
                 Max. file size is not more than 2MB.
               </p>
             </>
@@ -173,11 +173,11 @@ export function EducationDetails({
         </div>
       </div>
 
-      <div className="relative">
+      <div className="relative mt-6">
         {pgDegrees?.map((degree, index) => (
           <div
             key={degree.id ?? index}
-            className="relative grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2 items-start space-y-3"
+            className="relative grid grid-cols-1 md:grid-cols-[1fr_auto] gap-0 md:gap-2 items-start space-y-2 md:space-y-3"
           >
             <FormInput
               name={`Post_Graduate.${index}.degree`}
@@ -223,14 +223,35 @@ export function EducationDetails({
               />
             </div>
 
-            {index > 0 && (
-              <Button
+            {index >= 0 && (
+              // <Button
+              //   type="button"
+              //   onClick={() => removePgDegree(index)}
+              //   className="absolute -top-2 right-0 flex items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
+              // >
+              //   <X className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
+              // </Button>
+              <button
                 type="button"
-                onClick={() => removePgDegree(index)}
-                className="absolute -top-2 right-0 flex items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
+                className="absolute -top-2 right-0 text-white bg-[#E97451] size-5 rounded-full p-1 text-sm flex items-center justify-center hover:bg-[#E97451] cursor-pointer"
+                onClick={() => {
+                  if (postGraduate && postGraduate?.length > 1) {
+                    removePgDegree(index)
+                  } else {
+                    setValue?.(`Post_Graduate.0.degree`, "", {
+                      shouldDirty: true,
+                      shouldValidate: true,
+                    });
+                    setValue?.(`Post_Graduate.0.pg_status`, "", {
+                      shouldDirty: true,
+                      shouldValidate: true,
+                    });
+                  }
+                }
+                }
               >
-                <X className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
-              </Button>
+                X
+              </button>
             )}
 
             {postGraduate?.[index]?.pg_status === "Finished" && (
@@ -247,7 +268,7 @@ export function EducationDetails({
                   hideDescription
                 />
 
-                <p className="text-xs text-muted-foreground lg:ml-2 relative md:top-2.5">
+                <p className="hidden md:flex text-xs text-muted-foreground lg:ml-2 relative md:top-3.5">
                   Max. file size is not more than 2MB.
                 </p>
               </>
@@ -255,16 +276,16 @@ export function EducationDetails({
           </div>
         ))}
 
-        {postGraduate && postGraduate?.length > 1 && (
+        {/* {postGraduate && postGraduate?.length > 1 && (
           <Button
             type="button"
             onClick={clearAllDegree}
-            className="absolute h-7 md:h-9 -top-2 left-1/4 flex md:ml-auto items-center gap-2 text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
+            className="absolute h-7 md:h-9 top-0 right-2 md:-top-2 md:left-1/4 flex md:ml-auto items-center gap-2 text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
           >
             <X className="h-4 w-4 border border-red-400 rounded-full text-red-500" />
             <span className="text-red-500">Clear All</span>
           </Button>
-        )}
+        )} */}
       </div>
 
       {lastDegree !== "" && lastPgStatus === "Finished" && (
@@ -272,6 +293,7 @@ export function EducationDetails({
           type="button"
           onClick={addDegree}
           className="flex -mt-4 md:ml-auto items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
+          disabled={postGraduate?.length === 3}
         >
           <Plus className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
           <span className="text-chart-1">Add Any Other Degree</span>

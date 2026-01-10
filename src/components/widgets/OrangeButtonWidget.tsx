@@ -6,10 +6,12 @@ import type {
   ButtonWidgetProps,
   OrangeButtonWidgetProps,
 } from "./utils/widget";
+import { Spinner } from "../ui/spinner";
 
 const OrangeButtonWidget = ({
   content,
   className,
+  apiLoader,
   ...props
 }: OrangeButtonWidgetProps) => {
   return (
@@ -20,12 +22,21 @@ const OrangeButtonWidget = ({
       )}
       {...(props as ButtonWidgetProps)}
     >
-      {content}
-      <ImageWidget
-        src={ArrowRight}
-        alt="Arrow Right"
-        className="w-[15px] h-[15px] lg:w-[18px] lg:h-[18px] 3xl:w-6 3xl:h-6 transition-transform duration-300 group-hover:translate-x-1"
-      />
+      {apiLoader ? (
+        <div className="flex items-center justify-center gap-2 orange-button p-3 rounded-full">
+          <Spinner />
+          <span>loading...</span>
+        </div>
+      ) : (
+        <>
+          {content}
+          <ImageWidget
+            src={ArrowRight}
+            alt="Arrow Right"
+            className="w-[15px] h-[15px] lg:w-[18px] lg:h-[18px] 3xl:w-6 3xl:h-6 transition-transform duration-300 group-hover:translate-x-1"
+          /></>
+      )
+      }
     </ButtonWidget>
   );
 };

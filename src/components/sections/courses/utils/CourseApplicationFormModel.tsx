@@ -15,6 +15,8 @@ import { clientAxios } from "@/helpers/AxiosHelper";
 import { encryptId } from "@/helpers/ConstantHelper";
 import { admissionRequestSchema } from "@/helpers/ValidationHelper";
 import type { RequestFormData } from "./CourseAdmissionFormSection";
+import { useState } from "react";
+import { Spinner } from "@/components/ui/spinner";
 
 type CourseApplicationProps = {
   isOpen: boolean;
@@ -29,6 +31,7 @@ const CourseApplicationFormModel = ({
   selectedCourse,
   selectedCourseItem,
 }: CourseApplicationProps) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
 
   const form = useForm<RequestFormData>({
@@ -70,6 +73,8 @@ const CourseApplicationFormModel = ({
     };
 
     try {
+      setIsLoading(true);
+
       if (isAdmissionOpen?.data?.isAdmission) {
         const isExistingEmailCheck = await clientAxios.post(
           `/admissions/email/check`,
@@ -109,6 +114,8 @@ const CourseApplicationFormModel = ({
       toast.error("Failed to send message. Please try again.", {
         position: "top-right",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -183,7 +190,16 @@ const CourseApplicationFormModel = ({
                                 label="Email"
                             />
                         </div> */}
-            <OrangeButtonWidget type="submit" content="Submit" />
+            {
+              isLoading ? (
+                <div className="flex items-center w-fit justify-center gap-2 orange-button p-3 rounded-full">
+                  <Spinner />
+                  <span>loading...</span>
+                </div>
+              ) : (
+                <OrangeButtonWidget type="submit" content="Submit" />
+              )
+            }
           </form>
         </section>
       </DialogContent>

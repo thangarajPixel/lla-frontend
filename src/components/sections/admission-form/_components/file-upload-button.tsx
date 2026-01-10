@@ -174,7 +174,7 @@ export function FileUploadButton({
       <p
         className={cn(
           "text-xs text-muted-foreground mt-4",
-          hideDescription && "hidden",
+          hideDescription && "md:hidden",
         )}
       >
         Max. file size is not more than {maxSize}.

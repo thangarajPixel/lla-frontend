@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -26,6 +26,7 @@ const AdmissionRequestButton = ({
 }: AdmissionButtonProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const pathname = usePathname();
+  const router = useRouter();
 
   const isContactUsPage = pathname === "/contact-us";
 
@@ -58,6 +59,7 @@ const AdmissionRequestButton = ({
       toast.success("Message sent successfully!");
       reset();
       setIsOpen(false);
+      router.push("/thankyou");
     } catch (_error) {
       toast.error("Failed to send message. Please try again.", {
         position: "top-right",

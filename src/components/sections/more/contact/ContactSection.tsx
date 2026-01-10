@@ -12,6 +12,7 @@ import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
 import { Call, LocationIcon, Sms, StarIcon } from "@/helpers/ImageHelper";
 import type { ContactSectionProps } from "./utils/contact";
+import { useRouter } from "next/navigation";
 
 export const contactSchema = z.object({
   FirstName: z
@@ -55,15 +56,21 @@ export const contactSchema = z.object({
         .min(1, "Phone number is required")
         .regex(/^[1-9]\d{9}$/, "Enter a valid phone number"),
     ),
+  // Message: z
+  //   .string()
+  //   .transform((val) => val.trim())
+  //   .pipe(z.string().min(10, "Message must be at least 10 characters")),
   Message: z
     .string()
-    .transform((val) => val.trim())
-    .pipe(z.string().min(10, "Message must be at least 10 characters")),
+    .min(10, "Message must be at least 10 characters"),
 });
 
 export type ContactFormData = z.infer<typeof contactSchema>;
 
 export default function ContactSection({ data }: ContactSectionProps) {
+
+  const router = useRouter();
+
   const {
     control,
     handleSubmit,
@@ -91,6 +98,7 @@ export default function ContactSection({ data }: ContactSectionProps) {
         "Thank you for getting in touch with us. We will get back to you in 5 working days",
       );
       reset();
+      router.push('/thankyou');
     } catch (_error) {
       toast.error("Failed to send message. Please try again.");
     }

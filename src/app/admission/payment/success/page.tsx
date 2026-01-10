@@ -1,6 +1,6 @@
 "use client";
 
-import { Check } from "lucide-react";
+import { Check, Loader } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -10,6 +10,7 @@ import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
 import { decryptCode, notify } from "@/helpers/ConstantHelper";
 import { updateAdmission } from "@/store/services/global-services";
+import { Spinner } from "@/components/ui/spinner";
 
 export type ThankYouPage = {
   Title: string;
@@ -20,6 +21,8 @@ export type ThankYouPage = {
 const PaymentSuccessPage = () => {
   const [admissionId, setAdmissionId] = useState<string | null>(null);
   const [courseName, setCourseName] = useState<string>("");
+  const [isDownloading, setIsDownloading] = useState(false);
+
   const [thankYouContent, setThankYouContent] = useState<ThankYouPage>({
     Title: "",
     Description: "",
@@ -31,7 +34,11 @@ const PaymentSuccessPage = () => {
   // const encryptedId = params?.id;
 
   const handleDownload = async () => {
+    if (!admissionId || isDownloading) return;
+
     try {
+      setIsDownloading(true);
+
       const res = await clientAxios.get(`/admissions/${admissionId}/pdf`, {
         responseType: "blob",
         headers: {
@@ -54,6 +61,8 @@ const PaymentSuccessPage = () => {
       toast.error("Download Failed", {
         position: "top-right",
       });
+    } finally {
+      setIsDownloading(false);
     }
   };
 
@@ -77,7 +86,7 @@ const PaymentSuccessPage = () => {
         const paidAmount =
           admissionData?.Course?.Amount +
           (admissionData?.Course?.Amount * admissionData?.Course?.Percentage) /
-            100;
+          100;
 
         await updateAdmission(admissionData?.documentId, {
           step_3: true,
@@ -139,11 +148,21 @@ const PaymentSuccessPage = () => {
         </div>
 
         {/* Download Button */}
-        <OrangeButtonWidget
-          content="Download Submitted Application"
-          onClick={handleDownload}
-          type="button"
-        />
+        {
+          isDownloading ? (
+            <div className="flex items-center justify-center gap-2 orange-button p-3 rounded-full">
+              <Spinner />
+              <span>Downloading...</span>
+            </div>
+          ) : (
+            <OrangeButtonWidget
+              content="Download Submitted Application"
+              onClick={handleDownload}
+              type="button"
+            />
+          )
+        }
+
       </div>
     </main>
   );

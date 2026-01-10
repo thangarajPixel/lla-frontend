@@ -38,6 +38,7 @@ const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/jpg"];
 const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
   const [images, setImages] = useState<UploadedImage[]>([]);
   const [loading, setLoading] = useState(false);
+  const [apiLoading, setApiLoading] = useState(false);
   const router = useRouter();
 
   const form = useForm<PortfolioSchema>({
@@ -172,7 +173,7 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
 
   const onError = () => {
     if (images?.length !== MAX_IMAGES) {
-      toast.error(`Must upload ${MAX_IMAGES - images.length} more images`, {
+      toast.error(`Must upload ${MAX_IMAGES - images.length} more ${MAX_IMAGES - images.length === 1 ? "image" : "images"}`, {
         position: "top-right",
       });
     }
@@ -180,6 +181,8 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
 
   const onSubmit = async (payload: PortfolioSchema) => {
     try {
+      setApiLoading(true);
+
       await updateAdmission(
         admissionData?.documentId as string,
         {
@@ -193,6 +196,8 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
       router.push(`/admission/${admissionId}/preview`);
     } catch (error) {
       notify({ success: false, message: error as string });
+    } finally {
+      setApiLoading(false);
     }
   };
 
@@ -212,7 +217,7 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
               htmlFor="images"
               className="block text-black text-base 3xl:text-lg mb-4"
             >
-              Upload Images<span className="text-destructive">*</span>
+              Upload Images<span className="text-destructive">* ({images.length}/20)</span>
             </label>
 
             <UploadArea
@@ -255,6 +260,8 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
             <OrangeButtonWidget
               content="Review Application"
               className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-[18px] 2xl:text-[18px] 3xl:text-[18px]"
+              apiLoader={apiLoading}
+              type="submit"
             />
           </div>
         )}

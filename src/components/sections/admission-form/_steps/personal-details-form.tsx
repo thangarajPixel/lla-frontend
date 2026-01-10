@@ -55,6 +55,7 @@ const PersonalDetailsForm = ({
   const [isRemoved, setIsRemoved] = useState<boolean>(false);
   const [isVerified, setIsVerified] = useState<boolean>(false);
   const [isSameAddress, setIsSameAddress] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
 
   const form_step1 = useForm<PersonalDetailsSchema>({
@@ -404,6 +405,8 @@ const PersonalDetailsForm = ({
     };
 
     try {
+      setIsLoading(true);
+
       if (admissionData?.id) {
         await updateAdmission(
           admissionData?.documentId,
@@ -418,6 +421,8 @@ const PersonalDetailsForm = ({
       }
     } catch (error) {
       notify({ success: false, message: error as string });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -813,6 +818,7 @@ const PersonalDetailsForm = ({
             <OrangeButtonWidget
               content="Save & Continue"
               className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-base 2xl:text-[18px] 3xl:text-[18px] 3xl:w-[226px]"
+              apiLoader={isLoading}
             />
           </div>
         )}
