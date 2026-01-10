@@ -34,9 +34,7 @@ const CourseBySlug = async ({
   return (
     <Fragment>
       <CourseSection data={response?.data} />
-      <CourseAdmissionFormSection
-        courseId={response?.data?.courseList?.documentId}
-      />
+      <CourseAdmissionFormSection selectedCourse={response?.data?.courseList} />
     </Fragment>
   );
 };

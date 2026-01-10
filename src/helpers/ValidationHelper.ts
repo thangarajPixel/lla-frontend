@@ -57,7 +57,7 @@ export const parentDetails = z.object({
   mobile_no: z
     .string()
     .min(1, "Mobile number is required")
-    .regex(/^[6-9]\d{9}$/, "Enter a valid 10-digit mobile number"),
+    .regex(/^[1-9]\d{9}$/, "Enter a valid 10-digit mobile number"),
   email: z
     .string()
     .min(1, "Email is required")
@@ -150,11 +150,23 @@ export const education = z.object({
   status: z.enum(["finished", "in-progress"]).optional(),
 });
 
-export const postGraduate = z.object({
-  degree: z.string().optional(),
-  pg_status: z.string().optional(),
-  // marksheet: z.number().optional(),
-});
+export const postGraduate = z
+  .object({
+    degree: z.string().optional(),
+    pg_status: z.string().optional(),
+    marksheet: z.number().optional(),
+  })
+  .superRefine((data, ctx) => {
+    if (!data) return;
+
+    if (data.pg_status === "Finished" && !data.marksheet) {
+      ctx.addIssue({
+        path: ["marksheet"],
+        message: "PG marksheet is required",
+        code: z.ZodIssueCode.custom,
+      });
+    }
+  });
 
 export const personalDetailsSchema = (admissionEmail?: string) =>
   z.object({
@@ -184,7 +196,7 @@ export const personalDetailsSchema = (admissionEmail?: string) =>
             toast.error(
               "The email id  has already been used. Kindly check your mail",
               {
-                position: "bottom-right",
+                position: "top-right",
               },
             );
           }
@@ -335,5 +347,5 @@ export const admissionRequestSchema = z.object({
     .string()
     .min(1, "Mobile No is required")
     .regex(/^[1-9]\d{9}$/, "Enter a valid 10-digit mobile number"),
-  Message: z.string(),
+  Message: z.string().optional(),
 });

@@ -38,6 +38,7 @@ export type CourseCard = {
     name: string;
     url: string;
   }>;
+  course_list: CourseItem;
 };
 
 export type CourseSectionData = {
@@ -54,6 +55,7 @@ export type AdmissionButtonProps = {
   className?: string;
   iconClassName?: string;
   onClick?: () => void;
+  onApply?: (course: CourseCard) => void;
 };
 
 export type CourseItem = {

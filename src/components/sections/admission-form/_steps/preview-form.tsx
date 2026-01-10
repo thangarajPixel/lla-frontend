@@ -300,7 +300,7 @@ const ReviewApplication = ({
       setPaymentDetails(res?.data?.checkoutLink);
       setIsPaymentOpen(true);
     } catch (_error) {
-      toast.error("Something went wrong");
+      toast.error("Something went wrong", { position: "top-right" });
     }
   };
 

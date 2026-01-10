@@ -6,6 +6,7 @@ import {
   type Control,
   type UseFormSetValue,
   type UseFormTrigger,
+  type UseFormUnregister,
   useFieldArray,
   useFormState,
   useWatch,
@@ -21,6 +22,7 @@ type EducationDetailsProps = {
   control: Control<EducationDetailsSchema>;
   setValue?: UseFormSetValue<EducationDetailsSchema>;
   trigger: UseFormTrigger<EducationDetailsSchema>;
+  unregister?: UseFormUnregister<EducationDetailsSchema>;
 };
 
 export function EducationDetails({
@@ -28,6 +30,7 @@ export function EducationDetails({
   control,
   setValue,
   trigger,
+  unregister,
 }: EducationDetailsProps) {
   const {
     fields: pgDegrees,
@@ -56,7 +59,7 @@ export function EducationDetails({
   const ugStatus = underGraduate?.ug_status?.trim();
 
   const addDegree = () => {
-    append({ degree: "", pg_status: "" });
+    append({ degree: "", pg_status: "", marksheet: 0 });
   };
 
   const clearAllDegree = () => {
@@ -69,6 +72,19 @@ export function EducationDetails({
       trigger("Post_Graduate");
     }
   }, [postGraduate, trigger]);
+
+  useEffect(() => {
+    postGraduate?.forEach((item, index) => {
+      if (item?.pg_status === "In-Progress" && item?.marksheet !== 0) {
+        unregister?.(`Post_Graduate.${index}.marksheet`);
+
+        setValue?.(`Post_Graduate.${index}.marksheet`, 0, {
+          shouldDirty: true,
+          shouldValidate: true,
+        });
+      }
+    });
+  }, [postGraduate, unregister, setValue]);
 
   return (
     <div className="space-y-2">
@@ -106,6 +122,19 @@ export function EducationDetails({
               label="Under Graduate"
               placeholder="Enter your graduation degree"
               control={control}
+              onChangeExtra={(value) => {
+                if (!value?.trim()) {
+                  setValue?.(`Under_Graduate.ug_status`, "", {
+                    shouldDirty: true,
+                    shouldValidate: true,
+                  });
+                } else {
+                  setValue?.(`Under_Graduate.ug_status`, "In-Progress", {
+                    shouldDirty: true,
+                    shouldValidate: true,
+                  });
+                }
+              }}
             />
 
             <div className="lg:h-5" />
@@ -120,6 +149,7 @@ export function EducationDetails({
                 { value: "In-Progress", label: "In-Progress" },
               ]}
               errorClassName="mt-0 lg:-mt-4"
+              disabled={!underGraduate?.degree?.trim()}
             />
           </div>
 
@@ -202,17 +232,37 @@ export function EducationDetails({
                 <X className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
               </Button>
             )}
+
+            {postGraduate?.[index]?.pg_status === "Finished" && (
+              <>
+                <FormFileUploadButton
+                  name={`Post_Graduate.${index}.marksheet`}
+                  control={control}
+                  placeholder="Upload your marksheet"
+                  notRequired
+                  defaultValue={
+                    admissionData?.Post_Graduate?.[index]?.marksheet ?? null
+                  }
+                  inputClassName="justify-start pl-3"
+                  hideDescription
+                />
+
+                <p className="text-xs text-muted-foreground lg:ml-2 relative md:top-2.5">
+                  Max. file size is not more than 2MB.
+                </p>
+              </>
+            )}
           </div>
         ))}
 
-        {postGraduate?.[0]?.degree !== "" && (
+        {postGraduate && postGraduate?.length > 1 && (
           <Button
             type="button"
             onClick={clearAllDegree}
-            className="absolute h-7 md:h-9 -top-2 right-0 flex md:ml-auto items-center gap-2 text-sm hover:opacity-80 transition-opacity bg-chart-1"
+            className="absolute h-7 md:h-9 -top-2 left-1/4 flex md:ml-auto items-center gap-2 text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
           >
-            <X className="h-4 w-4 border rounded-full" />
-            <span className="text-white">Clear All</span>
+            <X className="h-4 w-4 border border-red-400 rounded-full text-red-500" />
+            <span className="text-red-500">Clear All</span>
           </Button>
         )}
       </div>

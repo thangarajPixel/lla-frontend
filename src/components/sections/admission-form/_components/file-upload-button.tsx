@@ -116,7 +116,7 @@ export function FileUploadButton({
 
     if (!ALLOWED_MIME_TYPES.includes(file.type)) {
       toast.error("Only PDF, JPG, JPEG, PNG files are allowed.", {
-        position: "bottom-right",
+        position: "top-right",
       });
       e.target.value = "";
       return;
@@ -124,7 +124,7 @@ export function FileUploadButton({
 
     if (file.size > 2 * 1024 * 1024) {
       toast.error("File size must be less than 2MB.", {
-        position: "bottom-right",
+        position: "top-right",
       });
       e.target.value = "";
       return;
@@ -214,7 +214,7 @@ export function FileUploadButton({
               </span> */}
               <button
                 type="button"
-                className="text-white bg-red-500 size-5 rounded-full p-1 text-sm flex items-center justify-center hover:bg-red-600 cursor-pointer"
+                className="text-white bg-[#E97451] size-5 rounded-full p-1 text-sm flex items-center justify-center hover:bg-[#E97451] cursor-pointer"
                 onClick={() => {
                   setSelectedFile(null);
                   setPreview(null);

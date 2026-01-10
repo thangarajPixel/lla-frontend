@@ -16,7 +16,6 @@ import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import { ArrowDown, ArrowRightWhite, SearchIcon } from "@/helpers/ImageHelper";
-import { ro } from "date-fns/locale";
 
 interface BlogImage {
   id: number;
@@ -51,7 +50,7 @@ interface BlogPageData {
 
 const BlogSection = ({ data }: { data: BlogPageData }) => {
   const router = useRouter();
-  
+
   const BlogCardSkeleton = () => (
     <div className="w-full flex flex-col gap-3 bg-white p-3">
       <Skeleton className="w-full h-[200px] md:h-[220px] lg:h-[230px]" />
@@ -371,6 +370,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                             once={true}
                           >
                             <div
+                              aria-hidden
                               className="relative w-full overflow-hidden group  bg-white cursor-pointer"
                               style={{ padding: "10px" }}
                               ref={(el) => {

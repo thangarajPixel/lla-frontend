@@ -3,20 +3,29 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import type z from "zod";
 import { getEssentialsData } from "@/app/api/server";
 import { FormInput } from "@/components/form";
+import type { CourseItem } from "@/components/layouts/utils/types";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
 import { encryptId } from "@/helpers/ConstantHelper";
 import { admissionRequestSchema } from "@/helpers/ValidationHelper";
+import CourseApplicationFormModel from "./CourseApplicationFormModel";
 
-type RequestFormData = z.infer<typeof admissionRequestSchema>;
+export type RequestFormData = z.infer<typeof admissionRequestSchema>;
 
-const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
+const CourseAdmissionFormSection = ({
+  selectedCourse,
+}: {
+  selectedCourse?: CourseItem;
+}) => {
+  // const [selectedCourse, setSelectedCourse] =
+  //   useState<string>();
+  const [isApplicationOpen, setIsApplicationOpen] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const router = useRouter();
 
@@ -40,7 +49,7 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
       mobile_no: payload.Mobile,
       email: payload.Email,
       Message: payload.Message,
-      Course: courseId,
+      Course: selectedCourse?.documentId,
       step_0: true,
     };
 
@@ -50,7 +59,7 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
       Email: payload.Email,
       Message: payload.Message,
       Type: "Request Information",
-      Course: courseId,
+      Course: selectedCourse?.documentId,
     };
 
     try {
@@ -68,7 +77,7 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
           toast.error(
             "The email id  has already been used. Kindly check your mail",
             {
-              position: "bottom-right",
+              position: "top-right",
             },
           );
           return;
@@ -85,20 +94,19 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
       form.reset();
       toast.success("Request submitted successfully!");
     } catch (_error) {
-      toast.error("Failed to send message. Please try again.");
+      toast.error("Failed to send message. Please try again.", {
+        position: "top-right",
+      });
     }
   };
 
   return (
     <div className="fixed bottom-0 left-0 right-0 backdrop-blur-sm shadow-full bg-[#E97451]/80 z-70 h-fit md:h-18 flex items-center p-2 md:pt-6">
       <ContainerWidget>
-        <h3 className="md:hidden text-white text-[14px] sm:text-[15px] md:text-[16px] lg:text-[15px] 3xl:text-[18px] font-semibold mb-2 md:mb-2 text-center md:text-left">
-          Apply Now
-        </h3>
         <form
           ref={formRef}
           onSubmit={form.handleSubmit(onSubmit)}
-          className="grid grid-cols-2 md:flex font-mulish gap-2 md:gap-3 items-stretch md:items-center md:justify-between"
+          className="hidden grid-cols-2 md:flex font-mulish gap-2 md:gap-3 items-stretch md:items-center md:justify-between"
         >
           <h3 className="hidden md:block text-white text-[14px] sm:text-[15px] md:text-[16px] lg:text-[15px] 3xl:text-[18px] font-semibold mb-2 md:mb-2 text-center md:text-left relative md:bottom-2.5">
             Apply Now
@@ -145,7 +153,32 @@ const CourseAdmissionFormSection = ({ courseId }: { courseId: string }) => {
             <ArrowRight className="w-[14px] h-[14px] md:w-[15px] md:h-[15px] lg:w-[18px] lg:h-[18px] 3xl:w-6 3xl:h-6 transition-transform duration-300 group-hover:translate-x-1" />
           </button>
         </form>
+
+        <div className="flex items-center justify-between md:hidden">
+          <h3 className="text-white text-[14px] sm:text-[15px] md:text-[16px] lg:text-[15px] 3xl:text-[18px] font-semibold mb-2 md:mb-2 text-center md:text-left">
+            Get In Touch
+          </h3>
+
+          <button
+            type="button"
+            className="group font-bold cursor-pointer flex items-center justify-center gap-2 px-4 md:px-6 py-2 bg-white text-[#E97451] rounded-full text-[12px] sm:text-[13px] md:text-[14px] lg:text-[13px] 3xl:text-[16px] hover:bg-gray-100 transition-colors h-9 w-fit relative md:bottom-2.5"
+            onClick={() => {
+              setIsApplicationOpen(true);
+            }}
+          >
+            Apply Now
+            <ArrowRight className="w-[14px] h-[14px] md:w-[15px] md:h-[15px] lg:w-[18px] lg:h-[18px] 3xl:w-6 3xl:h-6 transition-transform duration-300 group-hover:translate-x-1" />
+          </button>
+        </div>
       </ContainerWidget>
+
+      {isApplicationOpen && (
+        <CourseApplicationFormModel
+          isOpen={isApplicationOpen}
+          onClose={() => setIsApplicationOpen(false)}
+          selectedCourseItem={selectedCourse}
+        />
+      )}
     </div>
   );
 };

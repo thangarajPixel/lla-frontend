@@ -98,7 +98,7 @@ const ImageSlider = ({
 
   const onTouchEnd = () => {
     if (!touchStart || !touchEnd) return;
-    
+
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
@@ -157,7 +157,7 @@ const ImageSlider = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div 
+      <div
         className="relative w-full h-full cursor-grab active:cursor-grabbing select-none"
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
@@ -166,13 +166,14 @@ const ImageSlider = ({
         onMouseMove={onMouseMove}
         onMouseUp={onMouseUp}
         onMouseLeave={onMouseLeaveWhileDragging}
-        role="button"
-        tabIndex={0}
+        // role="button"
+        // tabIndex={0}
+        aria-hidden
         onKeyDown={(e) => {
-          if (e.key === 'ArrowRight') {
+          if (e.key === "ArrowRight") {
             e.preventDefault();
             nextSlide();
-          } else if (e.key === 'ArrowLeft') {
+          } else if (e.key === "ArrowLeft") {
             e.preventDefault();
             prevSlide();
           }

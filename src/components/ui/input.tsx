@@ -53,6 +53,7 @@ const Input = ({
           inputClassName,
         )}
         {...props}
+        autoComplete="off"
         disabled={props.disabled}
         maxLength={maxLength}
         onChange={(e) => {

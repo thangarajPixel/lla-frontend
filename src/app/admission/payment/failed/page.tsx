@@ -1,7 +1,7 @@
 "use client";
 
 import { X } from "lucide-react";
-import { useParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getAdmissionsById } from "@/app/api/server";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
@@ -17,8 +17,10 @@ const PaymentFailedPage = () => {
     LongDescription: "",
   });
 
-  const params = useParams();
-  const encryptedId = params?.id;
+  // const params = useParams();
+  // const encryptedId = params?.id;
+  const searchParams = useSearchParams();
+  const encryptedId = searchParams.get("id");
 
   useEffect(() => {
     if (!encryptedId || Array.isArray(encryptedId)) return;

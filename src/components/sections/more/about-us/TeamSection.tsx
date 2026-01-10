@@ -110,7 +110,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
       fetchTeamData(currentSlug, currentPage - 1);
     }
   };
-  const isMobile = () => window.innerWidth < 768;
+  const _isMobile = () => window.innerWidth < 768;
 
   const handleNext = () => {
     if (currentPage < totalPages && currentSlug) {
@@ -188,10 +188,12 @@ const TeamSection = ({ data }: TeamSectionProps) => {
             className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4
             2xl:grid-cols-4 3xl:grid-cols-4 4xl:grid-cols-4
             gap-2 sm:gap-4 md:gap-8 lg:gap-4 xl:gap-4
-            2xl:gap-5 3xl:gap-6 4xl:gap-7">
+            2xl:gap-5 3xl:gap-6 4xl:gap-7"
+          >
             {facultyData.map((faculty) => (
               <ScrollWidget key={faculty.id} animation="scale" delay={0.1}>
-                <div   className={`${faculty.className} group min-w-[171px] max-w-[360px]  bg-white
+                <div
+                  className={`${faculty.className} group min-w-[171px] max-w-[360px]  bg-white
                             hover:bg-[#E97451]/20 cursor-pointer
                             transition-colors duration-500 ease-out
                             px-2 py-2 flex flex-col
@@ -200,17 +202,18 @@ const TeamSection = ({ data }: TeamSectionProps) => {
                 >
                   <ParallaxWidget speed={-0.1}>
                     <div
-                    //  onClick={() => {
-                    //   if (
-                    //     isMobile() &&
-                    //     faculty.id &&
-                    //     faculty.Slug &&
-                    //     !loadingCards
-                    //   ) {
-                    //     handleCardClick(faculty.id, faculty.Slug);
-                    //   }
-                    // }}
-                     className="aspect-square overflow-hidden  w-[170px] h-[171px] md:w-[200px] md:h-[200px] lg:w-[200px] lg:h-[200px] xl:w-[200px] xl:h-[200px] 2xl:w-[300px] 2xl:h-[302px] 3xl:w-[300px] 3xl:h-[302px]">
+                      //  onClick={() => {
+                      //   if (
+                      //     isMobile() &&
+                      //     faculty.id &&
+                      //     faculty.Slug &&
+                      //     !loadingCards
+                      //   ) {
+                      //     handleCardClick(faculty.id, faculty.Slug);
+                      //   }
+                      // }}
+                      className="aspect-square overflow-hidden  w-[170px] h-[171px] md:w-[200px] md:h-[200px] lg:w-[200px] lg:h-[200px] xl:w-[200px] xl:h-[200px] 2xl:w-[300px] 2xl:h-[302px] 3xl:w-[300px] 3xl:h-[302px]"
+                    >
                       <ImageWidget
                         src={faculty.imageUrl}
                         alt="Faculty"

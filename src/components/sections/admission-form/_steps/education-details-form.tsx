@@ -49,13 +49,13 @@ const EducationDetailsForm = ({
           ? admissionData?.Post_Graduate?.map((item) => ({
               degree: item?.degree ?? "",
               pg_status: item?.pg_status ?? "",
-              // marksheet: item?.marksheet?.id ?? 0,
+              marksheet: item?.marksheet?.id ?? 0,
             }))
           : [
               {
                 degree: "",
                 pg_status: "",
-                // marksheet: 0,
+                marksheet: 0,
               },
             ],
       Work_Experience:
@@ -81,7 +81,8 @@ const EducationDetailsForm = ({
     },
   });
 
-  const { control, handleSubmit, watch, setValue, trigger } = form_step2;
+  const { control, handleSubmit, watch, setValue, trigger, unregister } =
+    form_step2;
 
   const watchUgStatus = watch("Under_Graduate.ug_status");
 
@@ -105,7 +106,11 @@ const EducationDetailsForm = ({
       Post_Graduate:
         payload?.Post_Graduate?.[0]?.degree === ""
           ? []
-          : payload?.Post_Graduate,
+          : payload?.Post_Graduate?.map((item) => ({
+              degree: item?.degree ?? "",
+              pg_status: item?.pg_status ?? "",
+              marksheet: item?.marksheet === 0 ? null : item?.marksheet,
+            })),
       Work_Experience:
         payload?.Work_Experience?.[0]?.designation === "" &&
         payload?.Work_Experience?.[0]?.employer === "" &&
@@ -147,6 +152,7 @@ const EducationDetailsForm = ({
           control={control}
           setValue={setValue}
           trigger={trigger}
+          unregister={unregister}
         />
 
         <p className="text-base text-muted-foreground mt-2">

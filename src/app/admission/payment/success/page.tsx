@@ -1,7 +1,7 @@
 "use client";
 
 import { Check } from "lucide-react";
-import { useParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { getAdmissionsById } from "@/app/api/server";
@@ -25,8 +25,10 @@ const PaymentSuccessPage = () => {
     Description: "",
     LongDescription: "",
   });
-  const params = useParams();
-  const encryptedId = params?.id;
+  // const params = useParams();
+  const searchParams = useSearchParams();
+  const encryptedId = searchParams.get("id");
+  // const encryptedId = params?.id;
 
   const handleDownload = async () => {
     try {
@@ -50,7 +52,7 @@ const PaymentSuccessPage = () => {
       window.URL.revokeObjectURL(url);
     } catch (_error) {
       toast.error("Download Failed", {
-        position: "bottom-right",
+        position: "top-right",
       });
     }
   };
