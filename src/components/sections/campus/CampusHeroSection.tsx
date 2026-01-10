@@ -162,7 +162,7 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
                           muted
                           playsInline
                           controls
-                          className="w-full h-full object-contain rounded-lg"
+                          className="w-full h-[90vh] object-contain rounded-lg"
                           onError={(e) => {
                             e.preventDefault();
                             setDialogVideoError(true);
@@ -306,7 +306,7 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
                             muted
                             playsInline
                             controls
-                            className="w-full h-full object-contain"
+                            className="w-full h-[90vh] object-contain"
                             onError={(e) => {
                               e.preventDefault();
                               setDialogVideoError(true);
