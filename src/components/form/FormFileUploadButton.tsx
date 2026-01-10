@@ -70,7 +70,7 @@ const FormFileUploadButton = <T extends FieldValues>({
       <div className="space-y-2">
         <FileUploadButton
           placeholder={placeholder}
-          maxSize={maxSize ?? "2MB"}
+          maxSize={maxSize ?? "2 MB"}
           onUpload={handleUpload}
           onRemove={() => field.onChange(0)}
           defaultValue={field?.value === 0 ? null : defaultValue}

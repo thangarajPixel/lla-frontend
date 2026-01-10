@@ -166,7 +166,7 @@ export function EducationDetails({
               />
 
               <p className="hidden md:flex text-xs text-muted-foreground lg:ml-2 relative md:top-3.5">
-                Max. file size is not more than 2MB.
+                Max file size is 2 MB.
               </p>
             </>
           )}
@@ -224,34 +224,32 @@ export function EducationDetails({
             </div>
 
             {index >= 0 && (
-              // <Button
-              //   type="button"
-              //   onClick={() => removePgDegree(index)}
-              //   className="absolute -top-2 right-0 flex items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
-              // >
-              //   <X className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
-              // </Button>
               <button
                 type="button"
-                className="absolute -top-2 right-0 text-white bg-[#E97451] size-5 rounded-full p-1 text-sm flex items-center justify-center hover:bg-[#E97451] cursor-pointer"
                 onClick={() => {
-                  if (postGraduate && postGraduate?.length > 1) {
+                  if (postGraduate && postGraduate.length > 1) {
                     removePgDegree(index);
                   } else {
-                    setValue?.(`Post_Graduate.0.degree`, "", {
+                    setValue?.("Post_Graduate.0.degree", "", {
                       shouldDirty: true,
                       shouldValidate: true,
                     });
-                    setValue?.(`Post_Graduate.0.pg_status`, "", {
+                    setValue?.("Post_Graduate.0.pg_status", "", {
                       shouldDirty: true,
                       shouldValidate: true,
                     });
                   }
                 }}
+                className={`absolute -top-2 right-0 flex items-center justify-center gap-2 text cursor-pointer ${(postGraduate?.length === 1 && postGraduate?.[0]?.degree?.trim() === "") && "hidden"}`}
               >
-                X
+                <span className="flex size-5 items-center justify-center rounded-full bg-[#E97451] text-white text-xs leading-none">
+                  X
+                </span>
+
+                <span className="text-sm">Remove</span>
               </button>
             )}
+
 
             {postGraduate?.[index]?.pg_status === "Finished" && (
               <>
@@ -268,7 +266,7 @@ export function EducationDetails({
                 />
 
                 <p className="hidden md:flex text-xs text-muted-foreground lg:ml-2 relative md:top-3.5">
-                  Max. file size is not more than 2MB.
+                  Max file size is 2 MB.
                 </p>
               </>
             )}
@@ -287,7 +285,7 @@ export function EducationDetails({
         )} */}
       </div>
 
-      {lastDegree !== "" && lastPgStatus === "Finished" && (
+      {lastDegree !== "" && lastPgStatus === "Finished" && (postGraduate && postGraduate?.length < 3) && (
         <Button
           type="button"
           onClick={addDegree}

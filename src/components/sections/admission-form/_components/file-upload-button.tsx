@@ -88,7 +88,7 @@ const getFileIcon = (fileType: string) => {
 
 export function FileUploadButton({
   placeholder,
-  maxSize = "2MB",
+  maxSize = "2 MB",
   variant,
   onUpload,
   onRemove,
@@ -123,7 +123,7 @@ export function FileUploadButton({
     }
 
     if (file.size > 2 * 1024 * 1024) {
-      toast.error("File size must be less than 2MB.", {
+      toast.error("Max file size is 2 MB", {
         position: "top-right",
       });
       e.target.value = "";
@@ -177,7 +177,7 @@ export function FileUploadButton({
           hideDescription && "md:hidden",
         )}
       >
-        Max. file size is not more than {maxSize}.
+        Max file size is {maxSize}.
       </p>
 
       <div className="flex-1 min-w-0">

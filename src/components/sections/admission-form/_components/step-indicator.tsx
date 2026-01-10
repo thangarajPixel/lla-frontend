@@ -37,7 +37,7 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
         })}
       </div>
 
-      <div className="flex items-center justify-start w-full md:px-10">
+      <div className="flex items-center justify-start w-full md:px-12">
         {Array.from({ length: 5 }).map((_, index) => {
           const isCircle = index % 2 === 0;
           const circleNumber = Math.floor(index / 2) + 1;
@@ -82,7 +82,7 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
                   ? "text-left"
                   : index === steps.length - 1
                     ? "text-right"
-                    : "text-center ml-4",
+                    : "text-center ml-6",
               )}
             >
               {step}

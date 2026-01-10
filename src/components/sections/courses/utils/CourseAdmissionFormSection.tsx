@@ -15,6 +15,7 @@ import { clientAxios } from "@/helpers/AxiosHelper";
 import { encryptId } from "@/helpers/ConstantHelper";
 import { admissionRequestSchema } from "@/helpers/ValidationHelper";
 import CourseApplicationFormModel from "./CourseApplicationFormModel";
+import { cn } from "@/lib/utils";
 
 export type RequestFormData = z.infer<typeof admissionRequestSchema>;
 
@@ -26,6 +27,7 @@ const CourseAdmissionFormSection = ({
   // const [selectedCourse, setSelectedCourse] =
   //   useState<string>();
   const [isApplicationOpen, setIsApplicationOpen] = useState(false);
+  const [emailError, setEmailError] = useState<string>("");
   const formRef = useRef<HTMLFormElement>(null);
   const router = useRouter();
 
@@ -63,6 +65,7 @@ const CourseAdmissionFormSection = ({
     };
 
     try {
+
       if (isAdmissionOpen?.data?.isAdmission) {
         const isExistingEmailCheck = await clientAxios.post(
           `/admissions/email/check`,
@@ -74,14 +77,19 @@ const CourseAdmissionFormSection = ({
         const isExistingEmail = isExistingEmailCheck?.data;
 
         if (isExistingEmail?.exists) {
-          toast.error(
-            "The email id  has already been used. Kindly check your mail",
-            {
-              position: "top-right",
-            },
-          );
+
+          setEmailError(`This email ID is already registered for the ${selectedCourse?.Name}. A continuation link has already been shared via email. Please use that link to continue the registration or enter a new email ID to start a new registration.`),
+
+            toast.error(
+              "The email id  has already been used. Kindly check your mail",
+              {
+                position: "top-right",
+              },
+            );
           return;
         }
+
+        setEmailError("");
 
         const res = await clientAxios.post(`/admissions`, {
           data: admissionPayload,
@@ -101,14 +109,14 @@ const CourseAdmissionFormSection = ({
   };
 
   return (
-    <div className="fixed bottom-[-2px] left-0 right-0 backdrop-blur-sm shadow-full bg-[#E97451]/80 z-70 h-fit md:h-18 flex items-center p-2 md:pt-6">
+    <div className={cn("fixed bottom-[-2px] left-0 right-0 backdrop-blur-sm shadow-full bg-[#E97451]/80 z-70 h-fit md:h-18 flex items-center p-2 md:pt-6", emailError && "md:h-fit")}>
       <ContainerWidget>
         <form
           ref={formRef}
           onSubmit={form.handleSubmit(onSubmit)}
           className="hidden grid-cols-2 md:flex font-mulish gap-2 md:gap-3 items-stretch md:items-center md:justify-between"
         >
-          <h3 className="hidden md:block text-white text-[14px] sm:text-[15px] md:text-[16px] lg:text-[15px] 3xl:text-[18px] font-semibold mb-2 md:mb-2 text-center md:text-left relative md:bottom-2.5">
+          <h3 className="hidden md:block text-white text-[14px] sm:text-[15px] md:text-[16px] lg:text-[15px] 3xl:text-[18px] font-semibold mb-2 md:mb-2 text-center md:text-left relative md:bottom-1.5">
             Apply Now
           </h3>
 
@@ -166,6 +174,14 @@ const CourseAdmissionFormSection = ({
             <ArrowRight className="w-[14px] h-[14px] md:w-[15px] md:h-[15px] lg:w-[18px] lg:h-[18px] 3xl:w-6 3xl:h-6 transition-transform duration-300 group-hover:translate-x-1" />
           </button>
         </div>
+
+        {
+          emailError && (
+            <span className="text-white text-sm">
+              {emailError}
+            </span>
+          )
+        }
       </ContainerWidget>
 
       {isApplicationOpen && (

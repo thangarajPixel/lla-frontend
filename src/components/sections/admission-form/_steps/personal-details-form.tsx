@@ -666,8 +666,7 @@ const PersonalDetailsForm = ({
               />
 
               <p className="text-xs font-mulish text-muted-foreground mt-2 xs:max-w-[180px] 2xl:max-w-full">
-                Upload a recent passport-size photograph with a white
-                background. The file size must not exceed 1 MB.
+                Max file size is 1 MB.
               </p>
 
               {errors.passport_size_image && (
