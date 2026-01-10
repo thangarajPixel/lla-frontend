@@ -110,7 +110,6 @@ const TeamSection = ({ data }: TeamSectionProps) => {
       fetchTeamData(currentSlug, currentPage - 1);
     }
   };
-  const _isMobile = () => window.innerWidth < 768;
 
   const handleNext = () => {
     if (currentPage < totalPages && currentSlug) {
@@ -145,16 +144,6 @@ const TeamSection = ({ data }: TeamSectionProps) => {
       Slug: data?.Card[2]?.Slug,
       Btn_txt: data?.Card[2]?.Btn_txt,
     },
-    {
-      id: data?.Card[3]?.id,
-      name: data?.Card[3]?.Title,
-      description: data?.Card[3]?.Description,
-      imageUrl: getS3Url(data?.Card[3]?.Image[0]?.url),
-      Btn_txt: data?.Card[3]?.Btn_txt,
-      Slug: data?.Card[3]?.Slug,
-      className:
-        " mt-0 md:mt-0 lg:mt-15 xl:mt-15 2xl:mt-15 3xl:mt-20 4xl:mt-25",
-    },
   ];
 
   return (
@@ -185,10 +174,10 @@ const TeamSection = ({ data }: TeamSectionProps) => {
         </div>
         <div className="py-7 pb-9 sm sm:py-8 md:py-14 lg:py-12 xl:py-12 2xl:py-16 3xl:py-20 4xl:py-15">
           <div
-            className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4
-            2xl:grid-cols-4 3xl:grid-cols-4 4xl:grid-cols-4
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3
+            2xl:grid-cols-3 3xl:grid-cols-3 4xl:grid-cols-3
             gap-2 sm:gap-4 md:gap-8 lg:gap-4 xl:gap-4
-            2xl:gap-5 3xl:gap-6 4xl:gap-7"
+            2xl:gap-5 3xl:gap-6 4xl:gap-7 justify-items-center"
           >
             {facultyData.map((faculty) => (
               <ScrollWidget key={faculty.id} animation="scale" delay={0.1}>

@@ -101,7 +101,7 @@ const CourseAdmissionFormSection = ({
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 backdrop-blur-sm shadow-full bg-[#E97451]/80 z-70 h-fit md:h-18 flex items-center p-2 md:pt-6">
+    <div className="fixed bottom-[-2px] left-0 right-0 backdrop-blur-sm shadow-full bg-[#E97451]/80 z-70 h-fit md:h-18 flex items-center p-2 md:pt-6">
       <ContainerWidget>
         <form
           ref={formRef}

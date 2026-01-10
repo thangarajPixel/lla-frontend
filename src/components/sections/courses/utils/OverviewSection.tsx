@@ -173,10 +173,7 @@ const OverviewSection = ({ data }: { data: MenuData }) => {
                   {aboutImages.map((image) => (
                     <div
                       key={image.id}
-                      className="
-                      relative flex-[0_0_80vw] sm:flex-[0_0_75vw] 
-                      min-w-0
-                      overflow-hidden"
+                      className="relative flex-[0_0_80vw] sm:flex-[0_0_75vw] min-w-0 overflow-hidden"
                     >
                       <ImageWidget
                         src={getS3Url(image.url)}
