@@ -1,12 +1,11 @@
 "use client";
 
-import { Plus, X } from "lucide-react";
+import { Plus } from "lucide-react";
 import { type Control, useFieldArray, useWatch } from "react-hook-form";
 import { FormInput } from "@/components/form";
 import FormFileUploadButton from "@/components/form/FormFileUploadButton";
 import FormDateRangePickerWithInput from "@/components/form/FormInputDateRangePicker";
 import type { EducationDetailsSchema } from "@/components/sections/admission-form/_steps/education-details-form";
-import { Button } from "@/components/ui/button";
 
 type WorkExperienceProps = {
   admissionData?: AdmissionFormData;

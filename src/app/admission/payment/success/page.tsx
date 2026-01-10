@@ -1,16 +1,16 @@
 "use client";
 
-import { Check, Loader } from "lucide-react";
+import { Check } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { getAdmissionsById } from "@/app/api/server";
+import { Spinner } from "@/components/ui/spinner";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
 import { decryptCode, notify } from "@/helpers/ConstantHelper";
 import { updateAdmission } from "@/store/services/global-services";
-import { Spinner } from "@/components/ui/spinner";
 
 export type ThankYouPage = {
   Title: string;
@@ -86,7 +86,7 @@ const PaymentSuccessPage = () => {
         const paidAmount =
           admissionData?.Course?.Amount +
           (admissionData?.Course?.Amount * admissionData?.Course?.Percentage) /
-          100;
+            100;
 
         await updateAdmission(admissionData?.documentId, {
           step_3: true,
@@ -148,21 +148,18 @@ const PaymentSuccessPage = () => {
         </div>
 
         {/* Download Button */}
-        {
-          isDownloading ? (
-            <div className="flex items-center justify-center gap-2 orange-button p-3 rounded-full">
-              <Spinner />
-              <span>Downloading...</span>
-            </div>
-          ) : (
-            <OrangeButtonWidget
-              content="Download Submitted Application"
-              onClick={handleDownload}
-              type="button"
-            />
-          )
-        }
-
+        {isDownloading ? (
+          <div className="flex items-center justify-center gap-2 orange-button p-3 rounded-full">
+            <Spinner />
+            <span>Downloading...</span>
+          </div>
+        ) : (
+          <OrangeButtonWidget
+            content="Download Submitted Application"
+            onClick={handleDownload}
+            type="button"
+          />
+        )}
       </div>
     </main>
   );

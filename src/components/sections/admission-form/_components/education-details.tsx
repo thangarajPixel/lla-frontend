@@ -1,6 +1,6 @@
 "use client";
 
-import { Plus, X } from "lucide-react";
+import { Plus} from "lucide-react";
 import { useEffect } from "react";
 import {
   type Control,
@@ -62,7 +62,7 @@ export function EducationDetails({
     append({ degree: "", pg_status: "", marksheet: 0 });
   };
 
-  const clearAllDegree = () => {
+  const _clearAllDegree = () => {
     setValue?.("Post_Graduate", []);
     addDegree();
   };
@@ -236,7 +236,7 @@ export function EducationDetails({
                 className="absolute -top-2 right-0 text-white bg-[#E97451] size-5 rounded-full p-1 text-sm flex items-center justify-center hover:bg-[#E97451] cursor-pointer"
                 onClick={() => {
                   if (postGraduate && postGraduate?.length > 1) {
-                    removePgDegree(index)
+                    removePgDegree(index);
                   } else {
                     setValue?.(`Post_Graduate.0.degree`, "", {
                       shouldDirty: true,
@@ -247,8 +247,7 @@ export function EducationDetails({
                       shouldValidate: true,
                     });
                   }
-                }
-                }
+                }}
               >
                 X
               </button>

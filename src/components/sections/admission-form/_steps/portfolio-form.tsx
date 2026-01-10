@@ -173,9 +173,12 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
 
   const onError = () => {
     if (images?.length !== MAX_IMAGES) {
-      toast.error(`Must upload ${MAX_IMAGES - images.length} more ${MAX_IMAGES - images.length === 1 ? "image" : "images"}`, {
-        position: "top-right",
-      });
+      toast.error(
+        `Must upload ${MAX_IMAGES - images.length} more ${MAX_IMAGES - images.length === 1 ? "image" : "images"}`,
+        {
+          position: "top-right",
+        },
+      );
     }
   };
 
@@ -217,7 +220,8 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
               htmlFor="images"
               className="block text-black text-base 3xl:text-lg mb-4"
             >
-              Upload Images<span className="text-destructive">* ({images.length}/20)</span>
+              Upload Images
+              <span className="text-destructive">* ({images.length}/20)</span>
             </label>
 
             <UploadArea

@@ -120,7 +120,6 @@ const PaymentFailedPage = () => {
             </p>
           </div>
         </div>
-
       </div>
     </main>
   );
