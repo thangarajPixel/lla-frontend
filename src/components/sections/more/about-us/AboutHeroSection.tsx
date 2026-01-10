@@ -14,12 +14,7 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
   return (
     <Fragment>
       <section className="relative z-10 max-w-[2560px] text-white bg-white py-6 md:py-6 overflow-hidden">
-        <ParallaxWidget
-          speed={1.5}
-          start="top bottom"
-          end="bottom center"
-          className="absolute inset-0 md:hidden z-0"
-        >
+        <div className="absolute inset-0 md:hidden z-0">
           <div className="absolute inset-0 w-full h-full">
             <ImageWidget
               src={getS3Url(data?.Mobile_image?.url)}
@@ -28,7 +23,7 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
               className="object-cover object-bottom"
             />
           </div>
-        </ParallaxWidget>
+        </div>
 
         <ParallaxWidget
           speed={1.5}
@@ -45,7 +40,7 @@ const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
             />
           </div>
         </ParallaxWidget>
-        <div className="relative z-10 min-h-[1650px] m:min-h-[1400px] xs:min-h-[1500px] sm:min-h-[1500px] md:min-h-[1400px] lg:min-h-[1100px] xl:min-h-[1200px] 2xl:min-h-[1300px] 3xl:min-h-[1500px]">
+        <div className="relative z-10 min-h-[1650px] m:min-h-[1550px] xs:min-h-[1500px] sm:min-h-[1500px] md:min-h-[1400px] lg:min-h-[1100px] xl:min-h-[1200px] 2xl:min-h-[1300px] 3xl:min-h-[1500px]">
           <ContainerWidget>
             <ScrollWidget animation="fadeUp" delay={0.1}>
               <h3 className="text-[32px] sm:text-[34px] md:text-[36px] lg:text-[48px] xl:text-[56px] 2xl:text-[64px] 3xl:text-[64px] 4xl:text-[64px]  font-regular text-black font-urbanist">
