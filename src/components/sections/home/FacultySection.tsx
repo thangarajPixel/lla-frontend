@@ -97,7 +97,7 @@ const FacultySection = ({ data }: FacultySectionProps) => {
             ))}
           </div>
           <div className="min-h-[70px]  flex flex-col justify-center items-start mt-4">
-            <div className="self-center">
+            <div className="self-start md:self-center">
               <LinkWidget href="/faculty" className="w-full">
                 <OrangeButtonWidget content={data.Btn_txt} />
               </LinkWidget>
