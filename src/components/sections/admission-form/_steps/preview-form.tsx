@@ -612,7 +612,7 @@ const ReviewApplication = ({
                           </p>
                         </section>
 
-                        <section className="hidden md:invisible md:flex flex-col justify-start gap-2 items-start md:col-span-1">
+                        <section className="flex flex-col justify-start gap-2 items-start md:col-span-1">
                           <span className="text-black/50 text-base 3xl:text-2xl">
                             Document
                           </span>
