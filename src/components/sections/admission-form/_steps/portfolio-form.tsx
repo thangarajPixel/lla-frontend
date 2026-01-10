@@ -78,15 +78,6 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
   }, [admissionData]);
 
   const handleFilesSelected = async (files: File[]) => {
-    const totalImages = images.length + files.length;
-
-    if (totalImages > MAX_IMAGES) {
-      notify({
-        success: false,
-        message: `Only ${MAX_IMAGES} images are allowed`,
-      });
-      return;
-    }
 
     const validFiles = files.filter((file) => {
       if (!ALLOWED_TYPES.includes(file.type)) {
@@ -103,6 +94,16 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
     });
 
     if (!validFiles.length) return;
+
+    const totalImages = images.length + validFiles.length;
+
+    if (totalImages > MAX_IMAGES) {
+      notify({
+        success: false,
+        message: `Only ${MAX_IMAGES} images are allowed`,
+      });
+      return;
+    }
 
     const currentHf = getValues("Upload_Your_Portfolio.images") ?? [];
 
@@ -172,8 +173,8 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
 
   const onError = () => {
     if (images?.length !== MAX_IMAGES) {
-      toast.error("Must upload 20 images", {
-        position: "bottom-right",
+      toast.error(`Must upload ${MAX_IMAGES - images.length} more images`, {
+        position: "top-right",
       });
     }
   };

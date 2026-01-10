@@ -5,7 +5,7 @@ import axios from "axios";
 import { CheckCircle, Plus, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   FormProvider,
   useFieldArray,
@@ -54,6 +54,7 @@ const PersonalDetailsForm = ({
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isRemoved, setIsRemoved] = useState<boolean>(false);
   const [isVerified, setIsVerified] = useState<boolean>(false);
+  const [isSameAddress, setIsSameAddress] = useState<boolean>(false);
   const router = useRouter();
 
   const form_step1 = useForm<PersonalDetailsSchema>({
@@ -72,21 +73,21 @@ const PersonalDetailsForm = ({
       nationality: admissionData?.nationality ?? "",
       Language_Proficiency:
         admissionData?.Language_Proficiency &&
-        admissionData?.Language_Proficiency?.length > 0
+          admissionData?.Language_Proficiency?.length > 0
           ? admissionData?.Language_Proficiency?.map((language) => ({
-              language: language?.language ?? "",
-              read: language?.read ?? false,
-              write: language?.write ?? false,
-              speak: language?.speak ?? false,
-            }))
+            language: language?.language ?? "",
+            read: language?.read ?? false,
+            write: language?.write ?? false,
+            speak: language?.speak ?? false,
+          }))
           : [
-              {
-                language: "",
-                read: false,
-                write: false,
-                speak: false,
-              },
-            ],
+            {
+              language: "",
+              read: false,
+              write: false,
+              speak: false,
+            },
+          ],
       address: admissionData?.address?.map((block) => ({
         type: "paragraph",
         children: block.children.map((child) => ({
@@ -94,16 +95,16 @@ const PersonalDetailsForm = ({
           type: child.type,
         })),
       })) ?? [
-        {
-          type: "paragraph",
-          children: [
-            {
-              text: "",
-              type: "text",
-            },
-          ],
-        },
-      ],
+          {
+            type: "paragraph",
+            children: [
+              {
+                text: "",
+                type: "text",
+              },
+            ],
+          },
+        ],
       city: admissionData?.city ?? "",
       district: admissionData?.district ?? "",
       state: admissionData?.state?.documentId ?? "",
@@ -133,16 +134,16 @@ const PersonalDetailsForm = ({
             })),
           }),
         ) ?? [
-          {
-            type: "paragraph",
-            children: [
-              {
-                text: "",
-                type: "text",
-              },
-            ],
-          },
-        ],
+            {
+              type: "paragraph",
+              children: [
+                {
+                  text: "",
+                  type: "text",
+                },
+              ],
+            },
+          ],
         city: admissionData?.Parent_Guardian_Spouse_Details?.city ?? "",
         district: admissionData?.Parent_Guardian_Spouse_Details?.district ?? "",
         state:
@@ -194,39 +195,68 @@ const PersonalDetailsForm = ({
     }
   }, [admissionData]);
 
+
   const handleAddLanguage = () => {
     append({ language: "", read: false, write: false, speak: false });
   };
 
-  const handleSameAddress = () => {
-    if (!personalAddress) return;
+  const handleSameAddress = useCallback(
+    (checked: boolean) => {
+      setIsSameAddress(checked);
 
-    form_step1.setValue(
-      "Parent_Guardian_Spouse_Details.address",
+      if (checked) {
+        if (!personalAddress) return;
+
+        form_step1.setValue(
+          "Parent_Guardian_Spouse_Details.address",
+          personalAddress,
+          { shouldValidate: true, shouldDirty: true }
+        );
+
+        form_step1.setValue(
+          "Parent_Guardian_Spouse_Details.city",
+          personalCity ?? "",
+          { shouldValidate: true }
+        );
+
+        form_step1.setValue(
+          "Parent_Guardian_Spouse_Details.district",
+          personalDistrict ?? "",
+          { shouldValidate: true }
+        );
+
+        form_step1.setValue(
+          "Parent_Guardian_Spouse_Details.state",
+          personalState ?? "",
+          { shouldValidate: true }
+        );
+
+        form_step1.setValue(
+          "Parent_Guardian_Spouse_Details.pincode",
+          personalPincode ?? "",
+          { shouldValidate: true }
+        );
+      } else {
+        form_step1.resetField("Parent_Guardian_Spouse_Details.address.0.children.0.text", {
+          defaultValue: "",
+        });
+
+        form_step1.resetField("Parent_Guardian_Spouse_Details.city", { defaultValue: "" });
+        form_step1.resetField("Parent_Guardian_Spouse_Details.district", { defaultValue: "" });
+        form_step1.resetField("Parent_Guardian_Spouse_Details.state", { defaultValue: "" });
+        form_step1.resetField("Parent_Guardian_Spouse_Details.pincode", { defaultValue: "" });
+      }
+    },
+    [
       personalAddress,
-      { shouldValidate: true, shouldDirty: true },
-    );
-
-    form_step1.setValue("Parent_Guardian_Spouse_Details.city", personalCity, {
-      shouldValidate: true,
-    });
-
-    form_step1.setValue(
-      "Parent_Guardian_Spouse_Details.district",
+      personalCity,
       personalDistrict,
-      { shouldValidate: true },
-    );
+      personalState,
+      personalPincode,
+      form_step1,
+    ],
+  );
 
-    form_step1.setValue("Parent_Guardian_Spouse_Details.state", personalState, {
-      shouldValidate: true,
-    });
-
-    form_step1.setValue(
-      "Parent_Guardian_Spouse_Details.pincode",
-      personalPincode ?? "",
-      { shouldValidate: true },
-    );
-  };
 
   const handleClick = () => {
     fileInputRef.current?.click();
@@ -253,7 +283,7 @@ const PersonalDetailsForm = ({
           toast.error(
             `Image dimensions must not exceed 51mm × 51mm (600×600 px).
              Your image is ${width}×${height}px.`,
-            { position: "bottom-right" },
+            { position: "top-right" },
           );
           resolve(false);
           return;
@@ -264,7 +294,7 @@ const PersonalDetailsForm = ({
 
       img.onerror = () => {
         URL.revokeObjectURL(objectUrl);
-        toast.error("Invalid image file.", { position: "bottom-right" });
+        toast.error("Invalid image file.", { position: "top-right" });
         resolve(false);
       };
     });
@@ -285,7 +315,7 @@ const PersonalDetailsForm = ({
 
     if (!allowedTypes.includes(file.type)) {
       toast.error("Only JPEG and PNG images are allowed.", {
-        position: "bottom-right",
+        position: "top-right",
       });
       return;
     }
@@ -295,7 +325,7 @@ const PersonalDetailsForm = ({
 
     if (file.size > 1024 * 1024) {
       toast.error("File size must be less than 1MB.", {
-        position: "bottom-right",
+        position: "top-right",
       });
       return;
     }
@@ -332,7 +362,7 @@ const PersonalDetailsForm = ({
       toast.error(
         "The email id  has already been used. Kindly check your mail",
         {
-          position: "bottom-right",
+          position: "top-right",
         },
       );
       setIsVerified(false);
@@ -346,7 +376,7 @@ const PersonalDetailsForm = ({
   const onError = () => {
     if (errors.passport_size_image) {
       toast.error("Please upload passport size image", {
-        position: "bottom-right",
+        position: "top-right",
       });
       fileUploadRef?.current?.scrollIntoView({
         behavior: "smooth",
@@ -390,7 +420,10 @@ const PersonalDetailsForm = ({
             Personal Details
           </h1>
 
-          <div className="flex flex-col-reverse xs:flex-col 2xl:grid 2xl:grid-cols-[1fr_180px] 3xl:grid-cols-[1fr_180px] gap-8">
+          <div
+            // className="flex flex-col-reverse xs:flex-col 2xl:grid 2xl:grid-cols-[1fr_180px] 3xl:grid-cols-[1fr_180px] gap-8"
+            className="flex flex-col-reverse xs:flex-col lg:grid lg:grid-cols-[1fr_180px] gap-8"
+          >
             <div className="space-y-6">
               <div>
                 <label
@@ -487,7 +520,7 @@ const PersonalDetailsForm = ({
                   <div
                     key={lang.id ?? index}
                     className={cn(
-                      "flex flex-col md:flex-row md:items-center gap-4 mb-6",
+                      "flex flex-col md:flex-row md:items-start gap-4 mb-6",
                       errors?.Language_Proficiency?.[index]?.language
                         ?.message && "md:items-start",
                     )}
@@ -500,7 +533,7 @@ const PersonalDetailsForm = ({
                         restrictionType="number"
                       />
                     </div>
-                    <div className="flex items-center gap-3 3xl:gap-6">
+                    <div className={`flex items-center gap-3 3xl:gap-6 ${index === 0 && "md:mt-3"}`}>
                       <FormCheckBox
                         name={`Language_Proficiency.${index}.read`}
                         control={control}
@@ -531,6 +564,7 @@ const PersonalDetailsForm = ({
                     </div>
                   </div>
                 ))}
+
                 {lastLanguage !== "" && (
                   <ButtonWidget
                     type="button"
@@ -560,7 +594,7 @@ const PersonalDetailsForm = ({
                 onClick={handleClick}
               >
                 {(!previewUrl && !admissionData?.passport_size_image) ||
-                isRemoved ? (
+                  isRemoved ? (
                   <>
                     <ImageWidget
                       src={UploadIconImg}
@@ -588,8 +622,10 @@ const PersonalDetailsForm = ({
                       alt="Preview"
                       className="h-fit xs:h-[227px] w-full object-cover rounded-md hover:opacity-80 transition-opacity"
                     />
-                    <Button
+  
+                    <button
                       type="button"
+                      className="absolute top-2 right-2 text-white bg-[#E97451] size-5 rounded-full p-1 text-sm hidden group-hover:flex items-center justify-center hover:bg-[#E97451] cursor-pointer"
                       onClick={(e) => {
                         e.stopPropagation();
                         setIsRemoved(true);
@@ -598,10 +634,9 @@ const PersonalDetailsForm = ({
                           shouldValidate: true,
                         });
                       }}
-                      className="absolute top-2 right-2 hidden group-hover:flex items-center gap-2 text-primary text-sm group-hover:opacity-80 transition-opacity bg-white hover:bg-white group-hover:bg-white"
                     >
-                      <X className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
-                    </Button>
+                      X
+                    </button>
                   </>
                 )}
               </div>
@@ -741,15 +776,19 @@ const PersonalDetailsForm = ({
                   name="Parent_Guardian_Spouse_Details"
                 />
 
-                <ButtonWidget
-                  type="button"
-                  onClick={handleSameAddress}
-                  className="flex absolute -top-2 right-0 ml-auto items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
+                <div
+                  role="button"
+                  aria-hidden
+                  onClick={() => handleSameAddress(!isSameAddress)}
+                  className="flex absolute -top-2 right-0 ml-auto items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent cursor-pointer"
                 >
-                  <span className="text-chart-1 text-base 3xl:text-lg">
+                  <span className="text-[#E97451] text-base 3xl:text-lg">
                     Same Address
                   </span>
-                </ButtonWidget>
+
+                  <input type="checkbox" checked={isSameAddress} onChange={() => handleSameAddress(!isSameAddress)} className="accent-red-500 size-4" />
+                </div>
+
               </div>
             </div>
           </div>
