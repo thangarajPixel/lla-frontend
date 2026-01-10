@@ -105,7 +105,6 @@ const CourseDetailsPopup = ({
           <div
             className="absolute inset-0 bg-black/50"
             aria-hidden
-            onClick={handleClose}
           />
           {/* Modal Content */}
           <div className="relative bg-white rounded-lg shadow-xl h-[80vh] md:h-auto sm:max-w-[90vw] md:max-w-[85vw] lg:max-w-[700px] xl:max-w-[800px] 2xl:max-w-[900px] p-4 sm:p-6 lg:p-6 max-h-[90vh] overflow-y-auto">
@@ -168,6 +167,7 @@ const CourseDetailsPopup = ({
           isOpen={isApplicationOpen}
           onClose={handleApplicationClose}
           selectedCourse={selectedCourse}
+          hideCloseIcon={true}
         />
       )}
     </>

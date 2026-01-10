@@ -23,6 +23,7 @@ type CourseApplicationProps = {
   onClose: () => void;
   selectedCourse?: CourseCard;
   selectedCourseItem?: CourseItem;
+  hideCloseIcon?: boolean;
 };
 
 const CourseApplicationFormModel = ({
@@ -30,6 +31,7 @@ const CourseApplicationFormModel = ({
   onClose,
   selectedCourse,
   selectedCourseItem,
+  hideCloseIcon = false,
 }: CourseApplicationProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
@@ -125,18 +127,21 @@ const CourseApplicationFormModel = ({
       <DialogContent
         aria-describedby={undefined}
         className="border-0 bg-white p-0 shadow-xl [&>button]:hidden rounded-md lg:max-w-[900px] 3xl:max-w-[1370px]"
+        onInteractOutside={(e) => e.preventDefault()}
       >
         <DialogTitle className="hidden">Application Form</DialogTitle>
         <section className="p-4 lg:p-8 3xl:p-10">
           <div className="mb-6 flex items-start justify-between">
             <h2 className="3xl:text-2xl font-semibold text-black">Apply Now</h2>
-            <button
-              type="button"
-              onClick={onClose}
-              className="flex absolute -top-2 -right-2 3xl:size-8 items-center justify-center rounded-full bg-[#E87A6C] text-white transition-colors hover:bg-[#d66b5e] cursor-pointer"
-            >
-              <X className="h-5 w-5" />
-            </button>
+            {!hideCloseIcon && (
+              <button
+                type="button"
+                onClick={onClose}
+                className="flex absolute -top-2 -right-2 3xl:size-8 items-center justify-center rounded-full bg-[#E87A6C] text-white transition-colors hover:bg-[#d66b5e] cursor-pointer"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            )}
           </div>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 3xl:gap-10">

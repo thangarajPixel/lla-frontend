@@ -69,30 +69,32 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                 animation="scale"
                 delay={0.1 + index * 0.1}
               >
-                <div className="flex flex-col gap-2 sm:gap-3 group">
-                  <div className="w-full aspect-square sm:aspect-auto overflow-hidden relative">
-                    <ImageWidget
-                      src={getS3Url(faculty?.Image?.[0]?.url) || ""}
-                      alt={faculty.Title}
-                      fill
-                      className="object-cover grayscale transition-all duration-500 group-hover:grayscale-0"
-                    />
+                <LinkWidget href={`/photography/${faculty.Slug}`} className="block">
+                  <div className="flex flex-col gap-2 sm:gap-3 group cursor-pointer">
+                    <div className="w-full aspect-square sm:aspect-auto overflow-hidden relative">
+                      <ImageWidget
+                        src={getS3Url(faculty?.Image?.[0]?.url) || ""}
+                        alt={faculty.Title}
+                        fill
+                        className="object-cover grayscale transition-all duration-500 group-hover:grayscale-0"
+                      />
+                    </div>
+                    <h3 className="font-mulish text-lg xss:text-[16px] sm:text-xl font-bold text-black font-urbanist leading-tight truncate">
+                      {faculty.Title}
+                    </h3>
+                    <ParagraphWidget className="line-clamp-2 overflow-hidden text-ellipsis">
+                      {faculty.Description}
+                    </ParagraphWidget>
+                    {/* <div className="self-start mt-auto">
+                      <LinkWidget
+                        href={`/photography/${faculty.Slug}`}
+                        className="w-full"
+                      >
+                        <OrangeButtonWidget content={faculty.Btn_txt} />
+                      </LinkWidget>
+                    </div> */}
                   </div>
-                  <h3 className="font-mulish text-lg xss:text-[16px] sm:text-xl font-bold text-black font-urbanist leading-tight truncate">
-                    {faculty.Title}
-                  </h3>
-                  <ParagraphWidget className="line-clamp-2 overflow-hidden text-ellipsis">
-                    {faculty.Description}
-                  </ParagraphWidget>
-                  {/* <div className="self-start mt-auto">
-                    <LinkWidget
-                      href={`/photography/${faculty.Slug}`}
-                      className="w-full"
-                    >
-                      <OrangeButtonWidget content={faculty.Btn_txt} />
-                    </LinkWidget>
-                  </div> */}
-                </div>
+                </LinkWidget>
               </ScrollWidget>
             ))}
           </div>
@@ -126,32 +128,31 @@ const FacultySection = ({ data }: FacultySectionProps) => {
                   } w-[calc((100%-3rem)/3)] lg:w-[calc((100%-4.5rem)/4)] xl:w-[calc((100%-6rem)/5)] 2xl:w-[calc((100%-7.5rem)/6)] transition-all duration-1000 ease-in-out delay-150`}
                 >
                   <ScrollWidget animation="scale" delay={0.1 + index * 0.05}>
-                    <div className="group relative flex flex-col gap-3 overflow-hidden transition-all duration-500 ease-in-out delay-75 hover:bg-[#E97451]/20 p-3.5 cursor-pointer">
-                      <div className="relative w-full aspect-square overflow-hidden transition-transform duration-500 ease-in-out delay-100 group-hover:scale-[1.02]">
-                        <ImageWidget
-                          src={getS3Url(faculty?.Image?.[0]?.url) || ""}
-                          alt={faculty.Title}
-                          fill
-                          className="object-cover grayscale transition-all duration-500 group-hover:grayscale-0 3xl:min-w-[299px] 3xl:min-h-[299px]"
-                        />
-                      </div>
-                      <h3 className="font-mulish text-xl  md:text-xl lg:text-2xl xl:text-[20px] 2xl:text-[20px] 3xl:text-[24px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight transition-colors duration-500 ease-in-out delay-150">
-                        {faculty.Title}
-                      </h3>
-                      <div className="opacity-0 transition-all duration-500 ease-in-out delay-200 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2">
-                        <ParagraphWidget>{faculty.Description}</ParagraphWidget>
-                        <div className="self-start mt-3">
-                          <LinkWidget
-                            href={`/photography/${faculty.Slug}`}
-                            className="w-full"
-                          >
-                            <OrangeButtonWidget
-                              content={faculty.Btn_txt || "Know More"}
-                            />
-                          </LinkWidget>
+                    <LinkWidget href={`/photography/${faculty.Slug}`} className="block">
+                      <div className="group relative flex flex-col gap-3 overflow-hidden transition-all duration-500 ease-in-out delay-75 hover:bg-[#E97451]/20 p-3.5 cursor-pointer">
+                        <div className="relative w-full aspect-square overflow-hidden transition-transform duration-500 ease-in-out delay-100 group-hover:scale-[1.02]">
+                          <ImageWidget
+                            src={getS3Url(faculty?.Image?.[0]?.url) || ""}
+                            alt={faculty.Title}
+                            fill
+                            className="object-cover grayscale transition-all duration-500 group-hover:grayscale-0 3xl:min-w-[299px] 3xl:min-h-[299px]"
+                          />
+                        </div>
+                        <h3 className="font-mulish text-xl  md:text-xl lg:text-2xl xl:text-[20px] 2xl:text-[20px] 3xl:text-[24px] font-bold text-black font-urbanist leading-tight md:leading-tight lg:leading-[32px] xl:leading-snug 2xl:leading-tight 3xl:leading-tight transition-colors duration-500 ease-in-out delay-150">
+                          {faculty.Title}
+                        </h3>
+                        <div className="opacity-0 transition-all duration-500 ease-in-out delay-200 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2">
+                          <ParagraphWidget>{faculty.Description}</ParagraphWidget>
+                          <div className="self-start mt-3">
+                            <div className="inline-block">
+                              <OrangeButtonWidget
+                                content={faculty.Btn_txt || "Know More"}
+                              />
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </LinkWidget>
                   </ScrollWidget>
                 </div>
               ))}

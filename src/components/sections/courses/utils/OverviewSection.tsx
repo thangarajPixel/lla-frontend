@@ -87,6 +87,31 @@ const OverviewSection = ({ data }: { data: MenuData }) => {
             xss:text-[32px] md:leading-12 sm:text-5xl 3xl:text-[64px]
              text-black 2xxl:leading-16"
             />
+
+            <div className="block xl:hidden w-full overflow-hidden mt-4 sm:mt-6">
+              <div
+                ref={emblaRef}
+                className="overflow-hidden cursor-grab active:cursor-grabbing"
+              >
+                <div className="flex gap-3 sm:gap-4">
+                  {aboutImages.map((image) => (
+                    <div
+                      key={image.id}
+                      className="relative flex-[0_0_80vw] sm:flex-[0_0_75vw] min-w-0 overflow-hidden"
+                    >
+                      <ImageWidget
+                        src={getS3Url(image.url)}
+                        alt={image.name}
+                        width={361}
+                        height={358}
+                        className="object-cover object-right w-full h-full"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            
             {data?.Description && (
               <HTMLWidget
                 content={data.Description}
@@ -164,29 +189,7 @@ const OverviewSection = ({ data }: { data: MenuData }) => {
               </div>
             </div>
 
-            <div className="block xl:hidden w-full overflow-hidden mt-4 sm:mt-6">
-              <div
-                ref={emblaRef}
-                className="overflow-hidden cursor-grab active:cursor-grabbing"
-              >
-                <div className="flex gap-3 sm:gap-4">
-                  {aboutImages.map((image) => (
-                    <div
-                      key={image.id}
-                      className="relative flex-[0_0_80vw] sm:flex-[0_0_75vw] min-w-0 overflow-hidden"
-                    >
-                      <ImageWidget
-                        src={getS3Url(image.url)}
-                        alt={image.name}
-                        width={361}
-                        height={358}
-                        className="object-cover w-full h-full"
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+            
           </ScrollWidget>
         </div>
       </ContainerWidget>
