@@ -71,6 +71,7 @@ const CourseAdmissionFormSection = ({
           `/admissions/email/check`,
           {
             email: payload.Email,
+            courseId: selectedCourse?.id,
           },
         );
 

@@ -46,16 +46,16 @@ export function WorkExperience({
       </h2>
 
       {fields?.map((experience, index) => (
-        <div key={experience.id} className="space-y-6">
+        <div key={experience.id} className="space-y-3">
           {index >= 0  && (
             <div className="flex items-center justify-between">
-              <h2 className={`mb-0 text-chart-1 font-medium ${index === 0 && "invisible"}`}>
+              <h2 className={`mb-0 text-chart-1 font-medium ${index === 0 && "hidden"}`}>
                 Work Experience - {index}
               </h2>
 
               <div
                 aria-hidden
-                className={`flex items-center justify-center gap-2 cursor-pointer ${(workExperience?.length === 1 && workExperience?.[0]?.designation?.trim() === "") && "hidden"}`}
+                className={`flex items-center justify-center ml-auto gap-2 cursor-pointer ${(workExperience?.length === 1 && workExperience?.[0]?.designation?.trim() === "") && "hidden"}`}
                 onClick={() => {
                   if (workExperience && workExperience?.length > 1) {
                     remove(index)

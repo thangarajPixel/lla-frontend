@@ -60,7 +60,7 @@ export const contactSchema = z.object({
   //   .string()
   //   .transform((val) => val.trim())
   //   .pipe(z.string().min(10, "Message must be at least 10 characters")),
-  Message: z.string().min(10, "Message must be at least 10 characters"),
+  Message: z.string().min(1, "Message is required"),
 });
 
 export type ContactFormData = z.infer<typeof contactSchema>;

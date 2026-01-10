@@ -168,7 +168,7 @@ export const postGraduate = z
     }
   });
 
-export const personalDetailsSchema = (admissionEmail?: string) =>
+export const personalDetailsSchema = (admissionEmail?: string, courseId?: number) =>
   z.object({
     Course: z.string().optional(),
     name_title: z.string().optional(),
@@ -190,6 +190,7 @@ export const personalDetailsSchema = (admissionEmail?: string) =>
 
           const res = await clientAxios.post("/admissions/email/check", {
             email,
+            courseId,
           });
 
           if (res?.data?.exists) {
