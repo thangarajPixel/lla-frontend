@@ -96,6 +96,8 @@ const CourseApplicationFormModel = ({
         const res = await clientAxios.post(`/admissions`, {
           data: admissionPayload,
         });
+        console.log('res',res)
+
         const encryptedId = encryptId(res?.data?.data?.id);
         router.push(`/admission/${encryptedId}/personal-details`);
         onClose();
