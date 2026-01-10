@@ -103,7 +103,6 @@ const CourseApplicationFormModel = ({
         const res = await clientAxios.post(`/admissions`, {
           data: admissionPayload,
         });
-        console.log("res", res);
 
         const encryptedId = encryptId(res?.data?.data?.id);
         router.push(`/admission/${encryptedId}/personal-details`);
@@ -153,14 +152,6 @@ const CourseApplicationFormModel = ({
                 label="Full Name"
                 restrictionType="number"
               />
-              {/* <FormInput
-                                name="LastName"
-                                control={control}
-                                label="Last Name"
-                                placeholder="Last Name"
-                                notRequired
-                                restrictionType="number"
-                            /> */}
 
               <FormInput
                 name="Mobile"
@@ -188,15 +179,6 @@ const CourseApplicationFormModel = ({
               </p>
             )}
 
-            {/* <div className="grid grid-cols-2 gap-4">
-                            <FormInput
-                                name="Email"
-                                control={control}
-                                type="email"
-                                placeholder="Enter your email"
-                                label="Email"
-                            />
-                        </div> */}
             {isLoading ? (
               <div className="flex items-center w-fit justify-center gap-2 orange-button p-3 rounded-full">
                 <Spinner />

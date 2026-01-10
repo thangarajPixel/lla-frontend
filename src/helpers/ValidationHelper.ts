@@ -346,7 +346,7 @@ export const portfolioSchema = z.object({
         if (images.length !== MAX) {
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
-            message: `${images.length} out of ${MAX} images uploaded`,
+            message: `You have to upload ${images.length}/20 images`
           });
         }
       }),
