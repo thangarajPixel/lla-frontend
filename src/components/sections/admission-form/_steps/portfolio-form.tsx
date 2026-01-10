@@ -174,7 +174,7 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
   const onError = () => {
     if (images?.length !== MAX_IMAGES) {
       toast.error(
-        `Must upload ${MAX_IMAGES - images.length} more ${MAX_IMAGES - images.length === 1 ? "image" : "images"}`,
+        `Please upload ${MAX_IMAGES - images.length} more ${MAX_IMAGES - images.length === 1 ? "image" : "images"}`,
         {
           position: "top-right",
         },

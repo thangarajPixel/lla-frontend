@@ -87,7 +87,7 @@ const AdmissionFormLayout = ({ children }: { children: React.ReactNode }) => {
           {/* text-[32px] md:text-[28px] xl:text-[40px] 3xl:text-[56px]  */}
           <h1
             className={cn(
-              "text-[32px] md:text-[28px] xl:text-[36px] 2xl:text-[40px] 3xl:text-[56px] 2xl:mt-6 3xl:mt-10 text-white leading-tight font-urbanist mt-5",
+              "text-[32px] md:text-[28px] lg:text-[26px] xl:text-[36px] 2xl:text-[40px] 3xl:text-[56px] 2xl:mt-6 3xl:mt-10 text-white leading-tight font-urbanist mt-5",
             )}
           >
             {courseName || selectedCourseName}

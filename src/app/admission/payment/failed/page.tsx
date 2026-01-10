@@ -53,6 +53,10 @@ const PaymentFailedPage = () => {
     const getThankYouContent = async () => {
       try {
         const res = await clientAxios.get(`/thank-you-pages`);
+        const errorContent = res?.data?.data?.find(
+          (item: ThankYouPage) => item.Type === "Error",
+        );
+        setThankYouContent(errorContent);
         setThankYouContent(res?.data?.data[1]);
       } catch (error) {
         notify({ success: false, message: String(error) });
