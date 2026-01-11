@@ -182,7 +182,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
             {facultyData.map((faculty) => (
               <ScrollWidget key={faculty.id} animation="scale" delay={0.1}>
                 <div
-                  className={`${faculty.className} group min-w-[171px] max-w-[360px]  bg-white
+                  className={`${faculty.className} group w-full max-w-[171px] sm:max-w-[200px] md:max-w-[200px] lg:max-w-[200px] xl:max-w-[200px] 2xl:max-w-[300px] 3xl:max-w-[300px] 4xl:max-w-[300px] bg-white
                             hover:bg-[#E97451]/20 cursor-pointer
                             transition-colors duration-500 ease-out
                             px-2 py-2 flex flex-col

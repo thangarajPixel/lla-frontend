@@ -33,7 +33,7 @@ const DialogVideoIframe = ({ videoUrl }: { videoUrl: string }) => {
     <div className="relative w-full aspect-video bg-black rounded-lg">
       <iframe
         src={autoplayUrl}
-        className="w-full h-[90vh] object-contain rounded-lg"
+        className="w-full h-[75vh] lg:h-[90vh] object-contain rounded-lg"
         allow="autoplay; encrypted-media;"
         allowFullScreen
         title="Video player"
