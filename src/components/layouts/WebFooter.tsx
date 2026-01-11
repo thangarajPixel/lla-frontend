@@ -131,13 +131,13 @@ const WebFooter = ({
 
   return (
     <footer
-      className="relative z-40  w-full bg-cover bg-bottom bg-no-repeat min-h-[1950px] md:min-h-[1070px] bg-black text-white py-8 md:py-12 lg:py-22"
+      className="relative z-40 w-full bg-cover bg-bottom bg-no-repeat bg-black text-white py-8 md:py-12 lg:py-16"
       style={{ backgroundImage: `url(${FooterBg?.src})` }}
     >
       <BackdropWidget />
       <ContainerWidget>
-        <div className="flex flex-col items-start justify-start gap-5 md:gap-6">
-          <h2 className="text-[32px] md:text-[40px] lg:text-[50px] 3xl:text-[56px] font-normal font-urbanist leading-10">
+        <div className="flex flex-col items-start justify-start gap-4 md:gap-6">
+          <h2 className="text-[28px] md:text-[40px] lg:text-[50px] 3xl:text-[56px] font-normal font-urbanist leading-8 md:leading-10">
             {Title}
           </h2>
           {/* <p className={`${linkTextClass} max-w-full md:max-w-[550px]`}>
@@ -195,7 +195,7 @@ const WebFooter = ({
 
             <div className="block md:hidden">
               <div className={dividerClass} />
-              <div className="flex flex-row gap-6 w-full mt-7">
+              <div className="flex flex-row gap-4 md:gap-6 w-full mt-5">
                 <FooterSection
                   title="Quick Links"
                   links={QUICK_LINKS}
