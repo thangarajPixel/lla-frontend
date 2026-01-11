@@ -159,26 +159,42 @@ export default function TeamMemberPopup({
                 e.stopPropagation();
               }}
             >
-              <div>
-                <div className="flex justify-end mb-6 fixed top-25 right-10 z-10">
-                  <ButtonWidget
-                    onClick={handleClose}
-                    type="button"
-                    className="orange-button-white flex border-none items-center gap-2 rounded-[60px] px-5 h-10 text-sm md:text-base font-bold transition-colors duration-300 font-mulish text-[15px] 3xl:text-[18px] 3xl:mt-5"
-                    aria-label="Go back"
-                  >
-                    <ImageWidget
-                      src={OrangeArrowRight}
-                      alt="Back"
-                      className="w-5 h-5"
-                    />
-                    <span className="text-[#E97451]">Back</span>
-                  </ButtonWidget>
-                </div>
-              </div>
-              <div className="grid grid-cols-1 lg:grid-cols-2 h-screen pt-20">
+              <div className="grid grid-cols-1 lg:grid-cols-2 h-screen pt-4 md:pt-8">
                 <div className="flex flex-col">
                   <div className="flex flex-col sticky top-16 space-y-4  px-4 py-8 pb-0 md:pb-8 md:px-6 lg:px-8 xl:px-12 xl:pl-52 2xl:pl-58 2xl:pr-10 3xl:px-20 3xl:pl-74">
+                    {/* Back button - positioned above heading */}
+                    <div className="mb-4 mt-8 md:hidden">
+                      <ButtonWidget
+                        onClick={handleClose}
+                        type="button"
+                        className="bg-white border-2 border-[#E97451] flex items-center gap-2 rounded-[60px] px-4 h-10 text-sm font-bold transition-colors duration-300 font-mulish shadow-lg hover:bg-[#E97451] hover:text-white"
+                        aria-label="Go back"
+                      >
+                        <ImageWidget
+                          src={OrangeArrowRight}
+                          alt="Back"
+                          className="w-4 h-4"
+                        />
+                        <span className="text-[#E97451] hover:text-white">Back</span>
+                      </ButtonWidget>
+                    </div>
+                    
+                    {/* Desktop back button - fixed position */}
+                    <div className="hidden md:block fixed top-25 2xl:top-28 right-5 z-50">
+                      <ButtonWidget
+                        onClick={handleClose}
+                        type="button"
+                        className="orange-button-white flex border-none items-center gap-2 rounded-[60px] px-5 h-10 text-sm lg:text-base font-bold transition-colors duration-300 font-mulish text-[15px] 3xl:text-[18px] shadow-lg"
+                        aria-label="Go back"
+                      >
+                        <ImageWidget
+                          src={OrangeArrowRight}
+                          alt="Back"
+                          className="w-5 h-5"
+                        />
+                        <span className="text-[#E97451]">Back</span>
+                      </ButtonWidget>
+                    </div>
                     {selected.name && (
                       <motion.h1
                         key={`title-${animationKey}`}
