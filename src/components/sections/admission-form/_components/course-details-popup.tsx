@@ -145,11 +145,12 @@ const CourseDetailsPopup = ({
                             onClick={() => handleApplyNow(card)}
                             className="inline-block cursor-pointer"
                           >
-                            <OrangeButtonWidget content="Apply now" />
+                            <OrangeButtonWidget content="Apply now" className="h-full" />
                           </div>
                           <LinkWidget href={`/courses/${card.Slug}`}>
                             <OrangeBorderButtonWidget
                               content={card.Btn_txt || "Course Detail"}
+                              className="h-full"
                             />
                           </LinkWidget>
                         </div>

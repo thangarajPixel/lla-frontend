@@ -270,7 +270,7 @@ const FounderViewSection = ({ data }: FounderViewSectionProps) => {
               alt="Full size gallery image"
               width={1200}
               height={800}
-              className="object-contain max-w-full max-h-[90vh] w-auto h-auto"
+              className="object-contain max-w-full max-h-[75vh] md:max-h-[90vh] w-auto h-auto"
             />
           </div>
         </div>
