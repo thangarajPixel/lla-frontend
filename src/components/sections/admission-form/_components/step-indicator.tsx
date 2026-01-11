@@ -14,7 +14,7 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
 
   return (
     <section className="mx-auto px-2">
-      <div className="flex items-center justify-between md:px-5">
+      <div className="flex items-center justify-between">
         {Array.from({ length: totalSteps }).map((_, index) => {
           const stepNum = index + 1;
           const isActive = stepNum === currentStep;
@@ -37,7 +37,7 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
         })}
       </div>
 
-      <div className="flex items-center justify-start w-full md:px-12">
+      <div className="flex items-center justify-start w-full">
         {Array.from({ length: 5 }).map((_, index) => {
           const isCircle = index % 2 === 0;
           const circleNumber = Math.floor(index / 2) + 1;
