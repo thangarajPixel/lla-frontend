@@ -101,6 +101,7 @@ const WebFooter = ({
     return response.Logo.map((item) => ({
       id: item.id,
       name: item.name,
+      caption: item.caption,
       url: getS3Url(item.url),
     }));
   }, [response?.Logo]);
@@ -234,14 +235,21 @@ const WebFooter = ({
           {logos.length > 0 && (
             <div className="flex flex-wrap sm:flex-nowrap items-start sm:items-center justify-center sm:justify-start gap-4 sm:gap-6 md:gap-23 py-3 pb-1 w-full">
               {logos.map((logo) => (
-                <ImageWidget
+                <LinkWidget
                   key={logo.id}
-                  src={logo.url}
-                  alt={logo.name}
-                  width={162.46}
-                  height={63.95}
-                  className="w-auto h-[62px] xss:w-[162.46px] xss:h-[63.95px] sm:w-auto sm:h-[62px]"
-                />
+                  href={logo.caption || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:opacity-80 transition-opacity duration-300"
+                >
+                  <ImageWidget
+                    src={logo.url}
+                    alt={logo.name}
+                    width={162.46}
+                    height={63.95}
+                    className="w-auto h-[62px] xss:w-[162.46px] xss:h-[63.95px] sm:w-auto sm:h-[62px]"
+                  />
+                </LinkWidget>
               ))}
             </div>
           )}
