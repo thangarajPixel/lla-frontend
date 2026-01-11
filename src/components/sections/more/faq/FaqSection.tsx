@@ -145,7 +145,7 @@ const FaqSection = ({ data }: FaqProps) => {
                   data-category={category.id}
                   className="scroll-mt-24"
                 >
-                  <div className="bg-white p-0 md:pb-6">
+                  <div className="bg-white p-0 pt-3 lg:pt-0 md:pb-6">
                     <h2
                       className={`text-[24px] md:text-[32px] font-semibold mb-3 md:mb-6 transition-colors duration-300 ${
                         activeCategory === category.id
