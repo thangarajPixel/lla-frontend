@@ -232,13 +232,13 @@ export default function TeamMemberPopup({
                       </motion.div>
                     )}
                     {onPrev && onNext && totalPages > 1 && (
-                      <div className="hidden lg:block">
-                        <div className="flex gap-4 w-full bg-[#E97451]/20 rounded-full p-1.5">
+                      <div>
+                        <div className="flex gap-2 sm:gap-4 w-full bg-[#E97451]/20 rounded-full p-1 sm:p-1.5">
                           <button
                             type="button"
                             onClick={onPrev}
                             disabled={currentPage <= 1 || isLoading}
-                            className={`flex items-center rounded-full justify-center h-12 flex-1 border-2 border-[#FFD4CC] bg-white transition-all ${
+                            className={`flex items-center rounded-full justify-center h-8 sm:h-10 md:h-12 flex-1 border-2 border-[#FFD4CC] bg-white transition-all ${
                               currentPage <= 1 || isLoading
                                 ? "opacity-50 cursor-not-allowed"
                                 : "cursor-pointer hover:bg-[#FFD4CC]"
@@ -248,14 +248,14 @@ export default function TeamMemberPopup({
                             <ImageWidget
                               src={OrangeArrowRight}
                               alt="Previous"
-                              className="w-5 h-5"
+                              className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5"
                             />
                           </button>
                           <button
                             type="button"
                             onClick={onNext}
                             disabled={currentPage >= totalPages || isLoading}
-                            className={`flex items-center rounded-full justify-center h-12 flex-1 border-2 border-[#FFD4CC] bg-white transition-all ${
+                            className={`flex items-center rounded-full justify-center h-8 sm:h-10 md:h-12 flex-1 border-2 border-[#FFD4CC] bg-white transition-all ${
                               currentPage >= totalPages || isLoading
                                 ? "opacity-50 cursor-not-allowed"
                                 : "cursor-pointer hover:bg-[#FFD4CC]"
@@ -265,7 +265,7 @@ export default function TeamMemberPopup({
                             <ImageWidget
                               src={OrangeArrowRight}
                               alt="Next"
-                              className="w-5 h-5 rotate-180"
+                              className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 rotate-180"
                             />
                           </button>
                         </div>
