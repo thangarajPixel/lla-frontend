@@ -40,9 +40,9 @@ if (typeof window !== "undefined") {
 const convertToEmbedUrl = (url: string): string => {
   if (!url) return url;
 
-  // YouTube URL patterns
+  // YouTube URL patterns including Shorts
   const youtubeRegex =
-    /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
+    /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
   const match = url.match(youtubeRegex);
 
   const videoId = match?.[1];
@@ -58,9 +58,9 @@ const convertToEmbedUrl = (url: string): string => {
 const getYouTubeThumbnail = (url: string): string => {
   if (!url) return "";
 
-  // YouTube URL patterns
+  // YouTube URL patterns including Shorts
   const youtubeRegex =
-    /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
+    /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
   const match = url.match(youtubeRegex);
 
   const videoId = match?.[1];
@@ -79,8 +79,9 @@ const getYouTubeThumbnail = (url: string): string => {
 const getYouTubeThumbnailMedium = (url: string): string => {
   if (!url) return "";
 
+  // YouTube URL patterns including Shorts
   const youtubeRegex =
-    /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
+    /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
   const match = url.match(youtubeRegex);
 
   const videoId = match?.[1];
@@ -94,6 +95,33 @@ const getYouTubeThumbnailMedium = (url: string): string => {
 };
 
 const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
+  // Add CSS animation styles
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes fadeUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-fadeUp {
+          animation: fadeUp 0.6s ease-out;
+        }
+      `;
+      document.head.appendChild(style);
+      
+      return () => {
+        document.head.removeChild(style);
+      };
+    }
+  }, []);
+
   const uniqueTypesInitial = useMemo(() => {
     if (!initialData?.ImageCard) return [];
     return Array.from(new Set(initialData.ImageCard.map((card) => card.Type)));
@@ -399,7 +427,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
               {item.videoLinkUrl ? (
                 <iframe
                   src={convertToEmbedUrl(item.videoLinkUrl)}
-                  className="w-full h-full object-contain rounded-lg"
+                  className="w-full h-[75vh] lg:h-[90vh] object-contain rounded-lg"
                   allow="autoplay; encrypted-media; fullscreen"
                   allowFullScreen
                   title={item.alt}
@@ -440,6 +468,8 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
       </div>
     );
   };
+
+  console.log('allImages',allImages)
 
   return (
     <section className="w-full bg-white py-10 sm:py-6 md:py-8 lg:py-10 xl:py-12 2xl:py-14 3xl:py-20">
@@ -504,15 +534,15 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
                       >
                         <Masonry gutter="24px">
                           {allImages.map((item, index) => (
-                            <div key={item.id} className="w-full p-3">
-                              <ScrollWidget
-                                animation="fadeUp"
-                                duration={0.4}
-                                delay={0.1}
-                                start="top 90%"
-                              >
-                                {renderGalleryItem(item, index, openLightbox)}
-                              </ScrollWidget>
+                            <div 
+                              key={item.id} 
+                              className="w-full p-3 opacity-0 animate-fadeUp"
+                              style={{
+                                animationDelay: `${index * 0.1}s`,
+                                animationFillMode: 'forwards'
+                              }}
+                            >
+                              {renderGalleryItem(item, index, openLightbox)}
                             </div>
                           ))}
                         </Masonry>
@@ -521,15 +551,15 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
                   ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                       {allImages.map((item, index) => (
-                        <div key={item.id}>
-                          <ScrollWidget
-                            animation="fadeUp"
-                            delay={0.1}
-                            duration={0.4}
-                            start="top 90%"
-                          >
-                            {renderGalleryItem(item, index, openLightbox)}
-                          </ScrollWidget>
+                        <div 
+                          key={item.id}
+                          className="opacity-0 animate-fadeUp"
+                          style={{
+                            animationDelay: `${index * 0.1}s`,
+                            animationFillMode: 'forwards'
+                          }}
+                        >
+                          {renderGalleryItem(item, index, openLightbox)}
                         </div>
                       ))}
                     </div>
