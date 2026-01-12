@@ -91,7 +91,7 @@ const CourseSection = ({ data }: CourseSectionProps) => {
             <HTMLWidget
               content={data.Heading}
               className="font-area-variable font-semibold text-[24px] md:text-[28px] 3xl:text-[40px] text-black leading-tight"
-              tag="p"
+              tag="h3"
             />
             <ParagraphWidget className="w-full md:max-w-[750px]">
               {data.Description}

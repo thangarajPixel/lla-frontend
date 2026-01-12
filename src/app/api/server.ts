@@ -117,6 +117,18 @@ export async function getBlogBySlug(slug: string) {
   return fetchData(`/blog/${slug}`);
 }
 
+export async function getMediaPageData(params: {
+  page: number;
+  per_page: number;
+  search?: string;
+}) {
+  return fetchData("/media", params);
+}
+
+export async function getMediaBySlug(slug: string) {
+  return fetchData(`/media/${slug}`);
+}
+
 export async function getFounderBySlug(slug: string) {
   return fetchData(`/about/founder/${slug}`);
 }
