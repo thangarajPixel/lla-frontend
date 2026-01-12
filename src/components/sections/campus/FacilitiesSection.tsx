@@ -368,7 +368,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
   }, [containerHeights, getBreakpoint]);
 
   return (
-    <section className=" w-full bg-white py-5 md:py-15 md:pt-25 md:pb-10">
+    <section className=" w-full bg-white  py-0 md:py-15 md:pt-25 md:pb-10">
       <ContainerWidget>
         <div className="xl:hidden">
           <ScrollWidget animation="fadeUp" delay={0.1}>
