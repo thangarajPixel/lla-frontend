@@ -96,26 +96,25 @@ const FounderViewSection = ({ data }: FounderViewSectionProps) => {
 
   return (
     <>
-      <div className="hidden md:block">
-        <div className="flex justify-end mb-6 fixed top-25 2xl:top-28 right-5">
-          <ButtonWidget
-            onClick={() => router.back()}
-            type="button"
-            className="orange-button-white flex border-none items-center gap-2 rounded-[60px] px-5 h-10 text-sm md:text-base font-bold transition-colors duration-300 font-mulish text-[15px] 3xl:text-[18px]"
-            aria-label="Go back"
-          >
-            <ImageWidget
-              src={OrangeArrowRight}
-              alt="Back"
-              className="w-5 h-5"
-            />
-            <span className="text-[#E97451]">Back</span>
-          </ButtonWidget>
-        </div>
+      {/* Back button - optimized spacing and alignment */}
+      <div className="px-4 pt-4 pb-2 md:fixed md:top-25 2xl:top-28 md:left-auto md:right-5 md:z-50 md:p-0">
+        <ButtonWidget
+          onClick={() => router.back()}
+          type="button"
+          className="orange-button-white flex border-none items-center gap-2 rounded-[60px] px-3 md:px-5 h-8 md:h-10 text-xs md:text-sm lg:text-base font-bold transition-colors duration-300 font-mulish text-[13px] md:text-[15px] 3xl:text-[18px] shadow-lg"
+          aria-label="Go back"
+        >
+          <ImageWidget
+            src={OrangeArrowRight}
+            alt="Back"
+            className="w-4 h-4 md:w-5 md:h-5"
+          />
+          <span className="text-[#E97451] sm:inline">Back</span>
+        </ButtonWidget>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2">
         <div className="flex flex-col items-center lg:items-start">
-          <div className="flex flex-col sticky top-16 space-y-4  px-4 py-8 pb-0 md:pb-8 md:px-6 lg:px-8 xl:px-12 pl-4 sm:pl-10 lg:pl-25 xl:pl-52 2xl:pl-70 2xl:pr-10 3xl:px-20 3xl:pl-74 pt-13">
+          <div className="flex flex-col sticky top-16 space-y-4 px-4 py-4 pb-0 md:pb-8 md:px-6 lg:px-8 xl:px-12 pl-4 sm:pl-10 lg:pl-25 xl:pl-52 2xl:pl-70 2xl:pr-10 3xl:px-20 3xl:pl-74 md:pt-13">
             {founderName && (
               <h1 className="text-3xl font-urbanist text-[#E97451] xss:text-[24px] lg:text-[30px] 3xl:text-[40px] font-normal mb-6">
                 {founderName}
@@ -271,7 +270,7 @@ const FounderViewSection = ({ data }: FounderViewSectionProps) => {
               alt="Full size gallery image"
               width={1200}
               height={800}
-              className="object-contain max-w-full max-h-[90vh] w-auto h-auto"
+              className="object-contain max-w-full max-h-[75vh] md:max-h-[90vh] w-auto h-auto"
             />
           </div>
         </div>

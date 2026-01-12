@@ -285,7 +285,7 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
     <div className="bg-white">
       <aside
         className={cn(
-          "hidden xl:block shadow-lg fixed left-0 top-16 w-54 xl:w-45 2xl:w-54 2xxl:w-68 border-r border-b border-gray-200 z-30 bg-white transition-all duration-500",
+          "hidden xl:block shadow-lg fixed left-0 top-16 w-54 xl:w-45 2xl:w-54 2xxl:w-62 border-r border-b border-gray-200 z-30 bg-white transition-all duration-500",
           isHeaderVisible && "top-0",
         )}
       >

@@ -309,7 +309,7 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
                             playsInline
                             controls
                             poster={backgroundImage || undefined}
-                            className="w-full h-[90vh] object-contain"
+                            className="w-full h-[75vh] lg:h-[90vh] object-contain"
                             onError={(e) => {
                               e.preventDefault();
                               setDialogVideoError(true);

@@ -182,7 +182,7 @@ const TeamSection = ({ data }: TeamSectionProps) => {
             {facultyData.map((faculty) => (
               <ScrollWidget key={faculty.id} animation="scale" delay={0.1}>
                 <div
-                  className={`${faculty.className} group min-w-[171px] max-w-[360px]  bg-white
+                  className={`${faculty.className} group w-full max-w-[171px] sm:max-w-[200px] md:max-w-[200px] lg:max-w-[200px] xl:max-w-[200px] 2xl:max-w-[300px] 3xl:max-w-[300px] 4xl:max-w-[300px] bg-white
                             hover:bg-[#E97451]/20 cursor-pointer
                             transition-colors duration-500 ease-out
                             px-2 py-2 flex flex-col
@@ -247,16 +247,6 @@ const TeamSection = ({ data }: TeamSectionProps) => {
         <div
           className="bg-[#ECECEC] py-5 sm:py-5 md:py-6 lg:py-5 xl:py-5 2xl:py-7 3xl:py-9 4xl:py-11 
         px-4 sm:px-5 md:px-6 lg:px-5 xl:px-5 2xl:px-7 3xl:px-9 4xl:px-11"
-        onClick={() => {
-                        if (
-                          // isMobile() &&
-                          faculty.id &&
-                          faculty.Slug &&
-                          !loadingCards
-                        ) {
-                          handleCardClick(faculty.id, faculty.Slug);
-                        }
-                      }}
         >
           <ScrollWidget delay={0.2} animation="fadeUp">
             <div

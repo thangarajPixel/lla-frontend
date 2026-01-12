@@ -17,7 +17,7 @@ export default function ThankYouPage() {
     <main className="min-h-screen flex items-center justify-center p-8 pt-8 pb-16 2xxl:pt-16 py-10">
       <div className="w-full flex flex-col items-center text-center space-y-8">
 
-        <h1 className="text-4xl md:text-5xl font-serif font-bold text-gray-800">
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-800">
           Thank You
         </h1>
 

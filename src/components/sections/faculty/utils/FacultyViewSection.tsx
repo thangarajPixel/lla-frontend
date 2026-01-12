@@ -116,26 +116,25 @@ const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
 
   return (
     <>
-      <div className="hidden md:block">
-        <div className="flex justify-end mb-6 fixed top-25 right-5">
-          <ButtonWidget
-            onClick={() => router.back()}
-            type="button"
-            className="orange-button-white flex border-none items-center gap-2 rounded-[60px] px-5 h-10 text-sm md:text-base font-bold transition-colors duration-300 font-mulish text-[15px] 3xl:text-[18px]"
-            aria-label="Go back"
-          >
-            <ImageWidget
-              src={OrangeArrowRight}
-              alt="Back"
-              className="w-5 h-5"
-            />
-            <span className="text-[#E97451]">Back</span>
-          </ButtonWidget>
-        </div>
+      {/* Back button - optimized spacing and alignment */}
+      <div className="px-4 pt-4 pb-2 md:fixed md:top-25 md:left-auto md:right-5 md:z-50 md:p-0">
+        <ButtonWidget
+          onClick={() => router.back()}
+          type="button"
+          className="orange-button-white flex border-none items-center gap-2 rounded-[60px] px-3 md:px-5 h-8 md:h-10 text-xs md:text-sm lg:text-base font-bold transition-colors duration-300 font-mulish text-[13px] md:text-[15px] 3xl:text-[18px] shadow-lg"
+          aria-label="Go back"
+        >
+          <ImageWidget
+            src={OrangeArrowRight}
+            alt="Back"
+            className="w-4 h-4 md:w-5 md:h-5"
+          />
+          <span className="text-[#E97451] sm:inline">Back</span>
+        </ButtonWidget>
       </div>
       <div className="grid grid-cols-1  md:grid-cols-[2.5fr_3fr]">
         <div className="flex flex-col">
-          <div className="flex flex-col sticky top-16 space-y-4  px-4 py-8 pb-0 md:pb-8 md:px-6 lg:px-8 xl:px-12 xl:pl-50 2xl:pl-58 2xl:pr-10 3xl:px-20 3xl:pl-74 pt-13">
+          <div className="flex flex-col sticky top-16 space-y-4 px-4 py-4 pb-0 md:pb-8 md:px-6 lg:px-8 xl:px-12 xl:pl-50 2xl:pl-58 2xl:pr-10 3xl:px-20 3xl:pl-74 md:pt-13">
             <ScrollWidget
               key={`title-${animationKey}`}
               animation="fadeUp"
@@ -167,13 +166,13 @@ const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
                 )}
               </div>
             </div>
-            <div className="hidden lg:block">
-              <div className="flex gap-4 w-full bg-[#E97451]/20 rounded-full p-1.5">
+            <div>
+              <div className="flex gap-2 sm:gap-4 w-full bg-[#E97451]/20 rounded-full p-1 sm:p-1.5">
                 <button
                   type="button"
                   onClick={handlePrev}
                   disabled={currentPage <= 1 || isLoading}
-                  className={`flex items-center rounded-full justify-center h-12 flex-1 border-2 border-[#FFD4CC] bg-white transition-all ${
+                  className={`flex items-center rounded-full justify-center h-8 sm:h-10 md:h-12 flex-1 border-2 border-[#FFD4CC] bg-white transition-all ${
                     currentPage <= 1 || isLoading
                       ? "opacity-50 cursor-not-allowed"
                       : "cursor-pointer hover:bg-[#FFD4CC]"
@@ -183,14 +182,14 @@ const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
                   <ImageWidget
                     src={OrangeArrowRight}
                     alt="Previous"
-                    className="w-5 h-5"
+                    className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5"
                   />
                 </button>
                 <button
                   type="button"
                   onClick={handleNext}
                   disabled={currentPage >= totalPages || isLoading}
-                  className={`flex items-center rounded-full justify-center h-12 flex-1 border-2 border-[#FFD4CC] bg-white transition-all ${
+                  className={`flex items-center rounded-full justify-center h-8 sm:h-10 md:h-12 flex-1 border-2 border-[#FFD4CC] bg-white transition-all ${
                     currentPage >= totalPages || isLoading
                       ? "opacity-50 cursor-not-allowed"
                       : "cursor-pointer hover:bg-[#FFD4CC]"
@@ -200,7 +199,7 @@ const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
                   <ImageWidget
                     src={OrangeArrowRight}
                     alt="Next"
-                    className="w-5 h-5 rotate-180"
+                    className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 rotate-180"
                   />
                 </button>
               </div>

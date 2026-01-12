@@ -159,26 +159,42 @@ export default function TeamMemberPopup({
                 e.stopPropagation();
               }}
             >
-              <div>
-                <div className="flex justify-end mb-6 fixed top-25 right-10 z-10">
-                  <ButtonWidget
-                    onClick={handleClose}
-                    type="button"
-                    className="orange-button-white flex border-none items-center gap-2 rounded-[60px] px-5 h-10 text-sm md:text-base font-bold transition-colors duration-300 font-mulish text-[15px] 3xl:text-[18px] 3xl:mt-5"
-                    aria-label="Go back"
-                  >
-                    <ImageWidget
-                      src={OrangeArrowRight}
-                      alt="Back"
-                      className="w-5 h-5"
-                    />
-                    <span className="text-[#E97451]">Back</span>
-                  </ButtonWidget>
-                </div>
-              </div>
-              <div className="grid grid-cols-1 lg:grid-cols-2 h-screen pt-20">
+              <div className="grid grid-cols-1 lg:grid-cols-2 h-screen pt-4 md:pt-8">
                 <div className="flex flex-col">
                   <div className="flex flex-col sticky top-16 space-y-4  px-4 py-8 pb-0 md:pb-8 md:px-6 lg:px-8 xl:px-12 xl:pl-52 2xl:pl-58 2xl:pr-10 3xl:px-20 3xl:pl-74">
+                    {/* Back button - positioned above heading */}
+                    <div className="mb-4 mt-8 md:hidden">
+                      <ButtonWidget
+                        onClick={handleClose}
+                        type="button"
+                        className="bg-white border-2 border-[#E97451] flex items-center gap-2 rounded-[60px] px-4 h-10 text-sm font-bold transition-colors duration-300 font-mulish shadow-lg hover:bg-[#E97451] hover:text-white"
+                        aria-label="Go back"
+                      >
+                        <ImageWidget
+                          src={OrangeArrowRight}
+                          alt="Back"
+                          className="w-4 h-4"
+                        />
+                        <span className="text-[#E97451] hover:text-white">Back</span>
+                      </ButtonWidget>
+                    </div>
+                    
+                    {/* Desktop back button - fixed position */}
+                    <div className="hidden md:block fixed top-25 2xl:top-28 right-5 z-50">
+                      <ButtonWidget
+                        onClick={handleClose}
+                        type="button"
+                        className="orange-button-white flex border-none items-center gap-2 rounded-[60px] px-5 h-10 text-sm lg:text-base font-bold transition-colors duration-300 font-mulish text-[15px] 3xl:text-[18px] shadow-lg"
+                        aria-label="Go back"
+                      >
+                        <ImageWidget
+                          src={OrangeArrowRight}
+                          alt="Back"
+                          className="w-5 h-5"
+                        />
+                        <span className="text-[#E97451]">Back</span>
+                      </ButtonWidget>
+                    </div>
                     {selected.name && (
                       <motion.h1
                         key={`title-${animationKey}`}
@@ -216,13 +232,13 @@ export default function TeamMemberPopup({
                       </motion.div>
                     )}
                     {onPrev && onNext && totalPages > 1 && (
-                      <div className="hidden lg:block">
-                        <div className="flex gap-4 w-full bg-[#E97451]/20 rounded-full p-1.5">
+                      <div>
+                        <div className="flex gap-2 sm:gap-4 w-full bg-[#E97451]/20 rounded-full p-1 sm:p-1.5">
                           <button
                             type="button"
                             onClick={onPrev}
                             disabled={currentPage <= 1 || isLoading}
-                            className={`flex items-center rounded-full justify-center h-12 flex-1 border-2 border-[#FFD4CC] bg-white transition-all ${
+                            className={`flex items-center rounded-full justify-center h-8 sm:h-10 md:h-12 flex-1 border-2 border-[#FFD4CC] bg-white transition-all ${
                               currentPage <= 1 || isLoading
                                 ? "opacity-50 cursor-not-allowed"
                                 : "cursor-pointer hover:bg-[#FFD4CC]"
@@ -232,14 +248,14 @@ export default function TeamMemberPopup({
                             <ImageWidget
                               src={OrangeArrowRight}
                               alt="Previous"
-                              className="w-5 h-5"
+                              className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5"
                             />
                           </button>
                           <button
                             type="button"
                             onClick={onNext}
                             disabled={currentPage >= totalPages || isLoading}
-                            className={`flex items-center rounded-full justify-center h-12 flex-1 border-2 border-[#FFD4CC] bg-white transition-all ${
+                            className={`flex items-center rounded-full justify-center h-8 sm:h-10 md:h-12 flex-1 border-2 border-[#FFD4CC] bg-white transition-all ${
                               currentPage >= totalPages || isLoading
                                 ? "opacity-50 cursor-not-allowed"
                                 : "cursor-pointer hover:bg-[#FFD4CC]"
@@ -249,7 +265,7 @@ export default function TeamMemberPopup({
                             <ImageWidget
                               src={OrangeArrowRight}
                               alt="Next"
-                              className="w-5 h-5 rotate-180"
+                              className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 rotate-180"
                             />
                           </button>
                         </div>

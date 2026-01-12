@@ -73,6 +73,7 @@ export type LogoItem = {
   id: number;
   name: string;
   url: string;
+  caption?: string;
 };
 
 export type IconItem = {

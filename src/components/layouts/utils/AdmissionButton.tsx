@@ -144,11 +144,12 @@ const AdmissionButton = ({
                           }, 1000);
                         }}
                       >
-                        <OrangeButtonWidget content="Apply now" />
+                        <OrangeButtonWidget content="Apply now" className="h-full" />
                       </LinkWidget>
-                      <LinkWidget href={`/courses/${card.Slug}`}>
+                      <LinkWidget href={`/courses/${card.Slug}`} className="h-full">
                         <OrangeBorderButtonWidget
                           content={card.Btn_txt || "Course Detail"}
+                          className="h-full"
                         />
                       </LinkWidget>
                     </div>

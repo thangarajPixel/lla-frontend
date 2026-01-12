@@ -608,7 +608,7 @@ const PersonalDetailsForm = ({
 
               <div
                 aria-hidden
-                className="group border border-dashed border-border rounded-lg xs:max-w-[190px] flex flex-col items-center justify-center min-h-[227px] xs:min-h-[227px] bg-secondary cursor-pointer hover:bg-accent transition relative overflow-hidden"
+                className="group border border-dashed border-border rounded-lg w-[190px] flex flex-col items-center justify-center h-[227px] cursor-pointer hover:border-[#E97451] transition relative overflow-hidden mx-auto xs:mx-0"
                 onClick={handleClick}
               >
                 {(!previewUrl && !admissionData?.passport_size_image) ||
@@ -635,10 +635,10 @@ const PersonalDetailsForm = ({
                         admissionData?.passport_size_image?.url ??
                         ""
                       }
-                      width={100}
-                      height={100}
+                      width={190}
+                      height={227}
                       alt="Preview"
-                      className="h-fit xs:h-[227px] w-full object-cover rounded-md hover:opacity-80 transition-opacity"
+                      className="h-[227px] w-[190px] object-cover rounded-md hover:opacity-80 transition-opacity"
                     />
 
                     <button
@@ -667,7 +667,7 @@ const PersonalDetailsForm = ({
                 className="hidden"
               />
 
-              <p className="text-xs font-mulish text-muted-foreground mt-2 xs:max-w-[180px] 2xl:max-w-full">
+              <p className="text-xs font-mulish text-muted-foreground mt-2 max-w-[190px]">
                 Max file size is 1 MB.
               </p>
 
