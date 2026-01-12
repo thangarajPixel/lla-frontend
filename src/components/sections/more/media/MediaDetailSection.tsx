@@ -2,9 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
-
 import ContainerWidget from "@/components/widgets/ContainerWidget";
-
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
@@ -19,55 +17,8 @@ import {
   TwitterBlack,
   WhatsappBlack,
 } from "@/helpers/ImageHelper";
-import type { LifeDetailProps } from "./utils/life-lla";
+import type { MediaDetailProps } from "./utils/media-detail";
 
-const _SOCIAL_LINKS = [
-  {
-    id: "linkedin",
-    icon: LinkedInBlack,
-    alt: "LinkedIn",
-    getShareUrl: (url: string) =>
-      `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
-  },
-  {
-    id: "twitter",
-    icon: TwitterBlack,
-    alt: "Twitter",
-    getShareUrl: (url: string, title: string) =>
-      `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`,
-  },
-  {
-    id: "instagram",
-    icon: InstagramBlack,
-    alt: "Instagram",
-    getShareUrl: () => "https://www.instagram.com/lightandlifeacademy",
-  },
-  {
-    id: "facebook",
-    icon: FacebookBlack,
-    alt: "Facebook",
-    getShareUrl: (url: string) =>
-      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
-  },
-  {
-    id: "whatsapp",
-    icon: WhatsappBlack,
-    alt: "whatsapp",
-    getShareUrl: (url: string) =>
-      `https://wa.me/?text=${encodeURIComponent(url)}`,
-  },
-];
-
-const _formatDate = (dateString: string): string => {
-  const date = new Date(dateString);
-  return date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-};
-
-// Convert YouTube URL to embeddable format
 const getYouTubeEmbedUrl = (url: string): string => {
   if (!url) return "";
 
@@ -84,12 +35,9 @@ const getYouTubeEmbedUrl = (url: string): string => {
       return `https://www.youtube.com/embed/${match[1]}`;
     }
   }
-
-  // If already an embed URL or unknown format, return as is
   return url;
 };
 
-// Image Slider Component for Slide type viewCards
 const ImageSlider = ({
   images,
   title,
@@ -243,7 +191,7 @@ const ImageSlider = ({
           <button
             type="button"
             onClick={prevSlide}
-            className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full  opacity-100 transition-all duration-300 z-10"
+            className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 z-10"
             aria-label="Previous image"
           >
             <ImageWidget
@@ -258,7 +206,7 @@ const ImageSlider = ({
           <button
             type="button"
             onClick={nextSlide}
-            className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-100 transition-all duration-300 z-10"
+            className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 z-10"
             aria-label="Next image"
           >
             <ImageWidget
@@ -279,8 +227,8 @@ const ImageSlider = ({
               type="button"
               onClick={() => goToSlide(index)}
               className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
-                ? "bg-white scale-125"
-                : "bg-white/50 hover:bg-white/75"
+                  ? "bg-white scale-125"
+                  : "bg-white/50 hover:bg-white/75"
                 }`}
               aria-label={`Go to slide ${index + 1}`}
             />
@@ -288,7 +236,7 @@ const ImageSlider = ({
         </div>
       )}
       {images.length > 1 && (
-        <div className="absolute top-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm font-medium opacity-100 transition-opacity duration-300">
+        <div className="absolute top-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           {currentIndex + 1} / {images.length}
         </div>
       )}
@@ -296,16 +244,57 @@ const ImageSlider = ({
   );
 };
 
-const LifeDetailSection = ({ data }: LifeDetailProps) => {
+const _SOCIAL_LINKS = [
+  {
+    id: "linkedin",
+    icon: LinkedInBlack,
+    alt: "LinkedIn",
+    getShareUrl: (url: string) =>
+      `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
+  },
+  {
+    id: "twitter",
+    icon: TwitterBlack,
+    alt: "Twitter",
+    getShareUrl: (url: string, title: string) =>
+      `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`,
+  },
+  {
+    id: "instagram",
+    icon: InstagramBlack,
+    alt: "Instagram",
+    getShareUrl: () => "https://www.instagram.com/lightandlifeacademy",
+  },
+  {
+    id: "facebook",
+    icon: FacebookBlack,
+    alt: "Facebook",
+    getShareUrl: (url: string) =>
+      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
+  },
+  {
+    id: "whatsapp",
+    icon: WhatsappBlack,
+    alt: "whatsapp",
+    getShareUrl: (url: string) =>
+      `https://wa.me/?text=${encodeURIComponent(url)}`,
+  },
+];
+
+const _formatDate = (dateString: string): string => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};
+
+const MediaDetailSection = ({ data }: MediaDetailProps) => {
   const { card, latest } = data;
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
-  const [_currentUrl, setCurrentUrl] = useState("");
-
-  useEffect(() => {
-    setCurrentUrl(window.location.href);
-  }, []);
 
   const checkScrollButtons = () => {
     if (scrollContainerRef.current) {
@@ -315,6 +304,7 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
       setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
     }
   };
+
   const scroll = (direction: "left" | "right") => {
     if (scrollContainerRef.current) {
       const scrollAmount = scrollContainerRef.current.clientWidth * 0.8;
@@ -347,6 +337,13 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                 </p>
               </div>
               <div className="flex flex-col gap-4 md:gap-6">
+                {card.Description && (
+                  <HTMLWidget
+                    content={card.Description}
+                    className="text-[16px] md:text-[16px] lg:text-[16px] xl:text-[16px] 2xl:text-[16px] 3xl:text-[18px] text-black leading-normal font-mulish"
+                    tag="div"
+                  />
+                )}
                 {card.LongDescription && (
                   <HTMLWidget
                     content={card.LongDescription}
@@ -354,13 +351,11 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                     tag="div"
                   />
                 )}
-                {card.LifeViewCard?.map((viewCard) => (
+                {card.ViewCard?.map((viewCard) => (
                   <div key={viewCard.id} className="flex flex-col gap-4">
-                    {viewCard.Title && (
-                      <h3 className="text-[24px] md:text-[26px] lg:text-[26px] xl:text-[28px] 2xl:text-[30px] 3xl:text-[32px] font-normal text-black font-urbanist">
-                        {viewCard.Title}
-                      </h3>
-                    )}
+                    <h3 className="text-[24px] md:text-[26px] lg:text-[26px] xl:text-[28px] 2xl:text-[30px] 3xl:text-[32px] font-normal text-black font-urbanist">
+                      {viewCard.Title}
+                    </h3>
                     {viewCard.Description && (
                       <HTMLWidget
                         content={viewCard.Description}
@@ -369,10 +364,10 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                       />
                     )}
                     {viewCard.Type === "Slide" &&
-                      viewCard.Images &&
-                      viewCard.Images.length > 0 && (
+                      viewCard.Image &&
+                      viewCard.Image.length > 0 && (
                         <ImageSlider
-                          images={viewCard.Images}
+                          images={viewCard.Image}
                           title={viewCard.Title}
                         />
                       )}
@@ -390,10 +385,10 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                     )}
                     {viewCard.Type !== "Slide" &&
                       viewCard.Type !== "Video" &&
-                      viewCard.Images?.[0]?.url && (
+                      viewCard.Image?.[0]?.url && (
                         <div className="relative w-full overflow-hidden">
                           <ImageWidget
-                            src={getS3Url(viewCard.Images[0].url)}
+                            src={getS3Url(viewCard.Image[0].url)}
                             alt={viewCard.Title}
                             width={850}
                             height={600}
@@ -410,6 +405,10 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                   </h3>
                   <div className="flex gap-8 items-center">
                     {_SOCIAL_LINKS.map((social) => {
+                      const currentUrl =
+                        typeof window !== "undefined"
+                          ? window.location.href
+                          : "";
                       const shareUrl =
                         social.id === "twitter"
                           ? social.getShareUrl(currentUrl, card.Title)
@@ -442,11 +441,11 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
             <ScrollWidget animation="fadeIn" delay={0.2}>
               <div className="lg:sticky lg:top-8">
                 <h3 className="text-[32px] ledding-[40px] font-normal text-black font-urbanist mb-3">
-                  Latest Life @ LLA
+                  Latest Medias
                 </h3>
                 <div className="hidden md:flex flex-col gap-4">
                   {latest.map((post) => (
-                    <Link key={post.id} href={`/life-at-lla/${post.Slug}`} className="group block">
+                    <Link key={post.id} href={`/media/${post.Slug}`} className="group block">
                       <div className="flex flex-col gap-2 cursor-pointer transition-transform duration-300 hover:scale-[1.02]">
                         {post.Image?.[0]?.url && (
                           <div className="relative w-full aspect-video overflow-hidden">
@@ -478,7 +477,7 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
 
                 <div className="hidden md:flex justify-center mt-4">
                   <Link
-                    href="/life-at-lla"
+                    href="/media"
                     className="inline-flex items-center gap-2 text-[#E97451] mt-2"
                   >
                     View All
@@ -502,12 +501,12 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                     {latest.map((post) => (
                       <Link
                         key={post.id}
-                        href={`/life-at-lla/${post.Slug}`}
+                        href={`/media/${post.Slug}`}
                         className="shrink-0 w-[85%] snap-start block group"
                       >
                         <div className="flex flex-col gap-2 cursor-pointer transition-transform duration-300 hover:scale-[1.02]">
                           {post.Image?.[0]?.url && (
-                            <div className="relative w-full aspect-video overflow-hidden ">
+                            <div className="relative w-full aspect-video overflow-hidden">
                               <ImageWidget
                                 src={getS3Url(post.Image[0].url)}
                                 alt={post.Title}
@@ -539,8 +538,8 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                       onClick={() => scroll("left")}
                       disabled={!canScrollLeft}
                       className={`transition-opacity ${canScrollLeft
-                        ? "opacity-100 hover:opacity-70"
-                        : "opacity-30 cursor-not-allowed"
+                          ? "opacity-100 hover:opacity-70"
+                          : "opacity-30 cursor-not-allowed"
                         }`}
                       aria-label="Previous slide"
                     >
@@ -557,8 +556,8 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                       onClick={() => scroll("right")}
                       disabled={!canScrollRight}
                       className={`transition-opacity ${canScrollRight
-                        ? "opacity-100 hover:opacity-70"
-                        : "opacity-30 cursor-not-allowed"
+                          ? "opacity-100 hover:opacity-70"
+                          : "opacity-30 cursor-not-allowed"
                         }`}
                       aria-label="Next slide"
                     >
@@ -575,7 +574,7 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
 
                 <div className="flex justify-center mt-4 md:hidden">
                   <Link
-                    href="/life-at-lla"
+                    href="/media"
                     className="inline-flex items-center gap-2 text-[#E97451] mt-2"
                   >
                     View All
@@ -597,4 +596,4 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
   );
 };
 
-export default LifeDetailSection;
+export default MediaDetailSection;

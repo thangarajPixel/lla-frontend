@@ -475,7 +475,7 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
                   ))}
                 </div>
 
-                <div className="flex justify-center mt-4">
+                <div className="hidden md:flex justify-center mt-4">
                   <Link
                     href="/blogs"
                     className="inline-flex items-center gap-2 text-[#E97451] mt-2"
@@ -570,6 +570,22 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
                       />
                     </button>
                   </div>
+                </div>
+
+                <div className="flex justify-center mt-4 md:hidden">
+                  <Link
+                    href="/blogs"
+                    className="inline-flex items-center gap-2 text-[#E97451] mt-2"
+                  >
+                    View All
+                    <ImageWidget
+                      src={ArrowRightWhite}
+                      alt="Arrow Right"
+                      width={16}
+                      height={16}
+                      className="object-contain"
+                    />
+                  </Link>
                 </div>
               </div>
             </ScrollWidget>

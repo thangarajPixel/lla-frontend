@@ -82,7 +82,7 @@ const OverviewSection = ({ data }: { data: MenuData }) => {
             </div>
             <HTMLWidget
               content={data.Title}
-              tag="h2"
+              tag="h1"
               className="font-urbanist font-normal text-[23px] leading-10 sxx:leading-8 
             xss:text-[32px] md:leading-12 sm:text-5xl 3xl:text-[64px]
              text-black 2xxl:leading-16"
