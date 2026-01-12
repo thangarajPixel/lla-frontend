@@ -40,9 +40,9 @@ if (typeof window !== "undefined") {
 const convertToEmbedUrl = (url: string): string => {
   if (!url) return url;
 
-  // YouTube URL patterns
+  // YouTube URL patterns including Shorts
   const youtubeRegex =
-    /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
+    /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
   const match = url.match(youtubeRegex);
 
   const videoId = match?.[1];
@@ -58,9 +58,9 @@ const convertToEmbedUrl = (url: string): string => {
 const getYouTubeThumbnail = (url: string): string => {
   if (!url) return "";
 
-  // YouTube URL patterns
+  // YouTube URL patterns including Shorts
   const youtubeRegex =
-    /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
+    /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
   const match = url.match(youtubeRegex);
 
   const videoId = match?.[1];
@@ -79,8 +79,9 @@ const getYouTubeThumbnail = (url: string): string => {
 const getYouTubeThumbnailMedium = (url: string): string => {
   if (!url) return "";
 
+  // YouTube URL patterns including Shorts
   const youtubeRegex =
-    /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
+    /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
   const match = url.match(youtubeRegex);
 
   const videoId = match?.[1];
