@@ -15,7 +15,7 @@ import DialogWidget from "@/components/widgets/DialogWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import LightboxWidget from "@/components/widgets/LightboxWidget";
 import ParagraphWidget from "@/components/widgets/ParagraphWidget";
-import ScrollWidget from "@/components/widgets/ScrollWidget";
+
 import { getS3Url } from "@/helpers/ConstantHelper";
 import { ArrowDown, Dummy3, Into, Play } from "@/helpers/ImageHelper";
 import type { GalleryData } from "./utils/gallery";
@@ -55,46 +55,100 @@ const convertToEmbedUrl = (url: string): string => {
   return url;
 };
 
-const getYouTubeThumbnail = (url: string): string => {
-  if (!url) return "";
-
-  // YouTube URL patterns including Shorts
-  const youtubeRegex =
-    /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
-  const match = url.match(youtubeRegex);
-
-  const videoId = match?.[1];
-
-  if (videoId) {
-    // Use high quality thumbnail (maxresdefault), with fallback to medium quality
-    // Note: maxresdefault might not be available for all videos, but we'll try it first
-    return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
-  }
-
-  // Return empty string for non-YouTube URLs
-  return "";
-};
-
-// Alternative function to get medium quality thumbnail as fallback
-const getYouTubeThumbnailMedium = (url: string): string => {
-  if (!url) return "";
-
-  // YouTube URL patterns including Shorts
-  const youtubeRegex =
-    /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
-  const match = url.match(youtubeRegex);
-
-  const videoId = match?.[1];
-
-  if (videoId) {
-    // Use medium quality thumbnail (more reliable)
-    return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-  }
-
-  return "";
-};
-
 const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
+  const [imageLoadStates, setImageLoadStates] = useState<Record<string, boolean>>({});
+  const [thumbnailFallbacks, setThumbnailFallbacks] = useState<Record<string, number>>({});
+  const [validatedThumbnails, setValidatedThumbnails] = useState<Record<string, string>>({});
+
+  const handleImageLoad = (itemId: string) => {
+    setImageLoadStates(prev => ({ ...prev, [itemId]: true }));
+  };
+
+  // Function to get YouTube thumbnail with quality fallback
+  const getYouTubeThumbnailWithFallback = (url: string, fallbackLevel: number = 0): string => {
+    if (!url) return "";
+
+    const youtubeRegex =
+      /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
+    const match = url.match(youtubeRegex);
+    const videoId = match?.[1];
+
+    if (!videoId) return "";
+
+    // Array of thumbnail qualities from highest to lowest
+    const thumbnailQualities = [
+      `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`, // 1280x720
+      `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`,     // 480x360
+      `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`,     // 320x180
+      `https://img.youtube.com/vi/${videoId}/sddefault.jpg`,     // 640x480
+      `https://img.youtube.com/vi/${videoId}/default.jpg`        // 120x90
+    ];
+
+    return thumbnailQualities[fallbackLevel] || thumbnailQualities[thumbnailQualities.length - 1];
+  };
+
+  // Function to validate if a thumbnail URL actually exists
+  const validateThumbnail = async (url: string): Promise<boolean> => {
+    try {
+      const response = await fetch(url, { method: 'HEAD' });
+      return response.ok && (response.headers.get('content-type')?.startsWith('image/') ?? false);
+    } catch {
+      return false;
+    }
+  };
+
+  // Function to find the best available thumbnail
+  const findBestThumbnail = async (videoUrl: string, itemId: string): Promise<string> => {
+    const dummySrc = typeof Dummy3 === 'string' ? Dummy3 : Dummy3.src;
+    
+    // Check if we already have a validated thumbnail for this item
+    if (validatedThumbnails[itemId]) {
+      return validatedThumbnails[itemId];
+    }
+
+    // Try each quality level
+    for (let i = 0; i < 5; i++) {
+      const thumbnailUrl = getYouTubeThumbnailWithFallback(videoUrl, i);
+      if (thumbnailUrl && await validateThumbnail(thumbnailUrl)) {
+        // Cache the validated thumbnail
+        setValidatedThumbnails(prev => ({ ...prev, [itemId]: thumbnailUrl }));
+        return thumbnailUrl;
+      }
+    }
+
+    // If no YouTube thumbnail works, use placeholder
+    setValidatedThumbnails(prev => ({ ...prev, [itemId]: dummySrc }));
+    return dummySrc;
+  };
+
+  // Handle thumbnail error with progressive fallback
+  const handleThumbnailError = async (itemId: string, videoUrl: string) => {
+    const currentFallback = thumbnailFallbacks[itemId] || 0;
+    const nextFallback = currentFallback + 1;
+    
+    console.log(`Thumbnail failed for ${itemId}, trying fallback level ${nextFallback}`);
+    
+    // Try next quality level
+    if (nextFallback < 5) {
+      setThumbnailFallbacks(prev => ({ ...prev, [itemId]: nextFallback }));
+      const newSrc = getYouTubeThumbnailWithFallback(videoUrl, nextFallback);
+      
+      // Validate the new thumbnail
+      if (await validateThumbnail(newSrc)) {
+        setValidatedThumbnails(prev => ({ ...prev, [itemId]: newSrc }));
+        return newSrc;
+      } else {
+        // If this quality doesn't work, try the next one
+        return handleThumbnailError(itemId, videoUrl);
+      }
+    }
+    
+    // If all YouTube thumbnails fail, use placeholder
+    const dummySrc = typeof Dummy3 === 'string' ? Dummy3 : Dummy3.src;
+    setValidatedThumbnails(prev => ({ ...prev, [itemId]: dummySrc }));
+    console.log(`All thumbnails failed for ${itemId}, using placeholder`);
+    return dummySrc;
+  };
   // Add CSS animation styles
   useEffect(() => {
     if (typeof document !== 'undefined') {
@@ -174,10 +228,10 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
     const images: GalleryItem[] = filteredImageCards.flatMap((card, cardIndex) => {
       // Handle video cards with VideoUrl but no Image
       if (card.Type === "Video" && (card.VideoUrl) && (!card.Image || card.Image === null)) {
-        // Get YouTube thumbnail - try high quality first, then medium quality, then placeholder
-        const youTubeThumbnailHQ = getYouTubeThumbnail(card.VideoUrl);
-        const youTubeThumbnailMQ = getYouTubeThumbnailMedium(card.VideoUrl);
-        const thumbnailSrc = youTubeThumbnailHQ || youTubeThumbnailMQ || Dummy3;
+        // Start with the highest quality thumbnail, validation will happen in useEffect
+        const initialThumbnail = getYouTubeThumbnailWithFallback(card.VideoUrl, 0);
+        const dummySrc = typeof Dummy3 === 'string' ? Dummy3 : Dummy3.src;
+        const thumbnailSrc = initialThumbnail || dummySrc;
         
         return [{
           id: `gallery-${card.id}-video-${cardIndex}`,
@@ -238,6 +292,30 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
     return shuffleArray(images);
   }, [filteredImageCards, isMounted, shuffleArray]);
 
+  // Validate YouTube thumbnails after images are processed
+  useEffect(() => {
+    const validateVideoThumbnails = async () => {
+      const videoItems = allImages.filter(item => item.isVideo && item.videoLinkUrl);
+      
+      for (const item of videoItems) {
+        if (!validatedThumbnails[item.id]) {
+          try {
+            const bestThumbnail = await findBestThumbnail(item.videoLinkUrl!, item.id);
+            // The thumbnail is already set in the findBestThumbnail function
+          } catch (error) {
+            console.error(`Error validating thumbnail for ${item.id}:`, error);
+            const dummySrc = typeof Dummy3 === 'string' ? Dummy3 : Dummy3.src;
+            setValidatedThumbnails(prev => ({ ...prev, [item.id]: dummySrc }));
+          }
+        }
+      }
+    };
+
+    if (allImages.length > 0 && isMounted) {
+      validateVideoThumbnails();
+    }
+  }, [allImages, isMounted, validatedThumbnails]);
+
   const lightboxImages = useMemo(() => {
     return allImages
       .filter((item) => !item.isVideo)
@@ -264,6 +342,9 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
 
     setPage(1);
     setImageCards([]);
+    setImageLoadStates({});
+    setThumbnailFallbacks({});
+    setValidatedThumbnails({});
 
     const fetchFilteredData = async () => {
       setLoading(true);
@@ -371,16 +452,43 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
             trigger={
               <div className="relative w-full overflow-hidden rounded-none">
                 {item.videoLinkUrl ? (
-                  <ImageWidget
-                    src={item.src}
-                    alt={item.alt}
-                    width={600}
-                    height={800}
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
-                    priority={false}
-                    unoptimized={false}
-                  />
+                  <div className="relative">
+                    <ImageWidget
+                      src={validatedThumbnails[item.id] || item.src}
+                      alt={item.alt}
+                      width={600}
+                      height={800}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+                      priority={false}
+                      unoptimized={false}
+                      onLoad={() => handleImageLoad(item.id)}
+                      onError={async (e) => {
+                        const target = e.target as HTMLImageElement;
+                        if (item.videoLinkUrl) {
+                          try {
+                            const newSrc = await handleThumbnailError(item.id, item.videoLinkUrl);
+                            if (target.src !== newSrc) {
+                              target.src = newSrc;
+                            }
+                          } catch (error) {
+                            console.error('Error handling thumbnail fallback:', error);
+                            const dummySrc = typeof Dummy3 === 'string' ? Dummy3 : Dummy3.src;
+                            if (target.src !== dummySrc) {
+                              target.src = dummySrc;
+                            }
+                          }
+                        }
+                        handleImageLoad(item.id);
+                      }}
+                    />
+                    {/* Loading placeholder */}
+                    {!imageLoadStates[item.id] && (
+                      <div className="absolute inset-0 bg-gray-200 animate-pulse flex items-center justify-center">
+                        <div className="w-8 h-8 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
+                      </div>
+                    )}
+                  </div>
                 ) : (
                   <video
                     src={(item.videoUrl as string) || ""}
@@ -453,16 +561,33 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
             }}
             className="relative w-full overflow-hidden rounded-none border-none bg-transparent p-0 cursor-pointer"
           >
-            <ImageWidget
-              src={item.src}
-              alt={item.alt}
-              width={600}
-              height={800}
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
-              priority={true}
-              unoptimized={false}
-            />
+            <div className="relative">
+              <ImageWidget
+                src={item.src}
+                alt={item.alt}
+                width={600}
+                height={800}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+                priority={true}
+                unoptimized={false}
+                onLoad={() => handleImageLoad(item.id)}
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  const dummySrc = typeof Dummy3 === 'string' ? Dummy3 : Dummy3.src;
+                  if (target.src !== dummySrc) {
+                    target.src = dummySrc;
+                  }
+                  handleImageLoad(item.id);
+                }}
+              />
+              {/* Loading placeholder */}
+              {!imageLoadStates[item.id] && (
+                <div className="absolute inset-0 bg-gray-200 animate-pulse flex items-center justify-center">
+                  <div className="w-8 h-8 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
+                </div>
+              )}
+            </div>
           </button>
         )}
       </div>
@@ -524,30 +649,28 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
               <LightboxWidget images={lightboxImages}>
                 {(openLightbox) =>
                   isMounted ? (
-                    <div className="-m-3">
-                      <ResponsiveMasonry
-                        columnsCountBreakPoints={{
-                          350: 1,
-                          640: 2,
-                          1024: allImages.some((item) => item.isVideo) ? 2 : 3,
-                        }}
-                      >
-                        <Masonry gutter="24px">
-                          {allImages.map((item, index) => (
-                            <div 
-                              key={item.id} 
-                              className="w-full p-3 opacity-0 animate-fadeUp"
-                              style={{
-                                animationDelay: `${index * 0.1}s`,
-                                animationFillMode: 'forwards'
-                              }}
-                            >
-                              {renderGalleryItem(item, index, openLightbox)}
-                            </div>
-                          ))}
-                        </Masonry>
-                      </ResponsiveMasonry>
-                    </div>
+                    <ResponsiveMasonry
+                      columnsCountBreakPoints={{
+                        350: 1,
+                        640: 2,
+                        1024: allImages.some((item) => item.isVideo) ? 2 : 3,
+                      }}
+                    >
+                      <Masonry gutter="24px">
+                        {allImages.map((item, index) => (
+                          <div 
+                            key={item.id} 
+                            className="w-full opacity-0 animate-fadeUp"
+                            style={{
+                              animationDelay: `${index * 0.1}s`,
+                              animationFillMode: 'forwards'
+                            }}
+                          >
+                            {renderGalleryItem(item, index, openLightbox)}
+                          </div>
+                        ))}
+                      </Masonry>
+                    </ResponsiveMasonry>
                   ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                       {allImages.map((item, index) => (
