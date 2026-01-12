@@ -13,14 +13,14 @@ const FacultyHeroSection = ({ data }: FacultyHeroSectionProps) => {
         <div className="pb-[80px] flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row 2xl:flex-row gap-6 ">
           <ScrollWidget delay={0.3}>
             <div className="space-y-3 pt-10">
-              <h2 className="font-urbanist  font-regular font-normal text-black text-[32px] md:text-[48px] 3xl:text-[64px]">
+              <h1 className="font-urbanist  font-regular font-normal text-black text-[32px] md:text-[48px] 3xl:text-[64px]">
                 {data.Title}
-              </h2>
+              </h1>
               {data?.Heading && (
                 <HTMLWidget
                   content={data.Heading}
                   className="font-area-variable font-semibold text-[24px] md:text-[30px] 3xl:text-[40px] text-black leading-tight"
-                  tag="p"
+                  tag="h2"
                 />
               )}
               <ParagraphWidget className="text-left mt-6">

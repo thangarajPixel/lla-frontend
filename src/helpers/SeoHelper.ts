@@ -21,6 +21,7 @@ const pageMapping: Record<string, string> = {
   "/about-us": "About-Us",
   "/life-at-lla": "Life-At-Lla",
   "/blogs": "Blog",
+  "/media": "Media",
   "/contact-us": "Contact-Us",
   "/faq": "Faq",
   "/terms-and-conditions": "Terms-And-Condition",
