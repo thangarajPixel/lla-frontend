@@ -264,9 +264,9 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
         <div className="flex flex-col gap-6 md:gap-8 lg:gap-10">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-6">
             <div className="flex flex-col gap-5 md:gap-3 flex-1">
-              <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[64px] font-semibold md:font-normal text-black font-urbanist">
+              <h1 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[64px] font-semibold md:font-normal text-black font-urbanist">
                 {blogData?.Title || ""}
-              </h3>
+              </h1>
               <ParagraphWidget className="w-full md:max-w-[600px]">
                 {blogData?.Description || ""}
               </ParagraphWidget>

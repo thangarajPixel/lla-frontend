@@ -85,13 +85,13 @@ const LifeLlaSection = ({ data }: LifeSectionProps) => {
       <ContainerWidget>
         <ScrollWidget animation="fadeDown" delay={0.1}>
           <div className="flex flex-col justify-start md:justify-center items-start md:items-center text-left md:text-center gap-2 md:gap-5 lg:gap-3">
-            <h3 className="text-[32px] md:text-[35px] lg:text-[40px] xl:text-[50px] 2xl:text-[60px] 3xl:text-[64px] font-regular text-black font-urbanist">
+            <h1 className="text-[32px] md:text-[35px] lg:text-[40px] xl:text-[50px] 2xl:text-[60px] 3xl:text-[64px] font-regular text-black font-urbanist">
               {data.Title}
-            </h3>
+            </h1>
             <HTMLWidget
               content={data.Heading}
               className="font-area-variable font-semibold text-[24px] md:text-[28px] 3xl:text-[40px] text-black leading-tight"
-              tag="p"
+              tag="h2"
             />
             <ParagraphWidget className="w-full md:max-w-[750px] 3xl:max-w-[976px]">
               {data.Description}

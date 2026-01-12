@@ -16,6 +16,7 @@ import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import { ArrowDown, ArrowRightWhite, SearchIcon } from "@/helpers/ImageHelper";
+import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 
 interface MediaImage {
   id: number;
@@ -210,7 +211,7 @@ const MediaSection = ({ data }: { data: MediaPageData }) => {
 
       const { data: res } = await getMediaPageData(params);
 
-      if (res?.Blog?.BlogCard) {
+      if (res?.Media?.MediaCard) {
         setMediaCards((prev) => [...prev, ...res.Media.MediaCard]);
         setPage(nextPage);
         if (res.pagination?.total !== undefined) {
@@ -264,9 +265,9 @@ const MediaSection = ({ data }: { data: MediaPageData }) => {
         <div className="flex flex-col gap-6 md:gap-8 lg:gap-10">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-6">
             <div className="flex flex-col gap-5 md:gap-3 flex-1">
-              <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[64px] font-semibold md:font-normal text-black font-urbanist">
+              <h1 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[64px] font-semibold md:font-normal text-black font-urbanist">
                 {mediaData?.Title || ""}
-              </h3>
+              </h1>
               <ParagraphWidget className="w-full md:max-w-[600px]">
                 {mediaData?.Description || ""}
               </ParagraphWidget>
@@ -344,167 +345,108 @@ const MediaSection = ({ data }: { data: MediaPageData }) => {
           ) : mediaCards.length > 0 ? (
             <div className="w-full" suppressHydrationWarning>
               {isMounted ? (
-                <div style={{ margin: "-10px" }}>
-                  <ResponsiveMasonry
-                    columnsCountBreakPoints={{
-                      350: 1,
-                      640: 2,
-                      1024: 3,
-                    }}
-                  >
-                    <Masonry gutter="20px">
-                      {mediaCards.map((media, index) => {
-                        const imageUrl = getImageUrl(media.Image);
-                        const imageAlt =
-                          media.Image?.[0]?.name ||
-                          media.Title ||
-                          "Media post image";
-
-                        return (
-                          <ScrollWidget
-                            key={media.id}
-                            animation="fadeUp"
-                            delay={index * 0.1}
-                            duration={0.6}
-                            start="top 85%"
-                            once={true}
+                <div className="w-full" suppressHydrationWarning>
+                  <div className="-m-2">
+                    <ResponsiveMasonry
+                      columnsCountBreakPoints={{
+                        350: 1,
+                        400: 1,
+                        500: 1,
+                        600: 2,
+                        630: 2,
+                        660: 2,
+                        700: 2,
+                        768: 3,
+                        1024: 3,
+                      }}
+                    >
+                      <Masonry gutter="10px">
+                        {mediaCards.map((card, index) => (
+                          <div
+                            key={card.id}
+                            className="w-full p-2 m-0"
+                            ref={(el) => {
+                              cardsRef.current[index] = el;
+                            }}
                           >
-                            <div
-                              aria-hidden
-                              className="relative w-full overflow-hidden group  bg-white cursor-pointer"
-                              style={{ padding: "10px" }}
-                              ref={(el) => {
-                                cardsRef.current[index] = el;
-                              }}
-                              onClick={() => router.push(`/media/${media.Slug}`)}
-                            >
-                              <div className="flex flex-col gap-4 h-full">
-                                <div className="relative w-full overflow-hidden rounded-none aspect-video">
-                                  {imageUrl && (
-                                    <ImageWidget
-                                      src={imageUrl}
-                                      alt={imageAlt}
-                                      width={410}
-                                      height={272}
-                                      className="object-cover w-full h-auto 3xl:min-w-[410px] 3xl:min-h-[272px] transition-transform duration-300 group-hover:scale-105"
-                                      loading="lazy"
-                                    />
-                                  )}
-                                </div>
-                                <div className="flex flex-col gap-2">
-                                  <h4 className="font-mulish text-[24px]  font-semibold text-black leading-[29px]">
-                                    {media.Title}
-                                  </h4>
-                                  {media.Description && (
+                            <ScrollWidget animation="fadeIn" delay={-0.1}>
+                              <ParallaxWidget speed={-0.1}>
+                                <Link href={`/in-the-media/${card.Slug}`} className="block w-full">
+                                  <div className="w-full h-full bg-[#ECECEC] hover:bg-white border hover:border-[#E97451] transition-all duration-300 cursor-pointer p-3 sm:p-4 lg:p-4 xl:p-5 3xl:p-6">
+                                    <h4 className="text-base sm:text-lg md:text-xl lg:text-[18px] xl:text-[16px] 2xl:text-[20px] 3xl:text-[24px] font-bold text-black font-mulish leading-tight mb-2 lg:mb-3 3xl:mb-4">
+                                      {card.Title}
+                                    </h4>
+                                    {card.Image?.[0]?.url && (
+                                      <div className="relative w-full aspect-4/3 overflow-hidden mb-2 lg:mb-3 3xl:mb-4">
+                                        <ImageWidget
+                                          src={getS3Url(card.Image?.[0]?.url || "")}
+                                          alt={card.Title}
+                                          fill
+                                          className="object-cover"
+                                        />
+                                      </div>
+                                    )}
                                     <HTMLWidget
-                                      content={media.Description}
-                                      className="text-[16px] lg:text-[16px]  3xl:text-[18px] font-normal text-black leading-normal line-clamp-2"
+                                      content={card.Description ?? ""}
+                                      className="text-sm sm:text-base md:text-[12px] lg:text-[12px] xl:text-[12px] 2xl:text-[16px] 3xl:text-[18px] font-mulish font-regular text-black overflow-hidden line-clamp-2"
                                       tag="p"
                                     />
-                                  )}
-                                  <Link
-                                    href={`/blogs/${media.Slug}`}
-                                    className="inline-flex items-center gap-2 text-[#E97451] hover:gap-2 transition-all duration-300  text-[16px] md:text-[16px] lg:text-[16px] font-normal font-urbanist group"
-                                  >
-                                    {media.Btn_txt}
-                                    <ImageWidget
-                                      src={ArrowRightWhite}
-                                      alt="Arrow Right"
-                                      width={15}
-                                      height={15}
-                                      className="object-contain"
-                                    />
-                                  </Link>
-                                </div>
-                              </div>
-                            </div>
-                          </ScrollWidget>
-                        );
-                      })}
-
-                      {loadingMore &&
-                        skeletonKeys.map((key) => (
-                          <div key={key}>
-                            <MediaCardSkeleton />
+                                  </div>
+                                </Link>
+                              </ParallaxWidget>
+                            </ScrollWidget>
                           </div>
                         ))}
-                    </Masonry>
-                  </ResponsiveMasonry>
+
+                        {loading &&
+                          skeletonKeys.map((key) => (
+                            <div key={key} className="w-full p-2 m-0">
+                              <MediaCardSkeleton />
+                            </div>
+                          ))}
+                      </Masonry>
+                    </ResponsiveMasonry>
+                  </div>
                 </div>
               ) : (
-                <div
-                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-                  style={{ gap: "20px" }}
-                >
-                  {mediaCards.map((media, index) => {
-                    const imageUrl = getImageUrl(media.Image);
-                    const imageAlt =
-                      media.Image?.[0]?.name || media.Title || "Media post image";
-
-                    return (
-                      <ScrollWidget
-                        key={media.id}
-                        animation="fadeUp"
-                        delay={index * 0.1}
-                        duration={0.6}
-                        start="top 85%"
-                        once={true}
-                      >
-                        <div
-                          className="relative w-full overflow-hidden group  bg-white p-3"
-                          ref={(el) => {
-                            cardsRef.current[index] = el;
-                          }}
-                        >
-                          <div className="flex flex-col gap-4 h-full">
-                            <div className="relative w-full overflow-hidden rounded-none aspect-video">
-                              <ImageWidget
-                                src={imageUrl}
-                                alt={imageAlt}
-                                width={410}
-                                height={272}
-                                className="object-cover w-full h-auto 3xl:min-w-[410px] 3xl:min-h-[272px] transition-transform duration-300 group-hover:scale-105"
-                                loading="lazy"
-                              />
-                            </div>
-                            <div className="flex flex-col gap-2">
-                              <h4 className="font-mulish 3xl:text-[24px] 2xl:text-[20px] xl:text-[18px] lg:text-[16px] md:text-[14px] text-[16px] font-bold text-black leading-tight">
-                                {media.Title}
-                              </h4>
-                              {media.Description && (
-                                <HTMLWidget
-                                  content={media.Description}
-                                  className="text-[15px] lg:text-[15px] 3xl:text-[18px] font-normal text-black leading-normal line-clamp-2"
-                                  tag="p"
-                                />
-                              )}
-                              <Link
-                                href={`/blogs/${media.Slug}`}
-                                className="inline-flex items-center gap-2 text-[#E97451] hover:gap-4 transition-all duration-300 mt-2 text-[16px] md:text-[16px] lg:text-[16px] font-normal font-urbanist group"
-                              >
-                                Read More
+                  <div
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+                    style={{ gap: "20px" }}
+                  >
+                    {mediaCards.map((media) => {
+                      return (
+                        <Link key={media.id} href={`/in-the-media/${media.Slug}`} className="block w-full">
+                          <div className="w-full h-full bg-[#ECECEC] hover:bg-white border hover:border-[#E97451] transition-all duration-300 cursor-pointer p-3 sm:p-4 lg:p-4 xl:p-5 3xl:p-6">
+                            <h4 className="text-base sm:text-lg md:text-xl lg:text-[18px] xl:text-[16px] 2xl:text-[20px] 3xl:text-[24px] font-bold text-black font-mulish leading-tight mb-2 lg:mb-3 3xl:mb-4">
+                              {media.Title}
+                            </h4>
+                            {media.Image?.[0]?.url && (
+                              <div className="relative w-full aspect-4/3 overflow-hidden mb-2 lg:mb-3 3xl:mb-4">
                                 <ImageWidget
-                                  src={ArrowRightWhite}
-                                  alt="Arrow Right"
-                                  width={16}
-                                  height={16}
-                                  className="object-contain"
+                                  src={getS3Url(media.Image?.[0]?.url || "")}
+                                  alt={media.Title}
+                                  fill
+                                  className="object-cover"
                                 />
-                              </Link>
-                            </div>
+                              </div>
+                            )}
+                            <HTMLWidget
+                              content={media.Description ?? ""}
+                              className="text-sm sm:text-base md:text-[12px] lg:text-[12px] xl:text-[12px] 2xl:text-[16px] 3xl:text-[18px] font-mulish font-regular text-black overflow-hidden line-clamp-2"
+                              tag="p"
+                            />
                           </div>
-                        </div>
-                      </ScrollWidget>
-                    );
-                  })}
+                        </Link>
+                      );
+                    })}
 
-                  {loadingMore &&
-                    skeletonKeys.map((key) => (
-                      <div key={key}>
-                        <MediaCardSkeleton />
-                      </div>
-                    ))}
-                </div>
+                    {loadingMore &&
+                      skeletonKeys.map((key) => (
+                        <div key={key}>
+                          <MediaCardSkeleton />
+                        </div>
+                      ))}
+                  </div>
               )}
             </div>
           ) : (
