@@ -151,7 +151,7 @@ const CourseApplicationFormModel = ({
               <FormInput
                 name="FirstName"
                 control={control}
-                placeholder="Full Name"
+                placeholder="Enter your full name"
                 label="Full Name"
                 restrictionType="number"
               />
@@ -160,7 +160,7 @@ const CourseApplicationFormModel = ({
                 name="Mobile"
                 control={control}
                 type="tel"
-                placeholder="Enter your phone number"
+                placeholder="Enter your mobile number"
                 label="Mobile Number"
                 restrictionType="text"
                 maxLength={10}
@@ -170,7 +170,7 @@ const CourseApplicationFormModel = ({
                 name="Email"
                 control={control}
                 type="email"
-                placeholder="Enter your email"
+                placeholder="Enter your email address"
                 label="Email Address"
                 errorClassName="hidden"
               />
