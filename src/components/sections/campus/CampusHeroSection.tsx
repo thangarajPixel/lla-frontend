@@ -215,20 +215,6 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
                       className="text-black text-[24px] font-mulish"
                     />
                   )}
-                  <div className="flex flex-col gap-4 mt-6">
-                    {data.Description?.map((paragraph, index) => {
-                      const textContent = paragraph.children?.[0]?.text || "";
-                      if (!textContent) return null;
-                      const uniqueKey = `mobile-${index}-${textContent.slice(0, 20)}`;
-                      return (
-                        <div key={uniqueKey}>
-                          <ParagraphWidget className="text-black!">
-                            {textContent}
-                          </ParagraphWidget>
-                        </div>
-                      );
-                    })}
-                  </div>
                   <div className="mt-6 w-full">
                     <DialogWidget
                       trigger={
@@ -322,6 +308,20 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
                         )}
                       </div>
                     </DialogWidget>
+                  </div>
+                  <div className="flex flex-col gap-4 mt-6">
+                    {data.Description?.map((paragraph, index) => {
+                      const textContent = paragraph.children?.[0]?.text || "";
+                      if (!textContent) return null;
+                      const uniqueKey = `mobile-${index}-${textContent.slice(0, 20)}`;
+                      return (
+                        <div key={uniqueKey}>
+                          <ParagraphWidget className="text-black!">
+                            {textContent}
+                          </ParagraphWidget>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               </div>

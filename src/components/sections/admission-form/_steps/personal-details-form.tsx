@@ -608,7 +608,7 @@ const PersonalDetailsForm = ({
 
               <div
                 aria-hidden
-                className="group border border-dashed border-border rounded-lg w-[190px] flex flex-col items-center justify-center h-[227px] cursor-pointer hover:border-[#E97451] transition relative overflow-hidden mx-auto xs:mx-0"
+                className="group border bg-[#F7F7F7] border-border rounded-lg w-[190px] flex flex-col items-center justify-center h-[227px] cursor-pointer hover:border-[#E97451] transition relative overflow-hidden mx-auto xs:mx-0"
                 onClick={handleClick}
               >
                 {(!previewUrl && !admissionData?.passport_size_image) ||
@@ -667,7 +667,7 @@ const PersonalDetailsForm = ({
                 className="hidden"
               />
 
-              <p className="text-xs font-mulish text-muted-foreground mt-2 max-w-[190px]">
+              <p className="text-xs font-mulish text-muted-foreground mt-2 text-center sm:text-left xs:max-w-[190px]">
                 Max file size is 1 MB.
               </p>
 
@@ -757,7 +757,7 @@ const PersonalDetailsForm = ({
                 <FormInput
                   name="Parent_Guardian_Spouse_Details.mobile_no"
                   label="Mobile Number"
-                  placeholder="Enter your mobile number"
+                  placeholder="Enter mobile number"
                   control={control}
                   restrictionType="text"
                   maxLength={10}
@@ -765,7 +765,7 @@ const PersonalDetailsForm = ({
                 <FormInput
                   name="Parent_Guardian_Spouse_Details.email"
                   label="Email Address"
-                  placeholder="Enter your email address"
+                  placeholder="Enter email address"
                   control={control}
                 />
               </div>
@@ -781,7 +781,7 @@ const PersonalDetailsForm = ({
                 <FormInput
                   name="Parent_Guardian_Spouse_Details.nationality"
                   label="Nationality"
-                  placeholder="Enter your nationality"
+                  placeholder="Enter nationality"
                   control={control}
                   restrictionType="number"
                 />

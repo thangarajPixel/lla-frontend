@@ -226,11 +226,10 @@ const ImageSlider = ({
               key={`slide-${index + 1}`}
               type="button"
               onClick={() => goToSlide(index)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                index === currentIndex
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
                   ? "bg-white scale-125"
                   : "bg-white/50 hover:bg-white/75"
-              }`}
+                }`}
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}
@@ -475,6 +474,23 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
                     </Link>
                   ))}
                 </div>
+
+                <div className="flex justify-center mt-4">
+                  <Link
+                    href="/blogs"
+                    className="inline-flex items-center gap-2 text-[#E97451] mt-2"
+                  >
+                    View All
+                    <ImageWidget
+                      src={ArrowRightWhite}
+                      alt="Arrow Right"
+                      width={16}
+                      height={16}
+                      className="object-contain"
+                    />
+                  </Link>
+                </div>
+
                 <div className="md:hidden relative">
                   <div
                     ref={scrollContainerRef}
@@ -521,11 +537,10 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
                       type="button"
                       onClick={() => scroll("left")}
                       disabled={!canScrollLeft}
-                      className={`transition-opacity ${
-                        canScrollLeft
+                      className={`transition-opacity ${canScrollLeft
                           ? "opacity-100 hover:opacity-70"
                           : "opacity-30 cursor-not-allowed"
-                      }`}
+                        }`}
                       aria-label="Previous slide"
                     >
                       <ImageWidget
@@ -540,11 +555,10 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
                       type="button"
                       onClick={() => scroll("right")}
                       disabled={!canScrollRight}
-                      className={`transition-opacity ${
-                        canScrollRight
+                      className={`transition-opacity ${canScrollRight
                           ? "opacity-100 hover:opacity-70"
                           : "opacity-30 cursor-not-allowed"
-                      }`}
+                        }`}
                       aria-label="Next slide"
                     >
                       <ImageWidget
