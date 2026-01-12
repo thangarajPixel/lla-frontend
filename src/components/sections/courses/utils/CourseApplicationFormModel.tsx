@@ -177,7 +177,7 @@ const CourseApplicationFormModel = ({
             </div>
 
             {form?.formState?.errors?.Email?.message && (
-              <p className="text-red-500">
+              <p className="text-red-500 relative -top-3">
                 {form?.formState?.errors?.Email?.message}
               </p>
             )}
