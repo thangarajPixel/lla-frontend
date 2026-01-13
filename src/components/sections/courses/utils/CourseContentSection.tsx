@@ -172,7 +172,7 @@ const CourseContentSection = ({
                       </div>
                     )}
                     
-                    <div className={`grid grid-cols-1 ${section.gridBreakpoint === "md" ? "md:grid-cols-[50%_47.5%]" : "lg:grid-cols-[50%_47.5%]"} gap-6`}>
+                    <div className={`grid grid-cols-1 ${section.gridBreakpoint === "md" ? "md:grid-cols-[40%_57.5%]" : "lg:grid-cols-[40%_57.5%]"} gap-6`}>
                       <div className="flex flex-col gap-4 w-full">
                         {section.description && (
                           <HTMLWidget
