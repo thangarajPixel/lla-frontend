@@ -256,3 +256,10 @@ export const isNotFutureDate = (value: string) => {
 
   return inputDate <= today;
 };
+
+export const getMyIp = async () => {
+  const clientIp = await fetch("https://api.ipify.org?format=json").then((res) =>
+    res.json(),
+  );
+  return clientIp;
+};
