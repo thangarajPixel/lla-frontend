@@ -12,7 +12,7 @@ import { FormInput } from "@/components/form";
 import type { CourseItem } from "@/components/layouts/utils/types";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
-import { encryptId } from "@/helpers/ConstantHelper";
+import { encryptId, filteredPayload } from "@/helpers/ConstantHelper";
 import { admissionRequestSchema } from "@/helpers/ValidationHelper";
 import CourseApplicationFormModel from "./CourseApplicationFormModel";
 import { cn } from "@/lib/utils";
@@ -46,22 +46,26 @@ const CourseAdmissionFormSection = ({
   const onSubmit = async (payload: RequestFormData) => {
     const isAdmissionOpen = await getEssentialsData();
 
+    const filteredData = filteredPayload(payload);
+
     const admissionPayload = {
-      first_name: payload.FirstName,
-      mobile_no: payload.Mobile,
-      email: payload.Email,
-      Message: payload.Message,
+      first_name: filteredData?.FirstName,
+      mobile_no: filteredData?.Mobile,
+      email: filteredData?.Email,
+      Message: filteredData?.Message,
       Course: selectedCourse?.documentId,
+      AdmissionYear: isAdmissionOpen?.data?.admission_year?.AcademicYear,
       step_0: true,
     };
 
     const requestPayload = {
-      FirstName: payload.FirstName,
-      Mobile: payload.Mobile,
-      Email: payload.Email,
-      Message: payload.Message,
+      FirstName: filteredData?.FirstName,
+      Mobile: filteredData?.Mobile,
+      Email: filteredData?.Email,
+      Message: filteredData?.Message,
       Type: "Request Information",
       Course: selectedCourse?.documentId,
+      AdmissionYear: isAdmissionOpen?.data?.admission_year?.AcademicYear,
     };
 
     try {
@@ -127,7 +131,7 @@ const CourseAdmissionFormSection = ({
             control={form.control}
             restrictionType="number"
             className="w-full md:flex-1 md:min-w-[120px] space-y-0"
-            inputClassName="w-full md:flex-1 pl-3 md:pl-4 3xl:text-[18px] md:min-w-[120px] h-9 rounded-full text-[12px] sm:text-[13px] md:text-[14px] lg:text-[13px] 3xl:text-[16px] border border-white bg-white/20 text-white placeholder:text-[#FFFFFF] focus-visible:border-white focus-visible:ring-0 focus-visible:ring-offset-0 outline-none"
+            inputClassName="w-full md:flex-1 pl-3 md:pl-4 3xl:text-[18px] md:min-w-[120px] h-9 rounded-full text-[12px] sm:text-[13px] md:text-[14px] lg:text-[16px] 3xl:text-[16px] border border-white bg-white/10 text-white placeholder:text-[#FFFFFF] focus-visible:border-white focus-visible:ring-0 focus-visible:ring-offset-0 outline-none"
             errorClassName="text-black ml-2"
             pageType="course"
           />
@@ -138,7 +142,7 @@ const CourseAdmissionFormSection = ({
             control={form.control}
             restrictionType="text"
             className="w-full md:flex-1 md:min-w-[120px] space-y-0"
-            inputClassName="w-full md:flex-1 pl-3 md:pl-4 3xl:text-[18px] md:min-w-[120px] h-9 rounded-full text-[12px] sm:text-[13px] md:text-[14px] lg:text-[13px] 3xl:text-[16px] border border-white bg-white/20 text-white placeholder:text-[#FFFFFF] focus-visible:border-white focus-visible:ring-0 focus-visible:ring-offset-0 outline-none"
+            inputClassName="w-full md:flex-1 pl-3 md:pl-4 3xl:text-[18px] md:min-w-[120px] h-9 rounded-full text-[12px] sm:text-[13px] md:text-[14px] lg:text-[16px] 3xl:text-[16px] border border-white bg-white/10 text-white placeholder:text-[#FFFFFF] focus-visible:border-white focus-visible:ring-0 focus-visible:ring-offset-0 outline-none"
             maxLength={10}
             errorClassName="text-black ml-2"
             pageType="course"
@@ -149,7 +153,7 @@ const CourseAdmissionFormSection = ({
             placeholder="Email Address*"
             control={form.control}
             className="w-full md:flex-1 md:min-w-[120px] space-y-0 col-span-2 md:col-span-1"
-            inputClassName="w-full md:flex-1 pl-3 md:pl-4 3xl:text-[18px] md:min-w-[120px] h-9 rounded-full text-[12px] sm:text-[13px] md:text-[14px] lg:text-[13px] 3xl:text-[16px] border border-white bg-white/20 text-white placeholder:text-[#FFFFFF] focus-visible:border-white focus-visible:ring-0 focus-visible:ring-offset-0 outline-none"
+            inputClassName="w-full md:flex-1 pl-3 md:pl-4 3xl:text-[18px] md:min-w-[120px] h-9 rounded-full text-[12px] sm:text-[13px] md:text-[14px] lg:text-[16px] 3xl:text-[16px] border border-white bg-white/10 text-white placeholder:text-[#FFFFFF] focus-visible:border-white focus-visible:ring-0 focus-visible:ring-offset-0 outline-none"
             errorClassName="text-black ml-2"
             pageType="course"
           />

@@ -65,6 +65,7 @@ const PersonalDetailsForm = ({
     shouldFocusError: true,
     defaultValues: {
       Course: admissionData?.Course?.documentId ?? courseId ?? "",
+      AdmissionYear: admissionData?.AdmissionYear ?? "",
       name_title: admissionData?.name_title ?? "Mr.",
       first_name: admissionData?.first_name ?? "",
       last_name: admissionData?.last_name ?? "",

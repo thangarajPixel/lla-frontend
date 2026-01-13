@@ -96,9 +96,9 @@ const CourseContentSection = ({
         <ScrollWidget animation="fadeUp">
           <div className="space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12 2xl:space-y-14 3xl:space-y-16 mb-12">
             <div className="space-y-2 md:space-y-3 lg:space-y-4">
-              <h3 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[64px] font-normal md:font-normal text-black font-urbanist">
+              <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[64px] font-normal md:font-normal text-black font-urbanist">
                 {headerData.Title}
-              </h3>
+              </h2>
               <h3 className="font-mulish font-normal text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl 3xl:text-[40px] text-black">
                 {headerData.Heading}
                 {headerData.SubHeading && (

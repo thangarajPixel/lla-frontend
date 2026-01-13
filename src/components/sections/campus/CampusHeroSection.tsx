@@ -211,7 +211,7 @@ const CampusHeroSection = ({ data }: CampusHeroSectionProps) => {
                   {data?.Heading && (
                     <HTMLWidget
                       content={data.Heading}
-                      tag="p"
+                      tag="h2"
                       className="text-black text-[24px] font-mulish"
                     />
                   )}
