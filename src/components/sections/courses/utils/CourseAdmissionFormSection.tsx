@@ -12,7 +12,7 @@ import { FormInput } from "@/components/form";
 import type { CourseItem } from "@/components/layouts/utils/types";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
-import { encryptId, filteredPayload } from "@/helpers/ConstantHelper";
+import { encryptId, filteredPayload, getMyIp } from "@/helpers/ConstantHelper";
 import { admissionRequestSchema } from "@/helpers/ValidationHelper";
 import CourseApplicationFormModel from "./CourseApplicationFormModel";
 import { cn } from "@/lib/utils";
@@ -46,6 +46,8 @@ const CourseAdmissionFormSection = ({
   const onSubmit = async (payload: RequestFormData) => {
     const isAdmissionOpen = await getEssentialsData();
 
+    const clientIp = await getMyIp();
+
     const filteredData = filteredPayload(payload);
 
     const admissionPayload = {
@@ -55,6 +57,7 @@ const CourseAdmissionFormSection = ({
       Message: filteredData?.Message,
       Course: selectedCourse?.documentId,
       AdmissionYear: isAdmissionOpen?.data?.admission_year?.AcademicYear,
+      IpAddress: clientIp?.ip,
       step_0: true,
     };
 
