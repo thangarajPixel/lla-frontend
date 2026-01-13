@@ -487,7 +487,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
           <MobileImageLayout breakpoint="lg" images={images} />
           <div className="hidden lg:block relative w-full">
             {image1 && (
-              <ScrollWidget animation="fadeUp" delay={0.1}>
+              // <ScrollWidget animation="fadeUp" delay={0.1}>
                 <div className="w-full lg:max-w-full xl:max-w-full overflow-hidden z-20 mt-0 lg:mt-1.5">
                   <ImageWidget
                     src={image1}
@@ -498,7 +498,7 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
                     className="object-cover w-full h-full"
                   />
                 </div>
-              </ScrollWidget>
+              // </ScrollWidget>
             )}
           </div>
         </>
