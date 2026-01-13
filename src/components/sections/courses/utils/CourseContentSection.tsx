@@ -156,11 +156,11 @@ const CourseContentSection = ({
               >
                 <div
                   id={`course-content-${section.id || sectionIndex}`}
-                  className={`md:sticky  ${sectionIndex === group.sections.length - 1 && "mb-20 md:mb-18"} ${group.OuterDescription ? "top-32" : "top-20"} z-10  grid grid-cols-1 ${section.gridBreakpoint === "md" ? "md:grid-cols-[50%_47.5%]" : "lg:grid-cols-[50%_47.5%]"} gap-6 bg-[#ECECEC] min-h-[600px] 3xl:min-h-[750px] w-full p-8 pb-9 ${sectionIndex > 0 ? "mt-8" : ""} `}
+                  className={`md:sticky  ${sectionIndex === group.sections.length - 1 && "mb-20 md:mb-18"} ${group.OuterDescription ? "top-32" : "top-20"} z-10 bg-[#ECECEC] min-h-[600px] 3xl:min-h-[750px] w-full p-8 pb-9 ${sectionIndex > 0 ? "mt-8" : ""} `}
                 >
-                  <div className="flex flex-col gap-4 w-full">
+                  <div className="w-full">
                     {section.section && (
-                      <div>
+                      <div className="mb-4">
                           <span className="font-mulish xss:text-[22px] xl:text-[22px] 2xl:text-[26px] 3xl:text-[28px] text-[#E97451] font-normal">
                             {section.section}: {" "}
                           </span>
@@ -172,19 +172,23 @@ const CourseContentSection = ({
                       </div>
                     )}
                     
-                    {section.description && (
-                      <HTMLWidget
-                        content={section.description}
-                        className="font-normal font-mulish ul-image text-[16px] leading-[24px]!"
-                        tag="div"
-                      />
-                    )}
-                  </div>
-                  <div className="relative">
-                    <ImageLayout
-                      type={section.type}
-                      images={section.images ?? undefined}
-                    />
+                    <div className={`grid grid-cols-1 ${section.gridBreakpoint === "md" ? "md:grid-cols-[50%_47.5%]" : "lg:grid-cols-[50%_47.5%]"} gap-6`}>
+                      <div className="flex flex-col gap-4 w-full">
+                        {section.description && (
+                          <HTMLWidget
+                            content={section.description}
+                            className="font-normal font-mulish ul-image text-[16px] leading-[24px]!"
+                            tag="div"
+                          />
+                        )}
+                      </div>
+                      <div className="relative">
+                        <ImageLayout
+                          type={section.type}
+                          images={section.images ?? undefined}
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

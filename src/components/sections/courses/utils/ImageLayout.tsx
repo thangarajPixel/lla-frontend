@@ -488,12 +488,14 @@ const ImageLayout = ({ type, images }: ImageLayoutProps) => {
           <div className="hidden lg:block relative w-full">
             {image1 && (
               <ScrollWidget animation="fadeUp" delay={0.1}>
-                <div className="absolute top-15 w-full aspect-300/199 lg:max-w-full xl:max-w-full overflow-hidden z-20">
+                <div className="w-full lg:max-w-full xl:max-w-full overflow-hidden z-20 mt-0 lg:mt-1.5">
                   <ImageWidget
                     src={image1}
                     alt="Course Content"
-                    fill
-                    className="object-cover"
+                    // fill
+                    width={100}
+                    height={100}
+                    className="object-cover w-full h-full"
                   />
                 </div>
               </ScrollWidget>
