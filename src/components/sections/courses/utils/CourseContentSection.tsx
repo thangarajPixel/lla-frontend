@@ -156,19 +156,22 @@ const CourseContentSection = ({
               >
                 <div
                   id={`course-content-${section.id || sectionIndex}`}
-                  className={`md:sticky  ${sectionIndex === group.sections.length - 1 && "mb-20 md:mb-18"} ${group.OuterDescription ? "top-32" : "top-20"} z-10  grid grid-cols-1 ${section.gridBreakpoint === "md" ? "md:grid-cols-[58%_40%]" : "lg:grid-cols-[58%_40%]"} gap-6 bg-[#ECECEC] min-h-[600px] 3xl:min-h-[750px] w-full p-8 pb-9 ${sectionIndex > 0 ? "mt-8" : ""} `}
+                  className={`md:sticky  ${sectionIndex === group.sections.length - 1 && "mb-20 md:mb-18"} ${group.OuterDescription ? "top-32" : "top-20"} z-10  grid grid-cols-1 ${section.gridBreakpoint === "md" ? "md:grid-cols-[50%_47.5%]" : "lg:grid-cols-[50%_47.5%]"} gap-6 bg-[#ECECEC] min-h-[600px] 3xl:min-h-[750px] w-full p-8 pb-9 ${sectionIndex > 0 ? "mt-8" : ""} `}
                 >
                   <div className="flex flex-col gap-4 w-full">
                     {section.section && (
-                      <h3 className="font-mulish text-xl xss:text-[16px] text-[#E97451] font-normal 3xl:text-[24px]">
-                        {section.section}
-                      </h3>
+                      <div>
+                          <span className="font-mulish xss:text-[22px] xl:text-[22px] 2xl:text-[26px] 3xl:text-[28px] text-[#E97451] font-normal">
+                            {section.section}: {" "}
+                          </span>
+                          {section.title && (
+                            <span className="font-urbanist text-[18px] leading-[32px] md:leading-[48px] xss:text-[22px] xl:text-[22px] 2xl:text-[26px] 3xl:text-[28px] font-normal text-[#E97451]">
+                              {section.title}
+                            </span>
+                          )}
+                      </div>
                     )}
-                    {section.title && (
-                      <h2 className="font-urbanist text-[24px] leading-[32px] md:leading-[48px] xss:text-[24px] xl:text-[25px] 2xl:text-[37px] 3xl:text-[40px] font-normal text-black mt-[-10px]">
-                        {section.title}
-                      </h2>
-                    )}
+                    
                     {section.description && (
                       <HTMLWidget
                         content={section.description}

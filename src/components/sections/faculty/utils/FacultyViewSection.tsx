@@ -208,7 +208,7 @@ const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
         </div>
 
         <div className="flex flex-col bg-[#E97451]/20 md:pt-13 ">
-          <div className="flex flex-col justify-center px-4 py-8 pb-4 md:pb-8 md:px-4 md:py-12 lg:px-6 lg:py-15 xl:px-10 xl:pr-50 2xl:pr-58 3xl:pr-74 3xl:py-15">
+          <div className="flex flex-col justify-center px-4 py-8 pb-4 md:pb-8 md:px-4 md:py-12 lg:px-6 lg:py-13/5 xl:px-10 xl:pr-50 2xl:pr-58 3xl:pr-74 3xl:py-13.5">
             {biography && (
               <ScrollWidget
                 key={`biography-${animationKey}`}
