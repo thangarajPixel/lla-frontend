@@ -1478,18 +1478,18 @@ const ReviewApplication = ({
 
                       {
                         experience?.reference_letter?.url && (
-                          <section className="flex flex-col justify-start gap-2 items-start md:col-span-1 mt-2 lg:ml-2">
+                          <section className="flex flex-col items-start gap-2 md:col-span-1 lg:mt-2 lg:ml-0">
                             <span className="text-black/50 text-base 3xl:text-2xl">
                               Document
                             </span>
 
-                            <span className="flex items-center justify-center gap-1">
+                            <div className="flex items-center gap-1 leading-none">
                               <ImageWidget
                                 src={DocumentIcon ?? null}
                                 alt="Document"
                                 width={24}
                                 height={24}
-                                className="size-6 rounded-full"
+                                className="size-6 shrink-0"
                               />
                               <LinkWidget
                                 href="#"
@@ -1497,15 +1497,16 @@ const ReviewApplication = ({
                                   e.preventDefault();
                                   handleDownload(
                                     experience?.reference_letter?.url,
-                                    experience?.reference_letter?.name,
+                                    experience?.reference_letter?.name
                                   );
                                 }}
-                                className="text-chart-1/80 text-base md:text-xs lg:text-base text-nowrap 3xl:text-lg"
+                                className="flex items-center text-chart-1/80 text-base md:text-xs lg:text-base text-nowrap 3xl:text-lg leading-none"
                               >
                                 View Document
                               </LinkWidget>
-                            </span>
+                            </div>
                           </section>
+
                         )
                       }
                     </div>
