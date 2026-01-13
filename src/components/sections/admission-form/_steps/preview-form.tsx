@@ -1096,7 +1096,7 @@ const ReviewApplication = ({
         {/* LEFT SIDE */}
         <div
           // className="flex lg:ml-20 xl:ml-36 md:w-full lg:w-[33%] 3xl:w-[35%] flex-col lg:items-center gap-6 pt-8 2xl:pt-0 mb-8 3xl:py-16 3xl:mt-6"
-          className={`flex lg:ml-20 xl:ml-36 md:w-full lg:w-[33%] 3xl:w-[35%] flex-col lg:items-center gap-6 pt-8 2xl:pt-0 mb-8 3xl:py-16 3xl:mt-6 lg:sticky transition-all duration-500 ${isHeaderVisible ? "top-0" : "top-0"} lg:h-screen`}
+          className={`flex lg:ml-20 xl:ml-36 md:w-full lg:w-[33%] 3xl:w-[35%] flex-col lg:items-center gap-6 pt-8 2xl:pt-0 mb-8 3xl:py-16 3xl:mt-6 lg:sticky transition-all duration-500 ${isHeaderVisible ? "top-0" : "top-10"} lg:h-screen`}
         >
           <h1 className="text-[32px] px-4 font-urbanist leading-tight lg:hidden">
             {admissionData?.Course?.Name}
@@ -1475,6 +1475,39 @@ const ReviewApplication = ({
                           )}
                         </span>
                       </section>
+
+                      {
+                        experience?.reference_letter?.url && (
+                          <section className="flex flex-col justify-start gap-2 items-start md:col-span-1 mt-2 lg:ml-2">
+                            <span className="text-black/50 text-base 3xl:text-2xl">
+                              Document
+                            </span>
+
+                            <span className="flex items-center justify-center gap-1">
+                              <ImageWidget
+                                src={DocumentIcon ?? null}
+                                alt="Document"
+                                width={24}
+                                height={24}
+                                className="size-6 rounded-full"
+                              />
+                              <LinkWidget
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  handleDownload(
+                                    experience?.reference_letter?.url,
+                                    experience?.reference_letter?.name,
+                                  );
+                                }}
+                                className="text-chart-1/80 text-base md:text-xs lg:text-base text-nowrap 3xl:text-lg"
+                              >
+                                View Document
+                              </LinkWidget>
+                            </span>
+                          </section>
+                        )
+                      }
                     </div>
                   ))}
                 </Section>
