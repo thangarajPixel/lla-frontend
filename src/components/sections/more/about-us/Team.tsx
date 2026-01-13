@@ -159,9 +159,9 @@ export default function TeamMemberPopup({
                 e.stopPropagation();
               }}
             >
-              <div className="grid grid-cols-1 lg:grid-cols-2 h-screen pt-4 md:pt-14">
+              <div className="grid grid-cols-1 lg:grid-cols-2 h-screen pt-4 md:pt-14 lg:pt-20">
                 <div className="flex flex-col">
-                  <div className="flex flex-col sticky top-16 space-y-4  px-4 py-8 pb-0 md:pb-8 md:px-6 lg:px-8 xl:px-12 xl:pl-52 2xl:pl-58 2xl:pr-10 3xl:px-20 3xl:pl-74">
+                  <div className="flex flex-col sticky top-16 space-y-4 px-4 py-8 pb-0 md:pb-8 md:px-6 lg:px-8 xl:px-12 xl:pl-52 2xl:pl-58 2xl:pr-10 3xl:px-20 3xl:pl-74">
                     {/* Back button - positioned above heading */}
                     <div className="mb-4 mt-8 md:hidden">
                       <ButtonWidget
