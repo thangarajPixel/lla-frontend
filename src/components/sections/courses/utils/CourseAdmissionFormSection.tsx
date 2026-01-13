@@ -68,6 +68,7 @@ const CourseAdmissionFormSection = ({
       Message: filteredData?.Message,
       Type: "Request Information",
       Course: selectedCourse?.documentId,
+      AdmissionYear: isAdmissionOpen?.data?.admission_year?.AcademicYear,
     };
 
     try {
