@@ -69,9 +69,9 @@ const FounderSection = ({ data }: FounderSectionProps) => {
         />
         <div className="text-center space-y-1  xs:space-y-2 sm:space-y-3 md:space-y-5 lg:space-y-6 xl:space-y-4  2xl:space-y-4  3xl:space-y-2 4xl:space-y-3">
           <ScrollWidget delay={0.1}>
-            <h3 className="font-urbanist font-regular text-black text-left xs:text-left md:text-center text-[32px] xs:text-[34px] sm:text-[36px] md:text-[40px] lg:text-[48px] xl:text-[56px] 2xl:text-[64px] 3xl:text-[64px] 4xl:text-[64px]">
+            <h2 className="font-urbanist font-regular text-black text-left xs:text-left md:text-center text-[32px] xs:text-[34px] sm:text-[36px] md:text-[40px] lg:text-[48px] xl:text-[56px] 2xl:text-[64px] 3xl:text-[64px] 4xl:text-[64px]">
               {data.Title}
-            </h3>
+            </h2>
           </ScrollWidget>
         </div>
         <div className="mt-2 xs:mt-6 sm:mt-12 md:mt-10 space-y-3 sm:space-y-10 md:space-y-12 ">

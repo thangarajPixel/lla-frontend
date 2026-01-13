@@ -135,15 +135,15 @@ const StudentSection = ({ data }: StudentSectionProps) => {
               {sectionData?.Title}
             </h2>
             {sectionData?.SubHeading ? (
-              <p className="font-area-variable font-semibold text-[24px] md:text-[28px] 3xl:text-[40px] text-black leading-tight">
+              <h3 className="font-area-variable font-semibold text-[24px] md:text-[28px] 3xl:text-[40px] text-black leading-tight">
                 {sectionData?.Heading}{" "}
                 <span className="text-[#E97451]">{sectionData.SubHeading}</span>
-              </p>
+              </h3>
             ) : (
               <HTMLWidget
                 content={sectionData?.Heading || ""}
                 className="font-area-variable font-semibold text-[24px] md:text-[28px] 3xl:text-[40px] text-black leading-tight"
-                tag="p"
+                tag="h3"
               />
             )}
             <ParagraphWidget className="max-w-full md:max-w-[880px]">

@@ -61,6 +61,7 @@ const CourseApplicationFormModel = ({
         selectedCourse?.course_list?.documentId ??
         selectedCourseItem?.documentId,
       step_0: true,
+      AdmissionYear: isAdmissionOpen?.data?.admission_year?.AcademicYear,
     };
 
     const requestPayload = {
@@ -107,15 +108,17 @@ const CourseApplicationFormModel = ({
           data: admissionPayload,
         });
 
+        toast.success("Admission submitted successfully!");
+
         const encryptedId = encryptId(res?.data?.data?.id);
         router.push(`/admission/${encryptedId}/personal-details`);
         onClose();
         form.reset();
       } else {
         await clientAxios.post(`/contacts`, { data: requestPayload });
+        toast.success("Request submitted successfully!");
       }
       form.reset();
-      toast.success("Request submitted successfully!");
     } catch (_error) {
       toast.error("Failed to send message. Please try again.", {
         position: "top-right",

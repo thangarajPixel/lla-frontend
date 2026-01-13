@@ -173,7 +173,7 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
   };
 
   return (
-    <div className="space-y-2 w-full">
+    <div className="space-y-1 w-full">
       {label && (
         <Label className="px-1 text-black text-base 3xl:text-lg">
           {label}
@@ -189,6 +189,7 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
             onChange={handleInputChange}
             className="pr-0"
             maxLength={23}
+            inputClassName="placeholder:text-sm"
           />
 
           <PopoverTrigger asChild>

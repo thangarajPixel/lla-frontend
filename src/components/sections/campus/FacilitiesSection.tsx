@@ -379,7 +379,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
               <HTMLWidget
                 content={data?.Heading}
                 className="font-area-variable font-normal text-lg xss:text-[24px] md:text-lg lg:text-xl text-black font-mulish"
-                tag="p"
+                tag="h3"
               />
               <HTMLWidget content={data?.Description || ""} tag="p" />
             </div>
@@ -453,7 +453,7 @@ const FacilitiesSection = ({ data }: FacilitiesSectionProps) => {
               <HTMLWidget
                 content={data?.Heading}
                 className="font-area-variable font-normal text-lg xss:text-[24px] md:text-lg lg:text-xl xl:text-[32px] 2xl:text-[34px] 3xl:text-[40px] text-black font-mulish"
-                tag="p"
+                tag="h3"
               />
               <HTMLWidget content={data?.Description || ""} tag="p" />
             </div>

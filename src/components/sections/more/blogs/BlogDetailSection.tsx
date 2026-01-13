@@ -9,6 +9,7 @@ import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import {
   ArrowLeftBlack,
+  ArrowRight,
   ArrowRightBlack,
   ArrowRightWhite,
   FacebookBlack,
@@ -332,9 +333,9 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
                 {/* <p className="text-sm md:text-base text-gray-500 font-mulish mb-8">
                   {formatDate(card.CreatedDate)}
                 </p> */}
-                <p className="mb-1 text-[32px] sm:text-[34px] md:text-[34px] lg:text-[38px] xl:text-[34px] 2xl:text-[38px] 3xl:text-[48px] font-normal text-black font-urbanist leading-tight">
+                <h1 className="mb-1 text-[32px] sm:text-[34px] md:text-[34px] lg:text-[38px] xl:text-[34px] 2xl:text-[38px] 3xl:text-[48px] font-normal text-black font-urbanist leading-tight">
                   {card.Title}
-                </p>
+                </h1>
               </div>
               <div className="flex flex-col gap-4 md:gap-6">
                 {card.Description && (
@@ -478,11 +479,11 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
                 <div className="hidden md:flex justify-center mt-4">
                   <Link
                     href="/blogs"
-                    className="inline-flex items-center gap-2 text-[#E97451] mt-2"
+                    className="inline-flex items-center gap-2 text-[#E97451] mt-2 orange-button px-6 py-2 rounded-full"
                   >
                     View All
                     <ImageWidget
-                      src={ArrowRightWhite}
+                      src={ArrowRight}
                       alt="Arrow Right"
                       width={16}
                       height={16}
@@ -572,14 +573,14 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
                   </div>
                 </div>
 
-                <div className="flex justify-center mt-4 md:hidden">
+                <div className="flex justify-center mt-2 md:hidden">
                   <Link
                     href="/blogs"
-                    className="inline-flex items-center gap-2 text-[#E97451] mt-2"
+                    className="inline-flex items-center gap-2 text-[#E97451] orange-button px-6 py-3 rounded-full"
                   >
                     View All
                     <ImageWidget
-                      src={ArrowRightWhite}
+                      src={ArrowRight}
                       alt="Arrow Right"
                       width={16}
                       height={16}

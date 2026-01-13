@@ -161,7 +161,7 @@ export function FileUploadButton({
             : "bg-gray-100 border border-[#969696]"
         } ${inputClassName}`}
       >
-        <ImageWidget src={UploadIconImg} alt="Upload Icon" className="size-8" />
+        <ImageWidget src={UploadIconImg} alt="Upload Icon" className="size-6" />
         <span className="text-sm font-light lg:font-normal">{placeholder}</span>
       </button>
       <input

@@ -137,7 +137,7 @@ export const workExperience = z
 
     if (value.duration_end && !isNotFutureDate(value.duration_end)) {
       ctx.addIssue({
-        path: ["duration_start"],
+        path: ["duration_end"],
         message: "Cannot select future date",
         code: z.ZodIssueCode.custom,
       });
@@ -171,6 +171,7 @@ export const postGraduate = z
 export const personalDetailsSchema = (admissionEmail?: string, courseId?: number) =>
   z.object({
     Course: z.string().optional(),
+    AdmissionYear: z.string().optional(),
     name_title: z.string().optional(),
     first_name: z.string().min(1, "First name is required"),
     last_name: z.string().min(1, "Last name is required"),
