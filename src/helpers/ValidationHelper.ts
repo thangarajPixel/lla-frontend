@@ -137,7 +137,7 @@ export const workExperience = z
 
     if (value.duration_end && !isNotFutureDate(value.duration_end)) {
       ctx.addIssue({
-        path: ["duration_start"],
+        path: ["duration_end"],
         message: "Cannot select future date",
         code: z.ZodIssueCode.custom,
       });

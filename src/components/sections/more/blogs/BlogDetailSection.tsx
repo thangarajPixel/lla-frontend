@@ -9,6 +9,7 @@ import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import {
   ArrowLeftBlack,
+  ArrowRight,
   ArrowRightBlack,
   ArrowRightWhite,
   FacebookBlack,
@@ -478,11 +479,11 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
                 <div className="hidden md:flex justify-center mt-4">
                   <Link
                     href="/blogs"
-                    className="inline-flex items-center gap-2 text-[#E97451] mt-2"
+                    className="inline-flex items-center gap-2 text-[#E97451] mt-2 orange-button px-6 py-2 rounded-full"
                   >
                     View All
                     <ImageWidget
-                      src={ArrowRightWhite}
+                      src={ArrowRight}
                       alt="Arrow Right"
                       width={16}
                       height={16}
@@ -572,14 +573,14 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
                   </div>
                 </div>
 
-                <div className="flex justify-center mt-4 md:hidden">
+                <div className="flex justify-center mt-2 md:hidden">
                   <Link
                     href="/blogs"
-                    className="inline-flex items-center gap-2 text-[#E97451] mt-2"
+                    className="inline-flex items-center gap-2 text-[#E97451] orange-button px-6 py-3 rounded-full"
                   >
                     View All
                     <ImageWidget
-                      src={ArrowRightWhite}
+                      src={ArrowRight}
                       alt="Arrow Right"
                       width={16}
                       height={16}

@@ -74,21 +74,21 @@ const PersonalDetailsForm = ({
       nationality: admissionData?.nationality ?? "",
       Language_Proficiency:
         admissionData?.Language_Proficiency &&
-        admissionData?.Language_Proficiency?.length > 0
+          admissionData?.Language_Proficiency?.length > 0
           ? admissionData?.Language_Proficiency?.map((language) => ({
-              language: language?.language ?? "",
-              read: language?.read ?? false,
-              write: language?.write ?? false,
-              speak: language?.speak ?? false,
-            }))
+            language: language?.language ?? "",
+            read: language?.read ?? false,
+            write: language?.write ?? false,
+            speak: language?.speak ?? false,
+          }))
           : [
-              {
-                language: "",
-                read: false,
-                write: false,
-                speak: false,
-              },
-            ],
+            {
+              language: "",
+              read: false,
+              write: false,
+              speak: false,
+            },
+          ],
       address: admissionData?.address?.map((block) => ({
         type: "paragraph",
         children: block.children.map((child) => ({
@@ -96,16 +96,16 @@ const PersonalDetailsForm = ({
           type: child.type,
         })),
       })) ?? [
-        {
-          type: "paragraph",
-          children: [
-            {
-              text: "",
-              type: "text",
-            },
-          ],
-        },
-      ],
+          {
+            type: "paragraph",
+            children: [
+              {
+                text: "",
+                type: "text",
+              },
+            ],
+          },
+        ],
       city: admissionData?.city ?? "",
       district: admissionData?.district ?? "",
       state: admissionData?.state?.documentId ?? "",
@@ -135,16 +135,16 @@ const PersonalDetailsForm = ({
             })),
           }),
         ) ?? [
-          {
-            type: "paragraph",
-            children: [
-              {
-                text: "",
-                type: "text",
-              },
-            ],
-          },
-        ],
+            {
+              type: "paragraph",
+              children: [
+                {
+                  text: "",
+                  type: "text",
+                },
+              ],
+            },
+          ],
         city: admissionData?.Parent_Guardian_Spouse_Details?.city ?? "",
         district: admissionData?.Parent_Guardian_Spouse_Details?.district ?? "",
         state:
@@ -550,7 +550,7 @@ const PersonalDetailsForm = ({
                       />
                     </div>
                     <div
-                      className={`flex items-center gap-3 3xl:gap-6 ${index === 0 && "md:mt-3"}`}
+                      className={`flex items-center gap-3 3xl:gap-6 ${index === 0 ? "md:mt-3" : "md:mt-3"}`}
                     >
                       <FormCheckBox
                         name={`Language_Proficiency.${index}.read`}
@@ -571,13 +571,22 @@ const PersonalDetailsForm = ({
                       />
 
                       {index > 0 && (
-                        <Button
+                        // <Button
+                        //   type="button"
+                        //   onClick={() => removeLanguage(index)}
+                        //   className="flex items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
+                        // >
+                        //   <X className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
+                        // </Button>
+                        <button
                           type="button"
                           onClick={() => removeLanguage(index)}
-                          className="flex items-center gap-2 text-primary text-sm hover:opacity-80 transition-opacity bg-transparent hover:bg-transparent"
+                          className="flex items-center justify-center gap-2 text cursor-pointer"
                         >
-                          <X className="h-4 w-4 border border-chart-1 rounded-full text-chart-1" />
-                        </Button>
+                          <span className="flex size-4 items-center justify-center rounded-full bg-[#E97451] text-white text-xs leading-none">
+                            X
+                          </span>
+                        </button>
                       )}
                     </div>
                   </div>
@@ -612,7 +621,7 @@ const PersonalDetailsForm = ({
                 onClick={handleClick}
               >
                 {(!previewUrl && !admissionData?.passport_size_image) ||
-                isRemoved ? (
+                  isRemoved ? (
                   <>
                     <ImageWidget
                       src={UploadIconImg}
