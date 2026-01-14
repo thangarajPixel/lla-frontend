@@ -29,7 +29,7 @@ const pageMapping: Record<string, string> = {
   "/admission": "Admission",
 };
 
-const BASE_URL = process.env.NEXT_APP_SITE_URL || "https://llacademy.org";
+const BASE_URL = (process.env.NEXT_APP_SITE_URL || "https://llacademy.org").replace(/"/g, "");
 
 export async function generateSeoMetadata(pagePath: string): Promise<Metadata> {
   try {
