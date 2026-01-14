@@ -1,5 +1,3 @@
-export const dynamic = "force-dynamic";
-
 import type { Metadata } from "next";
 import { Mulish, Urbanist } from "next/font/google";
 import localFont from "next/font/local";
@@ -14,11 +12,15 @@ import "./globals.css";
 const mulish = Mulish({
   variable: "--font-mulish",
   subsets: ["latin"],
+  display: "swap",
+  preload: true,
 });
 
 const urbanist = Urbanist({
   variable: "--font-urbanist",
   subsets: ["latin"],
+  display: "swap",
+  preload: true,
 });
 
 const areaVariable = localFont({
@@ -26,6 +28,7 @@ const areaVariable = localFont({
   variable: "--font-area-variable",
   weight: "100 900",
   display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -45,8 +48,17 @@ export default async function RootLayout({
       <head>
         <meta name="facebook-domain-verification" content="k5693zc2efk6uddzpthezpudncfebk" />
         
-        {/* Google Tag Manager */}
+        {/* Preconnect to external domains for faster loading */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.google-analytics.com" />
+        <link rel="preconnect" href="https://connect.facebook.net" />
+        <link rel="preconnect" href="https://www.clarity.ms" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        
+        {/* Google Tag Manager - Async with defer */}
         <script
+          defer
           dangerouslySetInnerHTML={{
             __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -56,9 +68,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           }}
         />
         
-        {/* Google Analytics */}
+        {/* Google Analytics - Async */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-L11DDSN0PP" />
         <script
+          defer
           dangerouslySetInnerHTML={{
             __html: `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
@@ -67,8 +80,9 @@ gtag('config', 'G-L11DDSN0PP');`,
           }}
         />
         
-        {/* Microsoft Clarity */}
+        {/* Microsoft Clarity - Deferred */}
         <script
+          defer
           dangerouslySetInnerHTML={{
             __html: `(function(c,l,a,r,i,t,y){
 c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -78,8 +92,9 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
           }}
         />
         
-        {/* Facebook Pixel */}
+        {/* Facebook Pixel - Deferred */}
         <script
+          defer
           dangerouslySetInnerHTML={{
             __html: `!function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -94,9 +109,10 @@ fbq('track', 'PageView');`,
           }}
         />
         
-        {/* Google Analytics UA */}
+        {/* Google Analytics UA - Async */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-1533023-1" />
         <script
+          defer
           dangerouslySetInnerHTML={{
             __html: `window.dataLayer = window.dataLayer || [];
 function gtag() {dataLayer.push(arguments);}
@@ -105,9 +121,10 @@ gtag('config', 'UA-1533023-1', { 'anonymize_ip': false });`,
           }}
         />
         
-        {/* Google Ads */}
+        {/* Google Ads - Async */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=AW-828641801" />
         <script
+          defer
           dangerouslySetInnerHTML={{
             __html: `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}

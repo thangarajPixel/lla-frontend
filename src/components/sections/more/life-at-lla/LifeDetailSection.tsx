@@ -343,7 +343,7 @@ const LifeDetailSection = ({ data }: LifeDetailProps) => {
                 {/* <p className="text-sm md:text-base text-gray-500 font-mulish mb-8">
                   {formatDate(card.CreatedDate)}
                 </p> */}
-                <h1 className="mb-1 text-[32h1x] sm:text-[34px] md:text-[34px] lg:text-[38px] xl:text-[34px] 2xl:text-[38px] 3xl:text-[48px] font-normal text-black font-urbanist leading-tight">
+                <h1 className="mb-1 text-[32px] sm:text-[34px] md:text-[34px] lg:text-[38px] xl:text-[34px] 2xl:text-[38px] 3xl:text-[48px] font-normal text-black font-urbanist leading-tight">
                   {card.Title}
                 </h1>
               </div>
