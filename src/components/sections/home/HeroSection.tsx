@@ -15,7 +15,9 @@ const HeroSection = ({ data }: HeroSectionProps) => {
           loop
           muted
           playsInline
+          preload="auto"
           className="w-full h-full object-cover"
+          style={{ contentVisibility: 'auto' }}
         >
           <source src={getS3Url(data?.Video?.url)} type="video/mp4" />
         </video>

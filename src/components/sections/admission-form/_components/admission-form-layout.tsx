@@ -11,7 +11,6 @@ import { useCourseStore } from "@/store/zustand";
 
 const AdmissionFormLayout = ({ children }: { children: React.ReactNode }) => {
   const [currentStep, setCurrentStep] = useState<number>(1);
-  const [courseName, setCourseName] = useState<string>("");
   // const scrollContainerRef = useRef<HTMLDivElement>(null);
   // const headerRef = useRef<HTMLDivElement>(null);
   const pathName = usePathname();
@@ -90,7 +89,7 @@ const AdmissionFormLayout = ({ children }: { children: React.ReactNode }) => {
               "text-[32px] md:text-[28px] lg:text-[26px] xl:text-[36px] 2xl:text-[40px] 3xl:text-[56px] 2xl:mt-6 3xl:mt-10 text-white leading-tight font-urbanist mt-5",
             )}
           >
-            {courseName || selectedCourseName}
+            {selectedCourseName}
           </h1>
         </aside>
 
@@ -114,7 +113,7 @@ const AdmissionFormLayout = ({ children }: { children: React.ReactNode }) => {
             {/* ref={headerRef} */}
             <div className="mb-8 mt-4 2xl:mt-12">
               <h1 className="text-[32px] md:text-[28px] xl:text-[40px] 3xl:text-[56px] font-urbanist leading-tight lg:hidden mb-6">
-                {courseName || selectedCourseName}
+                {selectedCourseName}
               </h1>
               <h2 className="text-2xl 3xl:text-[40px] text-[#E97451] mb-4 font-urbanist">
                 Application Form
