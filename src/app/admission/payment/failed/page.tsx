@@ -2,7 +2,7 @@
 
 import { X } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { getAdmissionsById } from "@/app/api/server";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
@@ -10,15 +10,15 @@ import { decryptCode, notify } from "@/helpers/ConstantHelper";
 import { updateAdmission } from "@/store/services/global-services";
 import type { ThankYouPage } from "../success/page";
 
-const PaymentFailedPage = () => {
+export const dynamic = "force-dynamic";
+
+function PaymentFailedContent() {
   const [thankYouContent, setThankYouContent] = useState<ThankYouPage>({
     Title: "",
     Description: "",
     LongDescription: "",
   });
 
-  // const params = useParams();
-  // const encryptedId = params?.id;
   const searchParams = useSearchParams();
   const encryptedId = searchParams.get("id");
 
@@ -70,7 +70,7 @@ const PaymentFailedPage = () => {
       <div className="w-full flex flex-col items-center text-center space-y-8">
         <div className="flex justify-center">
           <div className="bg-red-500 rounded-full p-3 flex items-center justify-center">
-            <X className="size-8 text-white stroke-[3]" />
+            <X className="size-8 text-white stroke-3" />
           </div>
         </div>
 
@@ -126,6 +126,12 @@ const PaymentFailedPage = () => {
       </div>
     </main>
   );
-};
+}
 
-export default PaymentFailedPage;
+export default function PaymentFailedPage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center min-h-[calc(100vh-200px)]">Loading...</div>}>
+      <PaymentFailedContent />
+    </Suspense>
+  );
+}

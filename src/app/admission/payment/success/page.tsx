@@ -2,7 +2,7 @@
 
 import { Check } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { getAdmissionsById } from "@/app/api/server";
 import { Spinner } from "@/components/ui/spinner";
@@ -12,6 +12,8 @@ import { clientAxios } from "@/helpers/AxiosHelper";
 import { decryptCode, notify } from "@/helpers/ConstantHelper";
 import { updateAdmission } from "@/store/services/global-services";
 
+export const dynamic = "force-dynamic";
+
 export type ThankYouPage = {
   Title: string;
   Description: string;
@@ -19,7 +21,7 @@ export type ThankYouPage = {
   Type?: string;
 };
 
-const PaymentSuccessPage = () => {
+function PaymentSuccessContent() {
   const [admissionId, setAdmissionId] = useState<string | null>(null);
   const [courseName, setCourseName] = useState<string>("");
   const [isDownloading, setIsDownloading] = useState(false);
@@ -29,10 +31,9 @@ const PaymentSuccessPage = () => {
     Description: "",
     LongDescription: "",
   });
-  // const params = useParams();
+
   const searchParams = useSearchParams();
   const encryptedId = searchParams.get("id");
-  // const encryptedId = params?.id;
 
   const handleDownload = async () => {
     if (!admissionId || isDownloading) return;
@@ -129,7 +130,7 @@ const PaymentSuccessPage = () => {
 
         <div className="flex justify-center">
           <div className="bg-[#4CAF50] rounded-full p-3 flex items-center justify-center">
-            <Check className="size-8 text-white stroke-[3]" />
+            <Check className="size-8 text-white stroke-3" />
           </div>
         </div>
 
@@ -167,6 +168,12 @@ const PaymentSuccessPage = () => {
       </div>
     </main>
   );
-};
+}
 
-export default PaymentSuccessPage;
+export default function PaymentSuccessPage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading...</div>}>
+      <PaymentSuccessContent />
+    </Suspense>
+  );
+}
