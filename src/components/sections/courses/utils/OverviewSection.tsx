@@ -136,17 +136,19 @@ const OverviewSection = ({ data }: { data: MenuData }) => {
                   <div
                     className={`rectangle-79 absolute object-cover transition-all duration-500 ${
                       variant === "variant-2"
-                        ? "opacity-50 xl:w-[250px] xl:h-[270px] xl:left-[360px] 2xl:w-[300px] 2xl:h-[322px] 2xl:left-[440px] top-0 z-10 3xl:w-[396px] 3xl:h-[392px] 3xl:left-[520px] 3xl:top-6"
+                        ? "opacity-50 xl:w-[250px] xl:h-auto xl:left-[360px] 2xl:w-[300px] 2xl:h-auto 2xl:left-[440px] top-0 z-10 3xl:w-[396px] 3xl:h-auto 3xl:left-[520px] 3xl:top-6"
                         : variant === "variant-3"
-                          ? "xl:w-[400px] xl:h-[390px] xl:top-20 2xl:w-[500px] 2xl:h-[494px] 2xl:top-[90px] left-0 top-[65px] z-20 3xl:w-[630px] 3xl:h-[624px] 3xl:top-[104px]"
-                          : "opacity-50 xl:w-[300px] xl:h-[300px] xl:left-[180px] xl:top-[286px] 2xl:w-[344px] 2xl:h-[340px] 2xl:left-[300px] 2xl:top-[336px] z-10 3xl:w-[444px] 3xl:left-[330px] 3xl:h-[440px] 3xl:top-[436px]"
+                          ? "xl:w-[400px] xl:h-auto xl:top-20 2xl:w-[500px] 2xl:h-auto 2xl:top-[90px] left-0 top-[65px] z-20 3xl:w-[630px] 3xl:h-auto 3xl:top-[104px]"
+                          : "opacity-50 xl:w-[300px] xl:h-auto xl:left-[180px] xl:top-[286px] 2xl:w-[344px] 2xl:h-auto 2xl:left-[300px] 2xl:top-[336px] z-10 3xl:w-[444px] 3xl:left-[330px] 3xl:h-auto 3xl:top-[436px]"
                     }`}
                   >
                     <ImageWidget
                       src={getImageUrl(currentIndices[0])}
                       alt={aboutImages[currentIndices[0]].name}
-                      fill
-                      className="object-cover"
+                      // fill
+                      width={100}
+                      height={100}
+                      className="object-cover w-full h-full"
                     />
                   </div>
                 )}
@@ -154,17 +156,19 @@ const OverviewSection = ({ data }: { data: MenuData }) => {
                   <div
                     className={`rectangle-80 absolute object-cover transition-all duration-500 ${
                       variant === "variant-2"
-                        ? "xl:w-[400px] xl:h-[390px] xl:top-20 2xl:w-[500px] 2xl:h-[494px] 2xl:top-[90px] left-0 top-[65px] z-20 3xl:w-[630px] 3xl:h-[624px] 3xl:top-[104px]"
+                        ? "xl:w-[400px] xl:h-auto xl:top-20 2xl:w-[500px] 2xl:h-auto 2xl:top-[90px] left-0 top-[65px] z-20 3xl:w-[630px] 3xl:h-auto 3xl:top-[104px]"
                         : variant === "variant-3"
-                          ? "opacity-50 xl:w-[300px] xl:h-[300px] xl:left-[180px] xl:top-[286px] 2xl:w-[344px] 2xl:h-[340px] 2xl:left-[300px] 2xl:top-[336px] z-10 3xl:w-[444px] 3xl:left-[330px] 3xl:h-[440px] 3xl:top-[436px]"
-                          : "opacity-50 xl:w-[250px] xl:h-[270px] xl:left-[360px] 2xl:w-[300px] 2xl:h-[322px] 2xl:left-[440px] top-0 z-10 3xl:w-[396px] 3xl:h-[392px] 3xl:left-[520px] 3xl:top-6"
+                          ? "opacity-50 xl:w-[300px] xl:h-auto xl:left-[180px] xl:top-[286px] 2xl:w-[344px] 2xl:h-auto 2xl:left-[300px] 2xl:top-[336px] z-10 3xl:w-[444px] 3xl:left-[330px] 3xl:h-auto 3xl:top-[436px]"
+                          : "opacity-50 xl:w-[250px] xl:h-auto xl:left-[360px] 2xl:w-[300px] 2xl:h-auto 2xl:left-[440px] top-0 z-10 3xl:w-[396px] 3xl:h-auto 3xl:left-[520px] 3xl:top-6"
                     }`}
                   >
                     <ImageWidget
                       src={getImageUrl(currentIndices[1])}
                       alt={aboutImages[currentIndices[1]].name}
-                      fill
-                      className="object-cover"
+                      // fill
+                      width={100}
+                      height={100}
+                      className="object-cover w-full h-full"
                     />
                   </div>
                 )}
@@ -172,17 +176,19 @@ const OverviewSection = ({ data }: { data: MenuData }) => {
                   <div
                     className={`rectangle-78 absolute object-cover transition-all duration-500 ${
                       variant === "variant-2"
-                        ? "opacity-50 xl:w-[300px] xl:h-[300px] xl:left-[180px] xl:top-[286px] 2xl:w-[344px] 2xl:h-[340px] 2xl:left-[300px] 2xl:top-[336px] z-10 3xl:w-[444px] 3xl:left-[330px] 3xl:h-[440px] 3xl:top-[436px]"
+                        ? "opacity-50 xl:w-[300px] xl:h-auto xl:left-[180px] xl:top-[286px] 2xl:w-[344px] 2xl:h-auto 2xl:left-[300px] 2xl:top-[336px] z-10 3xl:w-[444px] 3xl:left-[330px] 3xl:h-auto 3xl:top-[436px]"
                         : variant === "variant-3"
-                          ? "opacity-50 xl:w-[250px] xl:h-[270px] xl:left-[360px] 2xl:w-[300px] 2xl:h-[322px] 2xl:left-[440px] top-0 z-10 3xl:w-[396px] 3xl:h-[392px] 3xl:left-[520px] 3xl:top-6"
-                          : "xl:w-[400px] xl:h-[390px] xl:top-20 2xl:w-[500px] 2xl:h-[494px] 2xl:top-[90px] left-0 top-[65px] z-20 3xl:w-[630px] 3xl:h-[624px] 3xl:top-[104px]"
+                          ? "opacity-50 xl:w-[250px] xl:h-auto xl:left-[360px] 2xl:w-[300px] 2xl:h-auto 2xl:left-[440px] top-0 z-10 3xl:w-[396px] 3xl:h-auto 3xl:left-[520px] 3xl:top-6"
+                          : "xl:w-[400px] xl:h-auto xl:top-20 2xl:w-[500px] 2xl:h-auto 2xl:top-[90px] left-0 top-[65px] z-20 3xl:w-[630px] 3xl:h-auto 3xl:top-[104px]"
                     }`}
                   >
                     <ImageWidget
                       src={getImageUrl(currentIndices[2])}
                       alt={aboutImages[currentIndices[2]].name}
-                      fill
-                      className="object-cover"
+                      // fill
+                      width={100}
+                      height={100}
+                      className="object-cover w-full h-full"
                     />
                   </div>
                 )}

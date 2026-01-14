@@ -1,7 +1,7 @@
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
-import ScrollWidget from "@/components/widgets/ScrollWidget";
+// import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import type { HowToApplyData } from "./types";
 
@@ -10,23 +10,23 @@ const HowtoApplySection = ({ data }: { data: HowToApplyData }) => {
     <section className="w-full bg-white py-10 sm:py-16 lg:py-20 3xl:py-24">
       <ContainerWidget>
         <div className="flex flex-col items-start md:items-center gap-8">
-          <ScrollWidget delay={0.1} animation="fadeUp">
+          {/* <ScrollWidget delay={0.1} animation="fadeUp"> */}
             <h2 className="text-3xl font-urbanist font-normal xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[64px] md:font-normal text-black font-urbanist text-left md:text-center">
               {data.Title}
             </h2>
-          </ScrollWidget>
+          {/* </ScrollWidget> */}
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
             {data.Card.map((card, index) => {
               // const stepNumber = String(index + 1).padStart(2, "0");
               return (
-                <ScrollWidget
-                  key={card.id}
-                  delay={0.2 + index * 0.1}
-                  animation="fadeUp"
-                  className="h-full"
-                >
-                  <div className="relative flex flex-col border border-[#E97451] bg-white px-4 py-4 3xl:p-6 h-full">
+                // <ScrollWidget
+                //   key={card.id}
+                //   delay={0.2 + index * 0.1}
+                //   animation="fadeUp"
+                //   className="h-full"
+                // >
+                  <div key={card.id} className="relative flex flex-col border border-[#E97451] bg-white px-4 py-4 3xl:p-6 h-full">
                     {/* <div className="absolute top-6 right-6 lg:top-6 lg:right-6">
                       <span className="text-[#E97451]/20 font-urbanist text-5xl sm:text-[60px] 3xl:text-[80px] font-normal leading-none">
                         {stepNumber}
@@ -56,7 +56,6 @@ const HowtoApplySection = ({ data }: { data: HowToApplyData }) => {
                       />
                     )}
                   </div>
-                </ScrollWidget>
               );
             })}
           </div>

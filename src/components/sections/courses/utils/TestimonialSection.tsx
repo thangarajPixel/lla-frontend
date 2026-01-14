@@ -7,7 +7,7 @@ import ContainerWidget from "@/components/widgets/ContainerWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ParagraphWidget from "@/components/widgets/ParagraphWidget";
-import ScrollWidget from "@/components/widgets/ScrollWidget";
+// import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { ArrowLeftBlack, ArrowRightBlack, Quote } from "@/helpers/ImageHelper";
 import type { TestimonialData } from "./types";
 
@@ -62,7 +62,7 @@ const TestimonialSection = ({ data }: TestimonialSectionProps) => {
   return (
     <section className="w-full bg-[#ECECEC] flex flex-col relative py-10 sm:py-14 md:py-18 lg:py-20 xl:py-20 2xl:py-25">
       <ContainerWidget>
-        <ScrollWidget animation="fadeUp" delay={0.1}>
+        {/* <ScrollWidget animation="fadeUp" delay={0.1}> */}
           <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-10 lg:gap-12 xl:gap-14 2xl:gap-16 items-stretch">
             <div className="space-y-2.5 md:space-y-3 lg:space-y-4">
               <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
@@ -161,7 +161,7 @@ const TestimonialSection = ({ data }: TestimonialSectionProps) => {
               </div>
             </div>
           </div>
-        </ScrollWidget>
+        {/* </ScrollWidget> */}
       </ContainerWidget>
     </section>
   );
