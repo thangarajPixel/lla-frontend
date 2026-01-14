@@ -437,8 +437,8 @@ const PersonalDetailsForm = ({
           </h1>
 
           <div
-            // className="flex flex-col-reverse xs:flex-col 2xl:grid 2xl:grid-cols-[1fr_180px] 3xl:grid-cols-[1fr_180px] gap-8"
-            className="flex flex-col-reverse xs:flex-col lg:grid lg:grid-cols-[1fr_180px] gap-8"
+            // className="flex flex-col-reverse xs:flex-col lg:grid lg:grid-cols-[1fr_180px] gap-8"
+            className="flex flex-col-reverse xs:flex-col lg:grid lg:grid-cols-[minmax(0,1fr)_180px] xl:grid-cols-[1fr_180px] gap-8"
           >
             <div className="space-y-6">
               <div>
