@@ -167,7 +167,7 @@ export default function TeamMemberPopup({
                       <ButtonWidget
                         onClick={handleClose}
                         type="button"
-                        className="bg-white border-2 border-[#E97451] flex items-center gap-2 rounded-[60px] px-4 h-10 text-sm font-bold transition-colors duration-300 font-mulish shadow-lg hover:bg-[#E97451] hover:text-white"
+                        className="orange-button-white flex border-none items-center gap-2 rounded-[60px] px-5 h-10 text-sm lg:text-base font-bold transition-colors duration-300 font-mulish text-[15px] 3xl:text-[18px] shadow-lg"
                         aria-label="Go back"
                       >
                         <ImageWidget
@@ -180,7 +180,7 @@ export default function TeamMemberPopup({
                     </div>
                     
                     {/* Desktop back button - fixed position */}
-                    <div className="hidden md:block fixed top-25 2xl:top-28 right-5 z-50">
+                    <div className="hidden md:block fixed top-20 lg:top-25 2xl:top-28 right-5 z-50">
                       <ButtonWidget
                         onClick={handleClose}
                         type="button"
@@ -233,7 +233,7 @@ export default function TeamMemberPopup({
                     )}
                     {onPrev && onNext && totalPages > 1 && (
                       <div>
-                        <div className="flex gap-2 sm:gap-4 w-full bg-[#E97451]/20 rounded-full p-1 sm:p-1.5">
+                        <div className="flex mb-4 gap-2 sm:gap-4 w-full bg-[#E97451]/20 rounded-full p-1 sm:p-1.5">
                           <button
                             type="button"
                             onClick={onPrev}

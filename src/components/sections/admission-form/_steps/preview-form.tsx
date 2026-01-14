@@ -121,7 +121,7 @@ function Field({
   return (
     <div
       className={cn(
-        "flex flex-col items-start md:flex-row md:items-center gap-1 lg:gap-0 justify-between text-base 3xl:text-2xl font-mulish",
+        "flex flex-col items-start md:flex-row gap-1 lg:gap-0 justify-between text-base 3xl:text-2xl font-mulish",
         label === "Address" && "md:items-start",
       )}
     >
@@ -134,6 +134,7 @@ function Field({
           "wrap-break-word whitespace-normal overflow-hidden",
           "md:text-right md:max-w-xs",
           label === "Email" && "md:max-w-fit",
+          label === "Course Name" && "md:max-w-md"
         )}
       >
         {isDob
@@ -335,19 +336,26 @@ const ReviewApplication = ({
           // className="flex lg:ml-20 xl:ml-36 md:w-full lg:w-[33%] 3xl:w-[35%] flex-col lg:items-center gap-6 pt-8 2xl:pt-0 mb-8 3xl:py-16 3xl:mt-6"
           className={`flex lg:ml-20 xl:ml-36 md:w-full lg:w-[33%] 3xl:w-[35%] flex-col lg:items-center gap-6 pt-8 2xl:pt-0 mb-8 3xl:py-16 3xl:mt-6 lg:sticky transition-all duration-500 ${isHeaderVisible ? "top-0" : "top-10"} lg:h-screen`}
         >
-          <h1 className="text-[32px] px-4 font-urbanist leading-tight lg:hidden">
-            {admissionData?.Course?.Name}
-          </h1>
-          <div className="flex flex-col gap-3 px-4 lg:px-0 2xl:mt-14 3xl:mt-0">
-            <h1 className="text-[32px] 3xl:text-[40px] font-urbanist text-[#E97451]">
-              Review Application
-            </h1>
-            <p className="text-base 3xl:text-lg">
-              Kindly verify the details before submitting.
-            </p>
-          </div>
+          {
+            admissionData?.Payment_Status !== "Paid" && (
+              <>
+                <h1 className="text-[32px] px-4 font-urbanist leading-tight lg:hidden">
+                  {admissionData?.Course?.Name}
+                </h1>
+                <div className="flex flex-col gap-3 px-4 lg:px-0 2xl:mt-14 3xl:mt-0">
+                  <h1 className="text-[32px] 3xl:text-[40px] font-urbanist text-[#E97451]">
+                    Review Application
+                  </h1>
+                  <p className="text-base 3xl:text-lg">
+                    Kindly verify the details before submitting.
+                  </p>
+                </div>
+              </>
+            )
+          }
 
-          <div className="w-[193px] h-[250px] lg:w-[300px] xl:w-[350px] 2xl:w-[400px] 2xxl:w-[420px] lg:h-fit 3xl:w-[519px] 3xl:h-[669px]  ml-4 lg:ml-0 xl:ml-6 2xl:ml-16 2xxl:ml-22 3xl:ml-22">
+
+          <div className={`w-[193px] h-[250px] lg:w-[300px] xl:w-[350px] 2xl:w-[400px] 2xxl:w-[420px] lg:h-fit 3xl:w-[519px] 3xl:h-[669px]  ml-4 lg:ml-0 xl:ml-6 2xl:ml-16 2xxl:ml-22 3xl:ml-22 ${admissionData?.Payment_Status === "Paid" && "mt-4 2xl:mt-14 2xxl:mt-20 3xl:mt-0"}`}>
             <ImageWidget
               width={200}
               height={200}
@@ -399,6 +407,7 @@ const ReviewApplication = ({
               canEdit
               paymentStatus={admissionData?.Payment_Status}
             >
+              <Field label="Course Name" value={admissionData?.Course?.Name} />
               <Field
                 label="First Name"
                 value={admissionData?.first_name}
