@@ -32,7 +32,7 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
     { href: "#course-content", label: "Course Content" },
     { href: "#other-info", label: data?.Other_Info?.Title || "Other Info" },
     { href: "#how-to-apply", label: "How to Apply" },
-    { href: "#faqs", label: "FAQ's" },
+    { href: "#faqs", label: "FAQ" },
   ];
 
   const handleSmoothScroll = (
