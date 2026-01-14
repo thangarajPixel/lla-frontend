@@ -18,8 +18,8 @@ const AdmissionFormLayout = ({ children }: { children: React.ReactNode }) => {
   const step = pathName.split("/").pop();
   const selectedCourseName = useCourseStore((state) => state.courseName);
 
-  const searchParams = useSearchParams();
-  const course = searchParams.get("course");
+  // const searchParams = useSearchParams();
+  // const course = searchParams.get("course");
 
   // useEffect(() => {
   //   const el = scrollContainerRef.current;
@@ -48,19 +48,19 @@ const AdmissionFormLayout = ({ children }: { children: React.ReactNode }) => {
     }
   }, [step]);
 
-  useEffect(() => {
-    const getCourseName = async () => {
-      const res = await getCourseBySlug((course as string) ?? "");
-      if (res?.data) {
-        setCourseName(res?.data?.courseList?.Name);
-      }
-    };
-    // getCourseName();
+  // useEffect(() => {
+  //   const getCourseName = async () => {
+  //     const res = await getCourseBySlug((course as string) ?? "");
+  //     if (res?.data) {
+  //       setCourseName(res?.data?.courseList?.Name);
+  //     }
+  //   };
+  //   // getCourseName();
 
-    if (course) {
-      getCourseName();
-    }
-  }, [course]);
+  //   if (course) {
+  //     getCourseName();
+  //   }
+  // }, [course]);
 
   if (step === "preview" || step === "success" || step === "failed") {
     return <>{children}</>;

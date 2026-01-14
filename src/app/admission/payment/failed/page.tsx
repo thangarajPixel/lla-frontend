@@ -9,6 +9,7 @@ import { clientAxios } from "@/helpers/AxiosHelper";
 import { decryptCode, notify } from "@/helpers/ConstantHelper";
 import { updateAdmission } from "@/store/services/global-services";
 import type { ThankYouPage } from "../success/page";
+export const dynamic = "force-dynamic";
 
 const PaymentFailedPage = () => {
   const [thankYouContent, setThankYouContent] = useState<ThankYouPage>({
