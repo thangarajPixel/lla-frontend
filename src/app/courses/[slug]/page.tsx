@@ -13,11 +13,11 @@ export async function generateMetadata({
   const response = await getCourseBySlug(slug);
   const seoData = response?.data?.SeoViewCard;
   return {
-    title: seoData.Title || "Course | LLA",
+    title: seoData?.Title || "Course | LLA",
     description:
-      seoData.Description ||
+      seoData?.Description ||
       "Professional Photography Course at Light & Life Academy",
-    keywords: seoData.KeyWords || undefined,
+    keywords: seoData?.KeyWords || undefined,
   };
 }
 

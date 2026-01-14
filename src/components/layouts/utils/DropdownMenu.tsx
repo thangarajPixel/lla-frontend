@@ -13,8 +13,8 @@ const ChevronIcon = ({ isOpen, isSticky = false }: ChevronIconProps) => (
   <ImageWidget
     src={TopArrowIcon}
     alt="Arrow"
-    className={`ml-3 w-[13px] h-[13px] transition-transform duration-500 ease-out ${
-      isSticky ? "brightness-0" : ""
+    className={`ml-3 w-[13px] h-[13px] transition-transform duration-500 brightness-0 ease-out ${
+      isSticky ? "brightness-0" : "relative top-[1px]"
     } ${isOpen ? "rotate-180" : "rotate-0"}`}
   />
 );

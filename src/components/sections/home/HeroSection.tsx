@@ -23,7 +23,7 @@ const HeroSection = ({ data }: HeroSectionProps) => {
       <div className="absolute inset-0 bg-black/40" />
       <ParallaxWidget
         speed={-1.5}
-        className="relative z-10 mix-blend-difference"
+        className="relative z-10"
       >
         <ScrollWidget>
           <div className="flex items-center justify-center mt-64 md:mt-[300px] xl:mt-[250px] 2xl:mt-[240px] 3xl:mt-[300px]">
