@@ -128,7 +128,7 @@ const FormDatePickerWithInput = <T extends FieldValues>({
                 setMonth(parsed);
                 return;
               } else {
-                onChange("2000-01-01");
+                onChange("0001-01-01");
                 setMonth(undefined);
               }
             }

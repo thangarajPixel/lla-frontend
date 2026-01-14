@@ -142,6 +142,22 @@ export const workExperience = z
         code: z.ZodIssueCode.custom,
       });
     }
+
+    if (value.duration_start?.trim() === "0001-01-01") {
+      ctx.addIssue({
+        path: ["duration_start"],
+        message: "Inavlid date",
+        code: z.ZodIssueCode.custom,
+      });
+    }
+
+    if (value.duration_end?.trim() === "0001-01-01") {
+      ctx.addIssue({
+        path: ["duration_end"],
+        message: "Inavlid date",
+        code: z.ZodIssueCode.custom,
+      });
+    }
   });
 
 export const education = z.object({
@@ -217,7 +233,7 @@ export const personalDetailsSchema = (admissionEmail?: string, courseId?: number
       .string()
       .min(1, "Date of birth is required")
       .superRefine((value, ctx) => {
-        if (value === "2000-01-01") {
+        if (value === "0001-01-01") {
           ctx.addIssue({
             message: "Invalid date",
             code: z.ZodIssueCode.custom,
