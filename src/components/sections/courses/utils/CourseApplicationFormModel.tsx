@@ -14,7 +14,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Spinner } from "@/components/ui/spinner";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
-import { encryptId, getMyIp } from "@/helpers/ConstantHelper";
+import { encryptId } from "@/helpers/ConstantHelper";
 import { admissionRequestSchema } from "@/helpers/ValidationHelper";
 import type { RequestFormData } from "./CourseAdmissionFormSection";
 
@@ -52,7 +52,7 @@ const CourseApplicationFormModel = ({
   const onSubmit = async (payload: RequestFormData) => {
     const isAdmissionOpen = await getEssentialsData();
 
-    const clientIp = await getMyIp();
+    // const clientIp = await getMyIp();
 
     const admissionPayload = {
       first_name: payload.FirstName,
@@ -64,7 +64,7 @@ const CourseApplicationFormModel = ({
         selectedCourseItem?.documentId,
       step_0: true,
       AdmissionYear: isAdmissionOpen?.data?.admission_year?.AcademicYear,
-      IpAddress: clientIp?.ip,
+      // IpAddress: clientIp?.ip,
     };
 
     const requestPayload = {
