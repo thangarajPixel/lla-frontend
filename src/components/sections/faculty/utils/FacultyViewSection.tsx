@@ -119,7 +119,7 @@ const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
   return (
     <>
       {/* Back button - optimized spacing and alignment */}
-      <div className="px-4 pt-4 pb-2 md:fixed md:top-25 md:left-auto md:right-5 md:z-50 md:p-0">
+      <div className="px-4 pt-4 pb-2 md:absolute md:top-25 md:left-auto md:right-5 md:z-30 md:p-0">
         <ButtonWidget
           onClick={() => router.push("/faculty")}
           type="button"
@@ -134,7 +134,7 @@ const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
           <span className="text-[#E97451] sm:inline">Back</span>
         </ButtonWidget>
       </div>
-      <div className="grid grid-cols-1  md:grid-cols-[2.5fr_3fr]">
+      <div className="grid grid-cols-1 gap-5 md:gap-0  md:grid-cols-[2.5fr_3fr]">
         <div className="flex flex-col">
           <div className="flex flex-col sticky top-16 space-y-4 px-4 py-4 pb-0 md:pb-8 md:px-6 lg:px-8 xl:px-12 xl:pl-50 2xl:pl-58 2xl:pr-10 3xl:px-20 3xl:pl-74 md:pt-13">
             <ScrollWidget
@@ -174,11 +174,11 @@ const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
                   type="button"
                   onClick={handlePrev}
                   // disabled={currentPage <= 1 || isLoading}
-                  className={`flex items-center rounded-full justify-center h-8 sm:h-10 md:h-12 flex-1 border-2 border-[#FFD4CC] bg-white transition-all ${
-                    isLoading  // currentPage <= 1 || 
-                      ? "opacity-50 cursor-not-allowed"
-                      : "cursor-pointer hover:bg-[#FFD4CC]"
-                  }`}
+                  className={`flex items-center rounded-full justify-center h-8 sm:h-10 md:h-12 flex-1 border-2 border-[#FFD4CC] bg-white transition-all 
+                    ${isLoading  // currentPage <= 1 || 
+                    ? "opacity-50 cursor-not-allowed"
+                    : "cursor-pointer hover:bg-[#FFD4CC]"
+                    }`}
                   aria-label="Previous portrait"
                 >
                   <ImageWidget
@@ -191,11 +191,11 @@ const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
                   type="button"
                   onClick={handleNext}
                   // disabled={currentPage >= totalPages || isLoading}
-                  className={`flex items-center rounded-full justify-center h-8 sm:h-10 md:h-12 flex-1 border-2 border-[#FFD4CC] bg-white transition-all ${
-                    isLoading // currentPage >= totalPages || 
-                      ? "opacity-50 cursor-not-allowed"
-                      : "cursor-pointer hover:bg-[#FFD4CC]"
-                  }`}
+                  className={`flex items-center rounded-full justify-center h-8 sm:h-10 md:h-12 flex-1 border-2 border-[#FFD4CC] bg-white transition-all 
+                    ${isLoading // currentPage >= totalPages || 
+                    ? "opacity-50 cursor-not-allowed"
+                    : "cursor-pointer hover:bg-[#FFD4CC]"
+                    }`}
                   aria-label="Next portrait"
                 >
                   <ImageWidget
