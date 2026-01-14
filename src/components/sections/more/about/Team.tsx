@@ -8,7 +8,7 @@ import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import LightboxWidget from "@/components/widgets/LightboxWidget";
 import { OrangeArrowRight, Website } from "@/helpers/ImageHelper";
-import type { Card, TeamMemberPopupProps } from "./utils/about-us";
+import type { Card, TeamMemberPopupProps } from "./utils/about";
 
 export default function TeamMemberPopup({
   cards,

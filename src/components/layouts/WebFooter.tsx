@@ -15,7 +15,7 @@ import OrangeButtonWidget from "../widgets/OrangeButtonWidget";
 
 const QUICK_LINKS = [
   { id: "home", href: "/", label: "Home" },
-  { id: "about", href: "/about-us", label: "About LLA" },
+  { id: "about", href: "/about", label: "About LLA" },
   { id: "campus", href: "/campus", label: "Campus" },
   { id: "faculty", href: "/faculty", label: "Faculty" },
   { id: "gallery", href: "/gallery", label: "Gallery" },

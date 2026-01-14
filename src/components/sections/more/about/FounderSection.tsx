@@ -7,7 +7,7 @@ import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import TeamMemberPopup from "./Team";
-import type { FounderSectionProps } from "./utils/about-us";
+import type { FounderSectionProps } from "./utils/about";
 
 const FounderSection = ({ data }: FounderSectionProps) => {
   const [selectedCardId, setSelectedCardId] = useState<number | null>(null);
