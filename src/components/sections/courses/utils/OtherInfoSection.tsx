@@ -1,7 +1,6 @@
 import AccordionWidget from "@/components/widgets/AccordionWidget";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import ParagraphWidget from "@/components/widgets/ParagraphWidget";
-import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { Dummy12 } from "@/helpers/ImageHelper";
 import type { OtherInfoData } from "./types";
 
@@ -32,7 +31,7 @@ const OtherInfoSection = ({ data }: { data: OtherInfoData }) => {
         }}
       />
       <ContainerWidget>
-        <ScrollWidget animation="fadeUp" delay={0}>
+        <div className="relative z-10">
           <div className="space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12 2xl:space-y-14 3xl:space-y-16">
             <div className="space-y-0">
               <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[64px] font-normal md:font-normal text-black font-urbanist leading-[26px]!">
@@ -55,7 +54,7 @@ const OtherInfoSection = ({ data }: { data: OtherInfoData }) => {
               />
             )}
           </div>
-        </ScrollWidget>
+        </div>
       </ContainerWidget>
     </section>
   );

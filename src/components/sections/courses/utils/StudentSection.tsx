@@ -164,11 +164,11 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                   (student: StudentTestimonialCard, index: number) => {
                     const videoUrl = student.Url;
                     return (
-                      // <ScrollWidget
-                      //   key={student.id}
-                      //   animation={index % 2 === 0 ? "fadeUp" : "fadeDown"}
-                      //   delay={0.1 + index * 0.15}
-                      // >
+                      <div
+                        key={student.id}
+                        // animation={index % 2 === 0 ? "fadeUp" : "fadeDown"}
+                        // delay={0.1 + index * 0.15}
+                      >
                         <div
                           key={student.id}
                           className={`shrink-0 ${
@@ -308,7 +308,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                             </div>
                           </div>
                         </div>
-                      // </ScrollWidget>
+                      </div>
                     );
                   },
                 )}
