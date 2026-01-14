@@ -17,7 +17,7 @@ import DialogWidget from "@/components/widgets/DialogWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import ParagraphWidget from "@/components/widgets/ParagraphWidget";
-import ScrollWidget from "@/components/widgets/ScrollWidget";
+// import ScrollWidget from "@/components/widgets/ScrollWidget";
 import {
   ArrowLeftBlack,
   ArrowRightBlack,
@@ -129,7 +129,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
   return (
     <section className="w-full py-10 md:py-10 lg:py-12 xl:py-16 2xl:py-20 3xl:py-24 bg-white mx-auto max-w-[1920px]">
       <ContainerWidget>
-        <ScrollWidget animation="fadeUp" delay={0.1}>
+        {/* <ScrollWidget animation="fadeUp" delay={0.1}> */}
           <div className="flex flex-col justify-start md:justify-center items-start md:items-center text-left md:text-center gap-2.5 md:gap-4.5">
             <h2 className="text-3xl xss:text-[32px] md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl 3xl:text-[80px] font-semibold md:font-normal text-black font-urbanist">
               {sectionData?.Title}
@@ -150,10 +150,10 @@ const StudentSection = ({ data }: StudentSectionProps) => {
               {sectionData?.Description}
             </ParagraphWidget>
           </div>
-        </ScrollWidget>
+        {/* </ScrollWidget> */}
       </ContainerWidget>
       <div className="pt-10 md:pt-20 md:pb-5 pb relative md:px-4 sm:px-0">
-        <ScrollWidget animation="fadeDown" delay={0.2}>
+        {/* <ScrollWidget animation="fadeDown" delay={0.2}> */}
           <div className="relative" ref={carouselRef}>
             <div
               className="overflow-hidden cursor-grab active:cursor-grabbing"
@@ -164,12 +164,13 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                   (student: StudentTestimonialCard, index: number) => {
                     const videoUrl = student.Url;
                     return (
-                      <ScrollWidget
-                        key={student.id}
-                        animation={index % 2 === 0 ? "fadeUp" : "fadeDown"}
-                        delay={0.1 + index * 0.15}
-                      >
+                      // <ScrollWidget
+                      //   key={student.id}
+                      //   animation={index % 2 === 0 ? "fadeUp" : "fadeDown"}
+                      //   delay={0.1 + index * 0.15}
+                      // >
                         <div
+                          key={student.id}
                           className={`shrink-0 ${
                             index % 2 ? "md:mt-30" : "mt-0"
                           } w-[calc(100%-2rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc((100%-4.5rem)/3.5)] lg:w-[calc((100%-4.5rem)/3.5)] xl:w-[calc((100%-4.5rem)/3.5)] 2xl:w-[calc((100%-4.5rem)/3.5)]`}
@@ -307,7 +308,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
                             </div>
                           </div>
                         </div>
-                      </ScrollWidget>
+                      // </ScrollWidget>
                     );
                   },
                 )}
@@ -350,7 +351,7 @@ const StudentSection = ({ data }: StudentSectionProps) => {
               </button>
             </div>
           </div>
-        </ScrollWidget>
+        {/* </ScrollWidget> */}
       </div>
     </section>
   );
