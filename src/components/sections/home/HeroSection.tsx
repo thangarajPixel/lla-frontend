@@ -20,7 +20,7 @@ const HeroSection = ({ data }: HeroSectionProps) => {
           <source src={getS3Url(data?.Video?.url)} type="video/mp4" />
         </video>
       </ParallaxWidget>
-      <div className="absolute inset-0 bg-black/40" />
+      {/* <div className="absolute inset-0 bg-black/40" /> */}
       <ParallaxWidget
         speed={-1.5}
         className="relative z-10 mix-blend-difference"

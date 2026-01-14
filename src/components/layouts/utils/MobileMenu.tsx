@@ -73,17 +73,17 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
             <div className="flex flex-col gap-1.5 w-6">
               <span
                 className={`block h-0.5 w-full transition-all duration-300 ${
-                  isSticky ? "bg-black" : "bg-white"
+                  isSticky ? "bg-black" : "bg-black"
                 }`}
               />
               <span
                 className={`block h-0.5 w-full transition-all duration-300 ${
-                  isSticky ? "bg-black" : "bg-white"
+                  isSticky ? "bg-black" : "bg-black"
                 }`}
               />
               <span
                 className={`block h-0.5 w-full transition-all duration-300 ${
-                  isSticky ? "bg-black" : "bg-white"
+                  isSticky ? "bg-black" : "bg-black"
                 }`}
               />
             </div>

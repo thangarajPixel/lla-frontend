@@ -151,7 +151,7 @@ const WebHeader = ({
           isHomePage
             ? isSticky
               ? "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
-              : "absolute top-0 left-0 bg-transparent text-white"
+              : "absolute top-0 left-0 bg-transparent text-black"
             : "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
         }`}
     >
@@ -160,7 +160,7 @@ const WebHeader = ({
           <div className="flex items-center justify-between md:gap-6 py-3">
             <LinkWidget href="/">
               <ImageWidget
-                src={isHomePage ? (isSticky ? LogoBlack : Logo) : LogoBlack}
+                src={isHomePage ? (isSticky ? LogoBlack : LogoBlack) : LogoBlack}
                 alt="Logo"
                 className={
                   isSticky

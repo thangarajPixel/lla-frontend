@@ -25,7 +25,7 @@ const QUICK_LINKS = [
 const RESOURCES = [
   { id: "blog", href: "/blogs", label: "Blog" },
   { id: "media", href: "/in-the-media", label: "Media" },
-  { id: "faq", href: "/faq", label: "FAQ's" },
+  { id: "faq", href: "/faq", label: "FAQ" },
   { id: "privacy", href: "/privacy-policy", label: "Privacy Policy" },
   {
     id: "terms",
