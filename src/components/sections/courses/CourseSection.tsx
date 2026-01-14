@@ -26,7 +26,6 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const isHeaderVisible = useCourseStore((state) => state.isHeaderVisible);
 
-  console.log('data',data)
   // Create dynamic sidebar menu items based on data
   const sidebarMenuItems = [
     { href: "#overview", label: data?.Overview?.Title || "Overview" },
