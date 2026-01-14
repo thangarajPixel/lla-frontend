@@ -20,7 +20,7 @@ const pageMapping: Record<string, string> = {
   "/gallery": "Gallery",
   "/about": "About",
   "/life-at-lla": "Life-At-Lla",
-  "/blogs": "Blog",
+  "/blog": "Blog",
   "/media": "Media",
   "/contact-us": "Contact-Us",
   "/faq": "Faq",

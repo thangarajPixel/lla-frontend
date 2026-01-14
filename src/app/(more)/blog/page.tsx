@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { getBlogPageData } from "@/app/api/server";
-import BlogSection from "@/components/sections/more/blogs/BlogSection";
+import BlogSection from "@/components/sections/more/blog/BlogSection";
 import { generateSeoMetadata } from "@/helpers/SeoHelper";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return generateSeoMetadata("/blogs");
+  return generateSeoMetadata("/blog");
 }
 
 const Blogs = async () => {

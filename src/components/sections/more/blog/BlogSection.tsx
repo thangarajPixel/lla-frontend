@@ -376,7 +376,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                               ref={(el) => {
                                 cardsRef.current[index] = el;
                               }}
-                              onClick={() => router.push(`/blogs/${blog.Slug}`)}
+                              onClick={() => router.push(`/blog/${blog.Slug}`)}
                             >
                               <div className="flex flex-col gap-4 h-full">
                                 <div className="relative w-full overflow-hidden rounded-none aspect-video">
@@ -403,7 +403,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                                     />
                                   )}
                                   <Link
-                                    href={`/blogs/${blog.Slug}`}
+                                    href={`/blog/${blog.Slug}`}
                                     className="inline-flex items-center gap-2 text-[#E97451] hover:gap-2 transition-all duration-300  text-[16px] md:text-[16px] lg:text-[16px] font-normal font-urbanist group"
                                   >
                                     {blog.Btn_txt}
@@ -479,7 +479,7 @@ const BlogSection = ({ data }: { data: BlogPageData }) => {
                                 />
                               )}
                               <Link
-                                href={`/blogs/${blog.Slug}`}
+                                href={`/blog/${blog.Slug}`}
                                 className="inline-flex items-center gap-2 text-[#E97451] hover:gap-4 transition-all duration-300 mt-2 text-[16px] md:text-[16px] lg:text-[16px] font-normal font-urbanist group"
                               >
                                 Read More
