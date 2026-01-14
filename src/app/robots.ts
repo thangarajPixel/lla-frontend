@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/", "/admission/"],
       },
     ],
-    sitemap: `${process.env.NEXTAUTH_URL}/sitemap.xml`,
+    sitemap: `${process.env.NEXT_APP_SITE_URL}/sitemap.xml`,
   };
 }
