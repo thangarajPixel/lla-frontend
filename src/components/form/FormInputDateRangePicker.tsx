@@ -108,19 +108,25 @@ export default function FormDateRangePickerEditable<T extends FieldValues>({
 
     const [startStr, endStr] = value.split(" - ").map((v) => v.trim());
 
+    if (!startStr?.trim() && !endStr?.trim()) {
+      setStart("");
+      setEnd("");
+      return;
+    }
+
     const startParsed = parseDisplay(startStr);
     const endParsed = parseDisplay(endStr);
 
     if (startParsed) {
       setStart(format(startParsed, STORE));
     } else {
-      setStart("");
+      setStart("0001-01-01");
     }
 
-    if (endParsed) {
+    if (startParsed && endParsed) {
       setEnd(format(endParsed, STORE));
     } else {
-      setEnd("");
+      setEnd("0001-01-01");
     }
 
     setRange({
