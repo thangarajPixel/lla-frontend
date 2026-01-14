@@ -11,7 +11,6 @@ import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
 import { decryptCode, notify } from "@/helpers/ConstantHelper";
 import { updateAdmission } from "@/store/services/global-services";
-
 export const dynamic = "force-dynamic";
 
 export type ThankYouPage = {

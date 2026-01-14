@@ -17,6 +17,7 @@ import { DocumentIcon, EditIcon } from "@/helpers/ImageHelper";
 import { cn } from "@/lib/utils";
 import { useCourseStore } from "@/store/zustand";
 import PaymentModel from "../_components/payment-model";
+export const dynamic = "force-dynamic";
 
 export type PaymentData = {
   key: string;
