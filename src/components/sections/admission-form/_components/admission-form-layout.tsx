@@ -103,7 +103,7 @@ const AdmissionFormLayout = ({ children }: { children: React.ReactNode }) => {
             "w-full bg-white px-4 sm:px-8 py-6",
             "lg:w-[65%] 3xl:flex-1",
             "lg:pr-24 xl:pr-52 2xl:pr-62 3xl:pr-76",
-            currentStep === 1 && "lg:w-[75%] lg:pr-10",
+            currentStep === 1 && "lg:w-[75%] lg:pr-24",
           )}
         >
           <div
