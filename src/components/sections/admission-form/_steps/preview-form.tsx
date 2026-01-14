@@ -384,7 +384,7 @@ const ReviewApplication = ({
           )}
         </div>
 
-        <Card className="bg-chart-1/20 flex-1 backdrop-blur lg:py-16 3xl:py-32 3xl:pl-6 3xl:mt-10 border-none shadow-none rounded-none">
+        <Card className="bg-chart-1/20 flex-1 backdrop-blur lg:py-14 3xl:py-24 3xl:pl-6 3xl:mt-10 border-none shadow-none rounded-none">
           <CardContent
             // ref={scrollContainerRef}
             // className="space-y-8 text-sm lg:max-w-[90%] xl:max-w-[75%] 2xl:mt-10 3xl:mt-0 3xl:max-w-3/4 h-[calc(100vh-6rem)] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
