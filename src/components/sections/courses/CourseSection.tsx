@@ -26,13 +26,14 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const isHeaderVisible = useCourseStore((state) => state.isHeaderVisible);
 
+  console.log('data',data)
   // Create dynamic sidebar menu items based on data
   const sidebarMenuItems = [
-    { href: "#overview", label: "Overview" },
-    { href: "#course-content", label: "Course Content" },
+    { href: "#overview", label: data?.Overview?.Title || "Overview" },
+    { href: "#course-content", label: data?.Course_content?.Title || "Course Content" },
     { href: "#other-info", label: data?.Other_Info?.Title || "Other Info" },
-    { href: "#how-to-apply", label: "How to Apply" },
-    { href: "#faqs", label: "FAQ" },
+    { href: "#how-to-apply", label: data?.HowToApply?.Title || "How to Apply" },
+    { href: "#faqs", label: data?.Faq?.Title || "FAQ" },
   ];
 
   const handleSmoothScroll = (
