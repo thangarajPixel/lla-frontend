@@ -11,11 +11,11 @@ export async function generateMetadata({
     const { slug } = await params;
     const { data: response } = await getMediaBySlug(slug);
     const baseUrl = (process.env.NEXT_APP_SITE_URL || "https://llacademy.org").replace(/"/g, "");
-    
+
     return {
-      title: response?.Title || "Media | LLA",
-      description: response?.Description || "Light & Life Academy in the Media",
-      keywords: response?.KeyWords || undefined,
+      title: response?.card?.SeoViewCard?.Title || "Media | LLA",
+      description: response?.card?.SeoViewCard?.Description || "Light & Life Academy in the Media",
+      keywords: response?.card?.SeoViewCard?.KeyWords || undefined,
       alternates: {
         canonical: `${baseUrl}/media/${slug}`,
       },

@@ -11,11 +11,11 @@ export async function generateMetadata({
     const { slug } = await params;
     const { data: response } = await getLifeById(slug);
     const baseUrl = (process.env.NEXT_APP_SITE_URL || "https://llacademy.org").replace(/"/g, "");
-    
+    console.log('response',response)
     return {
-      title: response?.card?.Title || "Life at LLA",
-      description: response?.card?.Description || "Life at Light & Life Academy",
-      keywords: response?.card?.KeyWords || undefined,
+      title: response?.card?.SeoViewCard?.Title || "Life at LLA",
+      description: response?.card?.SeoViewCard?.Description || "Life at Light & Life Academy",
+      keywords: response?.card?.SeoViewCard?.KeyWords || undefined,
       alternates: {
         canonical: `${baseUrl}/life-at-lla/${slug}`,
       },
