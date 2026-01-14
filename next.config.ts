@@ -7,6 +7,52 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
   
+  // Redirects
+  async redirects() {
+    return [
+      {
+        source: '/faqs',
+        destination: '/faq',
+        permanent: true, // 301 redirect
+      },
+      {
+        source: '/photography-contest/shoot-from-home-2020',
+        destination: '/life-at-lla',
+        permanent: true, // 301 redirect
+      },
+      {
+        source: '/photography-contest/ode-to-water-world-photography-day-2019',
+        destination: '/life-at-lla',
+        permanent: true, // 301 redirect
+      },
+      {
+        source: '/gallery/lla-campus',
+        destination: '/gallery',
+        permanent: true, // 301 redirect
+      },
+      {
+        source: '/gallery/nilgiris',
+        destination: '/nilgiris',
+        permanent: true, // 301 redirect
+      },
+      {
+        source: '/photography-contest',
+        destination: '/life-at-lla',
+        permanent: true, // 301 redirect
+      },
+      {
+        source: '/courses/pg-diploma-in-professional-photography-digital-production-2025',
+        destination: '/courses/pg-diploma-in-professional-photography-videography',
+        permanent: true, // 301 redirect
+      },
+      {
+        source: '/courses/pg-diploma-in-documentary-corporate-filmmaking-2025',
+        destination: '/',
+        permanent: true, // 301 redirect
+      },
+    ];
+  },
+  
   env: {
     BASE_URL: process.env.NEXT_APP_BASE_URL,
     S3_URL: process.env.NEXT_APP_S3_URL,
