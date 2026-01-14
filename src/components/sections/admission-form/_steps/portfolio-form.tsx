@@ -246,23 +246,23 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
         </div>
 
         {admissionData?.Payment_Status !== "Paid" && (
-          <div className="flex justify-start gap-3 mt-10 pt-6">
+          <div className="flex justify-start gap-3 lg:mt-6 pt-6">
             <ButtonWidget
               type="button"
-              onClick={() =>
+              onClick={() => {
                 router.push(`/admission/${admissionId}/education-details`)
-              }
+              }}
               className={cn(
-                "p-5 w-[95px] 3xl:w-[123px] 3xl:h-[50px] text-lg bg-gray-200 border border-gray-300 text-black rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
+                "flex items-center justify-center px-5 w-[120px] xss:h-10 3xl:w-[123px] 3xl:h-[50px] text-base xss:text-lg bg-gray-200 border border-gray-300 text-black rounded-[60px] hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
               )}
             >
-              <ArrowLeft className="size-5" />
+              <ArrowLeft className="size-[15px] lg:size-[18px] 3xl:size-6" />
               Back
             </ButtonWidget>
 
             <OrangeButtonWidget
-              content="Review Application"
-              className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-[18px] 2xl:text-[18px] 3xl:text-[18px]"
+              content="Save & Continue"
+              className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-base 2xl:text-[18px] 3xl:text-[18px] 3xl:w-[226px]"
               apiLoader={apiLoading}
               type="submit"
             />

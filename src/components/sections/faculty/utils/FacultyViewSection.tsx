@@ -39,6 +39,10 @@ type FacultyViewSectionData = {
     pageSize: number;
     total: number;
     totalPages: number;
+    currentPosition: number;
+    nextSlug: string;
+    previousSlug: string;
+    totalCards: number;
   };
 };
 
@@ -60,7 +64,7 @@ const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
 
   const facultyCard = currentData?.Card?.[0];
   const viewCard = facultyCard?.ViewCard?.[0];
-  const totalPages = currentData?.pagination?.totalPages || 1;
+  const _totalPages = currentData?.pagination?.totalPages || 1;
 
   const facultyName = facultyCard?.Title || "Faculty Member";
   const portraitImage = facultyCard?.Image;
@@ -82,7 +86,7 @@ const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
     setCurrentData(data);
   }, [data]);
 
-  const fetchFacultyData = async (page: number) => {
+  const _fetchFacultyData = async (page: number) => {
     if (!slug || isLoading) return;
 
     setIsLoading(true);
@@ -105,13 +109,11 @@ const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
   };
 
   const handlePrev = () => {
-    if (currentPage > 1) {
-      fetchFacultyData(currentPage - 1);
-    }
+    router.push(`/${type}/${data?.pagination?.previousSlug}`);
   };
 
   const handleNext = () => {
-    fetchFacultyData(currentPage + 1);
+    router.push(`/${type}/${data?.pagination?.nextSlug}`);
   };
 
   return (
@@ -119,7 +121,7 @@ const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
       {/* Back button - optimized spacing and alignment */}
       <div className="px-4 pt-4 pb-2 md:fixed md:top-25 md:left-auto md:right-5 md:z-50 md:p-0">
         <ButtonWidget
-          onClick={() => router.back()}
+          onClick={() => router.push("/faculty")}
           type="button"
           className="orange-button-white flex border-none items-center gap-2 rounded-[60px] px-3 md:px-5 h-8 md:h-10 text-xs md:text-sm lg:text-base font-bold transition-colors duration-300 font-mulish text-[13px] md:text-[15px] 3xl:text-[18px] shadow-lg"
           aria-label="Go back"
@@ -171,9 +173,9 @@ const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
                 <button
                   type="button"
                   onClick={handlePrev}
-                  disabled={currentPage <= 1 || isLoading}
+                  // disabled={currentPage <= 1 || isLoading}
                   className={`flex items-center rounded-full justify-center h-8 sm:h-10 md:h-12 flex-1 border-2 border-[#FFD4CC] bg-white transition-all ${
-                    currentPage <= 1 || isLoading
+                    isLoading  // currentPage <= 1 || 
                       ? "opacity-50 cursor-not-allowed"
                       : "cursor-pointer hover:bg-[#FFD4CC]"
                   }`}
@@ -188,9 +190,9 @@ const FacultyViewSection = ({ data, type }: FacultyViewSectionProps) => {
                 <button
                   type="button"
                   onClick={handleNext}
-                  disabled={currentPage >= totalPages || isLoading}
+                  // disabled={currentPage >= totalPages || isLoading}
                   className={`flex items-center rounded-full justify-center h-8 sm:h-10 md:h-12 flex-1 border-2 border-[#FFD4CC] bg-white transition-all ${
-                    currentPage >= totalPages || isLoading
+                    isLoading // currentPage >= totalPages || 
                       ? "opacity-50 cursor-not-allowed"
                       : "cursor-pointer hover:bg-[#FFD4CC]"
                   }`}
