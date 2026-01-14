@@ -29,6 +29,8 @@ const pageMapping: Record<string, string> = {
   "/admission": "Admission",
 };
 
+const BASE_URL = process.env.NEXT_APP_SITE_URL || "https://llacademy.org";
+
 export async function generateSeoMetadata(pagePath: string): Promise<Metadata> {
   try {
     const { data } = await getSeoData();
@@ -36,22 +38,37 @@ export async function generateSeoMetadata(pagePath: string): Promise<Metadata> {
 
     const pageName = pageMapping[pagePath];
     if (!pageName) {
-      return {};
+      return {
+        alternates: {
+          canonical: `${BASE_URL}${pagePath}`,
+        },
+      };
     }
 
     const seoCard = seoData?.SeoCard?.find((card) => card.page === pageName);
 
     if (!seoCard) {
-      return {};
+      return {
+        alternates: {
+          canonical: `${BASE_URL}${pagePath}`,
+        },
+      };
     }
 
     return {
-      title: seoCard.title,
-      description: seoCard.description,
-      ...(seoCard.KeyWords && { keywords: seoCard.KeyWords }),
+      title: seoCard?.title,
+      description: seoCard?.description,
+      ...(seoCard?.KeyWords && { keywords: seoCard?.KeyWords }),
+      alternates: {
+        canonical: `${BASE_URL}${pagePath}`,
+      },
     };
   } catch (error) {
     console.error("Error fetching SEO data:", error);
-    return {};
+    return {
+      alternates: {
+        canonical: `${BASE_URL}${pagePath}`,
+      },
+    };
   }
 }
