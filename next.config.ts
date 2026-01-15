@@ -13,42 +13,67 @@ const nextConfig: NextConfig = {
       {
         source: '/faqs',
         destination: '/faq',
-        permanent: true, // 301 redirect
+        permanent: true,
       },
       {
         source: '/photography-contest/shoot-from-home-2020',
         destination: '/life-at-lla',
-        permanent: true, // 301 redirect
+        permanent: true,
       },
       {
         source: '/photography-contest/ode-to-water-world-photography-day-2019',
         destination: '/life-at-lla',
-        permanent: true, // 301 redirect
+        permanent: true,
       },
       {
         source: '/gallery/lla-campus',
         destination: '/gallery',
-        permanent: true, // 301 redirect
+        permanent: true,
       },
       {
         source: '/gallery/nilgiris',
         destination: '/nilgiris',
-        permanent: true, // 301 redirect
+        permanent: true,
       },
       {
         source: '/photography-contest',
         destination: '/life-at-lla',
-        permanent: true, // 301 redirect
+        permanent: true,
       },
       {
         source: '/courses/pg-diploma-in-professional-photography-digital-production-2025',
         destination: '/courses/pg-diploma-in-professional-photography-videography',
-        permanent: true, // 301 redirect
+        permanent: true,
       },
       {
         source: '/courses/pg-diploma-in-documentary-corporate-filmmaking-2025',
         destination: '/',
-        permanent: true, // 301 redirect
+        permanent: true,
+      },
+      {
+        source: '/in-the-media/light-life-academy-in-association-with-rotary-international-presents-ode-to-trees-an-online-photography-contest-on-instagram',
+        destination: '/in-the-media/lla-in-association-with-rotary-international-presents-ode-to-trees-an-online-photography-contest-on-instagram',
+        permanent: true,
+      },
+      {
+        source: '/in-the-media/a-song-for-water-an-innovative-effort-to-present-the-world-photo-day',
+        destination: '/in-the-media/a-song-for-water-an-innovative-effort-to-present-the-world-photography-day',
+        permanent: true,
+      },
+      {
+        source: '/in-the-media/world-photography-day-exhibition-on-importance-of-water',
+        destination: '/in-the-media/photographic-exhibition-focused-on-the-importance-of-water',
+        permanent: true,
+      },
+      {
+        source: '/blogs',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/about-us',
+        destination: '/about',
+        permanent: true,
       },
     ];
   },
