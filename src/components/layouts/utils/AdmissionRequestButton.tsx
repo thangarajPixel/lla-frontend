@@ -25,6 +25,7 @@ const AdmissionRequestButton = ({
   iconClassName = "",
 }: AdmissionButtonProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isFetching, setIsFetching] = useState<boolean>(false);
   const pathname = usePathname();
   const router = useRouter();
 
@@ -55,6 +56,7 @@ const AdmissionRequestButton = ({
       Type: "Request Information",
     };
     try {
+      setIsFetching(true);
       await clientAxios.post(`/contacts`, { data: data });
       toast.success("Message sent successfully!");
       reset();
@@ -64,11 +66,14 @@ const AdmissionRequestButton = ({
       toast.error("Failed to send message. Please try again.", {
         position: "top-right",
       });
+    } finally {
+      setIsFetching(false);
     }
   };
 
   const handleOpenChange = (open: boolean) => {
     setIsOpen(open);
+    reset();
   };
 
   useEffect(() => {
@@ -83,11 +88,10 @@ const AdmissionRequestButton = ({
       onOpenChange={handleOpenChange}
       trigger={
         <ButtonWidget
-          className={`${
-            isContactUsPage
+          className={`${isContactUsPage
               ? "orange-button-white border-1 border-[#E97451]  leading-[28px]"
               : "orange-button-white border-1 border-[#E97451]  leading-[28px]"
-          } group rounded-[60px] xss:text-[16px] px-5 h-10 3xl:w-[230px] 3xl:h-[50px]  text-[14px] 2xl:text-[14px] 3xl:text-[18px] ${className}`}
+            } group rounded-[60px] xss:text-[16px] px-5 h-10 3xl:w-[230px] 3xl:h-[50px]  text-[14px] 2xl:text-[14px] 3xl:text-[18px] ${className}`}
         >
           Request Info
           <ImageWidget
@@ -97,23 +101,23 @@ const AdmissionRequestButton = ({
           />
         </ButtonWidget>
       }
-      contentClassName="sm:max-w-[90vw] md:max-w-[85vw] lg:max-w-[700px] xl:max-w-[719px] p-4 sm:p-6 lg:p-6"
+      contentClassName="w-[95vw] sm:max-w-[90vw] md:max-w-[85vw] lg:max-w-[700px] xl:max-w-[719px] p-3 sm:p-6"
       showCancel={false}
       showCloseButton={false}
       customCloseButton={
         <DialogClose asChild>
-          <div className="cursor-pointer -mt-[30px] -mr-[30px]">
-            <ImageWidget src={Into} alt="Into" className="w-[30px] h-[30px]" />
+          <div className="cursor-pointer -mt-4 -mr-4 sm:-mt-[30px] sm:-mr-[30px]">
+            <ImageWidget src={Into} alt="Into" className="size-6 sm:w-[30px] sm:h-[30px]" />
           </div>
         </DialogClose>
       }
     >
-      <section className="p-4 mx-auto">
-        <h2 className="mb-4 font-semibold text-xl 3xl:text-2xl">
+      <section className="px-4 py-0 sm:py-2 mx-auto h-fit md:h-auto">
+        <h2 className="mb-4 font-semibold text-lg sm:text-xl 3xl:text-2xl">
           Request Information Form
         </h2>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
-          <div className="grid grid-cols-2 gap-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-1 xs:space-y-2 sm:space-y-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
             <FormInput
               name="FirstName"
               control={control}
@@ -131,7 +135,7 @@ const AdmissionRequestButton = ({
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
             <FormInput
               name="Email"
               control={control}
@@ -153,15 +157,15 @@ const AdmissionRequestButton = ({
           <div>
             <label
               htmlFor="message"
-              className="block text-sm font-medium text-foreground font-mulish mb-1"
+              className="block text-sm sm:text-base font-medium text-foreground font-mulish mt-2 mb-1"
             >
               Message<span className="text-chart-1">*</span>
             </label>
             <textarea
               {...register("Message")}
               placeholder="Message"
-              rows={6}
-              className="flex w-full rounded-2xl border border-[#BDBDBD] bg-background px-4 py-3 text-base placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-0 focus-visible:border-chart-1/50 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
+              rows={4}
+              className="flex w-full rounded-2xl border border-[#BDBDBD] bg-background px-4 py-3 text-sm sm:text-base placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-0 focus-visible:border-chart-1/50 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
             />
             {errors.Message && (
               <p className="text-danger text-sm text-red-500">
@@ -169,7 +173,7 @@ const AdmissionRequestButton = ({
               </p>
             )}
           </div>
-          <OrangeButtonWidget content="Submit" />
+          <OrangeButtonWidget content="Submit" type="submit" apiLoader={isFetching} />
         </form>
       </section>
     </DialogWidget>

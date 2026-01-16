@@ -65,6 +65,7 @@ export const parentDetails = z.object({
   profession: z.string().min(1, "Profession is required"),
   nationality: z.string().min(1, "Nationality is required"),
   address: z.array(addressSchema).min(1, "Address is required"),
+  isSameAddress: z.boolean().optional(),
   city: z.string().min(1, "City is required"),
   district: z.string().min(1, "District is required"),
   state: z.string().min(1, "State is required"),

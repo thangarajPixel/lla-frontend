@@ -54,7 +54,7 @@ const PersonalDetailsForm = ({
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isRemoved, setIsRemoved] = useState<boolean>(false);
   const [isVerified, setIsVerified] = useState<boolean>(false);
-  const [isSameAddress, setIsSameAddress] = useState<boolean>(false);
+  const [isSameAddress, setIsSameAddress] = useState<boolean>(admissionData?.Parent_Guardian_Spouse_Details?.isSameAddress ?? false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
 
@@ -146,6 +146,7 @@ const PersonalDetailsForm = ({
               ],
             },
           ],
+        isSameAddress: admissionData?.Parent_Guardian_Spouse_Details?.isSameAddress ?? false,
         city: admissionData?.Parent_Guardian_Spouse_Details?.city ?? "",
         district: admissionData?.Parent_Guardian_Spouse_Details?.district ?? "",
         state:

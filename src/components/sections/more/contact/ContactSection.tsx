@@ -53,7 +53,7 @@ export const contactSchema = z.object({
     .pipe(
       z
         .string()
-        .min(1, "Phone number is required")
+        .min(1, "Phone Number is required")
         .regex(/^[1-9]\d{9}$/, "Enter a valid phone number"),
     ),
   // Message: z

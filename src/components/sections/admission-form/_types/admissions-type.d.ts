@@ -171,6 +171,7 @@ type ParentGuardianDetails = {
   profession: string;
   nationality: string;
   address: AddressBlock[];
+  isSameAddress?: boolean;
   city: string;
   district: string;
   state: State;
