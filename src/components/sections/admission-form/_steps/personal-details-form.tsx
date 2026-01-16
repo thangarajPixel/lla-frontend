@@ -206,6 +206,12 @@ const PersonalDetailsForm = ({
     (checked: boolean) => {
       setIsSameAddress(checked);
 
+      form_step1.setValue(
+        "Parent_Guardian_Spouse_Details.isSameAddress",
+        checked,
+        { shouldValidate: true },
+      );
+
       if (checked) {
         if (!personalAddress) return;
 
