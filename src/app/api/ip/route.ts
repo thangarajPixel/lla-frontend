@@ -1,16 +1,12 @@
-import { headers } from "next/headers";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
-  const headersList = await headers();
+export function GET(req: NextRequest) {
+  const forwardedFor = req.headers.get("x-forwarded-for");
 
-  const forwardedFor = headersList.get("x-forwarded-for");
-  const realIp =
-    forwardedFor?.split(",")[0] === "::1" 
-    ? "127.0.0.1" 
-    : forwardedFor?.split(",")[0] ||
-    headersList.get("x-real-ip") ||
-    "unknown";
+  const ip =
+    forwardedFor?.split(",")[0]?.trim() ||
+    req.headers.get("x-real-ip") ||
+    "127.0.0.1";
 
-  return NextResponse.json({ ip: realIp });
+  return NextResponse.json({ ip });
 }
