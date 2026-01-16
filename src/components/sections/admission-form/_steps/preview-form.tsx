@@ -88,7 +88,7 @@ function Section({
     <div className="space-y-3">
       <section className="flex items-center justify-between">
         <h3
-          className={cn("text-2xl 3xl:text-[32px] text-[#E97451]", className)}
+          className={cn("text-2xl lg:text-xl 2xl:text-2xl 3xl:text-[32px] text-[#E97451]", className)}
         >
           {title}
         </h3>
@@ -98,7 +98,7 @@ function Section({
             width={24}
             height={24}
             alt="Edit"
-            className="size-6 rounded-full cursor-pointer"
+            className="size-6 lg:size-5 2xl:size-6 rounded-full cursor-pointer"
             onClick={onEdit}
           />
         )}
@@ -122,7 +122,7 @@ function Field({
   return (
     <div
       className={cn(
-        "flex flex-col items-start md:flex-row gap-1 lg:gap-0 justify-between text-base 3xl:text-2xl font-mulish",
+        "flex flex-col items-start md:flex-row gap-1 lg:gap-0 justify-between text-base lg:text-sm xl:text-base 2xl:text-lg 3xl:text-2xl font-mulish",
         label === "Address" && "md:items-start",
       )}
     >
@@ -131,11 +131,11 @@ function Field({
       </span>
       <span
         className={cn(
-          "text-black text-left w-full text-xl 3xl:text-2xl",
+          "text-black text-left w-full text-xl lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl",
           "wrap-break-word whitespace-normal overflow-hidden",
           "md:text-right md:max-w-xs",
           label === "Email" && "md:max-w-fit",
-          label === "Course Name" && "md:max-w-md"
+          label === "Course Name" && "md:max-w-md 3xl:max-w-lg"
         )}
       >
         {isDob
@@ -157,7 +157,7 @@ function LanguageField({
 }) {
   return (
     <div className="flex flex-col md:flex-row items-start mt-4 justify-between">
-      <span className="text-black/50 text-base 3xl:text-2xl mb-3 font-mulish">
+      <span className="text-black/50 text-base lg:text-sm xl:text-base 2xl:text-lg 3xl:text-2xl mb-3 font-mulish">
         {label}
       </span>
       <div className="flex flex-col gap-4 w-full xs:w-[300px] md:w-[295px]">
@@ -166,7 +166,7 @@ function LanguageField({
             key={`language-${index + 1}`}
             className="flex flex-col gap-3 w-full"
           >
-            <span className="md:ml-auto text-black text-lg font-mulish 3xl:text-2xl">
+            <span className="md:ml-auto text-black text-lg lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl font-mulish 3xl:text-2xl">
               {language.language}
             </span>
             <section className="flex flex-row items-center justify-between gap-8">
@@ -213,12 +213,12 @@ function EducationField({
 }) {
   return (
     <div className="flex flex-col items-start justify-start text-gray-700">
-      <span className="w-40 text-base 3xl:text-2xl text-[#E97451]">
+      <span className="w-40 text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl text-[#E97451]">
         {label}:
       </span>
       {value && (
         <>
-          <span className="text-black/50 text-base 3xl:text-2xl">{title}</span>
+          <span className="text-black/50 text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">{title}</span>
           <section className="flex flex-row items-center justify-between gap-10 mt-2">
             <span className="text-xs flex items-center justify-center gap-1">
               <ImageWidget
@@ -226,11 +226,11 @@ function EducationField({
                 alt="Document"
                 width={24}
                 height={24}
-                className="size-6 rounded-full"
+                className="size-6 lg:size-4 3xl:size-6 rounded-full"
               />
               <LinkWidget
                 href="#"
-                className="text-[#E97451] text-base 3xl:text-lg"
+                className="text-[#E97451] text-base lg:text-sm 2xl:text-lg 2xxl:text-xl"
                 onClick={(e) => {
                   e.preventDefault();
                   handleDownload(value?.url, value?.name);
@@ -341,11 +341,11 @@ const ReviewApplication = ({
                 <h1 className="text-[32px] px-4 font-urbanist leading-tight lg:hidden">
                   {admissionData?.Course?.Name}
                 </h1>
-                <div className="flex flex-col gap-3 px-4 lg:px-0 2xl:mt-14 3xl:mt-0">
-                  <h1 className="text-[32px] 3xl:text-[40px] font-urbanist text-[#E97451]">
+                <div className="flex flex-col gap-3 px-4 lg:px-0 2xl:mt-14 3xl:mt-0 lg:-ml-14 xl:-ml-12">
+                  <h1 className="text-[32px] lg:text-[28px] 2xl:[34px] 3xl:text-[40px] font-urbanist text-[#E97451]">
                     Review Application
                   </h1>
-                  <p className="text-base 3xl:text-lg">
+                  <p className="text-base lg:text-sm 3xl:text-lg">
                     Kindly verify the details before submitting.
                   </p>
                 </div>
@@ -354,7 +354,7 @@ const ReviewApplication = ({
           }
 
 
-          <div className={`w-[193px] h-[250px] lg:w-[300px] xl:w-[350px] 2xl:w-[400px] 2xxl:w-[420px] lg:h-fit 3xl:w-[519px] 3xl:h-[669px]  ml-4 lg:ml-0 xl:ml-6 2xl:ml-16 2xxl:ml-22 3xl:ml-22 ${admissionData?.Payment_Status === "Paid" && "mt-4 2xl:mt-14 2xxl:mt-20 3xl:mt-0"}`}>
+          <div className={`w-[193px] h-[250px] lg:w-[280px] xl:w-[350px] 2xl:w-[400px] 2xxl:w-[420px] lg:h-fit 3xl:w-[519px] 3xl:h-[669px]  ml-4 lg:-ml-10 xl:ml-6 2xl:ml-16 2xxl:ml-22 3xl:ml-26 ${admissionData?.Payment_Status === "Paid" && "mt-4 2xl:mt-14 2xxl:mt-20 3xl:mt-0"}`}>
             <ImageWidget
               width={200}
               height={200}
@@ -365,10 +365,10 @@ const ReviewApplication = ({
           </div>
 
           {admissionData?.Payment_Status !== "Paid" && (
-            <div className="flex flex-row items-center justify-between gap-3 w-full lg:w-[300px] -ml-2 lg:-ml-4 xl:w-[350px] 2xl:w-[400px] 2xxl:w-[420px] 3xl:w-[519px] xl:ml-2 2xl:ml-12 2xxl:ml-18 3xl:ml-18 px-4 lg:px-0">
+            <div className="flex flex-row items-center justify-between gap-3 w-full lg:w-[280px] -ml-2 lg:-ml-14 xl:w-[350px] 2xl:w-[400px] 2xxl:w-[420px] 3xl:w-[519px] xl:ml-2 2xl:ml-12 2xxl:ml-18 3xl:ml-22 px-4 lg:px-0">
               <ButtonWidget
                 className={cn(
-                  "group bg-chart-1/10 text-chart-1 hover:bg-chart-1/10 rounded-[60px] px-5 w-2/4 h-10 text-xs s:text-sm xss:text-[16px] 3xl:h-[50px] xs:text-lg lg:text-sm xl:text-base 2xl:text-[14px] 3xl:text-[18px]",
+                  "group bg-chart-1/10 text-chart-1 hover:bg-chart-1/10 rounded-[60px] px-5 w-2/4 h-10 text-xs s:text-sm xss:text-[16px] 3xl:h-[50px] xs:text-lg lg:text-xs xl:text-sm 2xl:text-[14px] 3xl:text-[18px]",
                 )}
                 onClick={() =>
                   router.push(`/admission/${admissionId}/portfolio`)
@@ -379,7 +379,7 @@ const ReviewApplication = ({
               </ButtonWidget>
               <OrangeButtonWidget
                 content="Proceed to Pay"
-                className="s:text-sm xss:text-[16px] xss:h-10 w-2/4 3xl:h-12.5 xs:text-lg lg:text-sm xl:text-base 2xl:text-[14px] 3xl:text-[18px]"
+                className="s:text-sm xss:text-[16px] xss:h-10 w-2/4 3xl:h-12.5 xs:text-lg lg:text-xs xl:text-sm 2xl:text-[14px] 3xl:text-[18px]"
                 onClick={() =>
                   handleOpenPayment(
                     admissionData?.documentId as string,
@@ -493,29 +493,29 @@ const ReviewApplication = ({
               </div>
             </Section>
 
-            <Section title="Under Graduate" className="text-base 3xl:text-2xl">
+            <Section title="Under Graduate">
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <section className="md:col-span-2">
-                  <span className="text-black/50 text-base 3xl:text-2xl">
+                  <span className="text-black/50 text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                     Degree
                   </span>
-                  <p className="text-black text-base 3xl:text-2xl">
+                  <p className="text-black text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                     {admissionData?.Under_Graduate?.degree}
                   </p>
                 </section>
 
                 <section className="md:col-span-1">
-                  <span className="text-black/50 text-base 3xl:text-2xl">
+                  <span className="text-black/50 text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                     Status
                   </span>
-                  <p className="text-black text-base 3xl:text-2xl">
+                  <p className="text-black text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                     {admissionData?.Under_Graduate?.ug_status}
                   </p>
                 </section>
 
                 {admissionData?.Under_Graduate?.marksheet?.url && (
                   <section className="flex flex-col justify-start gap-2 items-start md:col-span-1">
-                    <span className="text-black/50 text-base 3xl:text-2xl">
+                    <span className="text-black/50 text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                       Document
                     </span>
                     <span className="flex items-center justify-center gap-1">
@@ -524,10 +524,10 @@ const ReviewApplication = ({
                         alt="Document"
                         width={24}
                         height={24}
-                        className="size-6 rounded-full"
+                        className="size-6 lg:size-4 3xl:size-6 rounded-full"
                       />
                       <LinkWidget
-                        className="text-chart-1/80 text-base md:text-xs lg:text-base text-nowrap 3xl:text-lg"
+                        className="text-[#E97451] text-base lg:text-sm 2xl:text-lg 2xxl:text-xl text-nowrap"
                         href="#"
                         onClick={(e) => {
                           e.preventDefault();
@@ -549,7 +549,6 @@ const ReviewApplication = ({
               admissionData?.Post_Graduate[0]?.degree && (
                 <Section
                   title="Post Graduate"
-                  className="text-base 3xl:text-2xl"
                 >
                   {admissionData?.Post_Graduate?.slice(0, 1).map(
                     (degree, index) => (
@@ -558,25 +557,25 @@ const ReviewApplication = ({
                         className="grid grid-cols-1 md:grid-cols-4 gap-4"
                       >
                         <section className="md:col-span-2">
-                          <span className="text-black/50 text-base 3xl:text-2xl">
+                          <span className="text-black/50 text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                             Degree
                           </span>
-                          <p className="text-black text-base 3xl:text-2xl">
+                          <p className="text-black text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                             {degree?.degree}
                           </p>
                         </section>
 
                         <section className="md:col-span-1">
-                          <span className="text-black/50 text-base 3xl:text-2xl">
+                          <span className="text-black/50 text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                             Status
                           </span>
-                          <p className="text-black text-base 3xl:text-2xl">
+                          <p className="text-black text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                             {degree?.pg_status}
                           </p>
                         </section>
 
                         <section className="flex flex-col justify-start gap-2 items-start md:col-span-1">
-                          <span className="text-black/50 text-base 3xl:text-2xl">
+                          <span className="text-black/50 text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                             Document
                           </span>
                           <span className="flex items-center justify-center gap-1">
@@ -585,7 +584,7 @@ const ReviewApplication = ({
                               alt="Document"
                               width={24}
                               height={24}
-                              className="size-6 rounded-full"
+                              className="size-6 lg:size-4 3xl:size-6 rounded-full"
                             />
                             <LinkWidget
                               href="#"
@@ -596,7 +595,7 @@ const ReviewApplication = ({
                                   degree?.marksheet?.name,
                                 );
                               }}
-                              className="text-chart-1/80 text-base md:text-xs lg:text-base text-nowrap 3xl:text-lg"
+                              className="text-[#E97451] text-base lg:text-sm 2xl:text-lg 2xxl:text-xl text-nowrap"
                             >
                               View Document
                             </LinkWidget>
@@ -612,7 +611,6 @@ const ReviewApplication = ({
               admissionData?.Post_Graduate[1]?.degree && (
                 <Section
                   title="Additional Degree"
-                  className="text-base 3xl:text-2xl"
                 >
                   {admissionData?.Post_Graduate?.slice(1).map(
                     (degree, index) => (
@@ -621,19 +619,19 @@ const ReviewApplication = ({
                         className="grid grid-cols-1 md:grid-cols-4 gap-4"
                       >
                         <section className="md:col-span-2">
-                          <span className="text-black/50 text-base 3xl:text-2xl">
+                          <span className="text-black/50 text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                             Degree
                           </span>
-                          <p className="text-black text-base 3xl:text-2xl">
+                          <p className="text-black text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                             {degree?.degree}
                           </p>
                         </section>
 
                         <section className="md:col-span-1">
-                          <span className="text-black/50 text-base 3xl:text-2xl">
+                          <span className="text-black/50 text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                             Status
                           </span>
-                          <p className="text-black text-base 3xl:text-2xl">
+                          <p className="text-black text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                             {degree?.pg_status}
                           </p>
                         </section>
@@ -641,7 +639,7 @@ const ReviewApplication = ({
                         {
                           degree?.marksheet?.url && (
                             <section className="flex flex-col justify-start gap-2 items-start md:col-span-1">
-                              <span className="text-black/50 text-base 3xl:text-2xl">
+                              <span className="text-black/50 text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                                 Document
                               </span>
 
@@ -651,7 +649,7 @@ const ReviewApplication = ({
                                   alt="Document"
                                   width={24}
                                   height={24}
-                                  className="size-6 rounded-full"
+                                  className="size-6 lg:size-4 3xl:size-6 rounded-full"
                                 />
                                 <LinkWidget
                                   href="#"
@@ -662,7 +660,7 @@ const ReviewApplication = ({
                                       degree?.marksheet?.name,
                                     );
                                   }}
-                                  className="text-chart-1/80 text-base md:text-xs lg:text-base text-nowrap 3xl:text-lg"
+                                  className="text-[#E97451] text-base lg:text-sm 2xl:text-lg 2xxl:text-xl text-nowrap"
                                 >
                                   View Document
                                 </LinkWidget>
@@ -692,28 +690,28 @@ const ReviewApplication = ({
                       className="grid grid-cols-1 md:grid-cols-5 gap-2"
                     >
                       <section className="md:col-span-2">
-                        <span className="text-black/50 text-base 3xl:text-2xl">
+                        <span className="text-black/50 text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                           Role/Designation
                         </span>
-                        <p className="text-black text-lg  3xl:text-2xl">
+                        <p className="text-black text-lg lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                           {experience?.designation ?? "-"}
                         </p>
                       </section>
 
                       <section className="md:col-span-2">
-                        <span className="text-black/50 text-base 3xl:text-2xl">
+                        <span className="text-black/50 text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                           Employer
                         </span>
-                        <p className="text-black text-lg  3xl:text-2xl">
+                        <p className="text-black text-lg lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl  3xl:text-2xl">
                           {experience?.employer ?? "-"}
                         </p>
                       </section>
 
                       <section className="md:col-span-1">
-                        <span className="text-black/50 text-base 3xl:text-2xl">
+                        <span className="text-black/50 text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                           Duration
                         </span>
-                        <span className="text-black font-medium flex flex-wrap text-lg 3xl:text-2xl">
+                        <span className="text-black font-medium flex flex-wrap text-lg lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                           {calculateDuration(
                             experience?.duration_start ?? "",
                             experience?.duration_end ?? "",
@@ -724,7 +722,7 @@ const ReviewApplication = ({
                       {
                         experience?.reference_letter?.url && (
                           <section className="flex flex-col items-start gap-2 md:col-span-1 lg:mt-2 lg:ml-0">
-                            <span className="text-black/50 text-base 3xl:text-2xl">
+                            <span className="text-black/50 text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                               Document
                             </span>
 
@@ -734,7 +732,7 @@ const ReviewApplication = ({
                                 alt="Document"
                                 width={24}
                                 height={24}
-                                className="size-6 shrink-0"
+                                className="size-6 lg:size-4 3xl:size-6 shrink-0"
                               />
                               <LinkWidget
                                 href="#"
@@ -745,13 +743,12 @@ const ReviewApplication = ({
                                     experience?.reference_letter?.name
                                   );
                                 }}
-                                className="flex items-center text-chart-1/80 text-base md:text-xs lg:text-base text-nowrap 3xl:text-lg leading-none"
+                                className="text-[#E97451] text-base lg:text-sm 2xl:text-lg 2xxl:text-xl text-nowrap"
                               >
                                 View Document
                               </LinkWidget>
                             </div>
                           </section>
-
                         )
                       }
                     </div>
