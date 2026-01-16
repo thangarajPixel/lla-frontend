@@ -372,16 +372,16 @@ export const portfolioSchema = z.object({
   step_3: z.boolean().optional(),
 });
 
-export const admissionRequestSchema = z.object({
-  FirstName: z.string().min(1, "Name is required"),
+export const admissionRequestSchema = (pageType?: string) => z.object({
+  FirstName: z.string().min(1, `${pageType ? "Full Name is required" : "Name is required"}`),
   LastName: z.string(),
   Email: z
     .string()
-    .min(1, "Email is required")
-    .email({ message: "Enter a valid email" }),
+    .min(1, "Email Address is required")
+    .email({ message: "Enter a valid email address" }),
   Mobile: z
     .string()
-    .min(1, "Mobile No is required")
+    .min(1, "Mobile Number is required")
     .regex(/^[1-9]\d{9}$/, "Enter a valid 10-digit mobile number"),
   Message: z.string().optional(),
 });

@@ -17,7 +17,10 @@ import { admissionRequestSchema } from "@/helpers/ValidationHelper";
 import CourseApplicationFormModel from "./CourseApplicationFormModel";
 import { cn } from "@/lib/utils";
 
-export type RequestFormData = z.infer<typeof admissionRequestSchema>;
+// export type RequestFormData = z.infer<typeof admissionRequestSchema>;
+export type RequestFormData = z.infer<
+  ReturnType<typeof admissionRequestSchema>
+>;
 
 const CourseAdmissionFormSection = ({
   selectedCourse,
@@ -32,7 +35,7 @@ const CourseAdmissionFormSection = ({
   const router = useRouter();
 
   const form = useForm<RequestFormData>({
-    resolver: zodResolver(admissionRequestSchema),
+    resolver: zodResolver(admissionRequestSchema()),
     mode: "all",
     defaultValues: {
       FirstName: "",
@@ -143,7 +146,7 @@ const CourseAdmissionFormSection = ({
 
           <FormInput
             name="Mobile"
-            placeholder="Mobile No*"
+            placeholder="Mobile Number*"
             control={form.control}
             restrictionType="text"
             className="w-full md:flex-1 md:min-w-[120px] space-y-0"
