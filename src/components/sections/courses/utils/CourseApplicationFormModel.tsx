@@ -37,7 +37,7 @@ const CourseApplicationFormModel = ({
   const router = useRouter();
 
   const form = useForm<RequestFormData>({
-    resolver: zodResolver(admissionRequestSchema),
+    resolver: zodResolver(admissionRequestSchema("course_popup")),
     mode: "all",
     defaultValues: {
       FirstName: "",
@@ -187,7 +187,7 @@ const CourseApplicationFormModel = ({
             </div>
 
             {form?.formState?.errors?.Email?.message && (
-              <p className="text-red-500 relative -top-3">
+              <p className="text-sm text-red-500 relative -top-3">
                 {form?.formState?.errors?.Email?.message}
               </p>
             )}

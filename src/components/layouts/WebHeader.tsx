@@ -29,7 +29,8 @@ const WebHeader = ({
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [isSticky, setIsSticky] = useState(false);
   const [isAdmissionOpen, setIsAdmissionOpen] = useState<boolean>(false);
-  const [isHidden, setIsHidden] = useState(false);
+  const [isHidden, setIsHidden] = useState<boolean>(false);
+  const [isLoadingEssentials, setIsLoadingEssentials] = useState<boolean>(true);
   const lastScrollY = useRef(0);
 
   useEffect(() => {
@@ -58,11 +59,20 @@ const WebHeader = ({
 
   useEffect(() => {
     const getAdmissionData = async () => {
-      const { data: res } = await getEssentialsData();
-      setIsAdmissionOpen(res?.isAdmission);
+      try {
+        const { data: res } = await getEssentialsData();
+        setIsAdmissionOpen(res?.isAdmission ?? false);
+      } catch (error) {
+        console.error(error);
+        setIsAdmissionOpen(false);
+      } finally {
+        setIsLoadingEssentials(false);
+      }
     };
+
     getAdmissionData();
   }, []);
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -114,12 +124,12 @@ const WebHeader = ({
     return [
       ...(courseItems.length > 0
         ? [
-            {
-              label: "Courses",
-              pathPrefix: "/courses",
-              items: courseItems,
-            },
-          ]
+          {
+            label: "Courses",
+            pathPrefix: "/courses",
+            items: courseItems,
+          },
+        ]
         : []),
       { href: "/campus", label: "Campus" },
       { href: "/faculty", label: "Faculty" },
@@ -147,12 +157,11 @@ const WebHeader = ({
     <header
       className={`w-full z-50 transition-all duration-500
         ${isHidden ? "-translate-y-full" : "translate-y-0"}
-        ${
-          isHomePage
-            ? isSticky
-              ? "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
-              : "absolute top-0 left-0 bg-transparent text-black"
-            : "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
+        ${isHomePage
+          ? isSticky
+            ? "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
+            : "absolute top-0 left-0 bg-transparent text-black"
+          : "fixed top-0 left-0 bg-white backdrop-blur-sm shadow-lg text-black"
         }`}
     >
       <nav>
@@ -191,13 +200,17 @@ const WebHeader = ({
                   </li>
                 );
               })}
-              <li>
-                {isAdmissionOpen ? (
-                  <AdmissionButton />
-                ) : (
-                  <AdmissionRequestButton />
-                )}
-              </li>
+              {
+                !isLoadingEssentials && (
+                  <li>
+                    {isAdmissionOpen ? (
+                      <AdmissionButton />
+                    ) : (
+                      <AdmissionRequestButton />
+                    )}
+                  </li>
+                )
+              }
             </ul>
             <MobileMenu
               menuItems={menuItems}
