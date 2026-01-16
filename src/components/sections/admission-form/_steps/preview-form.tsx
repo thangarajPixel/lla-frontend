@@ -319,7 +319,7 @@ const ReviewApplication = ({
   };
 
   if (!admissionData) {
-    return <div>No Admission Found</div>;
+    return <div className="flex items-center justify-center min-h-screen">No Admission Found</div>;
   }
 
   return (
