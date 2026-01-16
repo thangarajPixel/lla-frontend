@@ -299,7 +299,7 @@ const ReviewApplication = ({
     }, 600);
 
     return () => clearTimeout(timeout);
-  }, [section, admissionData, isHeaderVisible]);
+  }, []); // section, admissionData, isHeaderVisible
 
 
   const handleOpenPayment = async (updateId: string, admissionId: string) => {
