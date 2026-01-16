@@ -65,7 +65,7 @@ function AdmissionFormLayoutContent({ children }: { children: React.ReactNode })
               "text-[32px] md:text-[28px] lg:text-[26px] xl:text-[36px] 2xl:text-[40px] 3xl:text-[56px] 2xl:mt-6 3xl:mt-10 text-white leading-tight font-urbanist mt-5",
             )}
           >
-            {selectedCourseName}
+            {courseName || selectedCourseName}
           </h1>
         </aside>
         <main
@@ -79,7 +79,7 @@ function AdmissionFormLayoutContent({ children }: { children: React.ReactNode })
           <div>
             <div className="mb-8 mt-4 2xl:mt-12">
               <h1 className="text-[32px] md:text-[28px] xl:text-[40px] 3xl:text-[56px] font-urbanist leading-tight lg:hidden mb-6">
-                {selectedCourseName}
+                {courseName || selectedCourseName}
               </h1>
               <h2 className="text-2xl 3xl:text-[40px] text-[#E97451] mb-4 font-urbanist">
                 Application Form

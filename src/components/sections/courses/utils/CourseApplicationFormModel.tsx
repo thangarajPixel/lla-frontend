@@ -54,6 +54,11 @@ const CourseApplicationFormModel = ({
 
     // const clientIp = await getMyIp();
 
+    const clientIpResponse = await fetch("/api/ip");
+    const clientIp = await clientIpResponse.json();
+    console.log(clientIp.ip, "ip");
+
+
     const admissionPayload = {
       first_name: payload.FirstName,
       mobile_no: payload.Mobile,
@@ -64,7 +69,7 @@ const CourseApplicationFormModel = ({
         selectedCourseItem?.documentId,
       step_0: true,
       AdmissionYear: isAdmissionOpen?.data?.admission_year?.AcademicYear,
-      // IpAddress: clientIp?.ip,
+      IpAddress: clientIp?.ip,
     };
 
     const requestPayload = {
@@ -194,9 +199,9 @@ const CourseApplicationFormModel = ({
                 <span>loading...</span>
               </div>
             ) : (
-              <OrangeButtonWidget 
-              type="submit" 
-              content="Save & Continue"
+              <OrangeButtonWidget
+                type="submit"
+                content="Save & Continue"
               // className="text-lg xss:text-[16px] xss:h-[48px] 3xl:h-[50px] text-xs 2xl:text-[14px] 3xl:text-[18px]" 
               />
             )}

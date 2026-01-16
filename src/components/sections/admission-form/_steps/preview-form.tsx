@@ -274,35 +274,33 @@ const ReviewApplication = ({
     }
   }, [admissionData]);
 
-  // useEffect(() => {
-  //   if (section !== "portfolio") return;
-
-  //   requestAnimationFrame(() => {
-  //     const container = scrollContainerRef.current;
-  //     const target = portfolioRef.current;
-
-  //     if (!container || !target) return;
-
-  //     const top = target.offsetTop - container.offsetTop - 20;
-  //     container.scrollTo({
-  //       top,
-  //       behavior: "smooth",
-  //     });
-  //   });
-  // }, [section]);
-
   useEffect(() => {
     if (section !== "portfolio") return;
+    if (!portfolioRef.current) return;
+
+    const target = portfolioRef.current;
+
+    const scrollToPortfolio = () => {
+      const headerOffset = isHeaderVisible ? 80 : 120;
+
+      const elementTop =
+        target.getBoundingClientRect().top + window.scrollY;
+
+      window.scrollTo({
+        top: elementTop - headerOffset,
+        behavior: "smooth",
+      });
+
+      // target.focus({ preventScroll: true });
+    };
 
     const timeout = setTimeout(() => {
-      portfolioRef.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }, 300);
+      requestAnimationFrame(scrollToPortfolio);
+    }, 600);
 
     return () => clearTimeout(timeout);
-  }, [section]);
+  }, []); // section, admissionData, isHeaderVisible
+
 
   const handleOpenPayment = async (updateId: string, admissionId: string) => {
     const data = {
@@ -370,7 +368,7 @@ const ReviewApplication = ({
             <div className="flex flex-row items-center justify-between gap-3 w-full lg:w-[300px] -ml-2 lg:-ml-4 xl:w-[350px] 2xl:w-[400px] 2xxl:w-[420px] 3xl:w-[519px] xl:ml-2 2xl:ml-12 2xxl:ml-18 3xl:ml-18 px-4 lg:px-0">
               <ButtonWidget
                 className={cn(
-                  "group bg-chart-1/10 text-chart-1 hover:bg-chart-1/10 rounded-[60px] px-5 w-2/4 h-10 s:text-sm xss:text-[16px] 3xl:h-[50px] xs:text-lg lg:text-sm xl:text-base 2xl:text-[14px] 3xl:text-[18px]",
+                  "group bg-chart-1/10 text-chart-1 hover:bg-chart-1/10 rounded-[60px] px-5 w-2/4 h-10 text-xs s:text-sm xss:text-[16px] 3xl:h-[50px] xs:text-lg lg:text-sm xl:text-base 2xl:text-[14px] 3xl:text-[18px]",
                 )}
                 onClick={() =>
                   router.push(`/admission/${admissionId}/portfolio`)
@@ -773,34 +771,31 @@ const ReviewApplication = ({
             )}
 
             {admissionData?.Upload_Your_Portfolio?.images?.length > 0 && (
-              <Section
-                title="Portfolio Images"
-                canEdit
-                onEdit={() =>
-                  router.push(`/admission/${admissionId}/portfolio`)
-                }
-                paymentStatus={admissionData?.Payment_Status}
-              >
-                <div
-                  className="grid grid-cols-2 gap-4"
-                  ref={portfolioRef}
-                  id="portfolio"
-                  tabIndex={-1}
+              <div id="portfolio" ref={portfolioRef} tabIndex={-1}>
+                <Section
+                  title="Portfolio Images"
+                  canEdit
+                  onEdit={() =>
+                    router.push(`/admission/${admissionId}/portfolio`)
+                  }
+                  paymentStatus={admissionData?.Payment_Status}
                 >
-                  {admissionData?.Upload_Your_Portfolio?.images?.map(
-                    (img, index) => (
-                      <ImageWidget
-                        width={200}
-                        height={200}
-                        alt="Portfolio Image"
-                        key={`portfolio-${index + 1}`}
-                        src={img?.url ?? null}
-                        className="w-full h-48 object-contain"
-                      />
-                    ),
-                  )}
-                </div>
-              </Section>
+                  <div className="grid grid-cols-2 gap-4">
+                    {admissionData?.Upload_Your_Portfolio?.images?.map(
+                      (img, index) => (
+                        <ImageWidget
+                          width={200}
+                          height={200}
+                          alt="Portfolio Image"
+                          key={`portfolio-${index + 1}`}
+                          src={img?.url ?? null}
+                          className="w-full h-48 object-contain"
+                        />
+                      ),
+                    )}
+                  </div>
+                </Section>
+              </div>
             )}
           </CardContent>
         </Card>

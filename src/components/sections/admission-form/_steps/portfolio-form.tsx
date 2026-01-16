@@ -253,7 +253,7 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
                 router.push(`/admission/${admissionId}/education-details`)
               }}
               className={cn(
-                "flex items-center justify-center px-5 w-[120px] xss:h-10 3xl:w-[123px] 3xl:h-[50px] text-base xss:text-lg bg-gray-200 border border-gray-300 text-black rounded-[60px] hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
+                "flex items-center justify-center px-5 w-[120px] h-10 xss:h-10 3xl:w-[123px] 3xl:h-[50px] text-base xss:text-lg bg-gray-200 border border-gray-300 text-black rounded-[60px] hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
               )}
             >
               <ArrowLeft className="size-[15px] lg:size-[18px] 3xl:size-6" />
