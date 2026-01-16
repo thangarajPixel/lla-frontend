@@ -31,6 +31,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/gallery/alumni-gallery',
+        destination: '/gallery',
+        permanent: true,
+      },
+      {
         source: '/gallery/nilgiris',
         destination: '/nilgiris',
         permanent: true,
@@ -79,12 +84,7 @@ const nextConfig: NextConfig = {
         source: '/courses',
         destination: '/',
         permanent: true,
-      },
-      {
-        source: '/gallery/alumni-gallery/',
-        destination: '/gallery',
-        permanent: true,
-      },
+      }
     ];
   },
   
