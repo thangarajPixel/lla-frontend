@@ -10,6 +10,8 @@ export async function generateMetadata(): Promise<Metadata> {
 const Gallery = async () => {
   const [{ data: response }] = await Promise.all([getGalleryPageData()]);
 
+  if (!response) return null;
+
   if (response) return <GallerySection data={response} />;
 };
 

@@ -56,7 +56,6 @@ const CourseApplicationFormModel = ({
 
     const clientIpResponse = await fetch("/api/ip");
     const clientIp = await clientIpResponse.json();
-    console.log(clientIp.ip, "ip");
 
 
     const admissionPayload = {

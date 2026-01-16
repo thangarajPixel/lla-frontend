@@ -569,7 +569,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
                 height={800}
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
-                priority={true}
+                priority={false}
                 unoptimized={false}
                 onLoad={() => handleImageLoad(item.id)}
                 onError={(e) => {
