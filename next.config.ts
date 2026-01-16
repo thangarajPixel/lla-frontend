@@ -16,6 +16,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/courses',
+        destination: '/#course',
+        permanent: true,
+      },
+      {
         source: '/photography-contest/shoot-from-home-2020',
         destination: '/life-at-lla',
         permanent: true,
@@ -52,7 +57,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/courses/pg-diploma-in-documentary-corporate-filmmaking-2025',
-        destination: '/',
+        destination: '/#course',
         permanent: true,
       },
       {
@@ -78,11 +83,6 @@ const nextConfig: NextConfig = {
       {
         source: '/about-us',
         destination: '/about',
-        permanent: true,
-      },
-      {
-        source: '/courses',
-        destination: '/',
         permanent: true,
       }
     ];

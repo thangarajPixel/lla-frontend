@@ -27,17 +27,13 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
     }
 
     const initialHash = window.location.hash;
-    if (initialHash) {
-      window.history.replaceState(
-        window.history.state,
-        "",
-        window.location.pathname + window.location.search,
-      );
+    
+    // Only scroll to top if there's no hash
+    if (!initialHash) {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
     }
-
-    window.scrollTo(0, 0);
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
 
     const checkIsMobile = () => {
       if (typeof window === "undefined") return false;
@@ -137,18 +133,29 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
       rafIdRef.current = requestAnimationFrame(raf);
 
       const resetScroll = () => {
-        if (window.location.hash) {
-          window.history.replaceState(
-            window.history.state,
-            "",
-            window.location.pathname + window.location.search,
-          );
+        const currentHash = window.location.hash;
+        
+        // Only reset scroll if there's no hash
+        if (!currentHash) {
+          window.scrollTo(0, 0);
+          document.documentElement.scrollTop = 0;
+          document.body.scrollTop = 0;
+          if (lenis) {
+            lenis.scrollTo(0, { immediate: true });
+          }
         }
-        window.scrollTo(0, 0);
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
-        if (lenis) {
-          lenis.scrollTo(0, { immediate: true });
+      };
+
+      const handleHashNavigation = () => {
+        const currentHash = window.location.hash;
+        if (currentHash) {
+          const element = document.querySelector(currentHash) as HTMLElement;
+          if (element && lenis) {
+            // Use Lenis for smooth scroll to hash
+            setTimeout(() => {
+              lenis.scrollTo(element, { offset: 20, duration: 1 });
+            }, 300);
+          }
         }
       };
 
@@ -156,6 +163,7 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
         resetScroll();
         setTimeout(() => {
           resetScroll();
+          handleHashNavigation();
           if (ScrollTrigger && typeof ScrollTrigger.refresh === "function") {
             try {
               ScrollTrigger.refresh();
@@ -164,10 +172,15 @@ const SmoothScrollWidget = ({ children }: { children: React.ReactNode }) => {
         }, 100);
         setTimeout(() => {
           resetScroll();
+          handleHashNavigation();
         }, 300);
         setTimeout(() => {
           resetScroll();
+          handleHashNavigation();
         }, 500);
+        setTimeout(() => {
+          handleHashNavigation();
+        }, 800);
       });
 
       const observer = new MutationObserver(() => {
