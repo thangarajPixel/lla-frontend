@@ -88,7 +88,7 @@ const CourseSection = ({ data }: CourseSectionProps) => {
 
   if (data?.Card?.length === 0) return null;
   return (
-    <section className="w-full py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 3xl:py-28 bg-white">
+    <section id="course" className="w-full py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 3xl:py-28 bg-white" suppressHydrationWarning>
       <ContainerWidget>
         <div className="space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12 2xl:space-y-14 3xl:space-y-16">
           <div className="space-y-2.5 md:space-y-3 lg:space-y-4">
