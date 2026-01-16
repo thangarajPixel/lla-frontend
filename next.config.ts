@@ -75,6 +75,16 @@ const nextConfig: NextConfig = {
         destination: '/about',
         permanent: true,
       },
+      {
+        source: '/courses',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/gallery/alumni-gallery/',
+        destination: '/gallery',
+        permanent: true,
+      },
     ];
   },
   
