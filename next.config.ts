@@ -31,6 +31,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/gallery/alumni-gallery',
+        destination: '/gallery',
+        permanent: true,
+      },
+      {
         source: '/gallery/nilgiris',
         destination: '/nilgiris',
         permanent: true,
@@ -42,7 +47,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/courses/pg-diploma-in-professional-photography-digital-production-2025',
-        destination: '/courses/pg-diploma-in-professional-photography-videography',
+        destination: '/',
         permanent: true,
       },
       {
@@ -75,6 +80,11 @@ const nextConfig: NextConfig = {
         destination: '/about',
         permanent: true,
       },
+      {
+        source: '/courses',
+        destination: '/',
+        permanent: true,
+      }
     ];
   },
   
