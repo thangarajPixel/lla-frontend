@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getBlogBySlug } from "@/app/api/server";
-import BlogDetailSection from "@/components/sections/more/blogs/BlogDetailSection";
+import BlogDetailSection from "@/components/sections/more/blog/BlogDetailSection";
 
 export async function generateMetadata({
   params,
@@ -17,7 +17,7 @@ export async function generateMetadata({
       description: response?.card?.SeoViewCard?.Description || "Light & Life Academy Blog",
       keywords: response?.card?.SeoViewCard?.KeyWords || undefined,
       alternates: {
-        canonical: `${baseUrl}/blogs/${slug}`,
+        canonical: `${baseUrl}/blog/${slug}`,
       },
     };
   } catch (error) {
@@ -28,7 +28,7 @@ export async function generateMetadata({
       title: "Blog | LLA",
       description: "Light & Life Academy Blog",
       alternates: {
-        canonical: `${baseUrl}/blogs/${slug}`,
+        canonical: `${baseUrl}/blog/${slug}`,
       },
     };
   }

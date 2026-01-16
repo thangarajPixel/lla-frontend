@@ -4,7 +4,7 @@ import { generateSeoMetadata } from "@/helpers/SeoHelper";
 import MediaSection from "@/components/sections/more/media/MediaSection";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return generateSeoMetadata("/media");
+  return generateSeoMetadata("/in-the-media");
 }
 
 const Media = async () => {

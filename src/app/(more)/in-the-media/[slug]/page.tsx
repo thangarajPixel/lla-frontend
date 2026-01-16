@@ -17,7 +17,7 @@ export async function generateMetadata({
       description: response?.card?.SeoViewCard?.Description || "Light & Life Academy in the Media",
       keywords: response?.card?.SeoViewCard?.KeyWords || undefined,
       alternates: {
-        canonical: `${baseUrl}/media/${slug}`,
+        canonical: `${baseUrl}/${slug}`,
       },
     };
   } catch (error) {

@@ -28,8 +28,15 @@ const CourseSection = ({ data }: CourseSectionProps) => {
   });
 
   const [isAdmissionOpen, setIsAdmissionOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) return;
+    
     setImageIndices(
       data?.Card?.map((card) => {
         const images = card?.Image;
@@ -38,7 +45,7 @@ const CourseSection = ({ data }: CourseSectionProps) => {
           : 0;
       }),
     );
-  }, [data?.Card]);
+  }, [data?.Card, isClient]);
   useEffect(() => {
     const getAdmissionData = async () => {
       const { data: res } = await getEssentialsData();

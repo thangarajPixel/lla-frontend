@@ -15,7 +15,7 @@ import OrangeButtonWidget from "../widgets/OrangeButtonWidget";
 
 const QUICK_LINKS = [
   { id: "home", href: "/", label: "Home" },
-  { id: "about", href: "/about-us", label: "About LLA" },
+  { id: "about", href: "/about", label: "About LLA" },
   { id: "campus", href: "/campus", label: "Campus" },
   { id: "faculty", href: "/faculty", label: "Faculty" },
   { id: "gallery", href: "/gallery", label: "Gallery" },
@@ -23,7 +23,7 @@ const QUICK_LINKS = [
 ];
 
 const RESOURCES = [
-  { id: "blog", href: "/blogs", label: "Blog" },
+  { id: "blog", href: "/blog", label: "Blog" },
   { id: "media", href: "/in-the-media", label: "Media" },
   { id: "faq", href: "/faq", label: "FAQ" },
   { id: "privacy", href: "/privacy-policy", label: "Privacy Policy" },

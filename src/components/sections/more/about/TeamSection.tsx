@@ -10,7 +10,7 @@ import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
 import { getS3Url } from "@/helpers/ConstantHelper";
 import TeamMemberPopup from "./Team";
-import type { Card, TeamSectionProps } from "./utils/about-us";
+import type { Card, TeamSectionProps } from "./utils/about";
 
 const TeamSection = ({ data }: TeamSectionProps) => {
   const [selectedCardId, setSelectedCardId] = useState<number | null>(null);

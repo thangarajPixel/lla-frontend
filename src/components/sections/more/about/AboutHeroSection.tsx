@@ -8,7 +8,7 @@ import ParagraphWidget from "@/components/widgets/ParagraphWidget";
 import ParallaxWidget from "@/components/widgets/ParallaxWidget";
 import ScrollWidget from "@/components/widgets/ScrollWidget";
 import { getS3Url } from "@/helpers/ConstantHelper";
-import type { AboutHeroSectionProps } from "./utils/about-us";
+import type { AboutHeroSectionProps } from "./utils/about";
 
 const AboutHeroSection = ({ data }: AboutHeroSectionProps) => {
   return (

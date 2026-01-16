@@ -39,7 +39,7 @@ const MobileImageLayout = ({ breakpoint, images }: MobileImageLayoutProps) => {
   return (
     <div className={`w-full overflow-hidden mt-4 sm:mt-6 ${breakpoint}:hidden`}>
       <div ref={emblaRef} className="cursor-grab active:cursor-grabbing">
-        <div className="flex gap-3 sm:gap-4">
+        <div className="flex w-full gap-3 sm:gap-4">
           {images.map((image, index) => {
             const imageUrl = image?.url ? getS3Url(image.url) : undefined;
             if (!imageUrl) return null;
@@ -47,14 +47,15 @@ const MobileImageLayout = ({ breakpoint, images }: MobileImageLayoutProps) => {
             return (
               <div
                 key={image.id || index}
+                className="w-full"
                 // className="relative aspect-4/3 overflow-hidden"
               >
                 <ImageWidget
                   src={imageUrl}
                   alt={image.name || "Course Content"}
                   // fill
-                  width={100}
-                  height={100}
+                  width={500}
+                  height={500}
                   className="object-cover object-top w-full h-full"
                 />
               </div>

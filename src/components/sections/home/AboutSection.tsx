@@ -82,7 +82,7 @@ const AboutSection = ({ data }: AboutSectionProps) => {
               {data.Description}
             </p>
             <div className="self-start">
-              <LinkWidget href="/about-us" className="w-full">
+              <LinkWidget href="/about" className="w-full">
                 <OrangeButtonWidget content={data.Btn_txt} />
               </LinkWidget>
             </div>

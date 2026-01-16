@@ -446,7 +446,7 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
                 </h3>
                 <div className="hidden md:flex flex-col gap-4">
                   {latest.map((post) => (
-                    <Link key={post.id} href={`/blogs/${post.Slug}`} className="group block">
+                    <Link key={post.id} href={`/blog/${post.Slug}`} className="group block">
                       <div className="flex flex-col gap-2 cursor-pointer transition-transform duration-300 hover:scale-[1.02]">
                         {post.Image?.[0]?.url && (
                           <div className="relative w-full aspect-video overflow-hidden">
@@ -478,7 +478,7 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
 
                 <div className="hidden md:flex justify-center mt-4">
                   <Link
-                    href="/blogs"
+                    href="/blog"
                     className="inline-flex items-center gap-2 text-[#E97451] mt-2 orange-button px-6 py-2 rounded-full"
                   >
                     View All
@@ -502,7 +502,7 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
                     {latest.map((post) => (
                       <Link
                         key={post.id}
-                        href={`/blogs/${post.Slug}`}
+                        href={`/blog/${post.Slug}`}
                         className="shrink-0 w-[85%] snap-start block group"
                       >
                         <div className="flex flex-col gap-2 cursor-pointer transition-transform duration-300 hover:scale-[1.02]">
@@ -575,7 +575,7 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
 
                 <div className="flex justify-center mt-2 md:hidden">
                   <Link
-                    href="/blogs"
+                    href="/blog"
                     className="inline-flex items-center gap-2 text-[#E97451] orange-button px-6 py-3 rounded-full"
                   >
                     View All

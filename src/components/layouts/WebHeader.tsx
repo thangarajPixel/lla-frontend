@@ -95,9 +95,9 @@ const WebHeader = ({
           label: "More",
           pathPrefix: "",
           items: [
-            { href: "/about-us", label: "About us" },
+            { href: "/about", label: "About us" },
             { href: "/life-at-lla", label: "Life at LLA" },
-            { href: "/blogs", label: "Blog" },
+            { href: "/blog", label: "Blog" },
             { href: "/in-the-media", label: "Media" },
             { href: "/contact-us", label: "Contact Us" },
             { href: "/faq", label: "FAQ" },
@@ -128,9 +128,9 @@ const WebHeader = ({
         label: "More",
         pathPrefix: "",
         items: [
-          { href: "/about-us", label: "About us" },
+          { href: "/about", label: "About us" },
           { href: "/life-at-lla", label: "Life at LLA" },
-          { href: "/blogs", label: "Blog" },
+          { href: "/blog", label: "Blog" },
           { href: "/in-the-media", label: "Media" },
           { href: "/contact-us", label: "Contact Us" },
           { href: "/faq", label: "FAQ" },

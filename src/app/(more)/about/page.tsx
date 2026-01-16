@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { Fragment } from "react/jsx-runtime";
 import { getAboutUsPageData } from "@/app/api/server";
-import AboutHeroSection from "@/components/sections/more/about-us/AboutHeroSection";
-import FounderSection from "@/components/sections/more/about-us/FounderSection";
-import TeamSection from "@/components/sections/more/about-us/TeamSection";
+import AboutHeroSection from "@/components/sections/more/about/AboutHeroSection";
+import FounderSection from "@/components/sections/more/about/FounderSection";
+import TeamSection from "@/components/sections/more/about/TeamSection";
 import { generateSeoMetadata } from "@/helpers/SeoHelper";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return generateSeoMetadata("/about-us");
+  return generateSeoMetadata("/about");
 }
 
 const AboutUsPage = async () => {
