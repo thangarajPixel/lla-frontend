@@ -42,7 +42,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/courses/pg-diploma-in-professional-photography-digital-production-2025',
-        destination: '/courses/pg-diploma-in-professional-photography-videography',
+        destination: '/',
         permanent: true,
       },
       {
