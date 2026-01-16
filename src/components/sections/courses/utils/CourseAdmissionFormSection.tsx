@@ -47,6 +47,8 @@ const CourseAdmissionFormSection = ({
     const isAdmissionOpen = await getEssentialsData();
 
     // const clientIp = await getMyIp();
+    const clientIpResponse = await fetch("/api/ip");
+    const clientIp = await clientIpResponse.json();
 
     const filteredData = filteredPayload(payload);
 
@@ -57,7 +59,7 @@ const CourseAdmissionFormSection = ({
       Message: filteredData?.Message,
       Course: selectedCourse?.documentId,
       AdmissionYear: isAdmissionOpen?.data?.admission_year?.AcademicYear,
-      // IpAddress: clientIp?.ip,
+      IpAddress: clientIp?.ip,
       step_0: true,
     };
 
