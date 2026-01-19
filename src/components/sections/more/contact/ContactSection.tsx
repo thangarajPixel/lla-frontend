@@ -144,14 +144,14 @@ export default function ContactSection({ data }: ContactSectionProps) {
               <div className="flex items-center gap-2">
                 <div>
                   <ImageWidget
-                    src={LocationIcon}
+                    src={LocationIcon ?? null}
                     alt="Contact Location"
                     className="max-w-[32px] max-h-[32px] text-[#FF6B4A]"
                   />
                 </div>
                 <div>
                   <HTMLWidget
-                    content={data.Location}
+                    content={data.Location ?? null}
                     className="text-[16px] md:text-[16px] lg:text-[16px] xl:text-[16px] 2xl:text-[16px] 3xl:text-[18px] text-black leading-normal font-mulish"
                     tag="p"
                   />
