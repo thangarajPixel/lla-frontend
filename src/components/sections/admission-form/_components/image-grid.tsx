@@ -42,7 +42,7 @@ export const ImageGrid = ({ images, onRemove }: ImageGridProps) => {
         ))}
       </div>
 
-      <div className="mt-auto">
+      <div>
         <ResponsiveMasonry
           columnsCountBreakPoints={{
             350: 2,
