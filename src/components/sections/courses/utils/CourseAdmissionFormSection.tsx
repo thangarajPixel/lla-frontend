@@ -73,7 +73,6 @@ const CourseAdmissionFormSection = ({
       Message: filteredData?.Message,
       Type: "Request Information",
       Course: selectedCourse?.documentId,
-      AdmissionYear: isAdmissionOpen?.data?.admission_year?.AcademicYear,
     };
 
     try {
@@ -111,6 +110,7 @@ const CourseAdmissionFormSection = ({
         router.push(`/admission/${encryptedId}/personal-details`);
       } else {
         await clientAxios.post(`/contacts`, { data: requestPayload });
+        router.push("/request-thankyou");
       }
       form.reset();
       toast.success("Request submitted successfully!");
