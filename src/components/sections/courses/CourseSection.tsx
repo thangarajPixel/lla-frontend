@@ -24,6 +24,7 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
     null,
   );
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  // const [initialMount, setInitialMount] = useState<boolean>(true);
   const isHeaderVisible = useCourseStore((state) => state.isHeaderVisible);
 
   // Create dynamic sidebar menu items based on data
@@ -59,6 +60,67 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
       setIsSheetOpen(false);
     }
   };
+
+  // const handleSmoothScroll = (
+  //   e: React.MouseEvent<HTMLElement>,
+  //   href: string,
+  // ) => {
+  //   e.preventDefault();
+
+  //   const targetId = href.substring(1);
+  //   const targetElement = document.getElementById(targetId);
+
+  //   if (!targetElement) {
+  //     setIsSheetOpen(false);
+  //     return;
+  //   }
+
+  //   setIsSheetOpen(false);
+
+  //   requestAnimationFrame(() => {
+  //     const headerOffset = 100;
+  //     const elementPosition = targetElement.getBoundingClientRect().top;
+  //     console.log(elementPosition, "element position");
+  //     const scrollTop = window.pageYOffset;
+  //     console.log(scrollTop, "scroll top");
+
+  //     const scrollMarginTop = parseFloat(
+  //       window.getComputedStyle(targetElement).scrollMarginTop || "0",
+  //     );
+
+  //     console.log(scrollMarginTop, "scroll margin top");
+
+  //     const offsetPosition =
+  //       elementPosition + scrollTop - headerOffset - scrollMarginTop;
+
+  //     console.log(offsetPosition, "offset position");
+
+  //     if (initialMount) {
+  //       window.scrollTo({
+  //         top: Math.max(0, 500), // 500
+  //         behavior: "smooth",
+  //       });
+  //     }
+
+  //     const newScrollTop = window.pageYOffset;
+  //     console.log(newScrollTop, "new scroll top");
+  //     const newOffsetPosition =
+  //       elementPosition + newScrollTop - headerOffset - scrollMarginTop;
+
+  //     console.log(newOffsetPosition, "newOffsetPosition");
+  //     window.scrollTo({
+  //       top: Math.max(500, initialMount && targetId !== "course-content" ? (offsetPosition - 1900) : offsetPosition),
+  //       behavior: "smooth",
+  //     });
+
+  //     // window.scrollTo({
+  //     //   top: Math.max(0, offsetPosition),
+  //     //   behavior: "smooth",
+  //     // });
+
+  //     setInitialMount(false);
+  //   });
+  // };
 
   const handleOuterTitleScroll = (
     e: React.MouseEvent<HTMLElement>,
@@ -230,11 +292,10 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
                 <LinkWidget
                   href={item.href}
                   onClick={(e) => handleSmoothScroll(e, item.href)}
-                  className={`block px-4 py-3 md:pb-1 text-[16px] md:text-[17px] 3xl:text-[18px] transition-colors duration-200 cursor-pointer ${
-                    isActive
-                      ? "text-[#E97451] font-semibold"
-                      : "hover:text-[#E97451]"
-                  }`}
+                  className={`block px-4 py-3 md:pb-1 text-[16px] md:text-[17px] 3xl:text-[18px] transition-colors duration-200 cursor-pointer ${isActive
+                    ? "text-[#E97451] font-semibold"
+                    : "hover:text-[#E97451]"
+                    }`}
                 >
                   {item.label}
                 </LinkWidget>
@@ -259,11 +320,10 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
                                     setActiveCourseContent(cardId);
                                   }
                                 }}
-                                className={`block px-4 py-2 text-[15px] md:text-[15px] 3xl:text-[16px] font-medium transition-all duration-200 cursor-pointer border-l-2 -ml-[2px] ${
-                                  isActiveContent
-                                    ? "text-[#E97451] font-semibold border-[#E97451] bg-orange-50"
-                                    : "text-gray-600 hover:text-[#E97451] border-transparent hover:border-orange-200"
-                                }`}
+                                className={`block px-4 py-2 text-[15px] md:text-[15px] 3xl:text-[16px] font-medium transition-all duration-200 cursor-pointer border-l-2 -ml-[2px] ${isActiveContent
+                                  ? "text-[#E97451] font-semibold border-[#E97451] bg-orange-50"
+                                  : "text-gray-600 hover:text-[#E97451] border-transparent hover:border-orange-200"
+                                  }`}
                               >
                                 {outerTitle}
                               </LinkWidget>

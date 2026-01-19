@@ -17,6 +17,7 @@ import { DocumentIcon, EditIcon } from "@/helpers/ImageHelper";
 import { cn } from "@/lib/utils";
 import { useCourseStore } from "@/store/zustand";
 import PaymentModel from "../_components/payment-model";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 export const dynamic = "force-dynamic";
 
 export type PaymentData = {
@@ -257,6 +258,7 @@ const ReviewApplication = ({
   const [paymentDetails, setPaymentDetails] = useState<PaymentResponse | null>(
     null,
   );
+  const [isMounted, setIsMounted] = useState<boolean>(false);
 
   const portfolioRef = useRef<HTMLDivElement | null>(null);
   // const scrollContainerRef = useRef<HTMLDivElement | null>(null);
@@ -268,6 +270,10 @@ const ReviewApplication = ({
   const fullAddress = `${admissionData?.address?.[0]?.children?.[0]?.text}, ${admissionData?.city}, ${admissionData?.district}, ${admissionData?.state?.name}, ${admissionData?.pincode}`;
   const parentFullAddress = `${admissionData?.Parent_Guardian_Spouse_Details?.address?.[0]?.children?.[0]?.text}, ${admissionData?.Parent_Guardian_Spouse_Details?.city}, ${admissionData?.Parent_Guardian_Spouse_Details?.district}, ${admissionData?.Parent_Guardian_Spouse_Details?.state.name}, ${admissionData?.Parent_Guardian_Spouse_Details?.pincode}`;
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+  
   useEffect(() => {
     if (admissionData) {
       useCourseStore.setState({ courseName: admissionData?.Course?.Name });
@@ -768,7 +774,7 @@ const ReviewApplication = ({
             )}
 
             {admissionData?.Upload_Your_Portfolio?.images?.length > 0 && (
-              <div id="portfolio" ref={portfolioRef} tabIndex={-1}>
+              <div id="portfolio" ref={portfolioRef} tabIndex={-1} className="hidden">
                 <Section
                   title="Portfolio Images"
                   canEdit
@@ -794,6 +800,88 @@ const ReviewApplication = ({
                 </Section>
               </div>
             )}
+
+            {admissionData?.Upload_Your_Portfolio?.images?.length > 0 && (
+              <div id="portfolio" ref={portfolioRef} tabIndex={-1}>
+                <Section
+                  title="Portfolio Images"
+                  canEdit
+                  onEdit={() =>
+                    router.push(`/admission/${admissionId}/portfolio`)
+                  }
+                  paymentStatus={admissionData?.Payment_Status}
+                >
+                  <div className="mt-auto">
+                    {isMounted ? (
+                      <ResponsiveMasonry
+                        columnsCountBreakPoints={{
+                          350: 2,
+                          // 640: 2,
+                        }}
+                      >
+                        <Masonry gutter="24px">
+                          {admissionData?.Upload_Your_Portfolio?.images?.map(
+                            (image, index) => {
+                              if (!image?.url) return null;
+                              const imageAlt =
+                                image?.name || `Portfolio ${index + 1}`;
+                              return (
+                                <div
+                                  key={`portfolio-${image.id || index}`}
+                                  className="relative w-full overflow-hidden -mx-0.5"
+                                  style={{ padding: "3px" }}
+                                >
+                                  <div className="relative w-full overflow-hidden">
+                                    <ImageWidget
+                                      src={image.url ?? null}
+                                      alt={imageAlt}
+                                      width={600}
+                                      height={800}
+                                      className="object-cover w-full h-auto"
+                                      loading="lazy"
+                                      sizes="(max-width: 640px) 100vw, 50vw"
+                                    />
+                                  </div>
+                                </div>
+                              );
+                            },
+                          )}
+                        </Masonry>
+                      </ResponsiveMasonry>
+                    ) : (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        {admissionData?.Upload_Your_Portfolio?.images?.map(
+                          (image, index) => {
+                            if (!image?.url) return null;
+                            const imageAlt =
+                              image?.name || `Portfolio ${index + 1}`;
+                            return (
+                              <div
+                                key={`portfolio-${image.id || index}`}
+                                className="relative w-full overflow-hidden"
+                              >
+                                <div className="relative w-full overflow-hidden">
+                                  <ImageWidget
+                                    src={image.url ?? null}
+                                    alt={imageAlt}
+                                    width={600}
+                                    height={800}
+                                    className="object-cover w-full h-auto"
+                                    loading="lazy"
+                                    sizes="(max-width: 640px) 100vw, 50vw"
+                                  />
+                                </div>
+                              </div>
+                            );
+                          },
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </Section>
+              </div>
+            )}
+
           </CardContent>
         </Card>
       </div>

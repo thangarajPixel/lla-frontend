@@ -29,7 +29,8 @@ export const UploadArea = ({ onFilesSelected, loading }: UploadAreaProps) => {
       aria-hidden
       onDragOver={(e) => e.preventDefault()}
       onDrop={handleDrop}
-      className="border border-[#969696] rounded-xl p-12 flex flex-col items-center gap-4 bg-[#F7F7F7] hover:border-primary/50"
+      onClick={() => inputRef.current?.click()}
+      className="border border-[#969696] rounded-xl p-12 flex flex-col items-center gap-4 bg-[#F7F7F7] hover:border-primary/50 cursor-pointer"
     >
       {loading ? (
         <p className="text-sm text-muted-foreground">Uploading...</p>
