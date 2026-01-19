@@ -61,7 +61,7 @@ const AdmissionRequestButton = ({
       toast.success("Message sent successfully!");
       reset();
       setIsOpen(false);
-      router.push("/thankyou");
+      router.push("/request-thankyou");
     } catch (_error) {
       toast.error("Failed to send message. Please try again.", {
         position: "top-right",

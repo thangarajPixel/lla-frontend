@@ -30,17 +30,17 @@ export const UploadArea = ({ onFilesSelected, loading }: UploadAreaProps) => {
       onDragOver={(e) => e.preventDefault()}
       onDrop={handleDrop}
       onClick={() => inputRef.current?.click()}
-      className="border border-[#969696] rounded-xl p-12 flex flex-col items-center gap-4 bg-[#F7F7F7] hover:border-primary/50 cursor-pointer"
+      className="h-[188px] md:h-[200px] 3xl:h-[227px] border border-[#969696] rounded-xl p-4 flex flex-col justify-center items-center gap-3 bg-[#F7F7F7] hover:border-primary/50 cursor-pointer"
     >
       {loading ? (
         <p className="text-sm text-muted-foreground">Uploading...</p>
       ) : (
         <>
-          <ImageWidget src={UploadIconImg} alt="Upload" className="h-10 w-10" />
+          <ImageWidget src={UploadIconImg} alt="Upload" className="h-[30px] w-[30px]" />
 
           <p className="text-sm text-muted-foreground">Drag & Drop here</p>
 
-          <p className="text-xs 3xl:text-sm text-muted-foreground font-medium">
+          <p className="text-xs 3xl:text-sm text-muted-foreground font-medium text-nowrap">
             Max file size per image is 1 MB
           </p>
 

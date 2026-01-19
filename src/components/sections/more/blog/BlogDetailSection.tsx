@@ -183,8 +183,10 @@ const ImageSlider = ({
         <ImageWidget
           src={getS3Url(images[currentIndex].url)}
           alt={title || images[currentIndex].name}
-          fill
-          className="object-cover transition-opacity duration-500 pointer-events-none"
+          // fill
+          width={1200}
+          height={800}
+          className="object-cover md:object-top transition-opacity duration-500 pointer-events-none"
         />
       </div>
       {images.length > 1 && (
@@ -228,8 +230,8 @@ const ImageSlider = ({
               type="button"
               onClick={() => goToSlide(index)}
               className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
-                  ? "bg-white scale-125"
-                  : "bg-white/50 hover:bg-white/75"
+                ? "bg-white scale-125"
+                : "bg-white/50 hover:bg-white/75"
                 }`}
               aria-label={`Go to slide ${index + 1}`}
             />
@@ -390,7 +392,7 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
                         <div className="relative w-full overflow-hidden">
                           <ImageWidget
                             src={getS3Url(viewCard.Image[0].url)}
-                            alt={viewCard.Title}
+                            alt={viewCard.Title ?? ""}
                             width={850}
                             height={600}
                             className="w-full h-auto object-contain"
@@ -452,7 +454,7 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
                           <div className="relative w-full aspect-video overflow-hidden">
                             <ImageWidget
                               src={getS3Url(post.Image?.[0]?.url || "")}
-                              alt={post.Title}
+                              alt={post.Title ?? ""}
                               fill
                               className="object-cover transition-transform duration-300 group-hover:scale-105"
                             />
@@ -510,7 +512,7 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
                             <div className="relative w-full aspect-video overflow-hidden">
                               <ImageWidget
                                 src={getS3Url(post.Image[0].url)}
-                                alt={post.Title}
+                                alt={post.Title ?? ""}
                                 fill
                                 className="object-cover transition-transform duration-300 group-hover:scale-105"
                               />
@@ -539,8 +541,8 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
                       onClick={() => scroll("left")}
                       disabled={!canScrollLeft}
                       className={`transition-opacity ${canScrollLeft
-                          ? "opacity-100 hover:opacity-70"
-                          : "opacity-30 cursor-not-allowed"
+                        ? "opacity-100 hover:opacity-70"
+                        : "opacity-30 cursor-not-allowed"
                         }`}
                       aria-label="Previous slide"
                     >
@@ -557,8 +559,8 @@ const BlogDetailSection = ({ data }: BlogDetailProps) => {
                       onClick={() => scroll("right")}
                       disabled={!canScrollRight}
                       className={`transition-opacity ${canScrollRight
-                          ? "opacity-100 hover:opacity-70"
-                          : "opacity-30 cursor-not-allowed"
+                        ? "opacity-100 hover:opacity-70"
+                        : "opacity-30 cursor-not-allowed"
                         }`}
                       aria-label="Next slide"
                     >

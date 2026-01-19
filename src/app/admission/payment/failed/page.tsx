@@ -38,6 +38,7 @@ function PaymentFailedContent() {
       try {
         await updateAdmission(admissionData?.documentId, {
           step_3: true,
+          step_4: false,
           Payment_Status: "UnPaid",
         } as never);
       } catch (error) {

@@ -91,6 +91,7 @@ function PaymentSuccessContent() {
 
         await updateAdmission(admissionData?.documentId, {
           step_3: true,
+          step_4: true,
           Payment_Status: "Paid",
           Paid_Amount: paidAmount,
         } as never);
