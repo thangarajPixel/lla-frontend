@@ -9,6 +9,9 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const PrivacyPolicy = async () => {
   const { data: response } = await getPrivacyPageData();
+
+  if (!response) return null;
+
   return <PrivacyPolicySection data={response} />;
 };
 
