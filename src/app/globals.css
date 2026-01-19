@@ -7,6 +7,15 @@ body {
   font-family: var(--font-mulish), sans-serif;
 }
 
+/* html {
+  scrollbar-gutter: stable;
+} */
+
+/* body[data-scroll-locked] {
+  overflow: auto !important;
+  padding-right: 0 !important;
+} */
+
 @theme {
   --breakpoint-s: 300px;
   --breakpoint-m: 375px;
