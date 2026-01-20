@@ -79,8 +79,8 @@ const CourseApplicationFormModel = ({
       Message: payload.Message,
       Type: "Request Information",
       Course:
-        selectedCourse?.course_list?.documentId ??
-        selectedCourseItem?.documentId,
+        selectedCourse?.course_list?.Name ??
+        selectedCourseItem?.Name,
     };
 
     try {

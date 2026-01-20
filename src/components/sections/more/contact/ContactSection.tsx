@@ -189,8 +189,10 @@ export default function ContactSection({ data }: ContactSectionProps) {
                 <FormInput
                   name="LastName"
                   control={control}
+                  label="Last Name"
                   placeholder="Last Name"
-                  className="col-span-1 mt-6"
+                  className="col-span-1"
+                  labelClassName="invisible"
                 />
               </div>
 
