@@ -16,6 +16,7 @@ import { encryptId, filteredPayload } from "@/helpers/ConstantHelper";
 import { admissionRequestSchema } from "@/helpers/ValidationHelper";
 import CourseApplicationFormModel from "./CourseApplicationFormModel";
 import { cn } from "@/lib/utils";
+import { useCourseStore } from "@/store/zustand";
 
 // export type RequestFormData = z.infer<typeof admissionRequestSchema>;
 export type RequestFormData = z.infer<
@@ -29,6 +30,7 @@ const CourseAdmissionFormSection = ({
 }) => {
   // const [selectedCourse, setSelectedCourse] =
   //   useState<string>();
+  const essentialData = useCourseStore((state) => state.essentialData);
   const [isApplicationOpen, setIsApplicationOpen] = useState(false);
   const [emailError, setEmailError] = useState<string>("");
   const formRef = useRef<HTMLFormElement>(null);
@@ -47,9 +49,8 @@ const CourseAdmissionFormSection = ({
   });
 
   const onSubmit = async (payload: RequestFormData) => {
-    const isAdmissionOpen = await getEssentialsData();
-
-    // const clientIp = await getMyIp();
+    // const isAdmissionOpen = await getEssentialsData();
+    
     const clientIpResponse = await fetch("/api/ip");
     const clientIp = await clientIpResponse.json();
 
@@ -61,7 +62,7 @@ const CourseAdmissionFormSection = ({
       email: filteredData?.Email,
       Message: filteredData?.Message,
       Course: selectedCourse?.documentId,
-      AdmissionYear: isAdmissionOpen?.data?.admission_year?.AcademicYear,
+      AdmissionYear: essentialData?.admission_year?.AcademicYear,
       IpAddress: clientIp?.ip,
       step_0: true,
     };
@@ -77,7 +78,7 @@ const CourseAdmissionFormSection = ({
 
     try {
 
-      if (isAdmissionOpen?.data?.isAdmission) {
+      if (essentialData?.isAdmission) {
         const isExistingEmailCheck = await clientAxios.post(
           `/admissions/email/check`,
           {
@@ -129,9 +130,13 @@ const CourseAdmissionFormSection = ({
           onSubmit={form.handleSubmit(onSubmit)}
           className="hidden grid-cols-2 md:flex font-mulish gap-2 md:gap-3 items-stretch md:items-center md:justify-between"
         >
-          <h3 className="hidden md:block text-white text-[14px] sm:text-[15px] md:text-[16px] lg:text-[15px] 3xl:text-[18px] font-semibold mb-2 md:mb-2 text-center md:text-left relative md:bottom-1.5">
-            Apply Now
-          </h3>
+          {
+            essentialData && (
+              <h3 className="hidden md:block text-white text-[14px] sm:text-[15px] md:text-[16px] lg:text-[15px] 3xl:text-[18px] font-semibold mb-2 md:mb-2 text-center md:text-left relative md:bottom-1.5">
+                {essentialData?.isAdmission ? "Apply Now" : "Get In Touch"}
+              </h3>
+            )
+          }
 
           <FormInput
             name="FirstName"
@@ -183,7 +188,7 @@ const CourseAdmissionFormSection = ({
               setIsApplicationOpen(true);
             }}
           >
-            Apply Now
+            {!essentialData ? "" : essentialData?.isAdmission ? "Apply Now" : "Get In Touch"}
             <ArrowRight className="w-[14px] h-[14px] md:w-[15px] md:h-[15px] lg:w-[18px] lg:h-[18px] 3xl:w-6 3xl:h-6 transition-transform duration-300 group-hover:translate-x-1" />
           </button>
         </div>

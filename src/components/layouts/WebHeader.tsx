@@ -61,6 +61,7 @@ const WebHeader = ({
     const getAdmissionData = async () => {
       try {
         const { data: res } = await getEssentialsData();
+        useCourseStore.setState({ essentialData: res });
         setIsAdmissionOpen(res?.isAdmission ?? false);
       } catch (error) {
         console.error(error);

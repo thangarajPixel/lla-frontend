@@ -147,3 +147,21 @@ export type CourseFormData = {
   emailAddress: string;
   message: string;
 };
+
+
+export type Essential = {
+  id: number;
+  documentId: string;
+  isAdmission: boolean;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  admission_year: {
+    id: number;
+    documentId: string;
+    AcademicYear: string;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+  };
+}
