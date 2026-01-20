@@ -219,6 +219,13 @@ type AdmissionResponse = {
   data: AdmissionFormData;
 };
 
+type ThankYouPage = {
+  Title: string;
+  Description: string;
+  LongDescription: string;
+  Type?: string;
+};
+
 // type PaymentData = {
 //   key: string;
 //   amount: string;

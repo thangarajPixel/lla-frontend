@@ -1,13 +1,13 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { Check } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getThankyouPageData } from "@/app/api/server";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
-import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 
-export default function ThankYouPage() {
+export default function AdmissionClosedPage() {
   const [thankYouContent, setThankYouContent] = useState<ThankYouPage>({
     Title: "",
     Description: "",
@@ -18,9 +18,8 @@ export default function ThankYouPage() {
   useEffect(() => {
     const fetchData = async () => {
       const response = await getThankyouPageData();
-      console.log(response, "response");
       const data = response?.data?.find(
-        (item: ThankYouPage) => item.Type === "Contact",
+        (item: ThankYouPage) => item.Type === "AdmissionClosed",
       );
       setThankYouContent(data);
     };

@@ -8,6 +8,7 @@ import { StepIndicator } from "@/components/sections/admission-form/_components/
 import { ApplicationFormBg } from "@/helpers/ImageHelper";
 import { cn } from "@/lib/utils";
 import { useCourseStore } from "@/store/zustand";
+import AdmissionClosedPage from "./admission-closed";
 
 function AdmissionFormLayoutContent({ children }: { children: React.ReactNode }) {
   const [currentStep, setCurrentStep] = useState<number>(1);
@@ -100,9 +101,22 @@ function AdmissionFormLayoutContent({ children }: { children: React.ReactNode })
 }
 
 export default function AdmissionFormLayout({ children }: { children: React.ReactNode }) {
+  const essentialData = useCourseStore((state) => state.essentialData);
+
+  if (!essentialData) {
+    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
+  }
+
   return (
     <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading...</div>}>
-      <AdmissionFormLayoutContent>{children}</AdmissionFormLayoutContent>
+      
+      {essentialData?.isAdmission ? (
+        <AdmissionFormLayoutContent>{children}</AdmissionFormLayoutContent>
+      ) : (
+        <AdmissionClosedPage />
+      )
+    }
+
     </Suspense>
   );
 }

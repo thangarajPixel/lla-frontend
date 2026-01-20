@@ -3,12 +3,10 @@
 import { X } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
-import { getAdmissionsById } from "@/app/api/server";
+import { getAdmissionsById, getThankyouPageData } from "@/app/api/server";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
-import { clientAxios } from "@/helpers/AxiosHelper";
 import { decryptCode, notify } from "@/helpers/ConstantHelper";
 import { updateAdmission } from "@/store/services/global-services";
-import type { ThankYouPage } from "../success/page";
 export const dynamic = "force-dynamic";
 
 function PaymentFailedContent() {
@@ -52,8 +50,8 @@ function PaymentFailedContent() {
   useEffect(() => {
     const getThankYouContent = async () => {
       try {
-        const res = await clientAxios.get(`/thank-you-pages`);
-        const errorContent = res?.data?.data?.find(
+        const res = await getThankyouPageData();
+        const errorContent = res?.data?.find(
           (item: ThankYouPage) => item.Type === "Error",
         );
         setThankYouContent(errorContent);
@@ -74,8 +72,8 @@ function PaymentFailedContent() {
           </div>
         </div>
 
-        <div className="hidden space-y-4 max-w-195 3xl:max-w-267.5">
-          <p className="text-base 3xl:text-lg font-mulish text-black">
+        <div className="flex flex-col space-y-4 max-w-195 3xl:max-w-267.5">
+          <p className="text-base md:text-lg font-medium 3xl:text-lg font-mulish text-red-500">
             {thankYouContent?.Title}
           </p>
 
@@ -87,41 +85,9 @@ function PaymentFailedContent() {
 
           <HTMLWidget
             content={thankYouContent?.LongDescription}
-            className="font-mulish text-black/50 text-xs 3xl:text-sm italic 3xl:max-w-5xl mx-auto leading-relaxed"
+            className="font-mulish text-black/50 text-xs 3xl:text-sm 3xl:max-w-5xl mx-auto leading-relaxed"
             tag="p"
           />
-        </div>
-
-        <div className="space-y-3 text-center">
-          <p className="text-lg font-semibold text-red-600">
-            Your Payment has failed.
-          </p>
-
-          <p className="text-sm text-gray-700">
-            For further assistance, please contact us:
-          </p>
-
-          <div className="text-sm text-gray-800 space-y-1">
-            <p>
-              <span className="font-medium">Email:</span>{" "}
-              <a
-                href="mailto:admissions@llacademy.org"
-                className="text-blue-600 hover:underline"
-              >
-                admissions@llacademy.org
-              </a>
-            </p>
-
-            <p>
-              <span className="font-medium">Phone:</span>{" "}
-              <a
-                href="tel:+917598287370"
-                className="text-blue-600 hover:underline"
-              >
-                +91 75982 87370
-              </a>
-            </p>
-          </div>
         </div>
       </div>
     </main>

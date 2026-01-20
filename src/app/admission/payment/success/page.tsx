@@ -4,7 +4,7 @@ import { Check } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { toast } from "sonner";
-import { getAdmissionsById } from "@/app/api/server";
+import { getAdmissionsById, getThankyouPageData } from "@/app/api/server";
 import { Spinner } from "@/components/ui/spinner";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
@@ -13,12 +13,12 @@ import { decryptCode, notify } from "@/helpers/ConstantHelper";
 import { updateAdmission } from "@/store/services/global-services";
 export const dynamic = "force-dynamic";
 
-export type ThankYouPage = {
-  Title: string;
-  Description: string;
-  LongDescription: string;
-  Type?: string;
-};
+// export type ThankYouPage = {
+//   Title: string;
+//   Description: string;
+//   LongDescription: string;
+//   Type?: string;
+// };
 
 function PaymentSuccessContent() {
   const [admissionId, setAdmissionId] = useState<string | null>(null);
@@ -106,8 +106,8 @@ function PaymentSuccessContent() {
   useEffect(() => {
     const getThankYouContent = async () => {
       try {
-        const res = await clientAxios.get(`/thank-you-pages`);
-        const successContent = res?.data?.data?.find(
+        const res = await getThankyouPageData();
+        const successContent = res?.data?.find(
           (item: ThankYouPage) => item.Type === "Success",
         );
         setThankYouContent(successContent);
@@ -134,7 +134,7 @@ function PaymentSuccessContent() {
           </div>
         </div>
 
-        <div className="space-y-4 max-w-195 3xl:max-w-267.5">
+        <div className="space-y-4 max-w-195 sm:max-w-160 3xl:max-w-267.5">
           <p className="text-base 3xl:text-lg font-mulish text-black">
             {thankYouContent?.Title.replace("CourseName", courseName)}
           </p>
@@ -147,12 +147,11 @@ function PaymentSuccessContent() {
 
           <HTMLWidget
             content={thankYouContent?.LongDescription}
-            className="font-mulish text-black/50 text-xs 3xl:text-sm italic 3xl:max-w-5xl mx-auto leading-relaxed"
+            className="font-mulish text-black/50 text-xs 3xl:text-sm italic 3xl:max-w-5xl mx-auto leading-loose"
             tag="p"
           />
         </div>
 
-        {/* Download Button */}
         {isDownloading ? (
           <div className="flex items-center justify-center gap-2 orange-button p-3 rounded-full">
             <Spinner />

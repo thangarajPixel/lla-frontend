@@ -50,6 +50,10 @@ export async function getFacultyPageData() {
   return fetchData("/faculty");
 }
 
+export async function getThankyouPageData() {
+  return fetchData("/thank-you-pages");
+}
+
 export async function getLifePageData(params: {
   page: number;
   per_page: number;

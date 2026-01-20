@@ -17,6 +17,7 @@ import { clientAxios } from "@/helpers/AxiosHelper";
 import { encryptId } from "@/helpers/ConstantHelper";
 import { admissionRequestSchema } from "@/helpers/ValidationHelper";
 import type { RequestFormData } from "./CourseAdmissionFormSection";
+import { useCourseStore } from "@/store/zustand";
 
 type CourseApplicationProps = {
   isOpen: boolean;
@@ -33,6 +34,8 @@ const CourseApplicationFormModel = ({
   selectedCourseItem,
   hideCloseIcon = false,
 }: CourseApplicationProps) => {
+
+  const essentialData = useCourseStore((state) => state.essentialData);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
 
@@ -50,9 +53,7 @@ const CourseApplicationFormModel = ({
   const { control, handleSubmit, setError } = form;
 
   const onSubmit = async (payload: RequestFormData) => {
-    const isAdmissionOpen = await getEssentialsData();
-
-    // const clientIp = await getMyIp();
+    // const isAdmissionOpen = await getEssentialsData();
 
     const clientIpResponse = await fetch("/api/ip");
     const clientIp = await clientIpResponse.json();
@@ -67,7 +68,7 @@ const CourseApplicationFormModel = ({
         selectedCourse?.course_list?.documentId ??
         selectedCourseItem?.documentId,
       step_0: true,
-      AdmissionYear: isAdmissionOpen?.data?.admission_year?.AcademicYear,
+      AdmissionYear: essentialData?.admission_year?.AcademicYear,
       IpAddress: clientIp?.ip,
     };
 
@@ -85,7 +86,7 @@ const CourseApplicationFormModel = ({
     try {
       setIsLoading(true);
 
-      if (isAdmissionOpen?.data?.isAdmission) {
+      if (essentialData?.isAdmission) {
         const isExistingEmailCheck = await clientAxios.post(
           `/admissions/email/check`,
           {
@@ -124,6 +125,7 @@ const CourseApplicationFormModel = ({
       } else {
         await clientAxios.post(`/contacts`, { data: requestPayload });
         toast.success("Request submitted successfully!");
+        router.push("/request-thankyou");
       }
       form.reset();
     } catch (_error) {
@@ -139,13 +141,13 @@ const CourseApplicationFormModel = ({
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent
         aria-describedby={undefined}
-        className="border-0 bg-white p-0 shadow-xl [&>button]:hidden rounded-md lg:max-w-[900px] 3xl:max-w-[1370px]"
+        className="border-0 bg-white p-0 shadow-xl [&>button]:hidden rounded-md md:max-w-[700px] lg:max-w-[900px] 3xl:max-w-[1370px]"
         onInteractOutside={(e) => e.preventDefault()}
       >
         <DialogTitle className="hidden">Application Form</DialogTitle>
-        <section className="p-4 lg:p-8 3xl:p-10">
+        <section className="my-2 p-4 sm:p-6 lg:p-8 3xl:p-10">
           <div className="mb-6 flex items-start justify-between">
-            <h2 className="3xl:text-2xl font-semibold text-black">Apply Now</h2>
+            <h2 className="3xl:text-2xl font-semibold text-black">{essentialData?.isAdmission ? "Apply Now" : "Request Info"}</h2>
             {!hideCloseIcon && (
               <button
                 type="button"
@@ -157,7 +159,7 @@ const CourseApplicationFormModel = ({
             )}
           </div>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 3xl:gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 3xl:gap-8">
               <FormInput
                 name="FirstName"
                 control={control}
@@ -199,9 +201,8 @@ const CourseApplicationFormModel = ({
               </div>
             ) : (
               <OrangeButtonWidget
-                type="submit"
-                content="Save & Continue"
-              // className="text-lg xss:text-[16px] xss:h-[48px] 3xl:h-[50px] text-xs 2xl:text-[14px] 3xl:text-[18px]" 
+                content={essentialData?.isAdmission ? "Save & Continue" : "Submit"}
+                className=" mt-4 xss:text-[18px] xss:h-10 3xl:h-12.5 text-base 2xl:text-[18px] 3xl:text-[18px] 3xl:w-[226px]"
               />
             )}
           </form>
