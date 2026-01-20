@@ -437,7 +437,7 @@ const ReviewApplication = ({
               />
 
               <Field label="Hobbies" value={admissionData?.hobbies} />
-
+              
               <Field
                 label="Photography Club"
                 value={admissionData?.photography_club}

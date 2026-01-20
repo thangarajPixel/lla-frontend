@@ -158,7 +158,7 @@ const FormDatePickerWithInput = <T extends FieldValues>({
           <PopoverContent
             className="w-auto overflow-hidden p-0 z-40"
             align="end"
-            alignOffset={-8}
+            alignOffset={8}
             sideOffset={10}
           >
             <Calendar

@@ -73,7 +73,7 @@ const CourseAdmissionFormSection = ({
       Email: filteredData?.Email,
       Message: filteredData?.Message,
       Type: "Request Information",
-      Course: selectedCourse?.documentId,
+      Course: selectedCourse?.Name,
     };
 
     try {

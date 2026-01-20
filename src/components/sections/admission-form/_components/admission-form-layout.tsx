@@ -9,6 +9,7 @@ import { ApplicationFormBg } from "@/helpers/ImageHelper";
 import { cn } from "@/lib/utils";
 import { useCourseStore } from "@/store/zustand";
 import AdmissionClosedPage from "./admission-closed";
+import { Spinner } from "@/components/ui/spinner";
 
 function AdmissionFormLayoutContent({ children }: { children: React.ReactNode }) {
   const [currentStep, setCurrentStep] = useState<number>(1);
@@ -107,7 +108,7 @@ export default function AdmissionFormLayout({ children }: { children: React.Reac
   const { id } = params;
 
   if (!essentialData) {
-    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
+    return <div className="flex items-center justify-center min-h-screen gap-2"><Spinner /><span>Loading...</span></div>;
   }
 
   return (
