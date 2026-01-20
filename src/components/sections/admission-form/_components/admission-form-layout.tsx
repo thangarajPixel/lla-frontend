@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname, useSearchParams } from "next/navigation";
+import { useParams, usePathname, useSearchParams } from "next/navigation";
 import type React from "react";
 import { Suspense, useEffect, useState } from "react";
 import { getCourseBySlug } from "@/app/api/server";
@@ -103,19 +103,30 @@ function AdmissionFormLayoutContent({ children }: { children: React.ReactNode })
 export default function AdmissionFormLayout({ children }: { children: React.ReactNode }) {
   const essentialData = useCourseStore((state) => state.essentialData);
 
+  const params = useParams();
+  const { id } = params;
+
   if (!essentialData) {
     return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
   }
 
   return (
     <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading...</div>}>
-      
+
       {essentialData?.isAdmission ? (
         <AdmissionFormLayoutContent>{children}</AdmissionFormLayoutContent>
       ) : (
-        <AdmissionClosedPage />
+        <>
+          {
+            id ? (
+              <AdmissionFormLayoutContent>{children}</AdmissionFormLayoutContent>
+            ) : (
+              <AdmissionClosedPage />
+            )
+          }
+        </>
       )
-    }
+      }
 
     </Suspense>
   );
