@@ -106,8 +106,6 @@ export default function AdmissionFormLayout({ children }: { children: React.Reac
   const params = useParams();
   const { id } = params;
 
-  console.log(id, "id");
-
   if (!essentialData) {
     return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
   }
