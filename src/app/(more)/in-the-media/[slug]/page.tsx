@@ -17,7 +17,7 @@ export async function generateMetadata({
       description: response?.card?.SeoViewCard?.Description || "Light & Life Academy in the Media",
       keywords: response?.card?.SeoViewCard?.KeyWords || undefined,
       alternates: {
-        canonical: `${baseUrl}/${slug}`,
+        canonical: `${baseUrl}/in-the-media/${slug}`,
       },
     };
   } catch (error) {
@@ -28,7 +28,7 @@ export async function generateMetadata({
       title: "Media | LLA",
       description: "Light & Life Academy in the Media",
       alternates: {
-        canonical: `${baseUrl}/media/${slug}`,
+        canonical: `${baseUrl}/in-the-media/${slug}`,
       },
     };
   }
@@ -41,6 +41,9 @@ const MediaDetail = async ({
 }) => {
   const { slug } = await params;
   const { data: response } = await getMediaBySlug(slug);
+
+  if (!response) return null;
+
   return <MediaDetailSection data={response} />;
 };
 
