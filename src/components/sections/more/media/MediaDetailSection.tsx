@@ -390,7 +390,7 @@ const MediaDetailSection = ({ data }: MediaDetailProps) => {
                         <div className="relative w-full overflow-hidden">
                           <ImageWidget
                             src={getS3Url(viewCard.Image[0].url)}
-                            alt={viewCard.Title}
+                            alt={viewCard.Title ?? ""}
                             width={850}
                             height={600}
                             className="w-full h-auto object-contain"
@@ -452,7 +452,7 @@ const MediaDetailSection = ({ data }: MediaDetailProps) => {
                           <div className="relative w-full aspect-video overflow-hidden">
                             <ImageWidget
                               src={getS3Url(post.Image?.[0]?.url || "")}
-                              alt={post.Title}
+                              alt={post.Title ?? ""}
                               fill
                               className="object-cover transition-transform duration-300 group-hover:scale-105"
                             />
@@ -510,7 +510,7 @@ const MediaDetailSection = ({ data }: MediaDetailProps) => {
                             <div className="relative w-full aspect-video overflow-hidden">
                               <ImageWidget
                                 src={getS3Url(post.Image[0].url)}
-                                alt={post.Title}
+                                alt={post.Title ?? ""}
                                 fill
                                 className="object-cover transition-transform duration-300 group-hover:scale-105"
                               />
