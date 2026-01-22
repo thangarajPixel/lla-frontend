@@ -630,33 +630,56 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
           <div className="w-full" suppressHydrationWarning>
             {allImages.length > 0 && (
               <LightboxWidget images={lightboxImages}>
-                {(openLightbox) =>
-                  isMounted ? (
-                    <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
-                      {allImages.map((item, index) => {
-                        const isNewItem = index >= initialLoadCount;
-                        return (
-                          <div 
-                            key={item.id} 
-                            className={`break-inside-avoid ${isNewItem ? "opacity-0 animate-fadeUp" : ""}`}
-                            style={isNewItem ? {
-                              animationDelay: `${(index - initialLoadCount) * 0.05}s`,
-                              animationFillMode: 'forwards'
-                            } : {}}
-                          >
-                            {renderGalleryItem(item, index, openLightbox)}
-                          </div>
-                        );
-                      })}
-                    </div>
+                {(openLightbox) => {
+                  const hasVideos = allImages.some(item => item.isVideo);
+                  const isVideoOnly = selectedType === "Video";
+                  
+                  return isMounted ? (
+                    isVideoOnly ? (
+                      <div className="columns-1 sm:columns-2 gap-3 sm:gap-4 space-y-3 sm:space-y-4">
+                        {allImages.map((item, index) => {
+                          const isNewItem = index >= initialLoadCount;
+                          return (
+                            <div 
+                              key={item.id}
+                              className={`break-inside-avoid ${isNewItem ? "opacity-0 animate-fadeUp" : ""}`}
+                              style={isNewItem ? {
+                                animationDelay: `${(index - initialLoadCount) * 0.05}s`,
+                                animationFillMode: 'forwards'
+                              } : {}}
+                            >
+                              {renderGalleryItem(item, index, openLightbox)}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    ) : (
+                      <div className="columns-1 sm:columns-2 lg:columns-3 gap-3 sm:gap-4 space-y-3 sm:space-y-4">
+                        {allImages.map((item, index) => {
+                          const isNewItem = index >= initialLoadCount;
+                          return (
+                            <div 
+                              key={item.id} 
+                              className={`break-inside-avoid ${isNewItem ? "opacity-0 animate-fadeUp" : ""}`}
+                              style={isNewItem ? {
+                                animationDelay: `${(index - initialLoadCount) * 0.05}s`,
+                                animationFillMode: 'forwards'
+                              } : {}}
+                            >
+                              {renderGalleryItem(item, index, openLightbox)}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )
                   ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className={`grid ${isVideoOnly ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"} gap-4 md:gap-6`}>
                       {allImages.map((item, index) => {
                         const isNewItem = index >= initialLoadCount;
                         return (
                           <div 
                             key={item.id}
-                            className={isNewItem ? "opacity-0 animate-fadeUp" : ""}
+                            className={`${isNewItem ? "opacity-0 animate-fadeUp" : ""}`}
                             style={isNewItem ? {
                               animationDelay: `${(index - initialLoadCount) * 0.05}s`,
                               animationFillMode: 'forwards'
@@ -667,8 +690,8 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
                         );
                       })}
                     </div>
-                  )
-                }
+                  );
+                }}
               </LightboxWidget>
             )}
           </div>
