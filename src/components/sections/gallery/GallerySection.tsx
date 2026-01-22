@@ -637,58 +637,36 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
                   return isMounted ? (
                     isVideoOnly ? (
                       <div className="columns-1 sm:columns-2 gap-3 sm:gap-4 space-y-3 sm:space-y-4">
-                        {allImages.map((item, index) => {
-                          const isNewItem = index >= initialLoadCount;
-                          return (
-                            <div 
-                              key={item.id}
-                              className={`break-inside-avoid ${isNewItem ? "opacity-0 animate-fadeUp" : ""}`}
-                              style={isNewItem ? {
-                                animationDelay: `${(index - initialLoadCount) * 0.05}s`,
-                                animationFillMode: 'forwards'
-                              } : {}}
-                            >
-                              {renderGalleryItem(item, index, openLightbox)}
-                            </div>
-                          );
-                        })}
+                        {allImages.map((item, index) => (
+                          <div 
+                            key={item.id}
+                            className="break-inside-avoid"
+                          >
+                            {renderGalleryItem(item, index, openLightbox)}
+                          </div>
+                        ))}
                       </div>
                     ) : (
                       <div className="columns-1 sm:columns-2 lg:columns-3 gap-3 sm:gap-4 space-y-3 sm:space-y-4">
-                        {allImages.map((item, index) => {
-                          const isNewItem = index >= initialLoadCount;
-                          return (
-                            <div 
-                              key={item.id} 
-                              className={`break-inside-avoid ${isNewItem ? "opacity-0 animate-fadeUp" : ""}`}
-                              style={isNewItem ? {
-                                animationDelay: `${(index - initialLoadCount) * 0.05}s`,
-                                animationFillMode: 'forwards'
-                              } : {}}
-                            >
-                              {renderGalleryItem(item, index, openLightbox)}
-                            </div>
-                          );
-                        })}
+                        {allImages.map((item, index) => (
+                          <div 
+                            key={item.id} 
+                            className="break-inside-avoid"
+                          >
+                            {renderGalleryItem(item, index, openLightbox)}
+                          </div>
+                        ))}
                       </div>
                     )
                   ) : (
                     <div className={`grid ${isVideoOnly ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"} gap-4 md:gap-6`}>
-                      {allImages.map((item, index) => {
-                        const isNewItem = index >= initialLoadCount;
-                        return (
-                          <div 
-                            key={item.id}
-                            className={`${isNewItem ? "opacity-0 animate-fadeUp" : ""}`}
-                            style={isNewItem ? {
-                              animationDelay: `${(index - initialLoadCount) * 0.05}s`,
-                              animationFillMode: 'forwards'
-                            } : {}}
-                          >
-                            {renderGalleryItem(item, index, openLightbox)}
-                          </div>
-                        );
-                      })}
+                      {allImages.map((item, index) => (
+                        <div 
+                          key={item.id}
+                        >
+                          {renderGalleryItem(item, index, openLightbox)}
+                        </div>
+                      ))}
                     </div>
                   );
                 }}
