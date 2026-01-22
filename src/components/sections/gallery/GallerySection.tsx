@@ -4,7 +4,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { StaticImageData } from "next/image";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { getGalleryPageData } from "@/app/api/server";
 import { DialogClose } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
@@ -20,7 +19,6 @@ import { getS3Url } from "@/helpers/ConstantHelper";
 import { ArrowDown, Dummy3, Into, Play } from "@/helpers/ImageHelper";
 import type { GalleryData } from "./utils/gallery";
 
-// Define types for gallery items
 type GalleryItem = {
   id: string;
   imageId: string | number;
@@ -40,7 +38,6 @@ if (typeof window !== "undefined") {
 const convertToEmbedUrl = (url: string): string => {
   if (!url) return url;
 
-  // YouTube URL patterns including Shorts
   const youtubeRegex =
     /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
   const match = url.match(youtubeRegex);
@@ -59,12 +56,12 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   const [imageLoadStates, setImageLoadStates] = useState<Record<string, boolean>>({});
   const [thumbnailFallbacks, setThumbnailFallbacks] = useState<Record<string, number>>({});
   const [validatedThumbnails, setValidatedThumbnails] = useState<Record<string, string>>({});
+  const [initialLoadCount, setInitialLoadCount] = useState(0);
 
   const handleImageLoad = (itemId: string) => {
     setImageLoadStates(prev => ({ ...prev, [itemId]: true }));
   };
 
-  // Function to get YouTube thumbnail with quality fallback
   const getYouTubeThumbnailWithFallback = (url: string, fallbackLevel: number = 0): string => {
     if (!url) return "";
 
@@ -75,7 +72,6 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
 
     if (!videoId) return "";
 
-    // Array of thumbnail qualities from highest to lowest
     const thumbnailQualities = [
       `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`, // 1280x720
       `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`,     // 480x360
@@ -110,46 +106,39 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
     for (let i = 0; i < 5; i++) {
       const thumbnailUrl = getYouTubeThumbnailWithFallback(videoUrl, i);
       if (thumbnailUrl && await validateThumbnail(thumbnailUrl)) {
-        // Cache the validated thumbnail
         setValidatedThumbnails(prev => ({ ...prev, [itemId]: thumbnailUrl }));
         return thumbnailUrl;
       }
     }
 
-    // If no YouTube thumbnail works, use placeholder
     setValidatedThumbnails(prev => ({ ...prev, [itemId]: dummySrc }));
     return dummySrc;
   };
 
-  // Handle thumbnail error with progressive fallback
   const handleThumbnailError = async (itemId: string, videoUrl: string) => {
     const currentFallback = thumbnailFallbacks[itemId] || 0;
     const nextFallback = currentFallback + 1;
     
     console.log(`Thumbnail failed for ${itemId}, trying fallback level ${nextFallback}`);
     
-    // Try next quality level
     if (nextFallback < 5) {
       setThumbnailFallbacks(prev => ({ ...prev, [itemId]: nextFallback }));
       const newSrc = getYouTubeThumbnailWithFallback(videoUrl, nextFallback);
       
-      // Validate the new thumbnail
       if (await validateThumbnail(newSrc)) {
         setValidatedThumbnails(prev => ({ ...prev, [itemId]: newSrc }));
         return newSrc;
       } else {
-        // If this quality doesn't work, try the next one
         return handleThumbnailError(itemId, videoUrl);
       }
     }
     
-    // If all YouTube thumbnails fail, use placeholder
     const dummySrc = typeof Dummy3 === 'string' ? Dummy3 : Dummy3.src;
     setValidatedThumbnails(prev => ({ ...prev, [itemId]: dummySrc }));
     console.log(`All thumbnails failed for ${itemId}, using placeholder`);
     return dummySrc;
   };
-  // Add CSS animation styles
+
   useEffect(() => {
     if (typeof document !== 'undefined') {
       const style = document.createElement('style');
@@ -226,9 +215,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
     if (!isMounted) return [];
 
     const images: GalleryItem[] = filteredImageCards.flatMap((card, cardIndex) => {
-      // Handle video cards with VideoUrl but no Image
       if (card.Type === "Video" && (card.VideoUrl) && (!card.Image || card.Image === null)) {
-        // Start with the highest quality thumbnail, validation will happen in useEffect
         const initialThumbnail = getYouTubeThumbnailWithFallback(card.VideoUrl, 0);
         const dummySrc = typeof Dummy3 === 'string' ? Dummy3 : Dummy3.src;
         const thumbnailSrc = initialThumbnail || dummySrc;
@@ -257,12 +244,11 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
         images.length === 0 ||
         !images.some((img) => img && (img.url || img.id))
       ) {
-        return []; // Return empty array instead of undefined
+        return [];
       }
 
-      // Filter out invalid images and map to gallery items
       return images
-        .filter((img) => img && (img.url || img.id)) // Only include images with url or id
+        .filter((img) => img && (img.url || img.id))
         .map((img, imgIndex): GalleryItem => {
           const isVideo = card.Type === "Video";
           const src = img.url ? getS3Url(img.url) : Dummy3;
@@ -272,7 +258,6 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
             /\.(mp4|mov|avi|webm|mkv|m4v)$/i.test(img.url);
           const videoUrl = isVideoFile ? getS3Url(img.url) : null;
           
-          // Handle VideoUrl from card
           const videoLinkUrl = card.VideoUrl || null;
           
           return {
@@ -292,7 +277,6 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
     return shuffleArray(images);
   }, [filteredImageCards, isMounted, shuffleArray]);
 
-  // Validate YouTube thumbnails after images are processed
   useEffect(() => {
     const validateVideoThumbnails = async () => {
       const videoItems = allImages.filter(item => item.isVideo && item.videoLinkUrl);
@@ -300,8 +284,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
       for (const item of videoItems) {
         if (!validatedThumbnails[item.id]) {
           try {
-            const bestThumbnail = await findBestThumbnail(item.videoLinkUrl!, item.id);
-            // The thumbnail is already set in the findBestThumbnail function
+            await findBestThumbnail(item.videoLinkUrl!, item.id);
           } catch (error) {
             console.error(`Error validating thumbnail for ${item.id}:`, error);
             const dummySrc = typeof Dummy3 === 'string' ? Dummy3 : Dummy3.src;
@@ -345,6 +328,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
     setImageLoadStates({});
     setThumbnailFallbacks({});
     setValidatedThumbnails({});
+    setInitialLoadCount(0);
 
     const fetchFilteredData = async () => {
       setLoading(true);
@@ -359,6 +343,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
         if (res?.ImageCard) {
           setImageCards(res.ImageCard);
           setGalleryData(res);
+          setInitialLoadCount(res.ImageCard.length);
         }
       } catch (error) {
         console.error("Error fetching filtered gallery data:", error);
@@ -393,12 +378,10 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
     }
   };
 
-  // Refresh ScrollTrigger when new images are loaded
   useEffect(() => {
     if (typeof window === "undefined" || !isMounted) return;
 
     const refreshScrollTrigger = () => {
-      // Multiple refresh calls to ensure it works after DOM updates
       requestAnimationFrame(() => {
         setTimeout(() => {
           if (ScrollTrigger && typeof ScrollTrigger.refresh === "function") {
@@ -445,14 +428,14 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
     return (
       <div
         key={item.id}
-        className="relative w-full overflow-hidden group cursor-pointer"
+        className="relative w-full group cursor-pointer"
       >
         {item.isVideo ? (
           <DialogWidget
             trigger={
               <div className="relative w-full overflow-hidden rounded-none">
                 {item.videoLinkUrl ? (
-                  <div className="relative">
+                  <div className="relative w-full overflow-hidden">
                     <ImageWidget
                       src={validatedThumbnails[item.id] || item.src}
                       alt={item.alt}
@@ -490,13 +473,15 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
                     )}
                   </div>
                 ) : (
-                  <video
-                    src={(item.videoUrl as string) || ""}
-                    className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
-                    muted
-                    playsInline
-                    preload="metadata"
-                  />
+                  <div className="relative w-full overflow-hidden">
+                    <video
+                      src={(item.videoUrl as string) || ""}
+                      className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+                      muted
+                      playsInline
+                      preload="metadata"
+                    />
+                  </div>
                 )}
                 <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
                   <div className="video-main">
@@ -561,7 +546,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
             }}
             className="relative w-full overflow-hidden rounded-none border-none bg-transparent p-0 cursor-pointer"
           >
-            <div className="relative">
+            <div className="relative w-full overflow-hidden">
               <ImageWidget
                 src={item.src}
                 alt={item.alt}
@@ -581,7 +566,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
                   handleImageLoad(item.id);
                 }}
               />
-              {/* Loading placeholder */}
+
               {!imageLoadStates[item.id] && (
                 <div className="absolute inset-0 bg-gray-200 animate-pulse flex items-center justify-center">
                   <div className="w-8 h-8 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
@@ -593,8 +578,6 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
       </div>
     );
   };
-
-  console.log('allImages',allImages)
 
   return (
     <section className="w-full bg-white py-10 sm:py-6 md:py-8 lg:py-10 xl:py-12 2xl:py-14 3xl:py-20">
@@ -649,42 +632,40 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
               <LightboxWidget images={lightboxImages}>
                 {(openLightbox) =>
                   isMounted ? (
-                    <ResponsiveMasonry
-                      columnsCountBreakPoints={{
-                        350: 1,
-                        640: 2,
-                        1024: allImages.some((item) => item.isVideo) ? 2 : 3,
-                      }}
-                    >
-                      <Masonry gutter="24px">
-                        {allImages.map((item, index) => (
+                    <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
+                      {allImages.map((item, index) => {
+                        const isNewItem = index >= initialLoadCount;
+                        return (
                           <div 
                             key={item.id} 
-                            className="w-full opacity-0 animate-fadeUp"
-                            style={{
-                              animationDelay: `${index * 0.1}s`,
+                            className={`break-inside-avoid ${isNewItem ? "opacity-0 animate-fadeUp" : ""}`}
+                            style={isNewItem ? {
+                              animationDelay: `${(index - initialLoadCount) * 0.05}s`,
                               animationFillMode: 'forwards'
-                            }}
+                            } : {}}
                           >
                             {renderGalleryItem(item, index, openLightbox)}
                           </div>
-                        ))}
-                      </Masonry>
-                    </ResponsiveMasonry>
+                        );
+                      })}
+                    </div>
                   ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {allImages.map((item, index) => (
-                        <div 
-                          key={item.id}
-                          className="opacity-0 animate-fadeUp"
-                          style={{
-                            animationDelay: `${index * 0.1}s`,
-                            animationFillMode: 'forwards'
-                          }}
-                        >
-                          {renderGalleryItem(item, index, openLightbox)}
-                        </div>
-                      ))}
+                      {allImages.map((item, index) => {
+                        const isNewItem = index >= initialLoadCount;
+                        return (
+                          <div 
+                            key={item.id}
+                            className={isNewItem ? "opacity-0 animate-fadeUp" : ""}
+                            style={isNewItem ? {
+                              animationDelay: `${(index - initialLoadCount) * 0.05}s`,
+                              animationFillMode: 'forwards'
+                            } : {}}
+                          >
+                            {renderGalleryItem(item, index, openLightbox)}
+                          </div>
+                        );
+                      })}
                     </div>
                   )
                 }
