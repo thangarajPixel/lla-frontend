@@ -68,6 +68,7 @@ const CourseApplicationFormModel = ({
         selectedCourse?.course_list?.documentId ??
         selectedCourseItem?.documentId,
       step_0: true,
+      Currentstep: "Step1",
       AdmissionYear: essentialData?.admission_year?.AcademicYear,
       IpAddress: clientIp?.ip,
     };
@@ -91,9 +92,10 @@ const CourseApplicationFormModel = ({
           `/admissions/email/check`,
           {
             email: payload.Email,
-            courseId:
-              selectedCourse?.course_list?.id ??
-              selectedCourseItem?.id,
+            // courseId:
+            //   selectedCourse?.course_list?.id ??
+            //   selectedCourseItem?.id,
+            year: essentialData?.admission_year?.AcademicYear,
           },
         );
 
@@ -101,7 +103,8 @@ const CourseApplicationFormModel = ({
 
         if (isExistingEmail?.exists) {
           setError("Email", {
-            message: `This email ID is already registered for the ${selectedCourse?.course_list?.Name ?? selectedCourseItem?.Name}. A continuation link has already been shared via email. Please use that link to continue the registration or enter a new email ID to start a new registration.`,
+            // message: `This email ID is already registered for the ${selectedCourse?.course_list?.Name ?? selectedCourseItem?.Name}. A continuation link has already been shared via email. Please use that link to continue the registration or enter a new email ID to start a new registration.`,
+            message: `This email ID is already registered for the ${isExistingEmail?.courseName}. A continuation link has already been shared via email. Please use that link to continue the registration or enter a new email ID to start a new registration.`,
           });
           toast.error(
             "The email id  has already been used. Kindly check your mail",

@@ -65,6 +65,7 @@ const CourseAdmissionFormSection = ({
       AdmissionYear: essentialData?.admission_year?.AcademicYear,
       IpAddress: clientIp?.ip,
       step_0: true,
+      Currentstep: "Step1"
     };
 
     const requestPayload = {
@@ -83,7 +84,8 @@ const CourseAdmissionFormSection = ({
           `/admissions/email/check`,
           {
             email: payload.Email,
-            courseId: selectedCourse?.id,
+            // courseId: selectedCourse?.id,
+            year: essentialData?.admission_year?.AcademicYear
           },
         );
 
@@ -91,7 +93,8 @@ const CourseAdmissionFormSection = ({
 
         if (isExistingEmail?.exists) {
 
-          setEmailError(`This email ID is already registered for the ${selectedCourse?.Name}. A continuation link has already been shared via email. Please use that link to continue the registration or enter a new email ID to start a new registration.`),
+          // setEmailError(`This email ID is already registered for the ${selectedCourse?.Name}. A continuation link has already been shared via email. Please use that link to continue the registration or enter a new email ID to start a new registration.`),
+          setEmailError(`This email ID is already registered for the ${isExistingEmail?.courseName}. A continuation link has already been shared via email. Please use that link to continue the registration or enter a new email ID to start a new registration.`),
 
             toast.error(
               "The email id  has already been used. Kindly check your mail",
