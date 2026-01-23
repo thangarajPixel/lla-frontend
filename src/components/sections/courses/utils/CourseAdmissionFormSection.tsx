@@ -65,6 +65,7 @@ const CourseAdmissionFormSection = ({
       AdmissionYear: essentialData?.admission_year?.AcademicYear,
       IpAddress: clientIp?.ip,
       step_0: true,
+      Currentstep: "Step1"
     };
 
     const requestPayload = {

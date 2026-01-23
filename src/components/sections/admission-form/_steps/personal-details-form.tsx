@@ -410,6 +410,7 @@ const PersonalDetailsForm = ({
     const data = {
       ...payload,
       step_1: true,
+      Currentstep: "Step1",
       EncryptId: admissionId,
     };
 

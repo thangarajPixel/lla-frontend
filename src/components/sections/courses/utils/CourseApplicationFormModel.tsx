@@ -68,6 +68,7 @@ const CourseApplicationFormModel = ({
         selectedCourse?.course_list?.documentId ??
         selectedCourseItem?.documentId,
       step_0: true,
+      Currentstep: "Step1",
       AdmissionYear: essentialData?.admission_year?.AcademicYear,
       IpAddress: clientIp?.ip,
     };

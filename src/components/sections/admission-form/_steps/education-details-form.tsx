@@ -103,6 +103,7 @@ const EducationDetailsForm = ({
     const data = {
       ...payload,
       step_2: true,
+      Currentstep: "Step2",
       EncryptId: admissionId,
       Under_Graduate: {
         degree: payload?.Under_Graduate?.degree ?? "",
