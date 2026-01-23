@@ -282,25 +282,25 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   }, [allImages, validatedThumbnails]);
 
   const lightboxImages = useMemo(() => {
-    return allImages
+    return displayImages
       .filter((item) => !item.isVideo)
       .map((item) => ({
         src: item.src,
         alt: item.alt,
       }));
-  }, [allImages]);
+  }, [displayImages]);
 
   const imageToLightboxIndex = useMemo(() => {
     const map = new Map<string, number>();
     let lightboxIndex = 0;
-    allImages.forEach((item) => {
+    displayImages.forEach((item) => {
       if (!item.isVideo) {
         map.set(item.id, lightboxIndex);
         lightboxIndex += 1;
       }
     });
     return map;
-  }, [allImages]);
+  }, [displayImages]);
 
   useEffect(() => {
     if (allImages.length > 0) {
