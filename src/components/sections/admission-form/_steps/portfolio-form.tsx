@@ -191,6 +191,7 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
         {
           ...filteredPayload(payload),
           step_3: true,
+          Currentstep: "Step3",
           Payment_Status: "Pending",
           EncryptId: admissionId,
         } as PortfolioSchema,
