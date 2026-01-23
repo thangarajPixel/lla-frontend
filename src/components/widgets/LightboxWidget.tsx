@@ -175,6 +175,7 @@ export default function LightboxWidget({
                     className="w-[90vw] h-[85vh] md:w-[80vw] md:h-[75vh] object-contain"
                     width={extendedSlide.width || 1600}
                     height={extendedSlide.height || 900}
+                    quality={100}
                   />
 
 
