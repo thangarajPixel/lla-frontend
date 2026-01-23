@@ -3,17 +3,20 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { StaticImageData } from "next/image";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { getGalleryPageData } from "@/app/api/server";
 import { DialogClose } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Skeleton } from "@/components/ui/skeleton";
 import ButtonWidget from "@/components/widgets/ButtonWidget";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import DialogWidget from "@/components/widgets/DialogWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
 import LightboxWidget from "@/components/widgets/LightboxWidget";
 import ParagraphWidget from "@/components/widgets/ParagraphWidget";
+
 
 import { getS3Url } from "@/helpers/ConstantHelper";
 import { ArrowDown, Dummy3, Into, Play } from "@/helpers/ImageHelper";
@@ -48,7 +51,6 @@ const convertToEmbedUrl = (url: string): string => {
     return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&rel=0&modestbranding=1`;
   }
 
-  // Return original URL for other video platforms or already embedded URLs
   return url;
 };
 
@@ -56,10 +58,25 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   const [imageLoadStates, setImageLoadStates] = useState<Record<string, boolean>>({});
   const [thumbnailFallbacks, setThumbnailFallbacks] = useState<Record<string, number>>({});
   const [validatedThumbnails, setValidatedThumbnails] = useState<Record<string, string>>({});
-  const [initialLoadCount, setInitialLoadCount] = useState(0);
+  const shuffledImagesRef = useRef<GalleryItem[]>([]);
+
+  const GalleryCardSkeleton = () => (
+    <div className="w-full flex flex-col gap-3 bg-white p-3">
+      <Skeleton className="w-full h-[200px] md:h-[220px] lg:h-[230px]" />
+    </div>
+  );
 
   const handleImageLoad = (itemId: string) => {
     setImageLoadStates(prev => ({ ...prev, [itemId]: true }));
+  };
+
+  const shuffleArray = <T,>(array: T[]): T[] => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
   };
 
   const getYouTubeThumbnailWithFallback = (url: string, fallbackLevel: number = 0): string => {
@@ -73,17 +90,16 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
     if (!videoId) return "";
 
     const thumbnailQualities = [
-      `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`, // 1280x720
-      `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`,     // 480x360
-      `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`,     // 320x180
-      `https://img.youtube.com/vi/${videoId}/sddefault.jpg`,     // 640x480
-      `https://img.youtube.com/vi/${videoId}/default.jpg`        // 120x90
+      `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`,
+      `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`,
+      `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`,
+      `https://img.youtube.com/vi/${videoId}/sddefault.jpg`,
+      `https://img.youtube.com/vi/${videoId}/default.jpg`
     ];
 
     return thumbnailQualities[fallbackLevel] || thumbnailQualities[thumbnailQualities.length - 1];
   };
 
-  // Function to validate if a thumbnail URL actually exists
   const validateThumbnail = async (url: string): Promise<boolean> => {
     try {
       const response = await fetch(url, { method: 'HEAD' });
@@ -93,16 +109,13 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
     }
   };
 
-  // Function to find the best available thumbnail
   const findBestThumbnail = async (videoUrl: string, itemId: string): Promise<string> => {
     const dummySrc = typeof Dummy3 === 'string' ? Dummy3 : Dummy3.src;
     
-    // Check if we already have a validated thumbnail for this item
     if (validatedThumbnails[itemId]) {
       return validatedThumbnails[itemId];
     }
 
-    // Try each quality level
     for (let i = 0; i < 5; i++) {
       const thumbnailUrl = getYouTubeThumbnailWithFallback(videoUrl, i);
       if (thumbnailUrl && await validateThumbnail(thumbnailUrl)) {
@@ -119,8 +132,6 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
     const currentFallback = thumbnailFallbacks[itemId] || 0;
     const nextFallback = currentFallback + 1;
     
-    console.log(`Thumbnail failed for ${itemId}, trying fallback level ${nextFallback}`);
-    
     if (nextFallback < 5) {
       setThumbnailFallbacks(prev => ({ ...prev, [itemId]: nextFallback }));
       const newSrc = getYouTubeThumbnailWithFallback(videoUrl, nextFallback);
@@ -135,51 +146,13 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
     
     const dummySrc = typeof Dummy3 === 'string' ? Dummy3 : Dummy3.src;
     setValidatedThumbnails(prev => ({ ...prev, [itemId]: dummySrc }));
-    console.log(`All thumbnails failed for ${itemId}, using placeholder`);
     return dummySrc;
   };
-
-  useEffect(() => {
-    if (typeof document !== 'undefined') {
-      const style = document.createElement('style');
-      style.textContent = `
-        @keyframes fadeUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .animate-fadeUp {
-          animation: fadeUp 0.6s ease-out;
-        }
-      `;
-      document.head.appendChild(style);
-      
-      return () => {
-        document.head.removeChild(style);
-      };
-    }
-  }, []);
 
   const uniqueTypesInitial = useMemo(() => {
     if (!initialData?.ImageCard) return [];
     return Array.from(new Set(initialData.ImageCard.map((card) => card.Type)));
   }, [initialData?.ImageCard]);
-
-  const shuffleArray = useCallback(<T,>(array: T[]) => {
-    const shuffled = [...array];
-
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-
-    return shuffled;
-  }, []);
 
   const [selectedType, setSelectedType] = useState<string>(
     uniqueTypesInitial.length > 0 ? uniqueTypesInitial[0] : "",
@@ -189,14 +162,24 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   const [loading, setLoading] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
   const [galleryData, setGalleryData] = useState<GalleryData>(initialData);
-  const [isMounted, setIsMounted] = useState(false);
 
-  const total =
-    galleryData?.pagination?.total || initialData?.pagination?.total || 0;
+  const total = galleryData?.pagination?.total || initialData?.pagination?.total || 0;
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const previousLength = useRef(imageCards.length);
+  const skeletonIdRef = useRef(0);
+
+  const skeletonKeys = useMemo(() => {
+    if (loadingMore) {
+      skeletonIdRef.current += 1;
+      const baseId = skeletonIdRef.current;
+      return Array.from({ length: 6 }, () => {
+        const uniqueId = `${baseId}-${Math.random().toString(36).substring(2, 9)}`;
+        return `skeleton-${uniqueId}`;
+      });
+    }
+    return [];
+  }, [loadingMore]);
 
   const uniqueTypes = useMemo(() => {
     if (!initialData?.ImageCard) return [];
@@ -212,8 +195,6 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   );
 
   const allImages: GalleryItem[] = useMemo(() => {
-    if (!isMounted) return [];
-
     const images: GalleryItem[] = filteredImageCards.flatMap((card, cardIndex) => {
       if (card.Type === "Video" && (card.VideoUrl) && (!card.Image || card.Image === null)) {
         const initialThumbnail = getYouTubeThumbnailWithFallback(card.VideoUrl, 0);
@@ -239,7 +220,6 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
           ? [card.Image]
           : [];
 
-      // Log cards with no valid images
       if (
         images.length === 0 ||
         !images.some((img) => img && (img.url || img.id))
@@ -274,8 +254,8 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
         });
     });
 
-    return shuffleArray(images);
-  }, [filteredImageCards, isMounted, shuffleArray]);
+    return images;
+  }, [filteredImageCards]);
 
   useEffect(() => {
     const validateVideoThumbnails = async () => {
@@ -294,10 +274,10 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
       }
     };
 
-    if (allImages.length > 0 && isMounted) {
+    if (allImages.length > 0) {
       validateVideoThumbnails();
     }
-  }, [allImages, isMounted, validatedThumbnails]);
+  }, [allImages, validatedThumbnails]);
 
   const lightboxImages = useMemo(() => {
     return allImages
@@ -321,6 +301,20 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   }, [allImages]);
 
   useEffect(() => {
+    if (allImages.length > 0 && shuffledImagesRef.current.length === 0) {
+      // Check if this is a hard reload (fresh session)
+      const isHardReload = !sessionStorage.getItem('gallery_loaded');
+      
+      if (isHardReload) {
+        shuffledImagesRef.current = shuffleArray(allImages);
+        sessionStorage.setItem('gallery_loaded', 'true');
+      } else {
+        shuffledImagesRef.current = allImages;
+      }
+    }
+  }, [allImages]);
+
+  useEffect(() => {
     if (!selectedType) return;
 
     setPage(1);
@@ -328,7 +322,6 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
     setImageLoadStates({});
     setThumbnailFallbacks({});
     setValidatedThumbnails({});
-    setInitialLoadCount(0);
 
     const fetchFilteredData = async () => {
       setLoading(true);
@@ -343,7 +336,6 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
         if (res?.ImageCard) {
           setImageCards(res.ImageCard);
           setGalleryData(res);
-          setInitialLoadCount(res.ImageCard.length);
         }
       } catch (error) {
         console.error("Error fetching filtered gallery data:", error);
@@ -352,10 +344,9 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
       }
     };
 
-    if (isMounted) {
-      fetchFilteredData();
-    }
-  }, [selectedType, isMounted]);
+    fetchFilteredData();
+  }, [selectedType]);
+
   const loadMore = async () => {
     if (loading || loadingMore || imageCards.length >= total || !selectedType)
       return;
@@ -379,44 +370,8 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   };
 
   useEffect(() => {
-    if (typeof window === "undefined" || !isMounted) return;
-
-    const refreshScrollTrigger = () => {
-      requestAnimationFrame(() => {
-        setTimeout(() => {
-          if (ScrollTrigger && typeof ScrollTrigger.refresh === "function") {
-            try {
-              ScrollTrigger.refresh();
-            } catch (error) {
-              console.error("Error refreshing ScrollTrigger:", error);
-            }
-          }
-        }, 100);
-        setTimeout(() => {
-          if (ScrollTrigger && typeof ScrollTrigger.refresh === "function") {
-            try {
-              ScrollTrigger.refresh();
-            } catch (error) {
-              console.error("Error refreshing ScrollTrigger:", error);
-            }
-          }
-        }, 300);
-        setTimeout(() => {
-          if (ScrollTrigger && typeof ScrollTrigger.refresh === "function") {
-            try {
-              ScrollTrigger.refresh();
-            } catch (error) {
-              console.error("Error refreshing ScrollTrigger:", error);
-            }
-          }
-        }, 500);
-      });
-    };
-
-    if (allImages.length > 0) {
-      refreshScrollTrigger();
-    }
-  }, [allImages.length, isMounted]);
+    previousLength.current = imageCards.length;
+  }, [imageCards]);
 
   const renderGalleryItem = (
     item: GalleryItem,
@@ -465,7 +420,6 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
                         handleImageLoad(item.id);
                       }}
                     />
-                    {/* Loading placeholder */}
                     {!imageLoadStates[item.id] && (
                       <div className="absolute inset-0 bg-gray-200 animate-pulse flex items-center justify-center">
                         <div className="w-8 h-8 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
@@ -526,7 +480,6 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
                   title={item.alt}
                 />
               ) : (
-                // biome-ignore lint/a11y/useMediaCaption: Gallery videos may not have captions available
                 <video
                   src={(item.videoUrl as string) || ""}
                   controls
@@ -631,42 +584,38 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
             {allImages.length > 0 && (
               <LightboxWidget images={lightboxImages}>
                 {(openLightbox) => {
-                  const hasVideos = allImages.some(item => item.isVideo);
                   const isVideoOnly = selectedType === "Video";
                   
-                  return isMounted ? (
-                    isVideoOnly ? (
-                      <div className="columns-1 sm:columns-2 gap-3 sm:gap-4 space-y-3 sm:space-y-4">
-                        {allImages.map((item, index) => (
-                          <div 
-                            key={item.id}
-                            className="break-inside-avoid"
-                          >
-                            {renderGalleryItem(item, index, openLightbox)}
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="columns-1 sm:columns-2 lg:columns-3 gap-3 sm:gap-4 space-y-3 sm:space-y-4">
-                        {allImages.map((item, index) => (
-                          <div 
-                            key={item.id} 
-                            className="break-inside-avoid"
-                          >
-                            {renderGalleryItem(item, index, openLightbox)}
-                          </div>
-                        ))}
-                      </div>
-                    )
-                  ) : (
-                    <div className={`grid ${isVideoOnly ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"} gap-4 md:gap-6`}>
-                      {allImages.map((item, index) => (
-                        <div 
-                          key={item.id}
-                        >
-                          {renderGalleryItem(item, index, openLightbox)}
-                        </div>
-                      ))}
+                  return (
+                    <div style={{ margin: "-10px" }}>
+                      <ResponsiveMasonry
+                        columnsCountBreakPoints={
+                          isVideoOnly
+                            ? { 350: 1, 640: 2 }
+                            : { 350: 1, 640: 2, 1024: 3 }
+                        }
+                      >
+                        <Masonry gutter="20px">
+                          {allImages.map((item, index) => (
+                            <div
+                              key={item.id}
+                              className="w-full p-2 m-0"
+                              ref={(el) => {
+                                cardsRef.current[index] = el;
+                              }}
+                            >
+                              {renderGalleryItem(item, index, openLightbox)}
+                            </div>
+                          ))}
+
+                          {loadingMore &&
+                            skeletonKeys.map((key) => (
+                              <div key={key} className="w-full p-2 m-0">
+                                <GalleryCardSkeleton />
+                              </div>
+                            ))}
+                        </Masonry>
+                      </ResponsiveMasonry>
                     </div>
                   );
                 }}
@@ -677,8 +626,9 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
           {!loading && !loadingMore && imageCards.length < total && (
             <div className="flex justify-center items-center mt-6">
               <ButtonWidget
-                className="orange-button-white group rounded-[60px] px-6 h-10 xss:text-[16px] 3xl:h-[50px] text-xs 2xl:text-[14px] 3xl:text-[18px] flex items-center justify-center gap-2"
                 onClick={loadMore}
+                disabled={loadingMore}
+                className="orange-button-white group rounded-[60px] px-6 h-10 xss:text-[16px] 3xl:h-[50px] text-xs 2xl:text-[14px] 3xl:text-[18px] flex items-center justify-center gap-2"
               >
                 Load More
                 <ImageWidget
