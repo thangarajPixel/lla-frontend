@@ -597,7 +597,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
                 >
                   <Masonry gutter="20px">
                     {Array.from({ length: 6 }).map((_, index) => (
-                      <div key={`skeleton-${index}`} className="w-full p-2 m-0">
+                      <div key={`skeleton-${index}`} className="w-full">
                         <GalleryCardSkeleton />
                       </div>
                     ))}
@@ -622,7 +622,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
                           {displayImages.map((item, index) => (
                             <div
                               key={item.id}
-                              className="w-full p-2 m-0"
+                              className="w-full"
                               ref={(el) => {
                                 cardsRef.current[index] = el;
                               }}
@@ -633,7 +633,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
 
                           {loadingMore &&
                             skeletonKeys.map((key) => (
-                              <div key={key} className="w-full p-2 m-0">
+                              <div key={key} className="w-full">
                                 <GalleryCardSkeleton />
                               </div>
                             ))}

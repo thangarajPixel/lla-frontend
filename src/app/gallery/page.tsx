@@ -8,7 +8,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const Gallery = async () => {
-  const [{ data: response }] = await Promise.all([getGalleryPageData()]);
+  const params = { page: 1, per_page: 30 }
+  const [{ data: response }] = await Promise.all([getGalleryPageData(params)]);
 
   if (!response) return null;
 
