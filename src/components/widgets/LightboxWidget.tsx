@@ -161,13 +161,22 @@ export default function LightboxWidget({
                       objectFit: "contain",
                     }}
                   /> */}
-                  <ImageWidget
+                  {/* <ImageWidget
                     src={extendedSlide.src}
                     alt={extendedSlide.alt || ""}
                     className="max-w-full max-h-[calc(100vh-120px)] w-auto h-auto object-contain"
                     width={100}
                     height={100}
+                  /> */}
+                  
+                  <ImageWidget
+                    src={extendedSlide.src}
+                    alt={extendedSlide.alt || ""}
+                    className="w-[90vw] h-[85vh] md:w-[80vw] md:h-[75vh] object-contain"
+                    width={extendedSlide.width || 1600}
+                    height={extendedSlide.height || 900}
                   />
+
 
                   {extendedSlide.title && (
                     <div className="mt-4 text-white text-center text-lg md:text-xl lg:text-2xl font-mulish font-bold px-4">

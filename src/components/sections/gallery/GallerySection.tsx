@@ -59,6 +59,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   const [thumbnailFallbacks, setThumbnailFallbacks] = useState<Record<string, number>>({});
   const [validatedThumbnails, setValidatedThumbnails] = useState<Record<string, string>>({});
   const [displayImages, setDisplayImages] = useState<GalleryItem[]>([]);
+  const [isMounted, setIsMounted] = useState(false);
   const isFirstRenderRef = useRef(true);
 
   const GalleryCardSkeleton = () => (
@@ -356,6 +357,10 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
     fetchFilteredData();
   }, [selectedType]);
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const loadMore = async () => {
     if (loading || loadingMore || imageCards.length >= total || !selectedType)
       return;
@@ -646,7 +651,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
             )}
           </div>
 
-          {!loading && !loadingMore && imageCards.length < total && (
+          {!loading && !loadingMore && imageCards.length < total && isMounted && (
             <div className="flex justify-center items-center mt-6">
               <ButtonWidget
                 onClick={loadMore}
