@@ -58,7 +58,8 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   const [imageLoadStates, setImageLoadStates] = useState<Record<string, boolean>>({});
   const [thumbnailFallbacks, setThumbnailFallbacks] = useState<Record<string, number>>({});
   const [validatedThumbnails, setValidatedThumbnails] = useState<Record<string, string>>({});
-  const shuffledImagesRef = useRef<GalleryItem[]>([]);
+  const [displayImages, setDisplayImages] = useState<GalleryItem[]>([]);
+  const isFirstRenderRef = useRef(true);
 
   const GalleryCardSkeleton = () => (
     <div className="w-full flex flex-col gap-3 bg-white p-3">
@@ -301,15 +302,22 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
   }, [allImages]);
 
   useEffect(() => {
-    if (allImages.length > 0 && shuffledImagesRef.current.length === 0) {
-      // Check if this is a hard reload (fresh session)
-      const isHardReload = !sessionStorage.getItem('gallery_loaded');
-      
-      if (isHardReload) {
-        shuffledImagesRef.current = shuffleArray(allImages);
-        sessionStorage.setItem('gallery_loaded', 'true');
+    if (allImages.length > 0) {
+      if (isFirstRenderRef.current) {
+        // Hard reload - shuffle images using Math.random()
+        const shuffled = [...allImages];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        setDisplayImages(shuffled);
+        isFirstRenderRef.current = false;
       } else {
-        shuffledImagesRef.current = allImages;
+        // Load More - append new images to existing ones
+        setDisplayImages((prev) => {
+          const newImages = allImages.slice(prev.length);
+          return [...prev, ...newImages];
+        });
       }
     }
   }, [allImages]);
@@ -322,6 +330,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
     setImageLoadStates({});
     setThumbnailFallbacks({});
     setValidatedThumbnails({});
+    isFirstRenderRef.current = true;
 
     const fetchFilteredData = async () => {
       setLoading(true);
@@ -581,7 +590,21 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
           </div>
 
           <div className="w-full" suppressHydrationWarning>
-            {allImages.length > 0 && (
+            {loading ? (
+              <div style={{ margin: "-10px" }}>
+                <ResponsiveMasonry
+                  columnsCountBreakPoints={{ 350: 1, 640: 2, 1024: 3 }}
+                >
+                  <Masonry gutter="20px">
+                    {Array.from({ length: 6 }).map((_, index) => (
+                      <div key={`skeleton-${index}`} className="w-full p-2 m-0">
+                        <GalleryCardSkeleton />
+                      </div>
+                    ))}
+                  </Masonry>
+                </ResponsiveMasonry>
+              </div>
+            ) : displayImages.length > 0 && (
               <LightboxWidget images={lightboxImages}>
                 {(openLightbox) => {
                   const isVideoOnly = selectedType === "Video";
@@ -596,7 +619,7 @@ const GallerySection = ({ data: initialData }: { data: GalleryData }) => {
                         }
                       >
                         <Masonry gutter="20px">
-                          {allImages.map((item, index) => (
+                          {displayImages.map((item, index) => (
                             <div
                               key={item.id}
                               className="w-full p-2 m-0"
