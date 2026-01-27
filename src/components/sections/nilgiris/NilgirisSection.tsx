@@ -121,6 +121,13 @@ const NilgirisSection = ({ data: initialData }: { data: NilgirisData }) => {
   }, [allImages]);
 
   const skeletonIdRef = useRef(0);
+  const isFirstRenderRef = useRef(true);
+
+  useEffect(() => {
+    if (isMounted && allImages.length > 0) {
+      isFirstRenderRef.current = false;
+    }
+  }, [allImages.length, isMounted]);
 
   const skeletonKeys = useMemo(() => {
     if (!loadingMore) return [];
@@ -137,6 +144,7 @@ const NilgirisSection = ({ data: initialData }: { data: NilgirisData }) => {
 
     setPage(1);
     setImageCards([]);
+    isFirstRenderRef.current = true;
 
     const fetchFilteredData = async () => {
       setLoading(true);
@@ -231,10 +239,91 @@ const NilgirisSection = ({ data: initialData }: { data: NilgirisData }) => {
     item: (typeof allImages)[0],
     _index: number,
     openLightbox?: (index: number) => void,
+    isInitialLoad: boolean = false,
   ) => {
     const lightboxIndex = imageToLightboxIndex.get(item.id);
 
-    return (
+    const content = (
+      <div className="relative w-full overflow-hidden group cursor-pointer">
+        {item.isVideo ? (
+          <DialogWidget
+            trigger={
+              <div className="relative w-full overflow-hidden rounded-none">
+                <video
+                  src={(item.videoUrl as string) || ""}
+                  className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+                  muted
+                  playsInline
+                  preload="metadata"
+                />
+                <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
+                  <div className="video-main">
+                    <div className="waves-block">
+                      <div className="waves wave-1" />
+                      <div className="waves wave-2" />
+                      <div className="waves wave-3" />
+                    </div>
+                  </div>
+                  <div className="relative w-13 h-13 p-0 bg-transparent hover:bg-transparent border-none shadow-none rounded-full transition-all duration-300 ease-out z-10">
+                    <ImageWidget
+                      src={Play}
+                      alt="play video"
+                      className="w-13 cursor-pointer h-13 text-white group-hover:text-[#E97451] transition-colors duration-500 ease-in-out relative z-10"
+                    />
+                  </div>
+                </div>
+              </div>
+            }
+            contentClassName="sm:max-w-[90vw] lg:max-w-[800px] p-0"
+            showCancel={false}
+            showCloseButton={false}
+            customCloseButton={
+              <DialogClose asChild>
+                <div className="cursor-pointer -mt-[30px] -mr-[30px]">
+                  <ImageWidget
+                    src={Into}
+                    alt="Close"
+                    className="w-[30px] h-[30px]"
+                  />
+                </div>
+              </DialogClose>
+            }
+          >
+            <div className="relative w-full aspect-video bg-black rounded-lg">
+              {/* biome-ignore lint/a11y/useMediaCaption: Gallery videos may not have captions available */}
+              <video
+                src={(item.videoUrl as string) || ""}
+                controls
+                autoPlay
+                className="w-full h-full object-contain rounded-lg"
+              />
+            </div>
+          </DialogWidget>
+        ) : (
+          <button
+            type="button"
+            onClick={() => {
+              if (openLightbox && lightboxIndex !== undefined) {
+                openLightbox(lightboxIndex);
+              }
+            }}
+            className="relative w-full overflow-hidden rounded-none border-none bg-transparent p-0 cursor-pointer"
+          >
+            <ImageWidget
+              src={item.src}
+              alt={item.alt}
+              width={600}
+              height={800}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+              unoptimized={false}
+            />
+          </button>
+        )}
+      </div>
+    );
+
+    return isInitialLoad ? (
       <ScrollWidget
         key={item.id}
         animation="fadeUp"
@@ -243,85 +332,10 @@ const NilgirisSection = ({ data: initialData }: { data: NilgirisData }) => {
         start="top 90%"
         once={true}
       >
-        <div className="relative w-full overflow-hidden group cursor-pointer">
-          {item.isVideo ? (
-            <DialogWidget
-              trigger={
-                <div className="relative w-full overflow-hidden rounded-none">
-                  <video
-                    src={(item.videoUrl as string) || ""}
-                    className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
-                    muted
-                    playsInline
-                    preload="metadata"
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
-                    <div className="video-main">
-                      <div className="waves-block">
-                        <div className="waves wave-1" />
-                        <div className="waves wave-2" />
-                        <div className="waves wave-3" />
-                      </div>
-                    </div>
-                    <div className="relative w-13 h-13 p-0 bg-transparent hover:bg-transparent border-none shadow-none rounded-full transition-all duration-300 ease-out z-10">
-                      <ImageWidget
-                        src={Play}
-                        alt="play video"
-                        className="w-13 cursor-pointer h-13 text-white group-hover:text-[#E97451] transition-colors duration-500 ease-in-out relative z-10"
-                      />
-                    </div>
-                  </div>
-                </div>
-              }
-              contentClassName="sm:max-w-[90vw] lg:max-w-[800px] p-0"
-              showCancel={false}
-              showCloseButton={false}
-              customCloseButton={
-                <DialogClose asChild>
-                  <div className="cursor-pointer -mt-[30px] -mr-[30px]">
-                    <ImageWidget
-                      src={Into}
-                      alt="Close"
-                      className="w-[30px] h-[30px]"
-                    />
-                  </div>
-                </DialogClose>
-              }
-            >
-              <div className="relative w-full aspect-video bg-black rounded-lg">
-                {/* biome-ignore lint/a11y/useMediaCaption: Gallery videos may not have captions available */}
-                <video
-                  src={(item.videoUrl as string) || ""}
-                  controls
-                  autoPlay
-                  className="w-full h-full object-contain rounded-lg"
-                />
-              </div>
-            </DialogWidget>
-          ) : (
-            <button
-              type="button"
-              onClick={() => {
-                if (openLightbox && lightboxIndex !== undefined) {
-                  openLightbox(lightboxIndex);
-                }
-              }}
-              className="relative w-full overflow-hidden rounded-none border-none bg-transparent p-0 cursor-pointer"
-            >
-              <ImageWidget
-                src={item.src}
-                alt={item.alt}
-                width={600}
-                height={800}
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
-                priority={true}
-                unoptimized={false}
-              />
-            </button>
-          )}
-        </div>
+        {content}
       </ScrollWidget>
+    ) : (
+      content
     );
   };
 
@@ -387,11 +401,14 @@ const NilgirisSection = ({ data: initialData }: { data: NilgirisData }) => {
                         }}
                       >
                         <Masonry gutter="24px">
-                          {allImages.map((item, index) => (
-                            <div key={item.id} className="w-full p-3">
-                              {renderGalleryItem(item, index, openLightbox)}
-                            </div>
-                          ))}
+                          {allImages.map((item, index) => {
+                            const isInitialLoad = isFirstRenderRef.current && index < 9;
+                            return (
+                              <div key={item.id} className="w-full p-3">
+                                {renderGalleryItem(item, index, openLightbox, isInitialLoad)}
+                              </div>
+                            );
+                          })}
                           {loadingMore &&
                             skeletonKeys.length > 0 &&
                             skeletonKeys.map((key) => (
@@ -412,11 +429,14 @@ const NilgirisSection = ({ data: initialData }: { data: NilgirisData }) => {
                     </div>
                   ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {allImages.map((item, index) => (
-                        <div key={item.id}>
-                          {renderGalleryItem(item, index, openLightbox)}
-                        </div>
-                      ))}
+                      {allImages.map((item, index) => {
+                        const isInitialLoad = isFirstRenderRef.current && index < 9;
+                        return (
+                          <div key={item.id}>
+                            {renderGalleryItem(item, index, openLightbox, isInitialLoad)}
+                          </div>
+                        );
+                      })}
                       {loadingMore &&
                         skeletonKeys.length > 0 &&
                         skeletonKeys.map((key) => (

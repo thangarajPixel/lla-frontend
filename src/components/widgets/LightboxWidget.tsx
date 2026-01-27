@@ -155,10 +155,9 @@ export default function LightboxWidget({
                   <ImageWidget
                     src={extendedSlide.src}
                     alt={extendedSlide.alt || ""}
-                    className="max-w-full h-[calc(100vh-150px)] w-auto object-contain"
+                    className="max-w-full max-h-[calc(100vh-120px)] w-auto h-auto object-contain"
                     width={100}
                     height={100}
-                    quality={100}
                   />
 
                   {extendedSlide.title && (
