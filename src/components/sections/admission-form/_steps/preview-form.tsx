@@ -314,7 +314,7 @@ const ReviewApplication = ({
 
   const handleOpenPayment = async (updateId: string, admissionId: string) => {
     const data = {
-      // step_3: false,
+      step_3: true,
       Payment_Status: "Completed",
       EncryptId: admissionId,
     };
