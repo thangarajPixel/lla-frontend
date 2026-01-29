@@ -77,6 +77,7 @@ function Section({
   className,
   canEdit,
   paymentStatus,
+  pageType,
 }: {
   title: string;
   children: React.ReactNode;
@@ -84,6 +85,7 @@ function Section({
   className?: string;
   canEdit?: boolean;
   paymentStatus?: string;
+  pageType?: string;
 }) {
   return (
     <div className="space-y-3">
@@ -93,7 +95,7 @@ function Section({
         >
           {title}
         </h3>
-        {paymentStatus !== "Paid" && canEdit && (
+        {paymentStatus !== "Paid" && canEdit && pageType !== "admin" && (
           <Image
             src={EditIcon ?? null}
             width={24}
@@ -250,9 +252,11 @@ function EducationField({
 const ReviewApplication = ({
   admissionData,
   admissionId,
+  pageType,
 }: {
   admissionData?: AdmissionFormData;
   admissionId?: string;
+  pageType?: string;
 }) => {
   const [isPaymentOpen, setIsPaymentOpen] = useState<boolean>(false);
   const [paymentDetails, setPaymentDetails] = useState<PaymentResponse | null>(
@@ -267,13 +271,13 @@ const ReviewApplication = ({
   const searchParams = useSearchParams();
   const section = searchParams.get("section");
 
-  const fullAddress = `${admissionData?.address?.[0]?.children?.[0]?.text}, ${admissionData?.city}, ${admissionData?.district}, ${admissionData?.state?.name}, ${admissionData?.pincode}`;
-  const parentFullAddress = `${admissionData?.Parent_Guardian_Spouse_Details?.address?.[0]?.children?.[0]?.text}, ${admissionData?.Parent_Guardian_Spouse_Details?.city}, ${admissionData?.Parent_Guardian_Spouse_Details?.district}, ${admissionData?.Parent_Guardian_Spouse_Details?.state.name}, ${admissionData?.Parent_Guardian_Spouse_Details?.pincode}`;
+  const fullAddress = admissionData?.address?.[0]?.children?.[0]?.text && `${admissionData?.address?.[0]?.children?.[0]?.text}, ${admissionData?.city}, ${admissionData?.district}, ${admissionData?.state?.name}, ${admissionData?.pincode}`;
+  const parentFullAddress = admissionData?.Parent_Guardian_Spouse_Details?.address?.[0]?.children?.[0]?.text && `${admissionData?.Parent_Guardian_Spouse_Details?.address?.[0]?.children?.[0]?.text}, ${admissionData?.Parent_Guardian_Spouse_Details?.city}, ${admissionData?.Parent_Guardian_Spouse_Details?.district}, ${admissionData?.Parent_Guardian_Spouse_Details?.state.name}, ${admissionData?.Parent_Guardian_Spouse_Details?.pincode}`;
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
-  
+
   useEffect(() => {
     if (admissionData) {
       useCourseStore.setState({ courseName: admissionData?.Course?.Name });
@@ -310,7 +314,7 @@ const ReviewApplication = ({
 
   const handleOpenPayment = async (updateId: string, admissionId: string) => {
     const data = {
-      step_3: true,
+      // step_3: false,
       Payment_Status: "Completed",
       EncryptId: admissionId,
     };
@@ -370,7 +374,7 @@ const ReviewApplication = ({
             />
           </div>
 
-          {admissionData?.Payment_Status !== "Paid" && (
+          {admissionData?.Payment_Status !== "Paid" && pageType !== "admin" && (
             <div className="flex flex-row items-center justify-between gap-3 w-full lg:w-[280px] -ml-2 lg:-ml-14 xl:w-[350px] 2xl:w-[400px] 2xxl:w-[420px] 3xl:w-[519px] xl:ml-2 2xl:ml-12 2xxl:ml-18 3xl:ml-22 px-4 lg:px-0">
               <ButtonWidget
                 className={cn(
@@ -411,6 +415,7 @@ const ReviewApplication = ({
               }
               canEdit
               paymentStatus={admissionData?.Payment_Status}
+              pageType={pageType}
             >
               <Field label="Course Name" value={admissionData?.Course?.Name} />
               <Field
@@ -437,7 +442,7 @@ const ReviewApplication = ({
               />
 
               <Field label="Hobbies" value={admissionData?.hobbies} />
-              
+
               <Field
                 label="Photography Club"
                 value={admissionData?.photography_club}
@@ -450,10 +455,11 @@ const ReviewApplication = ({
                 router.push(`/admission/${admissionId}/personal-details`)
               }
               paymentStatus={admissionData?.Payment_Status}
+              pageType={pageType}
             >
               <Field
                 label="Name"
-                value={`${admissionData?.Parent_Guardian_Spouse_Details?.first_name} ${admissionData?.Parent_Guardian_Spouse_Details?.last_name}`}
+                value={admissionData?.Parent_Guardian_Spouse_Details?.first_name && `${admissionData?.Parent_Guardian_Spouse_Details?.first_name} ${admissionData?.Parent_Guardian_Spouse_Details?.last_name}`}
                 prefix={admissionData?.Parent_Guardian_Spouse_Details?.title}
               />
               <Field
@@ -473,83 +479,92 @@ const ReviewApplication = ({
               <Field label="Address" value={parentFullAddress} />
             </Section>
 
-            <Section
-              title="Education Details"
-              canEdit
-              onEdit={() =>
-                router.push(`/admission/${admissionId}/education-details`)
-              }
-              paymentStatus={admissionData?.Payment_Status}
-            >
-              <div className="flex flex-col gap-3 md:flex-row items-start justify-between">
-                <EducationField
-                  label="10th Std"
-                  title="Document"
-                  value={
-                    admissionData?.Education_Details?.Education_Details_10th_std
+            {
+              admissionData?.Education_Details && (
+                <Section
+                  title="Education Details"
+                  canEdit
+                  onEdit={() =>
+                    router.push(`/admission/${admissionId}/education-details`)
                   }
-                />
-                <EducationField
-                  label="12th Std"
-                  title="Document"
-                  value={
-                    admissionData?.Education_Details?.Education_Details_12th_std
-                  }
-                />
-              </div>
-            </Section>
+                  paymentStatus={admissionData?.Payment_Status}
+                  pageType={pageType}
+                >
+                  <div className="flex flex-col gap-3 md:flex-row items-start justify-between">
+                    <EducationField
+                      label="10th Std"
+                      title="Document"
+                      value={
+                        admissionData?.Education_Details?.Education_Details_10th_std
+                      }
+                    />
+                    <EducationField
+                      label="12th Std"
+                      title="Document"
+                      value={
+                        admissionData?.Education_Details?.Education_Details_12th_std
+                      }
+                    />
+                  </div>
+                </Section>
+              )
+            }
 
-            <Section title="Under Graduate">
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <section className="md:col-span-2">
-                  <span className="text-black/50 text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
-                    Degree
-                  </span>
-                  <p className="text-black text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
-                    {admissionData?.Under_Graduate?.degree}
-                  </p>
-                </section>
+            {
+              admissionData?.Under_Graduate?.degree && (
+                <Section title="Under Graduate">
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <section className="md:col-span-2">
+                      <span className="text-black/50 text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
+                        Degree
+                      </span>
+                      <p className="text-black text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
+                        {admissionData?.Under_Graduate?.degree}
+                      </p>
+                    </section>
 
-                <section className="md:col-span-1">
-                  <span className="text-black/50 text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
-                    Status
-                  </span>
-                  <p className="text-black text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
-                    {admissionData?.Under_Graduate?.ug_status}
-                  </p>
-                </section>
+                    <section className="md:col-span-1">
+                      <span className="text-black/50 text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
+                        Status
+                      </span>
+                      <p className="text-black text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
+                        {admissionData?.Under_Graduate?.ug_status}
+                      </p>
+                    </section>
 
-                {admissionData?.Under_Graduate?.marksheet?.url && (
-                  <section className="flex flex-col justify-start gap-2 items-start md:col-span-1">
-                    <span className="text-black/50 text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
-                      Document
-                    </span>
-                    <span className="flex items-center justify-center gap-1">
-                      <ImageWidget
-                        src={DocumentIcon ?? null}
-                        alt="Document"
-                        width={24}
-                        height={24}
-                        className="size-6 lg:size-4 3xl:size-6 rounded-full"
-                      />
-                      <LinkWidget
-                        className="text-[#E97451] text-base lg:text-sm 2xl:text-lg 2xxl:text-xl text-nowrap"
-                        href="#"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleDownload(
-                            admissionData?.Under_Graduate?.marksheet?.url,
-                            admissionData?.Under_Graduate?.marksheet?.name,
-                          );
-                        }}
-                      >
-                        View Document
-                      </LinkWidget>
-                    </span>
-                  </section>
-                )}
-              </div>
-            </Section>
+                    {admissionData?.Under_Graduate?.marksheet?.url && (
+                      <section className="flex flex-col justify-start gap-2 items-start md:col-span-1">
+                        <span className="text-black/50 text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
+                          Document
+                        </span>
+                        <span className="flex items-center justify-center gap-1">
+                          <ImageWidget
+                            src={DocumentIcon ?? null}
+                            alt="Document"
+                            width={24}
+                            height={24}
+                            className="size-6 lg:size-4 3xl:size-6 rounded-full"
+                          />
+                          <LinkWidget
+                            className="text-[#E97451] text-base lg:text-sm 2xl:text-lg 2xxl:text-xl text-nowrap"
+                            href="#"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleDownload(
+                                admissionData?.Under_Graduate?.marksheet?.url,
+                                admissionData?.Under_Graduate?.marksheet?.name,
+                              );
+                            }}
+                          >
+                            View Document
+                          </LinkWidget>
+                        </span>
+                      </section>
+                    )}
+                  </div>
+                </Section>
+              )
+            }
 
             {admissionData?.Post_Graduate?.length > 0 &&
               admissionData?.Post_Graduate[0]?.degree && (
@@ -689,6 +704,7 @@ const ReviewApplication = ({
                     router.push(`/admission/${admissionId}/education-details`)
                   }
                   paymentStatus={admissionData?.Payment_Status}
+                  pageType={pageType}
                 >
                   {admissionData?.Work_Experience?.map((experience) => (
                     <div
@@ -782,6 +798,7 @@ const ReviewApplication = ({
                     router.push(`/admission/${admissionId}/portfolio`)
                   }
                   paymentStatus={admissionData?.Payment_Status}
+                  pageType={pageType}
                 >
                   <div className="grid grid-cols-2 gap-4">
                     {admissionData?.Upload_Your_Portfolio?.images?.map(

@@ -11,6 +11,10 @@ const PersonalDetails = async (props: PageProps) => {
 
   const admissionData = admissionResponse?.data as AdmissionFormData;
 
+  if (!admissionData) {
+    return <div className="flex items-center justify-center">No Admission Found</div>;
+  }
+
   return <PersonalDetailsForm admissionData={admissionData} admissionId={id} />;
 };
 

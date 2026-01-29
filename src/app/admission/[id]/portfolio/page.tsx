@@ -1,6 +1,7 @@
 import { getAdmissionsById } from "@/app/api/server";
 import PortfolioForm from "@/components/sections/admission-form/_steps/portfolio-form";
 import { decryptCode } from "@/helpers/ConstantHelper";
+import { redirect } from "next/navigation";
 
 const Portfolio = async (props: PageProps) => {
   const params = await props.params;
@@ -10,7 +11,19 @@ const Portfolio = async (props: PageProps) => {
   const admissionResponse = await getAdmissionsById(Number(admissionId));
 
   const admissionData = admissionResponse?.data as AdmissionFormData;
-  return <PortfolioForm admissionData={admissionData} admissionId={id} />;
+
+  if (!admissionData) {
+    return <div className="flex items-center justify-center">No Admission Found</div>;
+  }
+
+  if (admissionData?.step_2) {
+    return <PortfolioForm admissionData={admissionData} admissionId={id} />
+  } else if (admissionData?.step_1) {
+    redirect(`/admission/${id}/education-details`);
+  } else {
+    redirect(`/admission/${id}/personal-details`);
+  }
+
 };
 
 export default Portfolio;
