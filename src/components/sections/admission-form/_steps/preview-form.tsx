@@ -827,6 +827,7 @@ const ReviewApplication = ({
                     router.push(`/admission/${admissionId}/portfolio`)
                   }
                   paymentStatus={admissionData?.Payment_Status}
+                  pageType={pageType}
                 >
                   <div className="mt-auto">
                     {isMounted ? (
