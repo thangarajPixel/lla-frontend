@@ -1,6 +1,7 @@
 import { getAdmissionsById } from "@/app/api/server";
 import EducationDetailsForm from "@/components/sections/admission-form/_steps/education-details-form";
 import { decryptCode } from "@/helpers/ConstantHelper";
+import { redirect } from "next/navigation";
 
 const EducationDetails = async (props: PageProps) => {
   const params = await props?.params;
@@ -11,12 +12,15 @@ const EducationDetails = async (props: PageProps) => {
 
   const admissionData = admissionResponse?.data as AdmissionFormData;
 
-  return (
-    <EducationDetailsForm
-      admissionData={admissionData}
-      admissionId={String(id) ?? null}
-    />
-  );
+  if (!admissionData) {
+    return <div className="flex items-center justify-center">No Admission Found</div>;
+  }
+
+  if (admissionData?.step_1) {
+    return <EducationDetailsForm admissionData={admissionData} admissionId={String(id) ?? null} />
+  } else {
+    redirect(`/admission/${id}/personal-details`);
+  }
 };
 
 export default EducationDetails;

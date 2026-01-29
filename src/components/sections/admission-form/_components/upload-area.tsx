@@ -46,7 +46,6 @@ export const UploadArea = ({ onFilesSelected, loading }: UploadAreaProps) => {
 
           <Button
             type="button"
-            onClick={() => inputRef.current?.click()}
             className="rounded-full px-4 py-2 bg-[#E97451]"
           >
             Select File
