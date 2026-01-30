@@ -183,9 +183,9 @@ const PortfolioForm = ({ admissionData, admissionId }: PortfolioFormProps) => {
   };
 
   const onSubmit = async (payload: PortfolioSchema) => {
-    try {
-      setApiLoading(true);
+    setApiLoading(true);
 
+    try {
       await updateAdmission(
         admissionData?.documentId as string,
         {

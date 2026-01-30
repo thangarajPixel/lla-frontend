@@ -407,6 +407,8 @@ const PersonalDetailsForm = ({
   const onSubmit = async (payload: PersonalDetailsSchema) => {
     // const filteredData = filteredPayload(payload);
 
+    setIsLoading(true);
+
     const data = {
       ...payload,
       step_1: true,
@@ -415,7 +417,6 @@ const PersonalDetailsForm = ({
     };
 
     try {
-      setIsLoading(true);
 
       if (admissionData?.id) {
         await updateAdmission(
@@ -838,6 +839,7 @@ const PersonalDetailsForm = ({
               content="Save & Continue"
               className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-base 2xl:text-[18px] 3xl:text-[18px] 3xl:w-[226px]"
               apiLoader={isLoading}
+              type="submit"
             />
           </div>
         )}

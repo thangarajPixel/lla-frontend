@@ -31,6 +31,7 @@ const CourseAdmissionFormSection = ({
   // const [selectedCourse, setSelectedCourse] =
   //   useState<string>();
   const essentialData = useCourseStore((state) => state.essentialData);
+  const [loading, setLoading] = useState(false);
   const [isApplicationOpen, setIsApplicationOpen] = useState(false);
   const [emailError, setEmailError] = useState<string>("");
   const formRef = useRef<HTMLFormElement>(null);
@@ -50,6 +51,7 @@ const CourseAdmissionFormSection = ({
 
   const onSubmit = async (payload: RequestFormData) => {
     // const isAdmissionOpen = await getEssentialsData();
+    setLoading(true);
     
     const clientIpResponse = await fetch("/api/ip");
     const clientIp = await clientIpResponse.json();
@@ -122,6 +124,8 @@ const CourseAdmissionFormSection = ({
       toast.error("Failed to send message. Please try again.", {
         position: "top-right",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -177,6 +181,7 @@ const CourseAdmissionFormSection = ({
           <button
             type="submit"
             className="col-span-2 md:col-span-1 group font-bold cursor-pointer flex items-center justify-center gap-2 px-4 md:px-6 py-2 bg-white text-[#E97451] rounded-full text-[12px] sm:text-[13px] md:text-[14px] lg:text-[13px] 3xl:text-[16px] hover:bg-gray-100 transition-colors h-9 w-full md:w-auto relative md:bottom-2.5"
+            disabled={loading}
           >
             Submit
             <ArrowRight className="w-[14px] h-[14px] md:w-[15px] md:h-[15px] lg:w-[18px] lg:h-[18px] 3xl:w-6 3xl:h-6 transition-transform duration-300 group-hover:translate-x-1" />

@@ -82,6 +82,7 @@ const nextConfig: NextConfig = {
               https://www.google.com
               https://dev-admin.lightandlifeacademy.in
               https://dev.lightandlifeacademy.in
+              https://llaacademy-frontend.conefy.com
               https://llaacademy-backend.conefy.com
               https://llacademy.org
               http://localhost:3030;
