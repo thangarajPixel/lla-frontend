@@ -13,6 +13,7 @@ import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
 import { Call, LocationIcon, Sms, StarIcon } from "@/helpers/ImageHelper";
 import type { ContactSectionProps } from "./utils/contact";
+import { useState } from "react";
 
 export const contactSchema = z.object({
   FirstName: z
@@ -66,6 +67,7 @@ export const contactSchema = z.object({
 export type ContactFormData = z.infer<typeof contactSchema>;
 
 export default function ContactSection({ data }: ContactSectionProps) {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const {
@@ -87,6 +89,8 @@ export default function ContactSection({ data }: ContactSectionProps) {
   });
 
   const onSubmit = async (data: ContactFormData) => {
+    setLoading(true);
+
     try {
       const _response = await clientAxios.post<ContactFormData>("/contacts", {
         data: data,
@@ -98,6 +102,8 @@ export default function ContactSection({ data }: ContactSectionProps) {
       router.push("/thankyou");
     } catch (_error) {
       toast.error("Failed to send message. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -233,7 +239,7 @@ export default function ContactSection({ data }: ContactSectionProps) {
                   </p>
                 )}
               </div>
-              <OrangeButtonWidget content={data?.BtnText || "Submit"} />
+              <OrangeButtonWidget content={data?.BtnText || "Submit"} type="submit" apiLoader={loading} />
             </form>
           </div>
         </div>
