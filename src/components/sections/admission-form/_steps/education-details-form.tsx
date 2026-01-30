@@ -100,6 +100,8 @@ const EducationDetailsForm = ({
   }, [watchUgStatus, setValue]);
 
   const onSubmit = async (payload: EducationDetailsSchema) => {
+    setIsLoading(true);
+
     const data = {
       ...payload,
       step_2: true,
@@ -141,7 +143,6 @@ const EducationDetailsForm = ({
     };
 
     try {
-      setIsLoading(true);
 
       await updateAdmission(
         admissionData?.documentId as string,
@@ -205,6 +206,7 @@ const EducationDetailsForm = ({
               content="Save & Continue"
               className="xss:text-[18px] xss:h-10 3xl:h-12.5 text-base 2xl:text-[18px] 3xl:text-[18px] 3xl:w-[226px]"
               apiLoader={isLoading}
+              type="submit"
             />
           </div>
         )}
