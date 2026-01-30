@@ -142,10 +142,10 @@ function Field({
         )}
       >
         {isDob
-          ? dobValue?.replace(/-/g, "/")
+          ? dobValue ? dobValue?.replace(/-/g, "/") : "-"
           : prefix
             ? `${prefix} ${value}`
-            : (value ?? "-")}
+            : (value ? value : "-")}
       </span>
     </div>
   );
@@ -355,9 +355,13 @@ const ReviewApplication = ({
                   <h1 className="text-[32px] lg:text-[28px] 2xl:[34px] 3xl:text-[40px] font-urbanist text-[#E97451]">
                     Review Application
                   </h1>
-                  <p className="text-base lg:text-sm 3xl:text-lg">
-                    Kindly verify the details before submitting.
-                  </p>
+                  {
+                    pageType !== "admin" && (
+                      <p className="text-base lg:text-sm 3xl:text-lg">
+                        Kindly verify the details before submitting.
+                      </p>
+                    )
+                  }
                 </div>
               </>
             )
