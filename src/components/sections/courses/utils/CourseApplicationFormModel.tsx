@@ -55,6 +55,8 @@ const CourseApplicationFormModel = ({
   const onSubmit = async (payload: RequestFormData) => {
     // const isAdmissionOpen = await getEssentialsData();
 
+    setIsLoading(true);
+
     const clientIpResponse = await fetch("/api/ip");
     const clientIp = await clientIpResponse.json();
 
@@ -85,7 +87,6 @@ const CourseApplicationFormModel = ({
     };
 
     try {
-      setIsLoading(true);
 
       if (essentialData?.isAdmission) {
         const isExistingEmailCheck = await clientAxios.post(
@@ -197,17 +198,12 @@ const CourseApplicationFormModel = ({
               </p>
             )}
 
-            {isLoading ? (
-              <div className="flex items-center w-fit justify-center gap-2 orange-button p-3 rounded-full">
-                <Spinner />
-                <span>loading...</span>
-              </div>
-            ) : (
-              <OrangeButtonWidget
-                content={essentialData?.isAdmission ? "Save & Continue" : "Submit"}
-                className=" mt-4 xss:text-[18px] xss:h-10 3xl:h-12.5 text-base 2xl:text-[18px] 3xl:text-[18px] 3xl:w-[226px]"
-              />
-            )}
+            <OrangeButtonWidget
+              content={essentialData?.isAdmission ? "Save & Continue" : "Submit"}
+              className=" mt-4 xss:text-[18px] xss:h-10 3xl:h-12.5 text-base 2xl:text-[18px] 3xl:text-[18px] 3xl:w-[226px]"
+              apiLoader={isLoading}
+              type="submit"
+            />
           </form>
         </section>
       </DialogContent>

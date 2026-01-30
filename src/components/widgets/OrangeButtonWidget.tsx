@@ -20,6 +20,7 @@ const OrangeButtonWidget = ({
         "orange-button group rounded-[60px] px-5 h-10 sm:h-10 xss:text-[16px] xss:h-[48px] 3xl:h-[50px] text-xs 2xl:text-[14px] 3xl:text-[18px]",
         className,
       )}
+      disabled={apiLoader}
       {...(props as ButtonWidgetProps)}
     >
       {apiLoader ? (
