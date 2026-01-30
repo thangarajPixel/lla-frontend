@@ -78,7 +78,13 @@ const nextConfig: NextConfig = {
               https://www.google-analytics.com
               https://www.googletagmanager.com
               https://www.facebook.com
-              https://www.clarity.ms;
+              https://www.clarity.ms
+              https://www.google.com
+              https://dev-admin.lightandlifeacademy.in
+              https://dev.lightandlifeacademy.in
+              https://llaacademy-backend.conefy.com
+              https://llacademy.org/
+              http://localhost:3030;
 
               frame-src 'self' https:
               https://www.google-analytics.com

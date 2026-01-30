@@ -13,11 +13,12 @@ export default function MainContent({
   const isHomePage = pathname === "/";
   const isAdmissionPage = pathname.startsWith("/admission");
   const isContactPage = pathname === "/contact-us";
+  const coursesPage = pathname.startsWith("/courses");
   const searchParams = useSearchParams();
 
   const isAdmin = searchParams.get("type");
 
-  const enableRecaptcha = isAdmissionPage || isContactPage;
+  const enableRecaptcha = isAdmissionPage || isContactPage || coursesPage;
 
   const content = (
     <main

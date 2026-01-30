@@ -291,3 +291,7 @@ body {
   background-repeat: no-repeat;
   background-position: center;
 }
+
+.grecaptcha-badge {
+  z-index: 9999999 !important;
+}
