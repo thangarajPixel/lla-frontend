@@ -291,14 +291,3 @@ body {
   background-repeat: no-repeat;
   background-position: center;
 }
-
-.grecaptcha-badge {
-  position: fixed !important;
-  transform: none !important;
-  bottom: 15px !important;
-  right: 10px !important;
-  left: auto !important;
-  z-index: 9999999 !important;
-  height: auto !important;
-  width: auto !important;
-}
