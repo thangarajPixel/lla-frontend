@@ -17,6 +17,8 @@ import { admissionRequestSchema } from "@/helpers/ValidationHelper";
 import CourseApplicationFormModel from "./CourseApplicationFormModel";
 import { cn } from "@/lib/utils";
 import { useCourseStore } from "@/store/zustand";
+import { useCaptchaToken } from "@/components/form/CaptchaToken";
+import { Spinner } from "@/components/ui/spinner";
 
 // export type RequestFormData = z.infer<typeof admissionRequestSchema>;
 export type RequestFormData = z.infer<
@@ -34,6 +36,7 @@ const CourseAdmissionFormSection = ({
   const [loading, setLoading] = useState(false);
   const [isApplicationOpen, setIsApplicationOpen] = useState(false);
   const [emailError, setEmailError] = useState<string>("");
+  const { getToken } = useCaptchaToken();
   const formRef = useRef<HTMLFormElement>(null);
   const router = useRouter();
 
@@ -52,7 +55,14 @@ const CourseAdmissionFormSection = ({
   const onSubmit = async (payload: RequestFormData) => {
     // const isAdmissionOpen = await getEssentialsData();
     setLoading(true);
-    
+    const captchaToken = await getToken("course_admission");
+
+    if (!captchaToken) {
+      toast.error("Captcha verification failed. Please try again.");
+      setLoading(false);
+      return;
+    }
+
     const clientIpResponse = await fetch("/api/ip");
     const clientIp = await clientIpResponse.json();
 
@@ -67,7 +77,8 @@ const CourseAdmissionFormSection = ({
       AdmissionYear: essentialData?.admission_year?.AcademicYear,
       IpAddress: clientIp?.ip,
       step_0: true,
-      Currentstep: "Step1"
+      Currentstep: "Step1",
+      captchaToken: captchaToken
     };
 
     const requestPayload = {
@@ -77,6 +88,7 @@ const CourseAdmissionFormSection = ({
       Message: filteredData?.Message,
       Type: "Request Information",
       Course: selectedCourse?.Name,
+      captchaToken: captchaToken
     };
 
     try {
@@ -183,8 +195,19 @@ const CourseAdmissionFormSection = ({
             className="col-span-2 md:col-span-1 group font-bold cursor-pointer flex items-center justify-center gap-2 px-4 md:px-6 py-2 bg-white text-[#E97451] rounded-full text-[12px] sm:text-[13px] md:text-[14px] lg:text-[13px] 3xl:text-[16px] hover:bg-gray-100 transition-colors h-9 w-full md:w-auto relative md:bottom-2.5"
             disabled={loading}
           >
-            Submit
-            <ArrowRight className="w-[14px] h-[14px] md:w-[15px] md:h-[15px] lg:w-[18px] lg:h-[18px] 3xl:w-6 3xl:h-6 transition-transform duration-300 group-hover:translate-x-1" />
+            {
+              loading ? (
+                <div className="flex items-center gap-2">
+                  <Spinner />
+                  <span>Submitting</span>
+                </div>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <span>Submit</span>
+                  <ArrowRight className="w-[14px] h-[14px] md:w-[15px] md:h-[15px] lg:w-[18px] lg:h-[18px] 3xl:w-6 3xl:h-6 transition-transform duration-300 group-hover:translate-x-1" />
+                </div>
+              )
+            }
           </button>
         </form>
 

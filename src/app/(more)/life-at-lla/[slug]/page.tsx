@@ -11,7 +11,7 @@ export async function generateMetadata({
     const { slug } = await params;
     const { data: response } = await getLifeById(slug);
     const baseUrl = (process.env.NEXT_APP_SITE_URL || "https://llacademy.org").replace(/"/g, "");
-    console.log('response',response)
+
     return {
       title: response?.card?.SeoViewCard?.Title || "Life at LLA",
       description: response?.card?.SeoViewCard?.Description || "Life at Light & Life Academy",

@@ -5,12 +5,10 @@ import { Mulish, Urbanist } from "next/font/google";
 import localFont from "next/font/local";
 import Script from "next/script";
 import { Toaster } from "sonner";
-import MainContent from "@/components/layouts/utils/MainContent";
-import WebFooter from "@/components/layouts/WebFooter";
-import WebHeader from "@/components/layouts/WebHeader";
 import SmoothScrollWidget from "@/components/widgets/SmoothScrollWidget";
 import { getFooterData } from "./api/server";
 import "./globals.css";
+import CaptchaProvider from "@/components/layouts/utils/CaptchaProvider";
 
 const mulish = Mulish({
   variable: "--font-mulish",
@@ -124,10 +122,8 @@ export default async function RootLayout({
         </Script>
 
         <SmoothScrollWidget>
-          <WebHeader response={response?.data} />
           <Toaster position="top-right" expand richColors />
-          <MainContent>{children}</MainContent>
-          <WebFooter response={response?.data} />
+          <CaptchaProvider response={response?.data}>{children}</CaptchaProvider>
         </SmoothScrollWidget>
       </body>
     </html>

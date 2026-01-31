@@ -18,6 +18,7 @@ import { encryptId } from "@/helpers/ConstantHelper";
 import { admissionRequestSchema } from "@/helpers/ValidationHelper";
 import type { RequestFormData } from "./CourseAdmissionFormSection";
 import { useCourseStore } from "@/store/zustand";
+import { useCaptchaToken } from "@/components/form/CaptchaToken";
 
 type CourseApplicationProps = {
   isOpen: boolean;
@@ -37,6 +38,7 @@ const CourseApplicationFormModel = ({
 
   const essentialData = useCourseStore((state) => state.essentialData);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { getToken } = useCaptchaToken();
   const router = useRouter();
 
   const form = useForm<RequestFormData>({
@@ -56,6 +58,13 @@ const CourseApplicationFormModel = ({
     // const isAdmissionOpen = await getEssentialsData();
 
     setIsLoading(true);
+    const captchaToken = await getToken("course_admission");
+
+    if (!captchaToken) {
+      toast.error("Captcha verification failed. Please try again.");
+      setIsLoading(false);
+      return;
+    }
 
     const clientIpResponse = await fetch("/api/ip");
     const clientIp = await clientIpResponse.json();
@@ -73,6 +82,7 @@ const CourseApplicationFormModel = ({
       Currentstep: "Step1",
       AdmissionYear: essentialData?.admission_year?.AcademicYear,
       IpAddress: clientIp?.ip,
+      captchaToken: captchaToken
     };
 
     const requestPayload = {
@@ -81,9 +91,8 @@ const CourseApplicationFormModel = ({
       Email: payload.Email,
       Message: payload.Message,
       Type: "Request Information",
-      Course:
-        selectedCourse?.course_list?.Name ??
-        selectedCourseItem?.Name,
+      Course: selectedCourse?.course_list?.Name ?? selectedCourseItem?.Name,
+      captchaToken: captchaToken
     };
 
     try {
