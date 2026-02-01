@@ -295,3 +295,7 @@ body {
 .grecaptcha-badge {
   z-index: 9999999 !important;
 }
+
+body.captcha-icon-hidden .grecaptcha-badge {
+  visibility: hidden !important;
+}

@@ -19,6 +19,7 @@ import { ArrowRightWhite, Into } from "@/helpers/ImageHelper";
 import ButtonWidget from "../../widgets/ButtonWidget";
 import ImageWidget from "../../widgets/ImageWidget";
 import type { AdmissionButtonProps } from "./types";
+import { useCaptchaToken } from "@/components/form/CaptchaToken";
 
 const AdmissionRequestButton = ({
   className = "",
@@ -26,6 +27,7 @@ const AdmissionRequestButton = ({
 }: AdmissionButtonProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isFetching, setIsFetching] = useState<boolean>(false);
+  const { getToken } = useCaptchaToken();
   const pathname = usePathname();
   const router = useRouter();
 
@@ -49,14 +51,25 @@ const AdmissionRequestButton = ({
   });
 
   const onSubmit = async (payload: ContactFormData) => {
+    setIsFetching(true);
+
+    const captchaToken = await getToken("admission_request");
+
+    if (!captchaToken) {
+      toast.error("Captcha verification failed. Please try again.");
+      setIsFetching(false);
+      return;
+    }
+
     const filteredData = filteredPayload(payload);
 
     const data = {
       ...filteredData,
       Type: "Request Information",
+      captchaToken: captchaToken,
     };
     try {
-      setIsFetching(true);
+
       await clientAxios.post(`/contacts`, { data: data });
       toast.success("Message sent successfully!");
       reset();
@@ -89,8 +102,8 @@ const AdmissionRequestButton = ({
       trigger={
         <ButtonWidget
           className={`${isContactUsPage
-              ? "orange-button-white border-1 border-[#E97451]  leading-[28px]"
-              : "orange-button-white border-1 border-[#E97451]  leading-[28px]"
+            ? "orange-button-white border-1 border-[#E97451]  leading-[28px]"
+            : "orange-button-white border-1 border-[#E97451]  leading-[28px]"
             } group rounded-[60px] xss:text-[16px] px-5 h-10 3xl:w-[230px] 3xl:h-[50px]  text-[14px] 2xl:text-[14px] 3xl:text-[18px] ${className}`}
         >
           Request Info

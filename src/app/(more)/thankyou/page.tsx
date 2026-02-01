@@ -18,7 +18,6 @@ export default function ThankYouPage() {
   useEffect(() => {
     const fetchData = async () => {
       const response = await getThankyouPageData();
-      console.log(response, "response");
       const data = response?.data?.find(
         (item: ThankYouPage) => item.Type === "Contact",
       );

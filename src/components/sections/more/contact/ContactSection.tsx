@@ -14,6 +14,7 @@ import { clientAxios } from "@/helpers/AxiosHelper";
 import { Call, LocationIcon, Sms, StarIcon } from "@/helpers/ImageHelper";
 import type { ContactSectionProps } from "./utils/contact";
 import { useState } from "react";
+import { useCaptchaToken } from "@/components/form/CaptchaToken";
 
 export const contactSchema = z.object({
   FirstName: z
@@ -68,6 +69,7 @@ export type ContactFormData = z.infer<typeof contactSchema>;
 
 export default function ContactSection({ data }: ContactSectionProps) {
   const [loading, setLoading] = useState(false);
+  const { getToken } = useCaptchaToken();
   const router = useRouter();
 
   const {
@@ -91,10 +93,22 @@ export default function ContactSection({ data }: ContactSectionProps) {
   const onSubmit = async (data: ContactFormData) => {
     setLoading(true);
 
+    const captchaToken = await getToken("contact_us");
+
+    if (!captchaToken) {
+      toast.error("Captcha verification failed. Please try again.");
+      setLoading(false);
+      return;
+    }
+
     try {
       const _response = await clientAxios.post<ContactFormData>("/contacts", {
-        data: data,
-      });
+        data: {
+          ...data,
+          captchaToken,
+        },
+      },
+    );
       // toast.success(
       //   "Thank you for getting in touch with us. We will get back to you in 5 working days",
       // );
