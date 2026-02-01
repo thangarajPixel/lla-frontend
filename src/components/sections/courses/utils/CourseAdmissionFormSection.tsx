@@ -125,13 +125,14 @@ const CourseAdmissionFormSection = ({
           data: admissionPayload,
         });
         const encryptedId = encryptId(res?.data?.data?.id);
+        toast.success("Application submitted successfully");
         router.push(`/admission/${encryptedId}/personal-details`);
       } else {
         await clientAxios.post(`/contacts`, { data: requestPayload });
+        toast.success("Request submitted successfully");
         router.push("/request-thankyou");
       }
       form.reset();
-      toast.success("Request submitted successfully!");
     } catch (_error) {
       toast.error("Failed to send message. Please try again.", {
         position: "top-right",
