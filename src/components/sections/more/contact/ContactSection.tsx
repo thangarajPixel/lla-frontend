@@ -9,7 +9,6 @@ import FormInput from "@/components/form/FormInput";
 import ContainerWidget from "@/components/widgets/ContainerWidget";
 import HTMLWidget from "@/components/widgets/HTMLWidget";
 import ImageWidget from "@/components/widgets/ImageWidget";
-import OrangeButtonWidget from "@/components/widgets/OrangeButtonWidget";
 import { clientAxios } from "@/helpers/AxiosHelper";
 import { Call, LocationIcon, Sms, StarIcon } from "@/helpers/ImageHelper";
 import type { ContactSectionProps } from "./utils/contact";
@@ -252,13 +251,21 @@ export default function ContactSection({ data }: ContactSectionProps) {
                   </p>
                 )}
               </div>
-              <OrangeButtonWidget
-                id="contact_submit_btn"
-                name="contact-submit-btn"
-                role="button"
+              {/* <OrangeButtonWidget
                 content={data?.BtnText || "Submit"}
                 type="submit"
                 apiLoader={loading}
+              /> */}
+              <input
+                type="submit"
+                id="formsubmit"
+                role="button"
+                className="orange-button group rounded-[60px] px-5 h-10 sm:h-10 xss:text-[16px] xss:h-[48px] 3xl:h-[50px] text-xs 2xl:text-[14px] 3xl:text-[18px] formsubmit zcwf_button cursor-pointer"
+                value={data?.BtnText || "Submit"}
+                aria-label="Submit"
+                title="Submit"
+                data-faitracker-form-bind="true"
+                disabled={loading}
               />
             </form>
           </div>
