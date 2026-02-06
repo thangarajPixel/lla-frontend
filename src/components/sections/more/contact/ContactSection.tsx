@@ -107,8 +107,7 @@ export default function ContactSection({ data }: ContactSectionProps) {
           ...data,
           captchaToken,
         },
-      },
-    );
+      });
       // toast.success(
       //   "Thank you for getting in touch with us. We will get back to you in 5 working days",
       // );
@@ -253,7 +252,14 @@ export default function ContactSection({ data }: ContactSectionProps) {
                   </p>
                 )}
               </div>
-              <OrangeButtonWidget content={data?.BtnText || "Submit"} type="submit" apiLoader={loading} />
+              <OrangeButtonWidget
+                id="contact_submit_btn"
+                name="contact-submit-btn"
+                role="button"
+                content={data?.BtnText || "Submit"}
+                type="submit"
+                apiLoader={loading}
+              />
             </form>
           </div>
         </div>
