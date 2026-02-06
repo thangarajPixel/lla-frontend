@@ -38,6 +38,10 @@ const AdmissionButton = ({
   }, [pathname]);
 
   const handleOpenChange = (open: boolean) => {
+    // Track Lead event in Facebook Pixel
+    if (typeof window !== "undefined" && window.fbq) {
+      window.fbq("track", "Admission Open");
+    }
     setIsOpen(open);
   };
 
@@ -69,6 +73,8 @@ const AdmissionButton = ({
         onOpenChange={handleOpenChange}
         trigger={
           <ButtonWidget
+            id="admission_open"
+            name="admission-open"
             className={`${
               isContactUsPage
                 ? "orange-button-white border-1 border-[#E97451]  leading-[28px]"

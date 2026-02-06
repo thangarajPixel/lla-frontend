@@ -103,6 +103,11 @@ const CourseAdmissionFormSection = ({
           },
         );
 
+        // Track Lead event in Facebook Pixel
+        if (typeof window !== "undefined" && window.fbq) {
+          window.fbq("track", "Application Form");
+        }
+
         const isExistingEmail = isExistingEmailCheck?.data;
 
         if (isExistingEmail?.exists) {
@@ -195,6 +200,8 @@ const CourseAdmissionFormSection = ({
             type="submit"
             className="col-span-2 md:col-span-1 group font-bold cursor-pointer flex items-center justify-center gap-2 px-4 md:px-6 py-2 bg-white text-[#E97451] rounded-full text-[12px] sm:text-[13px] md:text-[14px] lg:text-[13px] 3xl:text-[16px] hover:bg-gray-100 transition-colors h-9 w-full md:w-auto relative md:bottom-2.5"
             disabled={loading}
+            id="course_application_form"
+            name="course-application-form"
           >
             {
               loading ? (

@@ -69,7 +69,6 @@ const CourseApplicationFormModel = ({
     const clientIpResponse = await fetch("/api/ip");
     const clientIp = await clientIpResponse.json();
 
-
     const admissionPayload = {
       first_name: payload.FirstName,
       mobile_no: payload.Mobile,
@@ -110,7 +109,10 @@ const CourseApplicationFormModel = ({
         );
 
         const isExistingEmail = isExistingEmailCheck?.data;
-
+        // Track Lead event in Facebook Pixel
+        if (typeof window !== "undefined" && window.fbq) {
+          window.fbq("track", "Admission Form");
+        }
         if (isExistingEmail?.exists) {
           setError("Email", {
             // message: `This email ID is already registered for the ${selectedCourse?.course_list?.Name ?? selectedCourseItem?.Name}. A continuation link has already been shared via email. Please use that link to continue the registration or enter a new email ID to start a new registration.`,
@@ -212,6 +214,8 @@ const CourseApplicationFormModel = ({
               className=" mt-4 xss:text-[18px] xss:h-10 3xl:h-12.5 text-base 2xl:text-[18px] 3xl:text-[18px] 3xl:w-[226px]"
               apiLoader={isLoading}
               type="submit"
+              id="admission_form_popup"
+              name="admission-form-popup"
             />
           </form>
         </section>

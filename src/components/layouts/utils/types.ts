@@ -1,3 +1,10 @@
+
+declare global {
+  interface Window {
+    fbq?: (event: string, data?: unknown) => void;
+  }
+}
+
 export type MenuItem = {
   href: string;
   label: string;

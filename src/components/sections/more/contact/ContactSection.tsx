@@ -1,11 +1,5 @@
 "use client";
 
-declare global {
-  interface Window {
-    fbq?: (event: string, data?: unknown) => void;
-  }
-}
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -114,11 +108,6 @@ export default function ContactSection({ data }: ContactSectionProps) {
           captchaToken,
         },
       });
-      
-      // Track Lead event in Facebook Pixel
-      if (typeof window !== "undefined" && window.fbq) {
-        window.fbq("track", "Formsubmit");
-      }
       
       reset();
       router.push("/thankyou");
