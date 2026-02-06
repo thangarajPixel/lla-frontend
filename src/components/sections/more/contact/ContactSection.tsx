@@ -93,16 +93,6 @@ export default function ContactSection({ data }: ContactSectionProps) {
   const onSubmit = async (data: ContactFormData) => {
     setLoading(true);
 
-    // Track Facebook pixel event
-    if (typeof window !== "undefined" && (window as any).fbq) {
-      (window as any).fbq("track", "Lead", {
-        content_name: "Contact Form Submission",
-        content_type: "lead_form",
-        value: 1.0,
-        currency: "INR",
-      });
-    }
-
     const captchaToken = await getToken("contact_us");
 
     if (!captchaToken) {
@@ -112,7 +102,7 @@ export default function ContactSection({ data }: ContactSectionProps) {
     }
 
     try {
-      await clientAxios.post<ContactFormData>("/contacts", {
+      const _response = await clientAxios.post<ContactFormData>("/contacts", {
         data: {
           ...data,
           captchaToken,
@@ -149,9 +139,12 @@ export default function ContactSection({ data }: ContactSectionProps) {
                   />
                 </div>
                 <div>
-                  <p className="text-[16px] 3xl:text-[18px] font-mulish font-normal">
+                  <a
+                    href={`tel:${data?.MobileNo}`}
+                    className="text-[16px] 3xl:text-[18px] font-mulish font-normal hover:text-[#FF6B4A] transition-colors"
+                  >
                     {data?.MobileNo}
-                  </p>
+                  </a>
                 </div>
               </div>
 
@@ -164,9 +157,12 @@ export default function ContactSection({ data }: ContactSectionProps) {
                   />
                 </div>
                 <div>
-                  <p className="text-[16px] 3xl:text-[18px] font-mulish font-normal">
+                  <a
+                    href={`mailto:${data?.Email}`}
+                    className="text-[16px] 3xl:text-[18px] font-mulish font-normal hover:text-[#FF6B4A] transition-colors"
+                  >
                     {data?.Email}
-                  </p>
+                  </a>
                 </div>
               </div>
 
@@ -266,9 +262,6 @@ export default function ContactSection({ data }: ContactSectionProps) {
                 content={data?.BtnText || "Submit"}
                 type="submit"
                 apiLoader={loading}
-                id="contact-form-submit-btn"
-                name="contact_submit"
-                data-testid="contact-submit-button"
               />
             </form>
           </div>
