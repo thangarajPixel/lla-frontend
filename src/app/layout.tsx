@@ -103,6 +103,17 @@ export default async function RootLayout({
             fbq('track', 'PageView');`}
         </Script>
 
+        {/* Facebook Pixel noscript */}
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            style={{ display: 'none' }}
+            src="https://www.facebook.com/tr?id=1252942248463992&ev=PageView&noscript=1"
+            alt=""
+          />
+        </noscript>
+
         {/* Google Analytics UA */}
         <Script src="https://www.googletagmanager.com/gtag/js?id=UA-1533023-1" strategy="afterInteractive" />
         <Script id="ga-ua" strategy="afterInteractive">

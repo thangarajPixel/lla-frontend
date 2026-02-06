@@ -1,5 +1,11 @@
 "use client";
 
+declare global {
+  interface Window {
+    fbq?: (event: string, data?: unknown) => void;
+  }
+}
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -102,15 +108,18 @@ export default function ContactSection({ data }: ContactSectionProps) {
     }
 
     try {
-      const _response = await clientAxios.post<ContactFormData>("/contacts", {
+      await clientAxios.post<ContactFormData>("/contacts", {
         data: {
           ...data,
           captchaToken,
         },
       });
-      // toast.success(
-      //   "Thank you for getting in touch with us. We will get back to you in 5 working days",
-      // );
+      
+      // Track Lead event in Facebook Pixel
+      if (typeof window !== "undefined" && window.fbq) {
+        window.fbq("track", "Lead");
+      }
+      
       reset();
       router.push("/thankyou");
     } catch (_error) {
@@ -262,6 +271,8 @@ export default function ContactSection({ data }: ContactSectionProps) {
                 content={data?.BtnText || "Submit"}
                 type="submit"
                 apiLoader={loading}
+                id="contact-submit-btn"
+                name="contact-submit"
               />
             </form>
           </div>
