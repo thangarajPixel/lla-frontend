@@ -117,7 +117,7 @@ export default function ContactSection({ data }: ContactSectionProps) {
       
       // Track Lead event in Facebook Pixel
       if (typeof window !== "undefined" && window.fbq) {
-        window.fbq("track", "Lead");
+        window.fbq("track", "Formsubmit");
       }
       
       reset();
