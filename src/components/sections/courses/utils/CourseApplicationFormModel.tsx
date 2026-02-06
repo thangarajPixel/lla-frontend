@@ -111,7 +111,7 @@ const CourseApplicationFormModel = ({
         const isExistingEmail = isExistingEmailCheck?.data;
         // Track Lead event in Facebook Pixel
         if (typeof window !== "undefined" && window.fbq) {
-          window.fbq("track", "Admission Form");
+          window.fbq("track", "Application Form");
         }
         if (isExistingEmail?.exists) {
           setError("Email", {
