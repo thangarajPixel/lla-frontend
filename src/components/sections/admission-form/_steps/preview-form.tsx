@@ -519,10 +519,10 @@ const ReviewApplication = ({
                 <Section title="Under Graduate">
                   <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <section className="md:col-span-2">
-                      <span className="text-black/50 text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
+                      <span className="text-black/50 text-base  lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                         Degree
                       </span>
-                      <p className="text-black text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
+                      <p className="text-black text-base min-w-0 whitespace-normal break-all  lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                         {admissionData?.Under_Graduate?.degree}
                       </p>
                     </section>
@@ -585,7 +585,7 @@ const ReviewApplication = ({
                           <span className="text-black/50 text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                             Degree
                           </span>
-                          <p className="text-black text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
+                          <p className="text-black text-base min-w-0 whitespace-normal break-all  lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                             {degree?.degree}
                           </p>
                         </section>
@@ -647,7 +647,7 @@ const ReviewApplication = ({
                           <span className="text-black/50 text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                             Degree
                           </span>
-                          <p className="text-black text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
+                          <p className="text-black text-base lg:text-sm xl:text-base min-w-0 whitespace-normal break-all 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                             {degree?.degree}
                           </p>
                         </section>
@@ -719,7 +719,7 @@ const ReviewApplication = ({
                         <span className="text-black/50 text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                           Role/Designation
                         </span>
-                        <p className="text-black text-lg lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
+                        <p className="text-black text-lg min-w-0 whitespace-normal break-all lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                           {experience?.designation ?? "-"}
                         </p>
                       </section>
@@ -728,7 +728,7 @@ const ReviewApplication = ({
                         <span className="text-black/50 text-base lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl 3xl:text-2xl">
                           Employer
                         </span>
-                        <p className="text-black text-lg lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl  3xl:text-2xl">
+                        <p className="text-black text-lg min-w-0 whitespace-normal break-all lg:text-sm xl:text-base 2xl:text-lg 2xxl:text-xl  3xl:text-2xl">
                           {experience?.employer ?? "-"}
                         </p>
                       </section>
