@@ -4,10 +4,23 @@ import type { NextRequest } from "next/server";
 export function middleware(request: NextRequest) {
   const host = request.headers.get("host") || "";
 
-  // Redirect non-www to www
+  // Redirect non-www to www for llacademy.org
   if (host.startsWith("llacademy.org") && !host.startsWith("www.")) {
     const url = request.nextUrl.clone();
-    url.host = `www.${host}`;
+    // Extract domain without port
+    const domain = host.split(":")[0];
+    url.host = `www.${domain}`;
+    url.port = ""; // Remove port
+    return NextResponse.redirect(url, { status: 301 });
+  }
+
+  // Redirect non-www to www for lightandlifeacademy.in
+  if (host.startsWith("lightandlifeacademy.in") && !host.startsWith("www.")) {
+    const url = request.nextUrl.clone();
+    // Extract domain without port
+    const domain = host.split(":")[0];
+    url.host = `www.${domain}`;
+    url.port = ""; // Remove port
     return NextResponse.redirect(url, { status: 301 });
   }
 
