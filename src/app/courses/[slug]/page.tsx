@@ -13,7 +13,6 @@ export async function generateMetadata({
     const { slug } = await params;
     const response = await getCourseBySlug(slug);
     const seoData = response?.data?.SeoViewCard;
-    const baseUrl = (process.env.NEXT_APP_SITE_URL || "https://llacademy.org").replace(/"/g, "");
     
     return {
       title: seoData?.Title || "Course | LLA",
@@ -22,18 +21,18 @@ export async function generateMetadata({
         "Professional Photography Course at Light & Life Academy",
       keywords: seoData?.KeyWords || undefined,
       alternates: {
-        canonical: `${baseUrl}/courses/${slug}`,
+        canonical: `/courses/${slug}`,
       },
     };
   } catch (error) {
     console.error("Error generating course metadata:", error);
     const { slug } = await params;
-    const baseUrl = (process.env.NEXT_APP_SITE_URL || "https://llacademy.org").replace(/"/g, "");
+    
     return {
       title: "Course | LLA",
       description: "Professional Photography Course at Light & Life Academy",
       alternates: {
-        canonical: `${baseUrl}/courses/${slug}`,
+        canonical: `/courses/${slug}`,
       },
     };
   }

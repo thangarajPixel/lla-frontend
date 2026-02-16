@@ -10,25 +10,24 @@ export async function generateMetadata({
   try {
     const { slug } = await params;
     const { data: response } = await getMediaBySlug(slug);
-    const baseUrl = (process.env.NEXT_APP_SITE_URL || "https://llacademy.org").replace(/"/g, "");
 
     return {
       title: response?.card?.SeoViewCard?.Title || "Media | LLA",
       description: response?.card?.SeoViewCard?.Description || "Light & Life Academy in the Media",
       keywords: response?.card?.SeoViewCard?.KeyWords || undefined,
       alternates: {
-        canonical: `${baseUrl}/in-the-media/${slug}`,
+        canonical: `/in-the-media/${slug}`,
       },
     };
   } catch (error) {
     console.error("Error generating media metadata:", error);
     const { slug } = await params;
-    const baseUrl = (process.env.NEXT_APP_SITE_URL || "https://llacademy.org").replace(/"/g, "");
+    
     return {
       title: "Media | LLA",
       description: "Light & Life Academy in the Media",
       alternates: {
-        canonical: `${baseUrl}/in-the-media/${slug}`,
+        canonical: `/in-the-media/${slug}`,
       },
     };
   }

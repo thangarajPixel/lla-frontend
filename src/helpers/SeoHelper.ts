@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getSeoData } from "@/app/api/server";
+import { headers } from "next/headers";
 
 interface SeoCard {
   id: number;
@@ -29,9 +30,19 @@ const pageMapping: Record<string, string> = {
   "/admission": "Admission",
 };
 
-const BASE_URL = (process.env.NEXT_APP_SITE_URL || "https://llacademy.org").replace(/"/g, "");
+export async function getBaseUrl(): Promise<string> {
+  const headersList = await headers();
+  const host = headersList.get("host") || "llacademy.org";
+  const protocol = headersList.get("x-forwarded-proto") || "https";
+  return `${protocol}://${host}`;
+}
 
-export async function generateSeoMetadata(pagePath: string): Promise<Metadata> {
+export async function generateSeoMetadata(
+  pagePath: string,
+  baseUrl?: string
+): Promise<Metadata> {
+  const finalBaseUrl = baseUrl || (await getBaseUrl());
+
   try {
     const { data } = await getSeoData();
     const seoData = data as SeoData;
@@ -40,7 +51,7 @@ export async function generateSeoMetadata(pagePath: string): Promise<Metadata> {
     if (!pageName) {
       return {
         alternates: {
-          canonical: `${BASE_URL}${pagePath}`,
+          canonical: `${finalBaseUrl}${pagePath}`,
         },
       };
     }
@@ -50,7 +61,7 @@ export async function generateSeoMetadata(pagePath: string): Promise<Metadata> {
     if (!seoCard) {
       return {
         alternates: {
-          canonical: `${BASE_URL}${pagePath}`,
+          canonical: `${finalBaseUrl}${pagePath}`,
         },
       };
     }
@@ -60,14 +71,14 @@ export async function generateSeoMetadata(pagePath: string): Promise<Metadata> {
       description: seoCard?.description,
       ...(seoCard?.KeyWords && { keywords: seoCard?.KeyWords }),
       alternates: {
-        canonical: `${BASE_URL}${pagePath}`,
+        canonical: `${finalBaseUrl}${pagePath}`,
       },
     };
   } catch (error) {
     console.error("Error fetching SEO data:", error);
     return {
       alternates: {
-        canonical: `${BASE_URL}${pagePath}`,
+        canonical: `${finalBaseUrl}${pagePath}`,
       },
     };
   }

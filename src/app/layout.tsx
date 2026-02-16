@@ -9,6 +9,7 @@ import SmoothScrollWidget from "@/components/widgets/SmoothScrollWidget";
 import { getFooterData } from "./api/server";
 import "./globals.css";
 import CaptchaProvider from "@/components/layouts/utils/CaptchaProvider";
+import { headers } from "next/headers";
 
 const mulish = Mulish({
   variable: "--font-mulish",
@@ -32,11 +33,21 @@ const areaVariable = localFont({
   preload: true,
 });
 
-export const metadata: Metadata = {
-  title: "Premier College for Professional Photography in India | LLA",
-  description:
-    "Founded in 2001, Light &amp; Life Academy is India's first and only custom designed Professional Photography Institute. Admissions Open for 2025-26",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const headersList = await headers();
+  const host = headersList.get("host") || "llacademy.org";
+  const protocol = headersList.get("x-forwarded-proto") || "https";
+  const canonicalUrl = `${protocol}://${host}`;
+
+  return {
+    title: "Premier College for Professional Photography in India | LLA",
+    description:
+      "Founded in 2001, Light &amp; Life Academy is India's first and only custom designed Professional Photography Institute. Admissions Open for 2025-26",
+    alternates: {
+      canonical: canonicalUrl,
+    },
+  };
+}
 
 export default async function RootLayout({
   children,
