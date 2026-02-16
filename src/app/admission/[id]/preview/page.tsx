@@ -1,7 +1,26 @@
+import type { Metadata } from "next";
 import { getAdmissionsById } from "@/app/api/server";
 import ReviewApplication from "@/components/sections/admission-form/_steps/preview-form";
 import { decryptCode } from "@/helpers/ConstantHelper";
 import { redirect } from "next/navigation";
+import { getBaseUrl } from "@/helpers/SeoHelper";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const baseUrl = await getBaseUrl();
+
+  return {
+    title: "Review Application | Admission | LLA",
+    description: "Review and submit your admission application at Light & Life Academy",
+    alternates: {
+      canonical: `${baseUrl}/admission/${id}/preview`,
+    },
+  };
+}
 
 const Preview = async (props: PageProps) => {
   const params = await props.params;

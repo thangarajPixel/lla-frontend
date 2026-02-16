@@ -9,7 +9,6 @@ import SmoothScrollWidget from "@/components/widgets/SmoothScrollWidget";
 import { getFooterData } from "./api/server";
 import "./globals.css";
 import CaptchaProvider from "@/components/layouts/utils/CaptchaProvider";
-import { headers } from "next/headers";
 
 const mulish = Mulish({
   variable: "--font-mulish",
@@ -33,21 +32,11 @@ const areaVariable = localFont({
   preload: true,
 });
 
-export async function generateMetadata(): Promise<Metadata> {
-  const headersList = await headers();
-  const host = headersList.get("host") || "llacademy.org";
-  const protocol = headersList.get("x-forwarded-proto") || "https";
-  const canonicalUrl = `${protocol}://${host}`;
-
-  return {
-    title: "Premier College for Professional Photography in India | LLA",
-    description:
-      "Founded in 2001, Light &amp; Life Academy is India's first and only custom designed Professional Photography Institute. Admissions Open for 2025-26",
-    alternates: {
-      canonical: canonicalUrl,
-    },
-  };
-}
+export const metadata: Metadata = {
+  title: "Premier College for Professional Photography in India | LLA",
+  description:
+    "Founded in 2001, Light &amp; Life Academy is India's first and only custom designed Professional Photography Institute. Admissions Open for 2025-26",
+};
 
 export default async function RootLayout({
   children,
@@ -64,9 +53,9 @@ export default async function RootLayout({
         className={`${mulish.variable} ${urbanist.variable} ${areaVariable.variable} antialiased flex flex-col min-h-screen`}
       >
         {/* Google Tag Manager */}
-        <Script id="gtm" strategy="afterInteractive">
-          {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-MJMJC7CR');`}
-        </Script>
+        <Script id="gtm" strategy="afterInteractive" dangerouslySetInnerHTML={{
+          __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;if(f && f.parentNode) f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-MJMJC7CR');`
+        }} />
 
         {/* Google Tag Manager (noscript) */}
         <noscript>
@@ -80,35 +69,35 @@ export default async function RootLayout({
 
         {/* Google Analytics GA4 */}
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-229E2R0R9H" strategy="afterInteractive" />
-        <Script id="ga4" strategy="afterInteractive">
-          {`window.dataLayer = window.dataLayer || [];
+        <Script id="ga4" strategy="afterInteractive" dangerouslySetInnerHTML={{
+          __html: `window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-229E2R0R9H');`}
-        </Script>
+            gtag('config', 'G-229E2R0R9H');`
+        }} />
 
         {/* Microsoft Clarity */}
-        <Script id="clarity" strategy="afterInteractive">
-          {`(function(c,l,a,r,i,t,y){
+        <Script id="clarity" strategy="afterInteractive" dangerouslySetInnerHTML={{
+          __html: `(function(c,l,a,r,i,t,y){
             c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
             t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "vgqxd0deyn");`}
-        </Script>
+            y=l.getElementsByTagName(r)[0];if(y && y.parentNode) y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "vgqxd0deyn");`
+        }} />
 
         {/* Facebook Pixel */}
-        <Script id="fb-pixel" strategy="afterInteractive">
-          {`!function(f,b,e,v,n,t,s)
+        <Script id="fb-pixel" strategy="afterInteractive" dangerouslySetInnerHTML={{
+          __html: `!function(f,b,e,v,n,t,s)
             {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
             n.callMethod.apply(n,arguments):n.queue.push(arguments)};
             if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
             n.queue=[];t=b.createElement(e);t.async=!0;
             t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            if(s && s.parentNode) s.parentNode.insertBefore(t,s)}(window, document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
             fbq('init', '1252942248463992');
-            fbq('track', 'PageView');`}
-        </Script>
+            fbq('track', 'PageView');`
+        }} />
 
         {/* Facebook Pixel noscript */}
         <noscript>
@@ -123,21 +112,21 @@ export default async function RootLayout({
 
         {/* Google Analytics UA */}
         <Script src="https://www.googletagmanager.com/gtag/js?id=UA-1533023-1" strategy="afterInteractive" />
-        <Script id="ga-ua" strategy="afterInteractive">
-          {`window.dataLayer = window.dataLayer || [];
+        <Script id="ga-ua" strategy="afterInteractive" dangerouslySetInnerHTML={{
+          __html: `window.dataLayer = window.dataLayer || [];
             function gtag() {dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'UA-1533023-1', { 'anonymize_ip': false });`}
-        </Script>
+            gtag('config', 'UA-1533023-1', { 'anonymize_ip': false });`
+        }} />
 
         {/* Google Ads */}
         <Script src="https://www.googletagmanager.com/gtag/js?id=AW-828641801" strategy="afterInteractive" />
-        <Script id="google-ads" strategy="afterInteractive">
-          {`window.dataLayer = window.dataLayer || [];
+        <Script id="google-ads" strategy="afterInteractive" dangerouslySetInnerHTML={{
+          __html: `window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'AW-828641801');`}
-        </Script>
+            gtag('config', 'AW-828641801');`
+        }} />
 
         <SmoothScrollWidget>
           <Toaster position="top-right" expand richColors />

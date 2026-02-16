@@ -1,7 +1,26 @@
+import type { Metadata } from "next";
 import { getAdmissionsById } from "@/app/api/server";
 import PortfolioForm from "@/components/sections/admission-form/_steps/portfolio-form";
 import { decryptCode } from "@/helpers/ConstantHelper";
 import { redirect } from "next/navigation";
+import { getBaseUrl } from "@/helpers/SeoHelper";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const baseUrl = await getBaseUrl();
+
+  return {
+    title: "Portfolio | Admission | LLA",
+    description: "Upload your portfolio for admission at Light & Life Academy",
+    alternates: {
+      canonical: `${baseUrl}/admission/${id}/portfolio`,
+    },
+  };
+}
 
 const Portfolio = async (props: PageProps) => {
   const params = await props.params;

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getBlogBySlug } from "@/app/api/server";
 import BlogDetailSection from "@/components/sections/more/blog/BlogDetailSection";
+import { getBaseUrl } from "@/helpers/SeoHelper";
 
 export async function generateMetadata({
   params,
@@ -10,24 +11,26 @@ export async function generateMetadata({
   try {
     const { slug } = await params;
     const { data: response } = await getBlogBySlug(slug);
+    const baseUrl = await getBaseUrl();
 
     return {
       title: response?.card?.SeoViewCard?.Title || "Blog | LLA",
       description: response?.card?.SeoViewCard?.Description || "Light & Life Academy Blog",
       keywords: response?.card?.SeoViewCard?.KeyWords || undefined,
       alternates: {
-        canonical: `/blog/${slug}`,
+        canonical: `${baseUrl}/blog/${slug}`,
       },
     };
   } catch (error) {
     console.error("Error generating blog metadata:", error);
     const { slug } = await params;
+    const baseUrl = await getBaseUrl();
     
     return {
       title: "Blog | LLA",
       description: "Light & Life Academy Blog",
       alternates: {
-        canonical: `/blog/${slug}`,
+        canonical: `${baseUrl}/blog/${slug}`,
       },
     };
   }

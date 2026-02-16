@@ -3,6 +3,7 @@ import { Fragment } from "react";
 import { getCourseBySlug } from "@/app/api/server";
 import CourseSection from "@/components/sections/courses/CourseSection";
 import CourseAdmissionFormSection from "@/components/sections/courses/utils/CourseAdmissionFormSection";
+import { getBaseUrl } from "@/helpers/SeoHelper";
 
 export async function generateMetadata({
   params,
@@ -13,6 +14,7 @@ export async function generateMetadata({
     const { slug } = await params;
     const response = await getCourseBySlug(slug);
     const seoData = response?.data?.SeoViewCard;
+    const baseUrl = await getBaseUrl();
     
     return {
       title: seoData?.Title || "Course | LLA",
@@ -21,18 +23,19 @@ export async function generateMetadata({
         "Professional Photography Course at Light & Life Academy",
       keywords: seoData?.KeyWords || undefined,
       alternates: {
-        canonical: `/courses/${slug}`,
+        canonical: `${baseUrl}/courses/${slug}`,
       },
     };
   } catch (error) {
     console.error("Error generating course metadata:", error);
     const { slug } = await params;
+    const baseUrl = await getBaseUrl();
     
     return {
       title: "Course | LLA",
       description: "Professional Photography Course at Light & Life Academy",
       alternates: {
-        canonical: `/courses/${slug}`,
+        canonical: `${baseUrl}/courses/${slug}`,
       },
     };
   }

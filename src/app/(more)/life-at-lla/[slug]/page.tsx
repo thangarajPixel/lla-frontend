@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getLifeById } from "@/app/api/server";
 import LifeDetailSection from "@/components/sections/more/life-at-lla/LifeDetailSection";
+import { getBaseUrl } from "@/helpers/SeoHelper";
 
 export async function generateMetadata({
   params,
@@ -10,24 +11,26 @@ export async function generateMetadata({
   try {
     const { slug } = await params;
     const { data: response } = await getLifeById(slug);
+    const baseUrl = await getBaseUrl();
 
     return {
       title: response?.card?.SeoViewCard?.Title || "Life at LLA",
       description: response?.card?.SeoViewCard?.Description || "Life at Light & Life Academy",
       keywords: response?.card?.SeoViewCard?.KeyWords || undefined,
       alternates: {
-        canonical: `/life-at-lla/${slug}`,
+        canonical: `${baseUrl}/life-at-lla/${slug}`,
       },
     };
   } catch (error) {
     console.error("Error generating life-at-lla metadata:", error);
     const { slug } = await params;
+    const baseUrl = await getBaseUrl();
     
     return {
       title: "Life at LLA",
       description: "Life at Light & Life Academy",
       alternates: {
-        canonical: `/life-at-lla/${slug}`,
+        canonical: `${baseUrl}/life-at-lla/${slug}`,
       },
     };
   }

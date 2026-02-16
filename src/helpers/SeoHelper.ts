@@ -33,7 +33,22 @@ const pageMapping: Record<string, string> = {
 export async function getBaseUrl(): Promise<string> {
   const headersList = await headers();
   const host = headersList.get("host") || "llacademy.org";
-  const protocol = headersList.get("x-forwarded-proto") || "https";
+  
+  // Check for protocol from various headers
+  let protocol = headersList.get("x-forwarded-proto");
+  if (!protocol) {
+    protocol = headersList.get("x-proto");
+  }
+  
+  // If still no protocol, determine based on host
+  if (!protocol) {
+    if (host?.includes("localhost") || host?.includes("127.0.0.1")) {
+      protocol = "http";
+    } else {
+      protocol = "https";
+    }
+  }
+  
   return `${protocol}://${host}`;
 }
 
