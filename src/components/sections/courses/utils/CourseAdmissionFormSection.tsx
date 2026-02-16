@@ -67,6 +67,8 @@ const CourseAdmissionFormSection = ({
     const clientIp = await clientIpResponse.json();
 
     const filteredData = filteredPayload(payload);
+    
+    const currentUrl = typeof window !== "undefined" ? window.location.href : "";
 
     const admissionPayload = {
       first_name: filteredData?.FirstName,
@@ -76,6 +78,7 @@ const CourseAdmissionFormSection = ({
       Course: selectedCourse?.documentId,
       AdmissionYear: essentialData?.admission_year?.AcademicYear,
       IpAddress: clientIp?.ip,
+      LeadUrl: currentUrl,
       step_0: true,
       Currentstep: "Step1",
       captchaToken: captchaToken

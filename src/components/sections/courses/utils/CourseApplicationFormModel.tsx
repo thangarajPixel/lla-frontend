@@ -69,6 +69,8 @@ const CourseApplicationFormModel = ({
     const clientIpResponse = await fetch("/api/ip");
     const clientIp = await clientIpResponse.json();
 
+    const currentUrl = typeof window !== "undefined" ? window.location.href : "";
+
     const admissionPayload = {
       first_name: payload.FirstName,
       mobile_no: payload.Mobile,
@@ -81,6 +83,7 @@ const CourseApplicationFormModel = ({
       Currentstep: "Step1",
       AdmissionYear: essentialData?.admission_year?.AcademicYear,
       IpAddress: clientIp?.ip,
+      LeadUrl: currentUrl,
       captchaToken: captchaToken
     };
 
