@@ -128,6 +128,9 @@ export default async function RootLayout({
             gtag('config', 'AW-828641801');`
         }} />
 
+        {/* Freshworks Chat */}
+        <Script src="//in.fw-cdn.com/32689792/1509869.js" strategy="afterInteractive" />
+
         <SmoothScrollWidget>
           <Toaster position="top-right" expand richColors />
           <CaptchaProvider response={response?.data}>{children}</CaptchaProvider>
