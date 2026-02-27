@@ -57,7 +57,7 @@ const nextConfig: NextConfig = {
               https://www.googletagmanager.com
               https://www.google-analytics.com
               https://connect.facebook.net
-              https://www.clarity.ms
+              // https://www.clarity.ms
               https://www.google.com
               https://www.gstatic.com;
 
@@ -66,7 +66,7 @@ const nextConfig: NextConfig = {
               https://www.googletagmanager.com
               https://www.google-analytics.com
               https://connect.facebook.net
-              https://www.clarity.ms
+              // https://www.clarity.ms
               https://www.google.com
               https://www.gstatic.com
               https://googleads.g.doubleclick.net;
@@ -78,7 +78,7 @@ const nextConfig: NextConfig = {
               https://www.google-analytics.com
               https://www.googletagmanager.com
               https://www.facebook.com
-              https://www.clarity.ms
+              // https://www.clarity.ms
               https://www.google.com
               https://dev-admin.lightandlifeacademy.in
               https://dev.lightandlifeacademy.in
@@ -91,7 +91,7 @@ const nextConfig: NextConfig = {
               https://www.google-analytics.com
               https://www.googletagmanager.com
               https://www.facebook.com
-              https://www.clarity.ms;
+              // https://www.clarity.ms;
               
               frame-ancestors 'self';
               media-src 'self' https://*.lightandlifeacademy.in;`
