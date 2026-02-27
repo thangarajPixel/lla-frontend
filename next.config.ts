@@ -87,7 +87,7 @@ const nextConfig: NextConfig = {
               frame-src 'self' https:
               https://www.google-analytics.com
               https://www.googletagmanager.com
-              https://www.facebook.com
+              https://www.facebook.com;
               
               frame-ancestors 'self';
               media-src 'self' https://*.lightandlifeacademy.in;`
