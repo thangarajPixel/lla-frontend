@@ -58,7 +58,8 @@ const nextConfig: NextConfig = {
               https://www.google-analytics.com
               https://connect.facebook.net
               https://www.google.com
-              https://www.gstatic.com;
+              https://www.gstatic.com
+              https://plausible.io;
 
               script-src-elem
               'self' 'unsafe-inline' 'unsafe-eval'
@@ -67,7 +68,8 @@ const nextConfig: NextConfig = {
               https://connect.facebook.net
               https://www.google.com
               https://www.gstatic.com
-              https://googleads.g.doubleclick.net;
+              https://googleads.g.doubleclick.net
+              https://plausible.io;
 
               style-src 'self' 'unsafe-inline';
               font-src 'self' https: data:;
@@ -82,6 +84,7 @@ const nextConfig: NextConfig = {
               https://llaacademy-frontend.conefy.com
               https://llaacademy-backend.conefy.com
               https://llacademy.org
+              https://plausible.io
               http://localhost:3030;
 
               frame-src 'self' https:
@@ -90,7 +93,7 @@ const nextConfig: NextConfig = {
               https://www.facebook.com;
               
               frame-ancestors 'self';
-              media-src 'self' https://*.lightandlifeacademy.in;`
+              media-src 'self' https://*.lightandlifeacademy.in https://llaacademy-backend.conefy.com;`
               .replace(/\s{2,}/g, " ")
               .trim(),
           },
