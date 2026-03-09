@@ -103,7 +103,7 @@ const nextConfig: NextConfig = {
               https://www.facebook.com;
               
               frame-ancestors 'self';
-              media-src 'self' https://*.lightandlifeacademy.in https://llaacademy-frontend.conefy.com;`
+              media-src 'self' https://*.lightandlifeacademy.in https://llaacademy-backend.conefy.com;`
               .replace(/\s{2,}/g, " ")
               .trim(),
           },
