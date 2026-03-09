@@ -50,7 +50,8 @@ const nextConfig: NextConfig = {
               img-src 'self' https: data: blob:
               https://www.google-analytics.com
               https://www.googletagmanager.com
-              https://connect.facebook.net;
+              https://connect.facebook.net
+              https://*.clarity.ms;
 
               script-src 
               'self' 'unsafe-inline' 'unsafe-eval'
@@ -59,7 +60,10 @@ const nextConfig: NextConfig = {
               https://connect.facebook.net
               https://www.google.com
               https://www.gstatic.com
-              https://plausible.io;
+              https://plausible.io
+              https://www.clarity.ms
+              https://*.clarity.ms
+              https://*.contentsquare.net;
 
               script-src-elem
               'self' 'unsafe-inline' 'unsafe-eval'
@@ -69,7 +73,10 @@ const nextConfig: NextConfig = {
               https://www.google.com
               https://www.gstatic.com
               https://googleads.g.doubleclick.net
-              https://plausible.io;
+              https://plausible.io
+              https://www.clarity.ms
+              https://*.clarity.ms
+              https://*.contentsquare.net;
 
               style-src 'self' 'unsafe-inline';
               font-src 'self' https: data:;
@@ -79,6 +86,9 @@ const nextConfig: NextConfig = {
               https://www.googletagmanager.com
               https://www.facebook.com
               https://www.google.com
+              https://www.clarity.ms
+              https://*.clarity.ms
+              https://*.contentsquare.net
               https://dev-admin.lightandlifeacademy.in
               https://dev.lightandlifeacademy.in
               https://llaacademy-frontend.conefy.com
@@ -93,7 +103,7 @@ const nextConfig: NextConfig = {
               https://www.facebook.com;
               
               frame-ancestors 'self';
-              media-src 'self' https://*.lightandlifeacademy.in https://llaacademy-backend.conefy.com;`
+              media-src 'self' https://*.lightandlifeacademy.in https://llaacademy-frontend.conefy.com;`
               .replace(/\s{2,}/g, " ")
               .trim(),
           },
