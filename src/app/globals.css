@@ -16,6 +16,34 @@ body {
   padding-right: 0 !important;
 } */
 
+body:has(.html_page) header,
+body:has(.html_page) footer{
+  display: none;
+}
+
+
+.html_page .container{
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+  margin: auto;
+  padding: 0 20px;
+
+}
+
+.html_page .container p{
+  width: 100%;
+  max-width: 550px;
+}
+
+.html_page .container iframe{
+  width: 100%;
+}
+
 @theme {
   --breakpoint-s: 300px;
   --breakpoint-m: 375px;
