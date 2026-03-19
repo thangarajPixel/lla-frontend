@@ -35,20 +35,20 @@ export async function getBaseUrl(): Promise<string> {
   const host = headersList.get("host") || "llacademy.org";
   
   // Check for protocol from various headers
-  let protocol = headersList.get("x-forwarded-proto");
-  if (!protocol) {
-    protocol = headersList.get("x-proto");
-  }
+  // let protocol = headersList.get("x-forwarded-proto");
+  // if (!protocol) {
+  //   protocol = headersList.get("x-proto");
+  // }
+  // if (!protocol) {
+  //   if (host?.includes("localhost") || host?.includes("127.0.0.1")) {
+  //     protocol = "https";
+  //   } else {
+  //     protocol = "https";
+  //   }
+  // }
+  const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
   
-  // If still no protocol, determine based on host
-  if (!protocol) {
-    if (host?.includes("localhost") || host?.includes("127.0.0.1")) {
-      protocol = "http";
-    } else {
-      protocol = "https";
-    }
-  }
-  
+  console.log("protocol",protocol)
   return `${protocol}://${host}`;
 }
 
