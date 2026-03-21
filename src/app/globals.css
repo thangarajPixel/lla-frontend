@@ -18,10 +18,6 @@ body {
 
 
 
-header{
-  padding-top: 36px;
-}
-
 body:has(.html_page) header,
 body:has(.html_page) footer{
   display: none;
