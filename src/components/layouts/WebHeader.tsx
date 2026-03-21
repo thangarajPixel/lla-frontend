@@ -155,8 +155,7 @@ const WebHeader = ({
   ): item is DropdownMenuType => "items" in item;
 
   return (
-    <>
-    <div id="celebration_topbar"><a href="https://llacademy.com/" target="_blank">Watch Live Streaming of 25th Anniversary Celebrations</a></div>
+   
     <header
       className={`w-full z-50 transition-all duration-500
         ${isHidden ? "-translate-y-full" : "translate-y-0"}
@@ -223,7 +222,7 @@ const WebHeader = ({
         </ContainerWidget>
       </nav>
     </header>
-    </>
+  
   );
 };
 
