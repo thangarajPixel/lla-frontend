@@ -16,6 +16,29 @@ body {
   padding-right: 0 !important;
 } */
 
+
+#celebration_topbar{
+  text-align: center;
+  background-color: rgb(24, 24, 24);
+  padding: 8px 20px;
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  min-height: 36px;
+  transition: 0.3s all;
+}
+
+#celebration_topbar:hover{
+    color: rgb(223, 223, 223);
+}
+
+header{
+  padding-top: 36px;
+}
+
 body:has(.html_page) header,
 body:has(.html_page) footer{
   display: none;
