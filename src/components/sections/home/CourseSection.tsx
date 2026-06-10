@@ -139,7 +139,7 @@ const CourseSection = ({ data }: CourseSectionProps) => {
                           {isAdmissionOpen && (
                             <div className="absolute top-4 right-4 z-10">
                               <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-[#E97451] text-white shadow-lg">
-                                Admissions Open
+                                Last Date to Apply:5th July 2026
                               </span>
                             </div>
                           )}
@@ -159,7 +159,7 @@ const CourseSection = ({ data }: CourseSectionProps) => {
                         {isAdmissionOpen && (
                           <div className="absolute top-4 right-4 z-10">
                             <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-[#E97451] text-white shadow-lg">
-                              Admissions Open
+                              Last Date to Apply:5th July 2026
                             </span>
                           </div>
                         )}
