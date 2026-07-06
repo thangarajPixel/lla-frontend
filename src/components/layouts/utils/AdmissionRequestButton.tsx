@@ -133,7 +133,7 @@ const AdmissionRequestButton = ({
     >
       <section className="px-4 py-0 sm:py-2 mx-auto h-fit md:h-auto">
         <h2 className="mb-4 font-semibold text-lg sm:text-xl 3xl:text-2xl">
-          Request Information Form
+          Get In Touch
         </h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-1 xs:space-y-2 sm:space-y-3">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
