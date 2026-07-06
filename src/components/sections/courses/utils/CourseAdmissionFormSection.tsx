@@ -32,13 +32,26 @@ const CourseAdmissionFormSection = ({
 }) => {
   // const [selectedCourse, setSelectedCourse] =
   //   useState<string>();
-  const essentialData = useCourseStore((state) => state.essentialData);
+
+  // const essentialData = useCourseStore((state) => state.essentialData);
+
+  const storeEssentialData = useCourseStore((state) => state.essentialData);
+
+const essentialData = {
+  ...storeEssentialData,
+  isAdmission: true,
+};
+
   const [loading, setLoading] = useState(false);
   const [isApplicationOpen, setIsApplicationOpen] = useState(false);
   const [emailError, setEmailError] = useState<string>("");
   const { getToken } = useCaptchaToken();
   const formRef = useRef<HTMLFormElement>(null);
   const router = useRouter();
+
+
+console.log(essentialData)
+ 
 
   const form = useForm<RequestFormData>({
     resolver: zodResolver(admissionRequestSchema()),
