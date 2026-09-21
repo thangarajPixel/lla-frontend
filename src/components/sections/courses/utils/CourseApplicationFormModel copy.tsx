@@ -99,7 +99,7 @@ const CourseApplicationFormModel = ({
 
     try {
 
-      if (!essentialData?.isAdmission) {
+      if (essentialData?.isAdmission) {
         const isExistingEmailCheck = await clientAxios.post(
           `/admissions/email/check`,
           {
@@ -165,7 +165,7 @@ const CourseApplicationFormModel = ({
         <DialogTitle className="hidden">Application Form</DialogTitle>
         <section className="my-2 p-4 sm:p-6 lg:p-8 3xl:p-10">
           <div className="mb-6 flex items-start justify-between">
-            <h2 className="3xl:text-2xl font-semibold text-black">{!essentialData?.isAdmission ? "Apply Now" : "Request Info"}</h2>
+            <h2 className="3xl:text-2xl font-semibold text-black">{essentialData?.isAdmission ? "Apply Now" : "Request Info"}</h2>
             {!hideCloseIcon && (
               <button
                 type="button"
@@ -213,7 +213,7 @@ const CourseApplicationFormModel = ({
             )}
 
             <OrangeButtonWidget
-              content={!essentialData?.isAdmission ? "Save & Continue" : "Submit"}
+              content={essentialData?.isAdmission ? "Save & Continue" : "Submit"}
               className=" mt-4 xss:text-[18px] xss:h-10 3xl:h-12.5 text-base 2xl:text-[18px] 3xl:text-[18px] 3xl:w-[226px]"
               apiLoader={isLoading}
               type="submit"
