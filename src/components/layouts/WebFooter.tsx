@@ -85,7 +85,7 @@ const WebFooter = ({
       response.course.length === 0
     )
       return [];
-    return response.course.map((courseItem) => ({
+    return response.course.slice(1,3).map((courseItem) => ({
       id: courseItem.documentId,
       href: `/courses/${courseItem.Slug}`,
       label: courseItem.Name,
