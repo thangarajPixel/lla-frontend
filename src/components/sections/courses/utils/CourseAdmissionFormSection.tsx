@@ -130,8 +130,9 @@ const essentialData = {
         const isExistingEmail = isExistingEmailCheck?.data;
         const isExistingCourse = selectedCourse?.Name === isExistingEmail?.courseName;
 
-        console.log(isExistingEmail,"exemailll")
-        console.log(isExistingCourse,"exeCourse")
+        console.log(isExistingEmail,"exemailll");
+        console.log(selectedCourse?.Name,"selectedCourse?.Name");
+        console.log(isExistingCourse,"exeCourse");
 
 
         if (isExistingEmail?.exists && isExistingCourse ) {
