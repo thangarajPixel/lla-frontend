@@ -378,7 +378,7 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
       </div>
 
       {/* <main className="min-h-screen "> */}
-        <main className="min-h-screen">
+        <main className="">
         <section id="overview">
           {data?.Menu && <OverviewSection data={data?.Menu} />}
         </section>
