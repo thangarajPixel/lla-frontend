@@ -27,15 +27,19 @@ export type RequestFormData = z.infer<
 
 const CourseAdmissionFormSection = ({
   selectedCourse,
+  pageCourseName,
 }: {
   selectedCourse?: CourseItem;
+  pageCourseName?: CourseItem;
 }) => {
+
   // const [selectedCourse, setSelectedCourse] =
   //   useState<string>();
 
   // const essentialData = useCourseStore((state) => state.essentialData);
 
   const storeEssentialData = useCourseStore((state) => state.essentialData);
+
 
 const essentialData = {
   ...storeEssentialData,
@@ -49,8 +53,6 @@ const essentialData = {
   const formRef = useRef<HTMLFormElement>(null);
   const router = useRouter();
 
-
-console.log(essentialData)
  
 
   const form = useForm<RequestFormData>({
@@ -109,6 +111,7 @@ console.log(essentialData)
 
     try {
 
+
       if (essentialData?.isAdmission) {
         const isExistingEmailCheck = await clientAxios.post(
           `/admissions/email/check`,
@@ -125,8 +128,12 @@ console.log(essentialData)
         }
 
         const isExistingEmail = isExistingEmailCheck?.data;
+        const isExistingCourse = selectedCourse?.Name === isExistingEmail?.courseName;
 
-        if (isExistingEmail?.exists) {
+        console.log(isExistingEmail,"exemailll")
+
+
+        if (isExistingEmail?.exists && isExistingCourse ) {
 
           // setEmailError(`This email ID is already registered for the ${selectedCourse?.Name}. A continuation link has already been shared via email. Please use that link to continue the registration or enter a new email ID to start a new registration.`),
           setEmailError(`This email ID is already registered for the ${isExistingEmail?.courseName}. A continuation link has already been shared via email. Please use that link to continue the registration or enter a new email ID to start a new registration.`),
