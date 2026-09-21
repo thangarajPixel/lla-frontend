@@ -30,6 +30,7 @@ type MobileMenuProps = {
 };
 
 const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
+
   const pathname = usePathname();
   const [openMobileDropdown, setOpenMobileDropdown] = useState<string | null>(
     null,
@@ -153,7 +154,7 @@ const MobileMenu = ({ menuItems, isSticky = false }: MobileMenuProps) => {
                         }`}
                       >
                         <div className="pl-4 pr-2 pb-4 space-y-1">
-                          {item.items.map((subItem) => {
+                          {item.items.slice(1,3).map((subItem) => {
                             const isSubItemActive = pathname === subItem.href;
                             return (
                               <LinkWidget
