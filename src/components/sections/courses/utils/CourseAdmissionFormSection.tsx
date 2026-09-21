@@ -46,6 +46,7 @@ const essentialData = {
   isAdmission: true,
 };
 
+
   const [loading, setLoading] = useState(false);
   const [isApplicationOpen, setIsApplicationOpen] = useState(false);
   const [emailError, setEmailError] = useState<string>("");
@@ -117,7 +118,7 @@ const essentialData = {
           `/admissions/email/check`,
           {
             email: payload.Email,
-            // courseId: selectedCourse?.id,
+            courseId: selectedCourse?.id,
             year: essentialData?.admission_year?.AcademicYear
           },
         );
@@ -128,14 +129,9 @@ const essentialData = {
         }
 
         const isExistingEmail = isExistingEmailCheck?.data;
-        const isExistingCourse = selectedCourse?.Name === isExistingEmail?.courseName;
-
-        console.log(isExistingEmail,"exemailll");
-        console.log(selectedCourse?.Name,"selectedCourse?.Name");
-        console.log(isExistingCourse,"exeCourse");
 
 
-        if (isExistingEmail?.exists && isExistingCourse ) {
+        if (isExistingEmail?.exists ) {
 
           // setEmailError(`This email ID is already registered for the ${selectedCourse?.Name}. A continuation link has already been shared via email. Please use that link to continue the registration or enter a new email ID to start a new registration.`),
           setEmailError(`This email ID is already registered for the ${isExistingEmail?.courseName}. A continuation link has already been shared via email. Please use that link to continue the registration or enter a new email ID to start a new registration.`),
