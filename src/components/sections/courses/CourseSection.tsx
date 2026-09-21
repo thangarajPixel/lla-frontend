@@ -343,6 +343,7 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
 
   return (
     <div className="bg-white">
+      {data?.id !== 1135 && 
       <aside
         className={cn(
           "hidden xl:block shadow-lg fixed left-0 top-16 w-54 xl:w-45 2xl:w-54 2xxl:w-62 border-r border-b border-gray-200 z-30 bg-white transition-all duration-500",
@@ -353,6 +354,7 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
           <nav className="py-6 2xxl:pt-13 px-4">{renderMenuItems()}</nav>
         </div>
       </aside>
+      }
 
       <div className="hidden xss:hidden xl:hidden fixed top-18 left-0 right-0 z-50 bg-white border-b border-gray-200 px-4 py-3">
         <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
@@ -375,7 +377,8 @@ const CourseSection = ({ data }: { data: PgDiplomaData }) => {
         </Sheet>
       </div>
 
-      <main className="min-h-screen ">
+      {/* <main className="min-h-screen "> */}
+        <main className="min-h-screen">
         <section id="overview">
           {data?.Menu && <OverviewSection data={data?.Menu} />}
         </section>
