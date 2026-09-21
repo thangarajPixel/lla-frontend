@@ -55,8 +55,8 @@ const CourseBySlug = async ({
   return (
     <Fragment>
       <CourseSection data={response?.data} />
-      {/* {response?.data?.id===1135 && <CourseAdmissionFormSection selectedCourse={response?.data?.courseList} />} */}
-    <CourseAdmissionFormSection />
+      {response?.data?.id===1135 && <CourseAdmissionFormSection selectedCourse={response?.data?.courseList} />}
+    {/* <CourseAdmissionFormSection /> */}
       
     </Fragment>
   );
