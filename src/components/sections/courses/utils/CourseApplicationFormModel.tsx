@@ -41,6 +41,8 @@ const CourseApplicationFormModel = ({
   const { getToken } = useCaptchaToken();
   const router = useRouter();
 
+  
+
   const form = useForm<RequestFormData>({
     resolver: zodResolver(admissionRequestSchema("course_popup")),
     mode: "all",
@@ -104,10 +106,9 @@ const CourseApplicationFormModel = ({
           `/admissions/email/check`,
           {
             email: payload.Email,
-            // courseId:
-            //   selectedCourse?.course_list?.id ??
-            //   selectedCourseItem?.id,
-            courseId: selectedCourse?.id,
+            courseId:
+              selectedCourse?.course_list?.id ??
+              selectedCourseItem?.id,
             year: essentialData?.admission_year?.AcademicYear,
           },
         );
