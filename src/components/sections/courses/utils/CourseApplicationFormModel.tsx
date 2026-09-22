@@ -107,6 +107,7 @@ const CourseApplicationFormModel = ({
             // courseId:
             //   selectedCourse?.course_list?.id ??
             //   selectedCourseItem?.id,
+            courseId: selectedCourse?.id,
             year: essentialData?.admission_year?.AcademicYear,
           },
         );
