@@ -12,6 +12,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   try {
     const { slug } = await params;
+
     const response = await getCourseBySlug(slug);
     const seoData = response?.data?.SeoViewCard;
     const baseUrl = await getBaseUrl();
@@ -49,12 +50,15 @@ const CourseBySlug = async ({
   const { slug } = await params;
 
   const response = await getCourseBySlug(slug);
+  console.log(response.data,"dataaa")
 
   if (!response?.data) return null;
   return (
     <Fragment>
       <CourseSection data={response?.data} />
-      <CourseAdmissionFormSection selectedCourse={response?.data?.courseList} />
+      {response?.data?.id===1135 && <CourseAdmissionFormSection selectedCourse={response?.data?.courseList} pageCourseName={response?.data} />}
+    {/* <CourseAdmissionFormSection selectedCourse={response?.data?.courseList} pageCourseName={response?.data} /> */}
+      
     </Fragment>
   );
 };

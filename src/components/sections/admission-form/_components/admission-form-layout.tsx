@@ -122,7 +122,8 @@ export default function AdmissionFormLayout({ children }: { children: React.Reac
             id ? (
               <AdmissionFormLayoutContent>{children}</AdmissionFormLayoutContent>
             ) : (
-              <AdmissionClosedPage />
+              // <AdmissionClosedPage /> 
+               <AdmissionFormLayoutContent>{children}</AdmissionFormLayoutContent>
             )
           }
         </>

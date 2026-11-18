@@ -59,7 +59,7 @@ const DropdownMenu = ({
               : "bg-white shadow-lg rounded-md py-2"
           }`}
         >
-          {menu.items.map((item) => (
+          {menu.items.slice(1,3).map((item) => (
             <li key={item.href}>
               <LinkWidget
                 href={item.href}

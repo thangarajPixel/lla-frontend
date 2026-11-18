@@ -27,18 +27,34 @@ export type RequestFormData = z.infer<
 
 const CourseAdmissionFormSection = ({
   selectedCourse,
+  pageCourseName,
 }: {
   selectedCourse?: CourseItem;
+  pageCourseName?: CourseItem;
 }) => {
+
   // const [selectedCourse, setSelectedCourse] =
   //   useState<string>();
-  const essentialData = useCourseStore((state) => state.essentialData);
+
+  // const essentialData = useCourseStore((state) => state.essentialData);
+
+  const storeEssentialData = useCourseStore((state) => state.essentialData);
+
+
+const essentialData = {
+  ...storeEssentialData,
+  isAdmission: true,
+};
+
+
   const [loading, setLoading] = useState(false);
   const [isApplicationOpen, setIsApplicationOpen] = useState(false);
   const [emailError, setEmailError] = useState<string>("");
   const { getToken } = useCaptchaToken();
   const formRef = useRef<HTMLFormElement>(null);
   const router = useRouter();
+
+ 
 
   const form = useForm<RequestFormData>({
     resolver: zodResolver(admissionRequestSchema()),
@@ -96,12 +112,13 @@ const CourseAdmissionFormSection = ({
 
     try {
 
+
       if (essentialData?.isAdmission) {
         const isExistingEmailCheck = await clientAxios.post(
           `/admissions/email/check`,
           {
             email: payload.Email,
-            // courseId: selectedCourse?.id,
+            courseId: selectedCourse?.id,
             year: essentialData?.admission_year?.AcademicYear
           },
         );
@@ -113,7 +130,8 @@ const CourseAdmissionFormSection = ({
 
         const isExistingEmail = isExistingEmailCheck?.data;
 
-        if (isExistingEmail?.exists) {
+
+        if (isExistingEmail?.exists ) {
 
           // setEmailError(`This email ID is already registered for the ${selectedCourse?.Name}. A continuation link has already been shared via email. Please use that link to continue the registration or enter a new email ID to start a new registration.`),
           setEmailError(`This email ID is already registered for the ${isExistingEmail?.courseName}. A continuation link has already been shared via email. Please use that link to continue the registration or enter a new email ID to start a new registration.`),
